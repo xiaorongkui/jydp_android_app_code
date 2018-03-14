@@ -1,6 +1,7 @@
 package com.qmkj.jydp.util;
 
 import com.orhanobut.logger.Logger;
+import com.qmkj.jydp.BuildConfig;
 
 /**
  * Created by Yun on 2015/10/27.
@@ -8,6 +9,11 @@ import com.orhanobut.logger.Logger;
  */
 public class LogUtil {
     private static final boolean show = true;
+
+    public static boolean isDebug = BuildConfig.LOG_DEBUG;
+
+
+    private static final String TAG = "xiao";
 
     public static void v(String tag, String msg) {
         if (show) Logger.v(tag + ": %s", msg);
@@ -27,5 +33,9 @@ public class LogUtil {
 
     public static void e(String tag, String msg) {
         if (show) Logger.e(tag + ": %s", msg);
+    }
+
+    public static void i(String msg) {
+        i(TAG, msg);
     }
 }

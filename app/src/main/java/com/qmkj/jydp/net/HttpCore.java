@@ -1,7 +1,7 @@
 package com.qmkj.jydp.net;
 
 
-import com.qmkj.jydp.manager.Constants;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.util.LogUtil;
 
 import java.io.IOException;
@@ -75,7 +75,7 @@ public class HttpCore {
         public Response intercept(Chain chain) throws IOException {
             Request oldRequest = chain.request();
             //todo session待处理
-            //String sessionId = App.getInstance().getSessionId();
+            //String sessionId = JYDPExchangeApp.getInstance().getSessionId();
             String sessionId = "todo";
             Request request = oldRequest.newBuilder().addHeader("sessionId", sessionId).build();
             return chain.proceed(request);

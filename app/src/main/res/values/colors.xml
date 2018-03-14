@@ -4,12 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="white">#ffffff</color>
-    <color name="black">#333333</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
 
     <color name="divider">#cccccc</color>
     <color name="activity_background">#efefef</color>
 
-    <color name="textBlack">@color/black</color>
+    <color name="textBlack">@color/colorBlack</color>
     <color name="textGray">#999999</color>
 </resources>

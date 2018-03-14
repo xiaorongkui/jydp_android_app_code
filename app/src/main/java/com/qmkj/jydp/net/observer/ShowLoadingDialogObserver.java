@@ -2,7 +2,7 @@ package com.qmkj.jydp.net.observer;
 
 import android.content.Context;
 
-import com.qmkj.jydp.ui.dialog.LoadingDialog;
+import com.qmkj.jydp.ui.widget.LoadingDialog;
 
 
 /**

@@ -1,19 +1,20 @@
 package com.qmkj.jydp;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.qmkj.jydp.manager.Constants;
+import com.qmkj.jydp.common.Constants;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * Created by Yun on 2018/3/13 0013.
  */
-public class App extends Application {
-    private static App context;
+public class JYDPExchangeApp extends Application {
+    private static JYDPExchangeApp context;
 
     @Override
     public void onCreate() {
@@ -40,7 +41,7 @@ public class App extends Application {
     /**
      * 获取Application Context
      */
-    public static App getInstance() {
+    public static JYDPExchangeApp getInstance() {
         return context;
     }
 
@@ -63,5 +64,9 @@ public class App extends Application {
             res.updateConfiguration(newConfig, res.getDisplayMetrics());
         }
         return res;
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

@@ -2,7 +2,7 @@ package com.qmkj.jydp.net.observer;
 
 import android.content.Context;
 
-import com.qmkj.jydp.net.BaseResponse;
+import com.qmkj.jydp.bean.BaseResponse;
 import com.qmkj.jydp.util.ToastUtil;
 
 /**

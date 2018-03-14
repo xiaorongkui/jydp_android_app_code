@@ -1,10 +1,15 @@
-package com.qmkj.jydp.ui.activity;
+package com.qmkj.jydp.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+import com.qmkj.jydp.R;
+import com.qmkj.jydp.manager.AppManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +25,50 @@ public abstract class BaseActivity extends AppCompatActivity {
     public List<Disposable> disposableList = new ArrayList<>();
     protected Context mContext;
     private Unbinder unbinder;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = this;
+        setContentView(contentViewRes());
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        AppManager.getInstance().addActivity(this);
+        unbinder = ButterKnife.bind(this);
+        if (savedInstanceState != null) {
+            initSavedInstanceState(savedInstanceState);
+        }
+        if (getIntent() != null) {
+            initIntentData(getIntent());
+        }
+        View backView = findViewById(R.id.title_left_back);
+        if (backView != null) {
+            backView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppManager.getInstance().removeCurrent();
+                }
+            });
+        }
+
+        initView();
+        initTitle();
+        initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+        for (Disposable disposable : disposableList) {
+            if (disposable != null && !disposable.isDisposed()) {
+                disposable.dispose();
+            }
+        }
+    }
+
+    protected abstract void initData();
+
+    protected abstract void initTitle();
 
     /**
      * 初始化Activity异常销毁保存的数据
@@ -46,29 +95,4 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
 
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mContext = this;
-        setContentView(contentViewRes());
-        unbinder = ButterKnife.bind(this);
-        if (savedInstanceState != null) {
-            initSavedInstanceState(savedInstanceState);
-        }
-        if (getIntent() != null) {
-            initIntentData(getIntent());
-        }
-        initView();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-        for (Disposable disposable : disposableList) {
-            if (disposable != null && !disposable.isDisposed()) {
-                disposable.dispose();
-            }
-        }
-    }
 }

@@ -1,4 +1,4 @@
-package com.qmkj.jydp.manager;
+package com.qmkj.jydp.common;
 
 /**
  * Created by Yun on 2018/1/5.

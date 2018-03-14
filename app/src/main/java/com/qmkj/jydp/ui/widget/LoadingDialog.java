@@ -1,4 +1,4 @@
-package com.qmkj.jydp.ui.dialog;
+package com.qmkj.jydp.ui.widget;
 
 import android.app.Dialog;
 import android.content.Context;

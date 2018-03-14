@@ -1,4 +1,4 @@
-package com.qmkj.jydp.net;
+package com.qmkj.jydp.bean;
 
 /**
  * Created by Yun on 2018/1/5.

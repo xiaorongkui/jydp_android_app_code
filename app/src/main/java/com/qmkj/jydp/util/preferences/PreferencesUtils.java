@@ -2,7 +2,7 @@ package com.qmkj.jydp.util.preferences;
 
 import android.content.Context;
 
-import com.qmkj.jydp.manager.Constants;
+import com.qmkj.jydp.common.Constants;
 
 
 /**

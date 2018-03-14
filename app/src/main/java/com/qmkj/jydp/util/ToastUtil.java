@@ -3,7 +3,7 @@ package com.qmkj.jydp.util;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.qmkj.jydp.App;
+import com.qmkj.jydp.JYDPExchangeApp;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -34,7 +34,7 @@ public class ToastUtil {
             return;
         }
         if (toast == null) {
-            toast = Toast.makeText(App.getInstance(), message, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(JYDPExchangeApp.getInstance(), message, Toast.LENGTH_SHORT);
         } else {
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setText(message);

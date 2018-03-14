@@ -12,7 +12,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.qmkj.jydp"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -20,11 +20,13 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField("boolean", "LOG_DEBUG", "true")//全局的变量配置
             debuggable false
-            shrinkResources false
+            zipAlignEnabled true //zip优化
+//            shrinkResources true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.signing
+            signingConfig signingConfigs.signing //签名
             resValue "string", "app_name", "交易大盘"
             android.applicationVariants.all {
                 variant ->
@@ -37,10 +39,11 @@ android {
             }
         }
         debug {
+            buildConfigField("boolean", "LOG_DEBUG", "false")//全局的变量配置
             debuggable true
-            shrinkResources false
+//            shrinkResources true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true //zip优化
             signingConfig signingConfigs.signing
             applicationIdSuffix '.debug'
             resValue "string", "app_name", "交易大盘debug"
