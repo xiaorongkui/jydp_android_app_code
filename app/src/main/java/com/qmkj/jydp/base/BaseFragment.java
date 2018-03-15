@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.ToastUtil;
 
 /**
  * Created by Administrator on 2016/3/6.
@@ -97,19 +98,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void toastdefine(CharSequence s) {
-//        ToastUtil.showToastWithImg(mContext, s);
+        ToastUtil.showDefinedToast(mContext, s);
     }
 
     protected void toast(CharSequence res) {
-//        Toast mToast = null;
-//        if (mToast == null) {
-//            mToast = Toast.makeText(mContext, res, Toast.LENGTH_SHORT);
-//        } else {
-//            mToast.setText(res);
-//            mToast.setDuration(Toast.LENGTH_SHORT);
-//        }
-//        mToast.show();
-        toastdefine(res);
+        ToastUtil.showShort(res);
     }
 
     @Override

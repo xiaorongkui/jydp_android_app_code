@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +95,24 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化view
      */
     protected abstract void initView();
+
+
+    protected void toast(int res) {
+        toast(mContext.getResources().getText(res));
+    }
+
+
+    protected void toastdefine(int str) {
+        toastdefine(mContext.getResources().getText(str));
+    }
+
+    protected void toast(CharSequence res) {
+        ToastUtil.showShort(res);
+    }
+
+    protected void toastdefine(CharSequence s) {
+        ToastUtil.showDefinedToast(mContext, s);
+    }
 
 
 }

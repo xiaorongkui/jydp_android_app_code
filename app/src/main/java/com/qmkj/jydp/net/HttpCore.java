@@ -1,70 +1,111 @@
 package com.qmkj.jydp.net;
 
 
+import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.util.LogUtil;
+import com.trello.rxlifecycle.android.ActivityEvent;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 
 /**
  * Created by Yun on 2018/1/5.
  * 网络请求配置
  */
 public class HttpCore {
+    public static final int connectionTime = 20;//连接时间
     private static final String TAG = HttpCore.class.getSimpleName();
-    private static HttpCore httpCore;
+    private static volatile HttpCore httpCore;
+    private static OkHttpClient.Builder mOkHttpClientBuilder;
+
+    static {
+        initOkHttpClient();
+    }
+
     private static ApiService apiService;
 
-    private HttpCore() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
-                .addNetworkInterceptor(new LogInterceptor())
-                .addNetworkInterceptor(new SessionInterceptor())
-                .addNetworkInterceptor(new SleepInterceptor())
-                .build();
+    // 初始化执行一次
+    private static void initOkHttpClient() {
+        //新建log拦截器
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> LogUtil.i
+                ("OkHttp====Message:" + message));
+        //设置Http缓存
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+
+        //设置Http缓存
+        Cache cache = new Cache(new File("httplog", "HttpCache"), 1024 * 1024 * 10);
+        mOkHttpClientBuilder = new OkHttpClient.Builder()
+                .cache(cache)
+                .addInterceptor(loggingInterceptor)
+                .retryOnConnectionFailure(true)
+                .readTimeout(connectionTime, TimeUnit.SECONDS)
+                .writeTimeout(connectionTime, TimeUnit.SECONDS)
+                .connectTimeout(connectionTime, TimeUnit.SECONDS);
+
+        apiService = createApi(ApiService.class);
+    }
+
+
+    public static HttpCore getInstance() {
+        if (httpCore == null) {
+            synchronized (HttpCore.class) {
+                if (httpCore == null) {
+                    httpCore = new HttpCore();
+                }
+            }
+        }
+        return httpCore;
+    }
+
+    private HttpCore() {
+    }
+
+    private static <T> T createApi(Class<T> clazz) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .client(okHttpClient)
+                .baseUrl(AppNetConfig.BASE_URL)
+                .client(mOkHttpClientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-
-        apiService = retrofit.create(ApiService.class);
+        return retrofit.create(clazz);
     }
 
     /**
-     * 日志打印拦截器
+     * 处理http请求
+     *
+     * @param basePar 封装的请求数据
      */
-    private class LogInterceptor implements Interceptor {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
-            LogUtil.i(TAG, "request:" + request.toString());
-            long t1 = System.nanoTime();
-            Response response = chain.proceed(chain.request());
-            long t2 = System.nanoTime();
-            LogUtil.i(TAG, String.format(Locale.getDefault(), "Received response for %s in %.1fms%n%s",
-                    response.request().url(), (t2 - t1) / 1e6d, response.headers()));
-            okhttp3.MediaType mediaType = response.body().contentType();
-            String content = response.body().string();
-            LogUtil.i(TAG, "response body:" + content);
-            return response.newBuilder()
-                    .body(okhttp3.ResponseBody.create(mediaType, content))
-                    .build();
-        }
+    public void sendHttpRequest(BaseApi basePar) {
+
+        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(basePar
+                .getGsonConverterFactory()).addCallAdapterFactory(RxJava2CallAdapterFactory.create
+                ()).client(mOkHttpClientBuilder.build()).baseUrl(basePar.getBaseUrl()).build();
+        /*rx处理*/
+        ProgressSubscriber subscriber = new ProgressSubscriber(basePar);
+
+        Observable observable = basePar.getObservable(retrofit)
+                .compose(basePar.getRxAppCompatActivity().bindUntilEvent(ActivityEvent.DESTROY));
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread()).map(basePar);
+        /*数据回调*/
+        observable.subscribe(subscriber);
     }
 
     /**
@@ -101,18 +142,9 @@ public class HttpCore {
         }
     }
 
-    public static HttpCore getInstance() {
-        if (httpCore == null) {
-            synchronized (HttpCore.class) {
-                if (httpCore == null) {
-                    httpCore = new HttpCore();
-                }
-            }
-        }
-        return httpCore;
-    }
-
     public ApiService getApiService() {
         return apiService;
     }
+
+
 }

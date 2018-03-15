@@ -7,5 +7,5 @@ package com.qmkj.jydp.common;
 public interface Constants {
     String PROJECT = "jydp";
     String BUGLY_APP_ID = "13677417ed";
-    String BASE_URL = "";
+
 }

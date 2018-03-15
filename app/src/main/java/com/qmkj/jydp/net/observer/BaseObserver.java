@@ -69,10 +69,8 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     @Override
     public void onNext(BaseResponse<T> response) {
-        if (response.getCode() == 1) {
+        if (response.getCode().equals("1")) {
             onRequestSuccess(response);
-        } else if (response.getCode() == 4) {
-            //todo session过期、异常处理
         } else {
             onRequestError(response);
         }

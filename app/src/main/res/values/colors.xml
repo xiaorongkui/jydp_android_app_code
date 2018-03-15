@@ -6,6 +6,7 @@
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="status_bar_color">#000000</color>
 
     <color name="divider">#cccccc</color>
     <color name="activity_background">#efefef</color>
