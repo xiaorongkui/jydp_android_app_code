@@ -10,11 +10,12 @@ import android.view.ViewGroup;
 
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
  * Created by Administrator on 2016/3/6.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
 
 
     protected View rootView;
@@ -47,7 +48,10 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void initData();
 
-    protected abstract void initTitle();
+    protected void initTitle() {
+    }
+
+    ;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

@@ -1,3 +1,7 @@
 <resources>
 
+    <string name="home">首页</string>
+    <string name="exchange">交易中心</string>
+    <string name="mine">我的</string>
+    <string name="click_exit">再按一次退出程序</string>
 </resources>

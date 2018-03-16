@@ -1,5 +1,6 @@
 package com.qmkj.jydp.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.util.ToastUtil;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +25,16 @@ import io.reactivex.disposables.Disposable;
 /**
  * Created by Yun on 2018/3/13 0013.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
     public List<Disposable> disposableList = new ArrayList<>();
-    protected Context mContext;
+    protected Activity mContext;
     private Unbinder unbinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        setContentView(contentViewRes());
+        setContentView(getLayoutId());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         AppManager.getInstance().addActivity(this);
         unbinder = ButterKnife.bind(this);
@@ -44,12 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         View backView = findViewById(R.id.title_left_back);
         if (backView != null) {
-            backView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AppManager.getInstance().removeCurrent();
-                }
-            });
+            backView.setOnClickListener(v -> AppManager.getInstance().removeCurrent());
         }
 
         initView();
@@ -89,7 +86,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 获取布局id
      */
-    protected abstract int contentViewRes();
+    protected abstract int getLayoutId();
 
     /**
      * 初始化view

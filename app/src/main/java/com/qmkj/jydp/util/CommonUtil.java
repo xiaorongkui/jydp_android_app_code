@@ -1,9 +1,7 @@
 package com.qmkj.jydp.util;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,16 +17,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.StatFs;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.telephony.TelephonyManager;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -40,18 +33,13 @@ import android.webkit.CookieSyncManager;
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.ui.widget.FixedSpeedScroller;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -346,11 +334,8 @@ public class CommonUtil {
         return (int) (pxValue / fontScale + 0.5f);
     }
 
-    /***
-     *
-     * 设置沉浸式状态栏
-     */
-    public static void setStatusBarInvisible(Activity context, boolean isShow) {
+    //占用状态栏
+    public static void setStatusBarInvisible(RxAppCompatActivity context, boolean isShow) {
         //得到当前界面的装饰视图
         int option;
         if (Build.VERSION.SDK_INT >= 21) {
@@ -371,8 +356,9 @@ public class CommonUtil {
             CommonUtil.setStatusBar(context, CommonUtil.getColor(R.color.status_bar_color));
         }
         //隐藏标题栏
-        ActionBar actionBar = context.getActionBar();
-        actionBar.hide();
+        ActionBar actionBar = context.getSupportActionBar();
+        if (actionBar != null)
+            actionBar.hide();
     }
 
     public static String bytesToHexString(byte[] bytes) {
@@ -476,6 +462,12 @@ public class CommonUtil {
         if (!file.exists()) file.mkdirs();
         // 若不存在，创建目录，可以在应用启动的时候创建
         return file.getAbsolutePath() + "/" + filename;
+    }
+
+    public static String getCacheDir() {
+        File externalCacheDir = getContext().getExternalCacheDir();
+        // 若不存在，创建目录，可以在应用启动的时候创建
+        return externalCacheDir.getAbsolutePath();
     }
 
     /**

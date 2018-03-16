@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.AppManager;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
@@ -68,5 +69,14 @@ public class JYDPExchangeApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    /**
+     * 退出应用
+     */
+    public static void exit() {
+        AppManager.getInstance().removeCurrent();
+        AppManager.getInstance().clear();
+        System.exit(0);
     }
 }

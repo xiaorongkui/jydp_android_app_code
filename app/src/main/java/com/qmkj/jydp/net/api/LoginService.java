@@ -1,4 +1,4 @@
-package com.qmkj.jydp.net;
+package com.qmkj.jydp.net.api;
 
 
 import com.qmkj.jydp.bean.BaseResponse;
@@ -15,7 +15,7 @@ import retrofit2.http.POST;
  * Created by Yun on 2018/1/5.
  * 网络请求接口,入参统一使用map集合,
  */
-public interface ApiService {
+public interface LoginService {
     /**
      * 查询交易币种的保底价和当前价.
      *

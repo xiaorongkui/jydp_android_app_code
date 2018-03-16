@@ -1,16 +1,22 @@
 package com.qmkj.jydp.net;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.net.api.HomeService;
+import com.qmkj.jydp.net.api.BaseApi;
+import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
-import com.trello.rxlifecycle.android.ActivityEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Scheduler;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
@@ -22,44 +28,49 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 
 /**
  * Created by Yun on 2018/1/5.
  * 网络请求配置
  */
 public class HttpCore {
-    public static final int connectionTime = 20;//连接时间
-    private static final String TAG = HttpCore.class.getSimpleName();
     private static volatile HttpCore httpCore;
-    private static OkHttpClient.Builder mOkHttpClientBuilder;
 
-    static {
-        initOkHttpClient();
-    }
+    private static Retrofit retrofit;
 
-    private static ApiService apiService;
-
-    // 初始化执行一次
-    private static void initOkHttpClient() {
+    private void initOkHttpClient() {
         //新建log拦截器
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> LogUtil.i
-                ("OkHttp====Message:" + message));
-        //设置Http缓存
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
+
+            try {
+                String s = URLDecoder.decode(message, "utf-8");
+                LogUtil.i("OkHttp====OK:" + s);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                LogUtil.i("OkHttp====UnsupportedEncodingException:" + message);
+            }
+        });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-
         //设置Http缓存
-        Cache cache = new Cache(new File("httplog", "HttpCache"), 1024 * 1024 * 10);
-        mOkHttpClientBuilder = new OkHttpClient.Builder()
+        Cache cache = new Cache(new File(CommonUtil.getCacheDir(), "httpcache"), 1024 * 1024 * 10);
+        OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
                 .cache(cache)
                 .addInterceptor(loggingInterceptor)
+                .addNetworkInterceptor(new SessionInterceptor())
+                .addNetworkInterceptor(new SleepInterceptor())
                 .retryOnConnectionFailure(true)
-                .readTimeout(connectionTime, TimeUnit.SECONDS)
-                .writeTimeout(connectionTime, TimeUnit.SECONDS)
-                .connectTimeout(connectionTime, TimeUnit.SECONDS);
+                .readTimeout(Constants.connectionTime, TimeUnit.SECONDS)
+                .writeTimeout(Constants.connectionTime, TimeUnit.SECONDS)
+                .connectTimeout(Constants.connectionTime, TimeUnit.SECONDS).build();
 
-        apiService = createApi(ApiService.class);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(AppNetConfig.BASE_URL)
+                .client(mOkHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
     }
 
 
@@ -75,16 +86,7 @@ public class HttpCore {
     }
 
     private HttpCore() {
-    }
-
-    private static <T> T createApi(Class<T> clazz) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(AppNetConfig.BASE_URL)
-                .client(mOkHttpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        return retrofit.create(clazz);
+        initOkHttpClient();
     }
 
     /**
@@ -92,20 +94,16 @@ public class HttpCore {
      *
      * @param basePar 封装的请求数据
      */
+    @SuppressWarnings("unchecked")
     public void sendHttpRequest(BaseApi basePar) {
-
-        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(basePar
-                .getGsonConverterFactory()).addCallAdapterFactory(RxJava2CallAdapterFactory.create
-                ()).client(mOkHttpClientBuilder.build()).baseUrl(basePar.getBaseUrl()).build();
-        /*rx处理*/
-        ProgressSubscriber subscriber = new ProgressSubscriber(basePar);
+        ProgressObserver progressObserver = new ProgressObserver(basePar);
 
         Observable observable = basePar.getObservable(retrofit)
-                .compose(basePar.getRxAppCompatActivity().bindUntilEvent(ActivityEvent.DESTROY));
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread()).map(basePar);
+                .compose(basePar.getRxAppCompatActivity().bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).map(basePar);
         /*数据回调*/
-        observable.subscribe(subscriber);
+        observable.subscribe(progressObserver);
     }
 
     /**
@@ -140,10 +138,6 @@ public class HttpCore {
             }
             return response;
         }
-    }
-
-    public ApiService getApiService() {
-        return apiService;
     }
 
 
