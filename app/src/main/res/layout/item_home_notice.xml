@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[公告]"
+        android:textColor="@color/colorBlack_1"
+        android:textSize="@dimen/text_size_11"/>
+
+    <TextView
+        android:id="@+id/tv_home_header_notice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorBlack_1"
+        android:textSize="@dimen/text_size_11"
+        tools:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"/>
+
+    <TextView
+        android:id="@+id/tv_home_header_notice_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack_1"
+        android:textSize="@dimen/text_size_11"
+        tools:text="01-08"/>
+
+</LinearLayout>

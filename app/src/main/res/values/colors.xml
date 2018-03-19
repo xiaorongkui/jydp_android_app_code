@@ -6,11 +6,16 @@
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
-    <color name="status_bar_color">#f23456</color>
+    <color name="colorBlack_1">#444444</color>
+    <color name="status_bar_color">#80000000</color>
 
-    <color name="divider">#cccccc</color>
+    <color name="divider">#1f403535</color>
     <color name="activity_background">#efefef</color>
 
     <color name="textBlack">@color/colorBlack</color>
     <color name="textGray">#999999</color>
+    <color name="textGray_title">#666666</color>
+    <color name="textRed_1">#f16868</color>
+    <color name="textRed_2">#e83a33</color>
+    <color name="textGreen">#0ca98c</color>
 </resources>
