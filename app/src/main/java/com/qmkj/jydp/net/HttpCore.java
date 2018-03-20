@@ -7,6 +7,7 @@ import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.net.api.HomeService;
 import com.qmkj.jydp.net.api.BaseApi;
+import com.qmkj.jydp.net.observer.BaseShowLoadingObserver;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
@@ -96,7 +97,7 @@ public class HttpCore {
      */
     @SuppressWarnings("unchecked")
     public void sendHttpRequest(BaseApi basePar) {
-        ProgressObserver progressObserver = new ProgressObserver(basePar);
+        BaseShowLoadingObserver progressObserver = new BaseShowLoadingObserver(basePar);
 
         Observable observable = basePar.getObservable(retrofit)
                 .compose(basePar.getRxAppCompatActivity().bindToLifecycle())

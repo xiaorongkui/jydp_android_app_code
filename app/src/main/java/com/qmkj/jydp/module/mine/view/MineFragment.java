@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.exchange;
+package com.qmkj.jydp.module.mine.view;
 
 import android.view.View;
 
@@ -12,21 +12,16 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 /**
  * author：rongkui.xiao --2018/3/16
  * email：dovexiaoen@163.com
- * description:
+ * description:我的页面功能
  */
 
-public class ExchangeFragment extends MvpBaseFragment {
-    HomePresenter homePresenter;
+public class MineFragment extends MvpBaseFragment {
 
 
     @Override
     protected void initView() {
     }
 
-    @Override
-    protected void findViewId(View rootView) {
-
-    }
 
     @Override
     protected void initData() {
@@ -41,6 +36,11 @@ public class ExchangeFragment extends MvpBaseFragment {
     @Override
     protected String getSimpleNme() {
         return getClass().getSimpleName();
+    }
+
+    @Override
+    protected void injectPresenter() {
+
     }
 
     @Override

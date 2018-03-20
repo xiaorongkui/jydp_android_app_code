@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.mine;
+package com.qmkj.jydp.module.exchange.view;
 
 import android.view.View;
 
@@ -15,17 +15,13 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
  * description:
  */
 
-public class MineFragment extends MvpBaseFragment {
+public class ExchangeFragment extends MvpBaseFragment {
 
 
     @Override
     protected void initView() {
     }
 
-    @Override
-    protected void findViewId(View rootView) {
-
-    }
 
     @Override
     protected void initData() {
@@ -34,12 +30,16 @@ public class MineFragment extends MvpBaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_exchange;
     }
 
     @Override
     protected String getSimpleNme() {
         return getClass().getSimpleName();
+    }
+
+    @Override
+    protected void injectPresenter() {
     }
 
     @Override

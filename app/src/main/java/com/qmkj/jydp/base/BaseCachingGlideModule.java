@@ -5,23 +5,30 @@ import android.content.Context;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
-import com.bumptech.glide.module.GlideModule;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.stream.HttpGlideUrlLoader;
+import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.qmkj.jydp.R;
+
+import java.io.InputStream;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Rongkui.xiao on 2017/5/19.
  *
  * @description
  */
-
-public class BaseCachingGlideModule implements GlideModule {
+@GlideModule
+public final class BaseCachingGlideModule extends AppGlideModule {
     private static final String IMAGE_CACHE_NAME = "image";
 
     @Override
@@ -50,6 +57,6 @@ public class BaseCachingGlideModule implements GlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
-
+        registry.append(GlideUrl.class, InputStream.class, new HttpGlideUrlLoader.Factory());
     }
 }

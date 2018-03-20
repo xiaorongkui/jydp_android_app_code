@@ -1,6 +1,7 @@
 package com.qmkj.jydp.base;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,9 @@ import com.qmkj.jydp.common.CommonRecylerViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Rongkui.xiao on 2017/3/29.<br/>
@@ -29,6 +33,7 @@ public abstract class BaseRecylerAdapter<T> extends RecyclerView.Adapter<CommonR
     private RecyclerView mRecyclerView;
     private View VIEW_FOOTER;
     private View VIEW_HEADER;
+    private Unbinder unbinder;
 
     public BaseRecylerAdapter(Context context, List<T> datas, int layoutId) {
         mLayoutInflater = LayoutInflater.from(context);
@@ -48,6 +53,7 @@ public abstract class BaseRecylerAdapter<T> extends RecyclerView.Adapter<CommonR
         }
         if (mOnItemClickLitener != null) view.setOnClickListener(this);
         if (mOnItemLongClickLitener != null) view.setOnLongClickListener(this);
+        unbinder = ButterKnife.bind(this, view);
         CommonRecylerViewHolder holder = new CommonRecylerViewHolder(view);
         return holder;
     }
@@ -69,6 +75,15 @@ public abstract class BaseRecylerAdapter<T> extends RecyclerView.Adapter<CommonR
             if (haveHeaderView()) position--;
             holder.getHolderView().setTag(position);
             convert(holder, position);
+        }
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        if (unbinder != null) {
+            unbinder.unbind();
+            recyclerView = null;
         }
     }
 

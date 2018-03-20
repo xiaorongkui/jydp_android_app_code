@@ -12,12 +12,15 @@ import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
- * Created by Administrator on 2016/3/6.
+ * Created by Administrator on 2017/3/6.
  */
 public abstract class BaseFragment extends RxFragment {
 
-
+    protected Unbinder unbinder;
     protected View rootView;
     protected Activity mContext;
 
@@ -36,22 +39,11 @@ public abstract class BaseFragment extends RxFragment {
             savedInstanceState) {
         if (rootView == null) {// 生命周期方法会反复调用，但如果反复去加载布局是浪费，所以避免反复加载
             rootView = inflater.inflate(getLayoutId(), null);
-            findViewId(rootView);
+            unbinder = ButterKnife.bind(this, rootView);
             initView();
         }
         return rootView;
     }
-
-    protected abstract void initView();
-
-    protected abstract void findViewId(View rootView);
-
-    protected abstract void initData();
-
-    protected void initTitle() {
-    }
-
-    ;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -62,6 +54,39 @@ public abstract class BaseFragment extends RxFragment {
             prepareFetchData();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isViewInitiated = false;
+        if (unbinder != null) {
+            unbinder.unbind();
+            unbinder = null;
+        }
+    }
+
+    protected abstract void initView();
+
+    protected abstract void initData();
+
+    protected void initTitle() {
+    }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -88,11 +113,6 @@ public abstract class BaseFragment extends RxFragment {
 
     public abstract int getLayoutId();
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     protected void toast(int res) {
         toast(mContext.getResources().getText(res));
     }
@@ -109,26 +129,10 @@ public abstract class BaseFragment extends RxFragment {
         ToastUtil.showShort(res);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     protected abstract String getSimpleNme();
 
     protected boolean isNeedCountPage() {
         return true;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        isViewInitiated = false;
     }
 
     @Override

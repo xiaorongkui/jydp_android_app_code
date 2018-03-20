@@ -4,4 +4,14 @@
     <string name="exchange">交易中心</string>
     <string name="mine">我的</string>
     <string name="click_exit">再按一次退出程序</string>
+    <string name="more">更多</string>
+    <string name="cooperative_business">合作商家</string>
+    <string name="loading_data">数据加载中...</string>
+
+    <string name="pull_to_refresh_1">加载中…</string>
+    <string name="pull_to_refresh_2">松开刷新</string>
+    <string name="pull_to_refresh_3">下拉刷新</string>
+
+    <string name="push_to_refresh_2">松开加载更多</string>
+    <string name="push_to_refresh_3">上拉加载更多</string>
 </resources>

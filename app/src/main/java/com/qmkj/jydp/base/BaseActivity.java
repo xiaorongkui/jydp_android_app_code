@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -36,7 +37,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         mContext = this;
         setContentView(getLayoutId());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        AppManager.getInstance().addActivity(this);
+        if (isImmersiveStatusBar())
+            CommonUtil.setStatusBar(this, CommonUtil.getColor(immersiveStatusBarColor()));
         unbinder = ButterKnife.bind(this);
         if (savedInstanceState != null) {
             initSavedInstanceState(savedInstanceState);
@@ -54,10 +56,26 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         initData();
     }
 
+    /**
+     * 是否使用沉浸式状态栏，默认不使用
+     */
+    public boolean isImmersiveStatusBar() {
+        return true;
+    }
+
+    /**
+     * 沉浸式状态栏颜色，默认蓝色
+     */
+    protected int immersiveStatusBarColor() {
+        return R.color.status_bar_color;
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        if (unbinder != null)
+            unbinder.unbind();
         for (Disposable disposable : disposableList) {
             if (disposable != null && !disposable.isDisposed()) {
                 disposable.dispose();

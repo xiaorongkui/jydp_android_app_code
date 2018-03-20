@@ -3,6 +3,7 @@ package com.qmkj.jydp.net.api;
 import com.qmkj.jydp.bean.BaseResponse;
 import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.NetResponseCode;
+import com.qmkj.jydp.exception.HandlerException;
 import com.qmkj.jydp.net.HttpOnNextListener;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -139,7 +140,7 @@ public abstract class BaseApi<T> implements Function<BaseResponse<T>, T> {
                 return data;
             //其他情况自己处理
             default:
-                throw new RuntimeException();
+                throw new HandlerException.ResponeThrowable(responseMessage, responseCode);
         }
     }
 }

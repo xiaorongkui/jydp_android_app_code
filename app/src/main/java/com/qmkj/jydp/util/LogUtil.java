@@ -8,10 +8,7 @@ import com.qmkj.jydp.BuildConfig;
  * 自定义log，show控制是否打印log
  */
 public class LogUtil {
-    private static final boolean show = true;
-
-    public static boolean isDebug = BuildConfig.LOG_DEBUG;
-
+    private static final boolean show = BuildConfig.LOG_DEBUG;
 
     private static final String TAG = "xiao";
 

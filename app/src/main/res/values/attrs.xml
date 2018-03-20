@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--//下拉刷新，自定义属性-->
+    <declare-styleable name="refresh_pull_push">
+        <attr name="headerHeight" format="integer"/>
+        <attr name="footerHeight" format="integer"/>
+        <attr name="isShowFooter" format="boolean"/>
+    </declare-styleable>
+</resources>

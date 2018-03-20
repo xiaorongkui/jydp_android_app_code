@@ -7,30 +7,43 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.base.BaseActivity;
-import com.qmkj.jydp.module.exchange.ExchangeFragment;
+import com.qmkj.jydp.module.exchange.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.view.HomeFragment;
-import com.qmkj.jydp.module.mine.MineFragment;
+import com.qmkj.jydp.module.mine.view.MineFragment;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
 
+import butterknife.BindView;
+
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private LinearLayout homeBottom;
-    private TextView homeBottomTv;
-    private ImageView homeBottomIv;
-    private LinearLayout exchangeBottom;
-    private TextView exchangeBottomTv;
-    private ImageView exchangeBottomIv;
-    private LinearLayout mineBottom;
-    private TextView mineBottomTv;
-    private ImageView mineBottomIv;
+    @BindView(R.id.iv_home)
+    ImageView homeBottomIv;
+    @BindView(R.id.tv_home)
+    TextView homeBottomTv;
+    @BindView(R.id.ll_home)
+    LinearLayout homeBottom;
+    @BindView(R.id.iv_exchange)
+    ImageView exchangeBottomIv;
+    @BindView(R.id.tv_exchange)
+    TextView exchangeBottomTv;
+    @BindView(R.id.ll_exchange)
+    LinearLayout exchangeBottom;
+    @BindView(R.id.iv_mine)
+    ImageView mineBottomIv;
+    @BindView(R.id.tv_mine)
+    TextView mineBottomTv;
+    @BindView(R.id.ll_mine)
+    LinearLayout mineBottom;
+
     private FragmentTransaction ft;
     private HomeFragment homeFragment;
     private ExchangeFragment exchangeFragment;
@@ -158,8 +171,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     ft.add(R.id.main_container, homeFragment);
                 }
                 ft.show(homeFragment);
-                homeBottomIv.setImageResource(R.mipmap.yqhy);
-                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack));
+                homeBottomIv.setImageResource(R.mipmap.home_select);
+                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
                 break;
             case 1:
                 if (exchangeFragment == null) {
@@ -167,8 +180,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     ft.add(R.id.main_container, exchangeFragment);
                 }
                 ft.show(exchangeFragment);
-                exchangeBottomIv.setImageResource(R.mipmap.yqhy);
-                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack));
+                exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
+                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
                 break;
             case 2:
                 if (mineFragment == null) {
@@ -176,8 +189,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     ft.add(R.id.main_container, mineFragment);
                 }
                 ft.show(mineFragment);
-                mineBottomIv.setImageResource(R.mipmap.yqhy);
-                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack));
+                mineBottomIv.setImageResource(R.mipmap.mine_select);
+                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
                 break;
         }
         ft.commit();
@@ -197,14 +210,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void resetImages() {
 
-        homeBottomIv.setImageResource(R.mipmap.ic_launcher_round);
-        exchangeBottomIv.setImageResource(R.mipmap.ic_launcher_round);
-        mineBottomIv.setImageResource(R.mipmap.ic_launcher_round);
+        homeBottomIv.setImageResource(R.mipmap.home_unselect);
+        exchangeBottomIv.setImageResource(R.mipmap.exchange_unselect);
+        mineBottomIv.setImageResource(R.mipmap.mine_unselect);
 
-        homeBottomTv.setTextColor(CommonUtil.getColor(R.color.status_bar_color));
-        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.status_bar_color));
-        mineBottomTv.setTextColor(CommonUtil.getColor(R.color.status_bar_color));
+        homeBottomTv.setTextColor(CommonUtil.getColor(R.color.textGray));
+        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.textGray));
+        mineBottomTv.setTextColor(CommonUtil.getColor(R.color.textGray));
     }
 
+    /**
+     * 是否使用沉浸式状态栏，默认为true；
+     */
+    @Override
+    public boolean isImmersiveStatusBar() {
+        return Build.VERSION.SDK_INT < 21;
+    }
 
 }
