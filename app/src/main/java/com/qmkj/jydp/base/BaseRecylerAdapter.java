@@ -49,13 +49,17 @@ public abstract class BaseRecylerAdapter<T> extends RecyclerView.Adapter<CommonR
         } else if (viewType == TYPE_HEADER) {
             view = VIEW_HEADER;
         } else {
-            view = mLayoutInflater.inflate(mLayoutId, null, false);
+            view = mLayoutInflater.inflate(mLayoutId, isNeedInflateToParcent() ? parent : null, false);
         }
         if (mOnItemClickLitener != null) view.setOnClickListener(this);
         if (mOnItemLongClickLitener != null) view.setOnLongClickListener(this);
         unbinder = ButterKnife.bind(this, view);
         CommonRecylerViewHolder holder = new CommonRecylerViewHolder(view);
         return holder;
+    }
+
+    protected boolean isNeedInflateToParcent() {//解决recycleview条目显示不全和条目显示不完整
+        return true;
     }
 
     @Override
@@ -83,7 +87,6 @@ public abstract class BaseRecylerAdapter<T> extends RecyclerView.Adapter<CommonR
         super.onDetachedFromRecyclerView(recyclerView);
         if (unbinder != null) {
             unbinder.unbind();
-            recyclerView = null;
         }
     }
 

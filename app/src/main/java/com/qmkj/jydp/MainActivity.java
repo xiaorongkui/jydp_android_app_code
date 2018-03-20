@@ -133,7 +133,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (System.currentTimeMillis() - recodeTime < 2000) {
                 //退出程序
                 JYDPExchangeApp.exit();
-                ;
             } else {
                 ToastUtil.toast(this, getResources().getString(R.string.click_exit));
                 recodeTime = System.currentTimeMillis();

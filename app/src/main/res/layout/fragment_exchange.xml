@@ -1,7 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/colorWhite"
+              android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/exchange_header_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y96"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/y30">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/exchange_open"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/syl"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textColor="@color/textGray"
+            android:textSize="@dimen/text_size_14"/>
+    </LinearLayout>
+
+    <include layout="@layout/common_line_view"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginTop="@dimen/y20"
+            android:text="9399.5"
+            android:textColor="@color/textRed_3"
+            android:textSize="@dimen/text_size_17"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/y10"
+            android:background="@drawable/shape_exchange_quotation"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/y5"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:paddingTop="@dimen/y5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/exchange_quotation"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x15"
+                android:text="@string/quotation"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_12"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y20"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最高 93"
+                android:textColor="@color/colorBlack_2"
+                android:textSize="@dimen/text_size_12"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:text="最低 93"
+                android:textColor="@color/colorBlack_2"
+                android:textSize="@dimen/text_size_12"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="买一 93"
+                android:textColor="@color/colorBlack_2"
+                android:textSize="@dimen/text_size_12"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:text="卖一 93"
+                android:textColor="@color/colorBlack_2"
+                android:textSize="@dimen/text_size_12"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exchange_money"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/text_size_12"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:text="3.49万"
+                android:textColor="@color/colorBlack_2"
+                android:textSize="@dimen/text_size_12"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exchange_amount"
+                android:textColor="@color/textGray"
+                android:textSize="@dimen/text_size_12"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:text="3.11万"
+                android:textColor="@color/colorBlack_2"
+                android:textSize="@dimen/text_size_12"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/common_line_view"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y20"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginTop="@dimen/y20"
+        android:text="@string/current_price"
+        android:textColor="@color/colorBlack_2"
+        android:textSize="@dimen/text_size_12"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/exchange_price_recycle_buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite_buy_bg"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/x10"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/exchange_price_recycle_sold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/textRed_sold_bg"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exchange_buy"/>
+    </LinearLayout>
 </LinearLayout>

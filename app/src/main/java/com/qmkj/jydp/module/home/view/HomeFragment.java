@@ -1,15 +1,14 @@
 package com.qmkj.jydp.module.home.view;
 
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -19,9 +18,8 @@ import com.qmkj.jydp.bean.HomeNoticeInfo;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
 import com.qmkj.jydp.ui.widget.AutoRollLayout;
-import com.qmkj.jydp.ui.widget.JYDPSwipeRefreshLayout;
-import com.qmkj.jydp.ui.widget.ScrollViewListener;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
+import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.ui.widget.viewbean.RollItem;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
@@ -34,13 +32,11 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/16
  * email：dovexiaoen@163.com
- * description:
+ * description:首页展示
  */
 
 public class HomeFragment extends MvpBaseFragment {
@@ -52,13 +48,14 @@ public class HomeFragment extends MvpBaseFragment {
     UPMarqueeView marqueeHomeHeaderNotice;
     @BindView(R.id.home_list_rv)
     RecyclerView homeListRv;
-    Unbinder unbinder;
     @BindView(R.id.home_introduce_gv)
     GridView homeIntroduceGv;
     @BindView(R.id.home_scroll_view)
-    ScrollViewListener homeScrollView;
+    ScrollView homeScrollView;
     @BindView(R.id.home_fragment_hcswipe_refresh)
-    JYDPSwipeRefreshLayout homeFragmentHcswipeRefresh;
+    XRefreshLayout homeFragmentRefresh;
+    @BindView(R.id.home_ll)
+    LinearLayout homeLl;
 
     private HomePresenter homePresenter;
 
@@ -73,21 +70,7 @@ public class HomeFragment extends MvpBaseFragment {
     }
 
     private void initRefreshView() {
-        homeFragmentHcswipeRefresh.setTargetScrollWithLayout(true);
-        homeFragmentHcswipeRefresh.setOnHCPullRefreshListener(new JYDPSwipeRefreshLayout.OnHCPullRefreshListener() {
-            @Override
-            public void onRefresh() {
-            }
 
-            @Override
-            public void onPullDistance(int distance) {
-            }
-
-            @Override
-            public void onPullEnable(boolean enable) {
-
-            }
-        });
     }
 
     private void initGrideView() {
@@ -178,10 +161,11 @@ public class HomeFragment extends MvpBaseFragment {
         View itemView = View.inflate(mContext, R.layout.item_home_notice, null);
         TextView mTvNotice = itemView.findViewById(R.id.tv_home_header_notice);
         TextView mTvTime = itemView.findViewById(R.id.tv_home_header_notice_time);
+        TextView tv_home_header_notice_more = itemView.findViewById(R.id.tv_home_header_notice_more);
 
         mTvNotice.setText(model.getNoticeTitle());
         mTvTime.setText(DateUtil.longToTimeStr(model.getTopTime(), DateUtil.dateFormat4));
-
+        tv_home_header_notice_more.setText(CommonUtil.getString(R.string.more));
         itemView.setTag(model);
 
         itemView.setOnClickListener(v -> {
@@ -218,15 +202,13 @@ public class HomeFragment extends MvpBaseFragment {
             statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup
                     .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
-            homeFragmentLl.addView(statusView, 0, lp);
+            homeLl.addView(statusView, 0, lp);
         }
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-
-
     }
 
     @Override
@@ -234,17 +216,4 @@ public class HomeFragment extends MvpBaseFragment {
         super.onError(errorMsg, code, tag);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

@@ -36,7 +36,7 @@ public class HomeRecyAdapter extends BaseRecylerAdapter {
     TextView homeExchangeUpdownTv;
     @BindView(R.id.home_exchange_updown_percent_tv)
     TextView homeExchangeUpdownPercentTv;
-    @BindView(R.id.home_exchanage_bottom_line)
+    @BindView(R.id.common_line)
     View homeExchanageBottomLine;
 
     public HomeRecyAdapter(Context context, List datas, int layoutId) {
