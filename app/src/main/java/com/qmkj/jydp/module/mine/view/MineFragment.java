@@ -1,13 +1,22 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BasePresenter;
 import com.qmkj.jydp.base.MvpBaseFragment;
-import com.qmkj.jydp.common.AppNetConfig;
-import com.qmkj.jydp.module.home.presenter.HomePresenter;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -18,8 +27,29 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 public class MineFragment extends MvpBaseFragment {
 
 
+    @BindView(R.id.mine_rv)
+    RecyclerView mineRv;
+
     @Override
     protected void initView() {
+        initRecycleView();
+    }
+
+    private void initRecycleView() {
+        List datas = new ArrayList();
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
+        mineRv.setLayoutManager(new LinearLayoutManager(mContext));
+        mineRv.setAdapter(mineRecyAdapter);
     }
 
 
@@ -30,7 +60,7 @@ public class MineFragment extends MvpBaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_mine;
     }
 
     @Override
@@ -54,4 +84,5 @@ public class MineFragment extends MvpBaseFragment {
     public void onError(String errorMsg, String code, int tag) {
         super.onError(errorMsg, code, tag);
     }
+
 }

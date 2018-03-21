@@ -1,65 +1,101 @@
 package com.qmkj.jydp.rxbus;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 /**
  * RxBus
- * Subject同时充当了Observer和Observable的角色，Subject是非线程安全的，
- * 要避免该问题，需要将 Subject转换为一个 SerializedSubject ，
- * 上述RxBus类中把线程非安全的PublishSubject包装成线程安全的Subject。
- * PublishSubject只会把在订阅发生的时间点之后来自原始Observable的数据发射给观察者
- * ofType操作符只发射指定类型的数据，其内部就是filter+cast
  */
 public class RxBus {
-//
-//    private static volatile RxBus mInstance;
-//
-//    private final Subject<Object, Object> bus;
-//
-//
-//    private RxBus() {
-//
-//        bus = new SerializedSubject<>(PublishSubject.create());
-//    }
-//
-//    /**
-//     * 单例模式RxBus2
-//     *
-//     * @return
-//     */
-//    public static RxBus getInstance() {
-//        if (mInstance == null) {
-//            synchronized (RxBus.class) {
-//                if (mInstance == null) {
-//                    mInstance = new RxBus();
-//                }
-//            }
-//        }
-//        return mInstance;
-//    }
-//
-//
-//    /**
-//     * 发送消息
-//     *
-//     * @param object
-//     */
-//    public void post(Object object) {
-//
-//        bus.onNext(object);
-//    }
-//
-//    /**
-//     * 接收消息
-//     *
-//     * @param eventType
-//     * @param <T>
-//     * @return
-//     */
-//    public <T> Observable<T> toObserverable(Class<T> eventType) {
-//
-//        return bus.ofType(eventType);
-//    }
+
+    private ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
+    private static volatile RxBus instance;
+
+    private RxBus() {
+    }
+
+    public static RxBus getInstance() {
+        RxBus inst = instance;
+        if (inst == null) {
+            synchronized (RxBus.class) {
+                inst = instance;
+                if (inst == null) {
+                    inst = new RxBus();
+                    instance = inst;
+                }
+            }
+        }
+        return inst;
+    }
+
+    /**
+     * 注册
+     *
+     * @param tag
+     * @return
+     */
+    public <T> Observable<T> register(@NonNull Class<T> tag) {
+        List<Subject> subjectList = subjectMapper.get(tag);
+        if (null == subjectList) {
+            subjectList = new ArrayList<>();
+            subjectMapper.put(tag, subjectList);
+        }
+        PublishSubject<T> subject = PublishSubject.create();
+        subjectList.add(subject);
+        return subject;
+    }
+
+    /**
+     * 解除注册
+     *
+     * @param tag
+     */
+    public <T> void unregister(@NonNull Class<T> tag, @NonNull Observable observable) {
+        List<Subject> subjects = subjectMapper.get(tag);
+        if (null != subjects) {
+            subjects.remove(observable);
+            if (subjects.isEmpty()) {
+                subjectMapper.remove(tag);
+            }
+        }
+    }
+
+    /**
+     * 发送消息
+     *
+     * @param event
+     */
+    public <T> void post(@NonNull Object event) {
+        List<Subject> subjectList = subjectMapper.get(event.getClass());
+        if (subjectList != null && !subjectList.isEmpty()) {
+            for (Subject subject : subjectList) {
+                subject.onNext(event);
+            }
+        }
+    }
+
+    /**
+     * 清除订阅
+     */
+    public void clear() {
+        if (subjectMapper.isEmpty()) {
+            return;
+        }
+        subjectMapper.clear();
+    }
 }

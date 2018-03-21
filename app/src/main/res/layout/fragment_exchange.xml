@@ -1,257 +1,646 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/colorWhite"
-              android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/exchange_header_ll"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y96"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/x30"
-        android:paddingRight="@dimen/y30">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/exchange_open"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/syl"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_size_15"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:textColor="@color/textGray"
-            android:textSize="@dimen/text_size_14"/>
-    </LinearLayout>
-
-    <include layout="@layout/common_line_view"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/x30"
-        android:paddingRight="@dimen/x30">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y30"
-            android:layout_marginTop="@dimen/y20"
-            android:text="9399.5"
-            android:textColor="@color/textRed_3"
-            android:textSize="@dimen/text_size_17"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/y10"
-            android:background="@drawable/shape_exchange_quotation"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/y5"
-            android:paddingLeft="@dimen/x15"
-            android:paddingRight="@dimen/x15"
-            android:paddingTop="@dimen/y5">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/exchange_quotation"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x15"
-                android:text="@string/quotation"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_size_12"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y20"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginRight="@dimen/x30"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="最高 93"
-                android:textColor="@color/colorBlack_2"
-                android:textSize="@dimen/text_size_12"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y10"
-                android:text="最低 93"
-                android:textColor="@color/colorBlack_2"
-                android:textSize="@dimen/text_size_12"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="买一 93"
-                android:textColor="@color/colorBlack_2"
-                android:textSize="@dimen/text_size_12"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y10"
-                android:text="卖一 93"
-                android:textColor="@color/colorBlack_2"
-                android:textSize="@dimen/text_size_12"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/exchange_money"
-                android:textColor="@color/textGray"
-                android:textSize="@dimen/text_size_12"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y10"
-                android:text="3.49万"
-                android:textColor="@color/colorBlack_2"
-                android:textSize="@dimen/text_size_12"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/exchange_amount"
-                android:textColor="@color/textGray"
-                android:textSize="@dimen/text_size_12"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y10"
-                android:text="3.11万"
-                android:textColor="@color/colorBlack_2"
-                android:textSize="@dimen/text_size_12"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <include
-        layout="@layout/common_line_view"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y20"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginTop="@dimen/y20"
-        android:text="@string/current_price"
-        android:textColor="@color/colorBlack_2"
-        android:textSize="@dimen/text_size_12"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginRight="@dimen/x30"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/exchange_price_recycle_buy"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite_buy_bg"
-                android:overScrollMode="never"
-                android:scrollbars="none"/>
-        </RelativeLayout>
-
-        <View
-            android:layout_width="@dimen/x10"
-            android:layout_height="match_parent"/>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/exchange_price_recycle_sold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/textRed_sold_bg"
-                android:overScrollMode="never"
-                android:scrollbars="none"/>
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/exchange_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/exchange_buy"/>
+        <ScrollView
+            android:id="@+id/exchange_sl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/exchange_header_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y96"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/x30"
+                    android:paddingRight="@dimen/y30">
+
+                    <ImageView
+                        android:id="@+id/currency_select_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/exchange_open"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/syl"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/text_size_15"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:textColor="@color/textGray"
+                        android:textSize="@dimen/text_size_14"/>
+                </LinearLayout>
+
+                <include layout="@layout/common_line_view"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/x30"
+                    android:paddingRight="@dimen/x30">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/y30"
+                        android:layout_marginTop="@dimen/y20"
+                        android:text="9399.5"
+                        android:textColor="@color/textRed_3"
+                        android:textSize="@dimen/text_size_17"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/y10"
+                        android:background="@drawable/shape_exchange_quotation"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/y5"
+                        android:paddingLeft="@dimen/x15"
+                        android:paddingRight="@dimen/x15"
+                        android:paddingTop="@dimen/y5">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/exchange_quotation"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x15"
+                            android:text="@string/quotation"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="最高 93"
+                            android:textColor="@color/colorBlack_2"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y10"
+                            android:text="最低 93"
+                            android:textColor="@color/colorBlack_2"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="买一 93"
+                            android:textColor="@color/colorBlack_2"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y10"
+                            android:text="卖一 93"
+                            android:textColor="@color/colorBlack_2"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/exchange_money"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y10"
+                            android:text="3.49万"
+                            android:textColor="@color/colorBlack_2"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/exchange_amount"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y10"
+                            android:text="3.11万"
+                            android:textColor="@color/colorBlack_2"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <include
+                    layout="@layout/common_line_view"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y20"
+                    android:text="@string/current_price"
+                    android:textColor="@color/colorBlack_2"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginTop="@dimen/y20">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="卖\t"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/x50"
+                            android:text="@string/amount"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/total_money_dollars"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/x10"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/x15">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="买\t"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/x50"
+                            android:text="@string/amount"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_money_dollars"
+                            android:textColor="@color/textGray"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="@dimen/y5">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/exchange_price_recycle_sold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/colorWhite_buy_bg"
+                            android:overScrollMode="never"
+                            android:scrollbars="none"/>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="@dimen/x10"
+                        android:layout_height="match_parent"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="@dimen/y5">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/exchange_price_recycle_buy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/textRed_sold_bg"
+                            android:overScrollMode="never"
+                            android:paddingLeft="@dimen/x15"
+                            android:scrollbars="none"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y30"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/buy_ll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/buy_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/exchange_buy_input"
+                            android:textColor="@color/textRed_4"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <View
+                            android:id="@+id/buy_bottom_line"
+                            android:layout_width="@dimen/x25"
+                            android:layout_height="@dimen/y4"
+                            android:layout_marginTop="@dimen/y10"
+                            android:background="@color/textRed_4"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sold_ll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/y100"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/sold_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/exchange_sold_out"
+                            android:textColor="@color/textRed_4"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <View
+                            android:id="@+id/sold_bottom_line"
+                            android:layout_width="@dimen/x25"
+                            android:layout_height="@dimen/y4"
+                            android:layout_marginTop="@dimen/y10"
+                            android:background="@color/textRed_4"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/entrust_ll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/y100"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/entrust_recod_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/exchange_entrust_recod"
+                            android:textColor="@color/textRed_4"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <View
+                            android:id="@+id/entrust_recod_bottom_line"
+                            android:layout_width="@dimen/x25"
+                            android:layout_height="@dimen/y4"
+                            android:layout_marginTop="@dimen/y10"
+                            android:background="@color/textRed_4"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y68"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:background="@drawable/shape_text_input_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:text="@string/unit_price"
+                        android:textColor="@color/textGray_title"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <EditText
+                        android:id="@+id/unit_price_et"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/x50"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/buy_price_input"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:textColor="@color/textGray_title"
+                        android:textColorHint="@color/item_line"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y68"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginTop="@dimen/y20"
+                    android:background="@drawable/shape_text_input_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:text="@string/amount"
+                        android:textColor="@color/textGray_title"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <EditText
+                        android:id="@+id/amount_et"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/x50"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/amount_input_notice"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:textColor="@color/textGray_title"
+                        android:textColorHint="@color/item_line"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginTop="@dimen/y5"
+                    android:paddingLeft="@dimen/x20"
+                    android:text="最大：123.00 "
+                    android:textColor="@color/textGray"
+                    android:textSize="@dimen/text_size_11"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y68"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:background="@drawable/shape_text_input_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x20"
+                        android:text="@string/exchange_password"
+                        android:textColor="@color/textGray_title"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <EditText
+                        android:id="@+id/password_input_et"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/exchange_password_input_notice"
+                        android:inputType="numberPassword"
+                        android:maxLength="11"
+                        android:maxLines="1"
+                        android:textColor="@color/textGray_title"
+                        android:textColorHint="@color/item_line"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/exchange_buy_sold_bt"
+                    style="@style/button_attribute"
+                    android:layout_marginTop="@dimen/y20"
+                    android:gravity="center"
+                    android:text="买入"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_17"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginTop="@dimen/y30"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/total_money_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:text="@string/total_money"
+                            android:textColor="@color/textGray_title"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:id="@+id/total_money_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/total_money_title_tv"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:layout_marginTop="@dimen/y15"
+                            android:text="123.000"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/text_size_12"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/forzen_money_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:text="@string/forzen_money_dollar"
+                            android:textColor="@color/textGray_title"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:id="@+id/frozen_money_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/forzen_money_title_tv"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:layout_marginTop="@dimen/y15"
+                            android:text="123.000"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/text_size_12"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/available_money_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:text="@string/available_money_dollar"
+                            android:textColor="@color/textGray_title"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:id="@+id/available_money_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/available_money_title_tv"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:layout_marginTop="@dimen/y15"
+                            android:text="123.000"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/text_size_12"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

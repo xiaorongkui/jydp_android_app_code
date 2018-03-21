@@ -21,5 +21,23 @@
     <string name="exchange_amount">日成交量</string>
     <string name="exchange_money">日成交额</string>
     <string name="current_price">当前价</string>
-    <string name="exchange_buy">买入</string>
+    <string name="buy">买</string>
+    <string name="sold">卖</string>
+    <string name="exchange_buy_input">买入</string>
+    <string name="exchange_sold_out">卖出</string>
+    <string name="exchange_entrust_recod">委托记录</string>
+    <string name="amount">数量</string>
+    <string name="amount_input_notice">请输入数量</string>
+    <string name="total_money_dollars">总额($)</string>
+    <string name="unit_price">单价</string>
+    <string name="buy_price_input">请输入购买单价</string>
+    <string name="exchange_password">交易密码</string>
+    <string name="exchange_password_input_notice">请输入交易密码</string>
+    <string name="total_money">总资产</string>
+    <string name="forzen_money_dollar">冻结美金</string>
+    <string name="available_money_dollar">可用美金</string>
+    <string name="select_icon">选择币种</string>
+    <string name="amount_total_money_dollar">账户总资产($)</string>
+    <string name="amount_available_money_dollar">可用资产($)</string>
+    <string name="recharge">充值</string>
 </resources>
