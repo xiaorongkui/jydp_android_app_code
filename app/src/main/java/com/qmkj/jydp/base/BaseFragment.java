@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qmkj.jydp.R;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -27,6 +28,7 @@ public abstract class BaseFragment extends RxFragment {
     protected boolean isViewInitiated = false;
     protected boolean isVisibleToUser = false;
     protected boolean isDataInitiated = false;
+    private View mNetErrorView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,5 +142,35 @@ public abstract class BaseFragment extends RxFragment {
         super.onHiddenChanged(hidden);
         prepareFetchData();
         LogUtil.i("onHiddenChanged=" + hidden);
+    }
+
+    /**
+     * Show net error view.
+     *
+     * @param view   被错误界面替换
+     * @param isShow 是否显示错误界面
+     */
+    protected void showNetErrorView(ViewGroup view, boolean isShow) {
+        if (mNetErrorView == null) {
+            mNetErrorView = View.inflate(mContext, R.layout.net_load_error, null);
+            mNetErrorView.setOnClickListener(v -> tryData(view.getId()));
+        }
+        if (isShow) {
+            view.setVisibility(View.GONE);
+            mNetErrorView.setVisibility(View.VISIBLE);
+            ViewGroup showViewParent = (ViewGroup) view.getParent();
+            int indexOfChild = showViewParent.indexOfChild(view);
+            int indexOfChildError = showViewParent.indexOfChild(mNetErrorView);
+            if (indexOfChildError < 0)//表示当前错误界面不存在
+                showViewParent.addView(mNetErrorView, indexOfChild);
+        } else {
+            view.setVisibility(View.VISIBLE);
+            mNetErrorView.setVisibility(View.GONE);
+        }
+
+    }
+
+    protected void tryData(int id) {
+
     }
 }

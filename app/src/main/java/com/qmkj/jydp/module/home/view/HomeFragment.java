@@ -30,8 +30,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -70,7 +74,22 @@ public class HomeFragment extends MvpBaseFragment {
     }
 
     private void initRefreshView() {
+        homeFragmentRefresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Observable.timer(5, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        homeFragmentRefresh.refreshComplete();
+                    }
+                });
+            }
 
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return false;
+            }
+        });
     }
 
     private void initGrideView() {
@@ -92,10 +111,10 @@ public class HomeFragment extends MvpBaseFragment {
         homeIntroduceGv.setOnItemClickListener((parent, view, position, id) -> {
             switch (position) {
                 case 0:
-
+                    showNetErrorView(homeListRv, true);
                     break;
                 case 1:
-
+                    showNetErrorView(homeListRv, false);
                     break;
                 case 2:
 

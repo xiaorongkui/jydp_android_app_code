@@ -7,5 +7,13 @@ package com.qmkj.jydp.bean;
  */
 
 public class MinelistInfo {
+    public int leftIcon;
+    public String name;
+    public int rightIcon;
 
+    public MinelistInfo(int leftIcon, String name, int rightIcon) {
+        this.leftIcon = leftIcon;
+        this.name = name;
+        this.rightIcon = rightIcon;
+    }
 }

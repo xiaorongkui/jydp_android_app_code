@@ -12,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y60"
         android:layout_gravity="bottom"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y40"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/arl_dot_container"

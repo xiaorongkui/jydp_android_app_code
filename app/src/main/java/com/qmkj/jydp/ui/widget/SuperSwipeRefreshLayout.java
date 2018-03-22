@@ -962,7 +962,7 @@ public class SuperSwipeRefreshLayout extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (end > 0 && mOnPushLoadMoreListener != null) {
-                    // start loading more
+                    // start loading more_arrow
                     mLoadMore = true;
                     mOnPushLoadMoreListener.onLoadMore();
                 } else {

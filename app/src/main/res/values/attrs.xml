@@ -7,4 +7,11 @@
         <attr name="footerHeight" format="integer"/>
         <attr name="isShowFooter" format="boolean"/>
     </declare-styleable>
+    <declare-styleable name="Themes">
+        <attr name="editText_leftImage_default" format="reference"/>
+        <attr name="editText_leftImage_press" format="reference"/>
+        <attr name="editText_leftImage_padding_left" format="dimension"/>
+        <attr name="editText_padding_left" format="dimension"/>
+        <attr name="editTex_clear_icon" format="boolean"/>
+    </declare-styleable>
 </resources>

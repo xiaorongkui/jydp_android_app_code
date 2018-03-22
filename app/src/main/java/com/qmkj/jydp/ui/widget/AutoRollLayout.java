@@ -62,19 +62,10 @@ public class AutoRollLayout extends RelativeLayout implements OnPageChangeListen
 
     private void init() {
         View.inflate(getContext(), R.layout.arl_layout, this);
-
         vp = (ViewPager) findViewById(R.id.arl_vp);
         dotContainer = (LinearLayout) findViewById(R.id.arl_dot_container);
-
         vp.addOnPageChangeListener(this);
-        // 除了3个方法，还可以设置监听，得到控件上的触摸事件
         vp.setOnTouchListener(touchListener);
-
-        // GestureDetector 的作用是分析触摸事件，简化我们对触摸事件的判断
-        // gestureDetector 间谍
-        // 1 创建对象
-        // 2 把触摸事件交给它分析
-        // 3 使用分析的结果
         gestureDetector = new GestureDetector(getContext(), gestureListener);
     }
 
@@ -93,7 +84,6 @@ public class AutoRollLayout extends RelativeLayout implements OnPageChangeListen
         vp.setAdapter(adapter);
         dotContainer.removeAllViews();
         addDots();
-        // 初始状态
         onPageSelected(0);
         adapter.notifyDataSetChanged();
     }
@@ -102,7 +92,6 @@ public class AutoRollLayout extends RelativeLayout implements OnPageChangeListen
     private boolean autoRoll;
 
     public void setAutoRoll(boolean autoRoll) {
-
         Log.e("setAutoRoll", "" + autoRoll);
         this.autoRoll = autoRoll;
         handler.postDelayed(rollRunnable, ROLL_TIME);
@@ -113,12 +102,9 @@ public class AutoRollLayout extends RelativeLayout implements OnPageChangeListen
     }
 
     private Runnable rollRunnable = new Runnable() {
-
         @Override
         public void run() {
-            // 把其他还没有开始执行的任务移除掉，保证不会反复执行
             handler.removeCallbacks(this);
-
             if (!autoRoll) {
                 return;
             }
@@ -251,7 +237,6 @@ public class AutoRollLayout extends RelativeLayout implements OnPageChangeListen
                 case MotionEvent.ACTION_DOWN:
                     float startX = event.getRawX();
                     float startY = event.getRawY();
-
                     isTouching = true;
                     break;
                 case MotionEvent.ACTION_CANCEL:
@@ -262,7 +247,6 @@ public class AutoRollLayout extends RelativeLayout implements OnPageChangeListen
                     Log.d("onTouch", "UP");
                     isTouching = true;
                     break;
-
             }
             // v.onTouchEvent(event);
             // return true;

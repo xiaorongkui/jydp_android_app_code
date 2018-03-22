@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="home">首页</string>
     <string name="exchange">交易中心</string>
@@ -40,4 +40,20 @@
     <string name="amount_total_money_dollar">账户总资产($)</string>
     <string name="amount_available_money_dollar">可用资产($)</string>
     <string name="recharge">充值</string>
+    <string name="system_notice">系统公告</string>
+    <string name="trading_market">交易大盘</string>
+    <string name="user_login">用户登录</string>
+    <string name="user_register">用户注册</string>
+    <string name="login_hint_notice">您的登录账号</string>
+    <string name="login_hint_password">您的登录密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register">注册</string>
+    <string name="register_user_name_notice">字母、数字、6-16个字符</string>
+    <string name="register_phone_notice">您的手机号</string>
+    <string name="verification_code">验证码</string>
+    <string name="password_one_notice">您的登录密码</string>
+    <string name="password_two_notice">再次输入密码</string>
+    <string name="register_agreement_title_notice">用户注册即表示同意</string>
+    <string name="register_agreement_name">《用户注册协议》</string>
+    <string name="getvertify_code">获取验证码(<xliff:g id="num">%1$1d</xliff:g>)</string>
 </resources>
