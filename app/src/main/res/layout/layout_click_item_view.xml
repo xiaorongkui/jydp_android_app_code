@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/ll_click_item"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/selector_ripple_borderless"
+              android:gravity="center_vertical"
+              android:minHeight="@dimen/y85"
+              android:orientation="horizontal"
+              android:paddingLeft="@dimen/x30"
+              android:paddingRight="@dimen/x30">
+
+    <ImageView
+        android:id="@+id/iv_item_view_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/x40"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_item_view_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#33383b"
+        android:textSize="@dimen/text_size_13"
+        tools:text="性别"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_item_view_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x12"
+        android:paddingRight="@dimen/x12"/>
+
+    <TextView
+        android:id="@+id/tv_item_view_right"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center|right"
+        android:maxLines="1"
+        android:textColor="@color/colorBlack_8"
+        android:textSize="@dimen/text_size_13"
+        tools:text="男额打发ad司法答复阿德发阿道夫阿道夫阿道夫阿道夫 发大发 阿道夫"/>
+
+    <View
+        android:id="@+id/view_item_view_red_point"
+        android:layout_width="@dimen/x5"
+        android:layout_height="@dimen/x5"
+        android:layout_gravity="top"
+        android:layout_marginTop="@dimen/x5"
+        android:visibility="gone"/>
+    <!--android:background="@drawable/shape_click_item_red_point"-->
+
+    <ImageView
+        android:id="@+id/iv_item_view_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x10"
+        android:src="@mipmap/certify_add"/>
+
+</LinearLayout>

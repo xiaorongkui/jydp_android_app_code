@@ -35,7 +35,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/x10"
         android:text="加载中"
-        android:textColor="@color/textGray"
+        android:textColor="@color/colorBlack_9"
         android:textSize="@dimen/text_size_9"/>
 
 

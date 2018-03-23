@@ -5,14 +5,14 @@ import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * Created by Yun on 2018/1/5.
  * 网络请求观察者（activity关闭时同时取消网络订阅）
  */
-public abstract class BaseObserver<T> implements Observer<T> {
+public abstract class BaseObserver<T> extends DisposableObserver<T> {
 
-    protected List<Disposable> disposableList = new ArrayList<>();
     /**
      * 网络请求开始
      */
@@ -41,9 +41,10 @@ public abstract class BaseObserver<T> implements Observer<T> {
     public BaseObserver() {
     }
 
+
     @Override
-    public void onSubscribe(Disposable d) {
-        disposableList.add(d);
+    protected void onStart() {
+        super.onStart();
         onRequestStart();
     }
 

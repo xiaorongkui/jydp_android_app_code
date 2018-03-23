@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.net.HttpCore;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -29,7 +30,6 @@ import io.reactivex.disposables.Disposable;
  * Created by Yun on 2018/3/13 0013.
  */
 public abstract class BaseActivity extends RxAppCompatActivity {
-    public List<Disposable> disposableList = new ArrayList<>();
     protected Activity mContext;
     private Unbinder unbinder;
     private View mNetErrorView;
@@ -79,11 +79,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         super.onDestroy();
         if (unbinder != null)
             unbinder.unbind();
-        for (Disposable disposable : disposableList) {
-            if (disposable != null && !disposable.isDisposed()) {
-                disposable.dispose();
-            }
-        }
+        HttpCore.getInstance().unregisterObserver();
     }
 
     protected abstract void initData();
@@ -140,7 +136,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      */
     protected void showNetErrorView(ViewGroup view, boolean isShow) {
         if (mNetErrorView == null) {
-            mNetErrorView = View.inflate(mContext, R.layout.net_load_error, null);
+            mNetErrorView = View.inflate(mContext, getNetErrorLayoutRes(), null);
             mNetErrorView.setOnClickListener(v -> tryData(view.getId()));
         }
         if (isShow) {
@@ -157,8 +153,13 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     }
 
+    //点击错误界面时触发刷新
     protected void tryData(int id) {
         toast("点击重新加载");
     }
 
+    //可以自定义错误界面
+    protected int getNetErrorLayoutRes() {
+        return R.layout.net_load_error;
+    }
 }

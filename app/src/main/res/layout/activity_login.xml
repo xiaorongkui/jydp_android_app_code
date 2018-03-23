@@ -40,7 +40,7 @@
             android:paddingBottom="@dimen/y50"
             android:paddingTop="@dimen/y45"
             android:text="@string/user_login"
-            android:textColor="@color/textRed_2"
+            android:textColor="@color/colorRed_2"
             android:textSize="@dimen/text_size_16"/>
 
         <TextView
@@ -121,7 +121,7 @@
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"
                 android:text="@string/forget_password"
-                android:textColor="@color/textGreen_2"
+                android:textColor="@color/colorGreen_3"
                 android:textSize="@dimen/text_size_11"/>
         </LinearLayout>
 
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x30"
                     android:text="+86"
-                    android:textColor="@color/textGray_title"
+                    android:textColor="@color/colorBlack_8"
                     android:textSize="@dimen/text_size_11"/>
 
                 <ImageView
@@ -228,8 +228,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x20"
-                    android:text="@string/getvertify_code"
-                    android:textColor="@color/textGreen_2"
+                    android:text="@string/get_rigister_getvertify_code_1"
+                    android:textColor="@color/colorGreen_3"
                     android:textSize="@dimen/text_size_11"/>
             </LinearLayout>
 
@@ -300,7 +300,7 @@
             android:layout_marginBottom="@dimen/y20"
             android:layout_marginTop="@dimen/y40"
             android:text="@string/register_agreement_title_notice"
-            android:textColor="@color/textGray"
+            android:textColor="@color/colorBlack_9"
             android:textSize="@dimen/text_size_11"/>
 
         <TextView
@@ -311,7 +311,7 @@
             android:layout_marginTop="@dimen/y40"
             android:layout_toRightOf="@id/register_agreement_notice_tv"
             android:text="@string/register_agreement_name"
-            android:textColor="@color/textGreen_2"
+            android:textColor="@color/colorGreen_3"
             android:textSize="@dimen/text_size_11"/>
     </RelativeLayout>
 </LinearLayout>

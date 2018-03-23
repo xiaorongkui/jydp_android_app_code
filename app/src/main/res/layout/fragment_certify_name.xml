@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorWhite"
+              android:orientation="vertical">
+
+    <include
+        android:id="@+id/ertify_account_ll"
+        layout="@layout/common_edit_item"/>
+
+    <include
+        android:id="@+id/ertify_name_ll"
+        layout="@layout/common_edit_item"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/ertify_type_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftText="@string/certify_type"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="true"
+        app:rightText="@string/certificate_identification"
+        app:rightTextColor="@color/colorBlack_8"/>
+
+    <include
+        android:id="@+id/ertify_number_ll"
+        layout="@layout/common_edit_item"/>
+
+    <TextView
+        android:id="@+id/ertify_picture_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y85"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/x30"
+        android:gravity="center_vertical"
+        android:text="@string/certify_picture"
+        android:textColor="@color/colorBlack_7"
+        android:textSize="@dimen/text_size_13"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/certify_add_front_rl"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y200"
+            android:layout_weight="1"
+            android:background="@drawable/shape_sertify_add">
+
+            <ImageView
+                android:id="@+id/front_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:id="@+id/front_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/certify_add"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/y45"
+                    android:text="@string/certify_postitive_photo"
+                    android:textColor="@color/colorBlack_9"
+                    android:textSize="@dimen/text_size_11"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/x20"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/certify_add_back_rl"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y200"
+            android:layout_weight="1"
+            android:background="@drawable/shape_sertify_add">
+
+            <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:id="@+id/back_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/certify_add"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/y45"
+                    android:text="@string/certify_reverse_photo"
+                    android:textColor="@color/colorBlack_9"
+                    android:textSize="@dimen/text_size_11"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        style="@style/button_attribute"
+        android:layout_marginTop="@dimen/y40"
+        android:text="@string/submit"/>
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.net.HttpCore;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -80,6 +81,7 @@ public abstract class BaseFragment extends RxFragment {
             unbinder.unbind();
             unbinder = null;
         }
+        HttpCore.getInstance().unregisterObserver();
     }
 
     protected abstract void initView();
@@ -152,7 +154,7 @@ public abstract class BaseFragment extends RxFragment {
      */
     protected void showNetErrorView(ViewGroup view, boolean isShow) {
         if (mNetErrorView == null) {
-            mNetErrorView = View.inflate(mContext, R.layout.net_load_error, null);
+            mNetErrorView = View.inflate(mContext, getNetErrorLayoutRes(), null);
             mNetErrorView.setOnClickListener(v -> tryData(view.getId()));
         }
         if (isShow) {
@@ -170,7 +172,13 @@ public abstract class BaseFragment extends RxFragment {
 
     }
 
+    //点击错误界面时触发刷新
     protected void tryData(int id) {
+        toast("点击重新加载");
+    }
 
+    //可以自定义错误界面
+    protected int getNetErrorLayoutRes() {
+        return R.layout.net_load_error;
     }
 }

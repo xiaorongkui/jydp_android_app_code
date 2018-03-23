@@ -48,11 +48,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login"
-                        android:textColor="@color/textGray"
+                        android:textColor="@color/colorBlack_9"
                         android:textSize="@dimen/text_size_14"/>
                 </LinearLayout>
 
-                <include layout="@layout/common_line_view"/>
+                <View style="@style/line1"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                         android:layout_marginBottom="@dimen/y30"
                         android:layout_marginTop="@dimen/y20"
                         android:text="9399.5"
-                        android:textColor="@color/textRed_3"
+                        android:textColor="@color/colorRed_3"
                         android:textSize="@dimen/text_size_17"/>
 
                     <LinearLayout
@@ -168,7 +168,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_money"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
@@ -194,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_amount"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
@@ -207,8 +207,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <include
-                    layout="@layout/common_line_view"/>
+                <View style="@style/line1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -237,7 +236,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="卖\t"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
@@ -248,7 +247,7 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/x50"
                             android:text="@string/amount"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
@@ -256,7 +255,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="@string/total_money_dollars"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
                     </LinearLayout>
 
@@ -275,7 +274,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="买\t"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
@@ -286,14 +285,14 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="@dimen/x50"
                             android:text="@string/amount"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/total_money_dollars"
-                            android:textColor="@color/textGray"
+                            android:textColor="@color/colorBlack_9"
                             android:textSize="@dimen/text_size_12"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -318,7 +317,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
-                            android:background="@color/colorWhite_buy_bg"
+                            android:background="@color/colorWhite_2"
                             android:overScrollMode="never"
                             android:scrollbars="none"/>
                     </RelativeLayout>
@@ -337,7 +336,7 @@
                             android:id="@+id/exchange_price_recycle_buy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/textRed_sold_bg"
+                            android:background="@color/colorRed_6"
                             android:overScrollMode="never"
                             android:paddingLeft="@dimen/x15"
                             android:scrollbars="none"/>
@@ -364,7 +363,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_buy_input"
-                            android:textColor="@color/textRed_4"
+                            android:textColor="@color/colorRed_4"
                             android:textSize="@dimen/text_size_14"/>
 
                         <View
@@ -372,7 +371,7 @@
                             android:layout_width="@dimen/x25"
                             android:layout_height="@dimen/y4"
                             android:layout_marginTop="@dimen/y10"
-                            android:background="@color/textRed_4"/>
+                            android:background="@color/colorRed_4"/>
 
                     </LinearLayout>
 
@@ -389,7 +388,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_sold_out"
-                            android:textColor="@color/textRed_4"
+                            android:textColor="@color/colorRed_4"
                             android:textSize="@dimen/text_size_14"/>
 
                         <View
@@ -397,7 +396,7 @@
                             android:layout_width="@dimen/x25"
                             android:layout_height="@dimen/y4"
                             android:layout_marginTop="@dimen/y10"
-                            android:background="@color/textRed_4"/>
+                            android:background="@color/colorRed_4"/>
 
                     </LinearLayout>
 
@@ -414,7 +413,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_entrust_recod"
-                            android:textColor="@color/textRed_4"
+                            android:textColor="@color/colorRed_4"
                             android:textSize="@dimen/text_size_14"/>
 
                         <View
@@ -422,7 +421,7 @@
                             android:layout_width="@dimen/x25"
                             android:layout_height="@dimen/y4"
                             android:layout_marginTop="@dimen/y10"
-                            android:background="@color/textRed_4"/>
+                            android:background="@color/colorRed_4"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -441,7 +440,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
                         android:text="@string/unit_price"
-                        android:textColor="@color/textGray_title"
+                        android:textColor="@color/colorBlack_8"
                         android:textSize="@dimen/text_size_12"/>
 
                     <EditText
@@ -456,7 +455,7 @@
                         android:hint="@string/buy_price_input"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
-                        android:textColor="@color/textGray_title"
+                        android:textColor="@color/colorBlack_8"
                         android:textColorHint="@color/item_line"
                         android:textCursorDrawable="@null"
                         android:textSize="@dimen/text_size_12"/>
@@ -477,7 +476,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
                         android:text="@string/amount"
-                        android:textColor="@color/textGray_title"
+                        android:textColor="@color/colorBlack_8"
                         android:textSize="@dimen/text_size_12"/>
 
                     <EditText
@@ -492,7 +491,7 @@
                         android:hint="@string/amount_input_notice"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:textColor="@color/textGray_title"
+                        android:textColor="@color/colorBlack_8"
                         android:textColorHint="@color/item_line"
                         android:textCursorDrawable="@null"
                         android:textSize="@dimen/text_size_12"/>
@@ -506,7 +505,7 @@
                     android:layout_marginTop="@dimen/y5"
                     android:paddingLeft="@dimen/x20"
                     android:text="最大：123.00 "
-                    android:textColor="@color/textGray"
+                    android:textColor="@color/colorBlack_9"
                     android:textSize="@dimen/text_size_11"/>
 
                 <LinearLayout
@@ -523,7 +522,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x20"
                         android:text="@string/exchange_password"
-                        android:textColor="@color/textGray_title"
+                        android:textColor="@color/colorBlack_8"
                         android:textSize="@dimen/text_size_12"/>
 
                     <EditText
@@ -539,7 +538,7 @@
                         android:inputType="numberPassword"
                         android:maxLength="11"
                         android:maxLines="1"
-                        android:textColor="@color/textGray_title"
+                        android:textColor="@color/colorBlack_8"
                         android:textColorHint="@color/item_line"
                         android:textCursorDrawable="@null"
                         android:textSize="@dimen/text_size_12"/>
@@ -573,7 +572,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/x20"
                             android:text="@string/total_money"
-                            android:textColor="@color/textGray_title"
+                            android:textColor="@color/colorBlack_8"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
@@ -600,7 +599,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/x20"
                             android:text="@string/forzen_money_dollar"
-                            android:textColor="@color/textGray_title"
+                            android:textColor="@color/colorBlack_8"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
@@ -625,7 +624,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/x20"
                             android:text="@string/available_money_dollar"
-                            android:textColor="@color/textGray_title"
+                            android:textColor="@color/colorBlack_8"
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView

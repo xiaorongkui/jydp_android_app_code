@@ -12,7 +12,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.qmkj.jydp"
-        minSdkVersion 16
+        minSdkVersion 16 //android 9.0将不再支持sdk 17之前的版本。低版本sdk被淘汰
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"

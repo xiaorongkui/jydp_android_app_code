@@ -7,11 +7,78 @@
         <attr name="footerHeight" format="integer"/>
         <attr name="isShowFooter" format="boolean"/>
     </declare-styleable>
-    <declare-styleable name="Themes">
-        <attr name="editText_leftImage_default" format="reference"/>
-        <attr name="editText_leftImage_press" format="reference"/>
-        <attr name="editText_leftImage_padding_left" format="dimension"/>
-        <attr name="editText_padding_left" format="dimension"/>
-        <attr name="editTex_clear_icon" format="boolean"/>
+
+    <!--配置ClickItem属性-->
+    <declare-styleable name="ClickItem">
+        <!--左边图片-->
+        <attr name="leftIcon"/>
+        <!--左边文本-->
+        <attr name="leftText"/>
+        <!--右边文本-->
+        <attr name="rightText"/>
+        <!--右边图标-->
+        <attr name="rightIcon"/>
+        <!-- 左边文本颜色 -->
+        <attr name="leftTextColor"/>
+        <!-- 右边文本颜色 -->
+        <attr name="rightTextColor"/>
+        <!--左边文本字体大小-->
+        <attr name="leftTextSize"/>
+        <!--右边文本字体大小-->
+        <attr name="rightTextSize"/>
+        <!-- 右侧图片是否显示-->
+        <attr name="rightIconVisible" format="boolean"/>
+        <!-- 顶部line -->
+        <attr name="topLine"/>
+        <!-- 底部line -->
+        <attr name="bottomLine"/>
     </declare-styleable>
+
+    <!--配置ClickItem属性-->
+    <declare-styleable name="EditItem">
+        <!--左边图片-->
+        <attr name="leftIcon"/>
+        <!--左边文本-->
+        <attr name="leftText"/>
+        <!--右边文本-->
+        <attr name="rightText"/>
+        <!--右边图标-->
+        <attr name="rightIcon"/>
+        <!-- 左边文本颜色 -->
+        <attr name="leftTextColor"/>
+        <!-- 右边文本颜色 -->
+        <attr name="rightTextColor"/>
+        <!--左边文本字体大小-->
+        <attr name="leftTextSize"/>
+        <!--右边文本字体大小-->
+        <attr name="rightTextSize"/>
+        <!-- 右侧图片是否显示-->
+        <attr name="rightIconVisible_edit" format="boolean"/>
+        <!-- 顶部line -->
+        <attr name="topLine"/>
+        <!-- 底部line -->
+        <attr name="bottomLine"/>
+    </declare-styleable>
+    <!--start=======解决重复引用属性报错：外面单独定义重复的-->
+    <!--左边图片-->
+    <attr name="leftIcon" format="reference"/>
+    <!--左边文本-->
+    <attr name="leftText" format="reference|string"/>
+    <!--右边文本-->
+    <attr name="rightText" format="reference|string"/>
+    <!--右边图标-->
+    <attr name="rightIcon" format="reference"/>
+    <!-- 左边文本颜色 -->
+    <attr name="leftTextColor" format="color"/>
+    <!-- 右边文本颜色 -->
+    <attr name="rightTextColor" format="color"/>
+    <!--左边文本字体大小-->
+    <attr name="leftTextSize" format="dimension"/>
+    <!--右边文本字体大小-->
+    <attr name="rightTextSize" format="dimension"/>
+    <!-- 顶部line -->
+    <attr name="topLine" format="boolean"/>
+    <!-- 底部line -->
+    <attr name="bottomLine" format="boolean"/>
+    <!--end=======解决重复引用属性报错：外面单独定义重复的-->
 </resources>

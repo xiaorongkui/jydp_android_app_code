@@ -7,7 +7,7 @@
 
     <include layout="@layout/common_header"/>
 
-    <include layout="@layout/common_line_view"/>
+    <View style="@style/line1"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/system_notice_rv"

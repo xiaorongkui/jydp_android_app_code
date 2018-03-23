@@ -11,7 +11,6 @@ import com.qmkj.jydp.util.CommonUtil;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -41,6 +40,6 @@ public class ExchangebuyPriceRecAdapter extends BaseRecylerAdapter {
     @Override
     public void convert(CommonRecylerViewHolder holder, int position) {
         priceStatusTv.setText(CommonUtil.getString(R.string.buy) + (datas.size() - position));
-        priceStatusTv.setTextColor(CommonUtil.getColor(R.color.textRed_4));
+        priceStatusTv.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
     }
 }

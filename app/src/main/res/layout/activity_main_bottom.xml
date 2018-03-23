@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y3"
                 android:text="@string/home"
-                android:textColor="@color/textGray"
+                android:textColor="@color/colorBlack_9"
                 android:textSize="@dimen/text_size_11"/>
         </LinearLayout>
 
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y3"
                 android:text="@string/exchange"
-                android:textColor="@color/textGray"
+                android:textColor="@color/colorBlack_9"
                 android:textSize="@dimen/text_size_11"/>
         </LinearLayout>
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y3"
                 android:text="@string/mine"
-                android:textColor="@color/textGray"
+                android:textColor="@color/colorBlack_9"
                 android:textSize="@dimen/text_size_11"/>
         </LinearLayout>
 

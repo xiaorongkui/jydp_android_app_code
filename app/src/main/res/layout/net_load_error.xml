@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y30"
         android:text="网络不给力，点击重新加载"
-        android:textColor="@color/textGray"
+        android:textColor="@color/colorBlack_9"
         android:textSize="@dimen/text_size_14"/>
 </LinearLayout>

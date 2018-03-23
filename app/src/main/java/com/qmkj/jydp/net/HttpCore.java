@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
@@ -36,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpCore {
     private static volatile HttpCore httpCore;
-
+    private CompositeDisposable mDisposables = new CompositeDisposable();
     private static Retrofit retrofit;
 
     private void initOkHttpClient() {
@@ -105,6 +106,7 @@ public class HttpCore {
                 .observeOn(AndroidSchedulers.mainThread()).map(basePar);
         /*数据回调*/
         observable.subscribe(progressObserver);
+        mDisposables.add(progressObserver);
     }
 
     /**
@@ -141,5 +143,8 @@ public class HttpCore {
         }
     }
 
+    public void unregisterObserver() {
+        mDisposables.clear();//切断后清空集合
+    }
 
 }

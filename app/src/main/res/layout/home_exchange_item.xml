@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="生源链"
-                android:textColor="@color/textGray_title"/>
+                android:textColor="@color/colorBlack_8"/>
 
             <TextView
                 android:id="@+id/home_exchange_name_dollar_tv"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y10"
                 android:text="$123.00"
-                android:textColor="@color/textRed_2"/>
+                android:textColor="@color/colorRed_2"/>
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="日成交量"
-                android:textColor="@color/textGray_title"/>
+                android:textColor="@color/colorBlack_8"/>
 
             <TextView
                 android:id="@+id/home_exchange_volume_dollar_tv"
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="日涨跌"
-                android:textColor="@color/textGray_title"/>
+                android:textColor="@color/colorBlack_8"/>
 
             <TextView
                 android:id="@+id/home_exchange_updown_percent_tv"
@@ -90,9 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y10"
                 android:text="+10.00%"
-                android:textColor="@color/textGreen"/>
+                android:textColor="@color/colorGreen_1"/>
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/common_line_view"/>
+    <View style="@style/line1"/>
 </LinearLayout>

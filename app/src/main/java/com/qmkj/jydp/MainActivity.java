@@ -17,13 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.base.BaseActivity;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.module.exchange.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.presenter.CurrencyRecyAdapter;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
-import com.qmkj.jydp.rxbus.RxBus;
-import com.qmkj.jydp.rxbus.event.DrawEvent;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
@@ -32,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -195,7 +190,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 ft.show(homeFragment);
                 homeBottomIv.setImageResource(R.mipmap.home_select);
-                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
+                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
                 break;
             case 1:
                 if (exchangeFragment == null) {
@@ -204,7 +199,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 ft.show(exchangeFragment);
                 exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
-                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
+                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
                 break;
             case 2:
                 if (mineFragment == null) {
@@ -213,7 +208,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 ft.show(mineFragment);
                 mineBottomIv.setImageResource(R.mipmap.mine_select);
-                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
+                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
                 break;
         }
         ft.commit();
@@ -237,9 +232,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         exchangeBottomIv.setImageResource(R.mipmap.exchange_unselect);
         mineBottomIv.setImageResource(R.mipmap.mine_unselect);
 
-        homeBottomTv.setTextColor(CommonUtil.getColor(R.color.textGray));
-        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.textGray));
-        mineBottomTv.setTextColor(CommonUtil.getColor(R.color.textGray));
+        homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
+        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
+        mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
     }
 
     /**

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="#FDDDDDDD"></ripple><!--无边界水波纹，按下水波纹扩散-->

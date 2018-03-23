@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorWhite"
+              android:orientation="vertical">
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/ertify_check_status_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftText="@string/check_status"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="false"
+        app:rightText="@string/checking"
+        app:rightTextColor="@color/colorRed_7"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30">
+
+        <TextView
+            android:id="@+id/check_mark_content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/y30"
+            android:layout_marginLeft="@dimen/x150"
+            android:layout_marginTop="@dimen/y30"
+            android:gravity="right"
+            android:lineSpacingExtra="@dimen/y20"
+            android:text="多多多多多多多多多多多多多多多多多多多多多多多多多多多多"
+            android:textColor="@color/colorBlack_9"
+            android:textSize="@dimen/text_size_13"/>
+
+        <TextView
+            android:id="@+id/check_mark_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/check_mark_content_tv"
+            android:layout_centerVertical="true"
+            android:text="@string/check_marks"
+            android:textColor="@color/colorBlack_7"
+            android:textSize="@dimen/text_size_13"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y15"
+        android:background="@color/item_line"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/ertify_check_account_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftText="@string/account"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="false"
+        app:rightText="hdhdhhhaj呵呵"
+        app:rightTextColor="@color/colorBlack_8"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/ertify_check_name_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftText="@string/name"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="false"
+        app:rightText="肖荣奎"
+        app:rightTextColor="@color/colorBlack_8"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/ertify_check_type_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftText="@string/certify_type"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="false"
+        app:rightText="身份证"
+        app:rightTextColor="@color/colorBlack_8"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/ertify_check_number_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:leftText="@string/certificate_num"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="false"
+        app:rightText="12134594598489439934893489"
+        app:rightTextColor="@color/colorBlack_8"/>
+
+    <TextView
+        android:id="@+id/ertify_check_picture_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y85"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/x30"
+        android:gravity="center_vertical"
+        android:text="@string/certify_picture"
+        android:textColor="@color/colorBlack_7"
+        android:textSize="@dimen/text_size_13"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/certify_check_front_rl"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y200"
+            android:layout_weight="1"
+            android:background="@drawable/shape_sertify_add_check">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/logo"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/x20"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/certify_check_back_rl"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y200"
+            android:layout_weight="1"
+            android:background="@drawable/shape_sertify_add_check">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/logo"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -53,28 +53,25 @@ public class MineFragment extends MvpBaseFragment {
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
-        mineRecyAdapter.setOnItemClickLitener(new BaseRecylerAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                switch (position) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4://系统公告
-                        CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        break;
-                    case 7:
-                        break;
-                }
+        mineRecyAdapter.setOnItemClickLitener((view, position) -> {
+            switch (position) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4://系统公告
+                    CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
             }
         });
     }

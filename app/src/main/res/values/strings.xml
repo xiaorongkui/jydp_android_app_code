@@ -55,5 +55,22 @@
     <string name="password_two_notice">再次输入密码</string>
     <string name="register_agreement_title_notice">用户注册即表示同意</string>
     <string name="register_agreement_name">《用户注册协议》</string>
-    <string name="getvertify_code">获取验证码(<xliff:g id="num">%1$1d</xliff:g>)</string>
+    <string name="get_rigister_getvertify_code">获取验证码(<xliff:g id="num">%1$1d</xliff:g>)</string>
+    <string name="get_rigister_getvertify_code_1">获取验证码</string>
+    <string name="getvertify_name">实名认证</string>
+    <string name="certify_picture">证件照</string>
+    <string name="certify_postitive_photo">证件正面照</string>
+    <string name="certify_reverse_photo">证件反面照</string>
+    <string name="submit">提交</string>
+    <string name="check_marks">审核备注</string>
+    <string name="account">账号</string>
+    <string name="name">姓名</string>
+    <string name="your_real_name">您的真实姓名</string>
+    <string name="certify_type">证件类型</string>
+    <string name="certificate_identification">身份证</string>
+    <string name="input_your_certificate_num">请输入你的证件号</string>
+    <string name="certificate_num">证件号</string>
+    <string name="check_status">审核状态</string>
+    <string name="checking">审核中</string>
+    <string name="modify">修改</string>
 </resources>

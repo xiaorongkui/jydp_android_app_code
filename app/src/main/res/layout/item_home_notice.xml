@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/x40"
-        android:textColor="@color/textGray"
+        android:textColor="@color/colorBlack_9"
         android:textSize="@dimen/text_size_11"
         tools:text="2017-01-08"/>
 
@@ -48,7 +48,7 @@
         android:layout_width="@dimen/x1"
         android:layout_height="@dimen/y20"
         android:layout_marginLeft="@dimen/x20"
-        android:background="@color/textGray"/>
+        android:background="@color/colorBlack_9"/>
 
     <TextView
         android:id="@+id/tv_home_header_notice_more"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/x20"
         android:layout_marginRight="@dimen/x10"
-        android:textColor="@color/textGray"
+        android:textColor="@color/colorBlack_9"
         android:textSize="@dimen/text_size_11"
         tools:text="@string/more"/>
 </LinearLayout>

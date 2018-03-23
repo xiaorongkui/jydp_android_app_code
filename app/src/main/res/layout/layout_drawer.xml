@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_icon"
-            android:textColor="@color/textGray_title"
+            android:textColor="@color/colorBlack_8"
             android:textSize="@dimen/text_size_17"/>
 
         <ImageView
@@ -30,7 +30,7 @@
             android:src="@mipmap/exchange_open"/>
     </RelativeLayout>
 
-    <include layout="@layout/common_line_view"/>
+    <View style="@style/line1"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/exchange_draw_rv"

@@ -11,7 +11,6 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.MvpBaseActivity;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,8 +20,6 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -79,7 +76,7 @@ public class LoginActivity extends MvpBaseActivity {
     private void setShowStatusView(int index) {
         switch (index) {
             case 0:
-                loginTitleTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
+                loginTitleTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
                 registerTitleTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_5));
                 loginLl.setVisibility(View.VISIBLE);
                 registerLl.setVisibility(View.GONE);
@@ -87,7 +84,7 @@ public class LoginActivity extends MvpBaseActivity {
                 break;
             case 1:
                 loginTitleTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_5));
-                registerTitleTv.setTextColor(CommonUtil.getColor(R.color.textRed_2));
+                registerTitleTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
                 loginLl.setVisibility(View.GONE);
                 registerLl.setVisibility(View.VISIBLE);
                 registerAgreementRl.setVisibility(View.VISIBLE);
@@ -127,7 +124,7 @@ public class LoginActivity extends MvpBaseActivity {
         disposable = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
                 (splashTotalCountdownTime + 1).subscribe(aLong -> {
-            codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.getvertify_code), aLong));
+            codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code), aLong));
         });
     }
 

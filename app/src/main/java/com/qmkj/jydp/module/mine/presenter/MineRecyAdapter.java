@@ -39,6 +39,7 @@ public class MineRecyAdapter extends BaseRecylerAdapter {
         mine_icon_iv.setImageResource(minelistInfo.leftIcon);
         mine_person_iv.setImageResource(minelistInfo.rightIcon);
         mine_name_tv.setText(minelistInfo.name);
+
         if (position == datas.size() - 1) {
             mine_item_line.setVisibility(View.INVISIBLE);
         } else {

@@ -5,7 +5,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorWhite_buy_bg">#59f1fdfa</color>
+    <color name="colorWhite_1">#f6f6f6</color>
+    <color name="colorWhite_2">#59f1fdfa</color>
+
     <color name="colorBlack">#000000</color>
     <color name="colorBlack_1">#444444</color>
     <color name="colorBlack_2">#333333</color>
@@ -13,25 +15,30 @@
     <color name="colorBlack_4">#3e3a39</color>
     <color name="colorBlack_5">#cccccc</color>
     <color name="colorBlack_6">#d1cdcd</color>
-    <color name="colorBlack_7">#f6f6f6</color>
+    <color name="colorBlack_7">#555555</color>
+    <color name="colorBlack_8">#666666</color>
+    <color name="colorBlack_9">#999999</color>
+    <color name="colorBlack_10">#e5e5e5</color>
+
+    <color name="colorRed_1">#f16868</color>
+    <color name="colorRed_2">#e83a33</color>
+    <color name="colorRed_3">#e93a34</color>
+    <color name="colorRed_4">#ff6960</color>
+    <color name="colorRed_5">#fe5c5c</color>
+    <color name="colorRed_6">#a6fff7f5</color>
+    <color name="colorRed_7">#f65a54</color>
+
+    <color name="colorGreen_1">#0ca98c</color>
+    <color name="colorGreen_2">#00b297</color>
+    <color name="colorGreen_3">#68adfa</color>
 
     <color name="status_bar_color">#80000000</color>
     <color name="gray_bg">#11FFFFFF</color>
 
     <color name="divider">#1f403535</color>
     <color name="activity_background">#efefef</color>
-
+    <color name="ripple_background">#f0f0f0</color>
     <color name="textBlack">@color/colorBlack</color>
-    <color name="textGray">#999999</color>
-    <color name="textGray_title">#666666</color>
-    <color name="textRed_1">#f16868</color>
-    <color name="textRed_2">#e83a33</color>
-    <color name="textRed_3">#e93a34</color>
-    <color name="textRed_4">#ff6960</color>
-    <color name="textRed_5">#fe5c5c</color>
-    <color name="textRed_sold_bg">#a6fff7f5</color>
-    <color name="textGreen">#0ca98c</color>
-    <color name="textGreen_1">#00b297</color>
-    <color name="textGreen_2">#68adfa</color>
     <color name="item_line">#ececec</color>
+    <color name="item_line_1">#eeeeee</color>
 </resources>
