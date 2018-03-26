@@ -46,84 +46,105 @@
         android:layout_marginRight="@dimen/x30"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:id="@+id/certify_add_front_rl"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="@dimen/y200"
-            android:layout_weight="1"
-            android:background="@drawable/shape_sertify_add">
+            android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/front_img"
+                android:id="@+id/front_show_iv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
 
-            <LinearLayout
-                android:id="@+id/front_ll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/certify_add_front_rl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_sertify_add">
 
                 <ImageView
+                    android:id="@+id/front_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:id="@+id/front_ll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/certify_add"/>
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/y45"
-                    android:text="@string/certify_postitive_photo"
-                    android:textColor="@color/colorBlack_9"
-                    android:textSize="@dimen/text_size_11"/>
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/certify_add"/>
 
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/y45"
+                        android:text="@string/certify_postitive_photo"
+                        android:textColor="@color/colorBlack_9"
+                        android:textSize="@dimen/text_size_11"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </FrameLayout>
 
         <View
             android:layout_width="@dimen/x20"
             android:layout_height="match_parent"/>
 
-        <RelativeLayout
-            android:id="@+id/certify_add_back_rl"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="@dimen/y200"
-            android:layout_weight="1"
-            android:background="@drawable/shape_sertify_add">
+            android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/back_img"
+                android:id="@+id/back_show_iv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
 
-            <LinearLayout
-                android:id="@+id/back_ll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/certify_add_back_rl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_sertify_add">
 
                 <ImageView
+                    android:id="@+id/back_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <LinearLayout
+                    android:id="@+id/back_ll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/certify_add"/>
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/y45"
-                    android:text="@string/certify_reverse_photo"
-                    android:textColor="@color/colorBlack_9"
-                    android:textSize="@dimen/text_size_11"/>
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/certify_add"/>
 
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/y45"
+                        android:text="@string/certify_reverse_photo"
+                        android:textColor="@color/colorBlack_9"
+                        android:textSize="@dimen/text_size_11"/>
+                </LinearLayout>
 
+            </RelativeLayout>
+        </FrameLayout>
     </LinearLayout>
 
     <Button

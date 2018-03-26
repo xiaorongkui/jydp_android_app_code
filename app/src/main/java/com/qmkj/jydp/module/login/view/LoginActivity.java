@@ -1,8 +1,11 @@
 package com.qmkj.jydp.module.login.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -10,7 +13,10 @@ import android.widget.TextView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.MvpBaseActivity;
+import com.qmkj.jydp.bean.DoubleString;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +52,10 @@ public class LoginActivity extends MvpBaseActivity {
     @BindView(R.id.register_agreement_rl)
     RelativeLayout registerAgreementRl;
     private static final int splashTotalCountdownTime = 60;
+    @BindView(R.id.erea_code_tv)
+    TextView ereaCodeTv;
+    @BindView(R.id.erea_code_iv)
+    ImageView ereaCodeIv;
     private Disposable disposable;
 
     @Override
@@ -99,7 +109,8 @@ public class LoginActivity extends MvpBaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.login_title_tv, R.id.register_title_tv, R.id.code_time_down_tv, R.id.login_bt, R.id.register_bt})
+    @OnClick({R.id.login_title_tv, R.id.register_title_tv, R.id.code_time_down_tv, R.id.login_bt, R.id.register_bt, R
+            .id.erea_code_tv, R.id.erea_code_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_title_tv:
@@ -116,6 +127,10 @@ public class LoginActivity extends MvpBaseActivity {
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
                 CommonUtil.gotoActivity(mContext, CertificationActivity.class);
+                break;
+            case R.id.erea_code_tv://选择区号
+            case R.id.erea_code_iv://选择区号
+                CommonUtil.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
                 break;
         }
     }
@@ -134,6 +149,20 @@ public class LoginActivity extends MvpBaseActivity {
         if (disposable != null) {
             disposable.dispose();
             disposable = null;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            try {
+                DoubleString parcelableExtra = (DoubleString) data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
+                ereaCodeTv.setText(parcelableExtra.str1);
+            } catch (Exception e) {
+                e.printStackTrace();
+                LogUtil.i("区号选择失败");
+            }
         }
     }
 }

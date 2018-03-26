@@ -9,6 +9,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.MvpBaseActivity;
 import com.qmkj.jydp.module.mine.presenter.SystemNoticeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

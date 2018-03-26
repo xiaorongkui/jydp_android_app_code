@@ -52,6 +52,9 @@
         <activity
             android:name=".module.login.view.CertificationActivity"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.login.view.AreaCodeSecActivity"
+            android:launchMode="singleTop"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -73,4 +73,6 @@
     <string name="check_status">审核状态</string>
     <string name="checking">审核中</string>
     <string name="modify">修改</string>
+    <string name="cancel">取消</string>
+    <string name="search_area_cod">请选择国家或区号</string>
 </resources>

@@ -27,6 +27,7 @@ import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.ui.widget.viewbean.IRollItem;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.ArrayList;
 import java.util.List;

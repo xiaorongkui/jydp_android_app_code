@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/searc_area_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLine="false"
+        app:leftText="@string/certify_type"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="false"
+        app:rightText="@string/certificate_identification"
+        app:rightTextColor="@color/colorBlack_8"/>
+</LinearLayout>

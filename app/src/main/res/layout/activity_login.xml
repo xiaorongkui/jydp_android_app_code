@@ -168,6 +168,7 @@
                     android:src="@mipmap/phone"/>
 
                 <TextView
+                    android:id="@+id/erea_code_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x30"
@@ -176,6 +177,7 @@
                     android:textSize="@dimen/text_size_11"/>
 
                 <ImageView
+                    android:id="@+id/erea_code_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/x20"
