@@ -1,102 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:refresh_pull_push="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/home_rl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/home_ll"
+    <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
+        android:id="@+id/home_fragment_hcswipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:focusable="true">
 
-        <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
-            android:id="@+id/home_fragment_hcswipe_refresh"
+        <com.qmkj.jydp.ui.widget.SmoothScrollView
+            android:id="@+id/home_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            refresh_pull_push:headerHeight="60"
-            refresh_pull_push:isShowFooter="false">
+            android:scrollbars="none">
 
-            <ScrollView
-                android:id="@+id/home_scroll_view"
+            <LinearLayout
+                android:id="@+id/home_fragment_ll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none">
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/home_auto_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y278"/>
+
+                <com.qmkj.jydp.ui.widget.UPMarqueeView
+                    android:id="@+id/marquee_home_header_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y50"
+                    android:layout_marginTop="@dimen/y20"
+                    android:background="@color/colorWhite"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/home_list_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_weight="1"
+                    android:scrollbars="none"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y15"
+                    android:background="@color/item_line"/>
 
                 <LinearLayout
-                    android:id="@+id/home_fragment_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y30"
+                    android:orientation="horizontal">
 
-                    <com.qmkj.jydp.ui.widget.AutoRollLayout
-                        android:id="@+id/home_auto_ll"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y278"/>
+                    <ImageView
+                        android:layout_width="@dimen/x7"
+                        android:layout_height="@dimen/y18"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/x30"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/logo"/>
 
-                    <com.qmkj.jydp.ui.widget.UPMarqueeView
-                        android:id="@+id/marquee_home_header_notice"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y50"
-                        android:layout_marginTop="@dimen/y20"
-                        android:background="@color/colorWhite"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/home_list_rv"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="@dimen/y20"
-                        android:layout_weight="1"
-                        android:scrollbars="none"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y15"
-                        android:background="@color/item_line"/>
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y30"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/x7"
-                            android:layout_height="@dimen/y18"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/x30"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/logo"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x20"
-                            android:text="@string/cooperative_business"
-                            android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_15"/>
-                    </LinearLayout>
-
-                    <GridView
-                        android:id="@+id/home_introduce_gv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/y40"
-                        android:layout_marginLeft="@dimen/x30"
-                        android:layout_marginRight="@dimen/x30"
-                        android:layout_marginTop="@dimen/y30"
-                        android:background="@color/colorWhite"
-                        android:clickable="false"
-                        android:listSelector="@android:color/transparent"
-                        android:numColumns="4"
-                        android:scrollbars="horizontal"/>
+                        android:layout_marginLeft="@dimen/x20"
+                        android:text="@string/cooperative_business"
+                        android:textColor="@color/colorBlack_2"
+                        android:textSize="@dimen/text_size_15"/>
                 </LinearLayout>
-            </ScrollView>
-        </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
-    </LinearLayout>
-</RelativeLayout>
+
+                <GridView
+                    android:id="@+id/home_introduce_gv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y40"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginTop="@dimen/y30"
+                    android:background="@color/colorWhite"
+                    android:clickable="false"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="4"
+                    android:scrollbars="horizontal"/>
+            </LinearLayout>
+        </com.qmkj.jydp.ui.widget.SmoothScrollView>
+
+    </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
+</LinearLayout>
+

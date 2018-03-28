@@ -43,4 +43,13 @@
         <item name="android:background">@color/item_line</item>
     </style>
 
+    <style name="common_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@drawable/common_dialog_bg_shape</item><!--背景透明-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item><!-- 模糊 -->
+    </style>
 </resources>

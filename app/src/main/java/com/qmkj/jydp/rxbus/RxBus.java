@@ -30,17 +30,14 @@ public class RxBus {
     }
 
     public static RxBus getInstance() {
-        RxBus inst = instance;
-        if (inst == null) {
+        if (instance == null) {
             synchronized (RxBus.class) {
-                inst = instance;
-                if (inst == null) {
-                    inst = new RxBus();
-                    instance = inst;
+                if (instance == null) {
+                    instance = new RxBus();
                 }
             }
         }
-        return inst;
+        return instance;
     }
 
     /**

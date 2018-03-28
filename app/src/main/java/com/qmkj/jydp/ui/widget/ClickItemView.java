@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.util.CommonUtil;
 
 
 /**
@@ -48,6 +49,7 @@ public class ClickItemView extends LinearLayout {
     private ViewGroup mContainer; //中间布局容器
 
     private View mContentView;
+    private float mRightTextPaddingLeft;
 
     public ClickItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -78,6 +80,8 @@ public class ClickItemView extends LinearLayout {
         mLeftTextColorId = a.getColor(R.styleable.ClickItem_leftTextColor, Color.parseColor("#33383b"));
         mRightTextColorId = a.getColor(R.styleable.ClickItem_rightTextColor, Color.parseColor("#9d9d9d"));
         mRightIconEnable = a.getBoolean(R.styleable.ClickItem_rightIconVisible, true);
+        mRightTextPaddingLeft = a.getDimension(R.styleable.ClickItem_rightTextPaddingLeft, -1);
+
         a.recycle();
     }
 
@@ -118,6 +122,8 @@ public class ClickItemView extends LinearLayout {
         setLeftTextColor(mLeftTextColorId);
         setRightTextColor(mRightTextColorId);
         enableRightIcon(mRightIconEnable);
+
+        mTvRight.setPadding((int) mRightTextPaddingLeft, 0, 0, 0);
     }
 
     /**
@@ -310,7 +316,7 @@ public class ClickItemView extends LinearLayout {
         if (size < 0) {
             return;
         }
-        mTvRight.setTextSize(size);
+        mTvRight.setTextSize(CommonUtil.px2sp(size));
     }
 
     /**

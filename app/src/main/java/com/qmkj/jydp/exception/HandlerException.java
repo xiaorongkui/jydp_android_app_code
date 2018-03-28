@@ -15,7 +15,7 @@ import retrofit2.HttpException;
 
 
 /**
- * @description
+ * @description 处理网络异常
  */
 
 public class HandlerException {

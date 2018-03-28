@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,6 +23,7 @@ import android.support.v7.app.ActionBar;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -86,12 +88,21 @@ public class CommonUtil {
         return getContext().getResources().getColor(color);
     }
 
+    /**
+     * Gets text size.
+     *
+     * @param id the id
+     * @return the text size
+     */
     public static int getTextSize(int id) {
         return getContext().getResources().getDimensionPixelOffset(id);
     }
 
     /**
      * 获取zi
+     *
+     * @param textId the text id
+     * @return the string
      */
     public static String getString(int textId) {
         return getContext().getResources().getString(textId);
@@ -334,14 +345,18 @@ public class CommonUtil {
         return (int) (pxValue / fontScale + 0.5f);
     }
 
-    //占用状态栏
+
+    /**
+     * 是否全屏显示
+     *
+     * @param context the context
+     * @param isShow  the is show
+     */
     public static void setStatusBarInvisible(RxAppCompatActivity context, boolean isShow) {
-        //得到当前界面的装饰视图
         int option;
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = context.getWindow().getDecorView();
 
-            //让应用主题内容占用系统状态栏的空间,注意:下面两个参数必须一起使用 stable 牢固的
             if (isShow) {
                 option = View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
                 CommonUtil.setStatusBar(context, CommonUtil.getColor(R.color.status_bar_color));
@@ -754,5 +769,46 @@ public class CommonUtil {
             sb.append("*");
         }
         return sb.append(endStr).toString();
+    }
+
+    /**
+     * 获取屏幕宽
+     *
+     * @param context
+     * @return
+     */
+    public static int getScreenWidth(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            return display.getWidth();
+        } else {
+            return getScreenPoint(context).x;
+        }
+    }
+
+    /**
+     * 获取屏幕高
+     *
+     * @param context
+     * @return
+     */
+    public static int getScreenHeight(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            return display.getHeight();
+        } else {
+            return getScreenPoint(context).y;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    public static Point getScreenPoint(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        Display display = wm.getDefaultDisplay();
+        display.getSize(point);
+        return point;
     }
 }

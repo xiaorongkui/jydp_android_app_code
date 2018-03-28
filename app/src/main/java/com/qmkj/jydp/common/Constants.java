@@ -9,5 +9,6 @@ public class Constants {
     public static final String PROJECT = "jydp";
     public static final String BUGLY_APP_ID = "13677417ed";
     public static final String INTENT_PARAMETER_1 = "intent_parameter_1";
+    public static final String INTENT_PARAMETER_2 = "intent_parameter_2";
 
 }

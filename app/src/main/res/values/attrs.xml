@@ -16,6 +16,8 @@
         <attr name="leftText"/>
         <!--右边文本-->
         <attr name="rightText"/>
+        <!--右边文本左边距-->
+        <attr name="rightTextPaddingLeft"/>
         <!--右边图标-->
         <attr name="rightIcon"/>
         <!-- 左边文本颜色 -->
@@ -42,7 +44,7 @@
         <attr name="leftText"/>
         <!--右边文本-->
         <attr name="rightText"/>
-        <!--右边图标-->
+        <!--  右边图标-->
         <attr name="rightIcon"/>
         <!-- 左边文本颜色 -->
         <attr name="leftTextColor"/>
@@ -64,6 +66,9 @@
     <attr name="leftIcon" format="reference"/>
     <!--左边文本-->
     <attr name="leftText" format="reference|string"/>
+
+    <attr name="rightTextPaddingLeft" format="dimension"/>
+
     <!--右边文本-->
     <attr name="rightText" format="reference|string"/>
     <!--右边图标-->
@@ -80,5 +85,6 @@
     <attr name="topLine" format="boolean"/>
     <!-- 底部line -->
     <attr name="bottomLine" format="boolean"/>
+
     <!--end=======解决重复引用属性报错：外面单独定义重复的-->
 </resources>

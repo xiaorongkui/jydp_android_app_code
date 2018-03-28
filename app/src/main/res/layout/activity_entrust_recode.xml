@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorWhite"
+              android:orientation="vertical">
+
+    <include layout="@layout/common_header"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y30"
+                android:background="@color/divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y65"
+                android:layout_marginTop="@dimen/y20"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/entrust_time"
+                    android:textColor="@color/colorBlack_9"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_weight="1"
+                    android:text="2017-7-9 13:13;45"
+                    android:textColor="@color/colorBlack_9"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/finished"
+                    android:textColor="@color/colorRed_2"
+                    android:textSize="@dimen/text_size_13"/>
+            </LinearLayout>
+
+            <View style="@style/line1"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y30"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_weight="1"
+                    android:text="盛源链"
+                    android:textColor="@color/colorBlack_2"
+                    android:textSize="@dimen/text_size_15"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:background="@mipmap/sold_out"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/x5"
+                    android:text="@string/sold_out"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_13"/>
+            </LinearLayout>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y50"
+                app:bottomLine="false"
+                app:leftText="委托数量"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x50"
+                app:bottomLine="false"
+                app:leftText="委托单价"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x50"
+                app:bottomLine="false"
+                app:leftText="委托总价"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x50"
+                app:bottomLine="false"
+                app:leftText="剩余数量"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <View
+                style="@style/line1"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/x30">
+
+                <TextView
+                    android:id="@+id/entrust_recode_sold_detail_tv"
+                    android:layout_width="@dimen/x150"
+                    android:layout_height="@dimen/y45"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginTop="@dimen/y20"
+                    android:gravity="center"
+                    android:text="@string/see_detail"
+                    android:textColor="@color/colorBlack_8"
+                    android:textSize="@dimen/text_size_12"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y20"
+                android:background="@color/divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y65"
+                android:layout_marginTop="@dimen/y20"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/entrust_time"
+                    android:textColor="@color/colorBlack_9"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_weight="1"
+                    android:text="2017-7-9 13:13;45"
+                    android:textColor="@color/colorBlack_9"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/finished_part"
+                    android:textColor="@color/colorRed_2"
+                    android:textSize="@dimen/text_size_13"/>
+            </LinearLayout>
+
+            <View style="@style/line1"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y30"
+                android:layout_marginTop="@dimen/y30"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_weight="1"
+                    android:text="盛源链"
+                    android:textColor="@color/colorBlack_2"
+                    android:textSize="@dimen/text_size_15"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:background="@mipmap/buy_in"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/x5"
+                    android:text="@string/buy_input"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_13"/>
+            </LinearLayout>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x50"
+                app:bottomLine="false"
+                app:leftText="委托数量"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x50"
+                app:bottomLine="false"
+                app:leftText="委托单价"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x50"
+                app:bottomLine="false"
+                app:leftText="委托总价"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x50"
+                app:bottomLine="false"
+                app:leftText="剩余数量"
+                app:rightIconVisible="false"
+                app:rightText="123.00"
+                app:rightTextColor="@color/colorBlack_8"
+                app:rightTextPaddingLeft="@dimen/x30"
+                app:rightTextSize="@dimen/text_size_12"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/x30">
+
+                <TextView
+                    android:id="@+id/entrust_recode_buy_cancel_tv"
+                    android:layout_width="@dimen/x150"
+                    android:layout_height="@dimen/y45"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginTop="@dimen/y20"
+                    android:gravity="center"
+                    android:text="@string/revocation_entrustment"
+                    android:textColor="@color/colorGreen_3"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:id="@+id/entrust_recode_buy_detail_tv"
+                    android:layout_width="@dimen/x150"
+                    android:layout_height="@dimen/y45"
+                    android:layout_marginBottom="@dimen/y20"
+                    android:layout_marginRight="@dimen/x20"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_toLeftOf="@id/entrust_recode_buy_cancel_tv"
+                    android:gravity="center"
+                    android:text="@string/see_detail"
+                    android:textColor="@color/colorBlack_8"
+                    android:textSize="@dimen/text_size_12"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y20"
+                android:background="@color/divider"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -32,7 +32,7 @@ import java.util.zip.ZipInputStream;
  */
 
 public class IOUtlis {
-    private IOUtlis() {
+    IOUtlis() {
     }
 
     private static IOUtlis instance;
@@ -46,7 +46,6 @@ public class IOUtlis {
         return instance;
     }
 
-    private onDownloadFinish listener;
 
     /**
      * 读取指定文件内容
@@ -91,6 +90,36 @@ public class IOUtlis {
             closeStream(fos);
             closeStream(bw);
         }
+    }
+
+    /**
+     * 根据输入流，保存文件
+     *
+     * @param file
+     * @param is
+     * @return
+     */
+    static boolean writeFile(File file, InputStream is) {
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(file);
+            byte data[] = new byte[1024];
+            int length = -1;
+            while ((length = is.read(data)) != -1) {
+                os.write(data, 0, length);
+            }
+            os.flush();
+            return true;
+        } catch (Exception e) {
+            if (file != null && file.exists()) {
+                file.deleteOnExit();
+            }
+            e.printStackTrace();
+        } finally {
+            closeStream(os);
+            closeStream(is);
+        }
+        return false;
     }
 
     /**
@@ -312,70 +341,6 @@ public class IOUtlis {
         return buffer;
     }
 
-    public static void closeStream(Closeable stream) {
-        try {
-            if (stream != null) {
-                stream.close();
-            }
-        } catch (Exception e) {
-            LogUtil.i("1027", "stream close error!" + e.toString());
-        }
-    }
-
-    // 从服务器下载文件
-    public void downloadFile(final String urlpath, final File file) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                byte[] buffer = new byte[1024 * 8];
-                int read;
-                BufferedInputStream bin = null;
-                BufferedOutputStream bout = null;
-                try {
-                    URL u = new URL(urlpath);
-                    HttpURLConnection urlcon = (HttpURLConnection) u.openConnection();
-                    bin = new BufferedInputStream(u.openStream());
-                    bout = new BufferedOutputStream(new FileOutputStream(file));
-                    while ((read = bin.read(buffer)) > -1) {
-                        bout.write(buffer, 0, read);
-                    }
-                    bout.flush();
-                    bout.close();
-                    handler.sendEmptyMessage(DOWNLOAD_SUCCESS);
-                } catch (IOException e) {
-                    LogUtil.i("PDFActivity exception=" + e.getMessage() + e.toString());
-                    e.printStackTrace();
-                } finally {
-                    closeStream(bin);
-                    closeStream(bout);
-                }
-            }
-        }).start();
-    }
-
-    public interface onDownloadFinish {
-        void onFinish();
-    }
-
-    public void setOnDownloadFinishListener(onDownloadFinish listener) {
-        this.listener = listener;
-    }
-
-    private Handler handler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case DOWNLOAD_SUCCESS:
-                    if (listener != null) {
-                        listener.onFinish();//保证在主线程回调
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-    private static final int DOWNLOAD_SUCCESS = 0x1;
-
     /**
      * 创建文件目录
      */
@@ -439,23 +404,51 @@ public class IOUtlis {
 //            closeStream(randomAccessFile);
 //        }
 //    }
-    public boolean deleteFolder(String url) {
-        File file = new File(url);
-        if (!file.exists()) {
-            return false;
-        }
-        if (file.isFile()) {
-            file.delete();
-            return true;
-        } else {
-            File[] files = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                String root = files[i].getAbsolutePath();//得到子文件或文件夹的绝对路径
-                //System.out.println(root);
-                deleteFolder(root);
+
+    /**
+     * 删除文件或文件夹
+     *
+     * @param file
+     */
+    static void deleteFile(File file) {
+        try {
+            if (file == null || !file.exists()) {
+                return;
             }
-            file.delete();
-            return true;
+
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                if (files != null && files.length > 0) {
+                    for (File f : files) {
+                        if (f.exists()) {
+                            if (f.isDirectory()) {
+                                deleteFile(f);
+                            } else {
+                                f.delete();
+                            }
+                        }
+                    }
+                }
+            } else {
+                file.delete();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 关闭流
+     *
+     * @param closeable
+     */
+    static void closeStream(Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

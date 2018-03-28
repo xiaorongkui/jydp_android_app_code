@@ -23,8 +23,8 @@
     <string name="current_price">当前价</string>
     <string name="buy">买</string>
     <string name="sold">卖</string>
-    <string name="exchange_buy_input">买入</string>
-    <string name="exchange_sold_out">卖出</string>
+    <string name="buy_input">买入</string>
+    <string name="sold_out">卖出</string>
     <string name="exchange_entrust_recod">委托记录</string>
     <string name="amount">数量</string>
     <string name="amount_input_notice">请输入数量</string>
@@ -75,4 +75,12 @@
     <string name="modify">修改</string>
     <string name="cancel">取消</string>
     <string name="search_area_cod">请选择国家或区号</string>
+    <string name="entrust_time">委托时间</string>
+    <string name="finished">已完成</string>
+    <string name="see_detail">查看详情</string>
+    <string name="finished_part">部分完成</string>
+    <string name="revocation_entrustment">撤销委托</string>
+    <string name="comfirm">确认</string>
+    <string name="revoke_sure">确认撤销</string>
+    <string name="revoke_cancel">取消撤销</string>
 </resources>

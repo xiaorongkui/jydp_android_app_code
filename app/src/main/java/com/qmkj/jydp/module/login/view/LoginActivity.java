@@ -35,9 +35,13 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class LoginActivity extends MvpBaseActivity {
-    @BindView(R.id.login_title_tv)
+    @BindView(R.id.login_login_title_tv)
     TextView loginTitleTv;
-    @BindView(R.id.register_title_tv)
+    @BindView(R.id.login_register_title_tv)
+    TextView login_register_title_tv;
+    @BindView(R.id.register_login_title_tv)
+    TextView register_login_title_tv;
+    @BindView(R.id.register_register_title_tv)
     TextView registerTitleTv;
     @BindView(R.id.login_bt)
     Button loginBt;
@@ -86,15 +90,11 @@ public class LoginActivity extends MvpBaseActivity {
     private void setShowStatusView(int index) {
         switch (index) {
             case 0:
-                loginTitleTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
-                registerTitleTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_5));
                 loginLl.setVisibility(View.VISIBLE);
                 registerLl.setVisibility(View.GONE);
                 registerAgreementRl.setVisibility(View.GONE);
                 break;
             case 1:
-                loginTitleTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_5));
-                registerTitleTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
                 loginLl.setVisibility(View.GONE);
                 registerLl.setVisibility(View.VISIBLE);
                 registerAgreementRl.setVisibility(View.VISIBLE);
@@ -109,15 +109,15 @@ public class LoginActivity extends MvpBaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.login_title_tv, R.id.register_title_tv, R.id.code_time_down_tv, R.id.login_bt, R.id.register_bt, R
-            .id.erea_code_tv, R.id.erea_code_iv})
+    @OnClick({R.id.login_register_title_tv, R.id.register_login_title_tv, R.id.code_time_down_tv, R.id.login_bt, R.id
+            .register_bt, R.id.erea_code_tv, R.id.erea_code_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.login_title_tv:
-                setShowStatusView(0);
-                break;
-            case R.id.register_title_tv:
+            case R.id.login_register_title_tv:
                 setShowStatusView(1);
+                break;
+            case R.id.register_login_title_tv:
+                setShowStatusView(0);
                 break;
             case R.id.code_time_down_tv:
                 codeTimeDown();

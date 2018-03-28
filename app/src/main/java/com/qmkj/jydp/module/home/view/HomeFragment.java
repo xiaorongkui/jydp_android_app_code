@@ -8,23 +8,27 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.bean.BannerModel;
 import com.qmkj.jydp.bean.HomeNoticeInfo;
+import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
-import com.qmkj.jydp.ui.widget.AutoRollLayout;
+import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.ui.widget.viewbean.RollItem;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.RxPermissionUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +51,7 @@ public class HomeFragment extends MvpBaseFragment {
     @BindView(R.id.home_fragment_ll)
     LinearLayout homeFragmentLl;
     @BindView(R.id.home_auto_ll)
-    AutoRollLayout homeAutoLl;
+    Banner homeAutoLl;
     @BindView(R.id.marquee_home_header_notice)
     UPMarqueeView marqueeHomeHeaderNotice;
     @BindView(R.id.home_list_rv)
@@ -55,11 +59,12 @@ public class HomeFragment extends MvpBaseFragment {
     @BindView(R.id.home_introduce_gv)
     GridView homeIntroduceGv;
     @BindView(R.id.home_scroll_view)
-    ScrollView homeScrollView;
+    SmoothScrollView homeScrollView;
     @BindView(R.id.home_fragment_hcswipe_refresh)
     XRefreshLayout homeFragmentRefresh;
     @BindView(R.id.home_ll)
     LinearLayout homeLl;
+    boolean isCanRefresh = true;
 
     private HomePresenter homePresenter;
 
@@ -71,13 +76,14 @@ public class HomeFragment extends MvpBaseFragment {
         initRecycleView();
         initGrideView();
         initRefreshView();
+        RxPermissionUtils.getInstance(mContext).getPermission();
     }
 
     private void initRefreshView() {
         homeFragmentRefresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Observable.timer(5, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
+                Observable.timer(5, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
                         homeFragmentRefresh.refreshComplete();
@@ -87,14 +93,14 @@ public class HomeFragment extends MvpBaseFragment {
 
             @Override
             public boolean checkCanDoRefresh(View content, View header) {
-                return false;
+                return isCanRefresh && homeScrollView.isTop();
             }
         });
     }
 
     private void initGrideView() {
         int[] icon = {R.mipmap.compare, R.mipmap.compare, R.mipmap.compare, R.mipmap.compare};
-        String[] iconName = {"生源九州", "生源九州", "生源九州", "kjhgffgjj"};
+        String[] iconName = {"盛源九州", "生源九州", "生源九州", "kjhgffgjj"};
         ArrayList<Map<String, Object>> data_list = new ArrayList<>();
         for (int i = 0; i < icon.length; i++) {
             Map<String, Object> map = new HashMap<>();
@@ -136,21 +142,38 @@ public class HomeFragment extends MvpBaseFragment {
         homeListRv.setAdapter(homeRecyAdapter);
     }
 
-    private void initAuto(List<RollItem> rollItems) {
-        if (rollItems == null) {
-            List<RollItem> deafeultRollItems = new ArrayList<>();
-            deafeultRollItems.add(new RollItem("https://gss0.baidu" +
+    private void initAuto(List<BannerModel> bannerList) {
+        if (bannerList == null) {
+            List<BannerModel> deafeultRollItems = new ArrayList<>();
+            deafeultRollItems.add(new BannerModel("https://gss0.baidu" +
                     ".com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/3b87e950352ac65c10d23307fbf2b21192138aea.jpg",
-                    R.mipmap.logo, ""));
-            deafeultRollItems.add(new RollItem("", R.mipmap.ic_launcher, ""));
-            rollItems = deafeultRollItems;
+                    "", ""));
+            deafeultRollItems.add(new BannerModel("", "", ""));
+            bannerList = deafeultRollItems;
         }
-        homeAutoLl.setItems(rollItems);
-        homeAutoLl.setAutoRoll(true);
-        homeAutoLl.setOnAutoItemClickListener((View view, int position) -> {
-                    LogUtil.i("点击图片=" + position);
-                }
-        );
+
+        //设置banner样式
+        homeAutoLl.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        //设置图片加载器
+        homeAutoLl.setImageLoader(new BannerImageLoader());
+        //设置图片集合
+        homeAutoLl.setImages(bannerList);
+        //设置banner动画效果
+        homeAutoLl.setBannerAnimation(Transformer.Default);
+        //设置标题集合（当banner样式有显示title时）
+        //banner.setBannerTitles(titles);
+        //设置自动轮播，默认为true
+        homeAutoLl.isAutoPlay(true);
+        homeAutoLl.setOnBannerListener(position -> {
+//            BannerModel model = bannerList.get(position);
+
+        });
+        //设置轮播时间
+        homeAutoLl.setDelayTime(4000);
+        //设置指示器位置（当banner模式中有指示器时）
+        homeAutoLl.setIndicatorGravity(BannerConfig.CENTER);
+        //banner设置方法全部调用完毕时最后调用
+        homeAutoLl.start();
     }
 
     //公告Views
@@ -170,7 +193,6 @@ public class HomeFragment extends MvpBaseFragment {
 
     @Override
     protected void initData() {
-
     }
 
     /**
@@ -223,6 +245,10 @@ public class HomeFragment extends MvpBaseFragment {
                     .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
             homeLl.addView(statusView, 0, lp);
         }
+
+        int height = (int) (CommonUtil.getScreenWidth(mContext) * (288 / (float) 720));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        homeAutoLl.setLayoutParams(params);
     }
 
     @Override

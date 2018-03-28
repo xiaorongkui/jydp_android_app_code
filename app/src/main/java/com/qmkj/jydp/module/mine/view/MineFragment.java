@@ -61,7 +61,8 @@ public class MineFragment extends MvpBaseFragment {
                     break;
                 case 2:
                     break;
-                case 3:
+                case 3://立即提现
+                    CommonUtil.gotoActivity(mContext, CurrencyWithDrawalActivity.class);
                     break;
                 case 4://系统公告
                     CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);

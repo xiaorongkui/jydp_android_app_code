@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/exchange_entrust_recode_cv"
+        app:leftText="@string/check_status"
+        app:leftTextColor="@color/colorBlack_7"
+        app:rightIconVisible="false"
+        app:rightText="@string/checking"
+        app:rightTextColor="@color/colorRed_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</android.support.constraint.ConstraintLayout>
