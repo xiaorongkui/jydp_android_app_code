@@ -102,7 +102,6 @@ public class RxPermissionUtils {
         //权限拒绝 并且不再询问,这里实现弹窗提示
         protected void onPermissionDeniedAndNeverAsk(String name) {
             LogUtil.i("onPermissionDeniedAndNeverAsk name=" + name);
-
         }
     }
 }

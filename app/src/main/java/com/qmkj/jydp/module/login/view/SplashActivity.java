@@ -29,9 +29,9 @@ public class SplashActivity extends MvpBaseActivity {
     @Override
     protected void initData() {
         findViewById(R.id.splash_tv).setOnClickListener(v -> checkPermission());
-//        checkPermission();
-//        Observable.timer(10, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(aLong -> CommonUtil
-//                .gotoActivity(mContext, LoginActivity.class));
+        checkPermission();
+        Observable.timer(3, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(aLong -> CommonUtil
+                .gotoActivity(mContext, LoginActivity.class));
     }
 
     private void checkPermission() {
