@@ -24,6 +24,6 @@
 
         <include
             android:id="@+id/drawer_view"
-            layout="@layout/layout_drawer"/>
+            layout="@layout/exchange_layout_drawer"/>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

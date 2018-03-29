@@ -4,8 +4,8 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
-import com.qmkj.jydp.common.CommonRecylerViewHolder;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.List;
@@ -28,17 +28,12 @@ public class ExchangebuyPriceRecAdapter extends BaseRecylerAdapter {
     TextView priceTotalMoneyTv;
 
     public ExchangebuyPriceRecAdapter(Context context, List datas, int layoutId) {
-        super(context, datas, layoutId);
+        super(layoutId, datas);
         this.datas = datas;
     }
 
     @Override
-    protected boolean isNeedInflateToParcent() {
-        return true;
-    }
-
-    @Override
-    public void convert(CommonRecylerViewHolder holder, int position) {
+    protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
         priceStatusTv.setText(CommonUtil.getString(R.string.buy) + (datas.size() - position));
         priceStatusTv.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
     }

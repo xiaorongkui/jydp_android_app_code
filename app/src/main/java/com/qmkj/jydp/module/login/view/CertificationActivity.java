@@ -1,7 +1,5 @@
 package com.qmkj.jydp.module.login.view;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -10,11 +8,9 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.MvpBaseActivity;
-import com.qmkj.jydp.module.exchange.view.ExchangeFragment;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/3/22
@@ -53,7 +49,7 @@ public class CertificationActivity extends MvpBaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_certification_name;
+        return R.layout.login_activity_certification_name;
     }
 
     @Override

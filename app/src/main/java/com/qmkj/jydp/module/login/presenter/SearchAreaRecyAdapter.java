@@ -1,24 +1,14 @@
 package com.qmkj.jydp.module.login.presenter;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.bean.DoubleString;
-import com.qmkj.jydp.bean.MinelistInfo;
-import com.qmkj.jydp.common.CommonRecylerViewHolder;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -27,22 +17,19 @@ import java.util.Set;
  */
 
 public class SearchAreaRecyAdapter extends BaseRecylerAdapter<DoubleString> {
-    private final List<DoubleString> datas;
     private final Context mContext;
+    private final List datas;
 
     public SearchAreaRecyAdapter(Context context, List datas, int layoutId) {
-        super(context, datas, layoutId);
+        super(layoutId, datas);
         this.datas = datas;
         this.mContext = context;
     }
-
     @Override
-    public void convert(CommonRecylerViewHolder holder, int position) {
-        DoubleString doubleString = datas.get(position);
-        if (doubleString == null) return;
-        ClickItemView clickItemView = (ClickItemView) holder.getView(R.id.searc_area_cv);
-        clickItemView.setLeftText(doubleString.str2);
-        clickItemView.setRightText(doubleString.str1);
+    protected void convert(BaseRecyclerViewHolder helper, DoubleString item, int position) {
+        if (item == null) return;
+        ClickItemView clickItemView = (ClickItemView) helper.getView(R.id.searc_area_cv);
+        clickItemView.setLeftText(item.str2);
+        clickItemView.setRightText(item.str1);
     }
-
 }

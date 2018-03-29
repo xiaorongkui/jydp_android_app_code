@@ -57,7 +57,7 @@ public class CertifyCheckFragment extends MvpBaseFragment implements View.OnClic
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_certify_check;
+        return R.layout.login_fragment_certify_check;
     }
 
     @Override

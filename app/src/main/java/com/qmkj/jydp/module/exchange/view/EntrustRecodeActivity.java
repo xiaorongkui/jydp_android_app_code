@@ -48,7 +48,7 @@ public class EntrustRecodeActivity extends MvpBaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_entrust_recode;
+        return R.layout.exchange_activity_entrust_recode;
     }
 
     @Override
@@ -84,7 +84,8 @@ public class EntrustRecodeActivity extends MvpBaseActivity {
     }
 
     private void showCancelDialog() {
-        DialogUtils dialogUtils = new DialogUtils(mContext, R.style.common_dialog, R.layout.revocation_entrust_dialog);
+        DialogUtils dialogUtils = new DialogUtils(mContext, R.style.common_dialog, R.layout
+                .exchange_revocation_entrust_dialog);
         dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x500));
         dialogUtils.setOneOrTwoBtn(false);
         dialogUtils.setTwoConfirmBtn("确认撤销", v -> {

@@ -5,10 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.base.MvpBaseFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
@@ -53,7 +51,7 @@ public class MineFragment extends MvpBaseFragment {
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
-        mineRecyAdapter.setOnItemClickLitener((view, position) -> {
+        mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (position) {
                 case 0:
                     break;
@@ -95,7 +93,7 @@ public class MineFragment extends MvpBaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_mine;
+        return R.layout.mine_fragment_mine;
     }
 
     @Override

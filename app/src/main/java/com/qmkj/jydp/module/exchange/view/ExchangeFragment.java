@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.qmkj.jydp.MainActivity;
@@ -158,7 +157,7 @@ public class ExchangeFragment extends MvpBaseFragment implements View.OnClickLis
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_exchange;
+        return R.layout.exchange_fragment_exchange;
     }
 
     @Override

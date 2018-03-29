@@ -3,7 +3,6 @@ package com.qmkj.jydp.module.login.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.request.target.ViewTarget;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.GlideApp;
@@ -100,7 +98,7 @@ public class CertifyNameFragment extends MvpBaseFragment implements View.OnClick
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_certify_name;
+        return R.layout.login_fragment_certify_name;
     }
 
     @Override

@@ -51,7 +51,7 @@ public class CurrencyWithDrawalActivity extends MvpBaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_currency_withdrawals;
+        return R.layout.mine_activity_currency_withdrawals;
     }
 
     @Override

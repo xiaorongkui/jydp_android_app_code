@@ -1,18 +1,14 @@
 package com.qmkj.jydp.module.login.view;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseActivity;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.PhoneAreaConfig;
@@ -20,14 +16,12 @@ import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.SearchAreaRecyAdapter;
 import com.qmkj.jydp.ui.widget.KeyboardChangeListener;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.KeyboardUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/3/26
@@ -58,7 +52,7 @@ public class AreaCodeSecActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_area_code;
+        return R.layout.login_activity_area_code;
     }
 
     @Override
@@ -90,32 +84,21 @@ public class AreaCodeSecActivity extends BaseActivity {
             datas.add(new DoubleString(stringStringEntry.getKey(), stringStringEntry.getValue()));
         }
 
-        SearchAreaRecyAdapter areaRecyAdapter = new SearchAreaRecyAdapter(mContext, datas, R.layout.search_area_item);
+        SearchAreaRecyAdapter areaRecyAdapter = new SearchAreaRecyAdapter(mContext, datas, R.layout
+                .login_search_area_item);
         searchAreaCodeRv.setLayoutManager(new LinearLayoutManager(mContext));
         searchAreaCodeRv.setAdapter(areaRecyAdapter);
-        areaRecyAdapter.setOnItemClickLitener(new BaseRecylerAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (!mBoarddIsShow) {
-                    Intent intent = new Intent(mContext, LoginActivity.class);
-                    intent.putExtra(Constants.INTENT_PARAMETER_1, datas.get(position));
-                    setResult(RESULT_OK, intent);
-                    AppManager.getInstance().removeCurrent();
-                } else {//隐藏键盘
-                    CommonUtil.hideInputWindow(mContext);
-                }
-
+        areaRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (!mBoarddIsShow) {
+                Intent intent = new Intent(mContext, LoginActivity.class);
+                intent.putExtra(Constants.INTENT_PARAMETER_1, datas.get(position));
+                setResult(RESULT_OK, intent);
+                AppManager.getInstance().removeCurrent();
+            } else {//隐藏键盘
+                CommonUtil.hideInputWindow(mContext);
             }
         });
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

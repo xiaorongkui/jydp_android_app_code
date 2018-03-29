@@ -6,8 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
-import com.qmkj.jydp.common.CommonRecylerViewHolder;
 
 import java.util.List;
 
@@ -40,15 +40,14 @@ public class HomeRecyAdapter extends BaseRecylerAdapter {
     View homeExchanageBottomLine;
 
     public HomeRecyAdapter(Context context, List datas, int layoutId) {
-        super(context, datas, layoutId);
+        super(layoutId, datas);
         this.datas = datas;
         this.mContext = context;
     }
 
     @Override
-    public void convert(CommonRecylerViewHolder holder, int position) {
+    protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
         if (position == datas.size() - 1) homeExchanageBottomLine.setVisibility(View.GONE);
         else homeExchanageBottomLine.setVisibility(View.VISIBLE);
     }
-
 }

@@ -23,8 +23,6 @@ import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
-import com.qmkj.jydp.util.LogUtil;
-import com.qmkj.jydp.util.RxPermissionUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -76,7 +74,7 @@ public class HomeFragment extends MvpBaseFragment {
         initRecycleView();
         initGrideView();
         initRefreshView();
-        RxPermissionUtils.getInstance(mContext).getPermission();
+//        RxPermissionUtils.getInstance(mContext).getPermission();
     }
 
     private void initRefreshView() {
@@ -135,7 +133,8 @@ public class HomeFragment extends MvpBaseFragment {
             exchangeList.add("");
         }
 
-        HomeRecyAdapter homeRecyAdapter = new HomeRecyAdapter(mContext, exchangeList, R.layout.home_exchange_item);
+        HomeRecyAdapter homeRecyAdapter = new HomeRecyAdapter(mContext, exchangeList, R.layout
+                .home_exchange_price_item);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         homeListRv.setLayoutManager(mLayoutManager);
@@ -199,7 +198,7 @@ public class HomeFragment extends MvpBaseFragment {
      * 创建公告item View
      */
     private View createNoticeView(HomeNoticeInfo model) {
-        View itemView = View.inflate(mContext, R.layout.item_home_notice, null);
+        View itemView = View.inflate(mContext, R.layout.home_notice_item, null);
         TextView mTvNotice = itemView.findViewById(R.id.tv_home_header_notice);
         TextView mTvTime = itemView.findViewById(R.id.tv_home_header_notice_time);
         TextView tv_home_header_notice_more = itemView.findViewById(R.id.tv_home_header_notice_more);
@@ -222,7 +221,7 @@ public class HomeFragment extends MvpBaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.home_fragment_home;
     }
 
     @Override

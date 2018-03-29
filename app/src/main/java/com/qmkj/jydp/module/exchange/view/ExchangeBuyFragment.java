@@ -39,7 +39,7 @@ public class ExchangeBuyFragment extends MvpBaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_exchange_buy;
+        return R.layout.exchange_fragment_exchange_buy;
     }
 
     @Override

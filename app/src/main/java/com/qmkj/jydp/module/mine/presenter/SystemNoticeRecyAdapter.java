@@ -1,14 +1,9 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
-import com.qmkj.jydp.bean.MinelistInfo;
-import com.qmkj.jydp.common.CommonRecylerViewHolder;
 
 import java.util.List;
 
@@ -19,17 +14,15 @@ import java.util.List;
  */
 
 public class SystemNoticeRecyAdapter extends BaseRecylerAdapter {
-    private final List datas;
     private final Context mContext;
 
     public SystemNoticeRecyAdapter(Context context, List datas, int layoutId) {
-        super(context, datas, layoutId);
-        this.datas = datas;
+        super(layoutId, datas);
         this.mContext = context;
     }
 
     @Override
-    public void convert(CommonRecylerViewHolder holder, int position) {
-    }
+    protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
 
+    }
 }

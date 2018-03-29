@@ -281,10 +281,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         for (int i = 0; i < 6; i++) {
             mdatas.add("");
         }
-        CurrencyRecyAdapter recyAdapter = new CurrencyRecyAdapter(mContext, mdatas, R.layout.currency_icon_item);
+        CurrencyRecyAdapter recyAdapter = new CurrencyRecyAdapter(mContext, mdatas, R.layout
+                .exchange_currency_icon_item);
         exchangeDrawRv.setLayoutManager(new LinearLayoutManager(mContext));
         exchangeDrawRv.setAdapter(recyAdapter);
-        recyAdapter.setOnItemClickLitener((view, position) -> {
+        recyAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (exchangeFragment != null) {
                 exchangeFragment.updateCurrencySelect(position);
             }

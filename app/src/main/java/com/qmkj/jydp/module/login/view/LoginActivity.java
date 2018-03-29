@@ -79,7 +79,7 @@ public class LoginActivity extends MvpBaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_login;
+        return R.layout.login_activity_login;
     }
 
     @Override

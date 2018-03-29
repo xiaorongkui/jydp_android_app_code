@@ -43,11 +43,6 @@
         <activity
             android:name=".module.login.view.LoginActivity"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".module.login.view.CertificationActivity"
@@ -61,6 +56,15 @@
         <activity
             android:name=".module.mine.view.CurrencyWithDrawalActivity"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.login.view.SplashActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -17,6 +17,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.net.HttpCore;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.RxPermissionUtils;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 

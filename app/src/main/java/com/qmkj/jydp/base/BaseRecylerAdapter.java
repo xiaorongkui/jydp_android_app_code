@@ -1,85 +1,101 @@
 package com.qmkj.jydp.base;
 
-import android.content.Context;
+import android.animation.Animator;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
-import com.qmkj.jydp.common.CommonRecylerViewHolder;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by Rongkui.xiao on 2017/3/29.<br/>
- * <b>notice:在使用此Adapter时，要给填充的布局跟节点最好加上id<b/>
+ * author：rongkui.xiao --2018/3/29
+ * email：dovexiaoen@163.com
+ * description:recycleView的封装
  */
-public abstract class BaseRecylerAdapter<T> extends RecyclerView.Adapter<CommonRecylerViewHolder> implements View
-        .OnLongClickListener, View.OnClickListener {
-    protected List<T> mDatas = new ArrayList<T>();
-    private int mLayoutId;
-    private LayoutInflater mLayoutInflater;
-    //Type
-    private int TYPE_NORMAL = 1000;
-    private int TYPE_HEADER = 1001;
-    private int TYPE_FOOTER = 1002;
-    private RecyclerView mRecyclerView;
-    private View VIEW_FOOTER;
-    private View VIEW_HEADER;
+
+public abstract class BaseRecylerAdapter<T> extends BaseQuickAdapter<T, BaseRecyclerViewHolder> {
+
     private Unbinder unbinder;
 
-    public BaseRecylerAdapter(Context context, List<T> datas, int layoutId) {
-        mLayoutInflater = LayoutInflater.from(context);
-        this.mLayoutId = layoutId;
-        this.mDatas = datas;
+    public BaseRecylerAdapter(int layoutResId, @Nullable List<T> data) {
+        super(layoutResId, data);
+        init();
+    }
+
+
+    public BaseRecylerAdapter(@Nullable List<T> data) {
+        super(data);
+        init();
+    }
+
+    public BaseRecylerAdapter(int layoutResId) {
+        super(layoutResId);
+        init();
     }
 
     @Override
-    public CommonRecylerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = null;
-        if (viewType == TYPE_FOOTER) {
-            view = VIEW_FOOTER;
-        } else if (viewType == TYPE_HEADER) {
-            view = VIEW_HEADER;
-        } else {
-            view = mLayoutInflater.inflate(mLayoutId, isNeedInflateToParcent() ? parent : null, false);
+    protected void convert(BaseRecyclerViewHolder helper, T item) {
+        int position = helper.getAdapterPosition();
+        convert(helper, item, position);
+    }
+
+    protected abstract void convert(BaseRecyclerViewHolder helper, T item, int position);
+
+    public void setListData(List<T> list) {
+        setNewData(list);
+    }
+
+    /**
+     * 更新某个位置item
+     */
+    public void update(int position) {
+        if (position != -1) {
+            notifyItemChanged(position + getHeaderLayoutCount());
         }
-        if (mOnItemClickLitener != null) view.setOnClickListener(this);
-        if (mOnItemLongClickLitener != null) view.setOnLongClickListener(this);
+    }
+
+    public void remove(T t) {
+        if (t != null && mData.contains(t)) {
+            remove(mData.indexOf(t));
+        }
+    }
+
+    @Override
+    public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (this.mLayoutResId == 0) {
+            this.mLayoutResId = getLayoutResId(viewType);
+        }
+        return super.onCreateViewHolder(parent, viewType);
+    }
+
+    /**
+     * 需要子类去实现
+     *
+     * @param viewType the view type
+     * @return the layout res id
+     */
+    protected int getLayoutResId(int viewType) {
+        return 0;
+    }
+
+    protected void init() {
+        //关闭item执行动画
+        openLoadAnimation(view -> new Animator[0]);
+        //设置打开动画并前10个数据不用执行动画
+        setNotDoAnimationCount(10);
+    }
+
+    @Override
+    protected BaseRecyclerViewHolder createBaseViewHolder(View view) {
         unbinder = ButterKnife.bind(this, view);
-        CommonRecylerViewHolder holder = new CommonRecylerViewHolder(view);
-        return holder;
-    }
-
-    protected boolean isNeedInflateToParcent() {//解决recycleview条目显示不全和条目显示不完整
-        return true;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (isHeaderView(position)) {
-            return TYPE_HEADER;
-        } else if (isFooterView(position)) {
-            return TYPE_FOOTER;
-        } else {
-            return TYPE_NORMAL;
-        }
-    }
-
-    @Override
-    public final void onBindViewHolder(CommonRecylerViewHolder holder, int position) {
-        if (!isHeaderView(position) && !isFooterView(position)) {
-            if (haveHeaderView()) position--;
-            holder.getHolderView().setTag(position);
-            convert(holder, position);
-        }
+        return super.createBaseViewHolder(view);
     }
 
     @Override
@@ -87,191 +103,6 @@ public abstract class BaseRecylerAdapter<T> extends RecyclerView.Adapter<CommonR
         super.onDetachedFromRecyclerView(recyclerView);
         if (unbinder != null) {
             unbinder.unbind();
-        }
-    }
-
-    public abstract void convert(CommonRecylerViewHolder holder, int position);
-
-    public T getItem(int positon) {
-        return mDatas != null && mDatas.size() > positon ? mDatas.get(positon) : null;
-    }
-
-    @Override
-    public int getItemCount() {
-        int count = (mDatas == null ? 0 : mDatas.size());
-        if (VIEW_FOOTER != null) {
-            count++;
-        }
-
-        if (VIEW_HEADER != null) {
-            count++;
-        }
-        return count;
-    }
-
-    public void addItem(T item, boolean isNotify) {
-        mDatas.add(item);
-        if (isNotify) notifyDataSetChanged();
-    }
-
-    public void addItem(T item) {
-        addItem(item, true);
-    }
-
-    public void addAllItem(List<T> items, boolean isNotify) {
-        mDatas.addAll(items);
-        if (isNotify) notifyDataSetChanged();
-    }
-
-    public void addAllItem(List<T> items) {
-        addAllItem(items, true);
-    }
-
-    public void clearItems() {
-        mDatas.clear();
-    }
-
-    public void addAllAndClear(List<T> items) {
-        clearItems();
-        addAllItem(items);
-    }
-
-    public void destroyAdapter() {
-        mDatas.clear();
-    }
-
-
-    /**
-     * 点击事件的 处理   start
-     */
-
-    private OnItemClickLitener mOnItemClickLitener;
-    private OnItemLongClickLitener mOnItemLongClickLitener;
-
-    @Override
-    public void onClick(View view) {
-        int position = (Integer) view.getTag();
-        if (mOnItemClickLitener != null) mOnItemClickLitener.onItemClick(view, position);
-    }
-
-    @Override
-    public boolean onLongClick(View view) {
-        int position = (Integer) view.getTag();
-        if (mOnItemLongClickLitener != null) {
-            mOnItemLongClickLitener.onItemLongClick(view, position);
-            return true;
-        }
-        return false;
-    }
-
-
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-    }
-
-    public interface OnItemLongClickLitener {
-        void onItemLongClick(View view, int position);
-    }
-
-    /**
-     * 该方法需要在setAdapter之前调用
-     */
-    public BaseRecylerAdapter<T> setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
-        return this;
-    }
-
-    /**
-     * 该方法需要在setAdapter之前调用
-     */
-    public BaseRecylerAdapter<T> setOnLongItemClickLitener(OnItemLongClickLitener mOnItemLongClickLitener) {
-        this.mOnItemLongClickLitener = mOnItemLongClickLitener;
-        return this;
-    }
-
-    public void removeHeaderView() {
-        VIEW_HEADER = null;
-        notifyItemInserted(0);
-    }
-
-    public void addHeaderView(View headerView) {
-        if (haveHeaderView()) {
-            throw new IllegalStateException("hearview has already exists!");
-        } else {
-            //避免出现宽度自适应
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
-                    .LayoutParams.WRAP_CONTENT);
-            headerView.setLayoutParams(params);
-            VIEW_HEADER = headerView;
-            ifGridLayoutManager();
-            notifyItemInserted(0);
-        }
-
-    }
-
-    public void removeFooterView() {
-        VIEW_FOOTER = null;
-        notifyItemInserted(getItemCount() - 1);
-        notifyDataSetChanged();
-    }
-
-    public void addFooterView(View footerView) {
-        footerView.setClickable(false);
-        footerView.setEnabled(false);
-        if (haveFooterView()) {
-//            throw new IllegalStateException("footerView has already exists!");
-        } else {
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
-                    .LayoutParams.WRAP_CONTENT);
-            footerView.setLayoutParams(params);
-            VIEW_FOOTER = footerView;
-            ifGridLayoutManager();
-            notifyItemInserted(getItemCount() - 1);
-        }
-
-    }
-
-    private void ifGridLayoutManager() {
-        if (mRecyclerView == null) return;
-        final RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
-        if (layoutManager instanceof GridLayoutManager) {
-            final GridLayoutManager.SpanSizeLookup originalSpanSizeLookup = ((GridLayoutManager) layoutManager)
-                    .getSpanSizeLookup();
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    return (isHeaderView(position) || isFooterView(position)) ? ((GridLayoutManager) layoutManager)
-                            .getSpanCount() : 1;
-                }
-            });
-        }
-    }
-
-    private boolean haveHeaderView() {
-        return VIEW_HEADER != null;
-    }
-
-    public boolean haveFooterView() {
-        return VIEW_FOOTER != null;
-    }
-
-    private boolean isHeaderView(int position) {
-        return haveHeaderView() && position == 0;
-    }
-
-    public boolean isFooterView(int position) {
-        return haveFooterView() && position == getItemCount() - 1;
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        try {
-            if (mRecyclerView == null && mRecyclerView != recyclerView) {
-                mRecyclerView = recyclerView;
-            }
-            ifGridLayoutManager();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

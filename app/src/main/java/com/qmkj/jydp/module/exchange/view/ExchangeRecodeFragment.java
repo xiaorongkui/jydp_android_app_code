@@ -3,25 +3,17 @@ package com.qmkj.jydp.module.exchange.view;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.base.MvpBaseFragment;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchange.presenter.ExchangeRecodeRecAdapter;
-import com.qmkj.jydp.ui.widget.FullyLinearLayoutManager;
-import com.qmkj.jydp.ui.widget.MyRecycleView;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/27
@@ -62,12 +54,8 @@ public class ExchangeRecodeFragment extends MvpBaseFragment {
                 .exchange_entrust_recode_item);
         entrustRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
         entrustRecodeRv.setAdapter(recodeRecAdapter);
-        recodeRecAdapter.setOnItemClickLitener(new BaseRecylerAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                CommonUtil.gotoActivity(mContext, EntrustRecodeActivity.class);
-            }
-        });
+        recodeRecAdapter.setOnItemClickListener((adapter, view, position) -> CommonUtil.gotoActivity(mContext,
+                EntrustRecodeActivity.class));
     }
 
     @Override
@@ -77,7 +65,7 @@ public class ExchangeRecodeFragment extends MvpBaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_exchange_recode;
+        return R.layout.exchange_fragment_exchange_recode;
     }
 
     @Override

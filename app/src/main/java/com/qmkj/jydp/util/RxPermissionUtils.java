@@ -2,10 +2,19 @@ package com.qmkj.jydp.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.content.Context;
 import android.os.Build;
 
+import com.qmkj.jydp.JYDPExchangeApp;
+import com.qmkj.jydp.base.GlideApp;
+import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.ui.widget.DialogUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import java.lang.ref.SoftReference;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -19,30 +28,44 @@ import io.reactivex.functions.Consumer;
 
 public class RxPermissionUtils {
     private static RxPermissionUtils instance;
-    private final RxPermissions rxPermissions;
+    private RxPermissions rxPermissions;
+    private String[] permissions;
     private Disposable disposable;
+    private OnPermissionListener onPermissionListener;
 
     private RxPermissionUtils(Activity mContext) {
         rxPermissions = new RxPermissions(mContext);
     }
 
-    public static RxPermissionUtils getInstance(Activity mContext) {
+    public static RxPermissionUtils getInstance(Activity context) {
         if (instance == null) {
-            synchronized (IOUtlis.class) {
-                if (instance == null) instance = new RxPermissionUtils(mContext);
+            synchronized (RxPermissionUtils.class) {
+                if (instance == null) {
+                    instance = new RxPermissionUtils(context);
+                }
             }
         }
         return instance;
     }
 
     /**
-     * 同时请求多个权限，分别获取授权结果
+     * Sets on permission call back.
      *
      * @param onPermissionListener the on permission listener
-     * @param permissions          the permissions
      */
+    public RxPermissionUtils setOnPermissionCallBack(OnPermissionListener onPermissionListener) {
+        this.onPermissionListener = onPermissionListener;
+        return this;
+    }
+
+    public RxPermissionUtils setPermission(String... permissions) {
+        this.permissions = permissions;
+        return this;
+    }
+
+
     @TargetApi(Build.VERSION_CODES.M)
-    public void getPermission(OnPermissionListener onPermissionListener, String... permissions) {
+    public void start() {
         disposable = rxPermissions.requestEach(permissions).subscribe(permission -> {
             if (permission.granted) {
                 if (onPermissionListener != null) {
@@ -64,18 +87,22 @@ public class RxPermissionUtils {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+        instance = null;
     }
 
 
-    public abstract class OnPermissionListener {
+    public abstract static class OnPermissionListener {
+
         //权限通过
-        abstract void onPermissionGranted(String name);
+        public abstract void onPermissionGranted(String name);
 
         //权限拒绝
-        abstract void onPermissionDenied(String name);
+        public abstract void onPermissionDenied(String name);
 
         //权限拒绝 并且不再询问,这里实现弹窗提示
         protected void onPermissionDeniedAndNeverAsk(String name) {
+            LogUtil.i("onPermissionDeniedAndNeverAsk name=" + name);
+
         }
     }
 }

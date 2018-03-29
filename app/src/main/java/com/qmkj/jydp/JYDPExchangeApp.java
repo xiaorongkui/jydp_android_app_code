@@ -12,11 +12,10 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.util.DensityHelper;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -34,6 +33,12 @@ public class JYDPExchangeApp extends Application {
         initBugly();
         initLog();
         registerActivityLifecycle();
+        initScreenAdapter();
+    }
+
+    //用于做屏幕适配
+    private void initScreenAdapter() {
+        new DensityHelper(this, BuildConfig.DESIGN_WIDTH).activate();
     }
 
     private void registerActivityLifecycle() {

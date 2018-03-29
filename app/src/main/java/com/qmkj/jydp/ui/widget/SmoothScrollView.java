@@ -44,7 +44,6 @@ public class SmoothScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        LogUtil.i("x=" + l + "y=" + t + "x1=" + oldl + "y1=" + oldt);
         setTop(t == 0 || oldt == 0);
         if (mListener != null) {
             mListener.scrollOritention(l, t, oldl, oldt);

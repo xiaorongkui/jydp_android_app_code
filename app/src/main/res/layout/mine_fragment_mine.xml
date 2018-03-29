@@ -141,6 +141,7 @@
                         android:paddingRight="@dimen/x30"
                         android:paddingTop="@dimen/x10"
                         android:text="@string/recharge"
+                        android:textSize="@dimen/text_size_13"
                         android:textColor="@color/colorWhite"/>
                 </RelativeLayout>
             </LinearLayout>

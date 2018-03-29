@@ -119,7 +119,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y45"
+                android:layout_marginBottom="@dimen/y100"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"
                 android:text="@string/forget_password"
@@ -309,7 +309,7 @@
             <Button
                 android:id="@+id/register_bt"
                 style="@style/button_attribute"
-                android:layout_marginBottom="@dimen/y45"
+                android:layout_marginBottom="@dimen/y100"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"

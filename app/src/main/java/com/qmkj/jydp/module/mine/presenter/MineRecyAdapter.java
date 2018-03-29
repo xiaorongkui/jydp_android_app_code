@@ -5,10 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.bean.MinelistInfo;
-import com.qmkj.jydp.common.CommonRecylerViewHolder;
 
 import java.util.List;
 
@@ -18,33 +19,31 @@ import java.util.List;
  * description:
  */
 
-public class MineRecyAdapter extends BaseRecylerAdapter {
-    private final List<MinelistInfo> datas;
+public class MineRecyAdapter extends BaseRecylerAdapter<MinelistInfo> {
     private final Context mContext;
 
     public MineRecyAdapter(Context context, List datas, int layoutId) {
-        super(context, datas, layoutId);
-        this.datas = datas;
+        super(layoutId, datas);
         this.mContext = context;
     }
 
     @Override
-    public void convert(CommonRecylerViewHolder holder, int position) {
-        MinelistInfo minelistInfo = datas.get(position);
-        if (minelistInfo == null) return;
-        ImageView mine_icon_iv = holder.getImageView(R.id.mine_item_icon_iv);
-        TextView mine_name_tv = holder.getTextView(R.id.mine_item_name_tv);
-        ImageView mine_person_iv = holder.getImageView(R.id.mine_item_more_iv);
-        View mine_item_line = holder.getView(R.id.mine_item_line);
-        mine_icon_iv.setImageResource(minelistInfo.leftIcon);
-        mine_person_iv.setImageResource(minelistInfo.rightIcon);
-        mine_name_tv.setText(minelistInfo.name);
+    protected void convert(BaseRecyclerViewHolder helper, MinelistInfo item, int position) {
+        if (item == null) return;
 
-        if (position == datas.size() - 1) {
+        ImageView mine_icon_iv = helper.getView(R.id.mine_item_icon_iv);
+        TextView mine_name_tv = helper.getView(R.id.mine_item_name_tv);
+        ImageView mine_person_iv = helper.getView(R.id.mine_item_more_iv);
+        View mine_item_line = helper.getView(R.id.mine_item_line);
+
+        mine_icon_iv.setImageResource(item.leftIcon);
+        mine_person_iv.setImageResource(item.rightIcon);
+        mine_name_tv.setText(item.name);
+
+        if (position == getItemCount() - 1) {
             mine_item_line.setVisibility(View.INVISIBLE);
         } else {
             mine_item_line.setVisibility(View.VISIBLE);
         }
     }
-
 }

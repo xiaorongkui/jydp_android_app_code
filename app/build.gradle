@@ -17,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("float", "DESIGN_WIDTH", "750")//设计稿上的屏幕宽度
     }
     lintOptions {//有任何的错误检查都会终止构建
         abortOnError false
@@ -106,9 +107,11 @@ dependencies {
 //    implementation project(':MPChartLib')
     implementation 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.youth.banner:banner:1.4.10'//首页轮播图
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'//recyclerView封装
 
     //Rxandroid
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+
 }
