@@ -71,44 +71,39 @@
 
             <EditText
                 android:id="@+id/login_account_et"
+                style="@style/edt_left"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y64"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
-                android:background="@drawable/shape_login"
+                android:background="@drawable/shape_login_edit_bg"
                 android:cursorVisible="false"
                 android:drawableLeft="@mipmap/login_user"
                 android:drawablePadding="@dimen/x30"
                 android:hint="@string/login_hint_notice"
                 android:inputType="number"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/x20"
-                android:textColorHint="@color/colorBlack_6"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/text_size_11"/>
+                android:paddingLeft="@dimen/x20"/>
 
             <EditText
                 android:id="@+id/login_password_et"
+                style="@style/edt_left"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y64"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"
-                android:background="@drawable/shape_login"
-                android:cursorVisible="false"
+                android:background="@drawable/shape_login_edit_bg"
                 android:drawableLeft="@mipmap/password"
                 android:drawablePadding="@dimen/x30"
                 android:hint="@string/login_hint_password"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/x20"
-                android:textColorHint="@color/colorBlack_6"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/text_size_11"/>
+                android:paddingLeft="@dimen/x20"/>
 
             <Button
                 android:id="@+id/login_bt"
-                style="@style/button_attribute"
+                style="@style/btn_red"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"
@@ -168,21 +163,18 @@
 
             <EditText
                 android:id="@+id/register_account_et"
+                style="@style/edt_left"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y64"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
-                android:background="@drawable/shape_login"
+                android:background="@drawable/shape_login_edit_bg"
                 android:cursorVisible="false"
                 android:drawableLeft="@mipmap/login_user"
                 android:drawablePadding="@dimen/x30"
                 android:hint="@string/register_user_name_notice"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/x20"
-                android:textColorHint="@color/colorBlack_5"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/text_size_11"/>
+                android:paddingLeft="@dimen/x20"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,7 +182,7 @@
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y20"
-                android:background="@drawable/shape_login"
+                android:background="@drawable/shape_login_edit_bg"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -218,17 +210,12 @@
 
                 <EditText
                     android:id="@+id/register_phone_et"
+                    style="@style/edt_left"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@null"
-                    android:cursorVisible="false"
                     android:hint="@string/register_phone_notice"
                     android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingLeft="@dimen/x30"
-                    android:textColorHint="@color/colorBlack_6"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/text_size_11"/>
+                    android:paddingLeft="@dimen/x30"/>
             </LinearLayout>
 
             <LinearLayout
@@ -237,31 +224,27 @@
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y20"
-                android:background="@drawable/shape_login"
+                android:background="@drawable/shape_login_edit_bg"
                 android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/register_verification_code_et"
+                    style="@style/edt_left"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:cursorVisible="false"
                     android:drawableLeft="@mipmap/verifity_code"
                     android:drawablePadding="@dimen/x30"
                     android:hint="@string/verification_code"
                     android:inputType="number"
                     android:maxLength="6"
-                    android:maxLines="1"
-                    android:paddingLeft="@dimen/x20"
-                    android:textColorHint="@color/colorBlack_6"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/text_size_11"/>
+                    android:paddingLeft="@dimen/x20"/>
 
                 <TextView
                     android:id="@+id/code_time_down_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/x20"
                     android:text="@string/get_rigister_getvertify_code_1"
                     android:textColor="@color/colorGreen_3"
@@ -270,52 +253,41 @@
 
             <EditText
                 android:id="@+id/register_password_one_et"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y64"
+                style="@style/edt_left"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"
-                android:background="@drawable/shape_login"
-                android:cursorVisible="false"
+                android:background="@drawable/shape_login_edit_bg"
                 android:drawableLeft="@mipmap/register_password"
                 android:drawablePadding="@dimen/x30"
                 android:hint="@string/password_one_notice"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/x20"
-                android:textColorHint="@color/colorBlack_6"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/text_size_11"/>
+                android:paddingLeft="@dimen/x20"/>
 
             <EditText
                 android:id="@+id/register_password_two_et"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y64"
+                style="@style/edt_left"
+
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"
-                android:background="@drawable/shape_login"
-                android:cursorVisible="false"
+                android:background="@drawable/shape_login_edit_bg"
                 android:drawableLeft="@mipmap/register_password"
                 android:drawablePadding="@dimen/x30"
                 android:hint="@string/password_two_notice"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/x20"
-                android:textColorHint="@color/colorBlack_6"
-                android:textCursorDrawable="@null"
-                android:textSize="@dimen/text_size_11"/>
+                android:paddingLeft="@dimen/x20"/>
 
             <Button
                 android:id="@+id/register_bt"
-                style="@style/button_attribute"
+                style="@style/btn_red"
                 android:layout_marginBottom="@dimen/y100"
                 android:layout_marginLeft="@dimen/x60"
                 android:layout_marginRight="@dimen/x60"
                 android:layout_marginTop="@dimen/y30"
-                android:text="@string/register"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_size_15"/>
+                android:text="@string/register"/>
 
         </LinearLayout>
     </FrameLayout>

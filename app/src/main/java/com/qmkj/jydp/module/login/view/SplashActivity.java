@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.login.view;
 
 import android.Manifest;
+import android.view.View;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.MvpBaseActivity;
@@ -29,9 +30,13 @@ public class SplashActivity extends MvpBaseActivity {
     @Override
     protected void initData() {
         findViewById(R.id.splash_tv).setOnClickListener(v -> checkPermission());
-        checkPermission();
-        Observable.timer(3, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(aLong -> CommonUtil
-                .gotoActivity(mContext, LoginActivity.class));
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+            }
+        });
+//        checkPermission();
     }
 
     private void checkPermission() {

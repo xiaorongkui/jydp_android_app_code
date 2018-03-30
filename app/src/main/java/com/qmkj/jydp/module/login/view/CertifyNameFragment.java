@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,9 +22,16 @@ import com.qmkj.jydp.base.MvpBaseFragment;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.BitmapCompressTask;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
+
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/23
@@ -42,10 +53,15 @@ public class CertifyNameFragment extends MvpBaseFragment implements View.OnClick
     ClickItemView ertify_type_cv;
     @BindView(R.id.ertify_number_ll)
     View ertify_number_ll;
-    @BindView(R.id.front_show_iv)
-    ImageView front_show_iv;
-    @BindView(R.id.back_show_iv)
-    ImageView back_show_iv;
+    @BindView(R.id.front_img)
+    ImageView frontImg;
+    @BindView(R.id.back_img)
+    ImageView backImg;
+    Unbinder unbinder1;
+    @BindView(R.id.front_ll)
+    LinearLayout frontLl;
+    @BindView(R.id.back_ll)
+    LinearLayout backLl;
     private EditText account_et;
     private EditText name_et;
     private EditText certify_num_et;
@@ -129,6 +145,7 @@ public class CertifyNameFragment extends MvpBaseFragment implements View.OnClick
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);//图片压缩工作放在提交任务里面
+        LogUtil.i("requestCode"+requestCode+"  ;resultCode="+resultCode);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             try {
@@ -141,8 +158,6 @@ public class CertifyNameFragment extends MvpBaseFragment implements View.OnClick
                     toast("选择的图片存在问题，请重新选择图片");
                     return;
                 }
-                GlideApp.with(mContext).load(front).into(front_show_iv);
-
                 isFrontCompressing = true;
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
@@ -150,6 +165,12 @@ public class CertifyNameFragment extends MvpBaseFragment implements View.OnClick
                     if (getContext() != null) {
                         frontBytes = bytes;
                         isFrontCompressing = false;
+                        io.reactivex.Observable.timer(0, TimeUnit.MICROSECONDS).observeOn(AndroidSchedulers
+                                .mainThread()).subscribe(aLong -> {
+                            GlideApp.with(mContext).load(bytes).into(frontImg);
+                            frontLl.setVisibility(View.INVISIBLE);
+                        });
+
                     }
                 });
                 bitmapCompressTask.execute(front);
@@ -169,14 +190,19 @@ public class CertifyNameFragment extends MvpBaseFragment implements View.OnClick
                     toast("选择的图片存在问题，请重新选择图片");
                     return;
                 }
-                GlideApp.with(mContext).load(back).into(front_show_iv);
                 isBackCompressing = true;
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {
-                    if (getContext() != null) {
+                    if (CertifyNameFragment.this.getContext() != null) {
                         backBytes = bytes;
                         isBackCompressing = false;
+                        io.reactivex.Observable.timer(0, TimeUnit.MICROSECONDS).observeOn(AndroidSchedulers
+                                .mainThread()).subscribe(aLong -> {
+                            GlideApp.with(mContext).load(bytes).into(backImg);
+                            backLl.setVisibility(View.INVISIBLE);
+                        });
+
                     }
                 });
                 bitmapCompressTask.execute(back);
@@ -184,5 +210,19 @@ public class CertifyNameFragment extends MvpBaseFragment implements View.OnClick
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
     }
 }

@@ -26,13 +26,17 @@
         <item name="android:windowIsTranslucent">false</item>
     </style>
 
-    <style name="button_attribute">
+    <style name="btn" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/y65</item>
         <item name="android:layout_marginLeft">@dimen/x30</item>
         <item name="android:layout_marginRight">@dimen/x30</item>
-        <item name="android:background">@drawable/shape_button</item>
+    </style>
+
+    <style name="btn_red" parent="btn">
+        <item name="android:background">@drawable/shape_btn_red</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 
     <!--line样式-->
@@ -51,5 +55,25 @@
         <item name="android:windowIsTranslucent">false</item><!--半透明-->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">false</item><!-- 模糊 -->
+    </style>
+
+    <!--右输入框EditText样式-->
+    <style name="edt_right">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/colorBlack_6</item>
+        <item name="android:minHeight">@dimen/y64</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:textColor">@color/colorBlack_2</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:background">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <!--左输入框EditText样式-->
+    <style name="edt_left" parent="edt_right">
+        <item name="android:gravity">left|center_vertical</item>
     </style>
 </resources>

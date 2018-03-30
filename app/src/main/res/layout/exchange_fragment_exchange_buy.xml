@@ -125,7 +125,7 @@
 
     <Button
         android:id="@+id/exchange_buy_sold_bt"
-        style="@style/button_attribute"
+        style="@style/btn_red"
         android:layout_marginTop="@dimen/y20"
         android:gravity="center"
         android:text="买入"

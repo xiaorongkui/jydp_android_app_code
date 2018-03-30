@@ -104,14 +104,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.orhanobut:logger:2.1.1'
-//    implementation project(':MPChartLib')
     implementation 'in.srain.cube:ultra-ptr:1.0.11'
-    compile 'com.youth.banner:banner:1.4.10'//首页轮播图
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'//recyclerView封装
+    implementation 'com.youth.banner:banner:1.4.10'//首页轮播图
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'//recyclerView封装
 
     //Rxandroid
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+//    //用于绘制k线图
+//    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 }

@@ -3,8 +3,10 @@ package com.qmkj.jydp.module.login.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -60,6 +62,20 @@ public class LoginActivity extends MvpBaseActivity {
     TextView ereaCodeTv;
     @BindView(R.id.erea_code_iv)
     ImageView ereaCodeIv;
+    @BindView(R.id.login_account_et)
+    EditText loginAccountEt;
+    @BindView(R.id.login_password_et)
+    EditText loginPasswordEt;
+    @BindView(R.id.register_account_et)
+    EditText registerAccountEt;
+    @BindView(R.id.register_phone_et)
+    EditText registerPhoneEt;
+    @BindView(R.id.register_verification_code_et)
+    EditText registerVerificationCodeEt;
+    @BindView(R.id.register_password_one_et)
+    EditText registerPasswordOneEt;
+    @BindView(R.id.register_password_two_et)
+    EditText registerPasswordTwoEt;
     private Disposable disposable;
 
     @Override
@@ -85,6 +101,14 @@ public class LoginActivity extends MvpBaseActivity {
     @Override
     protected void initView() {
         setShowStatusView(0);
+        loginAccountEt.setOnTouchListener((v, event) -> {
+            loginAccountEt.setCursorVisible(true);
+            return false;
+        });
+        registerAccountEt.setOnTouchListener((v, event) -> {
+            registerAccountEt.setCursorVisible(true);
+            return false;
+        });
     }
 
     private void setShowStatusView(int index) {

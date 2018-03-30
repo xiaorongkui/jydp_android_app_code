@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/linearLayout"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center"
@@ -7,8 +8,18 @@
 
     <TextView
         android:id="@+id/splash_tv"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="788dp"
         android:text="点击进行权限申请"
         android:textSize="@dimen/text_size_11"/>
+
+    <Button
+        android:padding="@dimen/x4"
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginBottom="791dp"
+        android:layout_marginTop="@dimen/x40"
+        android:text="点击跳转到登录界面"/>
 </LinearLayout>

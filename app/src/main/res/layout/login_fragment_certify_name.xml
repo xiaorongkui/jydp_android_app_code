@@ -51,11 +51,6 @@
             android:layout_height="@dimen/y200"
             android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/front_show_iv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/certify_add_front_rl"
@@ -103,12 +98,6 @@
             android:layout_height="@dimen/y200"
             android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/back_show_iv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
-
             <RelativeLayout
                 android:id="@+id/certify_add_back_rl"
                 android:layout_width="match_parent"
@@ -148,7 +137,7 @@
     </LinearLayout>
 
     <Button
-        style="@style/button_attribute"
+        style="@style/btn_red"
         android:layout_marginTop="@dimen/y40"
         android:text="@string/submit"/>
 </LinearLayout>
