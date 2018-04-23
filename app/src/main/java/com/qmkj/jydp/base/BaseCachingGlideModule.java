@@ -1,6 +1,11 @@
 package com.qmkj.jydp.base;
 
+import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PixelFormat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -15,10 +20,13 @@ import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.stream.HttpGlideUrlLoader;
 import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.qmkj.jydp.R;
 
 import java.io.InputStream;
+
+import javax.crypto.spec.IvParameterSpec;
 
 import okhttp3.OkHttpClient;
 
@@ -35,13 +43,14 @@ public final class BaseCachingGlideModule extends AppGlideModule {
     public void applyOptions(Context context, GlideBuilder builder) {
         ViewTarget.setTagId(R.id.glide_tag_id);
         //设置图片的显示格式ARGB_8888(指图片大小为32bit)
-        builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
+        RequestOptions request = new RequestOptions().format(DecodeFormat.PREFER_RGB_565).encodeFormat(Bitmap
+                .CompressFormat.PNG);
+        builder.setDefaultRequestOptions(request);
         // 设置磁盘缓存为100M，缓存在内部缓存目录
         int cacheSize = 100 * 1024 * 1024;
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context, IMAGE_CACHE_NAME, cacheSize));
 
         builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, IMAGE_CACHE_NAME, cacheSize));
-
         // 20%大的内存缓存作为 Glide 的默认值
         MemorySizeCalculator.Builder builder1 = new MemorySizeCalculator.Builder(context);
         MemorySizeCalculator calculator = builder1.build();

@@ -2,16 +2,12 @@
 .gradle
 .idea
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
 .DS_Store
 /build
 /captures
 .externalNativeBuild
-.idea
 .gitignore
 gradle.properties
 gradlew.bat
-jydp_android_app_code.iml
 
 

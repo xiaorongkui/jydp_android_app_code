@@ -3,7 +3,7 @@ package com.qmkj.jydp.net;
 /**
  * 成功回调处理
  */
-public interface HttpOnNextListener<T> {
+public interface HttpCallBack<T> {
     /**
      * 成功后回调方法
      *

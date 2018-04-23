@@ -1,4 +1,4 @@
-package com.qmkj.jydp.rxbus.event;
+package com.qmkj.jydp.bean.event;
 
 /**
  * Created by Rongkui.xiao on 2017/5/15.

@@ -1,22 +1,19 @@
 package com.qmkj.jydp.net.observer;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.bean.BaseResponse;
 import com.qmkj.jydp.common.NetResponseCode;
-import com.qmkj.jydp.exception.HandlerException;
-import com.qmkj.jydp.net.HttpOnNextListener;
-import com.qmkj.jydp.net.api.BaseApi;
+import com.qmkj.jydp.net.exception.HandlerException;
+import com.qmkj.jydp.net.HttpCallBack;
+import com.qmkj.jydp.net.api.BaseNetFunction;
 import com.qmkj.jydp.ui.widget.NetProgressDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
-import com.qmkj.jydp.util.ToastUtil;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.qmkj.jydp.util.ProgressDialogUtil;
 
-import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 
 /**
  * Created by Yun on 2018/2/19 0019.
@@ -24,85 +21,59 @@ import java.lang.ref.SoftReference;
  */
 public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
 
-    private final SoftReference<Context> mActivity;
-    private HttpOnNextListener httpOnNextListener = null;
-    private NetProgressDialog pd;
-    private boolean showPorgress = true;
+    private final WeakReference<Context> mActivity;
+    private HttpCallBack httpCallBack = null;
+    private boolean showProgressDialog;
+    private boolean isCancel;
 
     /**
      * 显示loading
      */
     protected void showLoading() {
-        if (!isShowPorgress()) return;
-        Context context = mActivity.get();
-        if (pd == null || context == null) return;
-        if (!pd.isShowing()) {
-            pd.show();
-        }
+        ProgressDialogUtil.showWaitDialog();
     }
 
-    ;
 
     /**
      * 隐藏loading
      */
     protected void hideLoading() {
-        if (!isShowPorgress()) return;
-        if (pd != null && pd.isShowing()) {
-            pd.dismiss();
-        }
+        ProgressDialogUtil.stopWaitDialog();
     }
 
     /**
      * 取消ProgressDialog的时候，取消对observable的订阅，同时也取消了http请求
      */
     public void onCancelProgress() {
+        if (!this.isDisposed())
+            this.dispose();
         hideLoading();
+        if (httpCallBack != null) httpCallBack.onCancel();
     }
 
     private void initProgressDialog(boolean cancel) {
         Context context = mActivity.get();
-        if (pd == null && context != null) {
-            pd = NetProgressDialog.createLoadingDialog(context, "加载中...");
-            pd.setAlertDialogSize((int) CommonUtil.getDimen(R.dimen.x100), (int) CommonUtil
-                    .getDimen(R.dimen.y100));
-            pd.setCancelable(cancel);
-            if (cancel) {
-                pd.setOnCancelListener(dialogInterface -> {
-                    if (httpOnNextListener != null) {
-                        httpOnNextListener.onCancel();
-                    }
-                    onCancelProgress();
-                });
-            }
-        }
-
+        NetProgressDialog netProgressDialog = ProgressDialogUtil.initProgressDialog(context, cancel);
+        if (cancel && netProgressDialog != null) netProgressDialog.setOnCancelListener(dialog -> onCancelProgress());
     }
 
-    public BaseShowLoadingObserver(BaseApi api) {
-        this.httpOnNextListener = api.getListener();
-        this.mActivity = new SoftReference(api.getRxAppCompatActivity());
-        setShowPorgress(api.isshowProgressDialog());
-        if (api.isshowProgressDialog()) {
-            initProgressDialog(api.isCancel());
-        }
-    }
-
-    //自定义方法调用,
-    public BaseShowLoadingObserver(Context context, boolean isShowProgress) {
-        setShowPorgress(isShowProgress);
-        this.mActivity = new SoftReference(context);
-        if (isShowPorgress()) {
-            initProgressDialog(true);
-        }
+    public BaseShowLoadingObserver(Context context, HttpCallBack httpCallBack, boolean isShowProgress, boolean
+            isCancel) {
+        this.httpCallBack = httpCallBack;
+        this.mActivity = new WeakReference<>(context);
+        this.showProgressDialog = isShowProgress;
+        this.isCancel = isCancel;
     }
 
     @Override
     protected void onRequestStart() {
         super.onRequestStart();
+        if (showProgressDialog) {
+            initProgressDialog(isCancel);
+        }
         if (!CommonUtil.isNetworkAvailable(JYDPExchangeApp.getContext())) {
             onRequestError(HandlerException.handleException(new
-                    HandlerException.ResponeThrowable("网络连接失败，请检查网络后重试", NetResponseCode
+                    HandlerException.ResponeThrowable(CommonUtil.getString(R.string.net_connect_error), NetResponseCode
                     .HMC_NETWORK_ERROR)));
 
         } else {
@@ -112,9 +83,9 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
 
     @Override
     protected void onRequestSuccess(T t) {
-        LogUtil.i("1027", "成功网络请求返回");
-        if (httpOnNextListener != null) {
-            httpOnNextListener.onNext(t);
+        LogUtil.i("成功网络请求返回");
+        if (httpCallBack != null) {
+            httpCallBack.onNext(t);
         }
         hideLoading();
     }
@@ -129,23 +100,14 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
     private void errorDo(Throwable e) {
         Context context = mActivity.get();
         if (context == null) return;
-        if (httpOnNextListener != null) {
-            httpOnNextListener.onError(HandlerException.handleException(e));
+        if (httpCallBack != null) {
+            httpCallBack.onError(HandlerException.handleException(e));
         }
     }
 
     @Override
     protected void onRequestComplete() {
         super.onRequestComplete();
-        LogUtil.i("订阅完成。");
         hideLoading();
-    }
-
-    public void setShowPorgress(boolean showPorgress) {
-        this.showPorgress = showPorgress;
-    }
-
-    public boolean isShowPorgress() {
-        return showPorgress;
     }
 }

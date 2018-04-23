@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.GlideApp;
-import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.BitmapCompressTask;
 import com.qmkj.jydp.util.CommonUtil;
@@ -31,7 +31,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/23
@@ -39,7 +38,7 @@ import io.reactivex.functions.Consumer;
  * description:实名认证界面
  */
 
-public class CertifyNameFragment extends MvpBaseFragment implements View.OnClickListener {
+public class CertifyNameFragment extends BaseMvpFragment implements View.OnClickListener {
     Unbinder unbinder;
     @BindView(R.id.certify_add_front_rl)
     RelativeLayout certifyAddFrontRl;

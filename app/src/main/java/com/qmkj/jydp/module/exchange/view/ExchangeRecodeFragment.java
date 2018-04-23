@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchange.presenter.ExchangeRecodeRecAdapter;
 import com.qmkj.jydp.util.CommonUtil;
@@ -21,7 +21,7 @@ import butterknife.BindView;
  * description:五条资金记录小页面
  */
 
-public class ExchangeRecodeFragment extends MvpBaseFragment {
+public class ExchangeRecodeFragment extends BaseMvpFragment {
 
     @BindView(R.id.entrust_recode_rv)
     RecyclerView entrustRecodeRv;

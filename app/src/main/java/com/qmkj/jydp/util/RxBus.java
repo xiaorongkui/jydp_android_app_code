@@ -1,20 +1,14 @@
-package com.qmkj.jydp.rxbus;
+package com.qmkj.jydp.util;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -24,20 +18,23 @@ import io.reactivex.subjects.Subject;
 public class RxBus {
 
     private ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
-    private static volatile RxBus instance;
+    private static volatile RxBus defaultInstance;
 
     private RxBus() {
     }
 
     public static RxBus getInstance() {
-        if (instance == null) {
+        RxBus rxBus = defaultInstance;
+        if (defaultInstance == null) {
             synchronized (RxBus.class) {
-                if (instance == null) {
-                    instance = new RxBus();
+                rxBus = defaultInstance;
+                if (defaultInstance == null) {
+                    rxBus = new RxBus();
+                    defaultInstance = rxBus;
                 }
             }
         }
-        return instance;
+        return rxBus;
     }
 
     /**
@@ -46,15 +43,16 @@ public class RxBus {
      * @param tag
      * @return
      */
-    public <T> Observable<T> register(@NonNull Class<T> tag) {
+    public <T> Flowable<T> register(@NonNull Class<T> tag) {
         List<Subject> subjectList = subjectMapper.get(tag);
         if (null == subjectList) {
             subjectList = new ArrayList<>();
             subjectMapper.put(tag, subjectList);
         }
         PublishSubject<T> subject = PublishSubject.create();
+
         subjectList.add(subject);
-        return subject;
+        return subject.toFlowable(BackpressureStrategy.BUFFER);
     }
 
     /**

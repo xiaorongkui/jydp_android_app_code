@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseActivity;
-import com.qmkj.jydp.ui.widget.DialogUtils;
+import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * description:
  */
 
-public class EntrustRecodeActivity extends MvpBaseActivity {
+public class EntrustRecodeActivity extends BaseMvpActivity {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.entrust_recode_sold_detail_tv)
@@ -84,7 +84,7 @@ public class EntrustRecodeActivity extends MvpBaseActivity {
     }
 
     private void showCancelDialog() {
-        DialogUtils dialogUtils = new DialogUtils(mContext, R.style.common_dialog, R.layout
+        CommonDialog dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .exchange_revocation_entrust_dialog);
         dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x500));
         dialogUtils.setOneOrTwoBtn(false);

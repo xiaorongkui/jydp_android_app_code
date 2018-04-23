@@ -11,6 +11,9 @@ import com.bumptech.glide.Glide;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.di.component.AppComponent;
+import com.qmkj.jydp.di.component.DaggerAppComponent;
+import com.qmkj.jydp.di.module.AppModule;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.util.DensityHelper;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -25,6 +28,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class JYDPExchangeApp extends Application {
     private static JYDPExchangeApp context;
+    private static AppComponent mAppComponent;
+
+    public JYDPExchangeApp() {
+    }
 
     @Override
     public void onCreate() {
@@ -34,6 +41,13 @@ public class JYDPExchangeApp extends Application {
         initLog();
         registerActivityLifecycle();
         initScreenAdapter();
+        initLeaky();
+    }
+
+    private void initLeaky() {
+//        if (BuildConfig.LOG_DEBUG) {
+//            LeakCanary.install(this);
+//        }
     }
 
     //用于做屏幕适配
@@ -147,4 +161,14 @@ public class JYDPExchangeApp extends Application {
             }
         });
     }
+
+    public static AppComponent getAppComponent() {
+        if (mAppComponent == null) {
+            mAppComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(context))
+                    .build();
+        }
+        return mAppComponent;
+    }
+
 }

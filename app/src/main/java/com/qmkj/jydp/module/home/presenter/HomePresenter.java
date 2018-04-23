@@ -1,12 +1,15 @@
 package com.qmkj.jydp.module.home.presenter;
 
-import com.qmkj.jydp.base.BasePresenter;
-import com.qmkj.jydp.module.login.modle.LoginImpl;
-import com.qmkj.jydp.net.HttpOnNextListener;
-import com.qmkj.jydp.ui.activity.ViewInterface;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import android.support.v4.app.Fragment;
+
+import com.qmkj.jydp.base.BaseRxPresenter;
+import com.qmkj.jydp.base.BaseView;
+import com.qmkj.jydp.net.api.HomeService;
 
 import java.util.Map;
+
+import javax.inject.Inject;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -14,30 +17,33 @@ import java.util.Map;
  * description:登录模块的所有网络请求
  */
 
-public class HomePresenter extends BasePresenter<ViewInterface> {
-    private LoginImpl loginImpl;
+public class HomePresenter extends BaseRxPresenter<BaseView> {
+    @Inject
+    HomeService homeService;
 
-    public HomePresenter(RxAppCompatActivity activity) {
-        loginImpl = new LoginImpl(activity);
+    @Inject
+    public HomePresenter(Fragment fragment) {
+        super(fragment);
     }
 
     public void getCurrentPrice(final Map<String, Object> maps, int tag, boolean isShowProgress) {
-        loginImpl.getCurrentPrice(maps, new HttpOnNextListener() {
-            @Override
-            public void onNext(Object o) {
-                mView.onSuccess(o, tag);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mView.onError(e.getMessage(), "", tag);
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-        }, isShowProgress);
+//        loginImpl.getCurrentPrice(maps, new HttpCallBack() {
+//            @Override
+//            public void onNext(Object o) {
+//                mView.onSuccess(o, tag);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                mView.onError(e.getMessage(), "", tag);
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//        }, isShowProgress);
+        sendHttpRequest(homeService.getCurrentPrice(maps));
     }
 
 }

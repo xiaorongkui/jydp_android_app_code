@@ -105,14 +105,20 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.orhanobut:logger:2.1.1'
     implementation 'in.srain.cube:ultra-ptr:1.0.11'
-    implementation 'com.youth.banner:banner:1.4.10'//首页轮播图
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'//recyclerView封装
-
+    implementation 'com.youth.banner:banner:1.4.10'
+    //首页轮播图
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
+    //recyclerView封装
     //Rxandroid
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
-//    //用于绘制k线图
-//    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
+    //    //用于绘制k线图
+    //    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.google.dagger:dagger:2.13'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    //内存泄漏检测
+//    compile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    implementation project(':MPChartLib')
 }

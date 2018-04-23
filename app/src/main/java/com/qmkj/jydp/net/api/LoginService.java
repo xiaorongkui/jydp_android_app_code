@@ -12,7 +12,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
- * Created by Yun on 2018/1/5.
  * 网络请求接口,入参统一使用map集合,
  */
 public interface LoginService {

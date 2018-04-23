@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.module.mine.presenter.SystemNoticeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -20,7 +20,7 @@ import butterknife.BindView;
  * description:
  */
 
-public class SystemNoticeActivity extends MvpBaseActivity {
+public class SystemNoticeActivity extends BaseMvpActivity {
 
     @BindView(R.id.system_notice_rv)
     RecyclerView systemNoticeRv;

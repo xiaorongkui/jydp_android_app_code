@@ -12,9 +12,10 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.BannerModel;
 import com.qmkj.jydp.bean.HomeNoticeInfo;
+import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
@@ -23,7 +24,6 @@ import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -45,7 +45,7 @@ import io.reactivex.functions.Consumer;
  * description:首页展示
  */
 
-public class HomeFragment extends MvpBaseFragment {
+public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     @BindView(R.id.home_fragment_ll)
     LinearLayout homeFragmentLl;
     @BindView(R.id.home_auto_ll)
@@ -64,7 +64,6 @@ public class HomeFragment extends MvpBaseFragment {
     LinearLayout homeLl;
     boolean isCanRefresh = true;
 
-    private HomePresenter homePresenter;
 
     @Override
     protected void initView() {
@@ -74,6 +73,7 @@ public class HomeFragment extends MvpBaseFragment {
         initRecycleView();
         initGrideView();
         initRefreshView();
+
 //        RxPermissionUtils.getInstance(mContext).getPermission();
     }
 
@@ -192,6 +192,9 @@ public class HomeFragment extends MvpBaseFragment {
 
     @Override
     protected void initData() {
+        for (int i = 0; i < 10; i++) {
+            presenter.getCurrentPrice(AppNetConfig.getBaseMaps(), 1, true);
+        }
     }
 
     /**
@@ -231,8 +234,7 @@ public class HomeFragment extends MvpBaseFragment {
 
     @Override
     protected void injectPresenter() {
-        this.homePresenter = new HomePresenter((RxAppCompatActivity) getActivity());
-        p.add(homePresenter);
+        getFragmentComponent().inject(this);
     }
 
     private void initStatus() {

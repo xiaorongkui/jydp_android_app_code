@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
@@ -18,7 +18,7 @@ import butterknife.BindView;
  * description:实名认证界面
  */
 
-public class CertificationActivity extends MvpBaseActivity {
+public class CertificationActivity extends BaseMvpActivity {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.title_right_tv)

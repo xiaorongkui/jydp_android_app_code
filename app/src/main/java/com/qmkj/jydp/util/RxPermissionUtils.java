@@ -2,23 +2,11 @@ package com.qmkj.jydp.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Notification;
-import android.content.Context;
 import android.os.Build;
 
-import com.qmkj.jydp.JYDPExchangeApp;
-import com.qmkj.jydp.base.GlideApp;
-import com.qmkj.jydp.manager.AppManager;
-import com.qmkj.jydp.ui.widget.DialogUtils;
-import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import java.lang.ref.SoftReference;
-
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/28

@@ -2,8 +2,6 @@ package com.qmkj.jydp.module.login.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,16 +12,16 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -36,7 +34,7 @@ import io.reactivex.schedulers.Schedulers;
  * description:登录页面
  */
 
-public class LoginActivity extends MvpBaseActivity {
+public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.login_login_title_tv)
     TextView loginTitleTv;
     @BindView(R.id.login_register_title_tv)
@@ -80,7 +78,7 @@ public class LoginActivity extends MvpBaseActivity {
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -124,13 +122,6 @@ public class LoginActivity extends MvpBaseActivity {
                 registerAgreementRl.setVisibility(View.VISIBLE);
                 break;
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @OnClick({R.id.login_register_title_tv, R.id.register_login_title_tv, R.id.code_time_down_tv, R.id.login_bt, R.id

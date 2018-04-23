@@ -376,6 +376,12 @@ public class CommonUtil {
             actionBar.hide();
     }
 
+    /**
+     * Bytes to hex string string.
+     *
+     * @param bytes the bytes
+     * @return the string
+     */
     public static String bytesToHexString(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
@@ -395,6 +401,12 @@ public class CommonUtil {
         return myformat.format(str);
     }
 
+    /**
+     * Format money string.
+     *
+     * @param str the str
+     * @return the string
+     */
     public static String formatMoney(String str) {
         double doubleMoney = 0;
         try {
@@ -810,5 +822,50 @@ public class CommonUtil {
         Display display = wm.getDefaultDisplay();
         display.getSize(point);
         return point;
+    }
+
+    public static String getVolUnit(float num) {
+
+        int e = (int) Math.floor(Math.log10(num));
+
+        if (e >= 8) {
+            return "亿手";
+        } else if (e >= 4) {
+            return "万手";
+        } else {
+            return "手";
+        }
+    }
+
+    public static int getVolUnitNum(float num) {
+
+        int e = (int) Math.floor(Math.log10(num));
+
+        if (e >= 8) {
+            return 8;
+        } else if (e >= 4) {
+            return 4;
+        } else {
+            return 1;
+        }
+    }
+
+    public static String getVolUnitText(int unit, float num) {
+        DecimalFormat mFormat;
+        if (unit == 1) {
+            mFormat = new DecimalFormat("#0");
+        } else {
+            mFormat = new DecimalFormat("#0.00");
+        }
+        num = num / unit;
+        if (num == 0) {
+            return "0";
+        }
+        return mFormat.format(num);
+    }
+
+    public static String getDecimalFormatVol(float vol) {
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
+        return decimalFormat.format(vol);//format 返回的是字符串
     }
 }

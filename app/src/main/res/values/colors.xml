@@ -7,6 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhite_1">#f6f6f6</color>
     <color name="colorWhite_2">#59f1fdfa</color>
+    <color name="colorWhite_3">#00FFFFFF</color>
 
     <color name="colorBlack">#000000</color>
     <color name="colorBlack_1">#444444</color>
@@ -42,4 +43,7 @@
     <color name="textBlack">@color/colorBlack</color>
     <color name="item_line">#ececec</color>
     <color name="item_line_1">#eeeeee</color>
+
+    <color name="increasing_color">#ff0000</color>
+    <color name="decreasing_color">#006400</color>
 </resources>

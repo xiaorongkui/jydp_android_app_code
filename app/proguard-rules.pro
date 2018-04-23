@@ -153,7 +153,7 @@ public static final int *;
 # 如果使用了Gson之类的工具要使被它解析的JavaBean类即实体类不被混淆。
 -keepattributes EnclosingMethod
 -keep class com.qmkj.jydp.bean.**{*;}
--keep class com.qmkj.jydp.rxbus.event.**{*;}
+-keep class com.qmkj.jydp.bean.event.**{*;}
 
 #butterknife
 -keep class butterknife.** { *; }

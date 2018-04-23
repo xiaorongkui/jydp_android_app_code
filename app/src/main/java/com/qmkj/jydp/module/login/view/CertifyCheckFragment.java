@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 
 import butterknife.BindView;
@@ -20,7 +20,7 @@ import butterknife.Unbinder;
  * description:实名认证审核中
  */
 
-public class CertifyCheckFragment extends MvpBaseFragment implements View.OnClickListener {
+public class CertifyCheckFragment extends BaseMvpFragment implements View.OnClickListener {
     @BindView(R.id.certify_check_front_rl)
     RelativeLayout certifyCheckFrontRl;
     @BindView(R.id.certify_check_back_rl)

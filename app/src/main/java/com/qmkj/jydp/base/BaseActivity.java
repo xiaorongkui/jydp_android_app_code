@@ -1,32 +1,21 @@
 package com.qmkj.jydp.base;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.Toast;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.manager.AppManager;
-import com.qmkj.jydp.net.HttpCore;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.RxPermissionUtils;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Yun on 2018/3/13 0013.
@@ -81,7 +70,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         super.onDestroy();
         if (unbinder != null)
             unbinder.unbind();
-        HttpCore.getInstance().unregisterObserver();
     }
 
     protected abstract void initData();

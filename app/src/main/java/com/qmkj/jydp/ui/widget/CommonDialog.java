@@ -15,7 +15,7 @@ import com.qmkj.jydp.R;
  * @description
  */
 
-public class DialogUtils extends Dialog {
+public class CommonDialog extends Dialog {
     Activity activity;
     TextView messageView;
     TextView oneBtnView;        //只有一个确认键的情况
@@ -24,7 +24,7 @@ public class DialogUtils extends Dialog {
     TextView cancelBtn;
     private final View mView;
 
-    public DialogUtils(Activity context, int theme) {
+    public CommonDialog(Activity context, int theme) {
         super(context, theme);
         this.activity = context;
         mView = LayoutInflater.from(getContext()).inflate(R.layout.common_dialog, null);
@@ -37,7 +37,7 @@ public class DialogUtils extends Dialog {
         super.setContentView(mView);
     }
 
-    public DialogUtils(Activity context, int theme, int layoutResId) {
+    public CommonDialog(Activity context, int theme, int layoutResId) {
         super(context, theme);
         this.activity = context;
         mView = LayoutInflater.from(getContext()).inflate(layoutResId, null);

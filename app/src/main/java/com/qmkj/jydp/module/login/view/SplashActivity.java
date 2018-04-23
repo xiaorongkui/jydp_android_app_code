@@ -4,16 +4,10 @@ import android.Manifest;
 import android.view.View;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/29
@@ -21,7 +15,7 @@ import io.reactivex.functions.Consumer;
  * description:启动页界面
  */
 
-public class SplashActivity extends MvpBaseActivity {
+public class SplashActivity extends BaseMvpActivity {
     @Override
     protected void injectPresenter() {
 

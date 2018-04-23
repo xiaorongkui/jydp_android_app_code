@@ -3,7 +3,7 @@ package com.qmkj.jydp.module.exchange.view;
 import android.os.Bundle;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.common.Constants;
 
 /**
@@ -12,7 +12,7 @@ import com.qmkj.jydp.common.Constants;
  * description:买入界面
  */
 
-public class ExchangeBuyFragment extends MvpBaseFragment {
+public class ExchangeBuyFragment extends BaseMvpFragment {
 
     public static ExchangeBuyFragment newInstance(int index) {
         Bundle args = new Bundle();

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
@@ -19,7 +19,7 @@ import butterknife.BindView;
  * description:币种提现界面
  */
 
-public class CurrencyWithDrawalActivity extends MvpBaseActivity {
+public class CurrencyWithDrawalActivity extends BaseMvpActivity {
     @BindView(R.id.currency_withdrawals_header)
     LinearLayout currency_withdrawals_header;
 

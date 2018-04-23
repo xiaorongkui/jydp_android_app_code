@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
 import com.qmkj.jydp.ui.widget.MyRecycleView;
 import com.qmkj.jydp.util.CommonUtil;
@@ -24,7 +25,7 @@ import butterknife.BindView;
  * description:我的页面功能
  */
 
-public class MineFragment extends MvpBaseFragment {
+public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
 
     @BindView(R.id.mine_rv)
@@ -103,13 +104,13 @@ public class MineFragment extends MvpBaseFragment {
 
     @Override
     protected void injectPresenter() {
+        getFragmentComponent().inject(this);
 
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-
 
     }
 

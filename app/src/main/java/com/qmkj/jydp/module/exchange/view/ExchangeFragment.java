@@ -19,7 +19,8 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.MvpBaseFragment;
+import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.module.exchange.presenter.ExchangePresenter;
 import com.qmkj.jydp.module.exchange.presenter.ExchangeSoldPriceRecAdapter;
 import com.qmkj.jydp.module.exchange.presenter.ExchangebuyPriceRecAdapter;
 import com.qmkj.jydp.ui.widget.MyViewPager;
@@ -39,7 +40,7 @@ import butterknife.Unbinder;
  * description: 交易中心页面
  */
 
-public class ExchangeFragment extends MvpBaseFragment implements View.OnClickListener {
+public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> implements View.OnClickListener {
 
     private static final int EXCHANGE_TYPE_BUY = 1;
     private static final int EXCHANGE_TYPE_SOLD = 2;
@@ -76,6 +77,8 @@ public class ExchangeFragment extends MvpBaseFragment implements View.OnClickLis
     View entrustRecodBottomLine;
     @BindView(R.id.entrust_ll)
     LinearLayout entrustLl;
+    @BindView(R.id.kline_ll)
+    LinearLayout klineLl;
     Unbinder unbinder;
 
 
@@ -114,6 +117,7 @@ public class ExchangeFragment extends MvpBaseFragment implements View.OnClickLis
         buyLl.setOnClickListener(this);
         soldLl.setOnClickListener(this);
         entrustLl.setOnClickListener(this);
+        klineLl.setOnClickListener(this);
     }
 
     private void initRecycleView() {
@@ -167,6 +171,7 @@ public class ExchangeFragment extends MvpBaseFragment implements View.OnClickLis
 
     @Override
     protected void injectPresenter() {
+        getFragmentComponent().inject(this);
     }
 
     @Override
@@ -199,6 +204,9 @@ public class ExchangeFragment extends MvpBaseFragment implements View.OnClickLis
                 break;
             case R.id.entrust_ll:
                 setViewpagerIndicotr(2);
+                break;
+            case R.id.kline_ll:
+                CommonUtil.gotoActivity(mContext, KlineActivity.class);
                 break;
         }
     }

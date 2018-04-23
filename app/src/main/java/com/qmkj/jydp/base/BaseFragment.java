@@ -3,13 +3,11 @@ package com.qmkj.jydp.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.net.HttpCore;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -22,7 +20,7 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends RxFragment {
 
-    protected Unbinder unbinder;
+    private Unbinder unbinder;
     protected View rootView;
     protected Activity mContext;
 
@@ -35,6 +33,11 @@ public abstract class BaseFragment extends RxFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -81,7 +84,6 @@ public abstract class BaseFragment extends RxFragment {
             unbinder.unbind();
             unbinder = null;
         }
-        HttpCore.getInstance().unregisterObserver();
     }
 
     protected abstract void initView();
@@ -97,6 +99,7 @@ public abstract class BaseFragment extends RxFragment {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         prepareFetchData();
+        LogUtil.i("setUserVisibleHint=" + isVisibleToUser);
     }
 
 
@@ -105,6 +108,9 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     public boolean prepareFetchData(boolean forceUpdate) {
+        if (!isNeedLazyInitData()) {
+            isVisibleToUser = true;
+        }
         LogUtil.i("isVisibleToUser=" + isVisibleToUser + ";isViewInitiated=" + isViewInitiated +
                 ";isDataInitiated=" + isDataInitiated);
         if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
@@ -112,6 +118,11 @@ public abstract class BaseFragment extends RxFragment {
             isDataInitiated = true;
             return true;
         }
+        return false;
+    }
+
+    //是否需要懒加载，如果需要必须是使用FragmentPageAdapter
+    protected boolean isNeedLazyInitData() {
         return false;
     }
 
@@ -135,9 +146,6 @@ public abstract class BaseFragment extends RxFragment {
 
     protected abstract String getSimpleNme();
 
-    protected boolean isNeedCountPage() {
-        return true;
-    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {

@@ -1,4 +1,4 @@
-package com.qmkj.jydp.exception;
+package com.qmkj.jydp.net.exception;
 
 import android.net.ParseException;
 import android.text.TextUtils;
