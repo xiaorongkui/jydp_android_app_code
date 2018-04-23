@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.exchange.presenter;
+package com.qmkj.jydp.module.exchangecenter.presenter;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.exchange.view;
+package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.graphics.Matrix;
 import android.graphics.Paint;

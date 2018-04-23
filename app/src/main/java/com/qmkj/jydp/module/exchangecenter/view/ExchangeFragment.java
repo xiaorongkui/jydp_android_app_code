@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.exchange.view;
+package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -20,9 +20,9 @@ import android.widget.TextView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
-import com.qmkj.jydp.module.exchange.presenter.ExchangePresenter;
-import com.qmkj.jydp.module.exchange.presenter.ExchangeSoldPriceRecAdapter;
-import com.qmkj.jydp.module.exchange.presenter.ExchangebuyPriceRecAdapter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangePresenter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeSoldPriceRecAdapter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangebuyPriceRecAdapter;
 import com.qmkj.jydp.ui.widget.MyViewPager;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;

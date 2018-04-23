@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/title_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/outside_exchange"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/x36" />
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/item_line"
+            android:layout_height="1dp"/>
+
+    </LinearLayout>
+
+    <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_ll">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
+
+
+</RelativeLayout>

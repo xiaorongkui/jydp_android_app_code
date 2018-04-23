@@ -56,7 +56,7 @@
             android:name=".module.login.view.AreaCodeSecActivity"
             android:launchMode="singleTop"/>
         <activity
-            android:name=".module.exchange.view.EntrustRecodeActivity"
+            android:name=".module.exchangecenter.view.EntrustRecodeActivity"
             android:launchMode="singleTop"/>
         <activity
             android:name=".module.mine.view.CurrencyWithDrawalActivity"
@@ -67,7 +67,7 @@
 
         </activity>
         <activity
-            android:name=".module.exchange.view.KlineActivity"
+            android:name=".module.exchangecenter.view.KlineActivity"
             android:launchMode="singleTop">
         </activity>
 

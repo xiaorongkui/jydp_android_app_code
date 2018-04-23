@@ -5,9 +5,10 @@ import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.di.module.FragmentModule;
 import com.qmkj.jydp.di.scope.FragmentScope;
-import com.qmkj.jydp.module.exchange.view.ExchangeFragment;
+import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
+import com.qmkj.jydp.module.outsideexchange.view.OutsideExchangeFragment;
 
 import dagger.Component;
 
@@ -24,5 +25,7 @@ public interface FragmentComponent {
     void inject(ExchangeFragment exchangeFragment);
 
     void inject(MineFragment mineFragment);
+
+//    void inject(OutsideExchangeFragment outsideExchangeFragment);
 
 }

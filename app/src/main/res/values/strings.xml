@@ -2,6 +2,7 @@
 
     <string name="home">首页</string>
     <string name="exchange">交易中心</string>
+    <string name="outside_exchange">场外交易</string>
     <string name="mine">我的</string>
     <string name="click_exit">再按一次退出程序</string>
     <string name="more">更多</string>
@@ -96,4 +97,5 @@
     <string name="thousand_unit">万手</string>
     <string name="billion_unit">亿手</string>
     <string name="net_connect_error">网络连接失败，请检查网络后重试</string>
+
 </resources>

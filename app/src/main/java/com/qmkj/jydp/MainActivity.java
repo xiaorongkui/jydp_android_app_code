@@ -17,10 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.base.BaseActivity;
-import com.qmkj.jydp.module.exchange.view.ExchangeFragment;
+import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.presenter.CurrencyRecyAdapter;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
+import com.qmkj.jydp.module.outsideexchange.view.OutsideExchangeFragment;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
@@ -29,9 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity{
 
     @BindView(R.id.iv_home)
     ImageView homeBottomIv;
@@ -45,13 +47,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView exchangeBottomTv;
     @BindView(R.id.ll_exchange)
     LinearLayout exchangeBottom;
+    @BindView(R.id.iv_outside_exchange)
+    ImageView outsideExchangeBottomIv;
+    @BindView(R.id.tv_outside_exchange)
+    TextView outsideExchangeBottomTv;
+    @BindView(R.id.ll_outside_exchange)
+    LinearLayout outsideExchangeBottom;
     @BindView(R.id.iv_mine)
     ImageView mineBottomIv;
     @BindView(R.id.tv_mine)
     TextView mineBottomTv;
     @BindView(R.id.ll_mine)
     LinearLayout mineBottom;
-
     @BindView(R.id.drawer_view)
     LinearLayout drawer_view;
     @BindView(R.id.drawer_dl)
@@ -64,11 +71,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FragmentTransaction ft;
     private HomeFragment homeFragment;
     private ExchangeFragment exchangeFragment;
+    private OutsideExchangeFragment outsideExchangeFragment;
     private MineFragment mineFragment;
     public static final int HOME = 0;
     public static final int PRODUCT = 1;
-    public static final int ACCOUNT = 2;
-    public static final int MORE = 3;
+    public static final int OUTSIDE_EXCHANGE = 2;
+    public static final int ACCOUNT = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,23 +95,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initView() {
-        homeBottom = (LinearLayout) findViewById(R.id.ll_home);
-        homeBottomTv = (TextView) findViewById(R.id.tv_home);
-        homeBottomIv = (ImageView) findViewById(R.id.iv_home);
-
-        exchangeBottom = (LinearLayout) findViewById(R.id.ll_exchange);
-        exchangeBottomTv = (TextView) findViewById(R.id.tv_exchange);
-        exchangeBottomIv = (ImageView) findViewById(R.id.iv_exchange);
-
-        mineBottom = (LinearLayout) findViewById(R.id.ll_mine);
-        mineBottomTv = (TextView) findViewById(R.id.tv_mine);
-        mineBottomIv = (ImageView) findViewById(R.id.iv_mine);
-
-        homeBottom.setOnClickListener(this);
-        exchangeBottom.setOnClickListener(this);
-        mineBottom.setOnClickListener(this);
         setSelect(0);
-
         initDrawerLayout();
     }
 
@@ -124,10 +116,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 case PRODUCT:
                     setSelect(1);
                     break;
-                case ACCOUNT:
+                case OUTSIDE_EXCHANGE:
                     setSelect(2);
                     break;
-                case MORE:
+                case ACCOUNT:
                     setSelect(3);
                     break;
             }
@@ -138,7 +130,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void initTitle() {
 
     }
-
 
     @Override
     public int getLayoutId() {
@@ -161,8 +152,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    public void onClick(View v) {
+    @OnClick({R.id.ll_home,R.id.ll_exchange,R.id.ll_outside_exchange,R.id.ll_mine})
+    public void click(View v) {
         switch (v.getId()) {
             case R.id.ll_home:
                 setSelect(0);
@@ -170,8 +161,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.ll_exchange:
                 setSelect(1);
                 break;
-            case R.id.ll_mine:
+            case R.id.ll_outside_exchange:
                 setSelect(2);
+                break;
+            case R.id.ll_mine:
+                setSelect(3);
                 break;
         }
     }
@@ -190,7 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 ft.show(homeFragment);
                 homeBottomIv.setImageResource(R.mipmap.home_select);
-                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
+                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
                 break;
             case 1:
                 if (exchangeFragment == null) {
@@ -199,20 +193,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 ft.show(exchangeFragment);
                 exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
-                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
+                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
                 break;
             case 2:
+                if (outsideExchangeFragment  == null) {
+                    outsideExchangeFragment = new OutsideExchangeFragment();
+                    ft.add(R.id.main_container, outsideExchangeFragment);
+                }
+                ft.show(outsideExchangeFragment);
+                outsideExchangeBottomIv.setImageResource(R.mipmap.outside_exchange_select);
+                outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
+                break;
+            case 3:
                 if (mineFragment == null) {
                     mineFragment = new MineFragment();
                     ft.add(R.id.main_container, mineFragment);
                 }
                 ft.show(mineFragment);
                 mineBottomIv.setImageResource(R.mipmap.mine_select);
-                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorRed_2));
+                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
                 break;
         }
         ft.commit();
     }
+
 
     private void hideFragments() {
         if (homeFragment != null) {
@@ -220,6 +224,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         if (exchangeFragment != null) {
             ft.hide(exchangeFragment);
+        }
+        if (outsideExchangeFragment != null) {
+            ft.hide(outsideExchangeFragment);
         }
         if (mineFragment != null) {
             ft.hide(mineFragment);
@@ -230,10 +237,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         homeBottomIv.setImageResource(R.mipmap.home_unselect);
         exchangeBottomIv.setImageResource(R.mipmap.exchange_unselect);
+        outsideExchangeBottomIv.setImageResource(R.mipmap.outside_exchange_unselect);
         mineBottomIv.setImageResource(R.mipmap.mine_unselect);
 
         homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
         exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
+        outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
         mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
     }
 

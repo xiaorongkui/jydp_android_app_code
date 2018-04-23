@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.exchange.view;
+package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.common.Constants;
-import com.qmkj.jydp.module.exchange.presenter.ExchangeRecodeRecAdapter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeRecodeRecAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;

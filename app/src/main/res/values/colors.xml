@@ -33,6 +33,7 @@
     <color name="colorGreen_1">#0ca98c</color>
     <color name="colorGreen_2">#00b297</color>
     <color name="colorGreen_3">#68adfa</color>
+    <color name="colorGreen_4">#448EF1</color>
 
     <color name="status_bar_color">#80000000</color>
     <color name="gray_bg">#11FFFFFF</color>
@@ -46,4 +47,6 @@
 
     <color name="increasing_color">#ff0000</color>
     <color name="decreasing_color">#006400</color>
+
+    <color name="text_color_1">#35394F</color>
 </resources>
