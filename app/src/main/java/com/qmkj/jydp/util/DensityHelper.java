@@ -10,6 +10,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
+import com.qmkj.jydp.manager.AppManager;
+
 import java.lang.reflect.Field;
 
 import static android.content.Context.WINDOW_SERVICE;
@@ -116,6 +118,7 @@ public class DensityHelper {
                 //为了面对一些不可预计的情况以及向上兼容，分别调用一次较为保险
                 resetDensity(mApplication, designWidth);
                 resetDensity(activity, designWidth);
+                AppManager.getInstance().addActivity(activity);
             }
 
             @Override
@@ -147,7 +150,7 @@ public class DensityHelper {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-
+                AppManager.getInstance().removeActivity(activity);
             }
         };
     }

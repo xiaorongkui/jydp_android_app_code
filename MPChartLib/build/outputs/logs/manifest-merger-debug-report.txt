@@ -1,0 +1,35 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+	package
+		ADDED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:11-49
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+		ADDED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+	android:versionCode
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+		ADDED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml:2:1-13:12
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+uses-sdk
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+		ADDED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+		ADDED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml
+		INJECTED from E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\AndroidManifest.xml

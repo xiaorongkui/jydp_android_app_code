@@ -39,7 +39,7 @@ public class JYDPExchangeApp extends Application {
         context = this;
         initBugly();
         initLog();
-        registerActivityLifecycle();
+//        registerActivityLifecycle();
         initScreenAdapter();
         initLeaky();
     }
