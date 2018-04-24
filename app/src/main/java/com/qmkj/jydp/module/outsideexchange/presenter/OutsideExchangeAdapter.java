@@ -26,10 +26,12 @@ public class OutsideExchangeAdapter extends BaseRecylerAdapter {
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
-//        helper.setText(R.id.dealer_name_tv,"");
-//        helper.setText(R.id.scale_tv,"");
-//        helper.setText(R.id.trade_quotas_tv,"");
-//        helper.setText(R.id.region_tv,"");
+        helper
+//                .setText(R.id.dealer_name_tv,"")
+//            .setText(R.id.scale_tv,"")
+//            .setText(R.id.trade_quotas_tv,"")
+//            .setText(R.id.region_tv,"")
+            .addOnClickListener(R.id.go_exchange_tv);
     }
 
 }

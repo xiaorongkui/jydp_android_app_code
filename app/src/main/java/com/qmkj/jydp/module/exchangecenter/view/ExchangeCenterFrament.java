@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.outsideexchange.view;
+package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterAdapter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangePresenter;
 import com.qmkj.jydp.module.outsideexchange.presenter.OutsideExchangeAdapter;
-import com.qmkj.jydp.module.outsideexchange.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -23,45 +23,29 @@ import butterknife.BindView;
 
 /**
  * @author wujiangming
- * @date 2018/4/23
+ * @date 2018/4/24
  * @desc
  */
 
-public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePresenter> {
+public class ExchangeCenterFrament extends BaseMvpFragment<ExchangeCenterPresenter> {
     @BindView(R.id.title_ll)
     LinearLayout title_ll;
     @BindView(R.id.refresh)
     XRefreshLayout refresh;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    OutsideExchangeAdapter mOutsideExchangeAdapter;
-    ArrayList<String> mData;
+    ArrayList<Object> mData;
+    ExchangeCenterAdapter exchangeCenterAdapter;
 
     @Override
     protected void injectPresenter() {
-        getFragmentComponent().inject(this);
+
     }
 
     @Override
     protected void initView() {
         initStatusBar();
-        initRefresh();
         initRecyclerView();
-        initClick();
-    }
-
-    private void initRefresh() {
-        refresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-            }
-
-            @Override
-            public boolean checkCanDoRefresh(View content, View header) {
-                return true;
-            }
-        });
     }
 
     private void initStatusBar() {
@@ -81,25 +65,10 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         mData = new ArrayList<>();
         mData.add("123");
         mData.add("123");
-        mOutsideExchangeAdapter = new OutsideExchangeAdapter(R.layout.item_outside_exchange,mData);
+        exchangeCenterAdapter = new ExchangeCenterAdapter(R.layout.item_exchange_center,mData);
         View mEmptyView = View.inflate(getContext(),R.layout.empty,null);
-        mOutsideExchangeAdapter.setEmptyView(mEmptyView);
-        recyclerView.setAdapter(mOutsideExchangeAdapter);
-    }
-
-    public void initClick(){
-        mOutsideExchangeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
-                    case R.id.go_exchange_tv:
-                        ToastUtil.toast(getContext(),"去交易");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        exchangeCenterAdapter.setEmptyView(mEmptyView);
+        recyclerView.setAdapter(exchangeCenterAdapter);
     }
 
     @Override
@@ -109,7 +78,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
 
     @Override
     public int getLayoutId() {
-        return R.layout.outside_exchange_fragment;
+        return R.layout.fragment_exchange_center;
     }
 
     @Override

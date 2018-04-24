@@ -103,6 +103,12 @@
     <string name="scale">比例(CNY)</string>
     <string name="trade_quotas">交易限额(CNY)</string>
     <string name="region">地区</string>
+    <string name="go_exchange">去交易</string>
     <string name="not_record">暂无记录</string>
+    <string name="currency_type">币种</string>
+    <string name="day_volume">日成交量</string>
+    <string name="current_price2">当前价(XT)</string>
+    <string name="state">日涨跌</string>
+
 
 </resources>

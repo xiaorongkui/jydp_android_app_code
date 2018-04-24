@@ -18,6 +18,7 @@
             android:textColor="@color/colorBlack_12"
             android:textSize="@dimen/x18" />
         <View
+            android:layout_marginTop="@dimen/y14"
             android:layout_width="match_parent"
             android:background="@color/item_line"
             android:layout_height="1dp"/>

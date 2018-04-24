@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.base.BaseActivity;
+import com.qmkj.jydp.module.exchangecenter.view.ExchangeCenterFrament;
+import com.qmkj.jydp.module.exchangecenter.view.ExchangeDetailFrament;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.presenter.CurrencyRecyAdapter;
 import com.qmkj.jydp.module.home.view.HomeFragment;
@@ -70,7 +73,9 @@ public class MainActivity extends BaseActivity{
 
     private FragmentTransaction ft;
     private HomeFragment homeFragment;
-    private ExchangeFragment exchangeFragment;
+//    private ExchangeFragment exchangeFragment;
+    private ExchangeCenterFrament exchangeCenterFrament;
+    private ExchangeDetailFrament exchangeDetailFrament;
     private OutsideExchangeFragment outsideExchangeFragment;
     private MineFragment mineFragment;
     public static final int HOME = 0;
@@ -187,11 +192,11 @@ public class MainActivity extends BaseActivity{
                 homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
                 break;
             case 1:
-                if (exchangeFragment == null) {
-                    exchangeFragment = new ExchangeFragment();
-                    ft.add(R.id.main_container, exchangeFragment);
+                if (exchangeCenterFrament == null) {
+                    exchangeCenterFrament = new ExchangeCenterFrament();
+                    ft.add(R.id.main_container, exchangeCenterFrament);
                 }
-                ft.show(exchangeFragment);
+                ft.show(exchangeCenterFrament);
                 exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
                 exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
                 break;
@@ -222,8 +227,8 @@ public class MainActivity extends BaseActivity{
         if (homeFragment != null) {
             ft.hide(homeFragment);
         }
-        if (exchangeFragment != null) {
-            ft.hide(exchangeFragment);
+        if (exchangeCenterFrament != null) {
+            ft.hide(exchangeCenterFrament);
         }
         if (outsideExchangeFragment != null) {
             ft.hide(outsideExchangeFragment);
@@ -231,6 +236,21 @@ public class MainActivity extends BaseActivity{
         if (mineFragment != null) {
             ft.hide(mineFragment);
         }
+        if (exchangeDetailFrament != null) {
+            ft.hide(exchangeDetailFrament);
+        }
+    }
+
+    public void showExchangeDetailFrament(Object data){
+        FragmentManager fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+        hideFragments();
+        if(exchangeDetailFrament == null){
+            exchangeDetailFrament = new ExchangeDetailFrament();
+            ft.add(R.id.main_container, exchangeDetailFrament);
+        }
+        ft.show(exchangeDetailFrament);
+        ft.commit();
     }
 
     private void resetImages() {
@@ -295,9 +315,9 @@ public class MainActivity extends BaseActivity{
         exchangeDrawRv.setLayoutManager(new LinearLayoutManager(mContext));
         exchangeDrawRv.setAdapter(recyAdapter);
         recyAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (exchangeFragment != null) {
-                exchangeFragment.updateCurrencySelect(position);
-            }
+//            if (exchangeFragment != null) {
+//                exchangeFragment.updateCurrencySelect(position);
+//            }
         });
         currencySelectCloseIv.setOnClickListener(v -> {
             showDrawerLayout(false);
