@@ -1,8 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y50">
+        <TextView
+            android:text="@string/syl_1"
+            android:layout_marginLeft="@dimen/x16"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/colorBlack_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
+        <TextView
+            android:text="购买"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_width="35pt"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="去交易"
+            android:layout_marginLeft="@dimen/x192"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:background="@color/item_line"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x16"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginTop="@dimen/y9">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_13"
+            android:textColor="@color/colorBlack_13"
+            android:text="@string/dealer_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x132"
+            android:textSize="@dimen/text_size_13"
+            android:textColor="@color/colorBlack_13"
+            android:text="@string/scale"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10">
+        <TextView
+            android:id="@+id/dealer_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/colorBlack_12"
+            android:text="XXXXXX"/>
+
+        <TextView
+            android:id="@+id/scale_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x213"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/colorBlack_12"
+            android:text="XXXXXX"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginTop="@dimen/y20">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_13"
+            android:textColor="@color/colorBlack_13"
+            android:text="@string/trade_quotas"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x132"
+            android:textSize="@dimen/text_size_13"
+            android:textColor="@color/colorBlack_13"
+            android:text="@string/region"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:layout_marginBottom="@dimen/y16">
+        <TextView
+            android:id="@+id/trade_quotas_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x15"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/colorBlack_12"
+            android:text="XXXXXX"/>
+
+        <TextView
+            android:id="@+id/region_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x213"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/colorBlack_12"
+            android:text="XXXXXX"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

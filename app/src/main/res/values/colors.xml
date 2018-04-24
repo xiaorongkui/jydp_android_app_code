@@ -21,6 +21,8 @@
     <color name="colorBlack_9">#999999</color>
     <color name="colorBlack_10">#e5e5e5</color>
     <color name="colorBlack_11">#aaaaaa</color>
+    <color name="colorBlack_12">#35394F</color>
+    <color name="colorBlack_13">#7F858C</color>
 
     <color name="colorRed_1">#f16868</color>
     <color name="colorRed_2">#e83a33</color>
@@ -48,5 +50,4 @@
     <color name="increasing_color">#ff0000</color>
     <color name="decreasing_color">#006400</color>
 
-    <color name="text_color_1">#35394F</color>
 </resources>

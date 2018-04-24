@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
 
@@ -25,16 +26,10 @@ public class OutsideExchangeAdapter extends BaseRecylerAdapter {
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
-
+//        helper.setText(R.id.dealer_name_tv,"");
+//        helper.setText(R.id.scale_tv,"");
+//        helper.setText(R.id.trade_quotas_tv,"");
+//        helper.setText(R.id.region_tv,"");
     }
 
-    @Override
-    protected void convert(BaseViewHolder helper, Object item) {
-
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-    }
 }

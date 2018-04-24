@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--统一配置字体大小-->
-    <dimen name="text_size_8">16pt</dimen>
-    <dimen name="text_size_9">18pt</dimen>
-    <dimen name="text_size_10">20pt</dimen>
-    <dimen name="text_size_11">22pt</dimen>
-    <dimen name="text_size_12">24pt</dimen>
-    <dimen name="text_size_13">26pt</dimen>
-    <dimen name="text_size_14">28pt</dimen>
-    <dimen name="text_size_15">30pt</dimen>
-    <dimen name="text_size_16">32pt</dimen>
-    <dimen name="text_size_17">34pt</dimen>
-    <dimen name="text_size_18">36pt</dimen>
-    <dimen name="text_size_19">38pt</dimen>
-    <dimen name="text_size_20">40pt</dimen>
-    <dimen name="text_size_22">44pt</dimen>
-    <dimen name="text_size_24">48pt</dimen>
-    <dimen name="text_size_26">52pt</dimen>
-    <dimen name="text_size_28">56pt</dimen>
-    <dimen name="text_size_30">60pt</dimen>
-    <dimen name="text_size_36">72pt</dimen>
-    <dimen name="text_size_40">80pt</dimen>
+    <dimen name="text_size_8">8pt</dimen>
+    <dimen name="text_size_9">9pt</dimen>
+    <dimen name="text_size_10">10pt</dimen>
+    <dimen name="text_size_11">11pt</dimen>
+    <dimen name="text_size_12">12pt</dimen>
+    <dimen name="text_size_13">13pt</dimen>
+    <dimen name="text_size_14">14pt</dimen>
+    <dimen name="text_size_15">15pt</dimen>
+    <dimen name="text_size_16">16pt</dimen>
+    <dimen name="text_size_17">17pt</dimen>
+    <dimen name="text_size_18">18pt</dimen>
+    <dimen name="text_size_19">19pt</dimen>
+    <dimen name="text_size_20">20pt</dimen>
+    <dimen name="text_size_22">22pt</dimen>
+    <dimen name="text_size_24">24pt</dimen>
+    <dimen name="text_size_26">26pt</dimen>
+    <dimen name="text_size_28">28pt</dimen>
+    <dimen name="text_size_30">30pt</dimen>
+    <dimen name="text_size_36">36pt</dimen>
+    <dimen name="text_size_40">40pt</dimen>
 
     <dimen name="activity_vertical_margin1">16dp</dimen>
     <dimen name="activity_vertical_margin2">16px</dimen>

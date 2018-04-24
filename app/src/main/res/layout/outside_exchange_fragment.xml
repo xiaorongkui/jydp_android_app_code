@@ -15,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/outside_exchange"
-            android:textColor="@color/text_color_1"
-            android:textSize="@dimen/x36" />
+            android:textColor="@color/colorBlack_12"
+            android:textSize="@dimen/x18" />
         <View
             android:layout_width="match_parent"
             android:background="@color/item_line"
@@ -31,6 +31,7 @@
         android:layout_below="@id/title_ll">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

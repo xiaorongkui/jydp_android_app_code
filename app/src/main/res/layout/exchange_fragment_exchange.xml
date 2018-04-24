@@ -33,7 +33,7 @@
                         android:id="@+id/currency_select_iv"
                         android:layout_width="@dimen/x50"
                         android:layout_height="@dimen/x50"
-                        android:src="@mipmap/exchange_open"/>
+                        android:src="@mipmap/exchange_open" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -42,17 +42,17 @@
                         android:gravity="center"
                         android:text="@string/syl"
                         android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/text_size_15"/>
+                        android:textSize="@dimen/text_size_15" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login"
                         android:textColor="@color/colorBlack_9"
-                        android:textSize="@dimen/text_size_14"/>
+                        android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
 
-                <View style="@style/line1"/>
+                <View style="@style/line1" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                         android:layout_marginTop="@dimen/y20"
                         android:text="9399.5"
                         android:textColor="@color/colorRed_3"
-                        android:textSize="@dimen/text_size_17"/>
+                        android:textSize="@dimen/text_size_17" />
 
                     <LinearLayout
                         android:id="@+id/kline_ll"
@@ -86,7 +86,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/exchange_quotation"/>
+                            android:src="@mipmap/exchange_quotation" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
                             android:layout_marginLeft="@dimen/x15"
                             android:text="@string/quotation"
                             android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -116,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:text="最高 93"
                             android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -124,13 +124,13 @@
                             android:layout_marginTop="@dimen/y10"
                             android:text="最低 93"
                             android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
                             android:layout_height="wrap_content"
                             android:text="买一 93"
                             android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -151,13 +151,13 @@
                             android:layout_marginTop="@dimen/y10"
                             android:text="卖一 93"
                             android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -170,7 +170,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_money"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -178,13 +178,13 @@
                             android:layout_marginTop="@dimen/y10"
                             android:text="3.49万"
                             android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_amount"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -204,11 +204,11 @@
                             android:layout_marginTop="@dimen/y10"
                             android:text="3.11万"
                             android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <View style="@style/line1"/>
+                <View style="@style/line1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -217,7 +217,7 @@
                     android:layout_marginTop="@dimen/y20"
                     android:text="@string/current_price"
                     android:textColor="@color/colorBlack_2"
-                    android:textSize="@dimen/text_size_12"/>
+                    android:textSize="@dimen/text_size_12" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -238,7 +238,7 @@
                             android:layout_height="wrap_content"
                             android:text="卖\t"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -249,7 +249,7 @@
                             android:paddingLeft="@dimen/x50"
                             android:text="@string/amount"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -257,12 +257,12 @@
                             android:gravity="end"
                             android:text="@string/total_money_dollars"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="@dimen/x10"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -276,7 +276,7 @@
                             android:layout_height="wrap_content"
                             android:text="买\t"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -287,14 +287,14 @@
                             android:paddingLeft="@dimen/x50"
                             android:text="@string/amount"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/total_money_dollars"
                             android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -320,12 +320,12 @@
                             android:layout_alignParentStart="true"
                             android:background="@color/colorWhite_2"
                             android:overScrollMode="never"
-                            android:scrollbars="none"/>
+                            android:scrollbars="none" />
                     </RelativeLayout>
 
                     <View
                         android:layout_width="@dimen/x10"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -340,7 +340,7 @@
                             android:background="@color/colorRed_6"
                             android:overScrollMode="never"
                             android:paddingLeft="@dimen/x15"
-                            android:scrollbars="none"/>
+                            android:scrollbars="none" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -365,14 +365,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/buy_input"
                             android:textColor="@color/colorRed_4"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
 
                         <View
                             android:id="@+id/buy_bottom_line"
                             android:layout_width="@dimen/x25"
                             android:layout_height="@dimen/y4"
                             android:layout_marginTop="@dimen/y10"
-                            android:background="@color/colorRed_4"/>
+                            android:background="@color/colorRed_4" />
 
                     </LinearLayout>
 
@@ -390,14 +390,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/sold_out"
                             android:textColor="@color/colorRed_4"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
 
                         <View
                             android:id="@+id/sold_bottom_line"
                             android:layout_width="@dimen/x25"
                             android:layout_height="@dimen/y4"
                             android:layout_marginTop="@dimen/y10"
-                            android:background="@color/colorRed_4"/>
+                            android:background="@color/colorRed_4" />
 
                     </LinearLayout>
 
@@ -415,14 +415,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_entrust_recod"
                             android:textColor="@color/colorRed_4"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
 
                         <View
                             android:id="@+id/entrust_recod_bottom_line"
                             android:layout_width="@dimen/x25"
                             android:layout_height="@dimen/y4"
                             android:layout_marginTop="@dimen/y10"
-                            android:background="@color/colorRed_4"/>
+                            android:background="@color/colorRed_4" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -431,7 +431,7 @@
                     android:id="@+id/exchange_continer_vp"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>

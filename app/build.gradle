@@ -17,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField("float", "DESIGN_WIDTH", "750")//设计稿上的屏幕宽度
+        buildConfigField("float", "DESIGN_WIDTH", "375")//设计稿上的屏幕宽度
     }
     lintOptions {//有任何的错误检查都会终止构建
         abortOnError false

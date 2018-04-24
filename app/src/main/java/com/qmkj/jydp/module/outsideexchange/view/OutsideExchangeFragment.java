@@ -1,6 +1,8 @@
 package com.qmkj.jydp.module.outsideexchange.view;
 
 import android.os.Build;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -8,9 +10,12 @@ import android.widget.RelativeLayout;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.module.outsideexchange.presenter.OutsideExchangeAdapter;
 import com.qmkj.jydp.module.outsideexchange.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -25,16 +30,21 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
     LinearLayout title_ll;
     @BindView(R.id.refresh)
     XRefreshLayout refresh;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    OutsideExchangeAdapter mOutsideExchangeAdapter;
+    ArrayList<String> mData;
 
     @Override
     protected void injectPresenter() {
-//        getFragmentComponent().inject(this);
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected void initView() {
         initStatusBar();
         initRefresh();
+        initRecyclerView();
     }
 
     private void initRefresh() {
@@ -46,7 +56,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
 
             @Override
             public boolean checkCanDoRefresh(View content, View header) {
-                return false;
+                return true;
             }
         });
     }
@@ -60,6 +70,18 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                     .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
             title_ll.addView(statusView, 0, lp);
         }
+    }
+
+    private void initRecyclerView(){
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutmanager);
+        mData = new ArrayList<>();
+        mData.add("123");
+        mData.add("123");
+        mOutsideExchangeAdapter = new OutsideExchangeAdapter(R.layout.item_outside_exchange,mData);
+        View mEmptyView = View.inflate(getContext(),R.layout.empty,null);
+        mOutsideExchangeAdapter.setEmptyView(mEmptyView);
+        recyclerView.setAdapter(mOutsideExchangeAdapter);
     }
 
     @Override

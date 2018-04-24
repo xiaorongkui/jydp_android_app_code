@@ -1,9 +1,12 @@
 package com.qmkj.jydp.module.outsideexchange.presenter;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.base.BaseView;
+
+import javax.inject.Inject;
 
 /**
  * @author wujiangming
@@ -12,7 +15,8 @@ import com.qmkj.jydp.base.BaseView;
  */
 
 public class OutsideExchangePresenter extends BaseRxPresenter<BaseView> {
-    public OutsideExchangePresenter(Activity activity) {
-        super(activity);
+    @Inject
+    public OutsideExchangePresenter(Fragment fragment) {
+        super(fragment);
     }
 }

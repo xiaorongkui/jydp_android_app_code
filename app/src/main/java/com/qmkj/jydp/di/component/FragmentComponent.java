@@ -26,6 +26,6 @@ public interface FragmentComponent {
 
     void inject(MineFragment mineFragment);
 
-//    void inject(OutsideExchangeFragment outsideExchangeFragment);
+    void inject(OutsideExchangeFragment outsideExchangeFragment);
 
 }
