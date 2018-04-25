@@ -44,16 +44,21 @@
         android:id="@+id/current_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="114dp"
+        android:layout_marginStart="114dp"
+        android:layout_toEndOf="@+id/day_volume_tv"
+        android:layout_toRightOf="@+id/day_volume_tv"
         android:gravity="center"
         android:text="92.00"
-        android:textSize="@dimen/text_size_15"
         android:textColor="@color/colorBlack_15"
-        android:layout_marginLeft="@dimen/x209"/>
+        android:textSize="@dimen/text_size_15" />
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:src="@drawable/shape_triangle_green_bg"
         android:layout_marginLeft="@dimen/x303"/>
     <TextView
         android:id="@+id/state_tv"
