@@ -182,7 +182,9 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     private void initMarquee() {
         noticeViews.clear();
 
-        noticeViews.add(createNoticeView(new HomeNoticeInfo("", "", "1234tfrefer", "", 1l)));
+        noticeViews.add(createNoticeView(new HomeNoticeInfo("", "",
+                "刚开始是gridview加recycleview的布局，但是这样滑动的时候，GridView会一直存在页面，" +
+                        "本来想用scrollview包裹，最后选择了将Gridview作为recycleview" + "的", "", 1l)));
         noticeViews.add(createNoticeView(new HomeNoticeInfo("", "", "232323", "", 1l)));
         noticeViews.add(createNoticeView(new HomeNoticeInfo("", "", "fvdfcvreew", "", 1l)));
         marqueeHomeHeaderNotice.setViews(noticeViews);

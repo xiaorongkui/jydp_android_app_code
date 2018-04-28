@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.os.Build;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
-import com.qmkj.jydp.module.exchangecenter.presenter.ExchangePresenter;
-import com.qmkj.jydp.module.outsideexchange.presenter.OutsideExchangeAdapter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -22,17 +23,17 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 /**
- * @author wujiangming
+ * @author
  * @date 2018/4/24
- * @desc
+ * @desc 交易中心的币种选择界面
  */
 
-public class ExchangeCenterFrament extends BaseMvpFragment<ExchangeCenterPresenter> {
-    @BindView(R.id.title_ll)
+public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCenterPresenter> {
+    @BindView(R.id.exchange_center_title_ll)
     LinearLayout title_ll;
-    @BindView(R.id.refresh)
+    @BindView(R.id.exchange_center_xrl)
     XRefreshLayout refresh;
-    @BindView(R.id.recyclerView)
+    @BindView(R.id.exchange_center_rv)
     RecyclerView recyclerView;
     ArrayList<Object> mData;
     ExchangeCenterAdapter exchangeCenterAdapter;
@@ -59,16 +60,27 @@ public class ExchangeCenterFrament extends BaseMvpFragment<ExchangeCenterPresent
         }
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutmanager);
         mData = new ArrayList<>();
         mData.add("123");
         mData.add("123");
-        exchangeCenterAdapter = new ExchangeCenterAdapter(R.layout.item_exchange_center,mData);
-        View mEmptyView = View.inflate(getContext(),R.layout.empty,null);
+        mData.add("123");
+        mData.add("123");
+        exchangeCenterAdapter = new ExchangeCenterAdapter(R.layout.home_exchange_price_item, mData);
+        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
         exchangeCenterAdapter.setEmptyView(mEmptyView);
         recyclerView.setAdapter(exchangeCenterAdapter);
+
+        exchangeCenterAdapter.setOnItemClickListener((adapter, view, position) -> {
+            try {
+                ((MainActivity) getActivity()).showExchangeFrament("盛源链");//去交易中心核心页面
+            } catch (Exception e) {
+                e.printStackTrace();
+                toast(getString(R.string.cerrecy_select_failed));
+            }
+        });
     }
 
     @Override
@@ -78,7 +90,7 @@ public class ExchangeCenterFrament extends BaseMvpFragment<ExchangeCenterPresent
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_exchange_center;
+        return R.layout.exchange_fragment_currency_select;
     }
 
     @Override

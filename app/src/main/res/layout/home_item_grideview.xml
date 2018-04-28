@@ -11,18 +11,18 @@
 
         <ImageView
             android:id="@+id/gride_image"
-            android:layout_width="@dimen/x80"
-            android:layout_height="@dimen/y80"
+            android:layout_width="@dimen/x39"
+            android:layout_height="@dimen/y44"
             android:scaleType="fitXY"
             android:src="@mipmap/logo"/>
 
         <TextView
             android:id="@+id/gride_text"
             android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/y6"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y20"
-            android:textColor="@color/colorBlack_2"
-            android:textSize="@dimen/text_size_15"/>
+            android:textColor="@color/color_black_6"
+            android:textSize="@dimen/text_size_13"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

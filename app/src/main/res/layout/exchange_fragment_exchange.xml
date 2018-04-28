@@ -23,333 +23,208 @@
                 <LinearLayout
                     android:id="@+id/exchange_header_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y96"
+                    android:layout_height="@dimen/y44"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/x30"
-                    android:paddingRight="@dimen/y30">
+                    android:paddingEnd="@dimen/y15"
+                    android:paddingStart="@dimen/x15">
 
                     <ImageView
                         android:id="@+id/currency_select_iv"
-                        android:layout_width="@dimen/x50"
-                        android:layout_height="@dimen/x50"
-                        android:src="@mipmap/exchange_open" />
+                        android:layout_width="@dimen/x7"
+                        android:layout_height="@dimen/y12"
+                        android:src="@mipmap/back"/>
 
                     <TextView
+                        android:id="@+id/exchange_title_tv"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/syl"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/text_size_15" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/login"
-                        android:textColor="@color/colorBlack_9"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textColor="@color/color_black_7"
+                        android:textSize="@dimen/text_size_18"/>
                 </LinearLayout>
 
-                <View style="@style/line1" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/x30"
-                    android:paddingRight="@dimen/x30">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/y30"
-                        android:layout_marginTop="@dimen/y20"
-                        android:text="9399.5"
-                        android:textColor="@color/colorRed_3"
-                        android:textSize="@dimen/text_size_17" />
-
-                    <LinearLayout
-                        android:id="@+id/kline_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/y10"
-                        android:background="@drawable/shape_exchange_quotation"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingBottom="@dimen/y5"
-                        android:paddingLeft="@dimen/x15"
-                        android:paddingRight="@dimen/x15"
-                        android:paddingTop="@dimen/y5">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/exchange_quotation" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x15"
-                            android:text="@string/quotation"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size_12" />
-                    </LinearLayout>
-                </RelativeLayout>
+                <View style="@style/line1"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/y20"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginBottom="@dimen/y15"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_marginRight="@dimen/x15"
+                    android:layout_marginTop="@dimen/y17"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="9399.5"
+                        android:textColor="@color/colorGreen_4"
+                        android:textSize="@dimen/text_size_22"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x38"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
+                        <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="最高 93"
-                            android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12" />
+                            android:layout_height="wrap_content">
 
-                        <TextView
+                            <TextView
+                                android:id="@+id/exchange_high_title_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/highest"
+                                android:textColor="@color/color_black_6"
+                                android:textSize="@dimen/text_size_12"/>
+
+                            <TextView
+                                android:id="@+id/exchange_high_price_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/x9"
+                                android:layout_toEndOf="@id/exchange_high_title_tv"
+                                android:text="99.0"
+                                android:textColor="@color/color_black_7"
+                                android:textSize="@dimen/text_size_13"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/y10"
-                            android:text="最低 93"
-                            android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12" />
+                            android:layout_marginTop="@dimen/y10">
+
+                            <TextView
+                                android:id="@+id/exchange_lowest_title_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/lowest"
+                                android:textColor="@color/color_black_6"
+                                android:textSize="@dimen/text_size_12"/>
+
+                            <TextView
+                                android:id="@+id/exchange_lowest_price_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/x9"
+                                android:layout_toEndOf="@id/exchange_lowest_title_tv"
+                                android:text="12.0"
+                                android:textColor="@color/color_black_7"
+                                android:textSize="@dimen/text_size_13"/>
+                        </RelativeLayout>
+
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="买一 93"
-                            android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/y10"
-                            android:text="卖一 93"
-                            android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12" />
-                    </LinearLayout>
-
-                    <View
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/exchange_money"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
+                            android:layout_height="wrap_content">
 
-                        <TextView
+                            <TextView
+                                android:id="@+id/exchange_buy_one_title_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="@string/buy_one"
+                                android:textColor="@color/color_black_6"
+                                android:textSize="@dimen/text_size_12"/>
+
+                            <TextView
+                                android:id="@+id/exchange_buy_one_price_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/x9"
+                                android:layout_toEndOf="@id/exchange_buy_one_title_tv"
+                                android:text="99.0"
+                                android:textColor="@color/color_black_7"
+                                android:textSize="@dimen/text_size_13"/>
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/y10"
-                            android:text="3.49万"
-                            android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12" />
+                            android:layout_marginTop="@dimen/y10">
+
+                            <TextView
+                                android:id="@+id/exchange_sell_one_title_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/sell_one"
+                                android:textColor="@color/color_black_6"
+                                android:textSize="@dimen/text_size_12"/>
+
+                            <TextView
+                                android:id="@+id/exchange_sell_one_price_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/x9"
+                                android:layout_toEndOf="@id/exchange_sell_one_title_tv"
+                                android:text="99.0"
+                                android:textColor="@color/color_black_7"
+                                android:textSize="@dimen/text_size_13"/>
+                        </RelativeLayout>
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/exchange_amount"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
+                            android:textColor="@color/color_black_6"
+                            android:textSize="@dimen/text_size_12"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y10"
                             android:text="3.11万"
-                            android:textColor="@color/colorBlack_2"
-                            android:textSize="@dimen/text_size_12" />
+                            android:textColor="@color/color_black_7"
+                            android:textSize="@dimen/text_size_13"/>
                     </LinearLayout>
                 </LinearLayout>
 
-                <View style="@style/line1" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y5"
+                    android:background="@color/color_gray_7"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginTop="@dimen/y20"
-                    android:text="@string/current_price"
-                    android:textColor="@color/colorBlack_2"
-                    android:textSize="@dimen/text_size_12" />
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/y10"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginRight="@dimen/x30"
-                    android:layout_marginTop="@dimen/y20">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="卖\t"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/x50"
-                            android:text="@string/amount"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/total_money_dollars"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="match_parent" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/x15">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="买\t"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/x50"
-                            android:text="@string/amount"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/total_money_dollars"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginRight="@dimen/x30"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="@dimen/y5">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/exchange_price_recycle_sold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:background="@color/colorWhite_2"
-                            android:overScrollMode="never"
-                            android:scrollbars="none" />
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="@dimen/x10"
-                        android:layout_height="match_parent" />
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="@dimen/y5">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/exchange_price_recycle_buy"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorRed_6"
-                            android:overScrollMode="never"
-                            android:paddingLeft="@dimen/x15"
-                            android:scrollbars="none" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/y20"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginTop="@dimen/y30"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_marginRight="@dimen/x15"
+                    android:layout_marginTop="@dimen/y15"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -364,23 +239,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/buy_input"
-                            android:textColor="@color/colorRed_4"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textColor="@color/color_red_3"
+                            android:textSize="@dimen/text_size_16"/>
 
                         <View
                             android:id="@+id/buy_bottom_line"
-                            android:layout_width="@dimen/x25"
-                            android:layout_height="@dimen/y4"
-                            android:layout_marginTop="@dimen/y10"
-                            android:background="@color/colorRed_4" />
-
+                            android:layout_width="@dimen/x13"
+                            android:layout_height="@dimen/y2"
+                            android:layout_marginTop="@dimen/y5"
+                            android:background="@color/color_red_3"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/sold_ll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/y100"
+                        android:layout_marginStart="@dimen/y34"
+                        android:layout_toEndOf="@id/buy_ll"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -389,49 +264,252 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sold_out"
-                            android:textColor="@color/colorRed_4"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textColor="@color/color_green_4"
+                            android:textSize="@dimen/text_size_16"/>
 
                         <View
                             android:id="@+id/sold_bottom_line"
-                            android:layout_width="@dimen/x25"
-                            android:layout_height="@dimen/y4"
-                            android:layout_marginTop="@dimen/y10"
-                            android:background="@color/colorRed_4" />
+                            android:layout_width="@dimen/x13"
+                            android:layout_height="@dimen/y2"
+                            android:layout_marginTop="@dimen/y5"
+                            android:background="@color/color_green_4"/>
 
                     </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/x20"
+                        android:layout_height="@dimen/y20"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/kline_icon"/>
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_marginRight="@dimen/x15"
+                    android:layout_marginTop="@dimen/y14">
 
                     <LinearLayout
-                        android:id="@+id/entrust_ll"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/y100"
-                        android:gravity="center"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
+                        <LinearLayout
+                            android:id="@+id/buy_or_sell_header_ll"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y25"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/x11"
+                                android:text="@string/buy_or_sell"
+                                android:textColor="@color/color_black_5"
+                                android:textSize="@dimen/text_size_11"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/xt_price"
+                                android:textColor="@color/color_black_5"
+                                android:textSize="@dimen/text_size_11"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/x18"
+                                android:gravity="end"
+                                android:text="@string/amount"
+                                android:textColor="@color/color_black_5"
+                                android:textSize="@dimen/text_size_11"/>
+                        </LinearLayout>
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/exchange_price_recycle_sold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_green_5"
+                            android:overScrollMode="never"
+                            android:paddingEnd="@dimen/x11"
+                            android:paddingStart="@dimen/x11"
+                            android:paddingTop="@dimen/y2"
+                            android:scrollbars="none"/>
+
                         <TextView
-                            android:id="@+id/entrust_recod_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/exchange_entrust_recod"
-                            android:textColor="@color/colorRed_4"
-                            android:textSize="@dimen/text_size_14" />
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/y6"
+                            android:layout_marginTop="@dimen/y6"
+                            android:text="@string/current_xt_price"
+                            android:textColor="@color/color_black_7"
+                            android:textSize="@dimen/text_size_12"/>
 
-                        <View
-                            android:id="@+id/entrust_recod_bottom_line"
-                            android:layout_width="@dimen/x25"
-                            android:layout_height="@dimen/y4"
-                            android:layout_marginTop="@dimen/y10"
-                            android:background="@color/colorRed_4" />
-
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/exchange_price_recycle_buy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_red_4"
+                            android:overScrollMode="never"
+                            android:paddingEnd="@dimen/x11"
+                            android:paddingStart="@dimen/x11"
+                            android:scrollbars="none"/>
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/x16"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/x15">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="买\t"
+                            android:textColor="@color/colorBlack_9"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/x50"
+                            android:text="@string/amount"
+                            android:textColor="@color/colorBlack_9"
+                            android:textSize="@dimen/text_size_12"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_money_dollars"
+                            android:textColor="@color/colorBlack_9"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y5"
+                    android:background="@color/color_gray_1"/>
+
+                <LinearLayout
+                    android:id="@+id/entrust_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/y15"
+                    android:layout_marginTop="@dimen/y15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/x3"
+                        android:layout_height="@dimen/y13"
+                        android:background="@color/color_bule_1"/>
+
+                    <TextView
+                        android:id="@+id/entrust_recod_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x7"
+                        android:text="@string/exchange_entrust_recod"
+                        android:textColor="@color/color_black_2"
+                        android:textSize="@dimen/text_size_16"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/exchange_recode_header_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y32"
+                    android:layout_marginEnd="@dimen/y15"
+                    android:layout_marginStart="@dimen/y15"
+                    android:layout_marginTop="@dimen/y10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x16"
+                        android:text="@string/type"
+                        android:textColor="@color/color_black_5"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/price_dollars"
+                        android:textColor="@color/color_black_5"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/amount"
+                        android:textColor="@color/color_black_5"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/have_exchange"
+                        android:textColor="@color/color_black_5"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x13"
+                        android:gravity="center"
+                        android:text="@string/operation"
+                        android:textColor="@color/color_black_5"
+                        android:textSize="@dimen/text_size_12"/>
                 </LinearLayout>
 
                 <com.qmkj.jydp.ui.widget.MyViewPager
                     android:id="@+id/exchange_continer_vp"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>

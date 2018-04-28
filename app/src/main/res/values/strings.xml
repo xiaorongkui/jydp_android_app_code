@@ -15,8 +15,8 @@
 
     <string name="push_to_refresh_2">松开加载更多</string>
     <string name="push_to_refresh_3">上拉加载更多</string>
-    <string name="syl">盛源链(MUC/USD)</string>
-    <string name="syl_1">盛源链</string>
+    <string name="syl_1">盛源链(MUC/USD)</string>
+    <string name="syl">盛源链</string>
     <string name="login">登录</string>
     <string name="quotation">行情</string>
 
@@ -124,10 +124,22 @@
     <string name="region">地区</string>
     <string name="go_exchange">去交易</string>
     <string name="not_record">暂无记录</string>
-    <string name="currency_type">币种</string>
-    <string name="day_volume">日成交量</string>
-    <string name="current_price2">当前价(XT)</string>
-    <string name="state">日涨跌</string>
+
+    <string name="currency">币种</string>
+    <string name="exchange_day_volume">日成交量</string>
+    <string name="current_xt_price">当前价(XT)</string>
+    <string name="xt_price">价格(XT)</string>
+    <string name="day_rise_and_fall">日涨跌</string>
+    <string name="cerrecy_select_failed">当前币种页面选择失败，请退出重新选择</string>
+    <string name="highest">最高</string>
+    <string name="lowest">最低</string>
+    <string name="buy_one">买一</string>
+    <string name="sell_one">卖一</string>
+    <string name="buy_or_sell">买/卖</string>
+    <string name="type">类型</string>
+    <string name="price_dollars">单价($)</string>
+    <string name="have_exchange">已成交</string>
+    <string name="operation">操作</string>
 
 
 </resources>

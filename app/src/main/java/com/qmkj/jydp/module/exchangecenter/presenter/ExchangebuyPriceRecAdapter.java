@@ -35,6 +35,6 @@ public class ExchangebuyPriceRecAdapter extends BaseRecylerAdapter {
     @Override
     protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
         priceStatusTv.setText(CommonUtil.getString(R.string.buy) + (datas.size() - position));
-        priceStatusTv.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
+        priceStatusTv.setTextColor(CommonUtil.getColor(R.color.color_red_3));
     }
 }

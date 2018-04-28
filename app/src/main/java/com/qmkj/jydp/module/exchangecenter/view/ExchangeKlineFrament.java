@@ -28,7 +28,7 @@ public class ExchangeKlineFrament extends BaseMvpFragment<ExchangeCenterPresente
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_exchange_center;
+        return R.layout.exchange_fragment_currency_select;
     }
 
     @Override

@@ -6,7 +6,7 @@
     android:height="@dimen/y4">
 
     <path
-        android:pathData="m0 24 l12 -24 l12 24 z"
-        android:fillColor="@color/colorGreen_6" />
+        android:pathData="m0 0 l12 24 l12 -24 z"
+        android:fillColor="@color/color_green_4"/>
 
 </vector>

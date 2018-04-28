@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.exchangecenter.view;
 
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import com.qmkj.jydp.module.exchangecenter.presenter.ExchangebuyPriceRecAdapter;
 import com.qmkj.jydp.ui.widget.MyViewPager;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,14 +73,10 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
     View soldBottomLine;
     @BindView(R.id.sold_ll)
     LinearLayout soldLl;
-    @BindView(R.id.entrust_recod_title)
-    TextView entrustRecodTitle;
-    @BindView(R.id.entrust_recod_bottom_line)
-    View entrustRecodBottomLine;
-    @BindView(R.id.entrust_ll)
-    LinearLayout entrustLl;
-    @BindView(R.id.kline_ll)
-    LinearLayout klineLl;
+    @BindView(R.id.buy_or_sell_header_ll)
+    LinearLayout buy0rSellHeaderLl;
+    @BindView(R.id.exchange_recode_header_ll)
+    LinearLayout exchangeRecodeHeaderLl;
     Unbinder unbinder;
 
 
@@ -92,7 +90,13 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
         initRecycleView();
         initListener();
         initViewPager();
-        setViewpagerIndicotr(0);
+//        setViewpagerIndicotr(0);
+        StateListDrawable stateListDrawable = SelectorFactory.newShapeSelector()
+                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
+                .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_1))
+                .create();
+        buy0rSellHeaderLl.setBackground(stateListDrawable);
+        exchangeRecodeHeaderLl.setBackground(stateListDrawable);
     }
 
     private void initViewPager() {
@@ -116,8 +120,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
         currencySelectIv.setOnClickListener(this);
         buyLl.setOnClickListener(this);
         soldLl.setOnClickListener(this);
-        entrustLl.setOnClickListener(this);
-        klineLl.setOnClickListener(this);
     }
 
     private void initRecycleView() {
@@ -202,12 +204,12 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
             case R.id.sold_ll:
                 setViewpagerIndicotr(1);
                 break;
-            case R.id.entrust_ll:
-                setViewpagerIndicotr(2);
-                break;
-            case R.id.kline_ll:
-                CommonUtil.gotoActivity(mContext, KlineActivity.class);
-                break;
+//            case R.id.entrust_ll:
+//                setViewpagerIndicotr(2);
+//                break;
+//            case R.id.kline_ll:
+//                CommonUtil.gotoActivity(mContext, KlineActivity.class);
+//                break;
         }
     }
 
@@ -271,10 +273,10 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
     private void setViewpagerIndicotr(int index) {
         buyTitle.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
         soldTitle.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
-        entrustRecodTitle.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
+//        entrustRecodTitle.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
         buyBottomLine.setVisibility(View.INVISIBLE);
         soldBottomLine.setVisibility(View.INVISIBLE);
-        entrustRecodBottomLine.setVisibility(View.INVISIBLE);
+//        entrustRecodBottomLine.setVisibility(View.INVISIBLE);
 
         switch (index) {
             case 0:
@@ -289,8 +291,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
                 break;
             case 2:
                 exchangeContinerVp.setCurrentItem(2);
-                entrustRecodTitle.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
-                entrustRecodBottomLine.setVisibility(View.VISIBLE);
+//                entrustRecodTitle.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
+//                entrustRecodBottomLine.setVisibility(View.VISIBLE);
                 break;
         }
     }

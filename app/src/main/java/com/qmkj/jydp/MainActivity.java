@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.base.BaseActivity;
-import com.qmkj.jydp.module.exchangecenter.view.ExchangeCenterFrament;
-import com.qmkj.jydp.module.exchangecenter.view.ExchangeDetailFrament;
+import com.qmkj.jydp.module.exchangecenter.view.ExchangeCurrencySelectFrament;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.presenter.CurrencyRecyAdapter;
 import com.qmkj.jydp.module.home.view.HomeFragment;
@@ -36,7 +34,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.iv_home)
     ImageView homeBottomIv;
@@ -73,8 +71,8 @@ public class MainActivity extends BaseActivity{
 
     private FragmentTransaction ft;
     private HomeFragment homeFragment;
-    private ExchangeCenterFrament exchangeCenterFrament;
-    private ExchangeDetailFrament exchangeDetailFrament;
+    private ExchangeCurrencySelectFrament exchangeCurrencySelectFrament;
+    private ExchangeFragment exchangeFragment;
     private OutsideExchangeFragment outsideExchangeFragment;
     private MineFragment mineFragment;
     public static final int HOME = 0;
@@ -156,7 +154,7 @@ public class MainActivity extends BaseActivity{
         return super.onKeyDown(keyCode, event);
     }
 
-    @OnClick({R.id.ll_home,R.id.ll_exchange,R.id.ll_outside_exchange,R.id.ll_mine})
+    @OnClick({R.id.ll_home, R.id.ll_exchange, R.id.ll_outside_exchange, R.id.ll_mine})
     public void click(View v) {
         switch (v.getId()) {
             case R.id.ll_home:
@@ -174,14 +172,14 @@ public class MainActivity extends BaseActivity{
         }
     }
 
-    private void setSelect(int i) {
+    public void setSelect(int i) {
         FragmentManager fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         hideFragments();
         resetImages();
 
         switch (i) {
-            case 0:
+            case 0://首页
                 if (homeFragment == null) {
                     homeFragment = new HomeFragment();
                     ft.add(R.id.main_container, homeFragment);
@@ -190,17 +188,17 @@ public class MainActivity extends BaseActivity{
                 homeBottomIv.setImageResource(R.mipmap.home_select);
                 homeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 break;
-            case 1:
-                if (exchangeCenterFrament == null) {
-                    exchangeCenterFrament = new ExchangeCenterFrament();
-                    ft.add(R.id.main_container, exchangeCenterFrament);
+            case 1://币种选择页面
+                if (exchangeCurrencySelectFrament == null) {
+                    exchangeCurrencySelectFrament = new ExchangeCurrencySelectFrament();
+                    ft.add(R.id.main_container, exchangeCurrencySelectFrament);
                 }
-                ft.show(exchangeCenterFrament);
+                ft.show(exchangeCurrencySelectFrament);
                 exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
                 exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 break;
-            case 2:
-                if (outsideExchangeFragment  == null) {
+            case 2://场外交易页面
+                if (outsideExchangeFragment == null) {
                     outsideExchangeFragment = new OutsideExchangeFragment();
                     ft.add(R.id.main_container, outsideExchangeFragment);
                 }
@@ -208,7 +206,7 @@ public class MainActivity extends BaseActivity{
                 outsideExchangeBottomIv.setImageResource(R.mipmap.outside_exchange_select);
                 outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 break;
-            case 3:
+            case 3://我的页面
                 if (mineFragment == null) {
                     mineFragment = new MineFragment();
                     ft.add(R.id.main_container, mineFragment);
@@ -226,8 +224,8 @@ public class MainActivity extends BaseActivity{
         if (homeFragment != null) {
             ft.hide(homeFragment);
         }
-        if (exchangeCenterFrament != null) {
-            ft.hide(exchangeCenterFrament);
+        if (exchangeCurrencySelectFrament != null) {
+            ft.hide(exchangeCurrencySelectFrament);
         }
         if (outsideExchangeFragment != null) {
             ft.hide(outsideExchangeFragment);
@@ -235,20 +233,21 @@ public class MainActivity extends BaseActivity{
         if (mineFragment != null) {
             ft.hide(mineFragment);
         }
-        if (exchangeDetailFrament != null) {
-            ft.hide(exchangeDetailFrament);
+        if (exchangeFragment != null) {
+            ft.hide(exchangeFragment);
         }
     }
 
-    public void showExchangeDetailFrament(Object data){
+    //交易中心核心界面
+    public void showExchangeFrament(String currencyName) {
         FragmentManager fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         hideFragments();
-        if(exchangeDetailFrament == null){
-            exchangeDetailFrament = new ExchangeDetailFrament();
-            ft.add(R.id.main_container, exchangeDetailFrament);
+        if (exchangeFragment == null) {
+            exchangeFragment = new ExchangeFragment();
+            ft.add(R.id.main_container, exchangeFragment);
         }
-        ft.show(exchangeDetailFrament);
+        ft.show(exchangeFragment);
         ft.commit();
     }
 
@@ -259,10 +258,10 @@ public class MainActivity extends BaseActivity{
         outsideExchangeBottomIv.setImageResource(R.mipmap.outside_exchange_unselect);
         mineBottomIv.setImageResource(R.mipmap.mine_unselect);
 
-        homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
-        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
-        outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
-        mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
+        homeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
+        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
+        outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
+        mineBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
     }
 
     /**
