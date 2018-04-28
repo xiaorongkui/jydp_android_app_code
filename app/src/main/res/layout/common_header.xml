@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/y96"
+              android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
               android:background="@color/colorWhite"
+              android:minHeight="@dimen/y49"
               android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/common_header_ll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y95"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -19,11 +21,11 @@
 
             <ImageView
                 android:id="@+id/common_header_back_iv"
-                android:layout_width="@dimen/x26"
-                android:layout_height="@dimen/y44"
+                android:layout_width="@dimen/x7"
+                android:layout_height="@dimen/y12"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x30"
-                android:layout_marginRight="@dimen/x10"
+                android:layout_marginLeft="@dimen/x15"
+                android:layout_marginRight="@dimen/x15"
                 android:scaleType="fitXY"
                 android:src="@mipmap/more_arrow"/>
         </RelativeLayout>
@@ -36,13 +38,14 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="center"
-            android:textColor="@color/colorBlack_2"
-            android:textSize="@dimen/text_size_15"/>
+            tools:text="lllllll"
+            android:textColor="@color/color_black_4"
+            android:textSize="@dimen/text_size_18"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/x30">
+            android:layout_marginRight="@dimen/x15">
 
             <TextView
                 android:id="@+id/title_right_tv"
@@ -51,14 +54,14 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:textColor="@color/colorBlack_2"
+                android:textColor="@color/color_black_4"
                 android:textSize="@dimen/text_size_13"/>
 
             <ImageView
                 android:id="@+id/title_right"
-                android:layout_width="@dimen/x22"
-                android:layout_height="@dimen/y22"
-                android:layout_marginRight="@dimen/x15"
+                android:layout_width="@dimen/x11"
+                android:layout_height="@dimen/y11"
+                android:layout_marginEnd="@dimen/x15"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="invisible"/>
         </RelativeLayout>

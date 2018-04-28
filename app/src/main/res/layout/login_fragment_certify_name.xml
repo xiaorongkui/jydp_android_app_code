@@ -3,141 +3,223 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/colorWhite"
               android:orientation="vertical">
 
-    <include
-        android:id="@+id/ertify_account_ll"
-        layout="@layout/common_edit_item"/>
-
-    <include
-        android:id="@+id/ertify_name_ll"
-        layout="@layout/common_edit_item"/>
-
-    <com.qmkj.jydp.ui.widget.ClickItemView
-        android:id="@+id/ertify_type_cv"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:leftText="@string/certify_type"
-        app:leftTextColor="@color/colorBlack_7"
-        app:rightIconVisible="true"
-        app:rightText="@string/certificate_identification"
-        app:rightTextColor="@color/colorBlack_8"/>
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y11">
 
-    <include
-        android:id="@+id/ertify_number_ll"
-        layout="@layout/common_edit_item"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15">
 
-    <TextView
-        android:id="@+id/ertify_picture_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/y85"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/x30"
-        android:gravity="center_vertical"
-        android:text="@string/certify_picture"
-        android:textColor="@color/colorBlack_7"
-        android:textSize="@dimen/text_size_13"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginRight="@dimen/x30"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="@dimen/y200"
-            android:layout_weight="1">
-
-
-            <RelativeLayout
-                android:id="@+id/certify_add_front_rl"
+            <com.qmkj.jydp.ui.widget.ClickItemView
+                android:id="@+id/certify_name_account_cv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shape_sertify_add">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                app:bottomLine="false"
+                app:leftText="@string/your_account"
+                app:leftTextColor="@color/color_black_6"
+                app:rightIconVisible="false"
+                app:rightText="@string/certificate_identification"
+                app:rightTextColor="@color/color_black_7"/>
 
-                <ImageView
-                    android:id="@+id/front_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+            <com.qmkj.jydp.ui.widget.EditItemView
+                android:id="@+id/certify_name_name_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bottomLineTopMargin="@dimen/x7"
+                app:bottomLineVisible="true"
+                app:contentEditHintText="@string/your_real_name"
+                app:contentEditTopMargin="@dimen/x15"
+                app:titleText="@string/name"
+                app:titleTopMargin="@dimen/x20"/>
 
-                <LinearLayout
-                    android:id="@+id/front_ll"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y22"
+                android:orientation="vertical">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:text="@string/certificate_num"
+                    android:textColor="@color/color_black_1"
+                    android:textSize="@dimen/text_size_14"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/certify_add"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y17"
+                    android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/ertify_type_select_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/x11"
+                        android:text="@string/certificate_identification"
+                        android:textColor="@color/color_black_7"
+                        android:textSize="@dimen/text_size_13"/>
+
+                    <ImageView
+                        android:id="@+id/ertify_type_select_iv"
+                        android:layout_width="@dimen/x7"
+                        android:layout_height="@dimen/y4"
                         android:layout_centerVertical="true"
-                        android:layout_marginTop="@dimen/y45"
-                        android:text="@string/certify_postitive_photo"
-                        android:textColor="@color/colorBlack_9"
-                        android:textSize="@dimen/text_size_11"/>
-                </LinearLayout>
+                        android:layout_toEndOf="@id/ertify_type_select_tv"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/more_arrow"/>
 
-            </RelativeLayout>
-        </FrameLayout>
+                    <EditText
+                        android:id="@+id/ertify_type_num_et"
+                        style="@style/edt_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x15"
+                        android:layout_toEndOf="@id/ertify_type_select_iv"
+                        android:hint="@string/input_your_certificate_num"
+                        android:maxLines="1"/>
 
-        <View
-            android:layout_width="@dimen/x20"
-            android:layout_height="match_parent"/>
+                </RelativeLayout>
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="@dimen/y200"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:id="@+id/certify_add_back_rl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shape_sertify_add">
-
-                <ImageView
-                    android:id="@+id/back_img"
+                <View
+                    android:id="@+id/edit_line"
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/y1"
+                    android:layout_marginTop="@dimen/y6"
+                    android:background="@color/color_gray_3"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/ertify_picture_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/y19"
+                android:gravity="center_vertical"
+                android:text="@string/certify_picture"
+                android:textColor="@color/color_black_6"
+                android:textSize="@dimen/text_size_14"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginTop="@dimen/y15"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y100"
+                    android:layout_weight="1">
+
+
+                    <RelativeLayout
+                        android:id="@+id/certify_add_front_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_certify_add">
+
+                        <ImageView
+                            android:id="@+id/front_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"/>
+
+                        <LinearLayout
+                            android:id="@+id/front_ll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/x30"
+                                android:layout_height="@dimen/y30"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/certify_add"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/y17"
+                                android:text="@string/certify_postitive_photo"
+                                android:textColor="@color/colorBlack_9"
+                                android:textSize="@dimen/text_size_11"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="@dimen/x6"
                     android:layout_height="match_parent"/>
 
-                <LinearLayout
-                    android:id="@+id/back_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y100"
+                    android:layout_weight="1">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/certify_add"/>
+                    <RelativeLayout
+                        android:id="@+id/certify_add_back_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_certify_add">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="@dimen/y45"
-                        android:text="@string/certify_reverse_photo"
-                        android:textColor="@color/colorBlack_9"
-                        android:textSize="@dimen/text_size_11"/>
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/back_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"/>
 
-            </RelativeLayout>
-        </FrameLayout>
-    </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/back_ll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/x30"
+                                android:layout_height="@dimen/y30"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/certify_add"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/y17"
+                                android:text="@string/certify_reverse_photo"
+                                android:textColor="@color/colorBlack_9"
+                                android:textSize="@dimen/text_size_11"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
-        style="@style/btn_red"
-        android:layout_marginTop="@dimen/y40"
+        android:id="@+id/certify_name_submit_bt"
+        style="@style/btn_blue"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:layout_marginTop="@dimen/y26"
         android:text="@string/submit"/>
 </LinearLayout>

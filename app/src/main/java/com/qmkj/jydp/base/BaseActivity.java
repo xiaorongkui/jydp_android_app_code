@@ -20,7 +20,7 @@ import butterknife.Unbinder;
 /**
  * Created by Yun on 2018/3/13 0013.
  */
-public abstract class BaseActivity extends RxAppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity implements View.OnClickListener {
     protected Activity mContext;
     private Unbinder unbinder;
     private View mNetErrorView;
@@ -153,4 +153,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         return R.layout.net_load_error;
     }
 
+    @Override
+    public void onClick(View v) {
+    }
 }

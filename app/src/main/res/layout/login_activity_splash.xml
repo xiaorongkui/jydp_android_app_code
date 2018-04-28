@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/linearLayout"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:gravity="center"
+             android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/splash_tv"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/lanucher"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="788dp"
-        android:text="点击进行权限申请"
-        android:textSize="@dimen/text_size_11"/>
+        android:layout_marginTop="@dimen/y159"
+        android:orientation="vertical">
 
-    <Button
-        android:padding="@dimen/x4"
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:layout_marginBottom="791dp"
-        android:layout_marginTop="@dimen/x40"
-        android:text="点击跳转到登录界面"/>
-</LinearLayout>
+        <ImageView
+            android:layout_width="@dimen/x86"
+            android:layout_height="@dimen/y36"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/launch_logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y17"
+            android:text="@string/sy_exchange"
+            android:textColor="@color/color_white_1"
+            android:textSize="@dimen/text_size_22"/>
+    </LinearLayout>
+</FrameLayout>

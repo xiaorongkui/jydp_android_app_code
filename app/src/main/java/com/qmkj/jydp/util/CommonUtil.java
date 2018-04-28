@@ -354,7 +354,7 @@ public class CommonUtil {
      */
     public static void setStatusBarInvisible(RxAppCompatActivity context, boolean isShow) {
         int option;
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             View decorView = context.getWindow().getDecorView();
 
             if (isShow) {

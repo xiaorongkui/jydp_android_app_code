@@ -18,7 +18,7 @@ import butterknife.Unbinder;
 /**
  * Created by Administrator on 2017/3/6.
  */
-public abstract class BaseFragment extends RxFragment {
+public abstract class BaseFragment extends RxFragment implements View.OnClickListener {
 
     private Unbinder unbinder;
     protected View rootView;
@@ -188,5 +188,10 @@ public abstract class BaseFragment extends RxFragment {
     //可以自定义错误界面
     protected int getNetErrorLayoutRes() {
         return R.layout.net_load_error;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

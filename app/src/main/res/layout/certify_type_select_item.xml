@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/y10"
+              android:paddingLeft="@dimen/x15"
+              android:paddingRight="@dimen/x15"
+              android:paddingTop="@dimen/y10">
+
+    <ImageView
+        android:id="@+id/certify_type_left_iv"
+        android:layout_width="@dimen/x32"
+        android:layout_height="@dimen/y24"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/login_logo"/>
+
+    <TextView
+        android:id="@+id/certify_type_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_weight="1"
+        android:textColor="@color/color_black_2"
+        android:textSize="@dimen/text_size_15"
+        tools:text="身份证"/>
+
+    <ImageView
+        android:id="@+id/certify_type_right_iv"
+        android:layout_width="@dimen/x15"
+        android:layout_height="@dimen/x15"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/login_logo"/>
+</LinearLayout>

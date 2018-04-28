@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/wujiangming/AndroidStudioProjects/qianmo/jydp_android_app_code/MPChartLib/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/wujiangming/AndroidStudioProjects/qianmo/jydp_android_app_code/MPChartLib/src/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\androidDevelop\studioWorkSpace\jydp_android_app_code\MPChartLib\src\debug\shaders"/></dataSet></merger>

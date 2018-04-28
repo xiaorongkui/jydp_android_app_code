@@ -30,15 +30,16 @@
                 <com.youth.banner.Banner
                     android:id="@+id/home_auto_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y278"/>
+                    android:layout_height="@dimen/y169"/>
 
                 <com.qmkj.jydp.ui.widget.UPMarqueeView
                     android:id="@+id/marquee_home_header_notice"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y50"
-                    android:layout_marginTop="@dimen/y20"
-                    android:background="@color/colorWhite"/>
-
+                    android:layout_height="@dimen/y28"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_marginRight="@dimen/x15"
+                    android:layout_marginTop="@dimen/y10"/>
+                《
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/home_list_rv"
                     android:layout_width="match_parent"

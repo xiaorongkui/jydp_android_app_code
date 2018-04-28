@@ -43,12 +43,10 @@
         <activity
             android:name=".module.login.view.LoginActivity"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
+        <activity
+            android:name=".module.login.view.ForgetLoginPwdActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".module.login.view.CertificationActivity"
             android:launchMode="singleTop"/>
@@ -64,7 +62,11 @@
         <activity
             android:name=".module.login.view.SplashActivity"
             android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".module.exchangecenter.view.KlineActivity"

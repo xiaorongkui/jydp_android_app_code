@@ -3,60 +3,43 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@color/item_line"
+              android:background="@drawable/shape_home_marquee_bg"
               android:gravity="center"
-              android:orientation="horizontal"
-              android:paddingLeft="@dimen/x28"
-              android:paddingRight="@dimen/x28">
+              android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x10"
+        android:layout_width="@dimen/x16"
+        android:layout_height="@dimen/y12"
+        android:layout_marginStart="@dimen/x11"
         android:src="@mipmap/home_notice"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginLeft="@dimen/x9"
         android:text="[公告]"
-        android:textColor="@color/colorBlack_1"
-        android:textSize="@dimen/text_size_11"/>
+        android:textColor="@color/color_black_7"
+        android:textSize="@dimen/text_size_12"/>
 
     <TextView
         android:id="@+id/tv_home_header_notice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/colorBlack_1"
-        android:textSize="@dimen/text_size_11"
+        android:textColor="@color/color_black_7"
+        android:textSize="@dimen/text_size_12"
         tools:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"/>
-
-    <TextView
-        android:id="@+id/tv_home_header_notice_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x40"
-        android:textColor="@color/colorBlack_9"
-        android:textSize="@dimen/text_size_11"
-        tools:text="2017-01-08"/>
-
-    <View
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y20"
-        android:layout_marginLeft="@dimen/x20"
-        android:background="@color/colorBlack_9"/>
 
     <TextView
         android:id="@+id/tv_home_header_notice_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x20"
-        android:layout_marginRight="@dimen/x10"
-        android:textColor="@color/colorBlack_9"
-        android:textSize="@dimen/text_size_11"
+        android:layout_marginEnd="@dimen/x13"
+        android:layout_marginStart="@dimen/x37"
+        android:textColor="@color/color_black_5"
+        android:textSize="@dimen/text_size_12"
         tools:text="@string/more"/>
 </LinearLayout>

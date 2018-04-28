@@ -38,28 +38,54 @@
 
     <!--配置ClickItem属性-->
     <declare-styleable name="EditItem">
-        <!--左边图片-->
-        <attr name="leftIcon"/>
-        <!--左边文本-->
-        <attr name="leftText"/>
-        <!--右边文本-->
-        <attr name="rightText"/>
-        <!--  右边图标-->
-        <attr name="rightIcon"/>
-        <!-- 左边文本颜色 -->
-        <attr name="leftTextColor"/>
+
+        <!--上面文本-->
+        <attr name="titleText" format="reference|string"/>
+        <!--下顶部title的文本颜色-->
+        <attr name="titleTextColor" format="color"/>
+        <!--顶部title的文本字体大小-->
+        <attr name="titleTextSize" format="dimension"/>
+        <!-- 顶部title距顶部的距离-->
+        <attr name="titleTopMargin" format="integer"/>
+
+        <!--下面编辑的文本hint-->
+        <attr name="contentEditHintText" format="reference|string"/>
+        <!--下面编辑的文本hint颜色-->
+        <attr name="contentEditHintTextColor" format="color"/>
+        <!--下面编辑的文本字体大小-->
+        <attr name="contentEditTextSize" format="dimension"/>
+        <!-- 内容文本距上部的距离-->
+        <attr name="contentEditTopMargin" format="integer"/>
+
+
+        <!-- 右边文本 -->
+        <attr name="contentRightText" format="reference|string"/>
         <!-- 右边文本颜色 -->
-        <attr name="rightTextColor"/>
+        <attr name="contentRightTextColor" format="color"/>
         <!--左边文本字体大小-->
-        <attr name="leftTextSize"/>
-        <!--右边文本字体大小-->
-        <attr name="rightTextSize"/>
-        <!-- 右侧图片是否显示-->
-        <attr name="rightIconVisible_edit" format="boolean"/>
-        <!-- 顶部line -->
-        <attr name="topLine"/>
+        <attr name="contentRightTextSize" format="dimension"/>
+        <!-- 右边文本距右边的距离-->
+        <attr name="contentRightTextEndMargin" format="integer"/>
+
+        <!-- 右边文本是否显示-->
+        <attr name="contentRightTextVisible" format="boolean"/>
+
         <!-- 底部line -->
-        <attr name="bottomLine"/>
+        <attr name="bottomLineVisible" format="boolean"/>
+        <!-- 底部line -->
+        <attr name="bottomLineTopMargin" format="integer"/>
+
+        <!-- 整个item的左右边距 -->
+        <attr name="paddingLeftRight" format="integer"/>
+
+        <attr name="inputType">
+            <flag name="textPassword" value="0"/>
+            <flag name="text" value="1"/>
+            <flag name="number" value="2"/>
+            <flag name="phone" value="3"/>
+            <flag name="numberPassword" value="4"/>
+        </attr>
+        >
     </declare-styleable>
     <!--start=======解决重复引用属性报错：外面单独定义重复的-->
     <!--左边图片-->

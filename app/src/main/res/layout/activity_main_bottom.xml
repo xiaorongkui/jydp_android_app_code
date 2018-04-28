@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/y96"
+              android:layout_height="@dimen/y49"
               android:background="@color/colorWhite"
               android:orientation="vertical">
 
@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y96"
+        android:layout_height="@dimen/y49"
         android:orientation="horizontal">
 
 
@@ -26,18 +26,18 @@
 
             <ImageView
                 android:id="@+id/iv_home"
-                android:layout_width="@dimen/x22"
-                android:layout_height="@dimen/y22"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/y20"
                 android:src="@mipmap/home_unselect"/>
 
             <TextView
                 android:id="@+id/tv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y3"
+                android:layout_marginTop="@dimen/y6"
                 android:text="@string/home"
-                android:textColor="@color/colorBlack_9"
-                android:textSize="@dimen/text_size_11"/>
+                android:textColor="@color/color_black_5"
+                android:textSize="@dimen/text_size_12"/>
         </LinearLayout>
 
 
@@ -51,18 +51,18 @@
 
             <ImageView
                 android:id="@+id/iv_exchange"
-                android:layout_width="@dimen/x22"
-                android:layout_height="@dimen/y22"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/y20"
                 android:src="@mipmap/exchange_unselect"/>
 
             <TextView
                 android:id="@+id/tv_exchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y3"
+                android:layout_marginTop="@dimen/y6"
                 android:text="@string/exchange"
-                android:textColor="@color/colorBlack_9"
-                android:textSize="@dimen/text_size_11"/>
+                android:textColor="@color/color_black_5"
+                android:textSize="@dimen/text_size_12"/>
         </LinearLayout>
 
         <LinearLayout
@@ -75,18 +75,18 @@
 
             <ImageView
                 android:id="@+id/iv_outside_exchange"
-                android:layout_width="@dimen/x22"
-                android:layout_height="@dimen/y22"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/y20"
                 android:src="@mipmap/outside_exchange_unselect"/>
 
             <TextView
                 android:id="@+id/tv_outside_exchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y3"
+                android:layout_marginTop="@dimen/y6"
                 android:text="@string/outside_exchange"
-                android:textColor="@color/colorBlack_9"
-                android:textSize="@dimen/text_size_11"/>
+                android:textColor="@color/color_black_5"
+                android:textSize="@dimen/text_size_12"/>
         </LinearLayout>
 
         <LinearLayout
@@ -99,18 +99,18 @@
 
             <ImageView
                 android:id="@+id/iv_mine"
-                android:layout_width="@dimen/x22"
-                android:layout_height="@dimen/y22"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/y20"
                 android:src="@mipmap/mine_unselect"/>
 
             <TextView
                 android:id="@+id/tv_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y3"
+                android:layout_marginTop="@dimen/y6"
                 android:text="@string/mine"
-                android:textColor="@color/colorBlack_9"
-                android:textSize="@dimen/text_size_11"/>
+                android:textColor="@color/color_black_5"
+                android:textSize="@dimen/text_size_12"/>
         </LinearLayout>
 
     </LinearLayout>

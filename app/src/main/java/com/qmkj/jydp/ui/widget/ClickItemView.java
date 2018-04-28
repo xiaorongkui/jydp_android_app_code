@@ -219,7 +219,7 @@ public class ClickItemView extends LinearLayout {
         if (size < 0) {
             return;
         }
-        mTvLeft.setTextSize(size);
+        mTvLeft.setTextSize(CommonUtil.px2sp(size));
     }
 
     public void setLeftText(int resId) {

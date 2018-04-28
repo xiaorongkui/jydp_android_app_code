@@ -147,7 +147,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             deafeultRollItems.add(new BannerModel("https://gss0.baidu" +
                     ".com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/3b87e950352ac65c10d23307fbf2b21192138aea.jpg",
                     "", ""));
-            deafeultRollItems.add(new BannerModel("", "", ""));
+            deafeultRollItems.add(new BannerModel("http://img2.imgtn.bdimg.com/it/u=3588772980," +
+                    "2454248748&fm=27&gp=0.jpg", "", ""));
             bannerList = deafeultRollItems;
         }
 
@@ -203,11 +204,9 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     private View createNoticeView(HomeNoticeInfo model) {
         View itemView = View.inflate(mContext, R.layout.home_notice_item, null);
         TextView mTvNotice = itemView.findViewById(R.id.tv_home_header_notice);
-        TextView mTvTime = itemView.findViewById(R.id.tv_home_header_notice_time);
         TextView tv_home_header_notice_more = itemView.findViewById(R.id.tv_home_header_notice_more);
 
         mTvNotice.setText(model.getNoticeTitle());
-        mTvTime.setText(DateUtil.longToTimeStr(model.getTopTime(), DateUtil.dateFormat4));
         tv_home_header_notice_more.setText(CommonUtil.getString(R.string.more));
         itemView.setTag(model);
 
@@ -239,17 +238,17 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     private void initStatus() {
         //状态栏占用的兼容性
-        if (Build.VERSION.SDK_INT >= 21) {
-            View statusView = new View(getActivity());
-            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup
-                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
-            homeLl.addView(statusView, 0, lp);
-        }
+//        if (Build.VERSION.SDK_INT >= 21) {
+//            View statusView = new View(getActivity());
+//            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
+//            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup
+//                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
+//            homeLl.addView(statusView, 0, lp);
+//        }
 
-        int height = (int) (CommonUtil.getScreenWidth(mContext) * (288 / (float) 720));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-        homeAutoLl.setLayoutParams(params);
+//        int height = (int) (CommonUtil.getScreenWidth(mContext) * (169 / (float) 375));
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+//        homeAutoLl.setLayoutParams(params);
     }
 
     @Override

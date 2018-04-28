@@ -9,10 +9,12 @@
         android:id="@+id/searc_area_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/y12"
+        android:paddingTop="@dimen/y12"
         app:bottomLine="false"
         app:leftText="@string/certify_type"
-        app:leftTextColor="@color/colorBlack_7"
+        app:leftTextColor="@color/color_black_7"
         app:rightIconVisible="false"
         app:rightText="@string/certificate_identification"
-        app:rightTextColor="@color/colorBlack_8"/>
+        app:rightTextColor="@color/color_black_6"/>
 </LinearLayout>

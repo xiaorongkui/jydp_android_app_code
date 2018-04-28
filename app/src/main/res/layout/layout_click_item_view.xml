@@ -6,16 +6,13 @@
               android:layout_height="wrap_content"
               android:background="@drawable/selector_ripple_borderless"
               android:gravity="center_vertical"
-              android:minHeight="@dimen/y85"
-              android:orientation="horizontal"
-              android:paddingLeft="@dimen/x30"
-              android:paddingRight="@dimen/x30">
+              android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/iv_item_view_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/x40"
+        android:layout_marginRight="@dimen/x12"
         android:src="@mipmap/ic_launcher"
         android:visibility="gone"/>
 
@@ -24,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="#33383b"
-        android:textSize="@dimen/text_size_13"
+        android:textColor="@color/color_black_6"
+        android:textSize="@dimen/text_size_14"
         tools:text="性别"/>
 
     <RelativeLayout
@@ -41,8 +38,8 @@
         android:ellipsize="end"
         android:gravity="center|right"
         android:maxLines="1"
-        android:textColor="@color/colorBlack_8"
-        android:textSize="@dimen/text_size_13"
+        android:textColor="@color/color_black_7"
+        android:textSize="@dimen/text_size_14"
         tools:text="男额打发ad司法答复阿德发阿道夫阿道夫阿道夫阿道夫 发大发 阿道夫"/>
 
     <View

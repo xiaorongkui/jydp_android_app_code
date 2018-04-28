@@ -34,6 +34,7 @@
     <string name="unit_price">单价</string>
     <string name="buy_price_input">请输入购买单价</string>
     <string name="exchange_password">交易密码</string>
+    <string name="exchange_password_again">重复交易密码</string>
     <string name="exchange_password_input_notice">请输入交易密码</string>
     <string name="total_money">总资产</string>
     <string name="forzen_money_dollar">冻结美金</string>
@@ -44,8 +45,6 @@
     <string name="recharge">充值</string>
     <string name="system_notice">系统公告</string>
     <string name="trading_market">交易大盘</string>
-    <string name="user_login">用户登录</string>
-    <string name="user_register">用户注册</string>
     <string name="login_hint_notice">您的登录账号</string>
     <string name="login_hint_password">您的登录密码</string>
     <string name="forget_password">忘记密码</string>
@@ -57,7 +56,7 @@
     <string name="password_two_notice">再次输入密码</string>
     <string name="register_agreement_title_notice">用户注册即表示同意</string>
     <string name="register_agreement_name">《用户注册协议》</string>
-    <string name="get_rigister_getvertify_code">获取验证码(<xliff:g id="num">%1$1d</xliff:g>)</string>
+    <string name="get_rigister_getvertify_code">获取验证码(<xliff:g id="num">%1$1d</xliff:g>s)</string>
     <string name="get_rigister_getvertify_code_1">获取验证码</string>
     <string name="getvertify_name">实名认证</string>
     <string name="certify_picture">证件照</string>
@@ -98,6 +97,26 @@
     <string name="thousand_unit">万手</string>
     <string name="billion_unit">亿手</string>
     <string name="net_connect_error">网络连接失败，请检查网络后重试</string>
+
+    <string name="login_account">登录账号</string>
+    <string name="login_password">登录密码</string>
+    <string name="vertify_code_count">获取验证码(60s)</string>
+    <string name="register_account_notice">字母、数字，6～16个字符</string>
+    <string name="phone">手机号</string>
+    <string name="phone_86">+86</string>
+    <string name="six_sms_vertification_code">6位短信验证码</string>
+    <string name="login_password_again">重复登录密码</string>
+    <string name="login_password_again_notice">再次输入登录密码</string>
+    <string name="exchange_password_again_notice">再次输入交易密码</string>
+    <string name="your_account">您的账号</string>
+    <string name="new_login_password">新密码</string>
+    <string name="password_again">重复密码</string>
+    <string name="input_new_password">再次输入新密码</string>
+    <string name="find_back_login_pwd">找回密码</string>
+    <string name="select_certify_type">选择证件类型</string>
+    <string name="passport">护照</string>
+    <string name="re_certification">重新认证</string>
+    <string name="sy_exchange">盛源交易所</string>
 
     <string name="dealer_name">经销商名称</string>
     <string name="scale">比例(CNY)</string>

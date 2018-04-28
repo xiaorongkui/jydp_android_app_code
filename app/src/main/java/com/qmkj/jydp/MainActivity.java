@@ -73,7 +73,6 @@ public class MainActivity extends BaseActivity{
 
     private FragmentTransaction ft;
     private HomeFragment homeFragment;
-//    private ExchangeFragment exchangeFragment;
     private ExchangeCenterFrament exchangeCenterFrament;
     private ExchangeDetailFrament exchangeDetailFrament;
     private OutsideExchangeFragment outsideExchangeFragment;
@@ -189,7 +188,7 @@ public class MainActivity extends BaseActivity{
                 }
                 ft.show(homeFragment);
                 homeBottomIv.setImageResource(R.mipmap.home_select);
-                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
+                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 break;
             case 1:
                 if (exchangeCenterFrament == null) {
@@ -198,7 +197,7 @@ public class MainActivity extends BaseActivity{
                 }
                 ft.show(exchangeCenterFrament);
                 exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
-                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
+                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 break;
             case 2:
                 if (outsideExchangeFragment  == null) {
@@ -207,7 +206,7 @@ public class MainActivity extends BaseActivity{
                 }
                 ft.show(outsideExchangeFragment);
                 outsideExchangeBottomIv.setImageResource(R.mipmap.outside_exchange_select);
-                outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
+                outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 break;
             case 3:
                 if (mineFragment == null) {
@@ -216,7 +215,7 @@ public class MainActivity extends BaseActivity{
                 }
                 ft.show(mineFragment);
                 mineBottomIv.setImageResource(R.mipmap.mine_select);
-                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_4));
+                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 break;
         }
         ft.commit();

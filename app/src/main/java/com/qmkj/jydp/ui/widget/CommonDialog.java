@@ -2,8 +2,11 @@ package com.qmkj.jydp.ui.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -41,11 +44,6 @@ public class CommonDialog extends Dialog {
         super(context, theme);
         this.activity = context;
         mView = LayoutInflater.from(getContext()).inflate(layoutResId, null);
-        messageView = (TextView) mView.findViewById(R.id.message);
-        oneBtnView = (TextView) mView.findViewById(R.id.only_confirm_btn);
-        twoBtnView = mView.findViewById(R.id.two_btn_layout);
-        confirmBtn = (TextView) mView.findViewById(R.id.yes);
-        cancelBtn = (TextView) mView.findViewById(R.id.no);
         setContentView(mView);
         super.setContentView(mView);
     }
@@ -69,9 +67,45 @@ public class CommonDialog extends Dialog {
      * @param width 对话框的宽度
      */
     public void setAlertDialogWidth(int width) {
+//        //定义宽度
+//        final WindowManager.LayoutParams attrs = getWindow().getAttributes();
+//        getWindow().setLayout(width, attrs.height);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.width = width;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        getWindow().setAttributes(lp);
+    }
+
+    /**
+     * @param height 对话框的高度
+     */
+    public void setAlertDialogHight(int height) {
+        if (height <= 0) {
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            lp.copyFrom(getWindow().getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            getWindow().setAttributes(lp);
+        } else {
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            lp.copyFrom(getWindow().getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = height;
+            getWindow().setAttributes(lp);
+        }
+
+    }
+
+    /**
+     * @param gravity 对话框的位置 Gravity.BOTTOM
+     */
+    public void setAlertDialogGravity(int gravity) {
         //定义宽度
         final WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        getWindow().setLayout(width, attrs.height);
+        attrs.gravity = gravity;
+        getWindow().setAttributes(attrs);
     }
 
     /**
@@ -158,11 +192,12 @@ public class CommonDialog extends Dialog {
     }
 
     public void show() {
-        super.show();
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         lp.alpha = 0.5f;
         lp.dimAmount = 0.5f;
         activity.getWindow().setAttributes(lp);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        super.show();
     }
+
 }

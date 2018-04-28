@@ -1,13 +1,27 @@
 package com.qmkj.jydp.module.login.view;
 
 import android.Manifest;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * author：rongkui.xiao --2018/3/29
@@ -16,6 +30,23 @@ import com.qmkj.jydp.util.RxPermissionUtils;
  */
 
 public class SplashActivity extends BaseMvpActivity {
+
+    private boolean permissionFinish = false;
+    private boolean timeFinish;
+    private Disposable subscribe;
+    private static final int SPLASH_TOTAL_COUNTDOWN_TIME = 3;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Window window = getWindow();
+        //定义全屏参数
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //设置当前窗体为全屏显示
+        window.setFlags(flag, flag);
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Override
     protected void injectPresenter() {
 
@@ -23,14 +54,8 @@ public class SplashActivity extends BaseMvpActivity {
 
     @Override
     protected void initData() {
-        findViewById(R.id.splash_tv).setOnClickListener(v -> checkPermission());
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
-            }
-        });
-//        checkPermission();
+        checkPermission();
+        setTimeCountDown(SPLASH_TOTAL_COUNTDOWN_TIME);
     }
 
     private void checkPermission() {
@@ -45,8 +70,9 @@ public class SplashActivity extends BaseMvpActivity {
             }
 
             @Override
-            public void onPermissionDenied(String name) {
-                LogUtil.i("onPermissionDenied name=" + name);
+            protected void onAllPermissionFinish() {
+                permissionFinish = true;
+                goMianActivity();
             }
         }).start();
     }
@@ -70,5 +96,29 @@ public class SplashActivity extends BaseMvpActivity {
     public void onDestroy() {
         super.onDestroy();
         RxPermissionUtils.getInstance(mContext).destory();
+        if (subscribe != null && !subscribe.isDisposed()) {
+            subscribe.dispose();
+            subscribe = null;
+        }
+    }
+
+    private void setTimeCountDown(final int splashTotalCountdownTime) {
+        subscribe = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(AndroidSchedulers
+                .mainThread()).observeOn(AndroidSchedulers.mainThread()).map(increaseTime -> splashTotalCountdownTime
+                - increaseTime.intValue()).take(splashTotalCountdownTime + 1).subscribe(integer -> {
+            LogUtil.i("integer=" + integer);
+//                logoTime_tv.setText(getSpannableStringBuilder(integer));
+            if (integer == 0) {
+                timeFinish = true;
+                goMianActivity();
+            }
+        });
+    }
+
+    private void goMianActivity() {
+        if (timeFinish && permissionFinish) {
+            CommonUtil.gotoActivity(mContext, LoginActivity.class);
+            AppManager.getInstance().removeCurrent();
+        }
     }
 }

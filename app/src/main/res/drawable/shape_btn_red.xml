@@ -1,21 +1,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:state_enabled="true"
-        android:state_pressed="true">
-        <shape android:shape="rectangle" android:useLevel="false">
-            <corners android:radius="@dimen/y5"/>
-            <gradient
-                android:endColor="@color/colorRed_2"
-                android:startColor="@color/colorRed_5"
-                android:type="linear"/>
-        </shape>
-    </item>
     <item>
         <shape android:shape="rectangle" android:useLevel="false">
-            <corners android:radius="@dimen/y5"/>
+            <corners android:radius="@dimen/y3"/>
             <gradient
-                android:endColor="@color/colorRed_2"
-                android:startColor="@color/colorRed_5"
+                android:endColor="@color/color_red_2"
+                android:startColor="@color/color_red_1"
                 android:type="linear"/>
         </shape>
     </item>

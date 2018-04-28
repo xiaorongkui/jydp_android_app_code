@@ -1,8 +1,8 @@
 package com.qmkj.jydp.module.login.view;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -21,13 +21,11 @@ import butterknife.BindView;
 public class CertificationActivity extends BaseMvpActivity {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
-    @BindView(R.id.title_right_tv)
-    TextView title_right_tv;
     @BindView(R.id.certify_container_fl)
     FrameLayout certifyContainerFl;
     private FragmentTransaction ft;
     private CertifyNameFragment certifyNameFragment;
-    private CertifyCheckFragment certifyCheckFragment;
+    private CertifyNameStatusFragment certifyCheckFragment;
 
     @Override
     protected void injectPresenter() {
@@ -42,9 +40,6 @@ public class CertificationActivity extends BaseMvpActivity {
     @Override
     protected void initTitle() {
         titleHeaderTv.setText(CommonUtil.getString(R.string.getvertify_name));
-        title_right_tv.setText(CommonUtil.getString(R.string.modify));
-        title_right_tv.setTextColor(CommonUtil.getColor(R.color.colorGreen_3));
-        title_right_tv.setOnClickListener(v -> setSelect(0));
     }
 
     @Override
@@ -54,10 +49,10 @@ public class CertificationActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
-        setSelect(0);
+        setSelect(1);
     }
 
-    private void setSelect(int i) {
+    public void setSelect(int i) {
         FragmentManager fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         hideFragments();
@@ -69,15 +64,13 @@ public class CertificationActivity extends BaseMvpActivity {
                     ft.add(R.id.certify_container_fl, certifyNameFragment);
                 }
                 ft.show(certifyNameFragment);
-                title_right_tv.setVisibility(View.INVISIBLE);
                 break;
             case 1:
                 if (certifyCheckFragment == null) {
-                    certifyCheckFragment = new CertifyCheckFragment();
+                    certifyCheckFragment = new CertifyNameStatusFragment();
                     ft.add(R.id.certify_container_fl, certifyCheckFragment);
                 }
                 ft.show(certifyCheckFragment);
-                title_right_tv.setVisibility(View.VISIBLE);
                 break;
         }
         ft.commit();
@@ -89,6 +82,14 @@ public class CertificationActivity extends BaseMvpActivity {
         }
         if (certifyCheckFragment != null) {
             ft.hide(certifyCheckFragment);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (certifyNameFragment != null) {
+//            certifyNameFragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
