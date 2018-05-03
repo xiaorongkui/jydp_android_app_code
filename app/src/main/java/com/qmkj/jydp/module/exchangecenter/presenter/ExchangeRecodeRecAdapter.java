@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.exchangecenter.presenter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
@@ -27,8 +28,7 @@ public class ExchangeRecodeRecAdapter extends BaseRecylerAdapter {
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
-        ClickItemView clickItemView = (ClickItemView) helper.getView(R.id.exchange_entrust_recode_cv);
-        clickItemView.setLeftText("交易记录");
-        clickItemView.setRightText("1000万");
+        helper.getView(R.id.common_line).setVisibility(datas.size() - 1 == position ? View.INVISIBLE : View
+                .VISIBLE);
     }
 }

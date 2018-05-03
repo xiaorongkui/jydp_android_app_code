@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.outsideexchange.view;
+package com.qmkj.jydp.module.exchangoutsidee.view;
 
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
-import com.qmkj.jydp.module.outsideexchange.presenter.OutsideExchangeAdapter;
-import com.qmkj.jydp.module.outsideexchange.presenter.OutsideExchangePresenter;
+import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangeAdapter;
+import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.ToastUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
 
@@ -75,29 +74,32 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         }
     }
 
-    private void initRecyclerView(){
-        LinearLayoutManager layoutmanager = new LinearLayoutManager(getContext());
+    private void initRecyclerView() {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(mContext);
+        layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutmanager);
         mData = new ArrayList<>();
         mData.add("123");
         mData.add("123");
-        mOutsideExchangeAdapter = new OutsideExchangeAdapter(R.layout.item_outside_exchange,mData);
-        View mEmptyView = View.inflate(getContext(),R.layout.empty,null);
+        mOutsideExchangeAdapter = new OutsideExchangeAdapter(R.layout.exchange_outside_item, mData);
+        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
         mOutsideExchangeAdapter.setEmptyView(mEmptyView);
         recyclerView.setAdapter(mOutsideExchangeAdapter);
     }
 
-    public void initClick(){
-        mOutsideExchangeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
-                    case R.id.go_exchange_tv:
-                        ToastUtil.toast(getContext(),"去交易");
-                        break;
-                    default:
-                        break;
-                }
+    public void initClick() {
+        mOutsideExchangeAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            LogUtil.i("view=" + view.getId() + "position=" + position);
+            switch (view.getId()) {
+                case R.id.exchange_outside_go_exchange_tv:
+                    toast("去交易");
+                    break;
+                case R.id.exchange_outside_buy_tv:
+                    CommonUtil.gotoActivity(mContext, OutSideBuyActivity.class);
+                    break;
+
+                default:
+                    break;
             }
         });
     }

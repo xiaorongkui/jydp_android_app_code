@@ -17,7 +17,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite"
+                android:background="@color/color_white_1"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -367,41 +367,15 @@
                     </LinearLayout>
 
                     <View
-                        android:layout_width="@dimen/x16"
+                        android:layout_width="@dimen/x15"
                         android:layout_height="match_parent"/>
 
-                    <LinearLayout
+                    <com.qmkj.jydp.ui.widget.MyViewPager
+                        android:id="@+id/exchange_continer_vp"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/x15">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="买\t"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/x50"
-                            android:text="@string/amount"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/total_money_dollars"
-                            android:textColor="@color/colorBlack_9"
-                            android:textSize="@dimen/text_size_12"/>
-                    </LinearLayout>
                 </LinearLayout>
 
                 <View
@@ -505,11 +479,11 @@
                         android:textSize="@dimen/text_size_12"/>
                 </LinearLayout>
 
-                <com.qmkj.jydp.ui.widget.MyViewPager
-                    android:id="@+id/exchange_continer_vp"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/exchange_entrust_recode_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>

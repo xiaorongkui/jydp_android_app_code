@@ -50,6 +50,7 @@ public class ClickItemView extends LinearLayout {
 
     private View mContentView;
     private float mRightTextPaddingLeft;
+    private float mBottomLineMarginTop;
 
     public ClickItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -81,7 +82,7 @@ public class ClickItemView extends LinearLayout {
         mRightTextColorId = a.getColor(R.styleable.ClickItem_rightTextColor, Color.parseColor("#9d9d9d"));
         mRightIconEnable = a.getBoolean(R.styleable.ClickItem_rightIconVisible, true);
         mRightTextPaddingLeft = a.getDimension(R.styleable.ClickItem_rightTextPaddingLeft, -1);
-
+        mBottomLineMarginTop = a.getDimension(R.styleable.ClickItem_bottomLineMarginTop, -1);
         a.recycle();
     }
 
@@ -134,7 +135,10 @@ public class ClickItemView extends LinearLayout {
     private View createLine() {
         View lineView = new View(getContext());
         lineView.setTag(TAG_LINE);
-        lineView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        layoutParams.topMargin = (int) mBottomLineMarginTop;
+
+        lineView.setLayoutParams(layoutParams);
         lineView.setBackgroundColor(getResources().getColor(R.color.item_line));
         return lineView;
     }

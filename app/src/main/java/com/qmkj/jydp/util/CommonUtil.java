@@ -245,6 +245,7 @@ public class CommonUtil {
         return Pattern.matches(regex, phone);
     }
 
+    //隐藏键盘
     public static void hideInputWindow(Activity context) {
         if (context == null) {
             return;
@@ -620,7 +621,7 @@ public class CommonUtil {
         return versionName;
     }
 
-    //挂壁键盘
+    //键盘
     public static void hideKeyBoard(Activity aty) {
         ((InputMethodManager) aty.getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(aty.getCurrentFocus().getWindowToken(), 2);

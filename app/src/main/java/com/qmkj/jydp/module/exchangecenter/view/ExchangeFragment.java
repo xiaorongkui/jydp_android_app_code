@@ -22,6 +22,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangePresenter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeRecodeRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeSoldPriceRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangebuyPriceRecAdapter;
 import com.qmkj.jydp.ui.widget.MyViewPager;
@@ -78,6 +79,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
     @BindView(R.id.exchange_recode_header_ll)
     LinearLayout exchangeRecodeHeaderLl;
     Unbinder unbinder;
+    @BindView(R.id.exchange_entrust_recode_rv)
+    RecyclerView entrustRecodeRv;
 
 
     private ExchangebuyPriceRecAdapter priceBuyRecAdapter;
@@ -90,7 +93,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
         initRecycleView();
         initListener();
         initViewPager();
-//        setViewpagerIndicotr(0);
+        setViewpagerIndicotr(0);
+
         StateListDrawable stateListDrawable = SelectorFactory.newShapeSelector()
                 .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
                 .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_1))
@@ -105,7 +109,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
         final MyPagerAdapter adapter = new MyPagerAdapter(getChildFragmentManager());
         adapter.addFragment(ExchangeBuyFragment.newInstance(EXCHANGE_TYPE_BUY));
         adapter.addFragment(ExchangeSoldFragment.newInstance(EXCHANGE_TYPE_SOLD));
-        adapter.addFragment(ExchangeRecodeFragment.newInstance(EXCHANGE_TYPE_RECODE));
         exchangeContinerVp.setAdapter(adapter);
         exchangeContinerVp.setScanScroll(false);
         exchangeContinerVp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -142,6 +145,24 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
         exchangePriceRecycleSold.setLayoutManager(mSoldLayoutManager);
         exchangePriceRecycleBuy.setAdapter(priceBuyRecAdapter);
         exchangePriceRecycleSold.setAdapter(priceSoldRecAdapter);
+
+        //委托记录
+        List datas = new ArrayList();
+//        for (int i = 0; i < 5; i++) {
+//            datas.add("");
+//
+//        }
+
+        ExchangeRecodeRecAdapter recodeRecAdapter = new ExchangeRecodeRecAdapter(mContext, datas, R.layout
+                .exchange_entrust_recode_item);
+        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
+        mEmptyView.setScaleX(0.8f);
+        mEmptyView.setScaleY(0.8f);
+        recodeRecAdapter.setEmptyView(mEmptyView);
+        entrustRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
+        entrustRecodeRv.setAdapter(recodeRecAdapter);
+        recodeRecAdapter.setOnItemClickListener((adapter, view, position) -> CommonUtil.gotoActivity(mContext,
+                EntrustRecodeActivity.class));
     }
 
     private void initStatusBar() {
@@ -204,9 +225,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
             case R.id.sold_ll:
                 setViewpagerIndicotr(1);
                 break;
-//            case R.id.entrust_ll:
-//                setViewpagerIndicotr(2);
-//                break;
 //            case R.id.kline_ll:
 //                CommonUtil.gotoActivity(mContext, KlineActivity.class);
 //                break;
@@ -271,28 +289,21 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
     }
 
     private void setViewpagerIndicotr(int index) {
-        buyTitle.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
-        soldTitle.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
-//        entrustRecodTitle.setTextColor(CommonUtil.getColor(R.color.colorBlack_9));
+        buyTitle.setTextColor(CommonUtil.getColor(R.color.color_red_5));
+        soldTitle.setTextColor(CommonUtil.getColor(R.color.color_green_4));
         buyBottomLine.setVisibility(View.INVISIBLE);
         soldBottomLine.setVisibility(View.INVISIBLE);
-//        entrustRecodBottomLine.setVisibility(View.INVISIBLE);
-
+        CommonUtil.hideKeyBoard(mContext);
         switch (index) {
             case 0:
-                buyTitle.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
+                buyTitle.setTextColor(CommonUtil.getColor(R.color.color_red_5));
                 buyBottomLine.setVisibility(View.VISIBLE);
                 exchangeContinerVp.setCurrentItem(0);
                 break;
             case 1:
-                soldTitle.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
+                soldTitle.setTextColor(CommonUtil.getColor(R.color.color_green_4));
                 soldBottomLine.setVisibility(View.VISIBLE);
                 exchangeContinerVp.setCurrentItem(1);
-                break;
-            case 2:
-                exchangeContinerVp.setCurrentItem(2);
-//                entrustRecodTitle.setTextColor(CommonUtil.getColor(R.color.colorRed_4));
-//                entrustRecodBottomLine.setVisibility(View.VISIBLE);
                 break;
         }
     }

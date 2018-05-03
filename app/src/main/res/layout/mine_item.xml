@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y80"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical">
+                android:layout_height="@dimen/y42"
+                android:background="@color/color_white_1"
+                android:paddingEnd="@dimen/x11"
+                android:paddingStart="@dimen/x11">
 
     <ImageView
         android:id="@+id/mine_item_icon_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/x20"
+        android:layout_height="@dimen/y20"
         android:layout_centerVertical="true"
+        android:scaleType="fitXY"
         android:src="@mipmap/mine_info"/>
 
     <TextView
@@ -17,25 +19,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_toRightOf="@id/mine_item_icon_iv"
+        android:layout_marginStart="@dimen/x12"
+        android:layout_toEndOf="@id/mine_item_icon_iv"
         android:text="个人信息"
-        android:textColor="@color/colorBlack_4"
-        android:textSize="@dimen/text_size_13"/>
+        android:textColor="@color/color_black_1"
+        android:textSize="@dimen/text_size_14"/>
 
     <ImageView
         android:id="@+id/mine_item_more_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/x7"
+        android:layout_height="@dimen/y12"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:src="@mipmap/more_arrow"/>
 
     <View
         android:id="@+id/mine_item_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y1"
-        android:layout_alignLeft="@id/mine_item_name_tv"
+        style="@style/line1"
         android:layout_alignParentBottom="true"
+        android:layout_alignStart="@id/mine_item_name_tv"
         android:background="@color/item_line"/>
 </RelativeLayout>

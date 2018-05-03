@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:id="@+id/mine_ll"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -13,147 +14,228 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x30"
-                android:layout_marginTop="@dimen/y30"
-                android:gravity="center_vertical">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/mine_person_iv"
-                    android:layout_width="@dimen/x82"
-                    android:layout_height="@dimen/y82"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/mine_icon"/>
+                <LinearLayout
+                    android:id="@+id/mine_assets_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y211"
+                    android:background="@mipmap/mine_bg"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/y36">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/x20"
-                    android:layout_toRightOf="@id/mine_person_iv"
-                    android:text="张三李四"
-                    android:textColor="@color/colorBlack_4"
-                    android:textSize="@dimen/text_size_15"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/x16"
+                        android:paddingRight="@dimen/x16">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_width="@dimen/x40"
+                                android:layout_height="@dimen/x40"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/mine_person_icon_bg"/>
+
+                            <ImageView
+                                android:id="@+id/mine_person_iv"
+                                android:layout_width="@dimen/x24"
+                                android:layout_height="@dimen/y24"
+                                android:layout_gravity="center"
+                                android:src="@mipmap/mine_select"/>
+
+                        </FrameLayout>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/x9"
+                            android:text="ASFERGCFGH"
+                            android:textColor="@color/color_white_1"
+                            android:textSize="@dimen/text_size_16"/>
+
+                        <TextView
+                            android:id="@+id/mine_distributor_tv"
+                            android:layout_width="@dimen/x45"
+                            android:layout_height="@dimen/y18"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/x10"
+                            android:gravity="center"
+                            android:text="@string/distributor"
+                            android:textColor="@color/color_bule_1"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+
+                    <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x30"
+                        android:layout_marginTop="@dimen/y19"
+                        android:text="@string/amount_total_money_xt"
+                        android:textColor="@color/color_bule_4"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x30"
+                        android:layout_marginTop="@dimen/y10"
+                        android:text="109819831.0"
+                        android:textColor="@color/color_white_2"
+                        android:textSize="@dimen/text_size_24"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
             </RelativeLayout>
 
-            <LinearLayout
-                android:padding="10dp"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x30"
-                android:layout_marginRight="@dimen/x30"
-                android:layout_marginTop="@dimen/y40"
-                android:background="@mipmap/mine_bg"
-                android:orientation="vertical">
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="-62pt"
+                android:orientation="horizontal"
+                app:cardCornerRadius="@dimen/x5"
+                app:cardElevation="@dimen/x4">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginTop="@dimen/y50"
-                    android:text="@string/amount_total_money_dollar"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/text_size_14"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginTop="@dimen/y10"
-                    android:text="123456.00"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/text_size_20"
-                    android:textStyle="bold"/>
-
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/mine_available_money_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/y50"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/mine_available_money_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x30"
-                            android:layout_marginTop="@dimen/y50"
-                            android:text="@string/amount_available_money_dollar"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size_14"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x30"
-                            android:layout_marginTop="@dimen/y10"
-                            android:text="123440.00"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size_16"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/x60"
-                        android:layout_toRightOf="@id/mine_available_money_ll"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x30"
-                            android:layout_marginTop="@dimen/y50"
-                            android:text="@string/amount_available_money_dollar"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size_14"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x30"
-                            android:layout_marginTop="@dimen/y10"
-                            android:text="123440.00"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size_16"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
+                    android:background="@color/color_white_1"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/mine_available_money_ll"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/x30"
-                        android:background="@drawable/shape_recharge_bt"
-                        android:paddingBottom="@dimen/x10"
-                        android:paddingLeft="@dimen/x30"
-                        android:paddingRight="@dimen/x30"
-                        android:paddingTop="@dimen/x10"
-                        android:text="@string/recharge"
-                        android:textSize="@dimen/text_size_13"
-                        android:textColor="@color/colorWhite"/>
-                </RelativeLayout>
-            </LinearLayout>
+                        android:layout_marginStart="@dimen/x15"
+                        android:layout_marginTop="@dimen/y15"
+                        android:text="@string/amount_available_money_xt"
+                        android:textColor="@color/color_gray_2"
+                        android:textSize="@dimen/text_size_13"/>
 
-            <com.qmkj.jydp.ui.widget.MyRecycleView
-                android:id="@+id/mine_rv"
+                    <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x15"
+                        android:layout_marginTop="@dimen/y15"
+                        android:text="123440.00"
+                        android:textColor="@color/color_black_2"
+                        android:textSize="@dimen/text_size_18"
+                        android:textStyle="bold"/>
+
+                    <View
+                        style="@style/line1"
+                        android:layout_marginEnd="@dimen/x15"
+                        android:layout_marginStart="@dimen/x15"
+                        android:layout_marginTop="@dimen/y10"/>
+
+                    <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/x15"
+                        android:layout_marginTop="@dimen/y8"
+                        android:text="@string/forzen_money_xt"
+                        android:textColor="@color/color_gray_2"
+                        android:textSize="@dimen/text_size_13"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/y15"
+                        android:layout_marginTop="@dimen/y11"
+                        android:paddingEnd="@dimen/x15"
+                        android:paddingStart="@dimen/x15">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                                android:id="@+id/mine_frozen_xt_field_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123440.00"
+                                android:textColor="@color/color_black_2"
+                                android:textSize="@dimen/text_size_18"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/y5"
+                                android:text="@string/field_1"
+                                android:textColor="@color/color_black_12"
+                                android:textSize="@dimen/text_size_13"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x174"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                                android:id="@+id/mine_frozen_xt_outside_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123440.00"
+                                android:textColor="@color/color_black_2"
+                                android:textSize="@dimen/text_size_18"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/y5"
+                                android:text="@string/outside_1"
+                                android:textColor="@color/color_black_12"
+                                android:textSize="@dimen/text_size_13"/>
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/x30"
-                android:layout_marginRight="@dimen/x30"
-                android:overScrollMode="never"
-                android:layout_marginTop="@dimen/y20"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y26"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/y10"
+                android:orientation="horizontal"
+                app:cardCornerRadius="@dimen/x5"
+                app:cardElevation="@dimen/x4">
+
+                <com.qmkj.jydp.ui.widget.MyRecycleView
+                    android:id="@+id/mine_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"/>
+
+            </android.support.v7.widget.CardView>
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

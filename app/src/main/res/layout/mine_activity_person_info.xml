@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_white_1"
+              android:orientation="vertical">
+
+    <include layout="@layout/common_header"/>
+
+    <View style="@style/line1"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/person_info_modify_payment_password_civ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y20"
+        app:bottomLine="true"
+        app:bottomLineMarginTop="@dimen/y8"
+        app:leftText="@string/modify_pay_password"
+        app:leftTextColor="@color/color_black_6"
+        app:rightIconVisible="true"
+        app:rightTextColor="@color/color_black_7"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/person_info_modify_password_civ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y19"
+        app:bottomLine="true"
+        app:bottomLineMarginTop="@dimen/y8"
+        app:leftText="@string/modify_password"
+        app:leftTextColor="@color/color_black_6"
+        app:rightIconVisible="true"
+        app:rightTextColor="@color/color_black_7"/>
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/person_info_modify_phone_num_civ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y19"
+        app:bottomLine="false"
+        app:leftText="@string/modify_phone_num"
+        app:leftTextColor="@color/color_black_6"
+        app:rightIconVisible="true"
+        app:rightTextColor="@color/color_black_7"/>
+
+    <Button
+        android:id="@+id/person_info_login_out_bt"
+        style="@style/btn"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y25"
+        android:gravity="center"
+        android:text="@string/login_out"
+        android:textColor="@color/color_black_10"/>
+
+</LinearLayout>

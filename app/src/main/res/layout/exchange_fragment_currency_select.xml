@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_white_1">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_white_1"
+              android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/exchange_center_title_ll"
@@ -13,10 +13,9 @@
 
         <TextView
             android:id="@+id/exchange_center_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y22"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y46"
+            android:gravity="center"
             android:text="@string/exchange"
             android:textColor="@color/color_black_7"
             android:textSize="@dimen/x18"/>
@@ -27,15 +26,12 @@
         android:id="@+id/type_ll"
         layout="@layout/home_rv_item_header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y28"
-        android:layout_below="@id/exchange_center_title_ll"
-        android:layout_marginTop="@dimen/y13"/>
+        android:layout_height="@dimen/y28"/>
 
     <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
         android:id="@+id/exchange_center_xrl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/type_ll">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/exchange_center_rv"
@@ -45,4 +41,4 @@
 
     </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
 
-</RelativeLayout>
+</LinearLayout>

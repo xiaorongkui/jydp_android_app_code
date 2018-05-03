@@ -1,6 +1,5 @@
-package com.qmkj.jydp.module.outsideexchange.presenter;
+package com.qmkj.jydp.module.exchangoutsidee.presenter;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;

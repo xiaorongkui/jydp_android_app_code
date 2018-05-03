@@ -196,8 +196,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     @Override
     protected void initData() {
         for (int i = 0; i < 10; i++) {
-            presenter.getCurrentPrice(AppNetConfig.getBaseMaps(), 1, true);
         }
+            presenter.getCurrentPrice(AppNetConfig.getBaseMaps(), 1, true);
     }
 
     /**

@@ -22,7 +22,7 @@ import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.presenter.CurrencyRecyAdapter;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
-import com.qmkj.jydp.module.outsideexchange.view.OutsideExchangeFragment;
+import com.qmkj.jydp.module.exchangoutsidee.view.OutsideExchangeFragment;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;

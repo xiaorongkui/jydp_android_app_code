@@ -72,6 +72,18 @@
             android:name=".module.exchangecenter.view.KlineActivity"
             android:launchMode="singleTop">
         </activity>
+        <activity
+            android:name=".module.exchangoutsidee.view.OutSideBuyActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.PersonInfoActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.CurrencyAssetsActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.DealerManagementActivity"
+            android:launchMode="singleTop"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

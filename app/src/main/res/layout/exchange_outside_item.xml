@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white_1"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y10"
+        android:background="@color/color_gray_1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y40"
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_marginRight="@dimen/x16"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/syl"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_16"/>
+
+        <TextView
+            android:id="@+id/exchange_outside_buy_tv"
+            android:layout_width="@dimen/x35"
+            android:layout_height="@dimen/y18"
+            android:layout_marginStart="@dimen/x21"
+            android:background="@drawable/shape_buy_bg"
+            android:gravity="center"
+            android:text="@string/buy_1"
+            android:textColor="@color/color_red_3"
+            android:textSize="@dimen/text_size_12"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/exchange_outside_go_exchange_tv"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y24"
+            android:gravity="center"
+            android:text="@string/go_exchange"
+            android:textColor="@color/colorGreen_3"
+            android:textSize="@dimen/text_size_13"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line1"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:layout_marginTop="@dimen/y7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:layout_marginTop="@dimen/y9">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dealer_name"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_13"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x132"
+            android:text="@string/scale"
+            android:textColor="@color/colorBlack_13"
+            android:textSize="@dimen/text_size_13"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:layout_marginTop="@dimen/y10">
+
+        <TextView
+            android:id="@+id/dealer_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ASDFGHJKLASDFGHJ"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
+            android:id="@+id/scale_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x197"
+            android:text="10000"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trade_quotas"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_13"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x197"
+            android:text="@string/region"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_13"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y16"
+        android:layout_marginTop="@dimen/y10">
+
+        <TextView
+            android:id="@+id/exchange_outside_trade_quotas_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x15"
+            android:text="14000～20000"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
+            android:id="@+id/exchange_outside_region_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x213"
+            android:text="中国(CN)"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

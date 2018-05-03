@@ -54,7 +54,7 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         if (Build.VERSION.SDK_INT >= 21) {
             View statusView = new View(getActivity());
             statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup
                     .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
             title_ll.addView(statusView, 0, lp);
         }

@@ -1,6 +1,7 @@
 package com.qmkj.jydp.net.observer;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
@@ -49,6 +50,7 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
             this.dispose();
         hideLoading();
         if (httpCallBack != null) httpCallBack.onCancel();
+        LogUtil.i("请求已经取消");
     }
 
     private void initProgressDialog(boolean cancel) {

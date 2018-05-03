@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
@@ -13,6 +14,7 @@ import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
 import com.qmkj.jydp.ui.widget.MyRecycleView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,45 +34,65 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     MyRecycleView mineRv;
     @BindView(R.id.mine_ll)
     LinearLayout mineLl;
+    @BindView(R.id.mine_distributor_tv)
+    TextView mine_distributor_tv;
 
     @Override
     protected void initView() {
-        initStatus();
+//        initStatus();
         initRecycleView();
+        SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
+                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x1))
+                .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_gray_1))
+                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
+                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+        mine_distributor_tv.setBackground(shapeSelector.create());
     }
 
     private void initRecycleView() {
         List<MinelistInfo> datas = new ArrayList();
-        datas.add(new MinelistInfo(R.mipmap.mine_info, "个人信息", R.mipmap.more_arrow));
-        datas.add(new MinelistInfo(R.mipmap.mine_info, "币种资产", R.mipmap.more_arrow));
-        datas.add(new MinelistInfo(R.mipmap.mine_recod, "我的记录", R.mipmap.more_arrow));
-        datas.add(new MinelistInfo(R.mipmap.mine_withdrawals, "立即提现", R.mipmap.more_arrow));
-        datas.add(new MinelistInfo(R.mipmap.system_notice, "系统公告", R.mipmap.more_arrow));
-        datas.add(new MinelistInfo(R.mipmap.help_center, "帮助中心", R.mipmap.more_arrow));
-        datas.add(new MinelistInfo(R.mipmap.connect_service, "联系客服", R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
+                .more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.mine_recode, getString(R.string.mine_recode), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.withdrawls_money, getString(R.string.withdrawls_money), R.mipmap
+                .more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.system_notice, getString(R.string.system_notice), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.help_center, getString(R.string.help_center), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.connect_service, getString(R.string.connect_service), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.software_info, getString(R.string.software_info), R.mipmap.more_arrow));
 
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
         mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (position) {
-                case 0:
+                case 0://个人信息
+                    CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                     break;
-                case 1:
+                case 1://币种资产
+                    CommonUtil.gotoActivity(mContext, CurrencyAssetsActivity.class);
                     break;
-                case 2:
+                case 2://经销商管理
+                    CommonUtil.gotoActivity(mContext, DealerManagementActivity.class);
                     break;
-                case 3://立即提现
+                case 3://我的记录
+
+                    break;
+                case 4://我要提币
                     CommonUtil.gotoActivity(mContext, CurrencyWithDrawalActivity.class);
                     break;
-                case 4://系统公告
+                case 5://系统公告
                     CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
                     break;
-                case 5:
+                case 6://帮助中心
+
                     break;
-                case 6:
+                case 7://联系客服
                     break;
-                case 7:
+                case 8://软件信息
+
                     break;
             }
         });

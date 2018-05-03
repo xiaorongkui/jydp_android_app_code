@@ -18,6 +18,8 @@
         <attr name="rightText"/>
         <!--右边文本左边距-->
         <attr name="rightTextPaddingLeft"/>
+        <!--下面线就上面距-->
+        <attr name="bottomLineMarginTop"/>
         <!--右边图标-->
         <attr name="rightIcon"/>
         <!-- 左边文本颜色 -->
@@ -94,6 +96,8 @@
     <attr name="leftText" format="reference|string"/>
 
     <attr name="rightTextPaddingLeft" format="dimension"/>
+
+    <attr name="bottomLineMarginTop" format="dimension"/>
 
     <!--右边文本-->
     <attr name="rightText" format="reference|string"/>
