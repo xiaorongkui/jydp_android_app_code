@@ -1,7 +1,6 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -18,20 +17,18 @@ import java.util.List;
  * description:
  */
 
-public class SystemNoticeRecyAdapter extends BaseRecylerAdapter {
+public class HelpCenterRecyAdapter extends BaseRecylerAdapter {
     private final Context mContext;
-    private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-            .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
-            .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_8));
 
-    public SystemNoticeRecyAdapter(Context context, List datas, int layoutId) {
+    public HelpCenterRecyAdapter(Context context, List datas, int layoutId) {
+
         super(layoutId, datas);
         this.mContext = context;
+
     }
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
-        TextView system_notice_item_time_tv = helper.getView(R.id.system_notice_item_time_tv);
-        system_notice_item_time_tv.setBackground(shapeSelector.create());
+
     }
 }

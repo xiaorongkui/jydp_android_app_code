@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/color_white_1"
+              android:background="@color/color_gray_1"
               android:orientation="vertical">
 
     <include layout="@layout/common_header"/>
@@ -13,7 +13,8 @@
     <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
         android:id="@+id/dealer_managment_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/dealer_managment_rv"
@@ -23,4 +24,11 @@
             android:layout_marginStart="@dimen/x15"/>
 
     </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
+
+    <Button
+        style="@style/btn_blue"
+        android:layout_marginBottom="@dimen/y15"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:text="@string/send_advertisement"/>
 </LinearLayout>

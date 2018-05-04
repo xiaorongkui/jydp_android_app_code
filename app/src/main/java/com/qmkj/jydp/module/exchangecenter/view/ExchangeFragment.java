@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.module.exchangecenter.presenter.EntrustRecodeRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangePresenter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeRecodeRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeSoldPriceRecAdapter;
@@ -81,6 +82,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
     Unbinder unbinder;
     @BindView(R.id.exchange_entrust_recode_rv)
     RecyclerView entrustRecodeRv;
+    @BindView(R.id.exchange_center_kline_iv)
+    ImageView exchange_center_kline_iv;
 
 
     private ExchangebuyPriceRecAdapter priceBuyRecAdapter;
@@ -123,6 +126,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
         currencySelectIv.setOnClickListener(this);
         buyLl.setOnClickListener(this);
         soldLl.setOnClickListener(this);
+        exchange_center_kline_iv.setOnClickListener(this);
     }
 
     private void initRecycleView() {
@@ -153,15 +157,15 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
 //
 //        }
 
-        ExchangeRecodeRecAdapter recodeRecAdapter = new ExchangeRecodeRecAdapter(mContext, datas, R.layout
+        EntrustRecodeRecAdapter entrustRecodeRecAdapter = new EntrustRecodeRecAdapter(mContext, datas, R.layout
                 .exchange_entrust_recode_item);
         View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
         mEmptyView.setScaleX(0.8f);
         mEmptyView.setScaleY(0.8f);
-        recodeRecAdapter.setEmptyView(mEmptyView);
+        entrustRecodeRecAdapter.setEmptyView(mEmptyView);
         entrustRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
-        entrustRecodeRv.setAdapter(recodeRecAdapter);
-        recodeRecAdapter.setOnItemClickListener((adapter, view, position) -> CommonUtil.gotoActivity(mContext,
+        entrustRecodeRv.setAdapter(entrustRecodeRecAdapter);
+        entrustRecodeRecAdapter.setOnItemClickListener((adapter, view, position) -> CommonUtil.gotoActivity(mContext,
                 EntrustRecodeActivity.class));
     }
 
@@ -225,9 +229,9 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
             case R.id.sold_ll:
                 setViewpagerIndicotr(1);
                 break;
-//            case R.id.kline_ll:
-//                CommonUtil.gotoActivity(mContext, KlineActivity.class);
-//                break;
+            case R.id.exchange_center_kline_iv:
+                CommonUtil.gotoActivity(mContext, KlineActivity.class);
+                break;
         }
     }
 

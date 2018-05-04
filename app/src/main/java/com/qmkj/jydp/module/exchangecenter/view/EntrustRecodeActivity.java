@@ -85,7 +85,7 @@ public class EntrustRecodeActivity extends BaseMvpActivity {
 
     private void showCancelDialog() {
         CommonDialog dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
-                .exchange_revocation_entrust_dialog);
+                .common_dialog_1);
         dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x500));
         dialogUtils.setOneOrTwoBtn(false);
         dialogUtils.setTwoConfirmBtn("确认撤销", v -> {

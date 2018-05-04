@@ -38,9 +38,6 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
         <activity
-            android:name=".module.mine.view.SystemNoticeActivity"
-            android:launchMode="singleTop"/>
-        <activity
             android:name=".module.login.view.LoginActivity"
             android:launchMode="singleTop">
         </activity>
@@ -56,9 +53,7 @@
         <activity
             android:name=".module.exchangecenter.view.EntrustRecodeActivity"
             android:launchMode="singleTop"/>
-        <activity
-            android:name=".module.mine.view.CurrencyWithDrawalActivity"
-            android:launchMode="singleTop"/>
+
         <activity
             android:name=".module.login.view.SplashActivity"
             android:launchMode="singleTop">
@@ -83,6 +78,26 @@
             android:launchMode="singleTop"/>
         <activity
             android:name=".module.mine.view.DealerManagementActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.MineRecodeActivity"
+            android:launchMode="singleTop"/>
+
+        <activity
+            android:name=".module.mine.view.SystemNoticeActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.HotTopicActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.HelpCenterActivity"
+            android:launchMode="singleTop"/>
+
+        <activity
+            android:name=".module.mine.view.ContactServiceActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.SoftwareInfoActivity"
             android:launchMode="singleTop"/>
 
         <provider

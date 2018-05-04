@@ -181,6 +181,19 @@
     <string name="dealer_managment">经销商管理</string>
     <string name="area">地区</string>
     <string name="exchange_limit">交易限额(CNY)</string>
+    <string name="delete">删除</string>
+    <string name="send_advertisement">发起广告</string>
+    <string name="delete_operation">删除操作</string>
+    <string name="deletions">确定删除？</string>
+    <string name="register_recode">挂单记录</string>
+    <string name="transaction_recode">成交记录</string>
+    <string name="currency_recode">提币记录</string>
+    <string name="outside_exchange_recode">场外交易记录</string>
+    <string name="hot_topic">热门话题</string>
+    <string name="look_details">查看详情</string>
+    <string name="dealed">已处理</string>
+    <string name="commit_problem">提交问题</string>
+    <string name="check_update">检查更新</string>
 
 
 </resources>

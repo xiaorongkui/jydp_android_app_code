@@ -6,21 +6,20 @@ import android.view.View;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
-import com.qmkj.jydp.ui.widget.ClickItemView;
 
 import java.util.List;
 
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:交易记录
+ * description:委托记录
  */
 
-public class ExchangeRecodeRecAdapter extends BaseRecylerAdapter {
+public class EntrustRecodeRecAdapter extends BaseRecylerAdapter {
 
     private final List datas;
 
-    public ExchangeRecodeRecAdapter(Context context, List datas, int layoutId) {
+    public EntrustRecodeRecAdapter(Context context, List datas, int layoutId) {
         super(layoutId, datas);
         this.datas = datas;
     }

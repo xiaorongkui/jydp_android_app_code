@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white_1">
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/person_info_modify_payment_password_civ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y21"
+        app:bottomLine="true"
+        app:bottomLineMarginTop="@dimen/y9"
+        app:leftText="XXXXXXXXXXXXXXXXXXXXXXX"
+        app:leftTextColor="@color/color_black_1"
+        app:rightIconVisible="true"/>
+</FrameLayout>

@@ -21,7 +21,7 @@ public class DealerManagmentRecyAdapter extends BaseRecylerAdapter {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
-            .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_bule_3))
+            .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
             .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
             .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
 
@@ -34,8 +34,8 @@ public class DealerManagmentRecyAdapter extends BaseRecylerAdapter {
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
-        TextView dealer_managment_go_exchange_tv = helper.getView(R.id
-                .dealer_managment_go_exchange_tv);
+        TextView dealer_managment_go_exchange_tv = helper.getView(R.id.dealer_managment_delete_tv);
         dealer_managment_go_exchange_tv.setBackground(shapeSelector.create());
+        helper.addOnClickListener(R.id.dealer_managment_delete_tv);
     }
 }

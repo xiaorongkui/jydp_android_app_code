@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_white_1"
+              android:orientation="vertical">
+
+    <include layout="@layout/common_header"/>
+
+    <View style="@style/line1"/>
+
+    <ImageView
+        android:layout_width="@dimen/x84"
+        android:layout_height="@dimen/x84"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y60"
+        android:scaleType="fitXY"
+        android:src="@mipmap/software_info_logo"/>
+
+    <TextView
+        android:id="@+id/software_info_version_num_tv"
+        android:layout_width="@dimen/x65"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y10"
+        android:gravity="center"
+        android:paddingBottom="@dimen/y5"
+        android:paddingTop="@dimen/y5"
+        android:textColor="@color/color_black_1"
+        android:textSize="@dimen/text_size_14"/>
+
+    <TextView
+        android:id="@+id/software_info_check_update_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y123"
+        android:gravity="center"
+        android:text="@string/check_update"
+        android:textColor="@color/color_black_2"
+        android:textSize="@dimen/text_size_14"/>
+</LinearLayout>

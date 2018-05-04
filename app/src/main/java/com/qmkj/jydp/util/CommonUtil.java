@@ -623,8 +623,12 @@ public class CommonUtil {
 
     //键盘
     public static void hideKeyBoard(Activity aty) {
-        ((InputMethodManager) aty.getSystemService(Context.INPUT_METHOD_SERVICE))
-                .hideSoftInputFromWindow(aty.getCurrentFocus().getWindowToken(), 2);
+        try {
+            ((InputMethodManager) aty.getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(aty.getCurrentFocus().getWindowToken(), 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -50,15 +50,15 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     }
 
     private void initRecycleView() {
-        List<MinelistInfo> datas = new ArrayList();
+        List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
                 .more_arrow));
         datas.add(new MinelistInfo(R.mipmap.mine_recode, getString(R.string.mine_recode), R.mipmap.more_arrow));
-        datas.add(new MinelistInfo(R.mipmap.withdrawls_money, getString(R.string.withdrawls_money), R.mipmap
-                .more_arrow));
         datas.add(new MinelistInfo(R.mipmap.system_notice, getString(R.string.system_notice), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.hot_topic, getString(R.string.hot_topic), R.mipmap
+                .more_arrow));
         datas.add(new MinelistInfo(R.mipmap.help_center, getString(R.string.help_center), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.connect_service, getString(R.string.connect_service), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.software_info, getString(R.string.software_info), R.mipmap.more_arrow));
@@ -78,21 +78,22 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                     CommonUtil.gotoActivity(mContext, DealerManagementActivity.class);
                     break;
                 case 3://我的记录
-
+                    CommonUtil.gotoActivity(mContext, MineRecodeActivity.class);
                     break;
-                case 4://我要提币
-                    CommonUtil.gotoActivity(mContext, CurrencyWithDrawalActivity.class);
-                    break;
-                case 5://系统公告
+                case 4://系统公告
                     CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
                     break;
+                case 5://热门话题
+                    CommonUtil.gotoActivity(mContext, HotTopicActivity.class);
+                    break;
                 case 6://帮助中心
-
+                    CommonUtil.gotoActivity(mContext, HelpCenterActivity.class);
                     break;
                 case 7://联系客服
+                    CommonUtil.gotoActivity(mContext, ContactServiceActivity.class);
                     break;
                 case 8://软件信息
-
+                    CommonUtil.gotoActivity(mContext, SoftwareInfoActivity.class);
                     break;
             }
         });

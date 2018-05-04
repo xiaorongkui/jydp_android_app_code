@@ -16,10 +16,10 @@ import butterknife.BindView;
 /**
  * author：rongkui.xiao --2018/3/27
  * email：dovexiaoen@163.com
- * description:币种提现界面
+ * description:热门话题
  */
 
-public class CurrencyWithDrawalActivity extends BaseMvpActivity {
+public class HotTopicActivity extends BaseMvpActivity {
     @BindView(R.id.currency_withdrawals_header)
     LinearLayout currency_withdrawals_header;
 
@@ -51,7 +51,7 @@ public class CurrencyWithDrawalActivity extends BaseMvpActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.mine_activity_currency_withdrawals;
+        return R.layout.mine_activity_hot_topic;
     }
 
     @Override

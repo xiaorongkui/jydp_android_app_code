@@ -40,10 +40,16 @@ public class CommonDialog extends Dialog {
         super.setContentView(mView);
     }
 
+    //layoutResId请在原common_dialog上修改
     public CommonDialog(Activity context, int theme, int layoutResId) {
         super(context, theme);
         this.activity = context;
         mView = LayoutInflater.from(getContext()).inflate(layoutResId, null);
+        messageView = (TextView) mView.findViewById(R.id.message);
+        oneBtnView = (TextView) mView.findViewById(R.id.only_confirm_btn);
+        twoBtnView = mView.findViewById(R.id.two_btn_layout);
+        confirmBtn = (TextView) mView.findViewById(R.id.yes);
+        cancelBtn = (TextView) mView.findViewById(R.id.no);
         setContentView(mView);
         super.setContentView(mView);
     }
@@ -60,7 +66,12 @@ public class CommonDialog extends Dialog {
     }
 
     public void setAlertDialogSize(int width, int height) {
-        getWindow().setLayout(width, height);
+//        getWindow().setLayout(width, height);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.width = width;
+        lp.height = height;
+        getWindow().setAttributes(lp);
     }
 
     /**
@@ -74,7 +85,7 @@ public class CommonDialog extends Dialog {
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(getWindow().getAttributes());
         lp.width = width;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         getWindow().setAttributes(lp);
     }
 

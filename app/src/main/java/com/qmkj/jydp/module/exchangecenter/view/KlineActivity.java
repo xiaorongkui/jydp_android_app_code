@@ -63,7 +63,7 @@ public class KlineActivity extends BaseMvpActivity {
     private ArrayList<KLineBean> kLineDatas;
 
     //开，收，高，低，量，换，额，查，比
-    protected TextView mTvOpen, mTvClose, mTvMax, mTvMin, mTvNum, mTvExchange, mTvAmount, mTvSub, mTvPercent;
+    protected TextView mTvClose, mTvMax, mTvMin, mTvNum;
     protected TextView mTvKMa5, mTvKMa10, mTvKMa20, mTvKMa30;
     private XAxis xAxisVolume;
     private YAxis axisLeftVolume;
@@ -101,15 +101,10 @@ public class KlineActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
-        mTvOpen = (TextView) findViewById(R.id.kline_tv_open);
         mTvClose = (TextView) findViewById(R.id.kline_tv_close);
         mTvMax = (TextView) findViewById(R.id.kline_tv_max);
         mTvMin = (TextView) findViewById(R.id.kline_tv_min);
         mTvNum = (TextView) findViewById(R.id.kline_tv_num);
-        mTvExchange = (TextView) findViewById(R.id.kline_tv_exchange);
-        mTvAmount = (TextView) findViewById(R.id.kline_tv_amount);
-        mTvSub = (TextView) findViewById(R.id.kline_tv_sub);
-        mTvPercent = (TextView) findViewById(R.id.kline_tv_percent);
 
         mChartKline = (MyCombinedChart) findViewById(R.id.kline_chart_k);
         mChartVolume = (MyCombinedChart) findViewById(R.id.kline_chart_volume);
@@ -129,10 +124,17 @@ public class KlineActivity extends BaseMvpActivity {
         setMarkerViewVolume(mData, mChartVolume);
     }
 
+    private void setMarkerViewKline(DataParse mData, MyCombinedChart mChartKline) {
+        MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.exchange_kline_left_view);
+        MyHMarkerView hMarkerView = new MyHMarkerView(mContext, R.layout.exchange_kline_line_view);
+        mChartKline.setMarker(leftMarkerView, hMarkerView, mData);
+    }
+
     private void setMarkerViewVolume(DataParse mData, MyCombinedChart combinedChart) {
         MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.exchange_kline_left_view);
         MyHMarkerView hMarkerView = new MyHMarkerView(mContext, R.layout.exchange_kline_line_view);
-        combinedChart.setMarker(leftMarkerView, hMarkerView, mData);
+        MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(mContext, R.layout.exchange_kline_left_view);
+        combinedChart.setMarker(leftMarkerView, bottomMarkerView, hMarkerView, mData);
     }
 
     private void setChartListener() {
@@ -206,11 +208,11 @@ public class KlineActivity extends BaseMvpActivity {
     private void updateText(int index) {
         if (index >= 0 && index < kLineDatas.size()) {
             KLineBean klData = kLineDatas.get(index);
-            mTvOpen.setText(CommonUtil.getDecimalFormatVol(klData.open));
+//            mTvOpen.setText(CommonUtil.getDecimalFormatVol(klData.open));
             mTvClose.setText(CommonUtil.getDecimalFormatVol(klData.close));
             mTvMax.setText(CommonUtil.getDecimalFormatVol(klData.high));
             mTvMin.setText(CommonUtil.getDecimalFormatVol(klData.low));
-            mTvAmount.setText(CommonUtil.getDecimalFormatVol(klData.vol));
+//            mTvAmount.setText(CommonUtil.getDecimalFormatVol(klData.vol));
 
             int unit = CommonUtil.getVolUnitNum(klData.vol);
             mTvNum.setText(CommonUtil.getVolUnitText((int) Math.pow(10, unit), klData.vol));
@@ -329,13 +331,6 @@ public class KlineActivity extends BaseMvpActivity {
         return index;
     }
 
-    private void setMarkerViewKline(DataParse mData, MyCombinedChart mChartKline) {
-        MyLeftMarkerView leftMarkerView = new MyLeftMarkerView(mContext, R.layout.exchange_kline_left_view);
-        MyHMarkerView hMarkerView = new MyHMarkerView(mContext, R.layout.exchange_kline_line_view);
-        MyBottomMarkerView bottomMarkerView = new MyBottomMarkerView(mContext, R.layout.exchange_kline_left_view);
-        mChartKline.setMarker(leftMarkerView, null, hMarkerView, mData);
-    }
-
     private void setKLineDatas() {
         kLineDatas = mData.getKLineDatas();
         mData.initLineDatas(kLineDatas);
@@ -383,19 +378,6 @@ public class KlineActivity extends BaseMvpActivity {
         //是否支持自动换行 目前只支持BelowChartLeft, BelowChartRight, BelowChartCenter
         legend.setWordWrapEnabled(true);
 
-        //bar x y轴
-        xAxisKline = mChartKline.getXAxis();
-        //是否启用X轴
-        xAxisKline.setEnabled(true);
-        xAxisKline.setDrawLabels(true); //是否显示X坐标轴上的刻度，默认是true
-        xAxisKline.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
-        xAxisKline.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
-        xAxisKline.enableGridDashedLine(10f, 10f, 0f);
-        //虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float
-        // phase)三个参数，1.线长，2.虚线间距，3.虚线开始坐标
-        xAxisKline.setTextColor(getResources().getColor(R.color.colorBlack_1));//设置字的颜色
-        xAxisKline.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
-        xAxisKline.setAvoidFirstLastClipping(true);//设置首尾的值是否自动调整，避免被遮挡
         //设置x轴标签数
         //        xAxisKline.setLabelCount(5, true);
 
@@ -426,6 +408,19 @@ public class KlineActivity extends BaseMvpActivity {
         //左边Y轴添加限制线
         axisLeftKline.addLimitLine(limitLine);
 
+        //bar x y轴
+        xAxisKline = mChartKline.getXAxis();
+        //是否启用X轴
+        xAxisKline.setEnabled(false);
+        xAxisKline.setDrawLabels(false); //是否显示X坐标轴上的刻度，默认是true
+//        xAxisKline.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
+//        xAxisKline.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
+//        xAxisKline.enableGridDashedLine(10f, 10f, 0f);
+//        //虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float
+//        // phase)三个参数，1.线长，2.虚线间距，3.虚线开始坐标
+//        xAxisKline.setTextColor(getResources().getColor(R.color.colorBlack_1));//设置字的颜色
+//        xAxisKline.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
+//        xAxisKline.setAvoidFirstLastClipping(true);//设置首尾的值是否自动调整，避免被遮挡
 
         axisRightKline = mChartKline.getAxisRight();
         axisRightKline.setDrawLabels(false);
@@ -462,15 +457,15 @@ public class KlineActivity extends BaseMvpActivity {
 
         //bar x y轴
         xAxisVolume = mChartVolume.getXAxis();
-        xAxisVolume.setEnabled(false);
-//        xAxisVolume.setDrawLabels(false); //是否显示X坐标轴上的刻度，默认是true
-//        xAxisVolume.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
-//        xAxisVolume.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
-//        xAxisVolume.enableGridDashedLine(10f, 10f, 0f);//虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float
+        xAxisVolume.setEnabled(true);
+        xAxisVolume.setDrawLabels(true); //是否显示X坐标轴上的刻度，默认是true
+        xAxisVolume.setDrawGridLines(false);//是否显示X坐标轴上的刻度竖线，默认是true
+        xAxisVolume.setDrawAxisLine(false); //是否绘制坐标轴的线，即含有坐标的那条线，默认是true
+        xAxisVolume.enableGridDashedLine(10f, 10f, 0f);//虚线表示X轴上的刻度竖线(float lineLength, float spaceLength, float
 // phase)三个参数，1.线长，2.虚线间距，3.虚线开始坐标
         xAxisVolume.setTextColor(getResources().getColor(R.color.colorBlack_1));//设置字的颜色
-//        xAxisVolume.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
-//        xAxisVolume.setAvoidFirstLastClipping(true);//设置首尾的值是否自动调整，避免被遮挡
+        xAxisVolume.setPosition(XAxis.XAxisPosition.BOTTOM);//设置值显示在什么位置
+        xAxisVolume.setAvoidFirstLastClipping(true);//设置首尾的值是否自动调整，避免被遮挡
 
         axisLeftVolume = mChartVolume.getAxisLeft();
         axisLeftVolume.setAxisMinValue(0);//设置Y轴坐标最小为多少
