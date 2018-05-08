@@ -135,8 +135,7 @@ public class HttpModule {
         public Response intercept(Chain chain) throws IOException {
             Request oldRequest = chain.request();
             //todo session待处理
-            //String sessionId = JYDPExchangeApp.getInstance().getSessionId();
-            String sessionId = "todo";
+            String sessionId = CommonUtil.getSessionId();
             Request request = oldRequest.newBuilder().addHeader("sessionId", sessionId).build();
             return chain.proceed(request);
         }

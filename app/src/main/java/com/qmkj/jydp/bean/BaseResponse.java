@@ -6,7 +6,7 @@ package com.qmkj.jydp.bean;
  * code 1请求成功 4session过期
  */
 public class BaseResponse<T> {
-    private String code;
+    private String code;//1成功
     private String message;
     private T data;
 

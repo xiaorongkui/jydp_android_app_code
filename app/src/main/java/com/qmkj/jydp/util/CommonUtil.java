@@ -34,6 +34,8 @@ import android.webkit.CookieSyncManager;
 
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.bean.LoginBean;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.ui.widget.FixedSpeedScroller;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -75,6 +77,9 @@ public class CommonUtil {
     }
 
     public static void startActivityForResult(Activity context, Intent intent, int requestCode) {
+        if (context == null) {
+            return;
+        }
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -145,7 +150,7 @@ public class CommonUtil {
      * 1dp---1.75px;
      *
      * @param dp
-     * @return
+     * @return int
      */
     public static int dp2px(int dp) {
         float density = getContext().getResources().getDisplayMetrics().density;
@@ -252,9 +257,9 @@ public class CommonUtil {
         }
         final View v = ((Activity) context).getWindow().peekDecorView();
         if (v != null && v.getWindowToken() != null) {
-            InputMethodManager imm = (InputMethodManager) context.getSystemService(context
-                    .INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null)
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }
 
@@ -289,8 +294,7 @@ public class CommonUtil {
             }
         }
         String regex = "^[a-zA-Z0-9]+$";
-        boolean isRight = isDigit && isLetter && str.matches(regex) && isLength;
-        return isRight;
+        return isDigit && isLetter && str.matches(regex) && isLength;
     }
 
     /**
@@ -303,7 +307,7 @@ public class CommonUtil {
         try {
             Pattern p = Pattern.compile("^[\\u4E00-\\u9FA5\\uF900-\\uFA2D]+$");
             return p.matcher(str).matches();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -453,23 +457,6 @@ public class CommonUtil {
         return myformat.format(doubleMoney);
     }
 
-    public static String decodeFormatMoney(String str) {
-        String[] split = str.split(",");
-        String content = "";
-        for (String s : split) {
-            content += s;
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        double doubleMoney = 0;
-        try {
-            doubleMoney = Double.parseDouble(content);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            LogUtil.i("EncodeFormatMoney exception!");
-        }
-        return decimalFormat.format(doubleMoney);
-    }
-
 
     //获取分辨率
     public static String getAndroidPix(Activity context) {
@@ -528,8 +515,8 @@ public class CommonUtil {
      */
     public static double div(double value1, double value2, RoundingMode roundingMode, int
             pointCount) {
-        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
-        BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(value2);
         return b1.divide(b2, pointCount, roundingMode).doubleValue();
     }
 
@@ -563,8 +550,8 @@ public class CommonUtil {
      * @return 两个参数的积
      */
     public static double mul(double value1, double value2) {
-        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
-        BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(value2);
         return b1.multiply(b2).doubleValue();
     }
 
@@ -766,12 +753,21 @@ public class CommonUtil {
 
 
     /*保存登录时个人信息返回*/
-    public static void saveLoginInfo() {
-//        SPHelper.getInstance().saveObject(Constant.SP_SAVE_LOGIN_USERINFO, userInfo);
+    public static void setLoginInfo(LoginBean userInfo) {
+        SPHelper.getInstance().saveObject(Constants.SP_SAVE_LOGIN_USERINFO, userInfo);
+    }
+
+    /*保存登录时个人信息返回*/
+    public static LoginBean getLoginInfo() {
+        return (LoginBean) SPHelper.getInstance().getObject(Constants.SP_SAVE_LOGIN_USERINFO, null);
     }
 
     //获取tokenId
-    public static String getTokenId() {
+    public static String getSessionId() {
+        LoginBean loginInfo = getLoginInfo();
+        if (loginInfo != null) {
+            return loginInfo.getSessionid();
+        }
         return "";
     }
 
@@ -794,6 +790,7 @@ public class CommonUtil {
      * @param context
      * @return
      */
+    @SuppressLint("ObsoleteSdkInt")
     public static int getScreenWidth(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

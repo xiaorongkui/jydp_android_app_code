@@ -1,15 +1,13 @@
 package com.qmkj.jydp.net.observer;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.net.exception.HandlerException;
 import com.qmkj.jydp.net.HttpCallBack;
-import com.qmkj.jydp.net.api.BaseNetFunction;
-import com.qmkj.jydp.ui.widget.NetProgressDialog;
+import com.qmkj.jydp.ui.widget.LoadingDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ProgressDialogUtil;
@@ -25,7 +23,9 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
     private final WeakReference<Context> mActivity;
     private HttpCallBack httpCallBack = null;
     private boolean showProgressDialog;
+
     private boolean isCancel;
+    private int tag;
 
     /**
      * 显示loading
@@ -49,22 +49,21 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
         if (!this.isDisposed())
             this.dispose();
         hideLoading();
-        if (httpCallBack != null) httpCallBack.onCancel();
+        if (httpCallBack != null) httpCallBack.onCancel(tag);
         LogUtil.i("请求已经取消");
     }
 
     private void initProgressDialog(boolean cancel) {
         Context context = mActivity.get();
-        NetProgressDialog netProgressDialog = ProgressDialogUtil.initProgressDialog(context, cancel);
-        if (cancel && netProgressDialog != null) netProgressDialog.setOnCancelListener(dialog -> onCancelProgress());
+        LoadingDialog loadingDialog = ProgressDialogUtil.initProgressDialog(context, cancel);
+        if (cancel && loadingDialog != null) loadingDialog.setOnCancelListener(dialog -> onCancelProgress());
     }
 
-    public BaseShowLoadingObserver(Context context, HttpCallBack httpCallBack, boolean isShowProgress, boolean
-            isCancel) {
+    public BaseShowLoadingObserver(Context context, HttpCallBack httpCallBack, boolean isShowProgress, int tag) {
         this.httpCallBack = httpCallBack;
         this.mActivity = new WeakReference<>(context);
         this.showProgressDialog = isShowProgress;
-        this.isCancel = isCancel;
+        this.tag = tag;
     }
 
     @Override
@@ -87,7 +86,7 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
     protected void onRequestSuccess(T t) {
         LogUtil.i("成功网络请求返回");
         if (httpCallBack != null) {
-            httpCallBack.onNext(t);
+            httpCallBack.onNext(t, tag);
         }
         hideLoading();
     }
@@ -103,7 +102,7 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
         Context context = mActivity.get();
         if (context == null) return;
         if (httpCallBack != null) {
-            httpCallBack.onError(HandlerException.handleException(e));
+            httpCallBack.onError(HandlerException.handleException(e), tag);
         }
     }
 
@@ -112,4 +111,9 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
         super.onRequestComplete();
         hideLoading();
     }
+
+    public void setCancel(boolean cancel) {
+        isCancel = cancel;
+    }
+
 }

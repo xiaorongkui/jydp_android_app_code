@@ -7,6 +7,7 @@ import com.qmkj.jydp.common.AppNetConfig;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -17,12 +18,10 @@ import retrofit2.http.POST;
  */
 public interface MineService {
     /**
-     * 查询交易币种的保底价和当前价.
+     * 获取我的信息
      *
-     * @param maps the maps
      * @return the home auto roll product
      */
-    @FormUrlEncoded
-    @POST(AppNetConfig.urlPath + "getCurrentPriceAndBottomPrice/transfer")
-    Observable<BaseResponse<Object>> getCurrentPrice(@FieldMap Map<String, Object> maps);
+    @POST(AppNetConfig.urlPath + "userApp/login/my.htm")
+    Observable<BaseResponse<Object>> getMineInfo();
 }

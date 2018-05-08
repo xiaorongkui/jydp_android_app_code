@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.ui.widget.NetProgressDialog;
+import com.qmkj.jydp.ui.widget.LoadingDialog;
 
 import java.lang.ref.WeakReference;
 
@@ -16,10 +16,10 @@ import java.lang.ref.WeakReference;
 
 public class ProgressDialogUtil {
 
-    private static WeakReference<Context> mThreadActivityRef;  //弱引用
-    private static WeakReference<NetProgressDialog> waitDialog;   //弱引用
+    private static WeakReference<Context> contextWeakReference;  //弱引用
+    private static WeakReference<LoadingDialog> waitDialog;   //弱引用
 
-    public static NetProgressDialog initProgressDialog(Context mContext, boolean cancel) {
+    public static LoadingDialog initProgressDialog(Context mContext, boolean cancel) {
         if (waitDialog != null && waitDialog.get() != null && waitDialog.get().isShowing()) {
             waitDialog.get().dismiss();
         }
@@ -27,11 +27,12 @@ public class ProgressDialogUtil {
         if (mContext == null || !(mContext instanceof Activity) || ((Activity) mContext).isFinishing()) {
             return null;
         }
-        mThreadActivityRef = new WeakReference<>(mContext);
-        NetProgressDialog loadingDialog = NetProgressDialog.createLoadingDialog(mThreadActivityRef.get(), "加载中...");
+        contextWeakReference = new WeakReference<>(mContext);
+
+        LoadingDialog loadingDialog = new LoadingDialog(contextWeakReference.get(), R.style.loading_dialog);
         loadingDialog.setAlertDialogSize((int) CommonUtil.getDimen(R.dimen.x100), (int) CommonUtil
                 .getDimen(R.dimen.y100));
-
+        loadingDialog.setMessage(mContext.getString(R.string.loading));
         waitDialog = new WeakReference<>(loadingDialog);
         loadingDialog.setCancelable(cancel);
         return loadingDialog;

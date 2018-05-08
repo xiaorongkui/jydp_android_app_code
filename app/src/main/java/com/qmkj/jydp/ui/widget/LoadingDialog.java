@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,18 +22,31 @@ public class LoadingDialog extends Dialog {
     private ProgressBar mProgress;
     private TextView mMessage;
     private String mMessageStr;
+    private Context mContext;
 
     public LoadingDialog(@NonNull Context context) {
         super(context);
+        this.mContext = context;
+        setCanceledOnTouchOutside(false);
+        setCancelable(false);
     }
 
-    public static LoadingDialog show(Context context, String message) {
-        LoadingDialog dialog = new LoadingDialog(context);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
-        dialog.setMessage(message);
-        dialog.show();
-        return dialog;
+
+    //系统提供的 二个参数的
+    public LoadingDialog(Context context, int theme) {
+        super(context, theme);
+        this.mContext = context;
+        setCanceledOnTouchOutside(false);
+        setCancelable(false);
+    }
+
+
+    //系统提供 带三个参数的
+    protected LoadingDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+        super(context, cancelable, cancelListener);
+        this.mContext = context;
+        setCanceledOnTouchOutside(false);
+        setCancelable(cancelable);
     }
 
     @Override
@@ -54,7 +68,15 @@ public class LoadingDialog extends Dialog {
         mMessage.setText(mMessageStr);
     }
 
-    private void setMessage(String message) {
+    public void setMessage(String message) {
         mMessageStr = message;
+    }
+
+    public void setAlertDialogSize(int width, int height) {
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.width = width;
+        lp.height = height;
+        getWindow().setAttributes(lp);
     }
 }

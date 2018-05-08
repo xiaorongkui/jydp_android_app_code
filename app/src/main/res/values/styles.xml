@@ -74,4 +74,18 @@
     <style name="edt_left" parent="edt_right">
         <item name="android:gravity">left|center_vertical</item>
     </style>
+
+    <!--防止白屏-->
+    <style name="start_apptheme" parent="AppTheme">
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@mipmap/lanucher</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="no_background_dialog" parent="AppTheme">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

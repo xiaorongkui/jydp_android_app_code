@@ -67,6 +67,8 @@
     <color name="color_gray_6">#FFE5E5E5</color>
     <color name="color_gray_7">#FFF4F5F9</color>
     <color name="color_gray_8">#D4D9E3</color>
+    <color name="color_gray_9">#171C5EB0</color><!--//阴影颜色-->
+    <color name="color_gray_10">#1F1C5EB0</color><!--//阴影颜色-->
 
     <color name="color_bule_1">#448EF1</color>
     <color name="color_bule_2">#5299F7</color>

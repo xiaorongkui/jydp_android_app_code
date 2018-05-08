@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,18 +26,20 @@ import butterknife.ButterKnife;
 /**
  * author：rongkui.xiao --2018/5/3
  * email：dovexiaoen@163.com
- * description:场外交易购买界面
+ * description:场外交易卖出界面
  */
 
-public class OutSideBuyActivity extends BaseMvpActivity {
+public class OutSideSoldActivity extends BaseMvpActivity {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
-    @BindView(R.id.outside_buy_pay_mothed_iv)
+    @BindView(R.id.outside_slod_pay_mothed_iv)
     ImageView outsidePayMothedIv;
-    @BindView(R.id.outside_buy_pay_mothed_tv)
+    @BindView(R.id.outside_slod_pay_mothed_tv)
     TextView outsidePayMothedTv;
+    @BindView(R.id.outside_sold_comfirm_bt)
+    Button outsideSoldComfirmBt;
     private CommonDialog commonDialog;
-    private double selectIndex;
+    private int selectIndex;
 
     @Override
     protected void injectPresenter() {
@@ -50,25 +53,19 @@ public class OutSideBuyActivity extends BaseMvpActivity {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.buy_1));
+        titleHeaderTv.setText(CommonUtil.getString(R.string.sell));
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.outside_activity_buy;
+        return R.layout.outside_activity_sold;
     }
 
     @Override
     protected void initView() {
         outsidePayMothedIv.setOnClickListener(this);
         outsidePayMothedTv.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        outsideSoldComfirmBt.setOnClickListener(this);
     }
 
     /**
@@ -120,10 +117,14 @@ public class OutSideBuyActivity extends BaseMvpActivity {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.outside_buy_pay_mothed_iv:
-            case R.id.outside_buy_pay_mothed_tv:
+            case R.id.outside_slod_pay_mothed_iv:
+            case R.id.outside_slod_pay_mothed_tv:
                 showPaymentMethodDialog();
+                break;
+            case R.id.outside_sold_comfirm_bt:
+                CommonUtil.gotoActivity(mContext, OutSideSoldDetailActivity.class);
                 break;
         }
     }
+
 }

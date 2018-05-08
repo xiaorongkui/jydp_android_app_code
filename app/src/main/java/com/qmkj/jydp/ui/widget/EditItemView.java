@@ -2,22 +2,17 @@ package com.qmkj.jydp.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.util.CommonUtil;
 
 
 /**
@@ -72,30 +67,28 @@ public class EditItemView extends LinearLayout {
         // 获取自定义属性资源ID
         if (a != null) {
             mTitleText = a.getText(R.styleable.EditItem_titleText);
-            mTitleTextColor = a.getColor(R.styleable.EditItem_titleTextColor, CommonUtil.getColor(R.color
+            mTitleTextColor = a.getColor(R.styleable.EditItem_titleTextColor, context.getResources().getColor(R.color
                     .color_black_1));
-            mTitleTextSize = a.getDimension(R.styleable.EditItem_titleTextSize, CommonUtil.getTextSize(R.dimen
-                    .text_size_14));
-            mTitleTextPaddingTop = a.getDimension(R.styleable.EditItem_titleTopMargin, CommonUtil.getDimen(R.dimen
-                    .x15));
+            mTitleTextSize = a.getDimension(R.styleable.EditItem_titleTextSize, context.getResources()
+                    .getDimensionPixelOffset(R.dimen.text_size_14));
+            mTitleTextPaddingTop = a.getDimension(R.styleable.EditItem_titleTopMargin, context.getResources()
+                    .getDimension(R.dimen.x15));
 
             mContentEditHintText = a.getText(R.styleable.EditItem_contentEditHintText);
-            mContentEditHintTextColor = a.getColor(R.styleable.EditItem_contentEditHintTextColor, CommonUtil.getColor(R
-                    .color.color_gray_2));
-            mContentEditTextSize = a.getDimension(R.styleable.EditItem_contentEditTextSize, CommonUtil.getTextSize(R
-                    .dimen
-                    .text_size_14));
+            mContentEditHintTextColor = a.getColor(R.styleable.EditItem_contentEditHintTextColor, context
+                    .getResources().getColor(R.color.color_gray_2));
+            mContentEditTextSize = a.getDimension(R.styleable.EditItem_contentEditTextSize, context.getResources()
+                    .getDimensionPixelOffset(R.dimen.text_size_14));
             mContentEditTopMargin = a.getDimension(R.styleable.EditItem_contentEditTopMargin, 0);
 
 
             mContentRightText = a.getText(R.styleable.EditItem_contentRightText);
-            mContentRightTextColor = a.getColor(R.styleable.EditItem_contentRightTextColor, CommonUtil.getColor(R
-                    .color.color_bule_3));
-            mContentRightTextSize = a.getDimension(R.styleable.EditItem_contentRightTextSize, CommonUtil.getTextSize
-                    (R.dimen
-                            .text_size_14));
-            mContentRightTextEndMargin = a.getDimension(R.styleable.EditItem_contentRightTextEndMargin, CommonUtil
-                    .getDimen(R.dimen.x1));
+            mContentRightTextColor = a.getColor(R.styleable.EditItem_contentRightTextColor, context.getResources()
+                    .getColor(R.color.color_bule_3));
+            mContentRightTextSize = a.getDimension(R.styleable.EditItem_contentRightTextSize, context.getResources()
+                    .getDimensionPixelOffset(R.dimen.text_size_14));
+            mContentRightTextEndMargin = a.getDimension(R.styleable.EditItem_contentRightTextEndMargin, context
+                    .getResources().getDimension(R.dimen.x1));
 
             mContentRightTextVisible = a.getBoolean(R.styleable.EditItem_contentRightTextVisible, false);
             mBottomLineVisible = a.getBoolean(R.styleable.EditItem_bottomLineVisible, true);
@@ -232,7 +225,7 @@ public class EditItemView extends LinearLayout {
         if (size < 0) {
             return;
         }
-        mEdit_title_tv.setTextSize(CommonUtil.px2sp(size));
+        mEdit_title_tv.setTextSize(px2sp(size));
     }
 
     /**
@@ -284,7 +277,7 @@ public class EditItemView extends LinearLayout {
         if (size < 0) {
             return;
         }
-        mEdit_letf_et.setTextSize(CommonUtil.px2sp(size));
+        mEdit_letf_et.setTextSize(px2sp(size));
     }
 
     /**
@@ -304,7 +297,7 @@ public class EditItemView extends LinearLayout {
         if (size < 0) {
             return;
         }
-        mEdit_letf_et.setTextSize(CommonUtil.px2sp(size));
+        mEdit_right_tv.setTextSize(px2sp(size));
     }
 
     /**
@@ -358,5 +351,11 @@ public class EditItemView extends LinearLayout {
 
     public String getEditTextString() {
         return mEdit_letf_et.getText().toString().trim();
+    }
+
+    public int px2sp(float pxValue) {
+        float fontScale = getContext().getResources().getDisplayMetrics()
+                .scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
     }
 }

@@ -27,12 +27,19 @@ import io.reactivex.disposables.Disposable;
  * author：rongkui.xiao --2018/4/3
  * email：dovexiaoen@163.com
  * description:rx网络请求的基类
+ *
+ * @param <T> the type parameter
  */
-
 public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, HttpCallBack {
 
+    /**
+     * The M view.
+     */
     protected T mView;
 
+    /**
+     * The Base net function.
+     */
     @Inject
     BaseNetFunction baseNetFunction;
 
@@ -42,6 +49,11 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
     private BaseRxPresenter() {
     }
 
+    /**
+     * Instantiates a new Base rx presenter.
+     *
+     * @param activity the activity
+     */
     public BaseRxPresenter(Activity activity) {
         if (!(activity instanceof RxAppCompatActivity)) {
             throw new RuntimeException("创建RxPresenter失败,请用当前activity继承BaseActivity或RxAppCompatActivity");
@@ -49,6 +61,11 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
         this.activitySoftReference = new SoftReference<>((RxAppCompatActivity) activity);
     }
 
+    /**
+     * Instantiates a new Base rx presenter.
+     *
+     * @param fragment the fragment
+     */
     public BaseRxPresenter(Fragment fragment) {
         if (!(fragment instanceof RxFragment)) {
             throw new RuntimeException("创建RxPresenter失败,请用当前Fragment继承BaseFragment或RxFragment");
@@ -98,9 +115,10 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param mObservable    the m observable
      * @param isShowProgress 是否在网络请求时显示进度框
      * @param isCancel       是否可以取消对话框
+     * @param tag            the tag
      */
     @SuppressWarnings("unchecked")
-    protected void sendHttpRequest(Observable mObservable, boolean isShowProgress, boolean isCancel) {
+    protected void sendHttpRequest(Observable mObservable, boolean isShowProgress, boolean isCancel, int tag) {
 
         LifecycleTransformer<Object> lifecycleTransformer = null;
         Context context = null;
@@ -118,7 +136,8 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
         }
 
         BaseShowLoadingObserver progressObserver = new BaseShowLoadingObserver<>(context, this,
-                isShowProgress, isCancel);
+                isShowProgress, tag);
+        progressObserver.setCancel(isCancel);
 
         mObservable.compose(lifecycleTransformer)
                 .compose(RxUtil.rxSchedulerHelper())
@@ -128,21 +147,40 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
         addSubscribe(progressObserver);
     }
 
-    protected void sendHttpRequest(Observable mObservable) {
-        sendHttpRequest(mObservable, true, true);
+    /**
+     * Send http request.默认可以取消对话框，显示进度框
+     *
+     * @param mObservable the m observable
+     * @param tag         the tag
+     */
+    protected void sendHttpRequest(Observable mObservable, int tag) {
+        sendHttpRequest(mObservable, true, true, tag);
+    }
+
+    /**
+     * Send http request.
+     *
+     * @param mObservable    the m observable
+     * @param isShowProgress the is show progress
+     * @param tag            the tag
+     */
+    protected void sendHttpRequest(Observable mObservable, boolean isShowProgress, int tag) {
+        sendHttpRequest(mObservable, isShowProgress, true, tag);
     }
 
     @Override
-    public void onNext(Object o) {
+    public void onNext(Object o, int tag) {
+        mView.onSuccess(o, tag);
     }
 
     @Override
-    public void onError(Throwable e) {
-        ToastUtil.showShort(e.getMessage());
+    public void onError(Throwable e, int tag) {
+        mView.onError("", "", tag);
+
     }
 
     @Override
-    public void onCancel() {
+    public void onCancel(int tag) {
 
     }
 }

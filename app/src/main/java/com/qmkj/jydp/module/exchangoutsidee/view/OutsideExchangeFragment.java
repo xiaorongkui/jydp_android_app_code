@@ -93,6 +93,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
             switch (view.getId()) {
                 case R.id.exchange_outside_go_exchange_tv:
                     toast("去交易");
+                    CommonUtil.gotoActivity(mContext, OutSideSoldActivity.class);
                     break;
                 case R.id.exchange_outside_buy_tv:
                     CommonUtil.gotoActivity(mContext, OutSideBuyActivity.class);

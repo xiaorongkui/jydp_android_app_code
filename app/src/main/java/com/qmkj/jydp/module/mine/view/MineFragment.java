@@ -1,7 +1,9 @@
 package com.qmkj.jydp.module.mine.view;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,7 +14,7 @@ import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
-import com.qmkj.jydp.ui.widget.MyRecycleView;
+import com.qmkj.jydp.ui.widget.ScrollRecycleView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -31,11 +35,14 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
 
     @BindView(R.id.mine_rv)
-    MyRecycleView mineRv;
+    ScrollRecycleView mineRv;
     @BindView(R.id.mine_ll)
     LinearLayout mineLl;
     @BindView(R.id.mine_distributor_tv)
     TextView mine_distributor_tv;
+    @BindView(R.id.mine_available_money_ll)
+    LinearLayout mineAvailableMoneyLl;
+    Unbinder unbinder;
 
     @Override
     protected void initView() {
@@ -112,6 +119,11 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     protected void initData() {
+        getMineInfo();
+    }
+
+    private void getMineInfo() {
+        presenter.getMineInfo(1, true);
     }
 
 
@@ -142,4 +154,17 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         super.onError(errorMsg, code, tag);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

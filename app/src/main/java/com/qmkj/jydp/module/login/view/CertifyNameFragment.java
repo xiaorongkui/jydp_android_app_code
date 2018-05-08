@@ -4,43 +4,34 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.base.GlideApp;
-import com.qmkj.jydp.bean.CertifyTypeItemBean;
+import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.BitmapCompressTask;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
-import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/23
@@ -131,10 +122,10 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
      * 选择证件照类型对话框
      */
     private void showCertifyTypeSelectDialog() {
-        List<CertifyTypeItemBean> certifyTypeData = new ArrayList<>();
-        certifyTypeData.add(new CertifyTypeItemBean(CommonUtil.getString(R.string.certificate_identification), R
+        List<DialogItemBean> certifyTypeData = new ArrayList<>();
+        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.certificate_identification), R
                 .mipmap.certificate_identification, true));
-        certifyTypeData.add(new CertifyTypeItemBean(CommonUtil.getString(R.string.passport), R
+        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.passport), R
                 .mipmap.passport, false));
 
         commonDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout
@@ -144,11 +135,11 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
 
         RecyclerView recyclerView = commonDialog.getView(R.id.certify_type_select_rv, RecyclerView.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setAdapter(new BaseRecylerAdapter<CertifyTypeItemBean>(R.layout.certify_type_select_item,
+        recyclerView.setAdapter(new BaseRecylerAdapter<DialogItemBean>(R.layout.certify_type_select_item,
                 certifyTypeData) {
 
             @Override
-            protected void convert(BaseRecyclerViewHolder helper, CertifyTypeItemBean item, int position) {
+            protected void convert(BaseRecyclerViewHolder helper, DialogItemBean item, int position) {
                 ImageView imageViewLeft = (ImageView) helper.getView(R.id.certify_type_left_iv);
                 ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);

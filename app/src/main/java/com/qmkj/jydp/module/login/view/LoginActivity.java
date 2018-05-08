@@ -16,11 +16,15 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
+import com.qmkj.jydp.bean.LoginBean;
+import com.qmkj.jydp.bean.LoginRequest;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditItemView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.MD5Util;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +46,7 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
 
     private static final int splashTotalCountdownTime = 60;
+    private static final int LOGIN_SATRT_TAG = 1;
     @BindView(R.id.login_login_title_tv)
     TextView loginLoginTitleTv;
     @BindView(R.id.login_login_title_line)
@@ -170,7 +175,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 setShowStatusView(1);
                 break;
             case R.id.login_bt://登录
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
+                loginSatart();
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
                 CommonUtil.gotoActivity(mContext, CertificationActivity.class);
@@ -183,6 +188,13 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 CommonUtil.gotoActivity(mContext, ForgetLoginPwdActivity.class);
                 break;
         }
+    }
+
+    private void loginSatart() {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUserAccount("13276717926");
+        loginRequest.setPassword(MD5Util.toMd5("123456"));
+        presenter.loginStart(loginRequest, LOGIN_SATRT_TAG, true);
     }
 
     private void codeTimeDown() {
@@ -236,4 +248,29 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        switch (tag) {
+            case LOGIN_SATRT_TAG:
+                toast("登陆成功");
+                LogUtil.i(response.toString());
+                LoginBean loginBean = (LoginBean) response;
+                CommonUtil.setLoginInfo(loginBean);
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
+                AppManager.getInstance().removeCurrent();
+                break;
+        }
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag) {
+        super.onError(errorMsg, code, tag);
+        switch (tag) {
+            case LOGIN_SATRT_TAG:
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
+                AppManager.getInstance().removeCurrent();
+                break;
+        }
+    }
 }

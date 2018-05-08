@@ -27,6 +27,7 @@
     <string name="sold">卖</string>
     <string name="buy_input">买入</string>
     <string name="sold_out">卖出</string>
+    <string name="sell">出售</string>
     <string name="exchange_entrust_recod">委托记录</string>
     <string name="amount">数量</string>
     <string name="amount_1">数量：</string>
@@ -105,6 +106,7 @@
     <string name="vertify_code_count">获取验证码(60s)</string>
     <string name="register_account_notice">字母、数字，6～16个字符</string>
     <string name="phone">手机号</string>
+    <string name="phone_old">原手机号</string>
     <string name="phone_86">+86</string>
     <string name="six_sms_vertification_code">6位短信验证码</string>
     <string name="login_password_again">重复登录密码</string>
@@ -165,7 +167,9 @@
     <string name="software_info">软件信息</string>
     <string name="go_pay">去支付</string>
     <string name="buy_amount">购买数量</string>
+    <string name="sold_amount">出售数量</string>
     <string name="buy_hint_notice">您要购买的数量，单位：个</string>
+    <string name="sold_hint_notice">您要出售的数量，单位：个</string>
     <string name="proportion">比例</string>
     <string name="total_price">总价</string>
     <string name="dollars">¥</string>
@@ -194,6 +198,32 @@
     <string name="dealed">已处理</string>
     <string name="commit_problem">提交问题</string>
     <string name="check_update">检查更新</string>
+    <string name="alipay_transfer">支付宝转账</string>
+    <string name="wechat_transfer">微信转账</string>
+    <string name="select_pay_type">选择支付方式</string>
+    <string name="bank_card_num">银行卡号</string>
+    <string name="your_bank_card_num">您的银行卡号</string>
+    <string name="bank_name_notice">该银行卡的银行名称</string>
+    <string name="bank_name">银行名称</string>
+    <string name="bank_branch_name">支行名称</string>
+    <string name="bank_branch_name_notice">该银行卡的银行支行名称</string>
+    <string name="bank_reserve_name">银行预留姓名</string>
+    <string name="bank_reserve_name_notice">该银行卡的银行预留姓名</string>
+    <string name="bank_reserve_phone_num">银行预留电话</string>
+    <string name="bank_reserve_phone_num_notice">该银行卡的银行预留电话</string>
+    <string name="distributor_name">经销商名称</string>
+    <string name="business_phone">商家手机</string>
+    <string name="business_name">商家姓名</string>
+    <string name="alipay_account">支付宝账号</string>
+    <string name="obtain_money">获得金额</string>
+    <string name="confirm_slod_notice">提示：请及时保存转账信息。若支付完成商家在24小时内未即时转账，请咨询客服中心处理。</string>
+    <string name="confirm_sold">确认出售</string>
+    <string name="old_pwd">原密码</string>
+    <string name="old_login_pwd">原登录密码</string>
+    <string name="password_again_input">再次输入新密码</string>
+    <string name="phone_new">新手机号</string>
+    <string name="your_new_phone_num">您的新手机号</string>
+    <string name="loading">加载中...</string>
 
 
 </resources>

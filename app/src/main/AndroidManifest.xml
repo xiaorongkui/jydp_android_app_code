@@ -56,6 +56,9 @@
 
         <activity
             android:name=".module.login.view.SplashActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/start_apptheme"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -99,6 +102,20 @@
         <activity
             android:name=".module.mine.view.SoftwareInfoActivity"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.ModifyLoginPwdActivity"
+            android:launchMode="singleTop"/>
+
+        <activity
+            android:name=".module.exchangoutsidee.view.OutSideSoldActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.exchangoutsidee.view.OutSideSoldDetailActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".module.mine.view.ModifyPhoneActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".module.mine.view.ModifyPaymentActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

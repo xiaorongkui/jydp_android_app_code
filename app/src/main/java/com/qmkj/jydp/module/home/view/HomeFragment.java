@@ -1,13 +1,10 @@
 package com.qmkj.jydp.module.home.view;
 
-import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -15,7 +12,6 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.BannerModel;
 import com.qmkj.jydp.bean.HomeNoticeInfo;
-import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
@@ -23,7 +19,6 @@ import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.DateUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -197,7 +192,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     protected void initData() {
         for (int i = 0; i < 10; i++) {
         }
-            presenter.getCurrentPrice(AppNetConfig.getBaseMaps(), 1, true);
+//            presenter.getCurrentPrice(AppNetConfig.getBaseMaps(), 1, true);
     }
 
     /**

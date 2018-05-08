@@ -6,12 +6,12 @@ package com.qmkj.jydp.bean;
  * description:
  */
 
-public class CertifyTypeItemBean {
+public class DialogItemBean {
     public String certifyName;
     public int leftImageViewId;
     public boolean isSelect;
 
-    public CertifyTypeItemBean(String certifyName, int leftImageViewId, boolean isSelect) {
+    public DialogItemBean(String certifyName, int leftImageViewId, boolean isSelect) {
         this.certifyName = certifyName;
         this.leftImageViewId = leftImageViewId;
         this.isSelect = isSelect;

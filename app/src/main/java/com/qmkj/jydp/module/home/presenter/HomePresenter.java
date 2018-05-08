@@ -27,23 +27,7 @@ public class HomePresenter extends BaseRxPresenter<BaseView> {
     }
 
     public void getCurrentPrice(final Map<String, Object> maps, int tag, boolean isShowProgress) {
-//        loginImpl.getCurrentPrice(maps, new HttpCallBack() {
-//            @Override
-//            public void onNext(Object o) {
-//                mView.onSuccess(o, tag);
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                mView.onError(e.getMessage(), "", tag);
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//        }, isShowProgress);
-        sendHttpRequest(homeService.getCurrentPrice(maps));
+        sendHttpRequest(homeService.getCurrentPrice(maps), tag);
     }
 
 }

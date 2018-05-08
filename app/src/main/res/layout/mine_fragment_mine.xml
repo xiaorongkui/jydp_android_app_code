@@ -227,7 +227,7 @@
                 app:cardCornerRadius="@dimen/x5"
                 app:cardElevation="@dimen/x4">
 
-                <com.qmkj.jydp.ui.widget.MyRecycleView
+                <com.qmkj.jydp.ui.widget.ScrollRecycleView
                     android:id="@+id/mine_rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

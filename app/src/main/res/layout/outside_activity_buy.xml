@@ -22,7 +22,6 @@
         app:cardElevation="@dimen/x4">
 
         <LinearLayout
-            android:id="@+id/mine_available_money_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_white_1"
@@ -103,7 +102,7 @@
                     android:textSize="@dimen/text_size_14"/>
 
                 <ImageView
-                    android:id="@+id/outside_pay_mothed_iv"
+                    android:id="@+id/outside_buy_pay_mothed_iv"
                     android:layout_width="@dimen/x7"
                     android:layout_height="@dimen/y12"
                     android:layout_alignParentEnd="true"
@@ -111,11 +110,12 @@
                     android:src="@mipmap/more_arrow"/>
 
                 <TextView
+                    android:id="@+id/outside_buy_pay_mothed_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/x5"
-                    android:layout_toStartOf="@id/outside_pay_mothed_iv"
+                    android:layout_toStartOf="@id/outside_buy_pay_mothed_iv"
                     android:gravity="center_vertical"
                     android:text="@string/bank_card_transfer"
                     android:textColor="@color/color_bule_1"

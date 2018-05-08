@@ -2,11 +2,14 @@ package com.qmkj.jydp.net.api;
 
 
 import com.qmkj.jydp.bean.BaseResponse;
+import com.qmkj.jydp.bean.LoginBean;
+import com.qmkj.jydp.bean.LoginRequest;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -16,12 +19,10 @@ import retrofit2.http.POST;
  */
 public interface LoginService {
     /**
-     * 查询交易币种的保底价和当前价.
-     *
-     * @param maps the maps
+     * 用户登录
+     * @param req the maps
      * @return the home auto roll product
      */
-    @FormUrlEncoded
-    @POST(AppNetConfig.urlPath + "getCurrentPriceAndBottomPrice/transfer")
-    Observable<BaseResponse<Object>> getCurrentPrice(@FieldMap Map<String, Object> maps);
+    @POST(AppNetConfig.urlPath + "userApp/login/login")
+    Observable<BaseResponse<LoginBean>> startLogin(@Body LoginRequest req);
 }

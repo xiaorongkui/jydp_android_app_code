@@ -15,7 +15,7 @@ import com.qmkj.jydp.R;
 /**
  * Created by Rongkui.xiao on 2017/5/9.
  *
- * @description
+ * @description 统一的对话框生成工具类
  */
 
 public class CommonDialog extends Dialog {

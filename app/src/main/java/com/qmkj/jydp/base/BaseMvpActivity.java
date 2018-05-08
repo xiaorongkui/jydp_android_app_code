@@ -7,6 +7,7 @@ import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.di.component.ActivityComponent;
 import com.qmkj.jydp.di.component.DaggerActivityComponent;
 import com.qmkj.jydp.di.module.ActivityModule;
+import com.qmkj.jydp.util.LogUtil;
 
 import javax.inject.Inject;
 
@@ -57,11 +58,11 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
 
     @Override
     public void onSuccess(Object response, int tag) {
-
     }
 
     @Override
     public void onError(String errorMsg, String code, int tag) {
+        LogUtil.i("接口请求失败" + ";errorMsg=" + errorMsg + ";errorcode=" + code + ";tag=" + tag);
         toast(errorMsg);
     }
 

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_white_1"
+              android:orientation="vertical">
+
+    <include layout="@layout/common_header"/>
+
+    <View
+        style="@style/line1"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                tools:theme="@style/AlertDialog.AppCompat.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/x10"
+                android:orientation="horizontal"
+                app:cardCornerRadius="@dimen/x5"
+                app:cardElevation="@dimen/x4">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white_1"
+                    android:orientation="vertical"
+                    android:paddingEnd="@dimen/x10"
+                    android:paddingStart="@dimen/x12">
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/sold_distributor_civ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y16"
+                        app:bottomLine="false"
+                        app:leftText="@string/distributor"
+                        app:leftTextColor="@color/color_black_6"
+                        app:leftTextSize="@dimen/text_size_14"
+                        app:rightIconVisible="false"
+                        app:rightText="ASDFGHJKLASDFGHJ"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15"/>
+
+                    <com.qmkj.jydp.ui.widget.EditItemView
+                        android:id="@+id/ouside_sold_amount_eiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:bottomLineTopMargin="@dimen/x7"
+                        app:bottomLineVisible="true"
+                        app:contentEditHintText="@string/sold_hint_notice"
+                        app:contentEditTextSize="@dimen/text_size_13"
+                        app:contentEditTopMargin="@dimen/x15"
+                        app:titleText="@string/sold_amount"
+                        app:titleTopMargin="@dimen/x21"/>
+
+
+                    <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y8"
+                        android:text="比例：1:1000"
+                        android:textColor="@color/color_gray_2"
+                        android:textSize="@dimen/text_size_13"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y20"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/total_price"
+                            android:textColor="@color/color_black_1"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <TextView
+                            android:id="@+id/total_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:text="35394F"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_18"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/x5"
+                            android:layout_toStartOf="@id/total_price_tv"
+                            android:gravity="center_vertical"
+                            android:text="@string/dollars"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_14"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/y20"
+                        android:layout_marginTop="@dimen/y20"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/pay_method"
+                            android:textColor="@color/color_black_1"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <ImageView
+                            android:id="@+id/outside_slod_pay_mothed_iv"
+                            android:layout_width="@dimen/x7"
+                            android:layout_height="@dimen/y12"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/more_arrow"/>
+
+                        <TextView
+                            android:id="@+id/outside_slod_pay_mothed_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/x5"
+                            android:layout_toStartOf="@id/outside_slod_pay_mothed_iv"
+                            android:gravity="center_vertical"
+                            android:text="@string/bank_card_transfer"
+                            android:textColor="@color/color_bule_1"
+                            android:textSize="@dimen/text_size_15"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                tools:theme="@style/AlertDialog.AppCompat.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/x12"
+                android:orientation="horizontal"
+                app:cardCornerRadius="@dimen/x5"
+                app:cardElevation="@dimen/x4">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white_1"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/y21"
+                    android:paddingEnd="@dimen/x10"
+                    android:paddingStart="@dimen/x12">
+
+                    <com.qmkj.jydp.ui.widget.EditItemView
+                        android:id="@+id/ouside_sold_bank_card_num_eiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:bottomLineTopMargin="@dimen/x7"
+                        app:bottomLineVisible="true"
+                        app:contentEditHintText="@string/your_bank_card_num"
+                        app:contentEditTextSize="@dimen/text_size_14"
+                        app:contentEditTopMargin="@dimen/x15"
+                        app:titleText="@string/bank_card_num"
+                        app:titleTopMargin="@dimen/x20"/>
+
+                    <com.qmkj.jydp.ui.widget.EditItemView
+                        android:id="@+id/ouside_sold_bank_card_name_eiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:bottomLineTopMargin="@dimen/x7"
+                        app:bottomLineVisible="true"
+                        app:contentEditHintText="@string/bank_name_notice"
+                        app:contentEditTextSize="@dimen/text_size_14"
+                        app:contentEditTopMargin="@dimen/x15"
+                        app:titleText="@string/bank_name"
+                        app:titleTopMargin="@dimen/x20"/>
+
+                    <com.qmkj.jydp.ui.widget.EditItemView
+                        android:id="@+id/ouside_sold_bank_branch_name_eiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:bottomLineTopMargin="@dimen/x7"
+                        app:bottomLineVisible="true"
+                        app:contentEditHintText="@string/bank_branch_name_notice"
+                        app:contentEditTextSize="@dimen/text_size_14"
+                        app:contentEditTopMargin="@dimen/x15"
+                        app:titleText="@string/bank_branch_name"
+                        app:titleTopMargin="@dimen/x20"/>
+
+                    <com.qmkj.jydp.ui.widget.EditItemView
+                        android:id="@+id/ouside_sold_bank_reserve_name_eiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:bottomLineTopMargin="@dimen/x7"
+                        app:bottomLineVisible="true"
+                        app:contentEditHintText="@string/bank_reserve_name_notice"
+                        app:contentEditTextSize="@dimen/text_size_14"
+                        app:contentEditTopMargin="@dimen/x15"
+                        app:titleText="@string/bank_reserve_name"
+                        app:titleTopMargin="@dimen/x20"/>
+
+                    <com.qmkj.jydp.ui.widget.EditItemView
+                        android:id="@+id/ouside_sold_bank_reserve_phone_eiv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:bottomLineTopMargin="@dimen/x7"
+                        app:bottomLineVisible="true"
+                        app:contentEditHintText="@string/bank_reserve_phone_num_notice"
+                        app:contentEditTextSize="@dimen/text_size_14"
+                        app:contentEditTopMargin="@dimen/x15"
+                        app:titleText="@string/bank_reserve_phone_num"
+                        app:titleTopMargin="@dimen/x20"/>
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/outside_sold_comfirm_bt"
+                style="@style/btn_blue"
+                android:layout_marginBottom="@dimen/y15"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/y25"
+                android:text="@string/comfirm"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -5,6 +5,7 @@ import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.net.exception.HandlerException;
 import com.qmkj.jydp.net.HttpCallBack;
+import com.qmkj.jydp.util.LogUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
@@ -29,6 +30,7 @@ public class BaseNetFunction<T> implements Function<BaseResponse<T>, T> {
         String responseCode = resultEntry.getCode();
         String responseMessage = resultEntry.getMessage();
         T data = resultEntry.getData();
+        LogUtil.i(resultEntry.toString());
         switch (responseCode) {
             case NetResponseCode.HMC_SUCCESS:
                 //数据成功
