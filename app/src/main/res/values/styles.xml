@@ -77,9 +77,8 @@
 
     <!--防止白屏-->
     <style name="start_apptheme" parent="AppTheme">
-        <item name="android:screenOrientation">portrait</item>
         <item name="android:windowBackground">@mipmap/lanucher</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="no_background_dialog" parent="AppTheme">
