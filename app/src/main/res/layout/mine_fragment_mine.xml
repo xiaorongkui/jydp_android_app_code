@@ -4,7 +4,7 @@
               android:id="@+id/mine_ll"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/colorWhite"
+              android:background="@color/color_black_13"
               android:orientation="vertical">
 
     <ScrollView
@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y20"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -100,21 +101,22 @@
 
             </RelativeLayout>
 
-            <android.support.v7.widget.CardView
+            <com.dd.ShadowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x15"
-                android:layout_marginStart="@dimen/x15"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
                 android:layout_marginTop="-62pt"
                 android:orientation="horizontal"
-                app:cardCornerRadius="@dimen/x5"
-                app:cardElevation="@dimen/x4">
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
 
                 <LinearLayout
                     android:id="@+id/mine_available_money_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white_1"
+                    android:background="@drawable/shape_view_shadow_bg"
                     android:orientation="vertical">
 
                     <TextView
@@ -214,26 +216,28 @@
                 </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
+            </com.dd.ShadowLayout>
 
-            <android.support.v7.widget.CardView
+            <com.dd.ShadowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y26"
-                android:layout_marginEnd="@dimen/x15"
-                android:layout_marginStart="@dimen/x15"
-                android:layout_marginTop="@dimen/y10"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
                 android:orientation="horizontal"
-                app:cardCornerRadius="@dimen/x5"
-                app:cardElevation="@dimen/x4">
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
+
 
                 <com.qmkj.jydp.ui.widget.ScrollRecycleView
                     android:id="@+id/mine_rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/shape_view_shadow_bg"
                     android:overScrollMode="never"/>
 
-            </android.support.v7.widget.CardView>
+
+            </com.dd.ShadowLayout>
 
 
         </LinearLayout>

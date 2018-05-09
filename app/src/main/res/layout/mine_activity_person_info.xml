@@ -51,10 +51,10 @@
         app:rightIconVisible="true"
         app:rightTextColor="@color/color_black_7"/>
 
-    <Button
+    <TextView
         android:id="@+id/person_info_login_out_bt"
-        style="@style/btn"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/y40"
         android:layout_marginEnd="@dimen/x15"
         android:layout_marginStart="@dimen/x15"
         android:layout_marginTop="@dimen/y25"

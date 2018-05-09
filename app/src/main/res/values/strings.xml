@@ -17,7 +17,7 @@
     <string name="push_to_refresh_3">上拉加载更多</string>
     <string name="syl_1">盛源链(MUC/USD)</string>
     <string name="syl">盛源链</string>
-    <string name="login">登录</string>
+    <string name="login">登 录</string>
     <string name="quotation">行情</string>
 
     <string name="exchange_amount">日成交量</string>
@@ -51,7 +51,7 @@
     <string name="login_hint_notice">您的登录账号</string>
     <string name="login_hint_password">您的登录密码</string>
     <string name="forget_password">忘记密码</string>
-    <string name="register">注册</string>
+    <string name="register">注 册</string>
     <string name="register_user_name_notice">字母、数字、6-16个字符</string>
     <string name="register_phone_notice">您的手机号</string>
     <string name="verification_code">验证码</string>
@@ -65,7 +65,7 @@
     <string name="certify_picture">证件照</string>
     <string name="certify_postitive_photo">证件正面照</string>
     <string name="certify_reverse_photo">证件反面照</string>
-    <string name="submit">提交</string>
+    <string name="submit">提 交</string>
     <string name="check_marks">审核备注</string>
     <string name="account">账号</string>
     <string name="name">姓名</string>

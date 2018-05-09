@@ -27,12 +27,15 @@ public class RxPermissionUtils {
     private static RxPermissionUtils instance;
     private RxPermissions rxPermissions;
     private String[] permissions;
-    private Disposable disposable;
+    private static Disposable disposable;
     private OnPermissionListener onPermissionListener;
     private List<Boolean> isGranteds;
 
     private RxPermissionUtils(Activity mContext) {
         rxPermissions = new RxPermissions(mContext);
+    }
+
+    private RxPermissionUtils() {
     }
 
     public static RxPermissionUtils getInstance(Activity context) {
@@ -102,7 +105,7 @@ public class RxPermissionUtils {
 
     }
 
-    public void destory() {
+    public static void destory() {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }

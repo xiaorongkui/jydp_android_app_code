@@ -48,7 +48,7 @@
     <View
         android:id="@+id/edit_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y1"
+        android:layout_height="@dimen/y0.5"
         android:layout_marginTop="@dimen/y10"
         android:background="@color/color_gray_3"/>
 

@@ -24,7 +24,7 @@ public class PersonInfoActivity extends BaseMvpActivity {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.person_info_login_out_bt)
-    Button personInfoLoginOutBt;
+    TextView personInfoLoginOutBt;
     @BindView(R.id.person_info_modify_payment_password_civ)
     ClickItemView personInfoModifyPaymentPasswordCiv;
     @BindView(R.id.person_info_modify_password_civ)
@@ -57,7 +57,7 @@ public class PersonInfoActivity extends BaseMvpActivity {
         SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
                 .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x3))
                 .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_10))
-                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
+                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.y0_5))
                 .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
         personInfoLoginOutBt.setBackground(shapeSelector.create());
 

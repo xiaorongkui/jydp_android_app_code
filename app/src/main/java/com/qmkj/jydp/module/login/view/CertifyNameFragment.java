@@ -262,6 +262,6 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxPermissionUtils.getInstance(mContext).destory();
+        RxPermissionUtils.destory();
     }
 }

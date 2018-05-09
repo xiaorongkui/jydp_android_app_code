@@ -17,11 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/color_white_1"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/x11"
-            android:paddingStart="@dimen/x11">
+            android:orientation="vertical">
 
             <LinearLayout
+                android:paddingEnd="@dimen/x11"
+                android:paddingStart="@dimen/x11"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y40"
                 android:gravity="center_vertical"
@@ -54,6 +54,8 @@
                 style="@style/line1"/>
 
             <LinearLayout
+                android:paddingEnd="@dimen/x11"
+                android:paddingStart="@dimen/x11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

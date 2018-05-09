@@ -42,8 +42,8 @@
     <style name="line1">
         <item name="android:id">@id/common_line</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/y1</item>
-        <item name="android:background">@color/color_gray_3</item>
+        <item name="android:layout_height">@dimen/y0.5</item>
+        <item name="android:background">@color/item_line</item>
     </style>
 
     <style name="common_dialog" parent="android:style/Theme.Dialog">

@@ -32,9 +32,10 @@
 
             <TextView
                 android:id="@+id/tv_home"
+                android:includeFontPadding="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y6"
+                android:layout_marginTop="@dimen/y4"
                 android:text="@string/home"
                 android:textColor="@color/color_black_5"
                 android:textSize="@dimen/text_size_12"/>
@@ -59,7 +60,7 @@
                 android:id="@+id/tv_exchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y6"
+                android:layout_marginTop="@dimen/y4"
                 android:text="@string/exchange"
                 android:textColor="@color/color_black_5"
                 android:textSize="@dimen/text_size_12"/>
@@ -83,7 +84,7 @@
                 android:id="@+id/tv_outside_exchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y6"
+                android:layout_marginTop="@dimen/y4"
                 android:text="@string/outside_exchange"
                 android:textColor="@color/color_black_5"
                 android:textSize="@dimen/text_size_12"/>
@@ -107,7 +108,7 @@
                 android:id="@+id/tv_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y6"
+                android:layout_marginTop="@dimen/y4"
                 android:text="@string/mine"
                 android:textColor="@color/color_black_5"
                 android:textSize="@dimen/text_size_12"/>

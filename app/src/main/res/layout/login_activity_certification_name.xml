@@ -5,6 +5,7 @@
               android:background="@color/colorWhite"
               android:orientation="vertical">
 
+
     <include layout="@layout/common_header"/>
 
     <FrameLayout

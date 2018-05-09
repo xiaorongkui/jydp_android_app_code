@@ -4,7 +4,7 @@
                                             xmlns:tools="http://schemas.android.com/tools"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            android:background="@mipmap/login_and_register_bg"
+                                            android:background="@mipmap/lanucher"
                                             android:scrollbars="none">
 
     <LinearLayout
@@ -108,7 +108,7 @@
                             app:contentEditTopMargin="@dimen/x16"
                             app:paddingLeftRight="@dimen/x25"
                             app:titleText="@string/login_account"
-                            app:titleTopMargin="@dimen/x21"/>
+                            app:titleTopMargin="@dimen/x20"/>
 
                         <com.qmkj.jydp.ui.widget.EditItemView
                             android:id="@+id/login_password_eiv"
@@ -160,7 +160,7 @@
                             app:contentEditTopMargin="@dimen/x10"
                             app:paddingLeftRight="@dimen/x25"
                             app:titleText="@string/login_account"
-                            app:titleTopMargin="@dimen/x11"/>
+                            app:titleTopMargin="@dimen/x20"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -189,8 +189,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="@string/phone_86"
                                     android:paddingRight="@dimen/x19"
+                                    android:text="@string/phone_86"
                                     android:textColor="@color/color_black_2"
                                     android:textSize="@dimen/text_size_13"/>
 
@@ -332,9 +332,9 @@
             </LinearLayout>
 
             <View
-                android:layout_gravity="center_horizontal"
                 android:layout_width="@dimen/x80"
                 android:layout_height="@dimen/x80"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/shape_login_logo_bg"/>
 
             <ImageView

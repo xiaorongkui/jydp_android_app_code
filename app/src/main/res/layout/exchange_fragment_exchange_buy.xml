@@ -94,7 +94,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
@@ -111,10 +111,9 @@
         <EditText
             android:id="@+id/exchange_unit_price_et"
             style="@style/edt_left"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/y22"
-            android:layout_marginStart="@dimen/x29"
-            android:layout_weight="1"
+            android:layout_marginStart="@dimen/x58"
             android:background="@drawable/shape_text_input_bg"
             android:maxLines="1"
             android:paddingStart="@dimen/x8"
@@ -122,9 +121,9 @@
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_12"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y9"
@@ -140,10 +139,9 @@
         <EditText
             android:id="@+id/exchange_amount_et"
             style="@style/edt_left"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/y22"
-            android:layout_marginStart="@dimen/x29"
-            android:layout_weight="1"
+            android:layout_marginStart="@dimen/x58"
             android:background="@drawable/shape_text_input_bg"
             android:maxLines="1"
             android:paddingStart="@dimen/x8"
@@ -151,7 +149,7 @@
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_12"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -162,7 +160,7 @@
         android:textColor="@color/color_black_10"
         android:textSize="@dimen/text_size_10"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y9"
@@ -178,9 +176,9 @@
         <EditText
             android:id="@+id/exchange_passowrd_et"
             style="@style/edt_left"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/y22"
-            android:layout_weight="1"
+            android:layout_marginStart="@dimen/x58"
             android:background="@drawable/shape_text_input_bg"
             android:drawableRight="@mipmap/exchange_center_pwd_settings"
             android:maxLines="1"
@@ -190,7 +188,7 @@
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_12"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -218,6 +216,11 @@
             android:textSize="@dimen/text_size_10"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/exchange_center_login_bt"

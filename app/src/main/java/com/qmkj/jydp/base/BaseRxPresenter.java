@@ -118,7 +118,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param tag            the tag
      */
     @SuppressWarnings("unchecked")
-    protected void sendHttpRequest(Observable mObservable, boolean isShowProgress, boolean isCancel, int tag) {
+    protected void sendHttpRequest(Observable mObservable,int tag, boolean isShowProgress, boolean isCancel) {
 
         LifecycleTransformer<Object> lifecycleTransformer = null;
         Context context = null;
@@ -154,7 +154,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param tag         the tag
      */
     protected void sendHttpRequest(Observable mObservable, int tag) {
-        sendHttpRequest(mObservable, true, true, tag);
+        sendHttpRequest(mObservable,tag, true, true);
     }
 
     /**
@@ -164,8 +164,8 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param isShowProgress the is show progress
      * @param tag            the tag
      */
-    protected void sendHttpRequest(Observable mObservable, boolean isShowProgress, int tag) {
-        sendHttpRequest(mObservable, isShowProgress, true, tag);
+    protected void sendHttpRequest(Observable mObservable, int tag, boolean isShowProgress) {
+        sendHttpRequest(mObservable,tag, isShowProgress, true);
     }
 
     @Override
