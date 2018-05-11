@@ -79,7 +79,7 @@
                         android:layout_marginStart="@dimen/x19"
                         android:layout_toEndOf="@id/forget_pwd_phone_erea_tv"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/more_arrow"/>
+                        android:src="@mipmap/down_arrow"/>
 
                     <EditText
                         android:id="@+id/forget_pwd_phone_erea_et"
@@ -145,7 +145,7 @@
                 app:contentEditHintText="@string/register_account_notice"
                 app:contentEditTopMargin="@dimen/x15"
                 app:paddingLeftRight="@dimen/x15"
-                app:titleText="@string/new_login_password"
+                app:titleText="@string/new_password"
                 app:titleTopMargin="@dimen/x20"/>
 
             <com.qmkj.jydp.ui.widget.EditItemView

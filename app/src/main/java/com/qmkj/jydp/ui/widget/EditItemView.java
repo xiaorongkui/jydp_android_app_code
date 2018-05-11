@@ -47,6 +47,10 @@ public class EditItemView extends LinearLayout {
     private LinearLayout mEdit_ll;
     private float mBottomLineTopMargin;
     private final SparseArray<View> mViews = new SparseArray<View>();
+    private LinearLayout mEdit_title_ll;
+    private TextView mEdit_title_end_tv;
+    private CharSequence mTitleEndText;
+    private int mTitleEndTextColor;
 
     public EditItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -67,8 +71,12 @@ public class EditItemView extends LinearLayout {
         // 获取自定义属性资源ID
         if (a != null) {
             mTitleText = a.getText(R.styleable.EditItem_titleText);
+            mTitleEndText = a.getText(R.styleable.EditItem_titleEndText);
             mTitleTextColor = a.getColor(R.styleable.EditItem_titleTextColor, context.getResources().getColor(R.color
                     .color_black_1));
+            mTitleEndTextColor = a.getColor(R.styleable.EditItem_titleEndTextColor, context.getResources().getColor(R
+                    .color
+                    .color_red_3));
             mTitleTextSize = a.getDimension(R.styleable.EditItem_titleTextSize, context.getResources()
                     .getDimensionPixelOffset(R.dimen.text_size_14));
             mTitleTextPaddingTop = a.getDimension(R.styleable.EditItem_titleTopMargin, context.getResources()
@@ -113,6 +121,8 @@ public class EditItemView extends LinearLayout {
         addView(itemView);
 
         mEdit_title_tv = findViewById(R.id.edit_title_tv);
+        mEdit_title_end_tv = findViewById(R.id.edit_title_end_tv);
+        mEdit_title_ll = findViewById(R.id.edit_title_ll);
         mEdit_letf_et = findViewById(R.id.edit_letf_et);
         mEdit_right_tv = findViewById(R.id.edit_right_tv);
         mEdit_line = findViewById(R.id.edit_line);
@@ -125,9 +135,12 @@ public class EditItemView extends LinearLayout {
         enableBottomLine(mBottomLineVisible);
 
         initTitleLayout();
-        setTitleText((String) mTitleText);
+        setTitleText(String.valueOf(mTitleText));
         setTitleTextColor(mTitleTextColor);
         setTitleTextSize(mTitleTextSize);
+
+        setTitleEndText(String.valueOf(mTitleEndText));
+        setTitleEndTextColor(mTitleEndTextColor);
 
         initContentEditLayout();
         setContentEditHintText(String.valueOf(mContentEditHintText));
@@ -140,6 +153,17 @@ public class EditItemView extends LinearLayout {
         setContentRightTextSize(mContentRightTextSize);
 
         initBottomLineLayout();
+    }
+
+    private void setTitleEndTextColor(int mTitleTextColor) {
+        mEdit_title_end_tv.setTextColor(mTitleTextColor);
+    }
+
+    private void setTitleEndText(String text) {
+        if (TextUtils.isEmpty(text) || "null".equals(text)) {
+            text = "";
+        }
+        mEdit_title_end_tv.setText(text);
     }
 
     private void initBottomLineLayout() {
@@ -167,7 +191,7 @@ public class EditItemView extends LinearLayout {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
         layoutParams.topMargin = (int) mTitleTextPaddingTop;
-        mEdit_title_tv.setLayoutParams(layoutParams);
+        mEdit_title_ll.setLayoutParams(layoutParams);
     }
 
     @Override

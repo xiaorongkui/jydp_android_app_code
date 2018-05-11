@@ -8,15 +8,32 @@
               android:minHeight="@dimen/y55"
               android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/edit_title_tv"
+    <LinearLayout
+        android:id="@+id/edit_title_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y15"
-        android:gravity="center"
-        android:text="@string/login_account"
-        android:textColor="@color/color_black_1"
-        android:textSize="@dimen/text_size_14"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/edit_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/login_account"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/edit_title_end_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/color_red_3"
+            android:textSize="@dimen/text_size_14"
+            tools:text="@string/asterisk"/>
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/content_ll"

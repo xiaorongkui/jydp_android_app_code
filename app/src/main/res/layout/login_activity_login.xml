@@ -201,7 +201,7 @@
                                     android:layout_centerVertical="true"
                                     android:layout_toEndOf="@id/register_phone_erea_tv"
                                     android:scaleType="fitXY"
-                                    android:src="@mipmap/more_arrow"/>
+                                    android:src="@mipmap/down_arrow"/>
 
                                 <EditText
                                     android:id="@+id/register_phone_erea_et"

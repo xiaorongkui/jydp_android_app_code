@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.dd.ShadowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x10"
+        android:layout_marginStart="@dimen/x10"
+        android:orientation="horizontal"
+        app:sl_cornerRadius="@dimen/x5"
+        app:sl_shadowColor="@color/color_gray_9"
+        app:sl_shadowRadius="@dimen/x5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_view_shadow_bg"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10">
+
+                <com.qmkj.jydp.ui.widget.ClickItemView
+                    android:id="@+id/business_phone_civ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y20"
+                    app:bottomLine="true"
+                    app:bottomLineMarginTop="@dimen/y10"
+                    app:leftText="委托时间：2016-06-06 13:13:13"
+                    app:leftTextColor="@color/color_black_10"
+                    app:leftTextSize="@dimen/text_size_14"
+                    app:rightIconVisible="false"
+                    app:rightText="@string/finished"
+                    app:rightTextColor="@color/color_red_3"
+                    app:rightTextSize="@dimen/text_size_15"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y9"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/syl"
+                            android:textColor="@color/color_black_7"
+                            android:textSize="@dimen/text_size_16"/>
+
+                        <TextView
+                            android:id="@+id/recode_order_exchange_status_tv"
+                            android:layout_width="@dimen/x36"
+                            android:layout_height="@dimen/y17"
+                            android:layout_marginStart="@dimen/x16"
+                            android:gravity="center"
+                            android:text="@string/buy_input"
+                            android:textColor="@color/color_red_3"
+                            android:textSize="@dimen/text_size_12"/>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y11">
+
+                        <TextView
+                            android:id="@+id/entrustment_amount_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/entrustment_amount"
+                            android:textColor="@color/color_black_6"
+                            android:textSize="@dimen/text_size_13"/>
+
+                        <TextView
+                            android:id="@+id/entrustment_price_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/x196"
+                            android:text="@string/entrustment_price_xt"
+                            android:textColor="@color/color_black_6"
+                            android:textSize="@dimen/text_size_13"/>
+
+                        <TextView
+                            android:id="@+id/entrustment_amount_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/entrustment_amount_title_tv"
+                            android:layout_marginTop="@dimen/y7"
+                            android:includeFontPadding="false"
+                            android:text="123.0000"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_15"/>
+
+                        <TextView
+                            android:id="@+id/entrustment_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/entrustment_price_title_tv"
+                            android:layout_marginStart="@dimen/x196"
+                            android:layout_marginTop="@dimen/y7"
+                            android:text="123.0000"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_15"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y15">
+
+                        <TextView
+                            android:id="@+id/deal_amount_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/deal_amount"
+                            android:textColor="@color/color_black_6"
+                            android:textSize="@dimen/text_size_13"/>
+
+                        <TextView
+                            android:id="@+id/entrustment_total_price_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/x196"
+                            android:text="@string/entrustment_total_price_xt"
+                            android:textColor="@color/color_black_6"
+                            android:textSize="@dimen/text_size_13"/>
+
+                        <TextView
+                            android:id="@+id/deal_amount_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/deal_amount_title_tv"
+                            android:layout_marginTop="@dimen/y7"
+                            android:includeFontPadding="false"
+                            android:text="123.0000"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_15"/>
+
+                        <TextView
+                            android:id="@+id/entrustment_total_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/entrustment_total_price_title_tv"
+                            android:layout_marginStart="@dimen/x196"
+                            android:layout_marginTop="@dimen/y7"
+                            android:text="123.0000"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_15"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y15">
+
+                        <TextView
+                            android:id="@+id/available_amount_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/residual_amount"
+                            android:textColor="@color/color_black_6"
+                            android:textSize="@dimen/text_size_13"/>
+
+                        <TextView
+                            android:id="@+id/available_amount_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/available_amount_title_tv"
+                            android:layout_marginTop="@dimen/y7"
+                            android:includeFontPadding="false"
+                            android:text="123.0000"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_15"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <View
+                style="@style/line1"
+                android:layout_marginTop="@dimen/y16"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y10"
+                android:layout_marginEnd="@dimen/x20"
+                android:layout_marginTop="@dimen/y10">
+
+                <TextView
+                    android:id="@+id/order_revocation_entrustment_tv"
+                    android:layout_width="@dimen/x75"
+                    android:layout_height="@dimen/y24"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:text="@string/revocation_entrustment"
+                    android:textColor="@color/color_bule_3"
+                    android:textSize="@dimen/text_size_13"/>
+
+                <TextView
+                    android:id="@+id/order_see_detail_tv"
+                    android:layout_width="@dimen/x75"
+                    android:layout_height="@dimen/y24"
+                    android:layout_marginEnd="@dimen/x10"
+                    android:layout_toStartOf="@+id/order_revocation_entrustment_tv"
+                    android:gravity="center"
+                    android:text="@string/see_detail"
+                    android:textColor="@color/color_black_6"
+                    android:textSize="@dimen/text_size_13"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </com.dd.ShadowLayout>
+</LinearLayout>

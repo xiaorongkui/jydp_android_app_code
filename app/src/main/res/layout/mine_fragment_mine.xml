@@ -4,7 +4,7 @@
               android:id="@+id/mine_ll"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/color_black_13"
+              android:background="@color/color_gray_12"
               android:orientation="vertical">
 
     <ScrollView

@@ -84,7 +84,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/ertify_type_select_tv"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/more_arrow"/>
+                        android:src="@mipmap/down_arrow"/>
 
                     <EditText
                         android:id="@+id/ertify_type_num_et"

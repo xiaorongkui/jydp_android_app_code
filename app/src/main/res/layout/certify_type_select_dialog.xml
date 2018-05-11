@@ -21,12 +21,13 @@
             android:textSize="@dimen/text_size_18"/>
 
         <ImageView
+            android:id="@+id/dialog_right_iv"
             android:layout_width="@dimen/x15"
             android:layout_height="@dimen/y15"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/x16"
-            android:src="@mipmap/lanucher"/>
+            android:src="@mipmap/cancel"/>
     </RelativeLayout>
 
 

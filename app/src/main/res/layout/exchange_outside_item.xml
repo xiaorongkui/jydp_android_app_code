@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x132"
-            android:text="@string/scale"
+            android:text="@string/proportion_cny"
             android:textColor="@color/colorBlack_13"
             android:textSize="@dimen/text_size_13"/>
 

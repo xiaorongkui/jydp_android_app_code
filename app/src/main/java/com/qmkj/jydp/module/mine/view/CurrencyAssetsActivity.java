@@ -72,9 +72,6 @@ public class CurrencyAssetsActivity extends BaseMvpActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         currencyAssetsRv.setLayoutManager(layoutManager);
-
-        currencyAssetsRv.addItemDecoration(new SpaceItemDecoration((int) CommonUtil.getDimen(R.dimen
-                .y10), (int) CommonUtil.getDimen(R.dimen.y10)));
         View mEmptyView = View.inflate(mContext, R.layout.empty, null);
         assetsRecyAdapter.setEmptyView(mEmptyView);
         currencyAssetsRv.setAdapter(assetsRecyAdapter);

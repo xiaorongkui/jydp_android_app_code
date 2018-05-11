@@ -180,13 +180,21 @@
             android:layout_height="@dimen/y22"
             android:layout_marginStart="@dimen/x58"
             android:background="@drawable/shape_text_input_bg"
-            android:drawableRight="@mipmap/exchange_center_pwd_settings"
             android:maxLines="1"
             android:paddingRight="@dimen/x6"
             android:paddingStart="@dimen/x8"
             android:text="2000"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_12"/>
+
+        <ImageView
+            android:id="@+id/exchange_passowrd_iv"
+            android:layout_width="@dimen/x13"
+            android:layout_height="@dimen/y13"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/x6"
+            android:src="@mipmap/exchange_center_pwd_settings"/>
 
     </RelativeLayout>
 

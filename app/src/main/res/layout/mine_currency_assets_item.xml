@@ -1,159 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:background="@color/color_white_1">
+<com.dd.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal"
+                     app:sl_cornerRadius="@dimen/x5"
+                     app:sl_shadowColor="@color/color_gray_9"
+                     app:sl_shadowRadius="@dimen/x5">
 
-    <android.support.v7.widget.CardView
 
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/x5"
-        app:cardPreventCornerOverlap="false"
-        app:cardElevation="@dimen/x4">
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_view_shadow_bg"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_white_1"
-            android:orientation="vertical">
+            android:layout_height="@dimen/y40"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/x11"
+            android:paddingStart="@dimen/x11">
 
-            <LinearLayout
-                android:paddingEnd="@dimen/x11"
-                android:paddingStart="@dimen/x11"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y40"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/syl_1"
-                    android:textColor="@color/color_black_2"
-                    android:textSize="@dimen/text_size_17"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/mine_currency_assets_item_go_exchange_tv"
-                    android:layout_width="@dimen/x60"
-                    android:layout_height="@dimen/y24"
-                    android:gravity="center"
-                    android:text="@string/go_exchange"
-                    android:textColor="@color/color_bule_3"
-                    android:textSize="@dimen/text_size_13"/>
-
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/syl_1"
+                android:textColor="@color/color_black_2"
+                android:textSize="@dimen/text_size_17"/>
 
             <View
-                style="@style/line1"/>
-
-            <LinearLayout
-                android:paddingEnd="@dimen/x11"
-                android:paddingStart="@dimen/x11"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/y17">
+                android:layout_weight="1"/>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y10">
-
-                    <TextView
-                        android:id="@+id/currency_total_assets_name_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="@string/currency_total_assets"
-                        android:textColor="@color/color_black_1"
-                        android:textSize="@dimen/text_size_12"/>
-
-                    <TextView
-                        android:id="@+id/currency_total_assets_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/currency_total_assets_name_tv"
-                        android:layout_marginTop="@dimen/y11"
-                        android:includeFontPadding="false"
-                        android:text="12345.88"
-                        android:textColor="@color/color_black_2"
-                        android:textSize="@dimen/text_size_14"
-                        android:textStyle="bold"/>
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/y2"
-                    android:layout_weight="1"/>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y10">
-
-                    <TextView
-                        android:id="@+id/available_amount_name_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="@string/available_amount"
-                        android:textColor="@color/color_black_1"
-                        android:textSize="@dimen/text_size_12"/>
-
-                    <TextView
-                        android:id="@+id/available_amount_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/available_amount_name_tv"
-                        android:layout_marginTop="@dimen/y11"
-                        android:includeFontPadding="false"
-                        android:text="12345.88"
-                        android:textColor="@color/color_black_2"
-                        android:textSize="@dimen/text_size_14"
-                        android:textStyle="bold"/>
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/y2"
-                    android:layout_weight="1"/>
-
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y10">
-
-                    <TextView
-                        android:id="@+id/frozen_amount_name_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="@string/frozen_amount"
-                        android:textColor="@color/color_black_1"
-                        android:textSize="@dimen/text_size_12"/>
-
-                    <TextView
-                        android:id="@+id/frozen_amount_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/frozen_amount_name_tv"
-                        android:layout_marginTop="@dimen/y11"
-                        android:includeFontPadding="false"
-                        android:text="12345.88"
-                        android:textColor="@color/color_black_2"
-                        android:textSize="@dimen/text_size_14"
-                        android:textStyle="bold"/>
-                </RelativeLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/mine_currency_assets_item_go_exchange_tv"
+                android:layout_width="@dimen/x60"
+                android:layout_height="@dimen/y24"
+                android:gravity="center"
+                android:text="@string/go_exchange"
+                android:textColor="@color/color_bule_3"
+                android:textSize="@dimen/text_size_13"/>
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-</FrameLayout>
+
+        <View
+            style="@style/line1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/y17"
+            android:paddingEnd="@dimen/x11"
+            android:paddingStart="@dimen/x11">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10">
+
+                <TextView
+                    android:id="@+id/currency_total_assets_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/currency_total_assets"
+                    android:textColor="@color/color_black_1"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:id="@+id/currency_total_assets_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/currency_total_assets_name_tv"
+                    android:layout_marginTop="@dimen/y11"
+                    android:includeFontPadding="false"
+                    android:text="12345.88"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_14"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y2"
+                android:layout_weight="1"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10">
+
+                <TextView
+                    android:id="@+id/available_amount_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/available_amount"
+                    android:textColor="@color/color_black_1"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:id="@+id/available_amount_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/available_amount_name_tv"
+                    android:layout_marginTop="@dimen/y11"
+                    android:includeFontPadding="false"
+                    android:text="12345.88"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_14"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y2"
+                android:layout_weight="1"/>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10">
+
+                <TextView
+                    android:id="@+id/frozen_amount_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/frozen_amount"
+                    android:textColor="@color/color_black_1"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:id="@+id/frozen_amount_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frozen_amount_name_tv"
+                    android:layout_marginTop="@dimen/y11"
+                    android:includeFontPadding="false"
+                    android:text="12345.88"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_14"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</com.dd.ShadowLayout>

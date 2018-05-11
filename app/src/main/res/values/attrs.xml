@@ -14,6 +14,8 @@
         <attr name="leftIcon"/>
         <!--左边文本-->
         <attr name="leftText"/>
+        <!--左边文本-->
+        <attr name="leftEndText"/>
         <!--右边文本-->
         <attr name="rightText"/>
         <!--右边文本左边距-->
@@ -28,6 +30,8 @@
         <attr name="rightTextColor"/>
         <!--左边文本字体大小-->
         <attr name="leftTextSize"/>
+        <!--左边文本字体大小-->
+        <attr name="leftEndTextSize"/>
         <!--右边文本字体大小-->
         <attr name="rightTextSize"/>
         <!-- 右侧图片是否显示-->
@@ -43,8 +47,10 @@
 
         <!--上面文本-->
         <attr name="titleText" format="reference|string"/>
+        <attr name="titleEndText" format="reference|string"/>
         <!--下顶部title的文本颜色-->
         <attr name="titleTextColor" format="color"/>
+        <attr name="titleEndTextColor" format="color"/>
         <!--顶部title的文本字体大小-->
         <attr name="titleTextSize" format="dimension"/>
         <!-- 顶部title距顶部的距离-->
@@ -90,24 +96,12 @@
         >
     </declare-styleable>
 
-    <declare-styleable name="ShadowLayout">
-        <attr name="shadowColor" format="color"/>
-        <attr name="shadowRadius" format="dimension"/>
-        <attr name="shadowDx" format="dimension"/>
-        <attr name="shadowDy" format="dimension"/>
-        <attr name="shadowSide">
-            <flag name="all" value="0x1111"/>
-            <flag name="left" value="0x0001"/>
-            <flag name="top" value="0x0010"/>
-            <flag name="right" value="0x0100"/>
-            <flag name="bottom" value="0x1000"/>
-        </attr>
-    </declare-styleable>
     <!--start=======解决重复引用属性报错：外面单独定义重复的-->
     <!--左边图片-->
     <attr name="leftIcon" format="reference"/>
     <!--左边文本-->
     <attr name="leftText" format="reference|string"/>
+    <attr name="leftEndText" format="reference|string"/>
 
     <attr name="rightTextPaddingLeft" format="dimension"/>
 
@@ -123,6 +117,7 @@
     <attr name="rightTextColor" format="color"/>
     <!--左边文本字体大小-->
     <attr name="leftTextSize" format="dimension"/>
+    <attr name="leftEndTextSize" format="dimension"/>
     <!--右边文本字体大小-->
     <attr name="rightTextSize" format="dimension"/>
     <!-- 顶部line -->
@@ -131,11 +126,4 @@
     <attr name="bottomLine" format="boolean"/>
 
     <!--end=======解决重复引用属性报错：外面单独定义重复的-->
-    <declare-styleable name="ShadowLayout1">
-        <attr name="sl_cornerRadius" format="dimension"/>
-        <attr name="sl_shadowRadius" format="dimension"/>
-        <attr name="sl_shadowColor" format="color"/>
-        <attr name="sl_dx" format="dimension"/>
-        <attr name="sl_dy" format="dimension"/>
-    </declare-styleable>
 </resources>

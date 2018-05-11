@@ -50,6 +50,9 @@ public class ClickItemView extends LinearLayout {
     private View mContentView;
     private float mRightTextPaddingLeft;
     private float mBottomLineMarginTop;
+    private TextView mTvLeftEnd;
+    private CharSequence mLeftEndText;
+    private float mLeftEndTextSize;
 
     public ClickItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -73,7 +76,9 @@ public class ClickItemView extends LinearLayout {
         mBottomLineEnable = a.getBoolean(R.styleable.ClickItem_bottomLine, true);
         mLeftIconId = a.getResourceId(R.styleable.ClickItem_leftIcon, -1);
         mLeftText = a.getText(R.styleable.ClickItem_leftText);
+        mLeftEndText = a.getText(R.styleable.ClickItem_leftEndText);
         mLeftTextSize = a.getDimension(R.styleable.ClickItem_leftTextSize, -1);
+        mLeftEndTextSize = a.getDimension(R.styleable.ClickItem_leftEndTextSize, -1);
         mRightIconId = a.getResourceId(R.styleable.ClickItem_rightIcon, R.mipmap.ic_common_arrow);
         mRightText = a.getText(R.styleable.ClickItem_rightText);
         mRightTextSize = a.getDimension(R.styleable.ClickItem_rightTextSize, -1);
@@ -106,6 +111,7 @@ public class ClickItemView extends LinearLayout {
 
         mIvLeft = findViewById(R.id.iv_item_view_left);
         mTvLeft = findViewById(R.id.tv_item_view_left);
+        mTvLeftEnd = findViewById(R.id.tv_item_view_left_end_tv);
         mIvRight = findViewById(R.id.iv_item_view_right);
         mTvRight = findViewById(R.id.tv_item_view_right);
         mViewRedPoint = findViewById(R.id.view_item_view_red_point);
@@ -116,6 +122,10 @@ public class ClickItemView extends LinearLayout {
         setLeftIcon(mLeftIconId);
         setLeftText(String.valueOf(mLeftText));
         setLeftTextSize(mLeftTextSize);
+
+        etLeftEndText(String.valueOf(mLeftEndText));
+        setLeftEndTextSize(mLeftEndTextSize);
+
         setRightIcon(mRightIconId);
         setRightText(String.valueOf(mRightText));
         setRightTextSize(mRightTextSize);
@@ -124,6 +134,20 @@ public class ClickItemView extends LinearLayout {
         enableRightIcon(mRightIconEnable);
 
         mTvRight.setPadding((int) mRightTextPaddingLeft, 0, 0, 0);
+    }
+
+    private void setLeftEndTextSize(float size) {
+        if (size < 0) {
+            return;
+        }
+        mTvLeftEnd.setTextSize(px2sp(size));
+    }
+
+    private void etLeftEndText(String text) {
+        if (TextUtils.isEmpty(text) || "null".equals(text)) {
+            text = "";
+        }
+        mTvLeftEnd.setText(text);
     }
 
     /**

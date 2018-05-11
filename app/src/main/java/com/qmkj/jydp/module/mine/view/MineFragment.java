@@ -119,7 +119,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     protected void initData() {
-        getMineInfo();
+//        getMineInfo();
     }
 
     private void getMineInfo() {

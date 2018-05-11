@@ -20,12 +20,14 @@
             android:id="@+id/dealer_managment_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/x15"
-            android:layout_marginStart="@dimen/x15"/>
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_marginTop="@dimen/y5"/>
 
     </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
 
     <Button
+        android:id="@+id/dealer_publish_advertise_bt"
         style="@style/btn_blue"
         android:layout_marginBottom="@dimen/y15"
         android:layout_marginEnd="@dimen/x15"

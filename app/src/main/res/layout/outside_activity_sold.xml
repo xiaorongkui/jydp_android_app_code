@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/color_white_1"
@@ -22,21 +21,21 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                tools:theme="@style/AlertDialog.AppCompat.Light"
+            <com.dd.ShadowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x15"
-                android:layout_marginStart="@dimen/x15"
-                android:layout_marginTop="@dimen/x10"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginTop="@dimen/y5"
                 android:orientation="horizontal"
-                app:cardCornerRadius="@dimen/x5"
-                app:cardElevation="@dimen/x4">
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white_1"
+                    android:background="@drawable/shape_view_shadow_bg"
                     android:orientation="vertical"
                     android:paddingEnd="@dimen/x10"
                     android:paddingStart="@dimen/x12">
@@ -149,93 +148,25 @@
                     </RelativeLayout>
 
                 </LinearLayout>
+            </com.dd.ShadowLayout>
 
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                tools:theme="@style/AlertDialog.AppCompat.Light"
+            <com.dd.ShadowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x15"
-                android:layout_marginStart="@dimen/x15"
-                android:layout_marginTop="@dimen/x12"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
                 android:orientation="horizontal"
-                app:cardCornerRadius="@dimen/x5"
-                app:cardElevation="@dimen/x4">
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
 
                 <LinearLayout
+                    android:id="@+id/payment_method_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_white_1"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/y21"
-                    android:paddingEnd="@dimen/x10"
-                    android:paddingStart="@dimen/x12">
-
-                    <com.qmkj.jydp.ui.widget.EditItemView
-                        android:id="@+id/ouside_sold_bank_card_num_eiv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x7"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/your_bank_card_num"
-                        app:contentEditTextSize="@dimen/text_size_14"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:titleText="@string/bank_card_num"
-                        app:titleTopMargin="@dimen/x20"/>
-
-                    <com.qmkj.jydp.ui.widget.EditItemView
-                        android:id="@+id/ouside_sold_bank_card_name_eiv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x7"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/bank_name_notice"
-                        app:contentEditTextSize="@dimen/text_size_14"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:titleText="@string/bank_name"
-                        app:titleTopMargin="@dimen/x20"/>
-
-                    <com.qmkj.jydp.ui.widget.EditItemView
-                        android:id="@+id/ouside_sold_bank_branch_name_eiv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x7"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/bank_branch_name_notice"
-                        app:contentEditTextSize="@dimen/text_size_14"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:titleText="@string/bank_branch_name"
-                        app:titleTopMargin="@dimen/x20"/>
-
-                    <com.qmkj.jydp.ui.widget.EditItemView
-                        android:id="@+id/ouside_sold_bank_reserve_name_eiv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x7"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/bank_reserve_name_notice"
-                        app:contentEditTextSize="@dimen/text_size_14"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:titleText="@string/bank_reserve_name"
-                        app:titleTopMargin="@dimen/x20"/>
-
-                    <com.qmkj.jydp.ui.widget.EditItemView
-                        android:id="@+id/ouside_sold_bank_reserve_phone_eiv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x7"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/bank_reserve_phone_num_notice"
-                        app:contentEditTextSize="@dimen/text_size_14"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:titleText="@string/bank_reserve_phone_num"
-                        app:titleTopMargin="@dimen/x20"/>
+                    android:layout_height="wrap_content">
                 </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
+            </com.dd.ShadowLayout>
 
             <Button
                 android:id="@+id/outside_sold_comfirm_bt"
@@ -243,7 +174,7 @@
                 android:layout_marginBottom="@dimen/y15"
                 android:layout_marginEnd="@dimen/x15"
                 android:layout_marginStart="@dimen/x15"
-                android:layout_marginTop="@dimen/y25"
+                android:layout_marginTop="@dimen/y22"
                 android:text="@string/comfirm"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

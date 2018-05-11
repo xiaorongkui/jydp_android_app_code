@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:overScrollMode="never"
+                                            android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_gray_11"
+        android:orientation="vertical">
+
+        <include layout="@layout/common_header"/>
+
+        <View
+            style="@style/line1"/>
+
+        <com.dd.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_marginTop="@dimen/y5"
+            android:orientation="horizontal"
+            app:sl_cornerRadius="@dimen/x5"
+            app:sl_shadowColor="@color/color_gray_9"
+            app:sl_shadowRadius="@dimen/x5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_view_shadow_bg"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y20"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10"
+                android:paddingTop="@dimen/y15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bank_card_transfer_info"
+                    android:textColor="@color/color_black_13"
+                    android:textSize="@dimen/text_size_16"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_bank_card_num_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/your_bank_card_num"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/bank_card_num"
+                    app:titleTopMargin="@dimen/x20"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_bank_name_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/bank_name_notice"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/bank_name"
+                    app:titleTopMargin="@dimen/x20"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_bank_branch_name_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/bank_branch_name_notice"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/bank_branch_name"
+                    app:titleTopMargin="@dimen/x20"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_bank_reserve_name_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/bank_reserve_name_notice"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/bank_reserve_name"
+                    app:titleTopMargin="@dimen/x20"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_bank_reserve_phone_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/bank_reserve_phone_num_notice"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/bank_reserve_phone_num"
+                    app:titleTopMargin="@dimen/x20"/>
+            </LinearLayout>
+        </com.dd.ShadowLayout>
+
+        <com.dd.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:orientation="horizontal"
+            app:sl_cornerRadius="@dimen/x5"
+            app:sl_shadowColor="@color/color_gray_9"
+            app:sl_shadowRadius="@dimen/x5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_view_shadow_bg"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y20"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10"
+                android:paddingTop="@dimen/y15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/alipay_transfer_info"
+                    android:textColor="@color/color_black_13"
+                    android:textSize="@dimen/text_size_16"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_alipay_account_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/your_alipay_account"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/alipay_account"
+                    app:titleTopMargin="@dimen/x20"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_alipay_receipt_code_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/upload_receipt_alipay_code"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/receipt_code"
+                    app:titleTopMargin="@dimen/x20"/>
+
+            </LinearLayout>
+        </com.dd.ShadowLayout>
+
+        <com.dd.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            android:orientation="horizontal"
+            app:sl_cornerRadius="@dimen/x5"
+            app:sl_shadowColor="@color/color_gray_9"
+            app:sl_shadowRadius="@dimen/x5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_view_shadow_bg"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y20"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10"
+                android:paddingTop="@dimen/y15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wechat_transfer_info"
+                    android:textColor="@color/color_black_13"
+                    android:textSize="@dimen/text_size_16"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_wechat_account_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/your_wechat_account"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/wechat_account"
+                    app:titleTopMargin="@dimen/x20"/>
+
+                <com.qmkj.jydp.ui.widget.EditItemView
+                    android:id="@+id/receivables_wechat_receipt_code_eiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomLineTopMargin="@dimen/x8"
+                    app:bottomLineVisible="true"
+                    app:contentEditHintText="@string/upload_receipt_wechat_code"
+                    app:contentEditTextSize="@dimen/text_size_14"
+                    app:contentEditTopMargin="@dimen/x15"
+                    app:titleEndText="@string/asterisk"
+                    app:titleText="@string/receipt_code"
+                    app:titleTopMargin="@dimen/x20"/>
+
+            </LinearLayout>
+        </com.dd.ShadowLayout>
+
+        <Button
+            android:id="@+id/receivables_confirm_bt"
+            style="@style/btn_blue"
+            android:layout_marginEnd="@dimen/x15"
+            android:layout_marginStart="@dimen/x15"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_marginBottom="@dimen/y15"
+            android:text="@string/comfirm"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

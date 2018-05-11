@@ -1,22 +1,35 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * author：rongkui.xiao --2018/5/4
  * email：dovexiaoen@163.com
- * description:
+ * description:我的记录
  */
 
 public class MineRecodeActivity extends BaseMvpActivity {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
+    @BindView(R.id.mine_recode_register_recode_civ)
+    ClickItemView mineRecodeRegisterRecodeCiv;
+    @BindView(R.id.mine_recode_transaction_recode_civ)
+    ClickItemView mineRecodeTransactionRecodeCiv;
+    @BindView(R.id.mine_recode_currency_recode_civ)
+    ClickItemView mineRecodeCurrencyRecodeCiv;
+    @BindView(R.id.mine_recode_outside_exchange_recode_civ)
+    ClickItemView mineRecodeOutsideExchangeRecodeCiv;
 
     @Override
     protected void injectPresenter() {
@@ -41,5 +54,25 @@ public class MineRecodeActivity extends BaseMvpActivity {
     @Override
     protected void initView() {
 
+    }
+
+
+    @OnClick({R.id.mine_recode_register_recode_civ, R.id.mine_recode_transaction_recode_civ, R.id
+            .mine_recode_currency_recode_civ, R.id.mine_recode_outside_exchange_recode_civ})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.mine_recode_register_recode_civ://挂单记录
+                CommonUtil.gotoActivity(mContext, OrderRecodeActivity.class);
+                break;
+            case R.id.mine_recode_transaction_recode_civ://成交记录
+                CommonUtil.gotoActivity(mContext, TransactionRecodeActivity.class);
+                break;
+            case R.id.mine_recode_currency_recode_civ://提币记录
+                CommonUtil.gotoActivity(mContext, CurrencyWithDrawRecodeActivity.class);
+                break;
+            case R.id.mine_recode_outside_exchange_recode_civ://场外交易记录
+                CommonUtil.gotoActivity(mContext, OutSideExchangeRecodeActivity.class);
+                break;
+        }
     }
 }

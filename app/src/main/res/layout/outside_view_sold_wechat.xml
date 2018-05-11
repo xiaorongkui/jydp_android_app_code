@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sold_select_wechat_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_view_shadow_bg"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/y20"
+    android:paddingEnd="@dimen/x10"
+    android:paddingStart="@dimen/x12">
+
+    <com.qmkj.jydp.ui.widget.EditItemView
+        android:id="@+id/ouside_sold_wechat_account_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLineTopMargin="@dimen/x7"
+        app:bottomLineVisible="true"
+        app:contentEditHintText="@string/your_wechat_account"
+        app:contentEditTextSize="@dimen/text_size_14"
+        app:contentEditTopMargin="@dimen/x15"
+        app:titleText="@string/wechat_account"
+        app:titleTopMargin="@dimen/x20"/>
+
+    <com.qmkj.jydp.ui.widget.EditItemView
+        android:id="@+id/ouside_sold_wechat_qr_code_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLineTopMargin="@dimen/x7"
+        app:bottomLineVisible="true"
+        app:contentEditHintText="@string/select_file"
+        app:contentEditTextSize="@dimen/text_size_14"
+        app:contentEditTopMargin="@dimen/x15"
+        app:titleText="@string/qr_code"
+        app:titleTopMargin="@dimen/x20"/>
+
+</LinearLayout>

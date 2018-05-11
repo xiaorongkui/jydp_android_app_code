@@ -25,6 +25,15 @@
         android:textSize="@dimen/text_size_14"
         tools:text="性别"/>
 
+    <TextView
+        android:id="@+id/tv_item_view_left_end_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/color_red_3"
+        android:textSize="@dimen/text_size_14"
+        tools:text="@string/asterisk"/>
+
     <RelativeLayout
         android:id="@+id/rl_item_view_container"
         android:layout_width="wrap_content"

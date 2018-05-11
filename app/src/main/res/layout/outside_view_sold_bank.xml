@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sold_select_bank_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_view_shadow_bg"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/y21"
+    android:paddingEnd="@dimen/x10"
+    android:paddingStart="@dimen/x12"
+    tools:showIn="@layout/outside_activity_sold">
+
+    <com.qmkj.jydp.ui.widget.EditItemView
+        android:id="@+id/ouside_sold_bank_card_num_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLineTopMargin="@dimen/x7"
+        app:bottomLineVisible="true"
+        app:contentEditHintText="@string/your_bank_card_num"
+        app:contentEditTextSize="@dimen/text_size_14"
+        app:contentEditTopMargin="@dimen/x15"
+        app:titleText="@string/bank_card_num"
+        app:titleTopMargin="@dimen/x20"/>
+
+    <com.qmkj.jydp.ui.widget.EditItemView
+        android:id="@+id/ouside_sold_bank_card_name_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLineTopMargin="@dimen/x7"
+        app:bottomLineVisible="true"
+        app:contentEditHintText="@string/bank_name_notice"
+        app:contentEditTextSize="@dimen/text_size_14"
+        app:contentEditTopMargin="@dimen/x15"
+        app:titleText="@string/bank_name"
+        app:titleTopMargin="@dimen/x20"/>
+
+    <com.qmkj.jydp.ui.widget.EditItemView
+        android:id="@+id/ouside_sold_bank_branch_name_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLineTopMargin="@dimen/x7"
+        app:bottomLineVisible="true"
+        app:contentEditHintText="@string/bank_branch_name_notice"
+        app:contentEditTextSize="@dimen/text_size_14"
+        app:contentEditTopMargin="@dimen/x15"
+        app:titleText="@string/bank_branch_name"
+        app:titleTopMargin="@dimen/x20"/>
+
+    <com.qmkj.jydp.ui.widget.EditItemView
+        android:id="@+id/ouside_sold_bank_reserve_name_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLineTopMargin="@dimen/x7"
+        app:bottomLineVisible="true"
+        app:contentEditHintText="@string/bank_reserve_name_notice"
+        app:contentEditTextSize="@dimen/text_size_14"
+        app:contentEditTopMargin="@dimen/x15"
+        app:titleText="@string/bank_reserve_name"
+        app:titleTopMargin="@dimen/x20"/>
+
+    <com.qmkj.jydp.ui.widget.EditItemView
+        android:id="@+id/ouside_sold_bank_reserve_phone_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bottomLineTopMargin="@dimen/x7"
+        app:bottomLineVisible="true"
+        app:contentEditHintText="@string/bank_reserve_phone_num_notice"
+        app:contentEditTextSize="@dimen/text_size_14"
+        app:contentEditTopMargin="@dimen/x15"
+        app:titleText="@string/bank_reserve_phone_num"
+        app:titleTopMargin="@dimen/x20"/>
+</LinearLayout>

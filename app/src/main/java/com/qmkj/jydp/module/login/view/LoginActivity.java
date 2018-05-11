@@ -175,7 +175,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 setShowStatusView(1);
                 break;
             case R.id.login_bt://登录
-                loginSatart();
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
+//                loginSatart();
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
                 CommonUtil.gotoActivity(mContext, CertificationActivity.class);

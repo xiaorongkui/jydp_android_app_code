@@ -77,6 +77,7 @@ public class PersonInfoActivity extends BaseMvpActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_info_modify_payment_password_civ://修改支付密码
+                CommonUtil.gotoActivity(mContext, ModifyPaymentActivity.class);
                 break;
             case R.id.person_info_modify_password_civ://修改登录密码
                 CommonUtil.gotoActivity(mContext, ModifyLoginPwdActivity.class);

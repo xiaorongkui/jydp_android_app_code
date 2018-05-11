@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dd.ShadowLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/x10"
+    android:layout_marginStart="@dimen/x10"
+    android:orientation="horizontal"
+    app:sl_cornerRadius="@dimen/x5"
+    app:sl_shadowColor="@color/color_gray_9"
+    app:sl_shadowRadius="@dimen/x5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_view_shadow_bg"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y13"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_num_1"
+                    android:textColor="@color/color_black_10"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/transsaction_order_num_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="123456789123456"
+                    android:textColor="@color/color_black_10"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <View
+                style="@style/line1"
+                android:layout_marginTop="@dimen/y10"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/syl"
+                    android:textColor="@color/color_black_7"
+                    android:textSize="@dimen/text_size_16"/>
+
+                <TextView
+                    android:id="@+id/transaction_recode_status_tv"
+                    android:layout_width="@dimen/x36"
+                    android:layout_height="@dimen/y17"
+                    android:layout_marginStart="@dimen/x15"
+                    android:gravity="center"
+                    android:text="@string/buy_input"
+                    android:textColor="@color/color_red_3"
+                    android:textSize="@dimen/text_size_12"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y11"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10">
+
+                <TextView
+                    android:id="@+id/transaciton_amount_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/amount"
+                    android:textColor="@color/color_black_6"
+                    android:textSize="@dimen/text_size_13"/>
+
+                <TextView
+                    android:id="@+id/transaciton_price_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x177"
+                    android:text="@string/unit_price_xt"
+                    android:textColor="@color/color_black_6"
+                    android:textSize="@dimen/text_size_13"/>
+
+                <TextView
+                    android:id="@+id/entrustment_amount_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transaciton_amount_title_tv"
+                    android:layout_marginTop="@dimen/y7"
+                    android:includeFontPadding="false"
+                    android:text="123.0000"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_15"/>
+
+                <TextView
+                    android:id="@+id/transaciton_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transaciton_price_title_tv"
+                    android:layout_marginStart="@dimen/x177"
+                    android:layout_marginTop="@dimen/y7"
+                    android:text="123.0000"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_15"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10">
+
+                <TextView
+                    android:id="@+id/transaction_poundage_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/poundage_xt"
+                    android:textColor="@color/color_black_6"
+                    android:textSize="@dimen/text_size_13"/>
+
+                <TextView
+                    android:id="@+id/transaction_total_price_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x177"
+                    android:text="@string/total_price_xt"
+                    android:textColor="@color/color_black_6"
+                    android:textSize="@dimen/text_size_13"/>
+
+                <TextView
+                    android:id="@+id/deal_amount_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transaction_poundage_title_tv"
+                    android:layout_marginTop="@dimen/y7"
+                    android:includeFontPadding="false"
+                    android:text="123.0000"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_15"/>
+
+                <TextView
+                    android:id="@+id/transaction_total_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transaction_total_price_title_tv"
+                    android:layout_marginStart="@dimen/x177"
+                    android:layout_marginTop="@dimen/y7"
+                    android:text="123.0000"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_15"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y15"
+                android:layout_marginTop="@dimen/y15"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10">
+
+                <TextView
+                    android:id="@+id/transaction_actual_account_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/actual_account_xt"
+                    android:textColor="@color/color_black_6"
+                    android:textSize="@dimen/text_size_13"/>
+
+                <TextView
+                    android:id="@+id/transaction_actual_account_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transaction_actual_account_title_tv"
+                    android:layout_marginTop="@dimen/y7"
+                    android:includeFontPadding="false"
+                    android:text="123.0000"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="@dimen/text_size_15"/>
+
+                <TextView
+                    android:id="@+id/transaction_time_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x177"
+                    android:text="@string/finish_time"
+                    android:textColor="@color/color_black_1"
+                    android:textSize="@dimen/text_size_13"/>
+
+                <TextView
+                    android:id="@+id/transaction_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transaction_time_title_tv"
+                    android:layout_marginStart="@dimen/x177"
+                    android:layout_marginTop="@dimen/y7"
+                    android:includeFontPadding="false"
+                    android:text="2016-06-06 13:13:13"
+                    android:textColor="@color/color_black_1"
+                    android:textSize="@dimen/text_size_14"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.dd.ShadowLayout>

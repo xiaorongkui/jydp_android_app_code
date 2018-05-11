@@ -116,6 +116,13 @@
             android:name=".module.mine.view.ModifyPhoneActivity"
             android:launchMode="singleTop"/>
         <activity android:name=".module.mine.view.ModifyPaymentActivity"/>
+        <activity android:name=".module.mine.view.PublishAdvertisementActivity"/>
+        <activity android:name=".module.mine.view.ReceivablesActivity"/>
+        <activity android:name=".module.mine.view.OrderRecodeActivity"/>
+        <activity android:name=".module.mine.view.TransactionRecodeActivity"/>
+        <activity android:name=".module.mine.view.CurrencyWithDrawRecodeActivity"/>
+        <activity android:name=".module.mine.view.OutSideExchangeRecodeActivity"/>
+        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
