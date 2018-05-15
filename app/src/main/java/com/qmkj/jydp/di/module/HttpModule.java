@@ -11,6 +11,7 @@ import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.net.api.MineService;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class HttpModule {
         }
         //设置Http缓存
         Cache cache = new Cache(new File(CommonUtil.getCacheDir(), "httpCache"), 1024 * 1024 * 10);
-        return builder.addInterceptor(new SessionInterceptor())
+        return builder.addInterceptor(new TokenInterceptor())
                 .addNetworkInterceptor(new SleepInterceptor())
                 .cache(cache)
                 .connectTimeout(Constants.connectionTime, TimeUnit.SECONDS)
@@ -126,15 +127,17 @@ public class HttpModule {
 
 
     /**
-     * Session拦截器
+     * token拦截器
      */
-    private class SessionInterceptor implements Interceptor {
+    private class TokenInterceptor implements Interceptor {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request oldRequest = chain.request();
-            //todo session待处理
-            String sessionId = CommonUtil.getToken();
-            Request request = oldRequest.newBuilder().addHeader("sessionId", sessionId).build();
+            String token = CommonUtil.getToken();
+            if (StringUtil.isNull(token)) {
+                return chain.proceed(oldRequest);
+            }
+            Request request = oldRequest.newBuilder().addHeader("X-Access-Auth-Token", "value:" + token).build();
             return chain.proceed(request);
         }
     }
