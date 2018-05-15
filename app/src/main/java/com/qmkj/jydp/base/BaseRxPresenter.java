@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.net.HttpCallBack;
 import com.qmkj.jydp.net.api.BaseNetFunction;
 import com.qmkj.jydp.net.exception.HandlerException;
@@ -176,8 +177,14 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
 
     @Override
     public void onError(HandlerException.ResponeThrowable e, int tag) {
-        mView.onError(e.getMessage(), e.getCode(), tag);
-
+        switch (e.getCode()) {
+            case NetResponseCode.HMC_SUCCESS_NULL:
+                onNext(new Object(), tag);
+                break;
+            default:
+                mView.onError(e.getMessage(), e.getCode(), tag);
+                break;
+        }
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.qmkj.jydp.bean.request.BaseReq;
  * description:
  */
 
-public class RegisterRes extends BaseReq {
+public class RegisterRes extends BaseRes {
     public String userAccount;
     public String userId;
 

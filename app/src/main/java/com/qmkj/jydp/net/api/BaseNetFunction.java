@@ -23,7 +23,10 @@ public class BaseNetFunction<T> implements Function<BaseRes<T>, T> {
         LogUtil.i(resultEntry.toString());
         switch (responseCode) {
             case NetResponseCode.HMC_SUCCESS:
-                //数据成功
+                LogUtil.i(data == null ? "null" : "请求成功");
+                if (data == null) {
+                    throw new HandlerException.ResponeThrowable(responseMessage, NetResponseCode.HMC_SUCCESS_NULL);
+                }
                 return data;
             //其他情况自己处理
             default:

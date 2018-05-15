@@ -8,7 +8,7 @@ import java.io.Serializable;
  * description:
  */
 
-public class LoginRes implements Serializable {
+public class LoginRes extends BaseRes implements Serializable {
     public String token;
 
     public String getToken() {

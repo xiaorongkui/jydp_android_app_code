@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.bean.response.HomeDataRes;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import butterknife.BindView;
  * description:
  */
 
-public class HomeRecyAdapter extends BaseRecylerAdapter {
+public class HomeRecyAdapter extends BaseRecylerAdapter<HomeDataRes.TransactionUserDealListBean> {
     private final List<String> datas;
     private final Context mContext;
     @BindView(R.id.common_line)
@@ -32,6 +33,6 @@ public class HomeRecyAdapter extends BaseRecylerAdapter {
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
+    protected void convert(BaseRecyclerViewHolder helper, HomeDataRes.TransactionUserDealListBean item, int position) {
     }
 }

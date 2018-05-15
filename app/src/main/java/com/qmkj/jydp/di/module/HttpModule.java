@@ -1,8 +1,6 @@
 package com.qmkj.jydp.di.module;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.qmkj.jydp.BuildConfig;
 import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
@@ -118,11 +116,11 @@ public class HttpModule {
 
 
     private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
+//        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
         return builder.baseUrl(url)
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.base.BaseView;
+import com.qmkj.jydp.bean.request.BaseReq;
 import com.qmkj.jydp.net.api.HomeService;
 
 import java.util.Map;
@@ -26,8 +27,8 @@ public class HomePresenter extends BaseRxPresenter<BaseView> {
         super(fragment);
     }
 
-    public void getCurrentPrice(final Map<String, Object> maps, int tag, boolean isShowProgress) {
-        sendHttpRequest(homeService.getCurrentPrice(maps), tag);
+    public void getCurrentPrice(int tag, boolean isShowProgress) {
+        sendHttpRequest(homeService.getCurrentPrice(), tag, isShowProgress);
     }
 
 }

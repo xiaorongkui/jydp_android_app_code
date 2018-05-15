@@ -259,6 +259,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         String loginPwdTwo = registerPasswordTwoEiv.getEditTextString();
         String exchangePwdOne = registerExchangePasswordOneEiv.getEditTextString();
         String exchangePwdTwo = registerExchangePasswordTwoEiv.getEditTextString();
+        String areaCode = registerPhoneEreaTv.getText().toString().trim();
         if (!CheckTextUtil.checkPassword(registerAccount)) {
             toast("注册账号必须是字母、数字，6～16个字符");
             return;
@@ -290,11 +291,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         }
         RegisterReq registerReq = new RegisterReq();
         registerReq.setUserAccount(registerAccount);
-        registerReq.setPhoneAreaCode(registerAccount);
-        registerReq.setPhoneNumber(phone);
+        registerReq.setPhoneAreaCode(areaCode);
+        registerReq.setPhoneNumber(areaCode + phone);
         registerReq.setValidateCode(code);
-        registerReq.setPassword(MD5Util.toMd5(loginPwdOne));
-        registerReq.setPayPassword(MD5Util.toMd5(exchangePwdOne));
+        registerReq.setPassword(loginPwdOne);
+        registerReq.setPayPassword(exchangePwdOne);
         presenter.startRegister(registerReq, REGISTER_TAG);
     }
 
@@ -311,19 +312,19 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         }
         LoginReq loginRequest = new LoginReq();
         loginRequest.setUserAccount(account);//13276717926
-        loginRequest.setPassword(MD5Util.toMd5(password));//123456
+        loginRequest.setPassword(password);//123456
         presenter.loginStart(loginRequest, LOGIN_SATRT_TAG, true);
     }
 
     private void getVerificationCode() {
         String phone = registerPhoneEiv.getEditTextString();
-        String areaCode = (String) registerPhoneEreaTv.getText().toString();
+        String areaCode = registerPhoneEreaTv.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             toast("手机号不能为空");
             return;
         }
         RegisterCodeReq codeReq = new RegisterCodeReq();
-        codeReq.setPhoneNumber(areaCode + phone);
+        codeReq.setPhoneNumber("!@#$%^&*()_+" + areaCode + phone);
         presenter.getRegisterCode(codeReq, REGISTER_CODE_TAG);
     }
 
@@ -396,6 +397,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case REGISTER_TAG:
                 toast("注册成功");
+                setShowStatusView(0);
                 RegisterRes registerRes = (RegisterRes) response;
                 CommonUtil.setUserAccount(registerRes.getUserAccount());
                 CommonUtil.gotoActivity(mContext, CertificationActivity.class);

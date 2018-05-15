@@ -10,6 +10,7 @@ import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -30,11 +31,11 @@ public interface LoginService {
      * 注册获取验证码
      */
     @POST(AppNetConfig.urlPath + "sendCode/sendPhoneCode")
-    Observable<BaseRes<BaseRes>> getRegisterCode(@Body RegisterCodeReq req);
+    Observable<BaseRes<BaseRes>> getRegisterCode(@Body RequestBody req);
 
     /**
      * 注册
      */
-    @POST(AppNetConfig.urlPath + "sendCode/sendPhoneCode")
-    Observable<BaseRes<RegisterRes>> startRegister(@Body RegisterReq req);
+    @POST(AppNetConfig.urlPath + "wap/userRegister/register")
+    Observable<BaseRes<RegisterRes>> startRegister(@Body RequestBody req);
 }

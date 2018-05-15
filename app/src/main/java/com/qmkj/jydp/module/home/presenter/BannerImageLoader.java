@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.response.BannerModel;
+import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.youth.banner.loader.ImageLoader;
 
 /**
@@ -15,8 +16,9 @@ import com.youth.banner.loader.ImageLoader;
 public class BannerImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object obj, ImageView imageView) {
-        if (obj instanceof BannerModel) {
-            GlideApp.with(context).load(((BannerModel) obj).getAdsImageUrl()).placeholder(R.mipmap.ic_launcher).into
+        if (obj instanceof HomeDataRes.SystemAdsHomepagesListBean) {
+            GlideApp.with(context).load(((HomeDataRes.SystemAdsHomepagesListBean) obj).getAdsImageUrlFormat())
+                    .placeholder(R.mipmap.ic_launcher).into
                     (imageView);
         }
     }

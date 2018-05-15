@@ -12,7 +12,11 @@ import java.util.Map;
 
 public final class AppNetConfig {
     public static final String urlPath = "jydp/";//测试环境
-    public static final String BASE_URL = "http://test.oksheng.com.cn/";//测试环境
 
+    //        public static final String BASE_URL = "http://test.oksheng.com.cn/";//测试环境
+    public static final String BASE_URL = "http:/192.168.12.177:8080";
+
+//    public static final String urlPath = "mockjsdata/1/";//测试环境
+//    public static final String BASE_URL = "http://rap.aiksheng.com/";//mock
     //.....所有的项目当中接口的请求url全部配置在这里.....//
 }

@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
-import com.qmkj.jydp.bean.response.BannerModel;
 import com.qmkj.jydp.bean.HomeNoticeInfo;
+import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
@@ -41,6 +41,7 @@ import io.reactivex.functions.Consumer;
  */
 
 public class HomeFragment extends BaseMvpFragment<HomePresenter> {
+    private static final int HOME_DATA_TAG = 1;
     @BindView(R.id.home_fragment_ll)
     LinearLayout homeFragmentLl;
     @BindView(R.id.home_auto_ll)
@@ -58,15 +59,16 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     @BindView(R.id.home_ll)
     LinearLayout homeLl;
     boolean isCanRefresh = true;
+    private HomeRecyAdapter homeRecyAdapter;
 
 
     @Override
     protected void initView() {
         initStatus();
-        initMarquee();
+        initMarquee(null);
         initAuto(null);
         initRecycleView();
-        initGrideView();
+        initGrideView(null);
         initRefreshView();
 
 //        RxPermissionUtils.getInstance(mContext).getPermission();
@@ -91,7 +93,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         });
     }
 
-    private void initGrideView() {
+    private void initGrideView(List<HomeDataRes.SystemBusinessesPartnerListBean> systemBusinessesPartnerList) {
         int[] icon = {R.mipmap.compare, R.mipmap.compare, R.mipmap.compare, R.mipmap.compare};
         String[] iconName = {"盛源九州", "生源九州", "生源九州", "kjhgffgjj"};
         ArrayList<Map<String, Object>> data_list = new ArrayList<>();
@@ -108,43 +110,22 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
                 .home_item_grideview, from, to);
         homeIntroduceGv.setAdapter(sim_adapter);
         homeIntroduceGv.setOnItemClickListener((parent, view, position, id) -> {
-            switch (position) {
-                case 0:
-                    showNetErrorView(homeListRv, true);
-                    break;
-                case 1:
-                    showNetErrorView(homeListRv, false);
-                    break;
-                case 2:
-
-                    break;
-            }
         });
     }
 
-    private void initRecycleView() {
-        ArrayList<String> exchangeList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            exchangeList.add("");
-        }
+    ArrayList<HomeDataRes.TransactionUserDealListBean> exchangeList = new ArrayList<>();
 
-        HomeRecyAdapter homeRecyAdapter = new HomeRecyAdapter(mContext, exchangeList, R.layout
-                .home_exchange_price_item);
+    private void initRecycleView() {
+        homeRecyAdapter = new HomeRecyAdapter(mContext, exchangeList, R.layout.home_exchange_price_item);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         homeListRv.setLayoutManager(mLayoutManager);
         homeListRv.setAdapter(homeRecyAdapter);
     }
 
-    private void initAuto(List<BannerModel> bannerList) {
+    private void initAuto(List<HomeDataRes.SystemAdsHomepagesListBean> bannerList) {
         if (bannerList == null) {
-            List<BannerModel> deafeultRollItems = new ArrayList<>();
-            deafeultRollItems.add(new BannerModel("https://gss0.baidu" +
-                    ".com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/3b87e950352ac65c10d23307fbf2b21192138aea.jpg",
-                    "", ""));
-            deafeultRollItems.add(new BannerModel("http://img2.imgtn.bdimg.com/it/u=3588772980," +
-                    "2454248748&fm=27&gp=0.jpg", "", ""));
-            bannerList = deafeultRollItems;
+            return;
         }
 
         //设置banner样式
@@ -174,14 +155,13 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     //公告Views
     List<View> noticeViews = new ArrayList<>();
 
-    private void initMarquee() {
+    private void initMarquee(List<HomeDataRes.SystemNoticeListBean> homeNoticeInfos) {
+        if (homeNoticeInfos == null) return;
         noticeViews.clear();
 
-        noticeViews.add(createNoticeView(new HomeNoticeInfo("", "",
-                "刚开始是gridview加recycleview的布局，但是这样滑动的时候，GridView会一直存在页面，" +
-                        "本来想用scrollview包裹，最后选择了将Gridview作为recycleview" + "的", "", 1l)));
-        noticeViews.add(createNoticeView(new HomeNoticeInfo("", "", "232323", "", 1l)));
-        noticeViews.add(createNoticeView(new HomeNoticeInfo("", "", "fvdfcvreew", "", 1l)));
+        for (HomeDataRes.SystemNoticeListBean homeNoticeInfo : homeNoticeInfos) {
+            noticeViews.add(createNoticeView(homeNoticeInfo));
+        }
         marqueeHomeHeaderNotice.setViews(noticeViews);
         if (noticeViews.size() <= 1) {
             marqueeHomeHeaderNotice.stopFlipping();
@@ -190,27 +170,25 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     @Override
     protected void initData() {
-        for (int i = 0; i < 10; i++) {
-        }
-//            presenter.getCurrentPrice(AppNetConfig.getBaseMaps(), 1, true);
+        presenter.getCurrentPrice(HOME_DATA_TAG, true);
     }
 
     /**
      * 创建公告item View
      */
-    private View createNoticeView(HomeNoticeInfo model) {
+    private View createNoticeView(HomeDataRes.SystemNoticeListBean noticeListBean) {
         View itemView = View.inflate(mContext, R.layout.home_notice_item, null);
         TextView mTvNotice = itemView.findViewById(R.id.tv_home_header_notice);
         TextView tv_home_header_notice_more = itemView.findViewById(R.id.tv_home_header_notice_more);
 
-        mTvNotice.setText(model.getNoticeTitle());
+        mTvNotice.setText(noticeListBean.getNoticeTitle());
         tv_home_header_notice_more.setText(CommonUtil.getString(R.string.more));
-        itemView.setTag(model);
+        itemView.setTag(noticeListBean);
 
         itemView.setOnClickListener(v -> {
             HomeNoticeInfo tagModel = (HomeNoticeInfo) v.getTag();
             if (tagModel != null) {
-                String noticeTitle = model.getNoticeTitle();
+                String noticeTitle = noticeListBean.getNoticeTitle();
                 //去h5页面
             }
         });
@@ -251,6 +229,34 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
+        switch (tag) {
+            case HOME_DATA_TAG:
+                HomeDataRes homeDataRes = (HomeDataRes) response;
+                if (homeDataRes == null) return;
+                List<HomeDataRes.SystemAdsHomepagesListBean> systemAdsHomepagesList = homeDataRes
+                        .getSystemAdsHomepagesList();//首页广告
+                List<HomeDataRes.SystemBusinessesPartnerListBean> systemBusinessesPartnerList = homeDataRes
+                        .getSystemBusinessesPartnerList();//商家
+                List<HomeDataRes.SystemNoticeListBean> systemNoticeList = homeDataRes.getSystemNoticeList();//系统公告
+                List<HomeDataRes.TransactionUserDealListBean> transactionUserDealList = homeDataRes
+                        .getTransactionUserDealList();//币行情信息
+                if (systemAdsHomepagesList != null && systemAdsHomepagesList.size() > 0) {
+                    initAuto(systemAdsHomepagesList);
+                }
+                if (systemNoticeList != null && systemNoticeList.size() > 0) {
+                    initMarquee(systemNoticeList);
+                }
+                if (transactionUserDealList != null && transactionUserDealList.size() > 0) {
+                    exchangeList.clear();
+                    exchangeList.addAll(transactionUserDealList);
+                    homeRecyAdapter.notifyDataSetChanged();
+                }
+                if (systemBusinessesPartnerList != null && systemBusinessesPartnerList.size() > 0) {
+                    initGrideView(systemBusinessesPartnerList);
+                }
+
+                break;
+        }
     }
 
     @Override
