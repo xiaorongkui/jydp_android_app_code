@@ -34,7 +34,7 @@ import android.webkit.CookieSyncManager;
 
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.bean.LoginBean;
+import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.ui.widget.FixedSpeedScroller;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -230,25 +230,6 @@ public class CommonUtil {
         return url.substring(url.lastIndexOf("/") + 1);
     }
 
-    /**
-     * 验证手机号码（支持国际格式，+86135xxxx...（中国内地），+00852137xxxx...（中国香港））
-     *
-     * @return 验证成功返回true，验证失败返回false
-     */
-    public static boolean checkMobile(String mobile) {
-        String regex = "(\\+\\d+)?1[34578]\\d{9}$";
-        return Pattern.matches(regex, mobile);
-    }
-
-    /**
-     * 验证固定电话号码
-     *
-     * @return 验证成功返回true，验证失败返回false
-     */
-    public static boolean checkLandlinePhone(String phone) {
-        String regex = "(\\+\\d+)?(\\d{3,4}\\-?)?\\d{7,8}$";
-        return Pattern.matches(regex, phone);
-    }
 
     //隐藏键盘
     public static void hideInputWindow(Activity context) {
@@ -270,73 +251,6 @@ public class CommonUtil {
         context.getWindow().setAttributes(lp);
         context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
-
-    /**
-     * 检查密码。必须包含数字和字母
-     */
-    public static boolean checkPassword(CharSequence str) {
-        return checkPassword(str.toString());
-    }
-
-    /**
-     * 检查密码。必须包含数字和字母
-     */
-    public static boolean checkPassword(String str) {
-        boolean isDigit = false;//定义一个boolean值，用来表示是否包含数字
-        boolean isLetter = false;//定义一个boolean值，用来表示是否包含字母
-        boolean isLength = str.length() >= 8 && str.length() <= 16;//定义一个boolean值，用来表示是否8-16位长度
-
-        for (int i = 0; i < str.length(); i++) {
-            if (Character.isDigit(str.charAt(i))) {   //用char包装类中的判断数字的方法判断每一个字符
-                isDigit = true;
-            } else if (Character.isLetter(str.charAt(i))) {  //用char包装类中的判断字母的方法判断每一个字符
-                isLetter = true;
-            }
-        }
-        String regex = "^[a-zA-Z0-9]+$";
-        return isDigit && isLetter && str.matches(regex) && isLength;
-    }
-
-    /**
-     * 检查姓名
-     */
-    public static boolean checkName(String str) {
-        if (str.length() == 0) {
-            return false;
-        }
-        try {
-            Pattern p = Pattern.compile("^[\\u4E00-\\u9FA5\\uF900-\\uFA2D]+$");
-            return p.matcher(str).matches();
-        } catch (Exception ignored) {
-        }
-        return false;
-    }
-
-    /**
-     * 检查是否是整数
-     */
-    public static boolean isNumeric(String str) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        Matcher isNum = pattern.matcher(str);
-        if (!isNum.matches()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 检查是小数或者整数
-     */
-    public static boolean isNumericorFloat(String str) {
-        Pattern pattern = Pattern.compile("^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$");
-        Matcher isNum = pattern.matcher(str);
-        if (!isNum.matches()) {
-
-            return false;
-        }
-        return true;
-    }
-
 
     public static int sp2px(float spValue) {
         float fontScale = JYDPExchangeApp.getContext().getResources().getDisplayMetrics()
@@ -751,37 +665,32 @@ public class CommonUtil {
         }
     }
 
+    /*保存注册时个人账户*/
+    public static void setUserAccount(String account) {
+        SPHelper.getInstance().set(Constants.SP_SAVE_LOGIN_USERINFO, account);
+    }
+
+    public static String getUserAccount() {
+        return SPHelper.getInstance().getString(Constants.SP_SAVE_LOGIN_USERINFO);
+    }
 
     /*保存登录时个人信息返回*/
-    public static void setLoginInfo(LoginBean userInfo) {
+    public static void setLoginInfo(LoginRes userInfo) {
         SPHelper.getInstance().saveObject(Constants.SP_SAVE_LOGIN_USERINFO, userInfo);
     }
 
     /*保存登录时个人信息返回*/
-    public static LoginBean getLoginInfo() {
-        return (LoginBean) SPHelper.getInstance().getObject(Constants.SP_SAVE_LOGIN_USERINFO, null);
+    public static LoginRes getLoginInfo() {
+        return (LoginRes) SPHelper.getInstance().getObject(Constants.SP_SAVE_LOGIN_USERINFO, null);
     }
 
     //获取tokenId
-    public static String getSessionId() {
-        LoginBean loginInfo = getLoginInfo();
+    public static String getToken() {
+        LoginRes loginInfo = getLoginInfo();
         if (loginInfo != null) {
-            return loginInfo.getSessionid();
+            return loginInfo.getToken();
         }
         return "";
-    }
-
-
-    //处理电话号码,返回加密的号
-    public static String dealPhoneNum(String userName, int startLength, int endlength) {
-        if (TextUtils.isEmpty(userName) || userName.length() < (startLength + endlength)) return "";
-        String startStr = userName.substring(0, startLength);
-        String endStr = userName.substring(userName.length() - endlength, userName.length());
-        StringBuilder sb = new StringBuilder(startStr);
-        for (int i = 0; i < (userName.length() - startLength - endlength); i++) {
-            sb.append("*");
-        }
-        return sb.append(endStr).toString();
     }
 
     /**

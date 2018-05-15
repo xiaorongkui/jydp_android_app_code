@@ -36,7 +36,7 @@
                 app:rightText="@string/certificate_identification"
                 app:rightTextColor="@color/color_black_7"/>
 
-            <com.qmkj.jydp.ui.widget.EditItemView
+            <com.qmkj.jydp.ui.widget.EditVItemView
                 android:id="@+id/certify_name_name_cv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

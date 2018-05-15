@@ -12,7 +12,7 @@
     android:paddingEnd="@dimen/x10"
     android:paddingStart="@dimen/x12">
 
-    <com.qmkj.jydp.ui.widget.EditItemView
+    <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_wechat_account_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         app:titleText="@string/wechat_account"
         app:titleTopMargin="@dimen/x20"/>
 
-    <com.qmkj.jydp.ui.widget.EditItemView
+    <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_wechat_qr_code_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

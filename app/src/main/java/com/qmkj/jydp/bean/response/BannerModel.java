@@ -1,4 +1,4 @@
-package com.qmkj.jydp.bean;
+package com.qmkj.jydp.bean.response;
 
 /**
  * @author neo.duan

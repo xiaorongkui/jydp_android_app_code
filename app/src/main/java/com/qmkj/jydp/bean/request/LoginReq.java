@@ -1,4 +1,4 @@
-package com.qmkj.jydp.bean;
+package com.qmkj.jydp.bean.request;
 
 /**
  * author：rongkui.xiao --2018/5/8
@@ -6,7 +6,7 @@ package com.qmkj.jydp.bean;
  * description:
  */
 
-public class LoginRequest {
+public class LoginReq extends BaseReq {
     public String password;
     public String userAccount;
 

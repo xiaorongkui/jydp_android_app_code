@@ -98,27 +98,30 @@
                         android:orientation="vertical"
                         android:visibility="gone">
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/login_account_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:bottomLineTopMargin="@dimen/x11"
+                            app:bottomLineTopMargin="@dimen/x9"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/login_hint_notice"
-                            app:contentEditTopMargin="@dimen/x16"
-                            app:paddingLeftRight="@dimen/x25"
-                            app:titleText="@string/login_account"
-                            app:titleTopMargin="@dimen/x20"/>
+                            app:contentEditTextSize="@dimen/text_size_13"
+                            app:contentEditTopMargin="@dimen/x20"
+                            app:contentRightTextVisible="false"
+                            app:paddingLeftRight="@dimen/x16"
+                            app:textCursorVisible="false"
+                            app:titleText="@string/login_account"/>
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/login_password_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:bottomLineTopMargin="@dimen/x10"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/login_hint_password"
-                            app:contentEditTopMargin="@dimen/x16"
-                            app:paddingLeftRight="@dimen/x25"
+                            app:contentEditTextSize="@dimen/text_size_13"
+                            app:contentEditTopMargin="@dimen/x20"
+                            app:paddingLeftRight="@dimen/x16"
                             app:titleText="@string/login_password"
                             app:titleTopMargin="@dimen/x25"/>
 
@@ -126,9 +129,9 @@
                         <Button
                             android:id="@+id/login_bt"
                             style="@style/btn_blue"
-                            android:layout_marginLeft="@dimen/x25"
-                            android:layout_marginRight="@dimen/x25"
-                            android:layout_marginTop="@dimen/y30"
+                            android:layout_marginLeft="@dimen/x15"
+                            android:layout_marginRight="@dimen/x15"
+                            android:layout_marginTop="@dimen/y15"
                             android:text="@string/login"/>
 
                         <TextView
@@ -136,7 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="@dimen/y25"
+                            android:layout_marginBottom="@dimen/y15"
                             android:layout_marginTop="@dimen/y15"
                             android:text="@string/forget_password"
                             android:textColor="@color/color_gray_2"
@@ -149,39 +152,39 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_account_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:bottomLineTopMargin="@dimen/x4"
+                            app:bottomLineTopMargin="@dimen/x8"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/register_account_notice"
                             app:contentEditTextSize="@dimen/text_size_13"
-                            app:contentEditTopMargin="@dimen/x10"
-                            app:paddingLeftRight="@dimen/x25"
-                            app:titleText="@string/login_account"
-                            app:titleTopMargin="@dimen/x20"/>
+                            app:contentEditTopMargin="@dimen/x20"
+                            app:contentRightTextVisible="false"
+                            app:paddingLeftRight="@dimen/x15"
+                            app:titleText="@string/login_account"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x25"
-                            android:layout_marginRight="@dimen/x25"
-                            android:layout_marginTop="@dimen/y16"
-                            android:orientation="vertical">
+                            android:layout_marginLeft="@dimen/x15"
+                            android:layout_marginRight="@dimen/x15"
+                            android:layout_marginTop="@dimen/y25"
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@string/phone"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="@string/area_select"
                                 android:textColor="@color/color_black_1"
                                 android:textSize="@dimen/text_size_14"/>
 
                             <RelativeLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/y12"
                                 android:gravity="center_vertical">
 
                                 <TextView
@@ -203,108 +206,104 @@
                                     android:scaleType="fitXY"
                                     android:src="@mipmap/down_arrow"/>
 
-                                <EditText
-                                    android:id="@+id/register_phone_erea_et"
-                                    style="@style/edt_left"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/x15"
-                                    android:layout_toEndOf="@id/register_phone_erea_iv"
-                                    android:hint="@string/login_hint_notice"
-                                    android:maxLines="1"/>
-
                             </RelativeLayout>
 
-                            <View
-                                android:id="@+id/edit_line"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/y1"
-                                android:layout_marginTop="@dimen/y5"
-                                android:background="@color/color_gray_3"/>
 
                         </LinearLayout>
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
+                            android:id="@+id/register_phone_eiv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:bottomLineTopMargin="@dimen/x8"
+                            app:bottomLineVisible="true"
+                            app:contentEditHintText="@string/register_phone_notice"
+                            app:contentEditTextSize="@dimen/text_size_13"
+                            app:contentEditTopMargin="@dimen/x25"
+                            app:contentRightTextVisible="false"
+                            app:paddingLeftRight="@dimen/x15"
+                            app:titleText="@string/phone"/>
+
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_verification_code_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:bottomLineTopMargin="@dimen/x5"
+                            app:bottomLineTopMargin="@dimen/x8"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/six_sms_vertification_code"
                             app:contentEditTextSize="@dimen/text_size_13"
-                            app:contentEditTopMargin="@dimen/x10"
+                            app:contentEditTopMargin="@dimen/x25"
                             app:contentRightText="@string/vertify_code_count"
                             app:contentRightTextSize="@dimen/text_size_13"
                             app:contentRightTextVisible="true"
-                            app:paddingLeftRight="@dimen/x25"
+                            app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/verification_code"
                             app:titleTopMargin="@dimen/x15"/>
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_password_one_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:bottomLineTopMargin="@dimen/x4"
+                            app:bottomLineTopMargin="@dimen/x8"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/register_account_notice"
                             app:contentEditTextSize="@dimen/text_size_13"
-                            app:contentEditTopMargin="@dimen/x10"
-                            app:paddingLeftRight="@dimen/x25"
-                            app:titleText="@string/login_password"
-                            app:titleTopMargin="@dimen/x15"/>
+                            app:contentEditTopMargin="@dimen/x25"
+                            app:paddingLeftRight="@dimen/x15"
+                            app:titleText="@string/login_password"/>
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_password_two_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:bottomLineTopMargin="@dimen/x5"
+                            app:bottomLineTopMargin="@dimen/x8"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/login_password_again_notice"
                             app:contentEditTextSize="@dimen/text_size_13"
-                            app:contentEditTopMargin="@dimen/x10"
-                            app:paddingLeftRight="@dimen/x25"
+                            app:contentEditTopMargin="@dimen/x25"
+                            app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/login_password_again"
                             app:titleTopMargin="@dimen/x15"/>
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_exchange_password_one_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:bottomLineTopMargin="@dimen/x4"
+                            app:bottomLineTopMargin="@dimen/x8"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/register_account_notice"
                             app:contentEditTextSize="@dimen/text_size_13"
-                            app:contentEditTopMargin="@dimen/x10"
-                            app:paddingLeftRight="@dimen/x25"
+                            app:contentEditTopMargin="@dimen/x25"
+                            app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/exchange_password"
                             app:titleTopMargin="@dimen/x15"/>
 
-                        <com.qmkj.jydp.ui.widget.EditItemView
+                        <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_exchange_password_two_eiv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:bottomLineTopMargin="@dimen/x4"
+                            app:bottomLineTopMargin="@dimen/x8"
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/exchange_password_again_notice"
                             app:contentEditTextSize="@dimen/text_size_13"
-                            app:contentEditTopMargin="@dimen/x10"
-                            app:paddingLeftRight="@dimen/x25"
+                            app:contentEditTopMargin="@dimen/x25"
+                            app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/exchange_password_again"
                             app:titleTopMargin="@dimen/x15"/>
 
                         <Button
                             android:id="@+id/register_bt"
                             style="@style/btn_blue"
-                            android:layout_marginLeft="@dimen/x25"
-                            android:layout_marginRight="@dimen/x25"
-                            android:layout_marginTop="@dimen/y15"
+                            android:layout_marginLeft="@dimen/x15"
+                            android:layout_marginRight="@dimen/x15"
+                            android:layout_marginTop="@dimen/y25"
                             android:text="@string/register"/>
 
                         <RelativeLayout
                             android:id="@+id/register_agreement_rl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/y16"
+                            android:layout_marginBottom="@dimen/y15"
                             android:layout_marginTop="@dimen/y15"
                             android:gravity="center_horizontal|bottom"
                             android:orientation="horizontal">

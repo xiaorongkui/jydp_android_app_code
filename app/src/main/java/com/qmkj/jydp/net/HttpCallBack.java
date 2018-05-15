@@ -1,5 +1,7 @@
 package com.qmkj.jydp.net;
 
+import com.qmkj.jydp.net.exception.HandlerException;
+
 /**
  * 成功回调处理
  *
@@ -20,7 +22,7 @@ public interface HttpCallBack<T> {
      *
      * @param e the e
      */
-    void onError(Throwable e, int tag);
+    void onError(HandlerException.ResponeThrowable e, int tag);
 
     /**
      * On cancel.

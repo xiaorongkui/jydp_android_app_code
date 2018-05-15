@@ -1,7 +1,7 @@
 package com.qmkj.jydp.net.api;
 
 
-import com.qmkj.jydp.bean.BaseResponse;
+import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import java.util.Map;
@@ -24,5 +24,5 @@ public interface ExchangeService {
      */
     @FormUrlEncoded
     @POST(AppNetConfig.urlPath + "getCurrentPriceAndBottomPrice/transfer")
-    Observable<BaseResponse<Object>> getCurrentPrice(@FieldMap Map<String, Object> maps);
+    Observable<BaseRes<Object>> getCurrentPrice(@FieldMap Map<String, Object> maps);
 }

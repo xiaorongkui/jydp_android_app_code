@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,16 +18,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
-import com.qmkj.jydp.bean.LoginBean;
-import com.qmkj.jydp.bean.LoginRequest;
+import com.qmkj.jydp.bean.request.RegisterCodeReq;
+import com.qmkj.jydp.bean.request.RegisterReq;
+import com.qmkj.jydp.bean.response.LoginRes;
+import com.qmkj.jydp.bean.request.LoginReq;
+import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
-import com.qmkj.jydp.ui.widget.EditItemView;
+import com.qmkj.jydp.ui.widget.EditHItemView;
+import com.qmkj.jydp.ui.widget.EditHItemView;
+import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.MD5Util;
@@ -34,7 +47,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.operators.single.SingleDoOnSubscribe;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -47,6 +59,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
 
     private static final int splashTotalCountdownTime = 60;
     private static final int LOGIN_SATRT_TAG = 1;
+    private static final int REGISTER_CODE_TAG = 2;
+    private static final int REGISTER_TAG = 3;
     @BindView(R.id.login_login_title_tv)
     TextView loginLoginTitleTv;
     @BindView(R.id.login_login_title_line)
@@ -56,33 +70,34 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.login_register_title_line)
     View loginRegisterTitleLine;
     @BindView(R.id.login_account_eiv)
-    EditItemView loginAccountEiv;
+    EditHItemView loginAccountEiv;
     @BindView(R.id.login_password_eiv)
-    EditItemView loginPasswordEiv;
+    EditHItemView loginPasswordEiv;
     @BindView(R.id.login_bt)
     Button loginBt;
     @BindView(R.id.login_forget_pwd_tv)
     TextView loginForgetPwdTv;
     @BindView(R.id.login_ll)
     LinearLayout loginLl;
+
     @BindView(R.id.register_account_eiv)
-    EditItemView registerAccountEiv;
+    EditHItemView registerAccountEiv;
     @BindView(R.id.register_phone_erea_tv)
     TextView registerPhoneEreaTv;
     @BindView(R.id.register_phone_erea_iv)
     ImageView registerPhoneEreaIv;
-    @BindView(R.id.register_phone_erea_et)
-    EditText registerPhoneEreaEt;
+    @BindView(R.id.register_phone_eiv)
+    EditHItemView registerPhoneEiv;
     @BindView(R.id.register_verification_code_eiv)
-    EditItemView registerVerificationCodeEiv;
+    EditHItemView registerVerificationCodeEiv;
     @BindView(R.id.register_password_one_eiv)
-    EditItemView registerPasswordOneEiv;
+    EditHItemView registerPasswordOneEiv;
     @BindView(R.id.register_password_two_eiv)
-    EditItemView registerPasswordTwoEiv;
+    EditHItemView registerPasswordTwoEiv;
     @BindView(R.id.register_exchange_password_one_eiv)
-    EditItemView registerExchangePasswordOneEiv;
+    EditHItemView registerExchangePasswordOneEiv;
     @BindView(R.id.register_exchange_password_two_eiv)
-    EditItemView registerExchangePasswordTwoEiv;
+    EditHItemView registerExchangePasswordTwoEiv;
     @BindView(R.id.register_bt)
     Button registerBt;
     @BindView(R.id.register_agreement_notice_tv)
@@ -125,27 +140,73 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     protected void initView() {
 
         setShowStatusView(0);
-        loginAccountEiv.getEditTextView().setCursorVisible(false);
         loginAccountEiv.getEditTextView().setOnTouchListener((v, event) -> {
             loginAccountEiv.getEditTextView().setCursorVisible(true);
             return false;
         });
-        registerAccountEiv.getEditTextView().setCursorVisible(false);
         registerAccountEiv.getEditTextView().setOnTouchListener((v, event) -> {
             registerAccountEiv.getEditTextView().setCursorVisible(true);
             return false;
         });
 
-        codeTimeDownTv = (TextView) registerVerificationCodeEiv.getView(R.id.edit_right_tv);
+        codeTimeDownTv = registerVerificationCodeEiv.getView(R.id.edit_right_tv);
         codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
-        codeTimeDownTv.setOnClickListener(v -> codeTimeDown());
+        codeTimeDownTv.setOnClickListener(v -> {
+            CommonUtil.hideInputWindow(mContext);
+            getVerificationCode();
+        });
+        initInputType();
 
+    }
+
+
+    private void initInputType() {
+        loginAccountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
+        loginAccountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_TEXT);
+        loginAccountEiv.getEditTextView().setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
+            String regex = "^[a-zA-Z0-9]+$";
+            return (source.toString().matches(regex) && source.length() <= 16) ? null : "";
+        }});
+        initPwdInput(loginPasswordEiv.getEditTextView());
+
+
+        registerAccountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
+        registerAccountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_TEXT);
+        registerAccountEiv.getEditTextView().setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
+            String regex = "^[a-zA-Z0-9]+$";
+            return (source.toString().matches(regex) && source.length() <= 16) ? null : "";
+        }});
+
+        registerPhoneEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
+        registerPhoneEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
+        registerPhoneEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
+
+        registerVerificationCodeEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod
+                .getInstance());
+        registerVerificationCodeEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
+        registerVerificationCodeEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+
+        initPwdInput(registerPasswordOneEiv.getEditTextView());
+        initPwdInput(registerPasswordTwoEiv.getEditTextView());
+        initPwdInput(registerExchangePasswordOneEiv.getEditTextView());
+        initPwdInput(registerExchangePasswordTwoEiv.getEditTextView());
+    }
+
+    private void initPwdInput(EditText editText) {
+        editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType
+                .TYPE_TEXT_VARIATION_PASSWORD);
+        editText.setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
+            String regex = "^[a-zA-Z0-9]+$";
+            return (source.toString().matches(regex) && source.length() <= 16) ? null : "";
+        }});
     }
 
     private void setShowStatusView(int index) {
         CommonUtil.hideInputWindow(mContext);
         switch (index) {
             case 0:
+                loginAccountEiv.getEditTextView().setText(CommonUtil.getUserAccount());
                 loginLoginTitleTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 loginRegisterTitleTv.setTextColor(CommonUtil.getColor(R.color.color_gray_2));
                 loginLoginTitleLine.setVisibility(View.VISIBLE);
@@ -175,11 +236,10 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 setShowStatusView(1);
                 break;
             case R.id.login_bt://登录
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
-//                loginSatart();
+                loginSatart();
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
-                CommonUtil.gotoActivity(mContext, CertificationActivity.class);
+                startRegister();
                 break;
             case R.id.register_phone_erea_tv://选择区号
             case R.id.register_phone_erea_iv://选择区号
@@ -191,11 +251,80 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         }
     }
 
+    private void startRegister() {
+        String registerAccount = registerAccountEiv.getEditTextString();
+        String phone = registerPhoneEiv.getEditTextString();
+        String code = registerVerificationCodeEiv.getEditTextString();
+        String loginPwdOne = registerPasswordOneEiv.getEditTextString();
+        String loginPwdTwo = registerPasswordTwoEiv.getEditTextString();
+        String exchangePwdOne = registerExchangePasswordOneEiv.getEditTextString();
+        String exchangePwdTwo = registerExchangePasswordTwoEiv.getEditTextString();
+        if (!CheckTextUtil.checkPassword(registerAccount)) {
+            toast("注册账号必须是字母、数字，6～16个字符");
+            return;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            toast("手机号不能为空");
+            return;
+        }
+
+        if (TextUtils.isEmpty(code) || code.length() != 6) {
+            toast("验证码必须为六位");
+            return;
+        }
+        if (!CheckTextUtil.checkPassword(loginPwdOne)) {
+            toast("登录密码必须是字母、数字，6～16个字符");
+            return;
+        }
+        if (TextUtils.isEmpty(loginPwdOne) || !loginPwdOne.equals(loginPwdTwo)) {
+            toast("两次登录密码输入不同");
+            return;
+        }
+        if (!CheckTextUtil.checkPassword(exchangePwdOne)) {
+            toast("登录密码必须是字母、数字，6～16个字符");
+            return;
+        }
+        if (TextUtils.isEmpty(exchangePwdOne) || !exchangePwdOne.equals(exchangePwdTwo)) {
+            toast("两次交易密码输入不同");
+            return;
+        }
+        RegisterReq registerReq = new RegisterReq();
+        registerReq.setUserAccount(registerAccount);
+        registerReq.setPhoneAreaCode(registerAccount);
+        registerReq.setPhoneNumber(phone);
+        registerReq.setValidateCode(code);
+        registerReq.setPassword(MD5Util.toMd5(loginPwdOne));
+        registerReq.setPayPassword(MD5Util.toMd5(exchangePwdOne));
+        presenter.startRegister(registerReq, REGISTER_TAG);
+    }
+
     private void loginSatart() {
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUserAccount("13276717926");
-        loginRequest.setPassword(MD5Util.toMd5("123456"));
+        String account = loginAccountEiv.getEditTextString();
+        String password = loginPasswordEiv.getEditTextString();
+        if (!CheckTextUtil.checkPassword(account)) {
+            toast("账号必须是字母、数字，6～16个字符");
+            return;
+        }
+        if (!CheckTextUtil.checkPassword(account)) {
+            toast("密码必须是字母、数字，6～16个字符");
+            return;
+        }
+        LoginReq loginRequest = new LoginReq();
+        loginRequest.setUserAccount(account);//13276717926
+        loginRequest.setPassword(MD5Util.toMd5(password));//123456
         presenter.loginStart(loginRequest, LOGIN_SATRT_TAG, true);
+    }
+
+    private void getVerificationCode() {
+        String phone = registerPhoneEiv.getEditTextString();
+        String areaCode = (String) registerPhoneEreaTv.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            toast("手机号不能为空");
+            return;
+        }
+        RegisterCodeReq codeReq = new RegisterCodeReq();
+        codeReq.setPhoneNumber(areaCode + phone);
+        presenter.getRegisterCode(codeReq, REGISTER_CODE_TAG);
     }
 
     private void codeTimeDown() {
@@ -256,10 +385,20 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             case LOGIN_SATRT_TAG:
                 toast("登陆成功");
                 LogUtil.i(response.toString());
-                LoginBean loginBean = (LoginBean) response;
+                LoginRes loginBean = (LoginRes) response;
                 CommonUtil.setLoginInfo(loginBean);
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
                 AppManager.getInstance().removeCurrent();
+                break;
+            case REGISTER_CODE_TAG:
+                toast("验证码获取成功");
+                codeTimeDown();
+                break;
+            case REGISTER_TAG:
+                toast("注册成功");
+                RegisterRes registerRes = (RegisterRes) response;
+                CommonUtil.setUserAccount(registerRes.getUserAccount());
+                CommonUtil.gotoActivity(mContext, CertificationActivity.class);
                 break;
         }
     }
@@ -270,7 +409,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         switch (tag) {
             case LOGIN_SATRT_TAG:
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
-                AppManager.getInstance().removeCurrent();
+                break;
+            case REGISTER_TAG:
+                CommonUtil.gotoActivity(mContext, CertificationActivity.class);
                 break;
         }
     }

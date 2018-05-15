@@ -50,7 +50,7 @@
                     app:rightTextColor="@color/color_black_7"
                     app:rightTextSize="@dimen/text_size_14"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/modify_phone_verification_code_civ"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
 
                 </LinearLayout>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/modify_phone_verification_code_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                     app:titleText="@string/verification_code"
                     app:titleTopMargin="@dimen/x20"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/modify_phone_password_one_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -83,6 +83,7 @@
         <!-- 底部line -->
         <attr name="bottomLineTopMargin" format="integer"/>
 
+        <attr name="textCursorVisible" format="boolean"/>
         <!-- 整个item的左右边距 -->
         <attr name="paddingLeftRight" format="integer"/>
 

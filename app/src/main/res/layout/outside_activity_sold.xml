@@ -54,7 +54,7 @@
                         app:rightTextColor="@color/color_black_7"
                         app:rightTextSize="@dimen/text_size_15"/>
 
-                    <com.qmkj.jydp.ui.widget.EditItemView
+                    <com.qmkj.jydp.ui.widget.EditVItemView
                         android:id="@+id/ouside_sold_amount_eiv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

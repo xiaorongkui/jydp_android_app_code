@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.net.HttpCallBack;
 import com.qmkj.jydp.net.api.BaseNetFunction;
+import com.qmkj.jydp.net.exception.HandlerException;
 import com.qmkj.jydp.net.observer.BaseShowLoadingObserver;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ProgressDialogUtil;
@@ -118,7 +119,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param tag            the tag
      */
     @SuppressWarnings("unchecked")
-    protected void sendHttpRequest(Observable mObservable,int tag, boolean isShowProgress, boolean isCancel) {
+    protected void sendHttpRequest(Observable mObservable, int tag, boolean isShowProgress, boolean isCancel) {
 
         LifecycleTransformer<Object> lifecycleTransformer = null;
         Context context = null;
@@ -154,7 +155,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param tag         the tag
      */
     protected void sendHttpRequest(Observable mObservable, int tag) {
-        sendHttpRequest(mObservable,tag, true, true);
+        sendHttpRequest(mObservable, tag, true, true);
     }
 
     /**
@@ -165,7 +166,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param tag            the tag
      */
     protected void sendHttpRequest(Observable mObservable, int tag, boolean isShowProgress) {
-        sendHttpRequest(mObservable,tag, isShowProgress, true);
+        sendHttpRequest(mObservable, tag, isShowProgress, true);
     }
 
     @Override
@@ -174,8 +175,8 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
     }
 
     @Override
-    public void onError(Throwable e, int tag) {
-        mView.onError("", "", tag);
+    public void onError(HandlerException.ResponeThrowable e, int tag) {
+        mView.onError(e.getMessage(), e.getCode(), tag);
 
     }
 

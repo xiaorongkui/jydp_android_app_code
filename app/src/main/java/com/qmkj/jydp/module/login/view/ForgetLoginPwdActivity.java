@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
-import com.qmkj.jydp.ui.widget.EditItemView;
+import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
@@ -25,7 +25,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.login_forget_pwd_account_eiv)
-    EditItemView loginForgetPwdAccountEiv;
+    EditVItemView loginForgetPwdAccountEiv;
     @BindView(R.id.forget_pwd_phone_erea_tv)
     TextView forgetPwdPhoneEreaTv;
     @BindView(R.id.forget_pwd_phone_erea_iv)
@@ -33,11 +33,11 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.forget_pwd_phone_erea_et)
     EditText forgetPwdPhoneEreaEt;
     @BindView(R.id.login_forget_pwd_vertification_code_eiv)
-    EditItemView loginForgetPwdVertificationCodeEiv;
+    EditVItemView loginForgetPwdVertificationCodeEiv;
     @BindView(R.id.login_forget_pwd_newpwd_eiv)
-    EditItemView loginForgetPwdNewpwdEiv;
+    EditVItemView loginForgetPwdNewpwdEiv;
     @BindView(R.id.login_forget_pwd_newpwd_again_eiv)
-    EditItemView loginForgetPwdNewpwdAgainEiv;
+    EditVItemView loginForgetPwdNewpwdAgainEiv;
     @BindView(R.id.forget_pwd_commit_bt)
     Button forgetPwdCommitBt;
 

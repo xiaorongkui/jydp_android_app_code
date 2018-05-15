@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -20,13 +19,12 @@ import com.qmkj.jydp.R;
  * @date 2018/1/5 12:05
  * @desc 公共的可编辑的item：类似个登录界面的item
  */
-public class EditItemView extends LinearLayout {
+public class EditHItemView extends LinearLayout {
 
     private View mContentView;
     private CharSequence mTitleText;
     private int mTitleTextColor;
     private float mTitleTextSize;
-    private float mTitleTextPaddingTop;
     private CharSequence mContentEditHintText;
     private int mContentEditHintTextColor;
     private float mContentEditTextSize;
@@ -47,22 +45,22 @@ public class EditItemView extends LinearLayout {
     private LinearLayout mEdit_ll;
     private float mBottomLineTopMargin;
     private final SparseArray<View> mViews = new SparseArray<View>();
-    private LinearLayout mEdit_title_ll;
     private TextView mEdit_title_end_tv;
     private CharSequence mTitleEndText;
     private int mTitleEndTextColor;
+    private boolean mTextCursorVisible;
 
-    public EditItemView(Context context, AttributeSet attrs, int defStyle) {
+    public EditHItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initCustomAttr(context, attrs);
         initView();
     }
 
-    public EditItemView(Context context, AttributeSet attrs) {
+    public EditHItemView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public EditItemView(Context context) {
+    public EditHItemView(Context context) {
         this(context, null);
     }
 
@@ -79,8 +77,6 @@ public class EditItemView extends LinearLayout {
                     .color_red_3));
             mTitleTextSize = a.getDimension(R.styleable.EditItem_titleTextSize, context.getResources()
                     .getDimensionPixelOffset(R.dimen.text_size_14));
-            mTitleTextPaddingTop = a.getDimension(R.styleable.EditItem_titleTopMargin, context.getResources()
-                    .getDimension(R.dimen.x15));
 
             mContentEditHintText = a.getText(R.styleable.EditItem_contentEditHintText);
             mContentEditHintTextColor = a.getColor(R.styleable.EditItem_contentEditHintTextColor, context
@@ -100,6 +96,7 @@ public class EditItemView extends LinearLayout {
 
             mContentRightTextVisible = a.getBoolean(R.styleable.EditItem_contentRightTextVisible, false);
             mBottomLineVisible = a.getBoolean(R.styleable.EditItem_bottomLineVisible, true);
+            mTextCursorVisible = a.getBoolean(R.styleable.EditItem_textCursorVisible, true);
             mBottomLineTopMargin = a.getDimension(R.styleable.EditItem_bottomLineTopMargin, 0);
 
             mItemPaddingLeftRight = a.getDimension(R.styleable.EditItem_paddingLeftRight, 0);
@@ -115,14 +112,13 @@ public class EditItemView extends LinearLayout {
         setGravity(Gravity.CENTER);
         setOrientation(VERTICAL);
         //添加中间内容:weight = 1
-        View itemView = View.inflate(getContext(), R.layout.layout_edit_item_view, null);
+        View itemView = View.inflate(getContext(), R.layout.layout_edit_item_view_h, null);
         itemView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1f));
 
         addView(itemView);
 
         mEdit_title_tv = findViewById(R.id.edit_title_tv);
         mEdit_title_end_tv = findViewById(R.id.edit_title_end_tv);
-        mEdit_title_ll = findViewById(R.id.edit_title_ll);
         mEdit_letf_et = findViewById(R.id.edit_letf_et);
         mEdit_right_tv = findViewById(R.id.edit_right_tv);
         mEdit_line = findViewById(R.id.edit_line);
@@ -134,7 +130,6 @@ public class EditItemView extends LinearLayout {
         enableRightText(mContentRightTextVisible);
         enableBottomLine(mBottomLineVisible);
 
-        initTitleLayout();
         setTitleText(String.valueOf(mTitleText));
         setTitleTextColor(mTitleTextColor);
         setTitleTextSize(mTitleTextSize);
@@ -146,6 +141,8 @@ public class EditItemView extends LinearLayout {
         setContentEditHintText(String.valueOf(mContentEditHintText));
         setContentEditHintColor(mContentEditHintTextColor);
         setContentEditSize(mContentEditTextSize);
+        setContentEditTextCursorVisible(mTextCursorVisible);
+
 
         initContentRightLayout();
         setContentRightText(String.valueOf(mContentRightText));
@@ -153,6 +150,10 @@ public class EditItemView extends LinearLayout {
         setContentRightTextSize(mContentRightTextSize);
 
         initBottomLineLayout();
+    }
+
+    private void setContentEditTextCursorVisible(boolean mTextCursorVisible) {
+        mEdit_letf_et.setCursorVisible(mTextCursorVisible);
     }
 
     private void setTitleEndTextColor(int mTitleTextColor) {
@@ -167,31 +168,23 @@ public class EditItemView extends LinearLayout {
     }
 
     private void initBottomLineLayout() {
-        LinearLayout.LayoutParams layoutParams = (LayoutParams) mEdit_line.getLayoutParams();
+        LayoutParams layoutParams = (LayoutParams) mEdit_line.getLayoutParams();
         layoutParams.topMargin = (int) mBottomLineTopMargin;
         mEdit_line.setLayoutParams(layoutParams);
     }
 
     private void initContentRightLayout() {
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = (LayoutParams) mEdit_right_tv.getLayoutParams();
         layoutParams.rightMargin = (int) mContentRightTextEndMargin;
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         mEdit_right_tv.setLayoutParams(layoutParams);
     }
 
     private void initContentEditLayout() {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT);
         layoutParams.topMargin = (int) mContentEditTopMargin;
         mContent_ll.setLayoutParams(layoutParams);
-    }
-
-    private void initTitleLayout() {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        layoutParams.topMargin = (int) mTitleTextPaddingTop;
-        mEdit_title_ll.setLayoutParams(layoutParams);
     }
 
     @Override

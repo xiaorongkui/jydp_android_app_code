@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
-import com.qmkj.jydp.bean.BannerModel;
+import com.qmkj.jydp.bean.response.BannerModel;
 import com.qmkj.jydp.bean.HomeNoticeInfo;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;

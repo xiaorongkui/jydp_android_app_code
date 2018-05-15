@@ -13,7 +13,7 @@ import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.ui.widget.ClickItemView;
-import com.qmkj.jydp.ui.widget.EditItemView;
+import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity {
     @BindView(R.id.publish_advertise_area_civ)
     ClickItemView publishAdvertiseAreaCiv;
     @BindView(R.id.publish_advertise_proportion_eiv)
-    EditItemView publishAdvertiseProportionEiv;
+    EditVItemView publishAdvertiseProportionEiv;
     @BindView(R.id.publish_payment_type_select_rv)
     RecyclerView publishPaymentTypeSelectRv;
     @BindView(R.id.dealer_publish_advertise_bt)

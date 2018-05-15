@@ -31,9 +31,9 @@
             app:sl_shadowRadius="@dimen/x5">
 
             <LinearLayout
-                android:background="@drawable/shape_view_shadow_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/shape_view_shadow_bg"
                 android:orientation="vertical">
 
                 <com.qmkj.jydp.ui.widget.ClickItemView
@@ -221,7 +221,7 @@
         </com.dd.ShadowLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x15"
@@ -232,24 +232,20 @@
             <Button
                 android:id="@+id/certify_check_home_bt"
                 style="@style/btn_blue"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/x165"
                 android:layout_height="@dimen/y40"
-                android:layout_weight="1"
                 android:text="@string/home"/>
-
-            <View
-                android:layout_width="@dimen/x15"
-                android:layout_height="match_parent"/>
 
             <Button
                 android:id="@+id/certify_check_status_bt"
                 style="@style/btn"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/x165"
                 android:layout_height="@dimen/y40"
-                android:layout_weight="1"
+                android:layout_alignParentEnd="true"
                 android:text="@string/re_certification"
                 android:textColor="@color/color_bule_1"/>
 
-        </LinearLayout>
+
+        </RelativeLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

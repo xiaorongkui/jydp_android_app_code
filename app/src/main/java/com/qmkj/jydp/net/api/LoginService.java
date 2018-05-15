@@ -1,17 +1,16 @@
 package com.qmkj.jydp.net.api;
 
 
-import com.qmkj.jydp.bean.BaseResponse;
-import com.qmkj.jydp.bean.LoginBean;
-import com.qmkj.jydp.bean.LoginRequest;
+import com.qmkj.jydp.bean.request.RegisterCodeReq;
+import com.qmkj.jydp.bean.request.RegisterReq;
+import com.qmkj.jydp.bean.response.BaseRes;
+import com.qmkj.jydp.bean.response.LoginRes;
+import com.qmkj.jydp.bean.request.LoginReq;
+import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.AppNetConfig;
-
-import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
@@ -20,9 +19,22 @@ import retrofit2.http.POST;
 public interface LoginService {
     /**
      * 用户登录
+     *
      * @param req the maps
      * @return the home auto roll product
      */
-    @POST(AppNetConfig.urlPath + "userApp/login/login")
-    Observable<BaseResponse<LoginBean>> startLogin(@Body LoginRequest req);
+    @POST(AppNetConfig.urlPath + "wap/userLogin/login/{userAccount}/{password}")
+    Observable<BaseRes<LoginRes>> startLogin(@Body LoginReq req);
+
+    /**
+     * 注册获取验证码
+     */
+    @POST(AppNetConfig.urlPath + "sendCode/sendPhoneCode")
+    Observable<BaseRes<BaseRes>> getRegisterCode(@Body RegisterCodeReq req);
+
+    /**
+     * 注册
+     */
+    @POST(AppNetConfig.urlPath + "sendCode/sendPhoneCode")
+    Observable<BaseRes<RegisterRes>> startRegister(@Body RegisterReq req);
 }

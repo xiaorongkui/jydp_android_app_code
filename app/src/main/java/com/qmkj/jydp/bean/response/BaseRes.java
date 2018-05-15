@@ -1,11 +1,11 @@
-package com.qmkj.jydp.bean;
+package com.qmkj.jydp.bean.response;
 
 /**
  * Created by Yun on 2018/1/5.
  * 网络请求BaseResponse
  * code 1请求成功 4session过期
  */
-public class BaseResponse<T> {
+public class BaseRes<T> {
     private String code;//1成功
     private String message;
     private T data;
@@ -36,7 +36,7 @@ public class BaseResponse<T> {
 
     @Override
     public String toString() {
-        return "BaseResponse{" +
+        return "BaseRes{" +
                 "code=" + code +
                 ", message='" + message + '\'' +
                 ", data=" + data +

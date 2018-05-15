@@ -4,10 +4,10 @@ import android.app.Activity;
 
 import com.qmkj.jydp.base.BaseView;
 import com.qmkj.jydp.base.BaseRxPresenter;
-import com.qmkj.jydp.bean.LoginRequest;
+import com.qmkj.jydp.bean.request.LoginReq;
+import com.qmkj.jydp.bean.request.RegisterCodeReq;
+import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.net.api.LoginService;
-
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -26,8 +26,18 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
         super(activity);
     }
 
-    public void loginStart(LoginRequest maps, int tag, boolean isShowProgress) {
+    public void loginStart(LoginReq req, int tag, boolean isShowProgress) {
 
-        sendHttpRequest(loginService.startLogin(maps), tag);
+        sendHttpRequest(loginService.startLogin(req), tag);
+    }
+
+    public void getRegisterCode(RegisterCodeReq req, int tag) {
+
+        sendHttpRequest(loginService.getRegisterCode(req), tag);
+    }
+
+    public void startRegister(RegisterReq req, int tag) {
+
+        sendHttpRequest(loginService.startRegister(req), tag);
     }
 }

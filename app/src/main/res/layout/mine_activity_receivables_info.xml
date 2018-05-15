@@ -45,7 +45,7 @@
                     android:textColor="@color/color_black_13"
                     android:textSize="@dimen/text_size_16"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_bank_card_num_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     app:titleText="@string/bank_card_num"
                     app:titleTopMargin="@dimen/x20"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_bank_name_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                     app:titleText="@string/bank_name"
                     app:titleTopMargin="@dimen/x20"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_bank_branch_name_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                     app:titleText="@string/bank_branch_name"
                     app:titleTopMargin="@dimen/x20"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_bank_reserve_name_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     app:titleText="@string/bank_reserve_name"
                     app:titleTopMargin="@dimen/x20"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_bank_reserve_phone_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                     android:textColor="@color/color_black_13"
                     android:textSize="@dimen/text_size_16"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_alipay_account_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                     app:titleText="@string/alipay_account"
                     app:titleTopMargin="@dimen/x20"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_alipay_receipt_code_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                     android:textColor="@color/color_black_13"
                     android:textSize="@dimen/text_size_16"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_wechat_account_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                     app:titleText="@string/wechat_account"
                     app:titleTopMargin="@dimen/x20"/>
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_wechat_receipt_code_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -106,7 +106,7 @@
                 android:paddingEnd="@dimen/x10"
                 android:paddingStart="@dimen/x10">
 
-                <com.qmkj.jydp.ui.widget.EditItemView
+                <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/publish_advertise_proportion_eiv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -13,7 +13,7 @@
     android:paddingStart="@dimen/x12"
     tools:showIn="@layout/outside_activity_sold">
 
-    <com.qmkj.jydp.ui.widget.EditItemView
+    <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_bank_card_num_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         app:titleText="@string/bank_card_num"
         app:titleTopMargin="@dimen/x20"/>
 
-    <com.qmkj.jydp.ui.widget.EditItemView
+    <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_bank_card_name_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         app:titleText="@string/bank_name"
         app:titleTopMargin="@dimen/x20"/>
 
-    <com.qmkj.jydp.ui.widget.EditItemView
+    <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_bank_branch_name_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         app:titleText="@string/bank_branch_name"
         app:titleTopMargin="@dimen/x20"/>
 
-    <com.qmkj.jydp.ui.widget.EditItemView
+    <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_bank_reserve_name_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         app:titleText="@string/bank_reserve_name"
         app:titleTopMargin="@dimen/x20"/>
 
-    <com.qmkj.jydp.ui.widget.EditItemView
+    <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_bank_reserve_phone_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

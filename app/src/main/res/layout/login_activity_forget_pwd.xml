@@ -28,7 +28,7 @@
             android:background="@drawable/shape_view_shadow_bg"
             android:orientation="vertical">
 
-            <com.qmkj.jydp.ui.widget.EditItemView
+            <com.qmkj.jydp.ui.widget.EditVItemView
                 android:id="@+id/login_forget_pwd_account_eiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
 
             </LinearLayout>
 
-            <com.qmkj.jydp.ui.widget.EditItemView
+            <com.qmkj.jydp.ui.widget.EditVItemView
                 android:id="@+id/login_forget_pwd_vertification_code_eiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
             android:background="@drawable/shape_view_shadow_bg"
             android:orientation="vertical">
 
-            <com.qmkj.jydp.ui.widget.EditItemView
+            <com.qmkj.jydp.ui.widget.EditVItemView
                 android:id="@+id/login_forget_pwd_newpwd_eiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
                 app:titleText="@string/new_password"
                 app:titleTopMargin="@dimen/x20"/>
 
-            <com.qmkj.jydp.ui.widget.EditItemView
+            <com.qmkj.jydp.ui.widget.EditVItemView
                 android:id="@+id/login_forget_pwd_newpwd_again_eiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
