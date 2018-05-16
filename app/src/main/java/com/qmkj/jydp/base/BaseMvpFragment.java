@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -62,7 +63,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
     }
 
     @Override
-    public void onError(String errorMsg, String code, int tag) {
+    public void onError(String errorMsg, String code, int tag, Object o) {
 
     }
 

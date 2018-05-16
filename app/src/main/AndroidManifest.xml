@@ -55,7 +55,7 @@
             android:launchMode="singleTop"/>
 
         <activity
-            android:name=".module.login.view.SplashActivity"
+            android:name="com.qmkj.jydp.module.login.view.SplashActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/start_apptheme"

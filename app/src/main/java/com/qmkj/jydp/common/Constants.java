@@ -260,5 +260,5 @@ public class Constants {
             "\"20160606^7653.72^9006.39\",\"20160603^15106.15^15885.54\"]},\"mx_price\":{\"mx\":[],\"price\":[]}," +
             "\"prec\":\"19.15\",\"version\":\"4\"}}}";
     public static final String SP_SAVE_LOGIN_USERINFO = "login_user_info";
-    public static final String SP_SAVE_USERINFO = "login_user_info";
+    public static final String SP_SAVE_ACCOUNT = "sp_save_account";
 }

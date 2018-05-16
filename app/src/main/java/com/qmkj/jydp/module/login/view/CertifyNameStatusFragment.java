@@ -54,7 +54,7 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
     @Override
     protected void injectPresenter() {
-        getFragmentComponent().inject(getActivity());
+//        getFragmentComponent().inject();
     }
 
     @Override

@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x15"
                         android:layout_toEndOf="@id/ertify_type_select_iv"
-                        android:digits="1234567890Xx"
+                        android:digits="qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
                         android:hint="@string/input_your_certificate_num"
                         android:maxLength="18"
                         android:maxLines="1"/>

@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
@@ -20,8 +21,8 @@ public class MinePresenter extends BaseRxPresenter {
     MineService mineService;
 
     @Inject
-    public MinePresenter(Fragment fragment) {
-        super(fragment);
+    public MinePresenter(Context context) {
+        super(context);
     }
 
     public void getMineInfo(int tag, boolean isShowProgress) {

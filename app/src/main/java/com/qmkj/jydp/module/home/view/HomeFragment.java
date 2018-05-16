@@ -260,8 +260,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     }
 
     @Override
-    public void onError(String errorMsg, String code, int tag) {
-        super.onError(errorMsg, code, tag);
+    public void onError(String errorMsg, String code, int tag, Object o) {
+        super.onError(errorMsg, code, tag, o);
     }
 
 }

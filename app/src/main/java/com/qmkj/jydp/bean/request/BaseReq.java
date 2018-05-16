@@ -9,13 +9,5 @@ import com.qmkj.jydp.util.CommonUtil;
  */
 
 public class BaseReq {
-    public String token = CommonUtil.getToken();
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }

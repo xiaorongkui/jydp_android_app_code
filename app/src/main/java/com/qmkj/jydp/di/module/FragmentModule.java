@@ -1,6 +1,7 @@
 package com.qmkj.jydp.di.module;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 
@@ -26,4 +27,8 @@ public class FragmentModule {
         return fragment;
     }
 
+    @Provides
+    Context provideConetxt() {
+        return fragment.getActivity();
+    }
 }

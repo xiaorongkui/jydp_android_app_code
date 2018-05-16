@@ -1,9 +1,14 @@
 package com.qmkj.jydp.di.module;
 
 
+import android.app.Activity;
+import android.support.v4.app.Fragment;
+
 import com.qmkj.jydp.BuildConfig;
 import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.module.home.presenter.HomePresenter;
+import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.net.api.BaseNetFunction;
 import com.qmkj.jydp.net.api.ExchangeService;
 import com.qmkj.jydp.net.api.HomeService;
@@ -19,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -130,6 +136,7 @@ public class HttpModule {
             if (StringUtil.isNull(token)) {
                 return chain.proceed(oldRequest);
             }
+            LogUtil.i("token=" + token);
             Request request = oldRequest.newBuilder().addHeader("X-Access-Auth-Token", token).build();
             return chain.proceed(request);
         }
@@ -153,4 +160,42 @@ public class HttpModule {
             return response;
         }
     }
+
+//    @Named("activity")
+//    @Provides
+//    LoginPresenter provideLoginPresenterA(Activity activity) {
+//        return new LoginPresenter(activity);
+//    }
+//
+//    @Named("fragment")
+//    @Provides
+//    LoginPresenter provideLoginPresenterF(Fragment fragment) {
+//        return new LoginPresenter(fragment);
+//    }
+
+//
+//    @Named("activity")
+//    @Provides
+//    @Singleton
+//    HomePresenter provideLoginPresenter(Activity activity) {
+//        return new HomePresenter(activity);
+//    }
+//
+//    @Named("fragment")
+//    @Provides
+//    @Singleton
+//    HomePresenter provideLoginPresenter(Fragment fragment) {
+//        return new HomePresenter(fragment);
+//    }
+//
+//
+//    LoginPresenter provideLoginPresenter();
+//
+//    HomePresenter provideHomePresenter();
+//
+//    ExchangePresenter provideExchangePresenter();
+//
+//    ExchangeCenterPresenter provideExchangeCenterPresenter();
+//
+//    MinePresenter provideExchangeMinePresenter();
 }

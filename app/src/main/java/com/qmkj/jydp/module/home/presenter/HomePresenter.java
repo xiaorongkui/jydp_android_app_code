@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.home.presenter;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
@@ -23,9 +24,10 @@ public class HomePresenter extends BaseRxPresenter<BaseView> {
     HomeService homeService;
 
     @Inject
-    public HomePresenter(Fragment fragment) {
-        super(fragment);
+    public HomePresenter(Context context) {
+        super(context);
     }
+
 
     public void getCurrentPrice(int tag, boolean isShowProgress) {
         sendHttpRequest(homeService.getCurrentPrice(), tag, isShowProgress);

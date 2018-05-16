@@ -667,11 +667,13 @@ public class CommonUtil {
 
     /*保存注册时个人账户*/
     public static void setUserAccount(String account) {
-        SPHelper.getInstance().set(Constants.SP_SAVE_LOGIN_USERINFO, account);
+        LogUtil.i("setUserAccount=" + account);
+        SPHelper.getInstance().set(Constants.SP_SAVE_ACCOUNT, account);
     }
 
     public static String getUserAccount() {
-        return SPHelper.getInstance().getString(Constants.SP_SAVE_LOGIN_USERINFO);
+        LogUtil.i("getUserAccount=" + SPHelper.getInstance().getString(Constants.SP_SAVE_ACCOUNT));
+        return SPHelper.getInstance().getString(Constants.SP_SAVE_ACCOUNT);
     }
 
     /*保存登录时个人信息返回*/

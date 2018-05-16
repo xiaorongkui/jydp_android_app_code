@@ -31,6 +31,7 @@ import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditHItemView;
@@ -117,6 +118,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     LinearLayout registerTitleLl;
     private Disposable disposable;//倒计时的disposable
     private TextView codeTimeDownTv;
+    private String account;
 
 
     @Override
@@ -236,7 +238,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
                 CommonUtil.gotoActivity(mContext, CertificationActivity.class);
-
 //                startRegister();
                 break;
             case R.id.register_phone_erea_tv://选择区号
@@ -299,7 +300,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
     private void loginSatart() {
-        String account = loginAccountEiv.getEditTextString();
+        account = loginAccountEiv.getEditTextString();
         String password = loginPasswordEiv.getEditTextString();
         if (!CheckTextUtil.checkPassword(account)) {
             toast("账号必须是字母、数字，6～16个字符");
@@ -384,7 +385,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 toast("登陆成功");
                 LogUtil.i(response.toString());
                 LoginRes loginBean = (LoginRes) response;
+                LoginRes.UserBean user = loginBean.getUser();
                 CommonUtil.setLoginInfo(loginBean);
+                if (user != null) CommonUtil.setUserAccount(user.getUserAccount());
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
                 AppManager.getInstance().removeCurrent();
                 break;
@@ -403,11 +406,19 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
     @Override
-    public void onError(String errorMsg, String code, int tag) {
-        super.onError(errorMsg, code, tag);
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
         switch (tag) {
             case LOGIN_SATRT_TAG:
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
+                switch (code) {
+                    case NetResponseCode.HMC_NETWORK_NO_CERTIFY_NAME:
+                        CommonUtil.setUserAccount(account);
+                        Intent intent = new Intent(mContext, CertificationActivity.class);
+                        intent.putExtra(Constants.INTENT_PARAMETER_1, account);
+                        CommonUtil.gotoActivity(mContext, intent);
+                        break;
+                }
+
                 break;
             case REGISTER_TAG:
                 CommonUtil.gotoActivity(mContext, CertificationActivity.class);

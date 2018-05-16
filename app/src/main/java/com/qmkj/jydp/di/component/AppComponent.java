@@ -4,6 +4,12 @@ package com.qmkj.jydp.di.component;
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.di.module.AppModule;
 import com.qmkj.jydp.di.module.HttpModule;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangePresenter;
+import com.qmkj.jydp.module.home.presenter.HomePresenter;
+import com.qmkj.jydp.module.login.modle.Login;
+import com.qmkj.jydp.module.login.presenter.LoginPresenter;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.net.api.BaseNetFunction;
 import com.qmkj.jydp.net.api.ExchangeService;
 import com.qmkj.jydp.net.api.HomeService;
@@ -34,4 +40,15 @@ public interface AppComponent {
     BaseNetFunction provideBaseNetFunction();
 
     SPHelper providePreferencesHelper();
+
+//    LoginPresenter provideLoginPresenter();
+//
+//    HomePresenter provideHomePresenter();
+//
+//    ExchangePresenter provideExchangePresenter();
+//
+//    ExchangeCenterPresenter provideExchangeCenterPresenter();
+//
+//    MinePresenter provideExchangeMinePresenter();
+
 }

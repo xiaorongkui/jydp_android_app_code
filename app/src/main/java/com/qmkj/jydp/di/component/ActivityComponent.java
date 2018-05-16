@@ -1,12 +1,14 @@
 package com.qmkj.jydp.di.component;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.di.module.ActivityModule;
 import com.qmkj.jydp.di.scope.ActivityScope;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.module.login.view.CertificationActivity;
+import com.qmkj.jydp.module.login.view.ForgetLoginPwdActivity;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 
 import dagger.Component;
@@ -17,6 +19,8 @@ import dagger.Component;
 public interface ActivityComponent {
     Activity getActivity();
 
+    Context getContext();
+
     void inject(MainActivity mainActivity);
 
     void inject(LoginActivity loginActivity);
@@ -24,4 +28,6 @@ public interface ActivityComponent {
     void inject(AreaCodeSecActivity areaCodeSecActivity);
 
     void inject(CertificationActivity certificationActivity);
+
+    void inject(ForgetLoginPwdActivity forgetLoginPwdActivity);
 }

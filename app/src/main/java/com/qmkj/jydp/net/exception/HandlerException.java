@@ -111,8 +111,24 @@ public class HandlerException {
     }
 
     public static class ResponeThrowable extends RuntimeException {
+        private Object data;
         public String code;
         public String message;
+
+        public Object getData() {
+            return data;
+        }
+
+        public void setData(Object data) {
+            this.data = data;
+        }
+
+        public <T> ResponeThrowable(String responseMessage, String code, T data) {
+            super(responseMessage);
+            this.message = responseMessage;
+            this.code = code;
+            this.data = data;
+        }
 
         public String getCode() {
             return code;

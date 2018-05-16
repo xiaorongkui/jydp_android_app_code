@@ -42,14 +42,6 @@
         android:layout_marginTop="@dimen/y16"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edit_letf_et"
-            style="@style/edt_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_hint_notice"
-            android:maxLines="1"/>
-
         <TextView
             android:id="@+id/edit_right_tv"
             android:layout_width="wrap_content"
@@ -60,6 +52,15 @@
             android:textColor="@color/color_bule_3"
             android:textSize="@dimen/text_size_14"
             tools:text="@string/vertify_code_count"/>
+
+        <EditText
+            android:id="@+id/edit_letf_et"
+            style="@style/edt_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/edit_right_tv"
+            android:hint="@string/login_hint_notice"
+            android:maxLines="1"/>
     </RelativeLayout>
 
     <View

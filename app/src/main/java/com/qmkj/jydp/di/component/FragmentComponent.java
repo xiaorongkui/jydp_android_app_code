@@ -1,6 +1,8 @@
 package com.qmkj.jydp.di.component;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
@@ -23,6 +25,9 @@ import dagger.Component;
 public interface FragmentComponent {
     Fragment getFragment();
 
+    Context getContext();
+
+    //
     void inject(HomeFragment homeFragment);
 
     void inject(ExchangeFragment exchangeFragment);
@@ -31,5 +36,5 @@ public interface FragmentComponent {
 
     void inject(OutsideExchangeFragment outsideExchangeFragment);
 
-    void inject(FragmentActivity activity);
+    void inject(CertifyNameFragment certifyNameFragment);
 }

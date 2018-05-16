@@ -1,21 +1,15 @@
 package com.qmkj.jydp.base;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.net.HttpCallBack;
 import com.qmkj.jydp.net.api.BaseNetFunction;
 import com.qmkj.jydp.net.exception.HandlerException;
 import com.qmkj.jydp.net.observer.BaseShowLoadingObserver;
-import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ProgressDialogUtil;
 import com.qmkj.jydp.util.RxUtil;
-import com.qmkj.jydp.util.ToastUtil;
-import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.lang.ref.SoftReference;
 
@@ -45,34 +39,13 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
     @Inject
     BaseNetFunction baseNetFunction;
 
-    private SoftReference<RxAppCompatActivity> activitySoftReference;
-    private SoftReference<RxFragment> fragmentSoftReference;
+    private SoftReference<Context> contextSoftReference;
 
-    private BaseRxPresenter() {
-    }
+    public BaseRxPresenter(Context context) {
 
-    /**
-     * Instantiates a new Base rx presenter.
-     *
-     * @param activity the activity
-     */
-    public BaseRxPresenter(Activity activity) {
-        if (!(activity instanceof RxAppCompatActivity)) {
-            throw new RuntimeException("创建RxPresenter失败,请用当前activity继承BaseActivity或RxAppCompatActivity");
+        if ((context instanceof RxAppCompatActivity)) {
+            this.contextSoftReference = new SoftReference<>(context);
         }
-        this.activitySoftReference = new SoftReference<>((RxAppCompatActivity) activity);
-    }
-
-    /**
-     * Instantiates a new Base rx presenter.
-     *
-     * @param fragment the fragment
-     */
-    public BaseRxPresenter(Fragment fragment) {
-        if (!(fragment instanceof RxFragment)) {
-            throw new RuntimeException("创建RxPresenter失败,请用当前Fragment继承BaseFragment或RxFragment");
-        }
-        this.fragmentSoftReference = new SoftReference<>((RxFragment) fragment);
     }
 
     /**
@@ -122,27 +95,11 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
     @SuppressWarnings("unchecked")
     protected void sendHttpRequest(Observable mObservable, int tag, boolean isShowProgress, boolean isCancel) {
 
-        LifecycleTransformer<Object> lifecycleTransformer = null;
-        Context context = null;
-        if (activitySoftReference != null && activitySoftReference.get() != null) {
-            context = activitySoftReference.get();
-            lifecycleTransformer = activitySoftReference.get().bindToLifecycle();
-        }
-        if (fragmentSoftReference != null && fragmentSoftReference.get() != null) {
-            context = fragmentSoftReference.get().getContext();
-            lifecycleTransformer = fragmentSoftReference.get().bindToLifecycle();
-        }
-        if (lifecycleTransformer == null || context == null) {
-            LogUtil.i("当前网络请求的context为空");
-            return;
-        }
-
-        BaseShowLoadingObserver progressObserver = new BaseShowLoadingObserver<>(context, this,
+        BaseShowLoadingObserver progressObserver = new BaseShowLoadingObserver<>(contextSoftReference.get(), this,
                 isShowProgress, tag);
         progressObserver.setCancel(isCancel);
 
-        mObservable.compose(lifecycleTransformer)
-                .compose(RxUtil.rxSchedulerHelper())
+        mObservable.compose(RxUtil.rxSchedulerHelper())
                 .map(baseNetFunction)
                 .subscribe(progressObserver);
 
@@ -182,7 +139,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
                 onNext(new Object(), tag);
                 break;
             default:
-                mView.onError(e.getMessage(), e.getCode(), tag);
+                mView.onError(e.getMessage(), e.getCode(), tag, e.getData());
                 break;
         }
     }

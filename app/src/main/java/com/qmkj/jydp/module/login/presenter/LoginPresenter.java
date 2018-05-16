@@ -1,17 +1,24 @@
 package com.qmkj.jydp.module.login.presenter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.base.BaseView;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
+import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.util.LogUtil;
 
 import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -24,9 +31,10 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
     LoginService loginService;
 
     @Inject
-    public LoginPresenter(Activity activity) {
-        super(activity);
+    public LoginPresenter(Context context) {
+        super(context);
     }
+
 
     public void loginStart(LoginReq req, int tag, boolean isShowProgress) {
 
@@ -43,6 +51,16 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
     }
 
     public void submitCertify(CertifyNameReq req, int tag) {
-        sendHttpRequest(loginService.submitCertify(req), tag);
+        RequestBody data = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(req));
+
+        RequestBody frontRequestBody = MultipartBody.create(MediaType.parse("image/jpeg"), req.getFrontImg());
+        RequestBody backRequestBody = MultipartBody.create(MediaType.parse("image/jpeg"), req.getBackImg());
+
+        sendHttpRequest(loginService.submitCertify(data, frontRequestBody, backRequestBody), tag);
     }
+
+    public void submitForgetPwd(ForgetPwdReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(loginService.submitForgetPwd(req), tag);
+    }
+
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,9 +77,6 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     EditVItemView certifyNameNameCv;
     @BindView(R.id.ertify_type_num_et)
     EditText ertifyTypeNumEt;
-    private EditText account_et;
-    private EditText name_et;
-    private EditText certify_num_et;
     private Bitmap front;
     private boolean isFrontCompressing;
     private byte[] frontBytes;
@@ -91,7 +89,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
 
     @Override
     protected void injectPresenter() {
-        getFragmentComponent().inject(getActivity());
+        getFragmentComponent().inject(this);
     }
 
     @Override
@@ -147,9 +145,25 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     private void submitCertifyNameData() {
         String userName = certifyNameNameCv.getEditTextString();
         String userCertNo = ertifyTypeNumEt.getText().toString().trim();
+        if (TextUtils.isEmpty(userName)) {
+            toast("姓名不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(userCertNo)) {
+            toast("证件不能为空");
+            return;
+        }
+        if (backBytes == null || backBytes.length <= 0 || frontBytes == null || frontBytes.length <= 0) {
+            toast("请先上传图片");
+            return;
+        }
+        if (isBackCompressing || isFrontCompressing) {
+            toast("请等待压缩");
+            return;
+        }
         CertifyNameReq certifyNameReq = new CertifyNameReq();
-        certifyNameReq.setBackImg("jpg");
-        certifyNameReq.setFrontImg("jpg");
+        certifyNameReq.setBackImg(backBytes);
+        certifyNameReq.setFrontImg(frontBytes);
         certifyNameReq.setUserAccount(userAccount);
         certifyNameReq.setUserName(userName);
         certifyNameReq.setUserCertNo(userCertNo);

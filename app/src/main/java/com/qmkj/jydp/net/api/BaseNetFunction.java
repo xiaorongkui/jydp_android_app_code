@@ -7,6 +7,8 @@ import com.qmkj.jydp.util.LogUtil;
 
 import io.reactivex.functions.Function;
 
+import static com.qmkj.jydp.common.NetResponseCode.HMC_NETWORK_NO_CERTIFY_NAME;
+
 /**
  * 请求返回结果的过滤
  */
@@ -29,6 +31,8 @@ public class BaseNetFunction<T> implements Function<BaseRes<T>, T> {
                 }
                 return data;
             //其他情况自己处理
+            case HMC_NETWORK_NO_CERTIFY_NAME:
+                throw new HandlerException.ResponeThrowable(responseMessage, HMC_NETWORK_NO_CERTIFY_NAME, data);
             default:
                 throw new HandlerException.ResponeThrowable(responseMessage, responseCode);
         }

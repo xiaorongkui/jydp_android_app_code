@@ -1,6 +1,7 @@
 package com.qmkj.jydp.di.module;
 
 import android.app.Activity;
+import android.content.Context;
 
 
 import com.qmkj.jydp.di.scope.ActivityScope;
@@ -25,4 +26,9 @@ public class ActivityModule {
         return activity;
     }
 
+    @Provides
+    @ActivityScope
+    Context provideConetxt() {
+        return activity;
+    }
 }

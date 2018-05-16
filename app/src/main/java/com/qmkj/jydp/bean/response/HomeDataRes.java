@@ -324,19 +324,19 @@ public class HomeDataRes extends BaseRes {
          * yesterdayLastPrice : 0
          */
 
-        private int buyOnePrice;
-        private int change;
+        private double buyOnePrice;
+        private double change;
         private int currencyId;
         private String currencyImg;
         private String currencyImgUrl;
         private String currencyName;
         private String currencyShortName;
-        private int latestPrice;
-        private int sellOnePrice;
-        private int volume;
-        private int yesterdayLastPrice;
+        private double latestPrice;
+        private double sellOnePrice;
+        private double volume;
+        private double yesterdayLastPrice;
 
-        public int getBuyOnePrice() {
+        public double getBuyOnePrice() {
             return buyOnePrice;
         }
 
@@ -344,7 +344,7 @@ public class HomeDataRes extends BaseRes {
             this.buyOnePrice = buyOnePrice;
         }
 
-        public int getChange() {
+        public double getChange() {
             return change;
         }
 
@@ -392,7 +392,7 @@ public class HomeDataRes extends BaseRes {
             this.currencyShortName = currencyShortName;
         }
 
-        public int getLatestPrice() {
+        public double getLatestPrice() {
             return latestPrice;
         }
 
@@ -400,7 +400,7 @@ public class HomeDataRes extends BaseRes {
             this.latestPrice = latestPrice;
         }
 
-        public int getSellOnePrice() {
+        public double getSellOnePrice() {
             return sellOnePrice;
         }
 
@@ -408,7 +408,7 @@ public class HomeDataRes extends BaseRes {
             this.sellOnePrice = sellOnePrice;
         }
 
-        public int getVolume() {
+        public double getVolume() {
             return volume;
         }
 
@@ -416,7 +416,7 @@ public class HomeDataRes extends BaseRes {
             this.volume = volume;
         }
 
-        public int getYesterdayLastPrice() {
+        public double getYesterdayLastPrice() {
             return yesterdayLastPrice;
         }
 

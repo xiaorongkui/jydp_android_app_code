@@ -2,6 +2,7 @@ package com.qmkj.jydp.net.api;
 
 
 import com.qmkj.jydp.bean.request.CertifyNameReq;
+import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.bean.response.BaseRes;
@@ -15,7 +16,9 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * 网络请求接口,入参统一使用map集合,
@@ -44,8 +47,16 @@ public interface LoginService {
     Observable<BaseRes<RegisterRes>> startRegister(@Body RegisterReq req);
 
     /**
-     * 市民该认证
+     * 实名认证
      */
+    @Multipart
     @POST(AppNetConfig.urlPath + "wap/identificationController/add")
-    Observable<BaseRes<BaseRes>> submitCertify(@Body CertifyNameReq req);
+    Observable<BaseRes<BaseRes>> submitCertify(@Part("data") RequestBody req, @Part("front\"; filename = " +
+            "\"front.jpg") RequestBody frontFile, @Part("back\"; filename = \"back.jpg") RequestBody backFile);
+
+    /**
+     * 忘记密码
+     */
+    @POST(AppNetConfig.urlPath + "wap/forgetPassword/forgetPassword")
+    Observable<BaseRes<BaseRes>> submitForgetPwd(@Body ForgetPwdReq req);
 }

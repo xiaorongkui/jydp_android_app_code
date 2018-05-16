@@ -208,8 +208,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangePresenter> impleme
     }
 
     @Override
-    public void onError(String errorMsg, String code, int tag) {
-        super.onError(errorMsg, code, tag);
+    public void onError(String errorMsg, String code, int tag, Object o) {
+        super.onError(errorMsg, code, tag, o);
     }
 
     @Override

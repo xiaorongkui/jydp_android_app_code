@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.exchangecenter.presenter;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 
 public class ExchangeCenterPresenter extends BaseRxPresenter {
     @Inject
-    public ExchangeCenterPresenter(Fragment fragment) {
-        super(fragment);
+    public ExchangeCenterPresenter(Context context) {
+        super(context);
     }
 }

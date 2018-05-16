@@ -9,38 +9,27 @@ import java.io.Serializable;
  */
 
 public class CertifyNameReq extends BaseReq {
-    public String backImg;
-    public String frontImg;
-    public String token;
+    public byte[] backImg;
+    public byte[] frontImg;
     public String userAccount;
     public String userCertNo;
     public String userCertTypeStr;
     public String userName;
 
-    public String getBackImg() {
+    public byte[] getBackImg() {
         return backImg;
     }
 
-    public void setBackImg(String backImg) {
+    public void setBackImg(byte[] backImg) {
         this.backImg = backImg;
     }
 
-    public String getFrontImg() {
+    public byte[] getFrontImg() {
         return frontImg;
     }
 
-    public void setFrontImg(String frontImg) {
+    public void setFrontImg(byte[] frontImg) {
         this.frontImg = frontImg;
-    }
-
-    @Override
-    public String getToken() {
-        return token;
-    }
-
-    @Override
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getUserAccount() {

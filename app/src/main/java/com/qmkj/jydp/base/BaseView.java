@@ -7,7 +7,7 @@ public interface BaseView<T> {
      * @param code     网络请求失败的返回码
      * @param tag      网络请求标记，作为返回
      */
-    void onError(String errorMsg, String code, int tag);
+    void onError(String errorMsg, String code, int tag, T response);
 
     /**
      * @param response 网络请求返回结果
