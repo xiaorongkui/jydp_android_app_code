@@ -130,7 +130,7 @@ public class HttpModule {
             if (StringUtil.isNull(token)) {
                 return chain.proceed(oldRequest);
             }
-            Request request = oldRequest.newBuilder().addHeader("X-Access-Auth-Token", "value:" + token).build();
+            Request request = oldRequest.newBuilder().addHeader("X-Access-Auth-Token", token).build();
             return chain.proceed(request);
         }
     }
