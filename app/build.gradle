@@ -125,4 +125,6 @@ dependencies {
 //    compile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     implementation project(':MPChartLib')
     implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'//阴影库，暂时先用
+
+    implementation 'com.wang.avi:library:2.1.3'
 }

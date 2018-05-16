@@ -35,6 +35,7 @@ import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditHItemView;
 import com.qmkj.jydp.ui.widget.EditHItemView;
+import com.qmkj.jydp.ui.widget.LoadingDialog;
 import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;

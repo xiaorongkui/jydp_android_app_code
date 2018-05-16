@@ -224,7 +224,7 @@
     <string name="password_again_input">再次输入新密码</string>
     <string name="phone_new">新手机号</string>
     <string name="your_new_phone_num">您的新手机号</string>
-    <string name="loading">加载中...</string>
+    <string name="loading">加载中···</string>
     <string name="old_payment_pwd">原支付密码</string>
     <string name="_modify_pwd_original_pwd">原密码修改</string>
     <string name="modify_pwd_by_phone">通过手机号修改</string>

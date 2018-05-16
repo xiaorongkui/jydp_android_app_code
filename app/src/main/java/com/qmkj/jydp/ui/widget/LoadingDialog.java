@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.wang.avi.AVLoadingIndicatorView;
 
 
 /**
@@ -19,9 +20,8 @@ import com.qmkj.jydp.R;
  * 加载dialog
  */
 public class LoadingDialog extends Dialog {
-    private ProgressBar mProgress;
     private TextView mMessage;
-    private String mMessageStr;
+    private String mMessageStr = "加载中···";
     private Context mContext;
 
     public LoadingDialog(@NonNull Context context) {
@@ -63,7 +63,6 @@ public class LoadingDialog extends Dialog {
     }
 
     private void initView() {
-        mProgress = findViewById(R.id.progress);
         mMessage = findViewById(R.id.message);
         mMessage.setText(mMessageStr);
     }
