@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -20,7 +21,7 @@ import butterknife.BindView;
  * description:实名认证审核中
  */
 
-public class CertifyNameStatusFragment extends BaseMvpFragment {
+public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
     @BindView(R.id.certify_name_status_iv)
     ImageView certifyNameStatusIv;
@@ -53,7 +54,7 @@ public class CertifyNameStatusFragment extends BaseMvpFragment {
 
     @Override
     protected void injectPresenter() {
-
+        getFragmentComponent().inject(getActivity());
     }
 
     @Override

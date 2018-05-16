@@ -5,11 +5,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +26,11 @@ import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.DialogItemBean;
+import com.qmkj.jydp.bean.request.CertifyNameReq;
+import com.qmkj.jydp.module.login.presenter.LoginPresenter;
+import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
+import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.BitmapCompressTask;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
@@ -32,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/23
@@ -39,7 +49,8 @@ import butterknife.BindView;
  * description:实名认证界面
  */
 
-public class CertifyNameFragment extends BaseMvpFragment implements View.OnClickListener {
+public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> implements View.OnClickListener {
+    private static final int CERTIFY_NAME_TAG = 1;
     @BindView(R.id.certify_add_front_rl)
     RelativeLayout certifyAddFrontRl;
     @BindView(R.id.certify_add_back_rl)
@@ -56,6 +67,15 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
     TextView ertifyTypeSelectTv;
     @BindView(R.id.ertify_type_select_iv)
     ImageView ertifyTypeSelectIv;
+    @BindView(R.id.certify_name_submit_bt)
+    Button certifyNameSubmitBt;
+    Unbinder unbinder;
+    @BindView(R.id.certify_name_account_cv)
+    ClickItemView certifyNameAccountCv;
+    @BindView(R.id.certify_name_name_cv)
+    EditVItemView certifyNameNameCv;
+    @BindView(R.id.ertify_type_num_et)
+    EditText ertifyTypeNumEt;
     private EditText account_et;
     private EditText name_et;
     private EditText certify_num_et;
@@ -65,12 +85,13 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
     private Bitmap back;
     private boolean isBackCompressing;
     private byte[] backBytes;
-    private int selectIndex = -1;
+    private int selectIndex = 0;
     private CommonDialog commonDialog;
+    private String userAccount;
 
     @Override
     protected void injectPresenter() {
-
+        getFragmentComponent().inject(getActivity());
     }
 
     @Override
@@ -80,10 +101,12 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
         certifyAddBackRl.setOnClickListener(this);
         ertifyTypeSelectTv.setOnClickListener(this);
         ertifyTypeSelectIv.setOnClickListener(this);
+        certifyNameSubmitBt.setOnClickListener(this);
     }
 
     private void initItemView() {
-
+        userAccount = CommonUtil.getUserAccount();
+        certifyNameAccountCv.setRightText(userAccount);
     }
 
     @Override
@@ -115,7 +138,24 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
             case R.id.ertify_type_select_iv://选择证件类型
                 showCertifyTypeSelectDialog();
                 break;
+            case R.id.certify_name_submit_bt://提交
+                submitCertifyNameData();
+                break;
         }
+    }
+
+    private void submitCertifyNameData() {
+        String userName = certifyNameNameCv.getEditTextString();
+        String userCertNo = ertifyTypeNumEt.getText().toString().trim();
+        CertifyNameReq certifyNameReq = new CertifyNameReq();
+        certifyNameReq.setBackImg("jpg");
+        certifyNameReq.setFrontImg("jpg");
+        certifyNameReq.setUserAccount(userAccount);
+        certifyNameReq.setUserName(userName);
+        certifyNameReq.setUserCertNo(userCertNo);
+        certifyNameReq.setUserCertTypeStr((selectIndex + 1) + "");
+
+        presenter.submitCertify(certifyNameReq, CERTIFY_NAME_TAG);
     }
 
     /**
@@ -144,9 +184,6 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
                 ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
                 imageViewLeft.setImageResource(item.getLeftImageViewId());
-                if (selectIndex == -1) {
-                    selectIndex = 0;//默认选择身份证
-                }
                 imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap
                         .bt_unselected);
                 certifyType_tv.setText(item.getCertifyName());
@@ -228,6 +265,7 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
         if (commonDialog != null) {
             commonDialog.dismiss();
         }
+        unbinder.unbind();
     }
 
     private void checkPermission(int index) {
@@ -263,5 +301,13 @@ public class CertifyNameFragment extends BaseMvpFragment implements View.OnClick
     public void onDestroy() {
         super.onDestroy();
         RxPermissionUtils.destory();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

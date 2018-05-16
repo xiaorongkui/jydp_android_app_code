@@ -60,14 +60,7 @@ public class HttpModule {
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
         if (BuildConfig.LOG_DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
-
-                try {
-                    String s = URLDecoder.decode(message, "utf-8");
-                    LogUtil.i("OkHttp====OK:" + s);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    LogUtil.i("OkHttp====UnsupportedEncodingException:" + message);
-                }
+                LogUtil.i("OkHttp====" + message);
             });
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);

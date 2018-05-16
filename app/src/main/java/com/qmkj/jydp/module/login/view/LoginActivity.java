@@ -9,6 +9,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +62,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     private static final int LOGIN_SATRT_TAG = 1;
     private static final int REGISTER_CODE_TAG = 2;
     private static final int REGISTER_TAG = 3;
+    public String digits = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
     @BindView(R.id.login_login_title_tv)
     TextView loginLoginTitleTv;
     @BindView(R.id.login_login_title_line)
@@ -156,26 +158,21 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             getVerificationCode();
         });
         initInputType();
-
     }
 
 
     private void initInputType() {
         loginAccountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
         loginAccountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_TEXT);
-        loginAccountEiv.getEditTextView().setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
-            String regex = "^[a-zA-Z0-9]+$";
-            return (source.toString().matches(regex) && source.length() <= 16) ? null : "";
-        }});
+        loginAccountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
+        loginAccountEiv.getEditTextView().setKeyListener(DigitsKeyListener.getInstance(digits));
         initPwdInput(loginPasswordEiv.getEditTextView());
 
 
         registerAccountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
         registerAccountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_TEXT);
-        registerAccountEiv.getEditTextView().setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
-            String regex = "^[a-zA-Z0-9]+$";
-            return (source.toString().matches(regex) && source.length() <= 16) ? null : "";
-        }});
+        registerAccountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
+        registerAccountEiv.getEditTextView().setKeyListener(DigitsKeyListener.getInstance(digits));
 
         registerPhoneEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
         registerPhoneEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -196,10 +193,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
         editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType
                 .TYPE_TEXT_VARIATION_PASSWORD);
-        editText.setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
-            String regex = "^[a-zA-Z0-9]+$";
-            return (source.toString().matches(regex) && source.length() <= 16) ? null : "";
-        }});
+        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
+        editText.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
     private void setShowStatusView(int index) {
@@ -239,7 +234,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 loginSatart();
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
-                startRegister();
+                CommonUtil.gotoActivity(mContext, CertificationActivity.class);
+
+//                startRegister();
                 break;
             case R.id.register_phone_erea_tv://选择区号
             case R.id.register_phone_erea_iv://选择区号
@@ -289,10 +286,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             toast("两次交易密码输入不同");
             return;
         }
+
         RegisterReq registerReq = new RegisterReq();
         registerReq.setUserAccount(registerAccount);
         registerReq.setPhoneAreaCode(areaCode);
-        registerReq.setPhoneNumber(areaCode + phone);
+        registerReq.setPhoneNumber(phone);
         registerReq.setValidateCode(code);
         registerReq.setPassword(loginPwdOne);
         registerReq.setPayPassword(exchangePwdOne);
@@ -323,9 +321,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             toast("手机号不能为空");
             return;
         }
-        RegisterCodeReq codeReq = new RegisterCodeReq();
-        codeReq.setPhoneNumber("!@#$%^&*()_+" + areaCode + phone);
-        presenter.getRegisterCode(codeReq, REGISTER_CODE_TAG);
+        presenter.getRegisterCode(areaCode + phone, REGISTER_CODE_TAG);
     }
 
     private void codeTimeDown() {

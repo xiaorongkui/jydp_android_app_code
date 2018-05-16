@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
@@ -18,7 +19,7 @@ import butterknife.BindView;
  * description:实名认证界面
  */
 
-public class CertificationActivity extends BaseMvpActivity {
+public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.certify_container_fl)
@@ -29,7 +30,7 @@ public class CertificationActivity extends BaseMvpActivity {
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class CertificationActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
-        setSelect(1);
+        setSelect(0);
     }
 
     public void setSelect(int i) {

@@ -6,6 +6,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.di.module.ActivityModule;
 import com.qmkj.jydp.di.scope.ActivityScope;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
+import com.qmkj.jydp.module.login.view.CertificationActivity;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 
 import dagger.Component;
@@ -21,4 +22,6 @@ public interface ActivityComponent {
     void inject(LoginActivity loginActivity);
 
     void inject(AreaCodeSecActivity areaCodeSecActivity);
+
+    void inject(CertificationActivity certificationActivity);
 }
