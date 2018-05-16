@@ -50,12 +50,16 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
         sendHttpRequest(loginService.startRegister(req), tag);
     }
 
-    public void submitCertify(CertifyNameReq req, int tag) {
+    public void submitCertify(CertifyNameReq req, byte[] backBytes, byte[] frontBytes, int tag) {
         RequestBody data = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(req));
-
-        RequestBody frontRequestBody = MultipartBody.create(MediaType.parse("image/jpeg"), req.getFrontImg());
-        RequestBody backRequestBody = MultipartBody.create(MediaType.parse("image/jpeg"), req.getBackImg());
-
+        RequestBody frontRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), backBytes);
+        RequestBody backRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), frontBytes);
+//        MultipartBody.Part frontRequestBodyPart = MultipartBody.Part.createFormData("frontImg", "front.jpg",
+// frontRequestBody);
+//        MultipartBody.Part backRequestBodyPart = MultipartBody.Part.createFormData("backImg", "back.jpg",
+// backRequestBody);
+//        RequestBody frontRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), backBytes);
+//        RequestBody backRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), frontBytes);
         sendHttpRequest(loginService.submitCertify(data, frontRequestBody, backRequestBody), tag);
     }
 

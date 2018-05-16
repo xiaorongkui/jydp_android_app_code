@@ -70,7 +70,6 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     ImageView ertifyTypeSelectIv;
     @BindView(R.id.certify_name_submit_bt)
     Button certifyNameSubmitBt;
-    Unbinder unbinder;
     @BindView(R.id.certify_name_account_cv)
     ClickItemView certifyNameAccountCv;
     @BindView(R.id.certify_name_name_cv)
@@ -161,15 +160,14 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
             toast("请等待压缩");
             return;
         }
+
         CertifyNameReq certifyNameReq = new CertifyNameReq();
-        certifyNameReq.setBackImg(backBytes);
-        certifyNameReq.setFrontImg(frontBytes);
         certifyNameReq.setUserAccount(userAccount);
         certifyNameReq.setUserName(userName);
         certifyNameReq.setUserCertNo(userCertNo);
         certifyNameReq.setUserCertTypeStr((selectIndex + 1) + "");
 
-        presenter.submitCertify(certifyNameReq, CERTIFY_NAME_TAG);
+        presenter.submitCertify(certifyNameReq, backBytes, frontBytes, CERTIFY_NAME_TAG);
     }
 
     /**
@@ -279,7 +277,6 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         if (commonDialog != null) {
             commonDialog.dismiss();
         }
-        unbinder.unbind();
     }
 
     private void checkPermission(int index) {
@@ -317,11 +314,20 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         RxPermissionUtils.destory();
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        switch (tag) {
+            case CERTIFY_NAME_TAG:
+                toast("提交成功");
+                ((CertificationActivity) getActivity()).setSelect(1);
+                break;
+        }
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object o) {
+        super.onError(errorMsg, code, tag, o);
     }
 }

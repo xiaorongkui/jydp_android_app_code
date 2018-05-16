@@ -3,7 +3,10 @@ package com.qmkj.jydp.module.home.view;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.HomeNoticeInfo;
 import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
+import com.qmkj.jydp.module.home.presenter.HomeGrideAdapter;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
@@ -93,22 +97,12 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         });
     }
 
-    private void initGrideView(List<HomeDataRes.SystemBusinessesPartnerListBean> systemBusinessesPartnerList) {
-        int[] icon = {R.mipmap.compare, R.mipmap.compare, R.mipmap.compare, R.mipmap.compare};
-        String[] iconName = {"盛源九州", "生源九州", "生源九州", "kjhgffgjj"};
-        ArrayList<Map<String, Object>> data_list = new ArrayList<>();
-        for (int i = 0; i < icon.length; i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("image", icon[i]);
-            map.put("text", iconName[i]);
-            data_list.add(map);
+    private void initGrideView(List<HomeDataRes.SystemBusinessesPartnerListBean> data) {
+        if (data == null) {
+            return;
         }
-
-        String[] from = {"image", "text"};
-        int[] to = {R.id.gride_image, R.id.gride_text};
-        SimpleAdapter sim_adapter = new SimpleAdapter(mContext, data_list, R.layout
-                .home_item_grideview, from, to);
-        homeIntroduceGv.setAdapter(sim_adapter);
+        HomeGrideAdapter homeGrideAdapter = new HomeGrideAdapter(mContext, R.layout.home_item_grideview, data);
+        homeIntroduceGv.setAdapter(homeGrideAdapter);
         homeIntroduceGv.setOnItemClickListener((parent, view, position, id) -> {
         });
     }

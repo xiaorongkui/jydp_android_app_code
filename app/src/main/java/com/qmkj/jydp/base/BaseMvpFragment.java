@@ -10,6 +10,7 @@ import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.di.component.DaggerFragmentComponent;
 import com.qmkj.jydp.di.component.FragmentComponent;
 import com.qmkj.jydp.di.module.FragmentModule;
+import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,8 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
-
+        LogUtil.i("接口请求失败" + ";errorMsg=" + errorMsg + ";errorcode=" + code + ";tag=" + tag);
+        toast(errorMsg);
     }
 
 }

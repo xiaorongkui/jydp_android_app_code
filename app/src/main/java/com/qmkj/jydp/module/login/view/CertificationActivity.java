@@ -29,6 +29,14 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     private FragmentTransaction ft;
     private CertifyNameFragment certifyNameFragment;
     private CertifyNameStatusFragment certifyCheckFragment;
+    public static final int CERTIFY_STATUS_NO_SUBMIT = 1;//未提交
+    public static final int CERTIFY_STATUS_CHECK = 2;//审核中
+    public static final int CERTIFY_STATUS_NO_PASS = 3;//拒绝通过
+    public int status;
+
+    public int getStatus() {
+        return status;
+    }
 
     @Override
     protected void injectPresenter() {
@@ -37,7 +45,7 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        titleHeaderTv.setOnClickListener(v -> setSelect(1));
+
     }
 
     @Override
@@ -52,7 +60,18 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initView() {
-        setSelect(0);
+        status = getIntent().getIntExtra(Constants.INTENT_PARAMETER_1, 0);
+        switch (status) {
+            case CERTIFY_STATUS_NO_SUBMIT:
+                setSelect(0);
+                break;
+            case CERTIFY_STATUS_CHECK:
+                setSelect(1);
+                break;
+            case CERTIFY_STATUS_NO_PASS:
+                setSelect(1);
+                break;
+        }
     }
 
     public void setSelect(int i) {

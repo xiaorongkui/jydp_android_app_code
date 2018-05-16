@@ -12,6 +12,7 @@ import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -51,8 +52,8 @@ public interface LoginService {
      */
     @Multipart
     @POST(AppNetConfig.urlPath + "wap/identificationController/add")
-    Observable<BaseRes<BaseRes>> submitCertify(@Part("data") RequestBody req, @Part("front\"; filename = " +
-            "\"front.jpg") RequestBody frontFile, @Part("back\"; filename = \"back.jpg") RequestBody backFile);
+    Observable<BaseRes<BaseRes>> submitCertify(@Part("data") RequestBody req, @Part("frontImg\"; filename = " +
+            "\"frontImg.jpg") RequestBody frontFile, @Part("backImg\"; filename = \"backImg.jpg") RequestBody backFile);
 
     /**
      * 忘记密码

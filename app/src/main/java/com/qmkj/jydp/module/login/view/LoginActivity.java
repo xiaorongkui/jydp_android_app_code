@@ -32,6 +32,7 @@ import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.NetResponseCode;
+import com.qmkj.jydp.common.SystemMessageConfig;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditHItemView;
@@ -411,11 +412,23 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         switch (tag) {
             case LOGIN_SATRT_TAG:
                 switch (code) {
-                    case NetResponseCode.HMC_NETWORK_NO_CERTIFY_NAME:
+                    case SystemMessageConfig.NOIDENTIFICATION_CODE + ""://未审核
                         CommonUtil.setUserAccount(account);
-                        Intent intent = new Intent(mContext, CertificationActivity.class);
-                        intent.putExtra(Constants.INTENT_PARAMETER_1, account);
-                        CommonUtil.gotoActivity(mContext, intent);
+                        Intent intent1 = new Intent(mContext, CertificationActivity.class);
+                        intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
+                        CommonUtil.gotoActivity(mContext, intent1);
+                        break;
+                    case SystemMessageConfig.NOADOPT_CODE + ""://审核中
+                        CommonUtil.setUserAccount(account);
+                        Intent intent2 = new Intent(mContext, CertificationActivity.class);
+                        intent2.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_CHECK);
+                        CommonUtil.gotoActivity(mContext, intent2);
+                        break;
+                    case SystemMessageConfig.REFUE_CODE + ""://拒绝
+                        CommonUtil.setUserAccount(account);
+                        Intent intent3 = new Intent(mContext, CertificationActivity.class);
+                        intent3.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_PASS);
+                        CommonUtil.gotoActivity(mContext, intent3);
                         break;
                 }
 
@@ -424,5 +437,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 CommonUtil.gotoActivity(mContext, CertificationActivity.class);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        CommonUtil.gotoActivity(mContext, MainActivity.class);
     }
 }

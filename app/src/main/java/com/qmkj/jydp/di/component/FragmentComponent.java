@@ -37,4 +37,6 @@ public interface FragmentComponent {
     void inject(OutsideExchangeFragment outsideExchangeFragment);
 
     void inject(CertifyNameFragment certifyNameFragment);
+
+    void inject(CertifyNameStatusFragment certifyNameStatusFragment);
 }

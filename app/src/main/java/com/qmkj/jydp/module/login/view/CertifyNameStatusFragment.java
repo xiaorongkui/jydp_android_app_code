@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
@@ -54,20 +55,28 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
     @Override
     protected void injectPresenter() {
-//        getFragmentComponent().inject();
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected void initView() {
+        int status = ((CertificationActivity) getActivity()).getStatus();
         certifyCheckHomeBt.setOnClickListener(this);
         certifyCheckStatusBt.setOnClickListener(this);
-        setCertifyNameStatus(0);
+        switch (status) {
+            case CertificationActivity.CERTIFY_STATUS_CHECK:
+                setCertifyNameStatus(0);
+                break;
+            case CertificationActivity.CERTIFY_STATUS_NO_PASS:
+                setCertifyNameStatus(2);
+                break;
+        }
+        certifyCheckHomeBt.setOnClickListener(this);
     }
 
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -80,17 +89,12 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         return getClass().getSimpleName();
     }
 
-    int i = 0;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.certify_check_home_bt:
-                setCertifyNameStatus(i);
-                i++;
-                if (i > 2 || i < 0) {
-                    i = 0;
-                }
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
                 break;
             case R.id.certify_check_status_bt:
                 if (getActivity() != null) {
