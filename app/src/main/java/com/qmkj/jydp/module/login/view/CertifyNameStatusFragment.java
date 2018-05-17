@@ -1,20 +1,32 @@
 package com.qmkj.jydp.module.login.view;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.base.GlideApp;
+import com.qmkj.jydp.bean.request.ReCertificetionReq;
+import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/23
@@ -24,6 +36,7 @@ import butterknife.BindView;
 
 public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
+    private static final int CERTIFICATION_RECHECK_TAG = 1;
     @BindView(R.id.certify_name_status_iv)
     ImageView certifyNameStatusIv;
     @BindView(R.id.ertify_check_account_cv)
@@ -52,6 +65,10 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
     Button certifyCheckHomeBt;
     @BindView(R.id.certify_check_status_bt)
     Button certifyCheckStatusBt;
+    @BindView(R.id.check_mark_ll)
+    LinearLayout checkMarkLl;
+    Unbinder unbinder;
+    private LoginRes checkInfo;
 
     @Override
     protected void injectPresenter() {
@@ -61,11 +78,36 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
     @Override
     protected void initView() {
         int status = ((CertificationActivity) getActivity()).getStatus();
+        checkInfo = ((CertificationActivity) getActivity()).getCheckInfo();
         certifyCheckHomeBt.setOnClickListener(this);
         certifyCheckStatusBt.setOnClickListener(this);
+        if (checkInfo == null || checkInfo.getIdentification() == null || checkInfo.getIdentificationImageList().size
+                () < 2) {
+            LogUtil.i("实名认证信息为空");
+            return;
+        }
         switch (status) {
             case CertificationActivity.CERTIFY_STATUS_CHECK:
                 setCertifyNameStatus(0);
+                LoginRes.IdentificationBean identification = checkInfo.getIdentification();
+                ertifyCheckAccountCv.setRightText(checkInfo.getUserAccount());
+                ertifyCheckNameCv.setRightText(identification.getUserName());
+                int userCertType = identification.getUserCertType();
+                switch (userCertType) {
+                    case 2:
+                        ertifyCheckTypeCv.setRightText("护照");
+                        break;
+                    default:
+                        ertifyCheckTypeCv.setRightText("身份证");
+                        break;
+                }
+                ertifyCheckNumberCv.setRightText(identification.getUserCertNo());
+                List<LoginRes.IdentificationImageListBean> identificationImageList = checkInfo
+                        .getIdentificationImageList();
+                GlideApp.with(mContext).load(identificationImageList.get(0).getImageUrlFormat())
+                        .placeholder(R.mipmap.ic_launcher).into(certifyNameFrontIv);
+                GlideApp.with(mContext).load(identificationImageList.get(1).getImageUrlFormat())
+                        .placeholder(R.mipmap.ic_launcher).into(certifyNameBackIv);
                 break;
             case CertificationActivity.CERTIFY_STATUS_NO_PASS:
                 setCertifyNameStatus(2);
@@ -96,12 +138,16 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
             case R.id.certify_check_home_bt:
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
                 break;
-            case R.id.certify_check_status_bt:
-                if (getActivity() != null) {
-                    ((CertificationActivity) getActivity()).setSelect(0);
-                }
+            case R.id.certify_check_status_bt://重新认证
+                getReCertificationStaus();
                 break;
         }
+    }
+
+    private void getReCertificationStaus() {
+        ReCertificetionReq reCertificetionReq = new ReCertificetionReq();
+        reCertificetionReq.setUserAccount(checkInfo.getUserAccount());
+        presenter.getReCertificationStaus(reCertificetionReq, CERTIFICATION_RECHECK_TAG, true);
     }
 
     public void setCertifyNameStatus(int index) {
@@ -117,6 +163,7 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
                 certifyCheckStatusBt.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
                 certifyCheckStatusBt.setText(CommonUtil.getString(R.string.re_certification));
                 certifyNameStatusIv.setImageResource(R.mipmap.certify_name_check);
+                checkMarkLl.setVisibility(View.GONE);
                 break;
             case 1://审核通过
                 certifyCheckHomeBt.setBackground(CommonUtil.getDrawable(R.drawable.shape_btn_green));
@@ -133,8 +180,22 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
                 certifyCheckStatusBt.setTextColor(CommonUtil.getColor(R.color.color_red_2));
                 certifyCheckStatusBt.setText(CommonUtil.getString(R.string.re_certification));
                 certifyNameStatusIv.setImageResource(R.mipmap.certify_name_check_refuse);
+                checkMarkLl.setVisibility(View.VISIBLE);
                 break;
         }
 
     }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        switch (tag) {
+            case CERTIFICATION_RECHECK_TAG:
+                if (getActivity() != null) {
+                    ((CertificationActivity) getActivity()).setSelect(0);
+                }
+                break;
+        }
+    }
+
 }

@@ -32,13 +32,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y169"/>
 
-                <com.qmkj.jydp.ui.widget.UPMarqueeView
-                    android:id="@+id/marquee_home_header_notice"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y28"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginRight="@dimen/x15"
-                    android:layout_marginTop="@dimen/y10"/>
+                    android:layout_marginTop="@dimen/y10">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_home_marquee_bg"/>
+
+                    <com.qmkj.jydp.ui.widget.UPMarqueeView
+                        android:id="@+id/marquee_home_header_notice"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </FrameLayout>
+
 
                 <include
                     layout="@layout/home_rv_item_header"

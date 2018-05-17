@@ -10,6 +10,7 @@ import com.qmkj.jydp.base.BaseView;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.LoginReq;
+import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.util.LogUtil;
@@ -54,17 +55,15 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
         RequestBody data = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(req));
         RequestBody frontRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), backBytes);
         RequestBody backRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), frontBytes);
-//        MultipartBody.Part frontRequestBodyPart = MultipartBody.Part.createFormData("frontImg", "front.jpg",
-// frontRequestBody);
-//        MultipartBody.Part backRequestBodyPart = MultipartBody.Part.createFormData("backImg", "back.jpg",
-// backRequestBody);
-//        RequestBody frontRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), backBytes);
-//        RequestBody backRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), frontBytes);
         sendHttpRequest(loginService.submitCertify(data, frontRequestBody, backRequestBody), tag);
     }
 
     public void submitForgetPwd(ForgetPwdReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(loginService.submitForgetPwd(req), tag);
+    }
+
+    public void getReCertificationStaus(ReCertificetionReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(loginService.getReCertificationStaus(req), tag);
     }
 
 }

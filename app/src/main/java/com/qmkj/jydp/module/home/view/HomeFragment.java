@@ -114,6 +114,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         homeListRv.setLayoutManager(mLayoutManager);
+        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
+        homeRecyAdapter.setEmptyView(mEmptyView);
         homeListRv.setAdapter(homeRecyAdapter);
     }
 

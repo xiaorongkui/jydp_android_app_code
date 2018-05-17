@@ -133,11 +133,12 @@
 
                             <ImageView
                                 android:id="@+id/certify_name_front_iv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:layout_gravity="center_horizontal"/>
+                                android:layout_gravity="center_horizontal"
+                                android:scaleType="fitXY"/>
 
                         </RelativeLayout>
 
@@ -169,10 +170,11 @@
 
                             <ImageView
                                 android:id="@+id/certify_name_back_iv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_centerInParent="true"
-                                android:layout_gravity="center_horizontal"/>
+                                android:layout_gravity="center_horizontal"
+                                android:scaleType="fitXY"/>
 
                         </RelativeLayout>
 
@@ -189,6 +191,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/check_mark_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/y20"
@@ -201,7 +204,6 @@
                         android:id="@+id/check_mark_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:text="@string/check_marks"
                         android:textColor="@color/color_black_6"
                         android:textSize="@dimen/text_size_14"/>

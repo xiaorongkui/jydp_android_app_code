@@ -388,7 +388,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 LoginRes loginBean = (LoginRes) response;
                 LoginRes.UserBean user = loginBean.getUser();
                 CommonUtil.setLoginInfo(loginBean);
-                if (user != null) CommonUtil.setUserAccount(user.getUserAccount());
+                if (user != null) CommonUtil.setUserAccount(account);
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
                 AppManager.getInstance().removeCurrent();
                 break;
@@ -419,9 +419,15 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                         CommonUtil.gotoActivity(mContext, intent1);
                         break;
                     case SystemMessageConfig.NOADOPT_CODE + ""://审核中
+                        LoginRes loginBean = (LoginRes) response;
+                        if (loginBean == null) {
+                            toast("正在审核中，数据异常");
+                            return;
+                        }
                         CommonUtil.setUserAccount(account);
                         Intent intent2 = new Intent(mContext, CertificationActivity.class);
                         intent2.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_CHECK);
+                        intent2.putExtra(Constants.INTENT_PARAMETER_2, loginBean);
                         CommonUtil.gotoActivity(mContext, intent2);
                         break;
                     case SystemMessageConfig.REFUE_CODE + ""://拒绝

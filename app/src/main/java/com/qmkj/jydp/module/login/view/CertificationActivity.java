@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.util.CommonUtil;
@@ -33,9 +34,14 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     public static final int CERTIFY_STATUS_CHECK = 2;//审核中
     public static final int CERTIFY_STATUS_NO_PASS = 3;//拒绝通过
     public int status;
+    private LoginRes checkInfo;
 
     public int getStatus() {
         return status;
+    }
+
+    public LoginRes getCheckInfo() {
+        return checkInfo;
     }
 
     @Override
@@ -61,6 +67,7 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     protected void initView() {
         status = getIntent().getIntExtra(Constants.INTENT_PARAMETER_1, 0);
+        checkInfo = (LoginRes) getIntent().getSerializableExtra(Constants.INTENT_PARAMETER_2);
         switch (status) {
             case CERTIFY_STATUS_NO_SUBMIT:
                 setSelect(0);

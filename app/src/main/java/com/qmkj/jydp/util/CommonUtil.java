@@ -679,6 +679,7 @@ public class CommonUtil {
     /*保存登录时个人信息返回*/
     public static void setLoginInfo(LoginRes userInfo) {
         SPHelper.getInstance().saveObject(Constants.SP_SAVE_LOGIN_USERINFO, userInfo);
+        if (userInfo != null) setToken(userInfo.getToken());
     }
 
     /*保存登录时个人信息返回*/
@@ -688,11 +689,12 @@ public class CommonUtil {
 
     //获取tokenId
     public static String getToken() {
-        LoginRes loginInfo = getLoginInfo();
-        if (loginInfo != null) {
-            return loginInfo.getToken();
-        }
-        return "";
+        return SPHelper.getInstance().getString(Constants.SP_SAVE_TOKEN);
+    }
+
+    //获取tokenId
+    public static void setToken(String token) {
+        SPHelper.getInstance().set(Constants.SP_SAVE_TOKEN, token);
     }
 
     /**

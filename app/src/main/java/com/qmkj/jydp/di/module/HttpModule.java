@@ -65,7 +65,9 @@ public class HttpModule {
     @Singleton
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
         if (BuildConfig.LOG_DEBUG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
+                LogUtil.i("OkHttp====" + message);
+            });
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
         }
@@ -135,11 +137,7 @@ public class HttpModule {
                 return chain.proceed(oldRequest);
             }
             Request request = oldRequest.newBuilder().addHeader("X-Access-Auth-Token", token).build();
-            LogUtil.i("token=" + token);
-            LogUtil.i("url:" + request.url());
-            LogUtil.i("method:" + request.method());
-            LogUtil.i("request-headers:" + request.headers());
-            LogUtil.i("request-body:" + request.body());
+
 
             return chain.proceed(request);
         }

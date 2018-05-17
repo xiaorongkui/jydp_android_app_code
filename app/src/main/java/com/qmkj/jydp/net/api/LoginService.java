@@ -3,11 +3,13 @@ package com.qmkj.jydp.net.api;
 
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
+import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.bean.request.LoginReq;
+import com.qmkj.jydp.bean.response.ReCertificetionRes;
 import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
@@ -39,7 +41,7 @@ public interface LoginService {
      */
     @FormUrlEncoded
     @POST(AppNetConfig.urlPath + "sendCode/sendPhoneCode")
-    Observable<BaseRes<BaseRes>> getRegisterCode(@Field("phoneNumber") String code);
+    Observable<BaseRes<Object>> getRegisterCode(@Field("phoneNumber") String code);
 
     /**
      * 注册
@@ -52,12 +54,18 @@ public interface LoginService {
      */
     @Multipart
     @POST(AppNetConfig.urlPath + "wap/identificationController/add")
-    Observable<BaseRes<BaseRes>> submitCertify(@Part("data") RequestBody req, @Part("frontImg\"; filename = " +
+    Observable<BaseRes<Object>> submitCertify(@Part("data") RequestBody req, @Part("frontImg\"; filename = " +
             "\"frontImg.jpg") RequestBody frontFile, @Part("backImg\"; filename = \"backImg.jpg") RequestBody backFile);
 
     /**
      * 忘记密码
      */
     @POST(AppNetConfig.urlPath + "wap/forgetPassword/forgetPassword")
-    Observable<BaseRes<BaseRes>> submitForgetPwd(@Body ForgetPwdReq req);
+    Observable<BaseRes<Object>> submitForgetPwd(@Body ForgetPwdReq req);
+
+    /**
+     * 重新认证
+     */
+    @POST(AppNetConfig.urlPath + "wap/identificationController/showAdd")
+    Observable<BaseRes<ReCertificetionRes>> getReCertificationStaus(@Body ReCertificetionReq req);
 }
