@@ -1,20 +1,17 @@
 package com.qmkj.jydp.module.home.view;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
-import com.qmkj.jydp.bean.HomeNoticeInfo;
 import com.qmkj.jydp.bean.response.HomeDataRes;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomeGrideAdapter;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
@@ -28,15 +25,9 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -82,12 +73,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         homeFragmentRefresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Observable.timer(5, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        homeFragmentRefresh.refreshComplete();
-                    }
-                });
+                getHomeData(false);
             }
 
             @Override
@@ -97,6 +83,10 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         });
     }
 
+    private void getHomeData(boolean isShowProgress) {
+        presenter.getCurrentPrice(HOME_DATA_TAG, isShowProgress);
+    }
+
     private void initGrideView(List<HomeDataRes.SystemBusinessesPartnerListBean> data) {
         if (data == null) {
             return;
@@ -104,6 +94,12 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         HomeGrideAdapter homeGrideAdapter = new HomeGrideAdapter(mContext, R.layout.home_item_grideview, data);
         homeIntroduceGv.setAdapter(homeGrideAdapter);
         homeIntroduceGv.setOnItemClickListener((parent, view, position, id) -> {
+            HomeDataRes.SystemBusinessesPartnerListBean listBean = data.get(position);
+            if (listBean == null) return;
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.putExtra(Constants.INTENT_PARAMETER_1, listBean.getBusinessesName());
+            intent.putExtra(Constants.INTENT_PARAMETER_2, listBean.getWebLinkUrl());
+            CommonUtil.gotoActivity(mContext, intent);
         });
     }
 
@@ -137,8 +133,11 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         //设置自动轮播，默认为true
         homeAutoLl.isAutoPlay(true);
         homeAutoLl.setOnBannerListener(position -> {
-//            BannerModel model = bannerList.get(position);
-
+            HomeDataRes.SystemAdsHomepagesListBean model = bannerList.get(position);
+            Intent intent = new Intent(mContext, WebActivity.class);
+            intent.putExtra(Constants.INTENT_PARAMETER_1, model.getAdsTitle());
+            intent.putExtra(Constants.INTENT_PARAMETER_2, model.getWebLinkUrl());
+            CommonUtil.gotoActivity(mContext, intent);
         });
         //设置轮播时间
         homeAutoLl.setDelayTime(4000);
@@ -166,7 +165,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     @Override
     protected void initData() {
-        presenter.getCurrentPrice(HOME_DATA_TAG, true);
+        getHomeData(true);
     }
 
     /**
@@ -175,17 +174,21 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     private View createNoticeView(HomeDataRes.SystemNoticeListBean noticeListBean) {
         View itemView = View.inflate(mContext, R.layout.home_notice_item, null);
         TextView mTvNotice = itemView.findViewById(R.id.tv_home_header_notice);
+        TextView notice_title_type_tv = itemView.findViewById(R.id.notice_title_type_tv);
         TextView tv_home_header_notice_more = itemView.findViewById(R.id.tv_home_header_notice_more);
 
         mTvNotice.setText(noticeListBean.getNoticeTitle());
         tv_home_header_notice_more.setText(CommonUtil.getString(R.string.more));
+        notice_title_type_tv.setText("[" + noticeListBean.getNoticeType() + "]");
         itemView.setTag(noticeListBean);
 
         itemView.setOnClickListener(v -> {
-            HomeNoticeInfo tagModel = (HomeNoticeInfo) v.getTag();
-            if (tagModel != null) {
-                String noticeTitle = noticeListBean.getNoticeTitle();
-                //去h5页面
+            HomeDataRes.SystemNoticeListBean systemNoticeListBean = (HomeDataRes.SystemNoticeListBean) v.getTag();
+            if (systemNoticeListBean != null) {
+                Intent intent = new Intent(mContext, WebActivity.class);
+                intent.putExtra(Constants.INTENT_PARAMETER_1, systemNoticeListBean.getNoticeTitle());
+                intent.putExtra(Constants.INTENT_PARAMETER_2, systemNoticeListBean.getNoticeUrl());
+                CommonUtil.gotoActivity(mContext, intent);
             }
         });
 
@@ -224,6 +227,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     @Override
     public void onSuccess(Object response, int tag) {
+        homeFragmentRefresh.refreshComplete();
         super.onSuccess(response, tag);
         switch (tag) {
             case HOME_DATA_TAG:
@@ -257,6 +261,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
+        homeFragmentRefresh.refreshComplete();
         super.onError(errorMsg, code, tag, o);
     }
 

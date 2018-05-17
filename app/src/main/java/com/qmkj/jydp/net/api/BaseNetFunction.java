@@ -22,7 +22,6 @@ public class BaseNetFunction<T> implements Function<BaseRes<T>, T> {
         String responseCode = resultEntry.getCode();
         String responseMessage = resultEntry.getMessage();
         T data = resultEntry.getData();
-        LogUtil.i(resultEntry.toString());
         switch (responseCode) {
             case NetResponseCode.HMC_SUCCESS:
                 LogUtil.i(data == null ? "null" : "请求成功");
@@ -41,7 +40,7 @@ public class BaseNetFunction<T> implements Function<BaseRes<T>, T> {
                 throw new HandlerException.ResponeThrowable(responseMessage, SystemMessageConfig
                         .REFUE_CODE + "", data);
             default:
-                throw new HandlerException.ResponeThrowable(responseMessage, responseCode);
+                throw new HandlerException.ResponeThrowable(responseMessage, responseCode, data);
         }
     }
 }

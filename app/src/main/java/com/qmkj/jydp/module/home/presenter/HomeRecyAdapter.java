@@ -10,6 +10,7 @@ import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
 
@@ -24,8 +25,6 @@ import butterknife.BindView;
 public class HomeRecyAdapter extends BaseRecylerAdapter<HomeDataRes.TransactionUserDealListBean> {
     private final List<String> datas;
     private final Context mContext;
-    @BindView(R.id.common_line)
-    View homeExchanageBottomLine;
 
     public HomeRecyAdapter(Context context, List datas, int layoutId) {
         super(layoutId, datas);
@@ -43,8 +42,8 @@ public class HomeRecyAdapter extends BaseRecylerAdapter<HomeDataRes.TransactionU
         TextView home_exchange_updown_percent_tv = helper.getView(R.id.home_exchange_updown_percent_tv);
         home_currency_name_item_tv.setText(item.getCurrencyName());
         home_currency_us_name_item_tv_1.setText(item.getCurrencyShortName());
-        home_currency_exchange_amount_tv.setText(item.getVolume() + "");
-        home_current_price_tv.setText(item.getLatestPrice() + "");
+        home_currency_exchange_amount_tv.setText(NumberUtil.doubleFormat(item.getVolume(), 2));
+        home_current_price_tv.setText(NumberUtil.doubleFormat(item.getLatestPrice(), 2));
         double change = item.getChange();
         if (change >= 0) {
             home_exchange_updown_percent_iv.setImageResource(R.mipmap.exchange_up);
@@ -53,6 +52,6 @@ public class HomeRecyAdapter extends BaseRecylerAdapter<HomeDataRes.TransactionU
             home_exchange_updown_percent_iv.setImageResource(R.mipmap.exchange_down);
             home_exchange_updown_percent_tv.setTextColor(CommonUtil.getColor(R.color.color_green_4));
         }
-        home_exchange_updown_percent_tv.setText(change + "%");
+        home_exchange_updown_percent_tv.setText(NumberUtil.doubleFormat(change, 2) + "%");
     }
 }

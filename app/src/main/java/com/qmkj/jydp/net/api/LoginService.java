@@ -1,12 +1,14 @@
 package com.qmkj.jydp.net.api;
 
 
+import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.bean.response.BaseRes;
+import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.response.ReCertificetionRes;
@@ -68,4 +70,10 @@ public interface LoginService {
      */
     @POST(AppNetConfig.urlPath + "wap/identificationController/showAdd")
     Observable<BaseRes<ReCertificetionRes>> getReCertificationStaus(@Body ReCertificetionReq req);
+
+    /**
+     * 认证信息
+     */
+    @POST(AppNetConfig.urlPath + "wap/identificationController/show")
+    Observable<BaseRes<CertificetionInfoRes>> getCertifyStatus(@Body CertificetionInfoReq req);
 }

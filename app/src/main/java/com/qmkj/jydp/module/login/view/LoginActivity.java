@@ -238,8 +238,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 loginSatart();
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
-                CommonUtil.gotoActivity(mContext, CertificationActivity.class);
-//                startRegister();
+                startRegister();
                 break;
             case R.id.register_phone_erea_tv://选择区号
             case R.id.register_phone_erea_iv://选择区号
@@ -307,7 +306,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             toast("账号必须是字母、数字，6～16个字符");
             return;
         }
-        if (!CheckTextUtil.checkPassword(account)) {
+        if (!CheckTextUtil.checkPassword(password)) {
             toast("密码必须是字母、数字，6～16个字符");
             return;
         }
@@ -401,7 +400,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 setShowStatusView(0);
                 RegisterRes registerRes = (RegisterRes) response;
                 CommonUtil.setUserAccount(registerRes.getUserAccount());
-                CommonUtil.gotoActivity(mContext, CertificationActivity.class);
+                Intent intent1 = new Intent(mContext, CertificationActivity.class);
+                intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
+                CommonUtil.gotoActivity(mContext, intent1);
                 break;
         }
     }
@@ -411,29 +412,32 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         super.onError(errorMsg, code, tag, response);
         switch (tag) {
             case LOGIN_SATRT_TAG:
+                try {
+                    LoginRes loginBean = (LoginRes) response;
+                    if (loginBean != null) CommonUtil.setLoginInfo(loginBean);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 switch (code) {
                     case SystemMessageConfig.NOIDENTIFICATION_CODE + ""://未审核
                         CommonUtil.setUserAccount(account);
                         Intent intent1 = new Intent(mContext, CertificationActivity.class);
                         intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
+                        intent1.putExtra(Constants.INTENT_PARAMETER_2, account);
                         CommonUtil.gotoActivity(mContext, intent1);
                         break;
                     case SystemMessageConfig.NOADOPT_CODE + ""://审核中
-                        LoginRes loginBean = (LoginRes) response;
-                        if (loginBean == null) {
-                            toast("正在审核中，数据异常");
-                            return;
-                        }
                         CommonUtil.setUserAccount(account);
                         Intent intent2 = new Intent(mContext, CertificationActivity.class);
                         intent2.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_CHECK);
-                        intent2.putExtra(Constants.INTENT_PARAMETER_2, loginBean);
+                        intent2.putExtra(Constants.INTENT_PARAMETER_2, account);
                         CommonUtil.gotoActivity(mContext, intent2);
                         break;
                     case SystemMessageConfig.REFUE_CODE + ""://拒绝
                         CommonUtil.setUserAccount(account);
                         Intent intent3 = new Intent(mContext, CertificationActivity.class);
                         intent3.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_PASS);
+                        intent3.putExtra(Constants.INTENT_PARAMETER_2, account);
                         CommonUtil.gotoActivity(mContext, intent3);
                         break;
                 }

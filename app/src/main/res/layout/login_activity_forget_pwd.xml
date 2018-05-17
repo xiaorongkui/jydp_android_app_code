@@ -84,6 +84,7 @@
                     <EditText
                         android:id="@+id/forget_pwd_phone_erea_et"
                         style="@style/edt_left"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x15"

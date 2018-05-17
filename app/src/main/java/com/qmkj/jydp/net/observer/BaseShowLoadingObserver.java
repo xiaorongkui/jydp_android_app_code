@@ -71,14 +71,13 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
         super.onRequestStart();
         if (showProgressDialog) {
             initProgressDialog(isCancel);
+            showLoading();
         }
         if (!CommonUtil.isNetworkAvailable(JYDPExchangeApp.getContext())) {
             onRequestError(HandlerException.handleException(new
                     HandlerException.ResponeThrowable(CommonUtil.getString(R.string.net_connect_error), NetResponseCode
                     .HMC_NETWORK_ERROR)));
 
-        } else {
-            showLoading();
         }
     }
 

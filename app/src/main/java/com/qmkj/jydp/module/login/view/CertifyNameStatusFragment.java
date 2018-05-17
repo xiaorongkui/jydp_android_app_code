@@ -15,6 +15,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
+import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
@@ -67,8 +68,8 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
     Button certifyCheckStatusBt;
     @BindView(R.id.check_mark_ll)
     LinearLayout checkMarkLl;
-    Unbinder unbinder;
-    private LoginRes checkInfo;
+    private CertificetionInfoRes checkInfo;
+    private int status;
 
     @Override
     protected void injectPresenter() {
@@ -77,8 +78,9 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
     @Override
     protected void initView() {
-        int status = ((CertificationActivity) getActivity()).getStatus();
-        checkInfo = ((CertificationActivity) getActivity()).getCheckInfo();
+        checkInfo = ((CertificationActivity) getActivity()).getInfoRes();
+        if (checkInfo == null) return;
+        status = checkInfo.getIdentification().getIdentificationStatus();
         certifyCheckHomeBt.setOnClickListener(this);
         certifyCheckStatusBt.setOnClickListener(this);
         if (checkInfo == null || checkInfo.getIdentification() == null || checkInfo.getIdentificationImageList().size
@@ -86,28 +88,28 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
             LogUtil.i("实名认证信息为空");
             return;
         }
+        CertificetionInfoRes.IdentificationBean identification = checkInfo.getIdentification();
+        ertifyCheckAccountCv.setRightText(identification.getUserAccount());
+        ertifyCheckNameCv.setRightText(identification.getUserName());
+        int userCertType = identification.getUserCertType();
+        switch (userCertType) {
+            case 2:
+                ertifyCheckTypeCv.setRightText("护照");
+                break;
+            default:
+                ertifyCheckTypeCv.setRightText("身份证");
+                break;
+        }
+        ertifyCheckNumberCv.setRightText(identification.getUserCertNo());
+        List<CertificetionInfoRes.IdentificationImageListBean> identificationImageList = checkInfo
+                .getIdentificationImageList();
+        GlideApp.with(mContext).load(identificationImageList.get(0).getImageUrlFormat())
+                .placeholder(R.mipmap.ic_launcher).into(certifyNameFrontIv);
+        GlideApp.with(mContext).load(identificationImageList.get(1).getImageUrlFormat())
+                .placeholder(R.mipmap.ic_launcher).into(certifyNameBackIv);
         switch (status) {
             case CertificationActivity.CERTIFY_STATUS_CHECK:
                 setCertifyNameStatus(0);
-                LoginRes.IdentificationBean identification = checkInfo.getIdentification();
-                ertifyCheckAccountCv.setRightText(checkInfo.getUserAccount());
-                ertifyCheckNameCv.setRightText(identification.getUserName());
-                int userCertType = identification.getUserCertType();
-                switch (userCertType) {
-                    case 2:
-                        ertifyCheckTypeCv.setRightText("护照");
-                        break;
-                    default:
-                        ertifyCheckTypeCv.setRightText("身份证");
-                        break;
-                }
-                ertifyCheckNumberCv.setRightText(identification.getUserCertNo());
-                List<LoginRes.IdentificationImageListBean> identificationImageList = checkInfo
-                        .getIdentificationImageList();
-                GlideApp.with(mContext).load(identificationImageList.get(0).getImageUrlFormat())
-                        .placeholder(R.mipmap.ic_launcher).into(certifyNameFrontIv);
-                GlideApp.with(mContext).load(identificationImageList.get(1).getImageUrlFormat())
-                        .placeholder(R.mipmap.ic_launcher).into(certifyNameBackIv);
                 break;
             case CertificationActivity.CERTIFY_STATUS_NO_PASS:
                 setCertifyNameStatus(2);
@@ -146,7 +148,7 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
     private void getReCertificationStaus() {
         ReCertificetionReq reCertificetionReq = new ReCertificetionReq();
-        reCertificetionReq.setUserAccount(checkInfo.getUserAccount());
+        reCertificetionReq.setUserAccount(checkInfo.getIdentification().getUserAccount());
         presenter.getReCertificationStaus(reCertificetionReq, CERTIFICATION_RECHECK_TAG, true);
     }
 
@@ -181,9 +183,9 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
                 certifyCheckStatusBt.setText(CommonUtil.getString(R.string.re_certification));
                 certifyNameStatusIv.setImageResource(R.mipmap.certify_name_check_refuse);
                 checkMarkLl.setVisibility(View.VISIBLE);
+                checkMarkContentTv.setText(checkInfo.getIdentification().getRemark());
                 break;
         }
-
     }
 
     @Override

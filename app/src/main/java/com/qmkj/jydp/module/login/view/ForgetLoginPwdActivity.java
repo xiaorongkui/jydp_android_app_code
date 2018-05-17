@@ -1,5 +1,7 @@
 package com.qmkj.jydp.module.login.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -14,12 +16,15 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.StringUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -87,6 +92,8 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     protected void initView() {
         initInputType();
         forgetPwdCommitBt.setOnClickListener(this);
+        forgetPwdPhoneEreaTv.setOnClickListener(this);
+        forgetPwdPhoneEreaIv.setOnClickListener(this);
         codeTimeDownTv = loginForgetPwdVertificationCodeEiv.getView(R.id.edit_right_tv);
         codeTimeDownTv.setOnClickListener(this);
         codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
@@ -99,6 +106,8 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         loginForgetPwdAccountEiv.getEditTextView().setKeyListener(DigitsKeyListener.getInstance(digits));
         initPwdInput(loginForgetPwdNewpwdEiv.getEditTextView());
         initPwdInput(loginForgetPwdNewpwdAgainEiv.getEditTextView());
+
+        loginForgetPwdVertificationCodeEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     private void initPwdInput(EditText editText) {
@@ -118,6 +127,10 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             case R.id.edit_right_tv:
                 getVerificationCode();
                 break;
+            case R.id.forget_pwd_phone_erea_tv:
+            case R.id.forget_pwd_phone_erea_iv:
+                CommonUtil.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
+                break;
         }
     }
 
@@ -130,18 +143,23 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         String newPwdAgain = loginForgetPwdNewpwdAgainEiv.getEditTextString();
         if (CheckTextUtil.checkPassword(accunt)) {
             toast("请输入字母、数字、6-16个字符账号");
+            return;
         }
         if (TextUtils.isEmpty(phone)) {
             toast("手机号不能为空");
+            return;
         }
         if (TextUtils.isEmpty(code) || code.length() != 6) {
             toast("请输入正确的验证码");
+            return;
         }
         if (CheckTextUtil.checkPassword(newPwd)) {
             toast("请输入字母、数字、6-16个字符密码");
+            return;
         }
         if (!newPwd.equals(newPwdAgain)) {
             toast("两次密码输入不同");
+            return;
         }
         ForgetPwdReq forgetPwdReq = new ForgetPwdReq();
         forgetPwdReq.setPassword(newPwd);
@@ -203,4 +221,19 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             disposable = null;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            try {
+                DoubleString parcelableExtra = (DoubleString) data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
+                forgetPwdPhoneEreaTv.setText(parcelableExtra.str1);
+            } catch (Exception e) {
+                e.printStackTrace();
+                LogUtil.i("区号选择失败");
+            }
+        }
+    }
+
 }

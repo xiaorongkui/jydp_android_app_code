@@ -39,7 +39,7 @@ public class BaseRes<T> {
         return "BaseRes{" +
                 "code=" + code +
                 ", message='" + message + '\'' +
-                ", data=" + data +
+                ", data=" + data.toString() +
                 '}';
     }
 }

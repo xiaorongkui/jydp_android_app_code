@@ -40,14 +40,18 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         if (getIntent() != null) {
             initIntentData(getIntent());
         }
+        onTitleBackPress();
+        initView();
+        initTitle();
+        initData();
+    }
+
+    protected void onTitleBackPress() {
         View backView = findViewById(R.id.title_left_back);
         if (backView != null) {
             backView.setOnClickListener(v -> AppManager.getInstance().removeCurrent());
         }
 
-        initView();
-        initTitle();
-        initData();
     }
 
     /**

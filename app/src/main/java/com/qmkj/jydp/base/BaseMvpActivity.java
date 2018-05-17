@@ -28,8 +28,8 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         injectPresenter();
+        super.onCreate(savedInstanceState);
         if (presenter != null) {
             presenter.attachView(this);
         }
@@ -59,6 +59,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
 
     @Override
     public void onSuccess(Object response, int tag) {
+        LogUtil.i(response + "");
     }
 
     @Override

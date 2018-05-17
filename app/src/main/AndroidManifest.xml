@@ -123,6 +123,7 @@
         <activity android:name=".module.mine.view.CurrencyWithDrawRecodeActivity"/>
         <activity android:name=".module.mine.view.OutSideExchangeRecodeActivity"/>
         <activity android:name=".module.mine.view.OutSideExchangeOrderDetailActivity"/>
+        <activity android:name=".module.home.view.WebActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

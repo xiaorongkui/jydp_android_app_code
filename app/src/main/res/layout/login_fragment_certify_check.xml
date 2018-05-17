@@ -31,6 +31,7 @@
             app:sl_shadowRadius="@dimen/x5">
 
             <LinearLayout
+                android:paddingBottom="@dimen/y20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_view_shadow_bg"
@@ -194,7 +195,6 @@
                     android:id="@+id/check_mark_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/y20"
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginRight="@dimen/x15"
                     android:layout_marginTop="@dimen/y20"

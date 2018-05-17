@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.base.BaseView;
+import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.LoginReq;
@@ -64,6 +65,10 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
 
     public void getReCertificationStaus(ReCertificetionReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(loginService.getReCertificationStaus(req), tag);
+    }
+
+    public void getCertifyStatus(CertificetionInfoReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(loginService.getCertifyStatus(req), tag);
     }
 
 }

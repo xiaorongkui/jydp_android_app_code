@@ -5,7 +5,6 @@ import android.widget.ImageView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.GlideApp;
-import com.qmkj.jydp.bean.response.BannerModel;
 import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.youth.banner.loader.ImageLoader;
 

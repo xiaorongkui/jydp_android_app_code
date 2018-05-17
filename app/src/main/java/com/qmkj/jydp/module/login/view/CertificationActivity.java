@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.CertificetionInfoReq;
+import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
@@ -23,6 +25,7 @@ import butterknife.BindView;
  */
 
 public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
+    private static final int CERTIFY_STATUS_TAG = 1;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.certify_container_fl)
@@ -34,14 +37,19 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     public static final int CERTIFY_STATUS_CHECK = 2;//审核中
     public static final int CERTIFY_STATUS_NO_PASS = 3;//拒绝通过
     public int status;
-    private LoginRes checkInfo;
+    private String account;
+    private CertificetionInfoRes infoRes;
 
     public int getStatus() {
         return status;
     }
 
-    public LoginRes getCheckInfo() {
-        return checkInfo;
+    public CertificetionInfoRes getInfoRes() {
+        return infoRes;
+    }
+
+    public String getAccount() {
+        return account;
     }
 
     @Override
@@ -52,6 +60,12 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     protected void initData() {
 
+    }
+
+    private void getCertifyStatus() {
+        CertificetionInfoReq infoReq = new CertificetionInfoReq();
+        infoReq.setUserAccount(account);
+        presenter.getCertifyStatus(infoReq, CERTIFY_STATUS_TAG, true);
     }
 
     @Override
@@ -67,16 +81,14 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     protected void initView() {
         status = getIntent().getIntExtra(Constants.INTENT_PARAMETER_1, 0);
-        checkInfo = (LoginRes) getIntent().getSerializableExtra(Constants.INTENT_PARAMETER_2);
+        account = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
         switch (status) {
             case CERTIFY_STATUS_NO_SUBMIT:
                 setSelect(0);
                 break;
             case CERTIFY_STATUS_CHECK:
-                setSelect(1);
-                break;
             case CERTIFY_STATUS_NO_PASS:
-                setSelect(1);
+                getCertifyStatus();
                 break;
         }
     }
@@ -119,6 +131,42 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
         super.onActivityResult(requestCode, resultCode, data);
         if (certifyNameFragment != null) {
 //            certifyNameFragment.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        switch (tag) {
+            case CERTIFY_STATUS_TAG:
+                try {
+                    infoRes = (CertificetionInfoRes) response;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (infoRes == null) {
+                    toast("认证信息获取为空");
+                    return;
+                }
+                setSelect(1);
+                break;
+        }
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        showNetErrorView(certifyContainerFl, true);
+    }
+
+    @Override
+    protected void tryData(int id) {
+        super.tryData(id);
+        switch (status) {
+            case CERTIFY_STATUS_CHECK:
+            case CERTIFY_STATUS_NO_PASS:
+                getCertifyStatus();
+                break;
         }
     }
 }

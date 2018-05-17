@@ -130,6 +130,7 @@
     <string name="not_record">暂无记录</string>
 
     <string name="currency">币种</string>
+    <string name="name_1">名称</string>
     <string name="exchange_day_volume">日成交量</string>
     <string name="current_xt_price">当前价(XT)</string>
     <string name="xt_price">价格(XT)</string>

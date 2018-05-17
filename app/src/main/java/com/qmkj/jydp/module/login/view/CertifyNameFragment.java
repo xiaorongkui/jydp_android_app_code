@@ -28,6 +28,7 @@ import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
+import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
@@ -102,7 +103,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     }
 
     private void initItemView() {
-        userAccount = CommonUtil.getUserAccount();
+        userAccount = ((CertificationActivity) getActivity()).getAccount();
         certifyNameAccountCv.setRightText(userAccount);
     }
 
@@ -144,12 +145,12 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     private void submitCertifyNameData() {
         String userName = certifyNameNameCv.getEditTextString();
         String userCertNo = ertifyTypeNumEt.getText().toString().trim();
-        if (TextUtils.isEmpty(userName)) {
-            toast("姓名不能为空");
+        if (TextUtils.isEmpty(userName) || userName.length() > 16) {
+            toast("姓名输入错误");
             return;
         }
-        if (TextUtils.isEmpty(userCertNo)) {
-            toast("证件不能为空");
+        if (TextUtils.isEmpty(userCertNo) || userCertNo.length() < 6 || userCertNo.length() > 18) {
+            toast("证件号输入错误");
             return;
         }
         if (backBytes == null || backBytes.length <= 0 || frontBytes == null || frontBytes.length <= 0) {
@@ -329,5 +330,14 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
         super.onError(errorMsg, code, tag, o);
+        switch (tag) {
+            case CERTIFY_NAME_TAG:
+                switch (code) {
+                    case NetResponseCode.HMC_HAS_CHECKING://审核中
+                        ((CertificationActivity) getActivity()).setSelect(0);
+                        break;
+                }
+                break;
+        }
     }
 }
