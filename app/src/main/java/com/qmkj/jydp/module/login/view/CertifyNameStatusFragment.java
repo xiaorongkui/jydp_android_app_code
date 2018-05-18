@@ -17,6 +17,7 @@ import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.bean.response.LoginRes;
+import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
@@ -108,10 +109,14 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         GlideApp.with(mContext).load(identificationImageList.get(1).getImageUrlFormat())
                 .placeholder(R.mipmap.ic_launcher).into(certifyNameBackIv);
         switch (status) {
-            case CertificationActivity.CERTIFY_STATUS_CHECK:
+            case 1://待审核
                 setCertifyNameStatus(0);
                 break;
-            case CertificationActivity.CERTIFY_STATUS_NO_PASS:
+            case 2://审核通过
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
+                AppManager.getInstance().removeCurrent();
+                break;
+            case 3://审核拒绝
                 setCertifyNameStatus(2);
                 break;
         }

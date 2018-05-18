@@ -110,8 +110,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         homeListRv.setLayoutManager(mLayoutManager);
-        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
-        homeRecyAdapter.setEmptyView(mEmptyView);
+//        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
+//        homeRecyAdapter.setEmptyView(mEmptyView);
         homeListRv.setAdapter(homeRecyAdapter);
     }
 
@@ -227,10 +227,10 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     @Override
     public void onSuccess(Object response, int tag) {
-        homeFragmentRefresh.refreshComplete();
         super.onSuccess(response, tag);
         switch (tag) {
             case HOME_DATA_TAG:
+                homeFragmentRefresh.refreshComplete();
                 HomeDataRes homeDataRes = (HomeDataRes) response;
                 if (homeDataRes == null) return;
                 List<HomeDataRes.SystemAdsHomepagesListBean> systemAdsHomepagesList = homeDataRes
@@ -261,8 +261,12 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
-        homeFragmentRefresh.refreshComplete();
         super.onError(errorMsg, code, tag, o);
+        switch (tag) {
+            case HOME_DATA_TAG:
+                homeFragmentRefresh.refreshComplete();
+                break;
+        }
     }
 
 }

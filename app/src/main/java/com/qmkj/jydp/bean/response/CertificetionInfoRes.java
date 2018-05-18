@@ -66,7 +66,7 @@ public class CertificetionInfoRes extends BaseRes {
         private String userPhone;
         private int userCertType;
         private String userCertNo;
-        private int identificationStatus;
+        private int identificationStatus;//1待审核。2审核通过，3审核拒绝
         private String remark;
         private Object identiTime;
         private long addTime;

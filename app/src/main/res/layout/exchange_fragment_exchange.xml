@@ -33,7 +33,8 @@
                         android:id="@+id/currency_select_iv"
                         android:layout_width="@dimen/x7"
                         android:layout_height="@dimen/y12"
-                        android:src="@mipmap/back"/>
+                        android:src="@mipmap/back"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/exchange_title_tv"
@@ -58,6 +59,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/exchange_current_price_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -205,6 +207,7 @@
                             android:textSize="@dimen/text_size_12"/>
 
                         <TextView
+                            android:id="@+id/exchange_exchange_day_volume_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y10"

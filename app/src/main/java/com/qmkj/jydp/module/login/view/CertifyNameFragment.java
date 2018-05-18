@@ -322,7 +322,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         switch (tag) {
             case CERTIFY_NAME_TAG:
                 toast("提交成功");
-                ((CertificationActivity) getActivity()).setSelect(1);
+                ((CertificationActivity) getActivity()).getCertifyStatus();
                 break;
         }
     }

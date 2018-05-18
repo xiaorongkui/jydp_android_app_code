@@ -62,7 +62,7 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
 
     }
 
-    private void getCertifyStatus() {
+    public void getCertifyStatus() {
         CertificetionInfoReq infoReq = new CertificetionInfoReq();
         infoReq.setUserAccount(account);
         presenter.getCertifyStatus(infoReq, CERTIFY_STATUS_TAG, true);

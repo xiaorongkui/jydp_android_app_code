@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.base.BaseActivity;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeCurrencySelectFrament;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
 import com.qmkj.jydp.module.home.presenter.CurrencyRecyAdapter;
@@ -239,7 +240,10 @@ public class MainActivity extends BaseActivity {
     }
 
     //交易中心核心界面
-    public void showExchangeFrament(String currencyName) {
+    public void showExchangeFrament(String currencyName, String currencyId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.INTENT_PARAMETER_1, currencyName);
+        bundle.putString(Constants.INTENT_PARAMETER_2, currencyId);
         FragmentManager fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         hideFragments();
@@ -247,6 +251,7 @@ public class MainActivity extends BaseActivity {
             exchangeFragment = new ExchangeFragment();
             ft.add(R.id.main_container, exchangeFragment);
         }
+        exchangeFragment.setArguments(bundle);
         ft.show(exchangeFragment);
         ft.commit();
     }

@@ -25,6 +25,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
+import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.bean.response.LoginRes;
@@ -323,7 +324,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             toast("手机号不能为空");
             return;
         }
-        presenter.getRegisterCode(areaCode + phone, REGISTER_CODE_TAG);
+        PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
+        phoneCodeReq.setPhoneNumber(areaCode + phone);
+        presenter.getRegisterCode(phoneCodeReq, REGISTER_CODE_TAG);
     }
 
     private void codeTimeDown() {

@@ -18,6 +18,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
+import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
@@ -141,7 +142,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         String code = loginForgetPwdVertificationCodeEiv.getEditTextString();
         String newPwd = loginForgetPwdNewpwdEiv.getEditTextString();
         String newPwdAgain = loginForgetPwdNewpwdAgainEiv.getEditTextString();
-        if (CheckTextUtil.checkPassword(accunt)) {
+        if (!CheckTextUtil.checkPassword(accunt)) {
             toast("请输入字母、数字、6-16个字符账号");
             return;
         }
@@ -153,7 +154,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             toast("请输入正确的验证码");
             return;
         }
-        if (CheckTextUtil.checkPassword(newPwd)) {
+        if (!CheckTextUtil.checkPassword(newPwd)) {
             toast("请输入字母、数字、6-16个字符密码");
             return;
         }
@@ -177,7 +178,9 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             toast("手机号不能为空");
             return;
         }
-        presenter.getRegisterCode(areaCode + phone, FORGET_CODE_TAG);
+        PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
+        phoneCodeReq.setPhoneNumber(areaCode + phone);
+        presenter.getRegisterCode(phoneCodeReq, FORGET_CODE_TAG);
     }
 
     @Override
