@@ -29,4 +29,17 @@ public class MinePresenter extends BaseRxPresenter {
 
         sendHttpRequest(mineService.getMineInfo(), tag);
     }
+
+    public void getCurrencyAssetsInfo(int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getCurrencyAssetsInfo(), tag);
+    }
+
+    public void getDealerManagmentInfo(int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getDealerManagmentInfo(), tag);
+    }
+
+    public void getTradeCenterInfo(String id,int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getTradeCenterInfo(id), tag);
+    }
+
 }

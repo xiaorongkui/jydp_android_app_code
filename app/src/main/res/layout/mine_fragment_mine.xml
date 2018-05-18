@@ -58,6 +58,7 @@
 
 
                         <TextView
+                            android:id="@+id/mine_userAccount_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -88,6 +89,7 @@
                         android:textSize="@dimen/text_size_12"/>
 
                     <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:id="@+id/mine_totalUserBalance_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x30"
@@ -129,6 +131,7 @@
                         android:textSize="@dimen/text_size_13"/>
 
                     <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:id="@+id/mine_userBalance_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x15"
@@ -168,7 +171,7 @@
                             android:orientation="vertical">
 
                             <com.qmkj.jydp.ui.widget.NoPaddingTextView
-                                android:id="@+id/mine_frozen_xt_field_tv"
+                                android:id="@+id/mine_userBalanceLock_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="123440.00"

@@ -24,6 +24,7 @@
             android:paddingStart="@dimen/x11">
 
             <TextView
+                android:id="@+id/mine_assets_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/syl_1"

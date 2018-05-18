@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,7 +8,9 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.module.mine.presenter.DealerManagmentRecyAdapter;
+import com.qmkj.jydp.bean.response.DealerManagementRes;
+import com.qmkj.jydp.module.mine.presenter.DealerManagementRecyAdapter;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
@@ -17,7 +18,6 @@ import com.qmkj.jydp.util.LogUtil;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/5/3
@@ -25,25 +25,25 @@ import butterknife.ButterKnife;
  * description:经销商管理
  */
 
-public class DealerManagementActivity extends BaseMvpActivity {
+public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.dealer_managment_rv)
     RecyclerView dealerManagmentRv;
     @BindView(R.id.dealer_publish_advertise_bt)
     Button dealerPublishAdvertiseBt;
-    private ArrayList<Object> mData;
-    private DealerManagmentRecyAdapter dealerManagmentRecyAdapter;
+    private ArrayList<DealerManagementRes.OtcTransactionPendOrderListBean> mData;
+    private DealerManagementRecyAdapter dealerManagementRecyAdapter;
     private CommonDialog dialogUtils;
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
+        presenter.getDealerManagmentInfo(1,true);
     }
 
     @Override
@@ -64,22 +64,16 @@ public class DealerManagementActivity extends BaseMvpActivity {
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        dealerManagmentRecyAdapter = new DealerManagmentRecyAdapter(mContext, mData, R.layout
+        dealerManagementRecyAdapter = new DealerManagementRecyAdapter(mContext, mData, R.layout
                 .mine_dealer_managment_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dealerManagmentRv.setLayoutManager(layoutManager);
 
         View mEmptyView = View.inflate(mContext, R.layout.empty, null);
-        dealerManagmentRecyAdapter.setEmptyView(mEmptyView);
-        dealerManagmentRv.setAdapter(dealerManagmentRecyAdapter);
-        dealerManagmentRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> showDeleteDialog());
+        dealerManagementRecyAdapter.setEmptyView(mEmptyView);
+        dealerManagmentRv.setAdapter(dealerManagementRecyAdapter);
+        dealerManagementRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> showDeleteDialog());
     }
 
     private void showDeleteDialog() {
@@ -113,5 +107,19 @@ public class DealerManagementActivity extends BaseMvpActivity {
                 CommonUtil.gotoActivity(mContext, PublishAdvertisementActivity.class);
                 break;
         }
+    }
+
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        DealerManagementRes res = (DealerManagementRes) response;
+        dealerManagementRecyAdapter.addData(res.getOtcTransactionPendOrderList());
+        dealerManagementRecyAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
     }
 }

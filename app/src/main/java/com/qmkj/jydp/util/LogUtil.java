@@ -31,6 +31,9 @@ public class LogUtil {
     public static void e(String tag, String msg) {
         if (show) Logger.e(tag + ": %s", msg);
     }
+    public static void e(String msg) {
+        if (show) Logger.e(TAG + ": %s", msg);
+    }
 
     public static void i(String msg) {
         i(TAG, msg);

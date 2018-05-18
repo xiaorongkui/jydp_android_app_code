@@ -58,6 +58,12 @@ public class NoPaddingTextView extends LinearLayout {
         return textView;
     }
 
+    public void setText(String msg) {
+        if(textView!=null){
+            textView.setText(msg);
+        }
+    }
+
     public class MyTextViewInner extends android.support.v7.widget.AppCompatTextView {
         //设置是否remove间距，true为remove
         private boolean noDefaultPadding = true;

@@ -23,6 +23,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/dealer_management_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/xt"
@@ -30,7 +31,7 @@
                 android:textSize="@dimen/text_size_16"/>
 
             <TextView
-                android:id="@+id/dealer_managment_buy_tv"
+                android:id="@+id/dealer_management_buy_tv"
                 android:layout_width="@dimen/x35"
                 android:layout_height="@dimen/y18"
                 android:layout_marginStart="@dimen/x15"
@@ -46,7 +47,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/dealer_managment_delete_tv"
+                android:id="@+id/dealer_management_delete_tv"
                 android:layout_width="@dimen/x50"
                 android:layout_height="@dimen/y24"
                 android:gravity="center"
@@ -82,7 +83,7 @@
                     android:textSize="@dimen/text_size_12"/>
 
                 <TextView
-                    android:id="@+id/currency_total_assets_tv"
+                    android:id="@+id/dealer_management_area_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/currency_total_assets_name_tv"
@@ -112,7 +113,7 @@
                     android:textSize="@dimen/text_size_12"/>
 
                 <TextView
-                    android:id="@+id/available_amount_tv"
+                    android:id="@+id/dealer_management_ratio_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/available_amount_name_tv"
@@ -144,7 +145,7 @@
                     android:textSize="@dimen/text_size_12"/>
 
                 <TextView
-                    android:id="@+id/frozen_amount_tv"
+                    android:id="@+id/dealer_management_number_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/frozen_amount_name_tv"

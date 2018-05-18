@@ -12,10 +12,13 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
+import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
+import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.ui.widget.ScrollRecycleView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.ArrayList;
@@ -43,6 +46,14 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     @BindView(R.id.mine_available_money_ll)
     LinearLayout mineAvailableMoneyLl;
     Unbinder unbinder;
+    @BindView(R.id.mine_userAccount_tv)
+    TextView mine_userAccount_tv;
+    @BindView(R.id.mine_totalUserBalance_tv)
+    NoPaddingTextView mine_totalUserBalance_tv;
+    @BindView(R.id.mine_userBalance_tv)
+    NoPaddingTextView mine_userBalance_tv;
+    @BindView(R.id.mine_userBalanceLock_tv)
+    NoPaddingTextView mine_userBalanceLock_tv;
 
     @Override
     protected void initView() {
@@ -119,7 +130,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     protected void initData() {
-//        getMineInfo();
+        getMineInfo();
     }
 
     private void getMineInfo() {
@@ -146,7 +157,15 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-
+        LogUtil.e(response.toString());
+        MineRes mineRes = (MineRes) response;
+        if(mineRes!=null){
+           MineRes.UserInfoBean userInfoBean = mineRes.getUserInfo();
+            mine_userAccount_tv.setText(userInfoBean.getUserAccount()+"");
+            mine_totalUserBalance_tv.setText(userInfoBean.getTotalUserBalance()+"");
+            mine_userBalance_tv.setText(userInfoBean.getUserBalance()+"");
+            mine_userBalanceLock_tv.setText(userInfoBean.getUserBalanceLock()+"");
+        }
     }
 
     @Override
