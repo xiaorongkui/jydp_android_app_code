@@ -72,7 +72,12 @@ public class NumberUtil {
         if (!StringUtil.isNotNull(doubleValue)) {
             doubleValue = "0";
         }
-        return doubleFormat(Double.parseDouble(doubleValue), accuracy);
+        try {
+            return doubleFormat(Double.parseDouble(doubleValue), accuracy);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return doubleValue;
     }
 
     /**
@@ -124,5 +129,40 @@ public class NumberUtil {
         BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
         BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
         return b1.divide(b2, pointCount, roundingMode).doubleValue();
+    }
+
+    /**
+     * Format 2 point 格式化两位有效数字.
+     *
+     * @param str the str
+     * @return the string
+     */
+    public static String format2Point(double str) {
+        LogUtil.i("format2Point=" + str);
+        String s = doubleFormat(str, 2);
+        DecimalFormat myformat = new DecimalFormat();
+        myformat.applyPattern("#0.00");
+        try {
+            return myformat.format(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str + "";
+    }
+
+    /**
+     * Format 2 point string.
+     *
+     * @param str the str
+     * @return the string
+     */
+    public static String format2Point(String str) {
+        try {
+            return format2Point(Double.parseDouble(str));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.i("formatMoney exception! e=" + e.getMessage());
+        }
+        return str;
     }
 }

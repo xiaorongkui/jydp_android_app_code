@@ -6,7 +6,9 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
 
@@ -18,7 +20,8 @@ import butterknife.BindView;
  * description:
  */
 
-public class ExchangeSoldPriceRecAdapter extends BaseRecylerAdapter {
+public class ExchangeSoldPriceRecAdapter extends BaseRecylerAdapter<ExchangeCenterRes
+        .TransactionPendOrderSellListBean> {
 
     private final List datas;
     @BindView(R.id.price_status_tv)
@@ -35,7 +38,11 @@ public class ExchangeSoldPriceRecAdapter extends BaseRecylerAdapter {
 
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
+    protected void convert(BaseRecyclerViewHolder helper, ExchangeCenterRes.TransactionPendOrderSellListBean item,
+                           int position) {
         priceStatusTv.setText(CommonUtil.getString(R.string.sold) + (datas.size() - position));
+        if (item == null) return;
+        priceTotalMoneyTv.setText(NumberUtil.format2Point(item.getPendingPrice()));
+        priceAmountTv.setText(NumberUtil.format2Point(item.getPendingNumber()));
     }
 }

@@ -132,9 +132,12 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
                 }
                 List<ExchangeCurrencyRes.TransactionUserDealListBean> transactionUserDealList = currencyRes
                         .getTransactionUserDealList();
-                mData.clear();
-                mData.addAll(transactionUserDealList);
-                exchangeCenterAdapter.notifyDataSetChanged();
+                if (transactionUserDealList != null) {
+                    mData.clear();
+                    mData.addAll(transactionUserDealList);
+                    exchangeCenterAdapter.notifyDataSetChanged();
+                }
+
                 break;
         }
     }

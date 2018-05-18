@@ -133,6 +133,7 @@
     <string name="name_1">名称</string>
     <string name="exchange_day_volume">日成交量</string>
     <string name="current_xt_price">当前价(XT)</string>
+    <string name="current_xt_price_1">当前价(XT):</string>
     <string name="xt_price">价格(XT)</string>
     <string name="day_rise_and_fall">日涨跌</string>
     <string name="cerrecy_select_failed">当前币种页面选择失败，请退出重新选择</string>

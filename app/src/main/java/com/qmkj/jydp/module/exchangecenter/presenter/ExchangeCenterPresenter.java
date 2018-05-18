@@ -34,4 +34,8 @@ public class ExchangeCenterPresenter extends BaseRxPresenter {
     public void getExchangeCenterData(ExchangeCenterReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(exchangeService.getExchangeCenterData(req), tag, isShowProgress);
     }
+
+    public void getEntrustRecodeData(ExchangeCenterReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.getEntrustRecodeData(req), tag, isShowProgress);
+    }
 }
