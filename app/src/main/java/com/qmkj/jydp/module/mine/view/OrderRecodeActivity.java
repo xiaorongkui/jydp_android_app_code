@@ -8,10 +8,14 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.response.OrderRecodeRes;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OrderRecodeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +26,7 @@ import butterknife.ButterKnife;
  * description:挂单委托记录
  */
 
-public class OrderRecodeActivity extends BaseMvpActivity {
+public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.mine_order_recode_rv)
@@ -32,12 +36,12 @@ public class OrderRecodeActivity extends BaseMvpActivity {
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
+        presenter.getTradeCenterInfo("0",1,true);
     }
 
     @Override
@@ -64,12 +68,6 @@ public class OrderRecodeActivity extends BaseMvpActivity {
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
         orderRecodeRecyAdapter = new OrderRecodeRecyAdapter(mContext, mData, R.layout.mine_order_reocde_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -78,5 +76,12 @@ public class OrderRecodeActivity extends BaseMvpActivity {
         View mEmptyView = View.inflate(mContext, R.layout.empty, null);
         orderRecodeRecyAdapter.setEmptyView(mEmptyView);
         mineOrderRecodeRv.setAdapter(orderRecodeRecyAdapter);
+    }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        OrderRecodeRes recodeRes = (OrderRecodeRes) response;
+
     }
 }

@@ -33,6 +33,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
         if (presenter != null) {
             presenter.attachView(this);
         }
+        super.onCreate(savedInstanceState);
     }
 
     @Override
