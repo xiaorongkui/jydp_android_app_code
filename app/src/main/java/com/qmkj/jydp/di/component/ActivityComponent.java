@@ -13,7 +13,10 @@ import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyAssetsActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRecodeActivity;
 import com.qmkj.jydp.module.mine.view.DealerManagementActivity;
+import com.qmkj.jydp.module.mine.view.ModifyLoginPwdActivity;
+import com.qmkj.jydp.module.mine.view.ModifyPaymentActivity;
 import com.qmkj.jydp.module.mine.view.OrderRecodeActivity;
+import com.qmkj.jydp.module.mine.view.PersonInfoActivity;
 
 import dagger.Component;
 
@@ -40,4 +43,10 @@ public interface ActivityComponent {
     void inject(DealerManagementActivity dealerManagementActivity);
 
     void inject(OrderRecodeActivity orderRecodeActivity);
+
+    void inject(PersonInfoActivity personInfoActivity);
+
+    void inject(ModifyLoginPwdActivity modifyLoginPwdActivity);
+
+    void inject(ModifyPaymentActivity modifyPaymentActivity);
 }

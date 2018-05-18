@@ -114,8 +114,10 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         DealerManagementRes res = (DealerManagementRes) response;
-        dealerManagementRecyAdapter.addData(res.getOtcTransactionPendOrderList());
-        dealerManagementRecyAdapter.notifyDataSetChanged();
+        if(res.getOtcTransactionPendOrderList()!=null){
+            dealerManagementRecyAdapter.addData(res.getOtcTransactionPendOrderList());
+            dealerManagementRecyAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

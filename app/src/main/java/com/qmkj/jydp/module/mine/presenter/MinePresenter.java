@@ -30,6 +30,10 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.getMineInfo(), tag);
     }
 
+    public void loginOut(int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.loginOut(), tag);
+    }
+
     public void getCurrencyAssetsInfo(int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getCurrencyAssetsInfo(), tag);
     }

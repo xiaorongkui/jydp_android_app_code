@@ -9,6 +9,7 @@ import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.base.BaseView;
 import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
+import com.qmkj.jydp.bean.request.ChangePassWordReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
@@ -69,6 +70,17 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
 
     public void getCertifyStatus(CertificetionInfoReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(loginService.getCertifyStatus(req), tag);
+    }
+
+    public void changePassWord(ChangePassWordReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(loginService.changePassWord(req), tag);
+    }
+
+    public void changePassWordByPwd(ChangePassWordReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(loginService.changePassWordByPwd(req), tag);
+    }
+    public void changePassWordByPhone(ChangePassWordReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(loginService.changePassWordByPhone(req), tag);
     }
 
 }

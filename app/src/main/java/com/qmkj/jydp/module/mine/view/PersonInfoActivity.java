@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.module.login.view.LoginActivity;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -20,7 +23,7 @@ import butterknife.ButterKnife;
  * description:个人信息界面
  */
 
-public class PersonInfoActivity extends BaseMvpActivity {
+public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.person_info_login_out_bt)
@@ -34,12 +37,11 @@ public class PersonInfoActivity extends BaseMvpActivity {
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -61,6 +63,7 @@ public class PersonInfoActivity extends BaseMvpActivity {
                 .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
         personInfoLoginOutBt.setBackground(shapeSelector.create());
 
+        personInfoLoginOutBt.setOnClickListener(this);
         personInfoModifyPaymentPasswordCiv.setOnClickListener(this);
         personInfoModifyPasswordCiv.setOnClickListener(this);
         personInfoModifyPhoneNumCiv.setOnClickListener(this);
@@ -76,6 +79,9 @@ public class PersonInfoActivity extends BaseMvpActivity {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.person_info_login_out_bt://退出登陆
+                presenter.loginOut(1,true);
+                break;
             case R.id.person_info_modify_payment_password_civ://修改支付密码
                 CommonUtil.gotoActivity(mContext, ModifyPaymentActivity.class);
                 break;
@@ -86,5 +92,14 @@ public class PersonInfoActivity extends BaseMvpActivity {
                 CommonUtil.gotoActivity(mContext, ModifyPhoneActivity.class);
                 break;
         }
+    }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        //退出登陆
+        AppManager.getInstance().clear();
+        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+
     }
 }

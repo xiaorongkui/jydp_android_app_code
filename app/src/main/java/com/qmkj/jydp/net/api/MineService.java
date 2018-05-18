@@ -26,6 +26,10 @@ public interface MineService {
     Observable<BaseRes<MineRes>> getMineInfo();
 
     //获取用户币种信息
+    @POST(AppNetConfig.urlPath + "wap/userLogin/loginOut")
+    Observable<BaseRes<Object>> loginOut();
+
+    //获取用户币种信息
     @GET(AppNetConfig.urlPath + "wap/userInfo/currencyAssets")
     Observable<BaseRes<CurrencyAssetsRes>> getCurrencyAssetsInfo();
 

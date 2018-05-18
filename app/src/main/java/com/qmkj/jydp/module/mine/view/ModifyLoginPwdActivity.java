@@ -1,14 +1,29 @@
 package com.qmkj.jydp.module.mine.view;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.ChangePassWordReq;
+import com.qmkj.jydp.module.login.presenter.LoginPresenter;
+import com.qmkj.jydp.ui.widget.ClickItemView;
+import com.qmkj.jydp.ui.widget.EditVItemView;
+import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * author：rongkui.xiao --2018/5/8
@@ -16,18 +31,47 @@ import butterknife.ButterKnife;
  * description:修改登录密码
  */
 
-public class ModifyLoginPwdActivity extends BaseMvpActivity {
+public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
+
+    private static final int GET_CODE_TAG = 1;
+    private static final int SEND_REQUEST_TAG = 2;
+    private static final int splashTotalCountdownTime = 60;
+
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
+    @BindView(R.id.modify_login_pwd_phone_civ)
+    ClickItemView modify_login_pwd_phone_civ;
+    @BindView(R.id.modify_old_login_pwd_eiv)
+    EditVItemView modify_old_login_pwd_eiv;
+    @BindView(R.id.modify_new_login_pwd_eiv)
+    EditVItemView modify_new_login_pwd_eiv;
+    @BindView(R.id.modify_new_login_pwd_again_eiv)
+    EditVItemView modify_new_login_pwd_again_eiv;
+    @BindView(R.id.modify_login_pwd_verification_code_civ)
+    EditVItemView modify_login_pwd_verification_code_civ;
+    @BindView(R.id.modify_login_pwd_submit_bt)
+    Button modify_login_pwd_submit_bt;
+
+    private TextView codeTimeDownTv;
+    private Disposable disposable;
+
 
     @Override
     protected void injectPresenter() {
+        getActivityComponent().inject(this);
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 
     @Override
     protected void initData() {
-
+        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getIdentification()!=null){
+            modify_login_pwd_phone_civ.setRightText(CommonUtil.getLoginInfo().getIdentification().getUserPhone()+"");
+        }
     }
 
     @Override
@@ -42,13 +86,114 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
+        codeTimeDownTv = modify_login_pwd_verification_code_civ.getView(R.id.edit_right_tv);
+        codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+        codeTimeDownTv.setOnClickListener(v -> {
+            CommonUtil.hideInputWindow(mContext);
+            getVerificationCode();
+        });
+    }
 
+    private void getVerificationCode() {
+        String phone = CommonUtil.getLoginInfo().getIdentification().getUserPhone();
+        if (TextUtils.isEmpty(phone)) {
+            toast("手机号不能为空");
+            return;
+        }
+        presenter.getRegisterCode( phone, GET_CODE_TAG);
+    }
+
+
+
+    @OnClick(R.id.modify_login_pwd_submit_bt)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.modify_login_pwd_submit_bt:
+                changeRequest();
+                break;
+        }
+    }
+
+    private void changeRequest() {
+        String oldPass = modify_old_login_pwd_eiv.getEditTextString();
+        String newPass = modify_new_login_pwd_eiv.getEditTextString();
+        String newPassAgain = modify_new_login_pwd_again_eiv.getEditTextString();
+        String code = modify_login_pwd_verification_code_civ.getEditTextString();
+
+        if (TextUtils.isEmpty(oldPass)) {
+            toast("原密码不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(newPass)) {
+            toast("新密码不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(newPassAgain)) {
+            toast("重复密码不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(code)) {
+            toast("验证码不能为空");
+            return;
+        }
+
+        if (!CheckTextUtil.checkPassword(oldPass)||
+                !CheckTextUtil.checkPassword(newPass)||
+                !CheckTextUtil.checkPassword(newPassAgain)
+                ) {
+            toast("登录密码必须是字母、数字，6～16个字符");
+            return;
+        }
+        if (TextUtils.isEmpty(newPass) || !newPass.equals(newPassAgain)) {
+            toast("两次登录密码输入不同");
+            return;
+        }
+
+        ChangePassWordReq req = new ChangePassWordReq();
+        req.setOldPassword(oldPass);
+        req.setNewPassword(newPass);
+        req.setConfirmPassword(newPassAgain);
+        req.setValidCode(code);
+        presenter.changePassWord(req,SEND_REQUEST_TAG,true);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        switch (tag){
+            case GET_CODE_TAG:
+                codeTimeDown();
+                break;
+            case SEND_REQUEST_TAG:
+                CommonUtil.gotoActivity(mContext,PersonInfoActivity.class);
+                break;
+        }
+    }
+
+    private void codeTimeDown() {
+        disposable = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).observeOn
+                (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
+                (splashTotalCountdownTime + 1).subscribe(integer -> {
+            if (integer == 0) {
+                codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv.setEnabled(true);
+                codeTimeDownTv.setAlpha(1);
+            } else {
+                codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                        integer));
+                codeTimeDownTv.setEnabled(false);
+                codeTimeDownTv.setAlpha(0.5f);
+            }
+        });
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (disposable != null) {
+            disposable.dispose();
+            disposable = null;
+        }
     }
 }
