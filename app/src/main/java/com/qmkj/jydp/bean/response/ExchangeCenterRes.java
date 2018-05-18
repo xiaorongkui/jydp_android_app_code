@@ -160,49 +160,49 @@ public class ExchangeCenterRes extends BaseRes {
          * currencyNumberSum : 0
          */
 
-        private int userBalance;
-        private int userBalanceLock;
-        private int currencyNumber;
-        private int currencyNumberLock;
-        private int currencyNumberSum;
+        private String userBalance;
+        private String userBalanceLock;
+        private String currencyNumber;
+        private String currencyNumberLock;
+        private String currencyNumberSum;
 
-        public int getUserBalance() {
+        public String getUserBalance() {
             return userBalance;
         }
 
-        public void setUserBalance(int userBalance) {
+        public void setUserBalance(String userBalance) {
             this.userBalance = userBalance;
         }
 
-        public int getUserBalanceLock() {
+        public String getUserBalanceLock() {
             return userBalanceLock;
         }
 
-        public void setUserBalanceLock(int userBalanceLock) {
+        public void setUserBalanceLock(String userBalanceLock) {
             this.userBalanceLock = userBalanceLock;
         }
 
-        public int getCurrencyNumber() {
+        public String getCurrencyNumber() {
             return currencyNumber;
         }
 
-        public void setCurrencyNumber(int currencyNumber) {
+        public void setCurrencyNumber(String currencyNumber) {
             this.currencyNumber = currencyNumber;
         }
 
-        public int getCurrencyNumberLock() {
+        public String getCurrencyNumberLock() {
             return currencyNumberLock;
         }
 
-        public void setCurrencyNumberLock(int currencyNumberLock) {
+        public void setCurrencyNumberLock(String currencyNumberLock) {
             this.currencyNumberLock = currencyNumberLock;
         }
 
-        public int getCurrencyNumberSum() {
+        public String getCurrencyNumberSum() {
             return currencyNumberSum;
         }
 
-        public void setCurrencyNumberSum(int currencyNumberSum) {
+        public void setCurrencyNumberSum(String currencyNumberSum) {
             this.currencyNumberSum = currencyNumberSum;
         }
     }
@@ -220,21 +220,21 @@ public class ExchangeCenterRes extends BaseRes {
          * dayTransaction : 0
          */
 
-        private int nowPrice;
+        private String nowPrice;
         private double buyOne;
-        private int sellOne;
-        private int todayMax;
-        private int todayMin;
-        private int todayRange;
-        private int yesterdayPrice;
-        private int dayTurnove;
-        private int dayTransaction;
+        private String sellOne;
+        private String todayMax;
+        private String todayMin;
+        private String todayRange;
+        private String yesterdayPrice;
+        private String dayTurnove;
+        private String dayTransaction;
 
-        public int getNowPrice() {
+        public String getNowPrice() {
             return nowPrice;
         }
 
-        public void setNowPrice(int nowPrice) {
+        public void setNowPrice(String nowPrice) {
             this.nowPrice = nowPrice;
         }
 
@@ -246,59 +246,59 @@ public class ExchangeCenterRes extends BaseRes {
             this.buyOne = buyOne;
         }
 
-        public int getSellOne() {
+        public String getSellOne() {
             return sellOne;
         }
 
-        public void setSellOne(int sellOne) {
+        public void setSellOne(String sellOne) {
             this.sellOne = sellOne;
         }
 
-        public int getTodayMax() {
+        public String getTodayMax() {
             return todayMax;
         }
 
-        public void setTodayMax(int todayMax) {
+        public void setTodayMax(String todayMax) {
             this.todayMax = todayMax;
         }
 
-        public int getTodayMin() {
+        public String getTodayMin() {
             return todayMin;
         }
 
-        public void setTodayMin(int todayMin) {
+        public void setTodayMin(String todayMin) {
             this.todayMin = todayMin;
         }
 
-        public int getTodayRange() {
+        public String getTodayRange() {
             return todayRange;
         }
 
-        public void setTodayRange(int todayRange) {
+        public void setTodayRange(String todayRange) {
             this.todayRange = todayRange;
         }
 
-        public int getYesterdayPrice() {
+        public String getYesterdayPrice() {
             return yesterdayPrice;
         }
 
-        public void setYesterdayPrice(int yesterdayPrice) {
+        public void setYesterdayPrice(String yesterdayPrice) {
             this.yesterdayPrice = yesterdayPrice;
         }
 
-        public int getDayTurnove() {
+        public String getDayTurnove() {
             return dayTurnove;
         }
 
-        public void setDayTurnove(int dayTurnove) {
+        public void setDayTurnove(String dayTurnove) {
             this.dayTurnove = dayTurnove;
         }
 
-        public int getDayTransaction() {
+        public String getDayTransaction() {
             return dayTransaction;
         }
 
-        public void setDayTransaction(int dayTransaction) {
+        public void setDayTransaction(String dayTransaction) {
             this.dayTransaction = dayTransaction;
         }
     }
@@ -329,19 +329,19 @@ public class ExchangeCenterRes extends BaseRes {
         private String currencyShortName;
         private String currencyName;
         private String currencyImg;
-        private int buyFee;
-        private int sellFee;
-        private double guidancePrice;
-        private int paymentType;
-        private int upStatus;
-        private int rankNumber;
+        private String buyFee;
+        private String sellFee;
+        private String guidancePrice;
+        private String paymentType;
+        private String upStatus;
+        private String rankNumber;
         private String backerAccount;
         private String ipAddress;
-        private long upTime;
-        private long addTime;
+        private String upTime;
+        private String addTime;
         private String currencyImgUrl;
         private String upTimeStr;
-        private int reCode;
+        private String reCode;
 
         public int getCurrencyId() {
             return currencyId;
@@ -375,51 +375,51 @@ public class ExchangeCenterRes extends BaseRes {
             this.currencyImg = currencyImg;
         }
 
-        public int getBuyFee() {
+        public String getBuyFee() {
             return buyFee;
         }
 
-        public void setBuyFee(int buyFee) {
+        public void setBuyFee(String buyFee) {
             this.buyFee = buyFee;
         }
 
-        public int getSellFee() {
+        public String getSellFee() {
             return sellFee;
         }
 
-        public void setSellFee(int sellFee) {
+        public void setSellFee(String sellFee) {
             this.sellFee = sellFee;
         }
 
-        public double getGuidancePrice() {
+        public String getGuidancePrice() {
             return guidancePrice;
         }
 
-        public void setGuidancePrice(double guidancePrice) {
+        public void setGuidancePrice(String guidancePrice) {
             this.guidancePrice = guidancePrice;
         }
 
-        public int getPaymentType() {
+        public String getPaymentType() {
             return paymentType;
         }
 
-        public void setPaymentType(int paymentType) {
+        public void setPaymentType(String paymentType) {
             this.paymentType = paymentType;
         }
 
-        public int getUpStatus() {
+        public String getUpStatus() {
             return upStatus;
         }
 
-        public void setUpStatus(int upStatus) {
+        public void setUpStatus(String upStatus) {
             this.upStatus = upStatus;
         }
 
-        public int getRankNumber() {
+        public String getRankNumber() {
             return rankNumber;
         }
 
-        public void setRankNumber(int rankNumber) {
+        public void setRankNumber(String rankNumber) {
             this.rankNumber = rankNumber;
         }
 
@@ -439,19 +439,19 @@ public class ExchangeCenterRes extends BaseRes {
             this.ipAddress = ipAddress;
         }
 
-        public long getUpTime() {
+        public String getUpTime() {
             return upTime;
         }
 
-        public void setUpTime(long upTime) {
+        public void setUpTime(String upTime) {
             this.upTime = upTime;
         }
 
-        public long getAddTime() {
+        public String getAddTime() {
             return addTime;
         }
 
-        public void setAddTime(long addTime) {
+        public void setAddTime(String addTime) {
             this.addTime = addTime;
         }
 
@@ -471,11 +471,11 @@ public class ExchangeCenterRes extends BaseRes {
             this.upTimeStr = upTimeStr;
         }
 
-        public int getReCode() {
+        public String getReCode() {
             return reCode;
         }
 
-        public void setReCode(int reCode) {
+        public void setReCode(String reCode) {
             this.reCode = reCode;
         }
     }
@@ -489,54 +489,64 @@ public class ExchangeCenterRes extends BaseRes {
          * sumPrice : 99999.9999
          */
 
-        private int pendingPrice;
-        private double pendingNumber;
-        private int dealNumber;
-        private double restNumber;
-        private double sumPrice;
+        private String pendingPrice;
+        private String pendingNumber;
+        private String dealNumber;
+        private String restNumber;
+        private String sumPrice;
 
-        public int getPendingPrice() {
-            return pendingPrice;
-        }
-
-        public void setPendingPrice(int pendingPrice) {
+        public TransactionPendOrderSellListBean(String pendingPrice, String pendingNumber) {
             this.pendingPrice = pendingPrice;
-        }
-
-        public double getPendingNumber() {
-            return pendingNumber;
-        }
-
-        public void setPendingNumber(double pendingNumber) {
             this.pendingNumber = pendingNumber;
         }
 
-        public int getDealNumber() {
+        public String getPendingPrice() {
+            return pendingPrice;
+        }
+
+        public void setPendingPrice(String pendingPrice) {
+            this.pendingPrice = pendingPrice;
+        }
+
+        public String getPendingNumber() {
+            return pendingNumber;
+        }
+
+        public void setPendingNumber(String pendingNumber) {
+            this.pendingNumber = pendingNumber;
+        }
+
+        public String getDealNumber() {
             return dealNumber;
         }
 
-        public void setDealNumber(int dealNumber) {
+        public void setDealNumber(String dealNumber) {
             this.dealNumber = dealNumber;
         }
 
-        public double getRestNumber() {
+        public String getRestNumber() {
             return restNumber;
         }
 
-        public void setRestNumber(double restNumber) {
+        public void setRestNumber(String restNumber) {
             this.restNumber = restNumber;
         }
 
-        public double getSumPrice() {
+        public String getSumPrice() {
             return sumPrice;
         }
 
-        public void setSumPrice(double sumPrice) {
+        public void setSumPrice(String sumPrice) {
             this.sumPrice = sumPrice;
         }
     }
 
     public static class TransactionPendOrderBuyListBean {
+        public TransactionPendOrderBuyListBean(String pendingPrice, String pendingNumber) {
+            this.pendingPrice = pendingPrice;
+            this.pendingNumber = pendingNumber;
+        }
+
         /**
          * pendingPrice : 0.01
          * pendingNumber : 1.0E-4
@@ -545,49 +555,50 @@ public class ExchangeCenterRes extends BaseRes {
          * sumPrice : 1.0E-6
          */
 
-        private double pendingPrice;
-        private double pendingNumber;
-        private int dealNumber;
-        private double restNumber;
-        private double sumPrice;
 
-        public double getPendingPrice() {
+        private String pendingPrice;
+        private String pendingNumber;
+        private String dealNumber;
+        private String restNumber;
+        private String sumPrice;
+
+        public String getPendingPrice() {
             return pendingPrice;
         }
 
-        public void setPendingPrice(double pendingPrice) {
+        public void setPendingPrice(String pendingPrice) {
             this.pendingPrice = pendingPrice;
         }
 
-        public double getPendingNumber() {
+        public String getPendingNumber() {
             return pendingNumber;
         }
 
-        public void setPendingNumber(double pendingNumber) {
+        public void setPendingNumber(String pendingNumber) {
             this.pendingNumber = pendingNumber;
         }
 
-        public int getDealNumber() {
+        public String getDealNumber() {
             return dealNumber;
         }
 
-        public void setDealNumber(int dealNumber) {
+        public void setDealNumber(String dealNumber) {
             this.dealNumber = dealNumber;
         }
 
-        public double getRestNumber() {
+        public String getRestNumber() {
             return restNumber;
         }
 
-        public void setRestNumber(double restNumber) {
+        public void setRestNumber(String restNumber) {
             this.restNumber = restNumber;
         }
 
-        public double getSumPrice() {
+        public String getSumPrice() {
             return sumPrice;
         }
 
-        public void setSumPrice(double sumPrice) {
+        public void setSumPrice(String sumPrice) {
             this.sumPrice = sumPrice;
         }
     }
@@ -608,10 +619,10 @@ public class ExchangeCenterRes extends BaseRes {
         private Object orderNo;
         private int paymentType;
         private int currencyId;
-        private int transactionPrice;
-        private double currencyNumber;
-        private double currencyTotalPrice;
-        private long addTime;
+        private String transactionPrice;
+        private String currencyNumber;
+        private String currencyTotalPrice;
+        private String addTime;
 
         public int getId() {
             return id;
@@ -645,35 +656,35 @@ public class ExchangeCenterRes extends BaseRes {
             this.currencyId = currencyId;
         }
 
-        public int getTransactionPrice() {
+        public String getTransactionPrice() {
             return transactionPrice;
         }
 
-        public void setTransactionPrice(int transactionPrice) {
+        public void setTransactionPrice(String transactionPrice) {
             this.transactionPrice = transactionPrice;
         }
 
-        public double getCurrencyNumber() {
+        public String getCurrencyNumber() {
             return currencyNumber;
         }
 
-        public void setCurrencyNumber(double currencyNumber) {
+        public void setCurrencyNumber(String currencyNumber) {
             this.currencyNumber = currencyNumber;
         }
 
-        public double getCurrencyTotalPrice() {
+        public String getCurrencyTotalPrice() {
             return currencyTotalPrice;
         }
 
-        public void setCurrencyTotalPrice(double currencyTotalPrice) {
+        public void setCurrencyTotalPrice(String currencyTotalPrice) {
             this.currencyTotalPrice = currencyTotalPrice;
         }
 
-        public long getAddTime() {
+        public String getAddTime() {
             return addTime;
         }
 
-        public void setAddTime(long addTime) {
+        public void setAddTime(String addTime) {
             this.addTime = addTime;
         }
     }

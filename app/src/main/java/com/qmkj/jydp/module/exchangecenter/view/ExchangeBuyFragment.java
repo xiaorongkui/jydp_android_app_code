@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
@@ -112,4 +113,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment {
         dialogUtils.show();
     }
 
+    public void refreshData(ExchangeCenterRes.UserDealCapitalMessageBean userDealCapitalMessage) {
+        if (userDealCapitalMessage == null) return;
+    }
 }
