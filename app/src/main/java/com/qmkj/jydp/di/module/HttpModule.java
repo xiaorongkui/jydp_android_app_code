@@ -162,41 +162,4 @@ public class HttpModule {
         }
     }
 
-//    @Named("activity")
-//    @Provides
-//    LoginPresenter provideLoginPresenterA(Activity activity) {
-//        return new LoginPresenter(activity);
-//    }
-//
-//    @Named("fragment")
-//    @Provides
-//    LoginPresenter provideLoginPresenterF(Fragment fragment) {
-//        return new LoginPresenter(fragment);
-//    }
-
-//
-//    @Named("activity")
-//    @Provides
-//    @Singleton
-//    HomePresenter provideLoginPresenter(Activity activity) {
-//        return new HomePresenter(activity);
-//    }
-//
-//    @Named("fragment")
-//    @Provides
-//    @Singleton
-//    HomePresenter provideLoginPresenter(Fragment fragment) {
-//        return new HomePresenter(fragment);
-//    }
-//
-//
-//    LoginPresenter provideLoginPresenter();
-//
-//    HomePresenter provideHomePresenter();
-//
-//    ExchangePresenter provideExchangePresenter();
-//
-//    ExchangeCenterPresenter provideExchangeCenterPresenter();
-//
-//    MinePresenter provideExchangeMinePresenter();
 }

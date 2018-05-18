@@ -11,6 +11,7 @@ import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.LoginReq;
+import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.net.api.LoginService;
@@ -43,9 +44,9 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
         sendHttpRequest(loginService.startLogin(req), tag);
     }
 
-    public void getRegisterCode(String num, int tag) {
-        LogUtil.i("s=" + num);
-        sendHttpRequest(loginService.getRegisterCode(num), tag);
+    public void getRegisterCode(PhoneCodeReq req, int tag) {
+        LogUtil.i("s=" + req);
+        sendHttpRequest(loginService.getRegisterCode(req), tag);
     }
 
     public void startRegister(RegisterReq req, int tag) {

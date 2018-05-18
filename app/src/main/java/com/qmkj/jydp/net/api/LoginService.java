@@ -4,6 +4,7 @@ package com.qmkj.jydp.net.api;
 import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
+import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
@@ -41,9 +42,8 @@ public interface LoginService {
     /**
      * 注册获取验证码
      */
-    @FormUrlEncoded
-    @POST(AppNetConfig.urlPath + "sendCode/sendPhoneCode")
-    Observable<BaseRes<Object>> getRegisterCode(@Field("phoneNumber") String code);
+    @POST(AppNetConfig.urlPath + "wap/sendCode/sendPhoneCode")
+    Observable<BaseRes<Object>> getRegisterCode(@Body PhoneCodeReq req);
 
     /**
      * 注册

@@ -13,12 +13,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -29,24 +32,27 @@ import butterknife.BindView;
  */
 
 public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCenterPresenter> {
+    private static final int EXCHANGE_CURRENCY_TAG = 1;
     @BindView(R.id.exchange_center_title_ll)
     LinearLayout title_ll;
     @BindView(R.id.exchange_center_xrl)
     XRefreshLayout refresh;
     @BindView(R.id.exchange_center_rv)
     RecyclerView recyclerView;
-    ArrayList<Object> mData;
+    boolean isCanRefresh = true;
+    ArrayList<ExchangeCurrencyRes.TransactionUserDealListBean> mData = new ArrayList<>();
     ExchangeCenterAdapter exchangeCenterAdapter;
 
     @Override
     protected void injectPresenter() {
-
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected void initView() {
         initStatusBar();
         initRecyclerView();
+        initRefreshView();
     }
 
     private void initStatusBar() {
@@ -63,19 +69,17 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     private void initRecyclerView() {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutmanager);
-        mData = new ArrayList<>();
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
         exchangeCenterAdapter = new ExchangeCenterAdapter(R.layout.home_exchange_price_item, mData);
         View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
         exchangeCenterAdapter.setEmptyView(mEmptyView);
         recyclerView.setAdapter(exchangeCenterAdapter);
 
         exchangeCenterAdapter.setOnItemClickListener((adapter, view, position) -> {
+
             try {
-                ((MainActivity) getActivity()).showExchangeFrament("盛源链");//去交易中心核心页面
+                ExchangeCurrencyRes.TransactionUserDealListBean cerrencyData = mData.get(position);
+                ((MainActivity) getActivity()).showExchangeFrament(cerrencyData.getCurrencyName(), cerrencyData
+                        .getCurrencyId() + "");//去交易中心核心页面
             } catch (Exception e) {
                 e.printStackTrace();
                 toast(getString(R.string.cerrecy_select_failed));
@@ -83,9 +87,27 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         });
     }
 
+    private void initRefreshView() {
+        refresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getExchangeCurrencyData(false);
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return isCanRefresh;
+            }
+        });
+    }
+
     @Override
     protected void initData() {
+        getExchangeCurrencyData(true);
+    }
 
+    private void getExchangeCurrencyData(boolean isShowProgress) {
+        presenter.getExchangeCurrency(EXCHANGE_CURRENCY_TAG, isShowProgress);
     }
 
     @Override
@@ -101,10 +123,29 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
+        switch (tag) {
+            case EXCHANGE_CURRENCY_TAG:
+                ExchangeCurrencyRes currencyRes = (ExchangeCurrencyRes) response;
+                if (currencyRes == null) {
+                    LogUtil.i("交易中心获取币种信息为空");
+                    return;
+                }
+                List<ExchangeCurrencyRes.TransactionUserDealListBean> transactionUserDealList = currencyRes
+                        .getTransactionUserDealList();
+                mData.clear();
+                mData.addAll(transactionUserDealList);
+                exchangeCenterAdapter.notifyDataSetChanged();
+                break;
+        }
     }
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
         super.onError(errorMsg, code, tag, o);
+        switch (tag) {
+            case EXCHANGE_CURRENCY_TAG:
+                showNetErrorView(recyclerView, true);
+                break;
+        }
     }
 }
