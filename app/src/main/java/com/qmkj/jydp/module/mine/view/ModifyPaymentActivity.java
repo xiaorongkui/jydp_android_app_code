@@ -7,9 +7,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dd.ShadowLayout;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
+import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
@@ -56,6 +58,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     LinearLayout modifyOriginalPwdLl;
     @BindView(R.id.modify_phone_pwd_ll)
     LinearLayout modifyPhonePwdLl;
+    @BindView(R.id.modify_code_layout)
+    ShadowLayout modify_code_layout;
 
     @BindView(R.id.modify_payment_pwd_cv)
     ClickItemView modify_payment_pwd_cv;
@@ -88,8 +92,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getIdentification()!=null){
-            modify_payment_pwd_cv.setRightText(CommonUtil.getLoginInfo().getIdentification().getUserPhone()+"");
+        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null){
+            modify_payment_pwd_cv.setRightText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode()+CommonUtil.getLoginInfo().getUser().getUserPhone()+"");
         }
     }
 
@@ -120,12 +124,11 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
 
     private void getVerificationCode() {
-        String phone = CommonUtil.getLoginInfo().getIdentification().getUserPhone();
-        if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空");
-            return;
-        }
-        presenter.getRegisterCode( phone, GET_CODE_TAG);
+        String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
+        String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
+        PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
+        phoneCodeReq.setPhoneNumber(phoneAreaCode+phone);
+        presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG);
     }
 
     @Override
@@ -177,7 +180,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             req.setNewPassword(newPass);
             req.setConfirmPassword(newPassAgain);
             req.setValidCode(code);
-            presenter.changePassWordByPwd(req,REQUEST_BY_PHONE,true);
+            presenter.changePassWordByPhone(req,REQUEST_BY_PHONE,true);
         }
 
     }
@@ -212,6 +215,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
                 modifyPwdOldPwdTitleLine.setVisibility(View.INVISIBLE);
                 modifyOriginalPwdLl.setVisibility(View.VISIBLE);
                 modifyPhonePwdLl.setVisibility(View.GONE);
+                modify_code_layout.setVisibility(View.GONE);
                 SELECT_TYPE = 0;
                 break;
             case 1:
@@ -221,6 +225,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
                 modifyPwdOldPwdTitleLine.setVisibility(View.VISIBLE);
                 modifyOriginalPwdLl.setVisibility(View.GONE);
                 modifyPhonePwdLl.setVisibility(View.VISIBLE);
+                modify_code_layout.setVisibility(View.VISIBLE);
                 SELECT_TYPE = 1;
                 break;
         }

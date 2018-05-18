@@ -15,6 +15,7 @@ import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRecodeActivity;
 import com.qmkj.jydp.module.mine.view.DealerManagementActivity;
 import com.qmkj.jydp.module.mine.view.ModifyLoginPwdActivity;
 import com.qmkj.jydp.module.mine.view.ModifyPaymentActivity;
+import com.qmkj.jydp.module.mine.view.ModifyPhoneActivity;
 import com.qmkj.jydp.module.mine.view.OrderRecodeActivity;
 import com.qmkj.jydp.module.mine.view.PersonInfoActivity;
 
@@ -49,4 +50,6 @@ public interface ActivityComponent {
     void inject(ModifyLoginPwdActivity modifyLoginPwdActivity);
 
     void inject(ModifyPaymentActivity modifyPaymentActivity);
+
+    void inject(ModifyPhoneActivity modifyPhoneActivity);
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
+import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
@@ -69,8 +70,8 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getIdentification()!=null){
-            modify_login_pwd_phone_civ.setRightText(CommonUtil.getLoginInfo().getIdentification().getUserPhone()+"");
+        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null){
+            modify_login_pwd_phone_civ.setRightText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode()+CommonUtil.getLoginInfo().getUser().getUserPhone()+"");
         }
     }
 
@@ -95,12 +96,11 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
     private void getVerificationCode() {
-        String phone = CommonUtil.getLoginInfo().getIdentification().getUserPhone();
-        if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空");
-            return;
-        }
-        presenter.getRegisterCode( phone, GET_CODE_TAG);
+        String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
+        String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
+        PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
+        phoneCodeReq.setPhoneNumber(phoneAreaCode+phone);
+        presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG);
     }
 
 

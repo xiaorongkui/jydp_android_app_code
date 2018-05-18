@@ -39,14 +39,18 @@ public class LoginRes extends BaseRes implements Serializable {
          * sessionId : null
          * userId : 557
          * userAccount : syl1001
+         * phoneAreaCode : +86
          * outTime : 1526628292232
+         * userPhone : 1526628292232
          * isPwd : 1
          * isDealer : 1
          */
 
         private Object sessionId;
         private int userId;
+        private String phoneAreaCode;
         private String userAccount;
+        private String userPhone;
         private long outTime;
         private int isPwd;
         private int isDealer;
@@ -73,6 +77,22 @@ public class LoginRes extends BaseRes implements Serializable {
 
         public void setUserAccount(String userAccount) {
             this.userAccount = userAccount;
+        }
+
+        public String getPhoneAreaCode() {
+            return phoneAreaCode;
+        }
+
+        public void setPhoneAreaCode(String phoneAreaCode) {
+            this.phoneAreaCode = phoneAreaCode;
+        }
+
+        public String getUserPhone() {
+            return  userPhone;
+        }
+
+        public void setUserPhone(String  userPhone) {
+            this. userPhone =  userPhone;
         }
 
         public long getOutTime() {

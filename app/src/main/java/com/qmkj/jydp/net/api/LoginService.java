@@ -93,7 +93,7 @@ public interface LoginService {
     /**
      * 通过验证码修改支付密码
      */
-    @POST(AppNetConfig.urlPath + "/wap/userInfo/payPassword/modifyByPhone")
+    @POST(AppNetConfig.urlPath + "wap/userInfo/payPassword/modifyByPhone")
     Observable<BaseRes<Object>> changePassWordByPhone(@Body ChangePassWordReq req);
 
 
