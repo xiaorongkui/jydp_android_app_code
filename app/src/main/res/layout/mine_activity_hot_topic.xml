@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_1"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/common_header"/>
+
+    <View style="@style/line1"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/system_hot_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/currency_withdrawals"
-        android:orientation="vertical">
-
-        <include
-            android:id="@+id/currency_withdrawals_header"
-            layout="@layout/common_header"/>
-
-    </LinearLayout>
-
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_weight="1"/>
 </LinearLayout>

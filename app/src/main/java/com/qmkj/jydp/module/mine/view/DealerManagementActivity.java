@@ -43,7 +43,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initData() {
-        presenter.getDealerManagmentInfo(1,true);
+        presenter.getDealerManagementInfo(1,true);
     }
 
     @Override

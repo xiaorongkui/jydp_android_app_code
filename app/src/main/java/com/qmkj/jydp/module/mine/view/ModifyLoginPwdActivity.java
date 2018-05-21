@@ -165,6 +165,7 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
                 codeTimeDown();
                 break;
             case SEND_REQUEST_TAG:
+                toast("修改成功");
                 CommonUtil.gotoActivity(mContext,PersonInfoActivity.class);
                 break;
         }

@@ -77,8 +77,11 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         CurrencyAssetsRes res =(CurrencyAssetsRes)response;
-        assetsRecyAdapter.addData(res.getUserCurrencyAssets());
-        assetsRecyAdapter.notifyDataSetChanged();
+        if(res.getUserCurrencyAssets()!=null){
+            assetsRecyAdapter.addData(res.getUserCurrencyAssets());
+            assetsRecyAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override

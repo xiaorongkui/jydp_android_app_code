@@ -34,9 +34,9 @@ public class MineRes extends BaseRes implements Serializable {
 
         private int userId;
         private String userAccount;
-        private double userBalance;
-        private double userBalanceLock;
-        private double totalUserBalance;
+        private String userBalance;
+        private String userBalanceLock;
+        private String totalUserBalance;
 
         public int getUserId() {
             return userId;
@@ -54,27 +54,27 @@ public class MineRes extends BaseRes implements Serializable {
             this.userAccount = userAccount;
         }
 
-        public double getUserBalance() {
+        public String getUserBalance() {
             return userBalance;
         }
 
-        public void setUserBalance(double userBalance) {
+        public void setUserBalance(String userBalance) {
             this.userBalance = userBalance;
         }
 
-        public double getUserBalanceLock() {
+        public String getUserBalanceLock() {
             return userBalanceLock;
         }
 
-        public void setUserBalanceLock(double userBalanceLock) {
+        public void setUserBalanceLock(String userBalanceLock) {
             this.userBalanceLock = userBalanceLock;
         }
 
-        public double getTotalUserBalance() {
+        public String getTotalUserBalance() {
             return totalUserBalance;
         }
 
-        public void setTotalUserBalance(double totalUserBalance) {
+        public void setTotalUserBalance(String totalUserBalance) {
             this.totalUserBalance = totalUserBalance;
         }
     }

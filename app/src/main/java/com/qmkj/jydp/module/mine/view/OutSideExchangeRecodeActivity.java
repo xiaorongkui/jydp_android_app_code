@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.PageNumberReq;
+import com.qmkj.jydp.bean.response.OtcDealRecordRes;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OutSideExchangeRecodeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -23,22 +26,24 @@ import butterknife.ButterKnife;
  * description:场外交易记录
  */
 
-public class OutSideExchangeRecodeActivity extends BaseMvpActivity {
+public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.mine_outside_exchange_recode_rv)
     RecyclerView mineOutsideExchangeRecodeRv;
-    private ArrayList<Object> mData;
+    private ArrayList<OtcDealRecordRes.OtcTransactionUserDealListBean> mData;
     private OutSideExchangeRecodeRecyAdapter outSideExchangeRecodeRecyAdapter;
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(0);
+        presenter.getOtcDealRecordInfo(req,1,true);
     }
 
     @Override
@@ -65,12 +70,6 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity {
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
         outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext, mData, R.layout
                 .mine_outside_exchange_recode_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -89,5 +88,15 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity {
                     break;
             }
         });
+    }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        OtcDealRecordRes recordRes = (OtcDealRecordRes)response;
+        if(recordRes.getOtcTransactionUserDealList()!=null){
+            outSideExchangeRecodeRecyAdapter.addData(recordRes.getOtcTransactionUserDealList());
+            outSideExchangeRecodeRecyAdapter.notifyDataSetChanged();
+        }
     }
 }
