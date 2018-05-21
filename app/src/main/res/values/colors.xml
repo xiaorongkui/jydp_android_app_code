@@ -49,7 +49,7 @@
     <color name="gray_bg">#11FFFFFF</color>
 
     <color name="divider">#1f403535</color>
-    <color name="activity_background">@color/color_white_1</color>
+    <color name="activity_background">@color/color_gray_1</color>
     <color name="ripple_background">#f0f0f0</color>
     <color name="textBlack">@color/colorBlack</color>
     <color name="item_line">#ececec</color>

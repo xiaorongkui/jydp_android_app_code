@@ -9,9 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
-import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseActivity;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.common.Constants;
@@ -26,10 +24,8 @@ import com.qmkj.jydp.util.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/26
@@ -90,6 +86,7 @@ public class AreaCodeSecActivity extends BaseMvpActivity<LoginPresenter> {
             EditText area_et = (EditText) textViewAfterTextChangeEvent.view();
             searchArea(area_et.getText().toString());
         });
+        searchEreaCodeCancelTv.setOnClickListener(v -> finish());
     }
 
     private void searchArea(String s) {

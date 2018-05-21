@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/area_code_search_ll"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/color_white_1"
-              android:orientation="vertical">
+    android:id="@+id/area_code_search_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y42"
         android:background="@color/color_white_1"
-        android:elevation="@dimen/y2"
+        android:elevation="@dimen/y4"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/x14"
         android:paddingRight="@dimen/x14">
@@ -19,7 +18,7 @@
             android:layout_width="@dimen/x16"
             android:layout_height="@dimen/y16"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/search"/>
+            android:src="@mipmap/search" />
 
         <EditText
             android:id="@+id/area_code_search_et"
@@ -34,26 +33,25 @@
             android:paddingLeft="@dimen/x11"
             android:textColorHint="@color/color_black_5"
             android:textCursorDrawable="@null"
-            android:textSize="@dimen/text_size_14"/>
+            android:textSize="@dimen/text_size_14" />
 
         <TextView
+            android:gravity="center"
             android:id="@+id/search_erea_code_cancel_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/x30"
             android:text="@string/cancel"
             android:textColor="@color/color_black_6"
-            android:textSize="@dimen/text_size_14"/>
+            android:textSize="@dimen/text_size_14" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_area_code_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="@dimen/x7"
         android:layout_weight="1"
         android:background="@color/colorWhite"
         android:overScrollMode="never"
-        android:paddingLeft="@dimen/x15"
-        android:paddingRight="@dimen/x15"/>
+        android:paddingTop="@dimen/x7" />
 </LinearLayout>

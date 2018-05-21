@@ -3,7 +3,6 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/color_white_1"
               android:orientation="vertical">
 
     <include layout="@layout/common_header"/>
@@ -14,9 +13,7 @@
         android:id="@+id/person_info_modify_payment_password_civ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/x15"
-        android:layout_marginStart="@dimen/x15"
-        android:layout_marginTop="@dimen/y20"
+        android:layout_marginTop="@dimen/y10"
         app:bottomLine="true"
         app:bottomLineMarginTop="@dimen/y8"
         app:leftText="@string/modify_pay_password"
@@ -28,9 +25,6 @@
         android:id="@+id/person_info_modify_password_civ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/x15"
-        android:layout_marginStart="@dimen/x15"
-        android:layout_marginTop="@dimen/y19"
         app:bottomLine="true"
         app:bottomLineMarginTop="@dimen/y8"
         app:leftText="@string/modify_password"
@@ -42,9 +36,6 @@
         android:id="@+id/person_info_modify_phone_num_civ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/x15"
-        android:layout_marginStart="@dimen/x15"
-        android:layout_marginTop="@dimen/y19"
         app:bottomLine="false"
         app:leftText="@string/modify_phone_num"
         app:leftTextColor="@color/color_black_6"
@@ -55,12 +46,13 @@
         android:id="@+id/person_info_login_out_bt"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y40"
-        android:layout_marginEnd="@dimen/x15"
-        android:layout_marginStart="@dimen/x15"
         android:layout_marginTop="@dimen/y25"
+        android:layout_marginLeft="@dimen/x16"
+        android:layout_marginRight="@dimen/x16"
         android:gravity="center"
         android:textSize="@dimen/text_size_17"
         android:text="@string/login_out"
+        android:background="@drawable/shape_login_out_bt"
         android:textColor="@color/color_black_10"/>
 
 </LinearLayout>

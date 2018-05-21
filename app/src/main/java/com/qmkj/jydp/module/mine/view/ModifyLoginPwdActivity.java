@@ -11,7 +11,6 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
-import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
@@ -40,8 +39,8 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
-    @BindView(R.id.modify_login_pwd_phone_civ)
-    ClickItemView modify_login_pwd_phone_civ;
+    @BindView(R.id.user_phone_num_tv)
+    TextView userPhoneNumTv;
     @BindView(R.id.modify_old_login_pwd_eiv)
     EditVItemView modify_old_login_pwd_eiv;
     @BindView(R.id.modify_new_login_pwd_eiv)
@@ -70,8 +69,8 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null){
-            modify_login_pwd_phone_civ.setRightText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode()+CommonUtil.getLoginInfo().getUser().getUserPhone()+"");
+        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
+            userPhoneNumTv.setText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode() + " " + CommonUtil.getLoginInfo().getUser().getUserPhone());
         }
     }
 
@@ -99,10 +98,9 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
         String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
-        phoneCodeReq.setPhoneNumber(phoneAreaCode+phone);
+        phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG);
     }
-
 
 
     @OnClick(R.id.modify_login_pwd_submit_bt)
@@ -137,8 +135,8 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             return;
         }
 
-        if (!CheckTextUtil.checkPassword(oldPass)||
-                !CheckTextUtil.checkPassword(newPass)||
+        if (!CheckTextUtil.checkPassword(oldPass) ||
+                !CheckTextUtil.checkPassword(newPass) ||
                 !CheckTextUtil.checkPassword(newPassAgain)
                 ) {
             toast("登录密码必须是字母、数字，6～16个字符");
@@ -154,19 +152,19 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         req.setNewPassword(newPass);
         req.setConfirmPassword(newPassAgain);
         req.setValidCode(code);
-        presenter.changePassWord(req,SEND_REQUEST_TAG,true);
+        presenter.changePassWord(req, SEND_REQUEST_TAG, true);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case GET_CODE_TAG:
                 codeTimeDown();
                 break;
             case SEND_REQUEST_TAG:
                 toast("修改成功");
-                CommonUtil.gotoActivity(mContext,PersonInfoActivity.class);
+                CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
         }
     }

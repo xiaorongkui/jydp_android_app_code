@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/y49"
-              android:background="@color/colorWhite"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y49"
+    android:background="@color/colorWhite"
+    android:elevation="@dimen/y5"
+    android:orientation="vertical">
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y1"
-        android:background="@color/divider"/>
+        android:background="@color/divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,17 +30,17 @@
                 android:id="@+id/iv_home"
                 android:layout_width="@dimen/x20"
                 android:layout_height="@dimen/y20"
-                android:src="@mipmap/home_unselect"/>
+                android:src="@mipmap/home_unselect" />
 
             <TextView
                 android:id="@+id/tv_home"
-                android:includeFontPadding="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y4"
+                android:includeFontPadding="false"
                 android:text="@string/home"
                 android:textColor="@color/color_black_5"
-                android:textSize="@dimen/text_size_12"/>
+                android:textSize="@dimen/text_size_12" />
         </LinearLayout>
 
 
@@ -54,7 +56,7 @@
                 android:id="@+id/iv_exchange"
                 android:layout_width="@dimen/x20"
                 android:layout_height="@dimen/y20"
-                android:src="@mipmap/exchange_unselect"/>
+                android:src="@mipmap/exchange_unselect" />
 
             <TextView
                 android:id="@+id/tv_exchange"
@@ -63,7 +65,7 @@
                 android:layout_marginTop="@dimen/y4"
                 android:text="@string/exchange"
                 android:textColor="@color/color_black_5"
-                android:textSize="@dimen/text_size_12"/>
+                android:textSize="@dimen/text_size_12" />
         </LinearLayout>
 
         <LinearLayout
@@ -78,7 +80,7 @@
                 android:id="@+id/iv_outside_exchange"
                 android:layout_width="@dimen/x20"
                 android:layout_height="@dimen/y20"
-                android:src="@mipmap/outside_exchange_unselect"/>
+                android:src="@mipmap/outside_exchange_unselect" />
 
             <TextView
                 android:id="@+id/tv_outside_exchange"
@@ -87,7 +89,7 @@
                 android:layout_marginTop="@dimen/y4"
                 android:text="@string/outside_exchange"
                 android:textColor="@color/color_black_5"
-                android:textSize="@dimen/text_size_12"/>
+                android:textSize="@dimen/text_size_12" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,7 +104,7 @@
                 android:id="@+id/iv_mine"
                 android:layout_width="@dimen/x20"
                 android:layout_height="@dimen/y20"
-                android:src="@mipmap/mine_unselect"/>
+                android:src="@mipmap/mine_unselect" />
 
             <TextView
                 android:id="@+id/tv_mine"
@@ -111,7 +113,7 @@
                 android:layout_marginTop="@dimen/y4"
                 android:text="@string/mine"
                 android:textColor="@color/color_black_5"
-                android:textSize="@dimen/text_size_12"/>
+                android:textSize="@dimen/text_size_12" />
         </LinearLayout>
 
     </LinearLayout>

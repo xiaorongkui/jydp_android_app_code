@@ -45,14 +45,14 @@
                                 android:layout_width="@dimen/x40"
                                 android:layout_height="@dimen/x40"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/mine_person_icon_bg"/>
+                                android:background="@drawable/mine_person_icon_bg" />
 
                             <ImageView
                                 android:id="@+id/mine_person_iv"
                                 android:layout_width="@dimen/x24"
                                 android:layout_height="@dimen/y24"
                                 android:layout_gravity="center"
-                                android:src="@mipmap/mine_select"/>
+                                android:src="@mipmap/mine_select" />
 
                         </FrameLayout>
 
@@ -63,9 +63,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/x9"
-                            android:text="ASFERGCFGH"
+                            android:text=""
                             android:textColor="@color/color_white_1"
-                            android:textSize="@dimen/text_size_16"/>
+                            android:textSize="@dimen/text_size_16" />
 
                         <TextView
                             android:id="@+id/mine_distributor_tv"
@@ -76,7 +76,7 @@
                             android:gravity="center"
                             android:text="@string/distributor"
                             android:textColor="@color/color_bule_1"
-                            android:textSize="@dimen/text_size_12"/>
+                            android:textSize="@dimen/text_size_12" />
                     </LinearLayout>
 
                     <com.qmkj.jydp.ui.widget.NoPaddingTextView
@@ -86,7 +86,7 @@
                         android:layout_marginTop="@dimen/y19"
                         android:text="@string/amount_total_money_xt"
                         android:textColor="@color/color_bule_4"
-                        android:textSize="@dimen/text_size_12"/>
+                        android:textSize="@dimen/text_size_12" />
 
                     <com.qmkj.jydp.ui.widget.NoPaddingTextView
                         android:id="@+id/mine_totalUserBalance_tv"
@@ -94,10 +94,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x30"
                         android:layout_marginTop="@dimen/y10"
-                        android:text="109819831.0"
+                        android:text="0.00"
                         android:textColor="@color/color_white_2"
                         android:textSize="@dimen/text_size_24"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -118,15 +118,16 @@
                     android:id="@+id/mine_available_money_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/x15"
-                    android:paddingTop="@dimen/y15"
-                    android:paddingBottom="@dimen/y15"
                     android:background="@drawable/shape_view_shadow_bg"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/y15"
+                    android:paddingStart="@dimen/x15"
+                    android:paddingTop="@dimen/y15">
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@drawable/shape_view_shadow_bg"
                         android:orientation="vertical">
 
@@ -135,25 +136,25 @@
                             android:layout_height="wrap_content"
                             android:text="@string/amount_available_money_xt"
                             android:textColor="@color/color_gray_2"
-                            android:textSize="@dimen/text_size_13"/>
+                            android:textSize="@dimen/text_size_13" />
 
                         <com.qmkj.jydp.ui.widget.NoPaddingTextView
                             android:id="@+id/mine_userBalance_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="123440.00"
                             android:layout_marginTop="@dimen/y15"
+                            android:text="0.00"
                             android:textColor="@color/color_black_2"
                             android:textSize="@dimen/text_size_18"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@drawable/shape_view_shadow_bg"
                         android:orientation="vertical">
 
@@ -163,18 +164,18 @@
                             android:layout_height="wrap_content"
                             android:text="@string/amount_available_money_xt"
                             android:textColor="@color/color_gray_2"
-                            android:textSize="@dimen/text_size_13"/>
+                            android:textSize="@dimen/text_size_13" />
 
 
                         <com.qmkj.jydp.ui.widget.NoPaddingTextView
                             android:id="@+id/mine_userBalanceLock_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="123440.00"
                             android:layout_marginTop="@dimen/y15"
+                            android:text="0.00"
                             android:textColor="@color/color_black_2"
                             android:textSize="@dimen/text_size_18"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -196,7 +197,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_view_shadow_bg"
-                    android:overScrollMode="never"/>
+                    android:overScrollMode="never" />
 
 
             </com.dd.ShadowLayout>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:background="@color/colorWhite"
-              android:minHeight="@dimen/y49"
-              android:orientation="horizontal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:minHeight="@dimen/y49"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/common_header_ll"
@@ -21,13 +21,13 @@
 
             <ImageView
                 android:id="@+id/common_header_back_iv"
-                android:layout_width="@dimen/x7"
-                android:layout_height="@dimen/y12"
+                android:layout_width="@dimen/x8"
+                android:layout_height="@dimen/y16"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/x15"
                 android:layout_marginRight="@dimen/x15"
                 android:scaleType="fitXY"
-                android:src="@mipmap/back"/>
+                android:src="@mipmap/back" />
         </RelativeLayout>
 
         <TextView
@@ -38,9 +38,9 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="center"
-            tools:text="lllllll"
             android:textColor="@color/color_black_4"
-            android:textSize="@dimen/text_size_18"/>
+            android:textSize="@dimen/text_size_18"
+            tools:text="this is title" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:textColor="@color/color_black_4"
-                android:textSize="@dimen/text_size_13"/>
+                android:textSize="@dimen/text_size_13" />
 
             <ImageView
                 android:id="@+id/title_right"
@@ -63,7 +63,7 @@
                 android:layout_height="@dimen/y11"
                 android:layout_marginEnd="@dimen/x15"
                 android:src="@mipmap/ic_launcher"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
         </RelativeLayout>
     </LinearLayout>
 

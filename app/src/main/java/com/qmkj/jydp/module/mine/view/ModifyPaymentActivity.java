@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +12,6 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
-import com.qmkj.jydp.module.mine.presenter.MinePresenter;
-import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
@@ -22,7 +19,6 @@ import com.qmkj.jydp.util.CommonUtil;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -61,8 +57,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.modify_code_layout)
     ShadowLayout modify_code_layout;
 
-    @BindView(R.id.modify_payment_pwd_cv)
-    ClickItemView modify_payment_pwd_cv;
+    @BindView(R.id.user_phone_num_tv)
+    TextView userPhoneNumTv;
     @BindView(R.id.login_forget_pwd_vertification_code_eiv)
     EditVItemView login_forget_pwd_vertification_code_eiv;
 
@@ -83,7 +79,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     private TextView codeTimeDownTv;
     private Disposable disposable;
 
-    private int SELECT_TYPE =0;
+    private int SELECT_TYPE = 0;
 
     @Override
     protected void injectPresenter() {
@@ -92,8 +88,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null){
-            modify_payment_pwd_cv.setRightText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode()+CommonUtil.getLoginInfo().getUser().getUserPhone()+"");
+        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
+            userPhoneNumTv.setText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode() + " " + CommonUtil.getLoginInfo().getUser().getUserPhone());
         }
     }
 
@@ -127,7 +123,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
         String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
         String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
-        phoneCodeReq.setPhoneNumber(phoneAreaCode+phone);
+        phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG);
     }
 
@@ -148,9 +144,9 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     private void sendRequest() {
 
-        if(SELECT_TYPE == 0){
+        if (SELECT_TYPE == 0) {
             String oldPass = modify_pwd_old_pwd_one_eiv.getEditTextString();
-            String newPass =  modify_pwd_new_pwd_one_eiv.getEditTextString();
+            String newPass = modify_pwd_new_pwd_one_eiv.getEditTextString();
             String newPassAgain = modify_pwd_login_pwd_one_eiv.getEditTextString();
             if (TextUtils.isEmpty(oldPass)) {
                 toast("原密码不能为空");
@@ -160,32 +156,32 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
                 toast("登录密码必须是字母、数字，6～16个字符");
                 return;
             }
-            checkNewPass(newPass,newPassAgain);
+            checkNewPass(newPass, newPassAgain);
             ChangePassWordReq req = new ChangePassWordReq();
             req.setOldPassword(oldPass);
             req.setNewPassword(newPass);
             req.setConfirmPassword(newPassAgain);
-            presenter.changePassWordByPwd(req,REQUEST_BY_PWD,true);
-        }else if(SELECT_TYPE == 1){
-            String newPass =  modify_phone_pwd_one_eiv.getEditTextString();
+            presenter.changePassWordByPwd(req, REQUEST_BY_PWD, true);
+        } else if (SELECT_TYPE == 1) {
+            String newPass = modify_phone_pwd_one_eiv.getEditTextString();
             String newPassAgain = modify_phone_pwd_again_eiv.getEditTextString();
-            String code =login_forget_pwd_vertification_code_eiv.getEditTextString();
+            String code = login_forget_pwd_vertification_code_eiv.getEditTextString();
             if (TextUtils.isEmpty(code)) {
                 toast("验证码不能为空");
                 return;
             }
-            checkNewPass(newPass,newPassAgain);
+            checkNewPass(newPass, newPassAgain);
 
             ChangePassWordReq req = new ChangePassWordReq();
             req.setNewPassword(newPass);
             req.setConfirmPassword(newPassAgain);
             req.setValidCode(code);
-            presenter.changePassWordByPhone(req,REQUEST_BY_PHONE,true);
+            presenter.changePassWordByPhone(req, REQUEST_BY_PHONE, true);
         }
 
     }
 
-    private void checkNewPass(String newPass ,String newPassAgain) {
+    private void checkNewPass(String newPass, String newPassAgain) {
         if (TextUtils.isEmpty(newPass)) {
             toast("新密码不能为空");
             return;
@@ -194,7 +190,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             toast("重复密码不能为空");
             return;
         }
-        if (!CheckTextUtil.checkPassword(newPass)||
+        if (!CheckTextUtil.checkPassword(newPass) ||
                 !CheckTextUtil.checkPassword(newPassAgain)
                 ) {
             toast("登录密码必须是字母、数字，6～16个字符");
@@ -211,8 +207,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             case 0:
                 modifyPwdOldPwdTitleTv.setTextColor(CommonUtil.getColor(R.color.color_bule_5));
                 modifyPwdPhoneTitleTv.setTextColor(CommonUtil.getColor(R.color.color_black_10));
-                modifyPwdPhoneTitleLine.setVisibility(View.VISIBLE);
-                modifyPwdOldPwdTitleLine.setVisibility(View.INVISIBLE);
+                modifyPwdPhoneTitleLine.setVisibility(View.INVISIBLE);
+                modifyPwdOldPwdTitleLine.setVisibility(View.VISIBLE);
                 modifyOriginalPwdLl.setVisibility(View.VISIBLE);
                 modifyPhonePwdLl.setVisibility(View.GONE);
                 modify_code_layout.setVisibility(View.GONE);
@@ -221,8 +217,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             case 1:
                 modifyPwdOldPwdTitleTv.setTextColor(CommonUtil.getColor(R.color.color_black_10));
                 modifyPwdPhoneTitleTv.setTextColor(CommonUtil.getColor(R.color.color_bule_5));
-                modifyPwdPhoneTitleLine.setVisibility(View.INVISIBLE);
-                modifyPwdOldPwdTitleLine.setVisibility(View.VISIBLE);
+                modifyPwdPhoneTitleLine.setVisibility(View.VISIBLE);
+                modifyPwdOldPwdTitleLine.setVisibility(View.INVISIBLE);
                 modifyOriginalPwdLl.setVisibility(View.GONE);
                 modifyPhonePwdLl.setVisibility(View.VISIBLE);
                 modify_code_layout.setVisibility(View.VISIBLE);
@@ -234,7 +230,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case GET_CODE_TAG:
                 toast("验证码获取成功");
                 codeTimeDown();
@@ -242,7 +238,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             case REQUEST_BY_PWD:
             case REQUEST_BY_PHONE:
                 toast("修改成功");
-                CommonUtil.gotoActivity(mContext,PersonInfoActivity.class);
+                CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
 
         }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            xmlns:tools="http://schemas.android.com/tools"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:background="@mipmap/lanucher"
-                                            android:scrollbars="none">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/lanucher"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                             android:gravity="center"
                             android:text="@string/login"
                             android:textColor="@color/color_bule_1"
-                            android:textSize="@dimen/text_size_18"/>
+                            android:textSize="@dimen/text_size_18" />
 
                         <View
                             android:id="@+id/login_login_title_line"
@@ -57,7 +56,7 @@
                             android:layout_height="@dimen/y3"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/y5"
-                            android:background="@color/color_bule_1"/>
+                            android:background="@color/color_bule_1" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -75,14 +74,14 @@
                             android:gravity="center"
                             android:text="@string/register"
                             android:textColor="@color/color_gray_2"
-                            android:textSize="@dimen/text_size_18"/>
+                            android:textSize="@dimen/text_size_18" />
 
                         <View
                             android:id="@+id/login_register_title_line"
                             android:layout_width="@dimen/x10"
                             android:layout_height="@dimen/y3"
                             android:layout_marginTop="@dimen/y5"
-                            android:background="@color/color_bule_1"/>
+                            android:background="@color/color_bule_1" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -110,7 +109,7 @@
                             app:contentRightTextVisible="false"
                             app:paddingLeftRight="@dimen/x16"
                             app:textCursorVisible="false"
-                            app:titleText="@string/login_account"/>
+                            app:titleText="@string/login_account" />
 
                         <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/login_password_eiv"
@@ -123,7 +122,7 @@
                             app:contentEditTopMargin="@dimen/x20"
                             app:paddingLeftRight="@dimen/x16"
                             app:titleText="@string/login_password"
-                            app:titleTopMargin="@dimen/x25"/>
+                            app:titleTopMargin="@dimen/x25" />
 
 
                         <Button
@@ -132,18 +131,19 @@
                             android:layout_marginLeft="@dimen/x15"
                             android:layout_marginRight="@dimen/x15"
                             android:layout_marginTop="@dimen/y15"
-                            android:text="@string/login"/>
+                            android:text="@string/login" />
 
                         <TextView
                             android:id="@+id/login_forget_pwd_tv"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="@dimen/y15"
-                            android:layout_marginTop="@dimen/y15"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/y15"
+                            android:paddingTop="@dimen/y15"
                             android:text="@string/forget_password"
                             android:textColor="@color/color_gray_2"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -163,7 +163,7 @@
                             app:contentEditTopMargin="@dimen/x20"
                             app:contentRightTextVisible="false"
                             app:paddingLeftRight="@dimen/x15"
-                            app:titleText="@string/login_account"/>
+                            app:titleText="@string/login_account" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -180,9 +180,10 @@
                                 android:gravity="center_vertical"
                                 android:text="@string/area_select"
                                 android:textColor="@color/color_black_1"
-                                android:textSize="@dimen/text_size_14"/>
+                                android:textSize="@dimen/text_size_14" />
 
                             <RelativeLayout
+                                android:id="@+id/register_choose_phone_area"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical">
@@ -195,7 +196,7 @@
                                     android:paddingRight="@dimen/x19"
                                     android:text="@string/phone_86"
                                     android:textColor="@color/color_black_2"
-                                    android:textSize="@dimen/text_size_13"/>
+                                    android:textSize="@dimen/text_size_13" />
 
                                 <ImageView
                                     android:id="@+id/register_phone_erea_iv"
@@ -204,12 +205,19 @@
                                     android:layout_centerVertical="true"
                                     android:layout_toEndOf="@id/register_phone_erea_tv"
                                     android:scaleType="fitXY"
-                                    android:src="@mipmap/down_arrow"/>
+                                    android:src="@mipmap/down_arrow" />
 
                             </RelativeLayout>
 
 
                         </LinearLayout>
+
+                        <View
+                            android:id="@+id/edit_line"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y0.5"
+                            android:layout_marginTop="@dimen/y10"
+                            android:background="@color/color_gray_3" />
 
                         <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_phone_eiv"
@@ -222,7 +230,7 @@
                             app:contentEditTopMargin="@dimen/x25"
                             app:contentRightTextVisible="false"
                             app:paddingLeftRight="@dimen/x15"
-                            app:titleText="@string/phone"/>
+                            app:titleText="@string/phone" />
 
                         <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_verification_code_eiv"
@@ -238,7 +246,7 @@
                             app:contentRightTextVisible="true"
                             app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/verification_code"
-                            app:titleTopMargin="@dimen/x15"/>
+                            app:titleTopMargin="@dimen/x15" />
 
                         <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_password_one_eiv"
@@ -250,7 +258,7 @@
                             app:contentEditTextSize="@dimen/text_size_13"
                             app:contentEditTopMargin="@dimen/x25"
                             app:paddingLeftRight="@dimen/x15"
-                            app:titleText="@string/login_password"/>
+                            app:titleText="@string/login_password" />
 
                         <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_password_two_eiv"
@@ -263,7 +271,7 @@
                             app:contentEditTopMargin="@dimen/x25"
                             app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/login_password_again"
-                            app:titleTopMargin="@dimen/x15"/>
+                            app:titleTopMargin="@dimen/x15" />
 
                         <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_exchange_password_one_eiv"
@@ -276,7 +284,7 @@
                             app:contentEditTopMargin="@dimen/x25"
                             app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/exchange_password"
-                            app:titleTopMargin="@dimen/x15"/>
+                            app:titleTopMargin="@dimen/x15" />
 
                         <com.qmkj.jydp.ui.widget.EditHItemView
                             android:id="@+id/register_exchange_password_two_eiv"
@@ -289,7 +297,7 @@
                             app:contentEditTopMargin="@dimen/x25"
                             app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/exchange_password_again"
-                            app:titleTopMargin="@dimen/x15"/>
+                            app:titleTopMargin="@dimen/x15" />
 
                         <Button
                             android:id="@+id/register_bt"
@@ -297,7 +305,7 @@
                             android:layout_marginLeft="@dimen/x15"
                             android:layout_marginRight="@dimen/x15"
                             android:layout_marginTop="@dimen/y25"
-                            android:text="@string/register"/>
+                            android:text="@string/register" />
 
                         <RelativeLayout
                             android:id="@+id/register_agreement_rl"
@@ -314,7 +322,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/register_agreement_title_notice"
                                 android:textColor="@color/color_black_3"
-                                android:textSize="@dimen/text_size_11"/>
+                                android:textSize="@dimen/text_size_11" />
 
                             <TextView
                                 android:id="@+id/register_agreement_name_tv"
@@ -323,7 +331,7 @@
                                 android:layout_toEndOf="@id/register_agreement_notice_tv"
                                 android:text="@string/register_agreement_name"
                                 android:textColor="@color/color_bule_3"
-                                android:textSize="@dimen/text_size_11"/>
+                                android:textSize="@dimen/text_size_11" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -334,14 +342,14 @@
                 android:layout_width="@dimen/x80"
                 android:layout_height="@dimen/x80"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape_login_logo_bg"/>
+                android:background="@drawable/shape_login_logo_bg" />
 
             <ImageView
                 android:layout_width="@dimen/x50"
                 android:layout_height="@dimen/y21"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/y30"
-                android:src="@mipmap/launch_logo"/>
+                android:src="@mipmap/launch_logo" />
         </FrameLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

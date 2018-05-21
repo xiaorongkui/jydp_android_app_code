@@ -12,7 +12,6 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ChangePhoneReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
-import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -44,8 +43,8 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.modify_phone_erea_et)
     EditText modify_phone_erea_et;
 
-    @BindView(R.id.modify_phone_old_num_civ)
-    ClickItemView modify_phone_old_num_civ;
+    @BindView(R.id.user_phone_num_tv)
+    TextView userPhoneNumTv;
     @BindView(R.id.modify_phone_submit_bt)
     Button modify_phone_submit_bt;
     @BindView(R.id.modify_phone_verification_code_civ)
@@ -69,8 +68,8 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null){
-            modify_phone_old_num_civ.setRightText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode()+CommonUtil.getLoginInfo().getUser().getUserPhone()+"");
+        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
+            userPhoneNumTv.setText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode() + " " + CommonUtil.getLoginInfo().getUser().getUserPhone());
         }
     }
 
@@ -120,6 +119,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
             }
         });
     }
+
     private void codeTimeDown_new() {
         disposable_new = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime_new - aLong.intValue()).take
@@ -151,9 +151,9 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     private void changePhone() {
         String code_old = modify_phone_verification_code_civ.getEditTextString();
         String code_new = modify_phone_verification_code_eiv.getEditTextString();
-        String phone =modify_phone_erea_et.getText().toString();
-        String phoneAreaCode =modify_phone_erea_tv.getText().toString();
-        String passWord =modify_phone_password_one_eiv.getEditTextString();
+        String phone = modify_phone_erea_et.getText().toString();
+        String phoneAreaCode = modify_phone_erea_tv.getText().toString();
+        String passWord = modify_phone_password_one_eiv.getEditTextString();
 
         if (TextUtils.isEmpty(code_old)) {
             toast("验证码不能为空");
@@ -172,7 +172,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
             return;
         }
 
-        if (code_old.length() != 6||code_new.length() != 6) {
+        if (code_old.length() != 6 || code_new.length() != 6) {
             toast("验证码必须为六位");
             return;
         }
@@ -183,7 +183,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         changePhoneReq.setPhone(phone);
         changePhoneReq.setPassword(passWord);
 
-        presenter.changePhone(changePhoneReq,SEND_REQUEST,true);
+        presenter.changePhone(changePhoneReq, SEND_REQUEST, true);
 
     }
 
@@ -191,19 +191,19 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
         String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
-        phoneCodeReq.setPhoneNumber(phoneAreaCode+phone);
+        phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG_1);
     }
 
     public void getVerificationCode2() {
-        String phone =modify_phone_erea_et.getText().toString();
-        String phoneAreaCode =modify_phone_erea_tv.getText().toString();
+        String phone = modify_phone_erea_et.getText().toString();
+        String phoneAreaCode = modify_phone_erea_tv.getText().toString();
         if (TextUtils.isEmpty(phone)) {
             toast("新的手机号码不能为空");
             return;
         }
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
-        phoneCodeReq.setPhoneNumber(phoneAreaCode+phone);
+        phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG_2);
     }
 
@@ -217,7 +217,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case GET_CODE_TAG_1:
                 toast("验证码获取成功");
                 codeTimeDown();
@@ -228,7 +228,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case SEND_REQUEST:
                 toast("修改成功");
-                CommonUtil.gotoActivity(mContext,PersonInfoActivity.class);
+                CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
         }
     }
