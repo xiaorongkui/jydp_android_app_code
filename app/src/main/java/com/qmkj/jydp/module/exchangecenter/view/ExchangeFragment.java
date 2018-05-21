@@ -13,7 +13,6 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,6 +23,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.bean.event.ExchangeEvent;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
@@ -36,14 +36,17 @@ import com.qmkj.jydp.ui.widget.MyViewPager;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
+import com.qmkj.jydp.util.RxBus;
 import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.Flowable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -105,21 +108,24 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     TextView exchangeBuyOnePriceTv;
     @BindView(R.id.exchange_sell_one_price_tv)
     TextView exchangeSellOnePriceTv;
-    Unbinder unbinder1;
     @BindView(R.id.exchange_exchange_day_volume_tv)
     TextView exchangeExchangeDayVolumeTv;
     @BindView(R.id.exchange_current_price_xt_tv)
     TextView exchangeCurrentPriceXtTv;
-    Unbinder unbinder2;
 
 
     private ExchangebuyPriceRecAdapter priceBuyRecAdapter;
     private ExchangeSoldPriceRecAdapter priceSoldRecAdapter;
-    private boolean isShowDrawLayout = false;
     private String currencyId;
     private String currencyName;
     private EntrustRecodeRecAdapter entrustRecodeRecAdapter;
     private MyPagerAdapter pagerAdapter;
+    private Disposable subscribe;
+
+
+    public String getCurrencyId() {
+        return currencyId;
+    }
 
     @Override
     protected void initView() {
@@ -135,6 +141,16 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 .create();
         buy0rSellHeaderLl.setBackground(stateListDrawable);
         exchangeRecodeHeaderLl.setBackground(stateListDrawable);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            currencyName = arguments.getString(Constants.INTENT_PARAMETER_1);
+            currencyId = arguments.getString(Constants.INTENT_PARAMETER_2);
+        }
+        subscribe = RxBus.getDefault().toObservable(ExchangeEvent.class).subscribe(exchangeEvent -> {
+            ExchangeFragment.this.getExchangeCenterData(true);
+            getEntrustRecodeData(true);
+        });
+        exchangeTitleTv.setText(currencyName);
     }
 
     private void initViewPager() {
@@ -163,7 +179,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     List<ExchangeCenterRes.TransactionPendOrderBuyListBean> dataBuys = new ArrayList<>();
     List<ExchangeCenterRes.TransactionPendOrderSellListBean> dataSolds = new ArrayList<>();
     //委托记录
-    List<ExchangeEntrustRecodeRes.TransactionPendOrderListBean> entrustRecodeDatas = new ArrayList();
+    List<ExchangeEntrustRecodeRes.TransactionPendOrderListBean> entrustRecodeDatas = new ArrayList<>();
 
 
     private void initRecycleView() {
@@ -207,9 +223,9 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
 
     @Override
     protected void initData() {
-        exchangeTitleTv.setText(currencyName);
         getExchangeCenterData(true);
         getEntrustRecodeData(true);
+
     }
 
     private void getEntrustRecodeData(boolean b) {
@@ -231,16 +247,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         ExchangeCenterReq exchangeCenterReq = new ExchangeCenterReq();
         exchangeCenterReq.setCurrencyId(currencyId);
         presenter.getExchangeCenterData(exchangeCenterReq, EXCHANGE_CENTER_DATA_TAG, isShowProgress);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            currencyName = arguments.getString(Constants.INTENT_PARAMETER_1);
-            currencyId = arguments.getString(Constants.INTENT_PARAMETER_2);
-        }
     }
 
     @Override
@@ -306,6 +312,24 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     public void onResume() {
         super.onResume();
 //        getExchangeCenterData(true);
+        LogUtil.i("交易中心 onResume");
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            getExchangeCenterData(true);
+            getEntrustRecodeData(true);
+        }
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            currencyName = arguments.getString(Constants.INTENT_PARAMETER_1);
+            currencyId = arguments.getString(Constants.INTENT_PARAMETER_2);
+        }
+        exchangeTitleTv.setText(currencyName);
+        LogUtil.i("交易中心 onHiddenChanged");
+
     }
 
     @Override
@@ -329,20 +353,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 CommonUtil.gotoActivity(mContext, KlineActivity.class);
                 break;
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder2 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder2.unbind();
     }
 
 
@@ -404,14 +414,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         }
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            getExchangeCenterData(true);
-            getEntrustRecodeData(true);
-        }
-    }
 
     private void refreshEntrustRecod(List<ExchangeEntrustRecodeRes.TransactionPendOrderListBean>
                                              transactionPendOrderList) {
@@ -484,6 +486,15 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     private void refreshBuyAccountInfo(ExchangeCenterRes.UserDealCapitalMessageBean userDealCapitalMessage) {
+        ExchangeSoldFragment item = (ExchangeSoldFragment) pagerAdapter.getItem(1);
+        item.refreshData(userDealCapitalMessage);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (!subscribe.isDisposed()) {
+            subscribe.dispose();
+        }
     }
 }

@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentActivity;
 
 import com.qmkj.jydp.di.module.FragmentModule;
 import com.qmkj.jydp.di.scope.FragmentScope;
+import com.qmkj.jydp.module.exchangecenter.view.ExchangeBuyFragment;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeCurrencySelectFrament;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
+import com.qmkj.jydp.module.exchangecenter.view.ExchangeSoldFragment;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.login.view.CertifyNameFragment;
 import com.qmkj.jydp.module.login.view.CertifyNameStatusFragment;
@@ -42,4 +44,8 @@ public interface FragmentComponent {
     void inject(CertifyNameStatusFragment certifyNameStatusFragment);
 
     void inject(ExchangeCurrencySelectFrament exchangeCurrencySelectFrament);
+
+    void inject(ExchangeBuyFragment exchangeBuyFragment);
+
+    void inject(ExchangeSoldFragment exchangeSoldFragment);
 }

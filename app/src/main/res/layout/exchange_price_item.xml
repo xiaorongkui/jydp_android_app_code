@@ -18,23 +18,21 @@
         android:textSize="@dimen/text_size_12"/>
 
     <TextView
-        android:id="@+id/price_amount_tv"
+        android:id="@+id/price_total_money_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
-        android:text="0.98"
         android:textColor="@color/color_black_8"
         android:textSize="@dimen/text_size_11"/>
 
     <TextView
-        android:id="@+id/price_total_money_tv"
+        android:id="@+id/price_amount_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical|end"
-        android:text="132.000"
         android:textColor="@color/color_black_8"
         android:textSize="@dimen/text_size_11"/>
 </LinearLayout>

@@ -116,7 +116,7 @@ public class NumberUtil {
     }
 
     /**
-     * 提供精确的除法运算方法div,保留两位小数
+     * 提供精确的除法运算方法div
      *
      * @param value1       被除数
      * @param value2       除数
@@ -132,22 +132,26 @@ public class NumberUtil {
     }
 
     /**
+     * 提供精确的除法运算方法div,保留两位小数
+     *
+     * @param value1 被除数
+     * @param value2 除数
+     * @return 两个参数的商
+     */
+    public static double sum(String value1, String value2) {
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
+        return b1.add(b2).doubleValue();
+    }
+
+    /**
      * Format 2 point 格式化两位有效数字.
      *
      * @param str the str
      * @return the string
      */
     public static String format2Point(double str) {
-        LogUtil.i("format2Point=" + str);
-        String s = doubleFormat(str, 2);
-        DecimalFormat myformat = new DecimalFormat();
-        myformat.applyPattern("#0.00");
-        try {
-            return myformat.format(s);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return str + "";
+        return format2Point(str + "");
     }
 
     /**
@@ -157,12 +161,42 @@ public class NumberUtil {
      * @return the string
      */
     public static String format2Point(String str) {
+        LogUtil.i("format2Point=" + str);
         try {
-            return format2Point(Double.parseDouble(str));
+            DecimalFormat myformat = new DecimalFormat();
+            myformat.applyPattern("##0.00");
+            return myformat.format(str);
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtil.i("formatMoney exception! e=" + e.getMessage());
         }
         return str;
+    }
+
+    /**
+     * Format 2 point string.
+     *
+     * @param str the str
+     * @return the string
+     */
+    public static String format4Point(String str) {
+        try {
+            DecimalFormat myformat = new DecimalFormat();
+            myformat.applyPattern("##0.0000");
+            return myformat.format(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.i("format4Point exception=" + str + ";e=" + e.getMessage());
+        }
+        return str;
+    }
+
+    /**
+     * Format 2 point 格式化4位有效数字.
+     *
+     * @param str the str
+     * @return the string
+     */
+    public static String format4Point(double str) {
+        return format4Point(str + "");
     }
 }

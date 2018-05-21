@@ -1,96 +1,47 @@
 package com.qmkj.jydp.util;
 
+import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.Relay;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
 
-/**
- * RxBus
- */
 public class RxBus {
+    private static volatile RxBus instance;
+    private final Relay<Object> mBus;
 
-    private ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
-    private static volatile RxBus defaultInstance;
-
-    private RxBus() {
+    public RxBus() {
+        this.mBus = PublishRelay.create().toSerialized();
     }
 
-    public static RxBus getInstance() {
-        RxBus rxBus = defaultInstance;
-        if (defaultInstance == null) {
+    public static RxBus getDefault() {
+        if (instance == null) {
             synchronized (RxBus.class) {
-                rxBus = defaultInstance;
-                if (defaultInstance == null) {
-                    rxBus = new RxBus();
-                    defaultInstance = rxBus;
+                if (instance == null) {
+                    instance = Holder.BUS;
                 }
             }
         }
-        return rxBus;
+        return instance;
     }
 
-    /**
-     * 注册
-     *
-     * @param tag
-     * @return
-     */
-    public <T> Flowable<T> register(@NonNull Class<T> tag) {
-        List<Subject> subjectList = subjectMapper.get(tag);
-        if (null == subjectList) {
-            subjectList = new ArrayList<>();
-            subjectMapper.put(tag, subjectList);
-        }
-        PublishSubject<T> subject = PublishSubject.create();
-
-        subjectList.add(subject);
-        return subject.toFlowable(BackpressureStrategy.BUFFER);
+    public void post(Object obj) {
+        mBus.accept(obj);
     }
 
-    /**
-     * 解除注册
-     *
-     * @param tag
-     */
-    public <T> void unregister(@NonNull Class<T> tag, @NonNull Observable observable) {
-        List<Subject> subjects = subjectMapper.get(tag);
-        if (null != subjects) {
-            subjects.remove(observable);
-            if (subjects.isEmpty()) {
-                subjectMapper.remove(tag);
-            }
-        }
+    public <T> Observable<T> toObservable(Class<T> tClass) {
+        return mBus.ofType(tClass);
     }
 
-    /**
-     * 发送消息
-     *
-     * @param event
-     */
-    public <T> void post(@NonNull Object event) {
-        List<Subject> subjectList = subjectMapper.get(event.getClass());
-        if (subjectList != null && !subjectList.isEmpty()) {
-            for (Subject subject : subjectList) {
-                subject.onNext(event);
-            }
-        }
+    public Observable<Object> toObservable() {
+        return mBus;
     }
 
-    /**
-     * 清除订阅
-     */
-    public void clear() {
-        if (subjectMapper.isEmpty()) {
-            return;
-        }
-        subjectMapper.clear();
+    public boolean hasObservers() {
+        return mBus.hasObservers();
     }
+
+    private static class Holder {
+        private static final RxBus BUS = new RxBus();
+    }
+
 }

@@ -123,7 +123,6 @@
             android:background="@drawable/shape_text_input_bg"
             android:maxLines="1"
             android:paddingStart="@dimen/x8"
-            android:text="2000"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_12"/>
 
@@ -151,7 +150,6 @@
             android:background="@drawable/shape_text_input_bg"
             android:maxLines="1"
             android:paddingStart="@dimen/x8"
-            android:text="2000"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_12"/>
 
@@ -189,7 +187,6 @@
             android:maxLines="1"
             android:paddingRight="@dimen/x6"
             android:paddingStart="@dimen/x8"
-            android:text="2000"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_12"/>
 
@@ -237,13 +234,13 @@
         android:layout_weight="1"/>
 
     <Button
-        android:id="@+id/exchange_center_login_bt"
+        android:id="@+id/exchange_center_buy_bt"
         style="@style/btn_blue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y24"
         android:layout_marginTop="@dimen/y10"
         android:background="@drawable/shape_btn_red"
-        android:text="@string/login"
+        android:text="@string/buy_input_1"
         android:textSize="@dimen/text_size_14"/>
 
 

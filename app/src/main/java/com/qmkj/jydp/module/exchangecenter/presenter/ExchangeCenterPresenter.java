@@ -5,7 +5,10 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
+import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.bean.request.ExchangePwdReq;
+import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.net.api.ExchangeService;
 
 import javax.inject.Inject;
@@ -37,5 +40,17 @@ public class ExchangeCenterPresenter extends BaseRxPresenter {
 
     public void getEntrustRecodeData(ExchangeCenterReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(exchangeService.getEntrustRecodeData(req), tag, isShowProgress);
+    }
+
+    public void buyXtExchange(BuyExchangeReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.buyXtExchange(req), tag, isShowProgress);
+    }
+
+    public void sellXtExchange(SellExchangeReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.sellXtExchange(req), tag, isShowProgress);
+    }
+
+    public void rememberExchangePwd(ExchangePwdReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.rememberExchangePwd(req), tag, isShowProgress);
     }
 }
