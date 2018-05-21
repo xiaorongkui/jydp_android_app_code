@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:id="@+id/mine_ll"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/color_gray_12"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mine_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_12"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -118,107 +118,66 @@
                     android:id="@+id/mine_available_money_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/x15"
+                    android:paddingTop="@dimen/y15"
+                    android:paddingBottom="@dimen/y15"
                     android:background="@drawable/shape_view_shadow_bg"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x15"
-                        android:layout_marginTop="@dimen/y15"
-                        android:text="@string/amount_available_money_xt"
-                        android:textColor="@color/color_gray_2"
-                        android:textSize="@dimen/text_size_13"/>
+                        android:background="@drawable/shape_view_shadow_bg"
+                        android:orientation="vertical">
 
-                    <com.qmkj.jydp.ui.widget.NoPaddingTextView
-                        android:id="@+id/mine_userBalance_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x15"
-                        android:layout_marginTop="@dimen/y15"
-                        android:text="123440.00"
-                        android:textColor="@color/color_black_2"
-                        android:textSize="@dimen/text_size_18"
-                        android:textStyle="bold"/>
-
-                    <View
-                        style="@style/line1"
-                        android:layout_marginEnd="@dimen/x15"
-                        android:layout_marginStart="@dimen/x15"
-                        android:layout_marginTop="@dimen/y10"/>
-
-                    <com.qmkj.jydp.ui.widget.NoPaddingTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x15"
-                        android:layout_marginTop="@dimen/y8"
-                        android:text="@string/forzen_money_xt"
-                        android:textColor="@color/color_gray_2"
-                        android:textSize="@dimen/text_size_13"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/y15"
-                        android:layout_marginTop="@dimen/y11"
-                        android:paddingEnd="@dimen/x15"
-                        android:paddingStart="@dimen/x15">
-
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                            android:text="@string/amount_available_money_xt"
+                            android:textColor="@color/color_gray_2"
+                            android:textSize="@dimen/text_size_13"/>
 
-                            <com.qmkj.jydp.ui.widget.NoPaddingTextView
-                                android:id="@+id/mine_userBalanceLock_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="123440.00"
-                                android:textColor="@color/color_black_2"
-                                android:textSize="@dimen/text_size_18"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/y5"
-                                android:text="@string/field_1"
-                                android:textColor="@color/color_black_12"
-                                android:textSize="@dimen/text_size_13"/>
-                        </LinearLayout>
-
-                        <LinearLayout
+                        <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                            android:id="@+id/mine_userBalance_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/x174"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                            android:text="123440.00"
+                            android:layout_marginTop="@dimen/y15"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_18"
+                            android:textStyle="bold"/>
 
-                            <com.qmkj.jydp.ui.widget.NoPaddingTextView
-                                android:id="@+id/mine_frozen_xt_outside_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="123440.00"
-                                android:textColor="@color/color_black_2"
-                                android:textSize="@dimen/text_size_18"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/y5"
-                                android:text="@string/outside_1"
-                                android:textColor="@color/color_black_12"
-                                android:textSize="@dimen/text_size_13"/>
-                        </LinearLayout>
+                    </LinearLayout>
 
 
-                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_view_shadow_bg"
+                        android:orientation="vertical">
 
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/amount_available_money_xt"
+                            android:textColor="@color/color_gray_2"
+                            android:textSize="@dimen/text_size_13"/>
+
+
+                        <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                            android:id="@+id/mine_userBalanceLock_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="123440.00"
+                            android:layout_marginTop="@dimen/y15"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_18"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
                 </LinearLayout>
-
-
             </com.dd.ShadowLayout>
 
             <com.dd.ShadowLayout

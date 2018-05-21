@@ -3,15 +3,26 @@ package com.qmkj.jydp.module.mine.view;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.PageNumberReq;
+import com.qmkj.jydp.bean.response.SystemHotRes;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
+import com.qmkj.jydp.module.mine.presenter.SystemHotRecyAdapter;
+import com.qmkj.jydp.module.mine.presenter.SystemNoticeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/3/27
@@ -19,34 +30,35 @@ import butterknife.BindView;
  * description:热门话题
  */
 
-public class HotTopicActivity extends BaseMvpActivity {
-    @BindView(R.id.currency_withdrawals_header)
-    LinearLayout currency_withdrawals_header;
+public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
+    @BindView(R.id.system_hot_rv)
+    RecyclerView systemNoticeRv;
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
+    private ArrayList<SystemHotRes.SystemHotListBean> datas;
+    private SystemHotRecyAdapter systemHotAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            setTheme(R.style.mainActivityTheme);
-            CommonUtil.setStatusBarInvisible(this, false);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(0);
+        presenter.getSystemHotInfo(req,1,true);
     }
 
     @Override
     protected void initTitle() {
-
+        titleHeaderTv.setText(CommonUtil.getString(R.string.hot_topic));
     }
 
     @Override
@@ -56,22 +68,31 @@ public class HotTopicActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
-        initStatusBar();
+        initRecycleView();
     }
 
-    private void initStatusBar() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            View statusView = new View(mContext);
-            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup
-                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
-            currency_withdrawals_header.addView(statusView, 0, lp);
-        }
+    private void initRecycleView() {
+        datas = new ArrayList();
+        systemHotAdapter = new SystemHotRecyAdapter(mContext, datas, R.layout
+                .mine_system_notice_item);
+        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
+        systemHotAdapter.setEmptyView(mEmptyView);
+        systemNoticeRv.setLayoutManager(new LinearLayoutManager(mContext));
+        systemNoticeRv.setAdapter(systemHotAdapter);
     }
-
     @Override
     public boolean isImmersiveStatusBar() {
         return true;
     }
 
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+       SystemHotRes systemHotRes =  (SystemHotRes) response;
+       if(systemHotRes.getSystemHotList()!=null){
+           systemHotAdapter.addData(systemHotRes.getSystemHotList());
+           systemHotAdapter.notifyDataSetChanged();
+       }
+
+    }
 }

@@ -82,13 +82,13 @@ public class DealerManagementRes extends BaseRes implements Serializable{
         private int orderType;
         private int currencyId;
         private String currencyName;
-        private double pendingRatio;
-        private double minNumber;
-        private double maxNumber;
-        private double pendingNumber;
-        private double dealNumber;
-        private double buyFee;
-        private double restBalanceLock;
+        private String pendingRatio;
+        private String minNumber;
+        private String maxNumber;
+        private String pendingNumber;
+        private String dealNumber;
+        private String buyFee;
+        private String restBalanceLock;
         private String area;
         private int pendingStatus;
         private String endTime;
@@ -144,59 +144,59 @@ public class DealerManagementRes extends BaseRes implements Serializable{
             this.currencyName = currencyName;
         }
 
-        public double getPendingRatio() {
+        public String getPendingRatio() {
             return pendingRatio;
         }
 
-        public void setPendingRatio(double pendingRatio) {
+        public void setPendingRatio(String pendingRatio) {
             this.pendingRatio = pendingRatio;
         }
 
-        public double getMinNumber() {
+        public String getMinNumber() {
             return minNumber;
         }
 
-        public void setMinNumber(double minNumber) {
+        public void setMinNumber(String minNumber) {
             this.minNumber = minNumber;
         }
 
-        public double getMaxNumber() {
+        public String getMaxNumber() {
             return maxNumber;
         }
 
-        public void setMaxNumber(double maxNumber) {
+        public void setMaxNumber(String maxNumber) {
             this.maxNumber = maxNumber;
         }
 
-        public double getPendingNumber() {
+        public String getPendingNumber() {
             return pendingNumber;
         }
 
-        public void setPendingNumber(double pendingNumber) {
+        public void setPendingNumber(String pendingNumber) {
             this.pendingNumber = pendingNumber;
         }
 
-        public double getDealNumber() {
+        public String getDealNumber() {
             return dealNumber;
         }
 
-        public void setDealNumber(double dealNumber) {
+        public void setDealNumber(String dealNumber) {
             this.dealNumber = dealNumber;
         }
 
-        public double getBuyFee() {
+        public String getBuyFee() {
             return buyFee;
         }
 
-        public void setBuyFee(double buyFee) {
+        public void setBuyFee(String buyFee) {
             this.buyFee = buyFee;
         }
 
-        public double getRestBalanceLock() {
+        public String getRestBalanceLock() {
             return restBalanceLock;
         }
 
-        public void setRestBalanceLock(double restBalanceLock) {
+        public void setRestBalanceLock(String restBalanceLock) {
             this.restBalanceLock = restBalanceLock;
         }
 

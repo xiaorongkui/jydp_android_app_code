@@ -4,6 +4,7 @@ package com.qmkj.jydp.net.api;
 import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
+import com.qmkj.jydp.bean.request.ChangePhoneReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
@@ -95,6 +96,12 @@ public interface LoginService {
      */
     @POST(AppNetConfig.urlPath + "wap/userInfo/payPassword/modifyByPhone")
     Observable<BaseRes<Object>> changePassWordByPhone(@Body ChangePassWordReq req);
+
+    /**
+     * 通过验证码修改支付密码
+     */
+    @POST(AppNetConfig.urlPath + "wap/userInfo/phone/modify")
+    Observable<BaseRes<Object>> changePhone(@Body ChangePhoneReq req);
 
 
 

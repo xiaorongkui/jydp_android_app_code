@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OrderRecodeRecyAdapter;
@@ -31,7 +33,7 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
     TextView titleHeaderTv;
     @BindView(R.id.mine_order_recode_rv)
     RecyclerView mineOrderRecodeRv;
-    private ArrayList<Object> mData;
+    private ArrayList<OrderRecodeRes.TransactionPendOrderRecordListBean> mData;
     private OrderRecodeRecyAdapter orderRecodeRecyAdapter;
 
     @Override
@@ -41,7 +43,9 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initData() {
-        presenter.getTradeCenterInfo("0",1,true);
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(0);
+        presenter.getTradeCenterInfo(req,1,true);
     }
 
     @Override
@@ -82,6 +86,9 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         OrderRecodeRes recodeRes = (OrderRecodeRes) response;
-
+        if(recodeRes!=null&&recodeRes.getTransactionPendOrderRecordList()!=null){
+            orderRecodeRecyAdapter.addData(recodeRes.getTransactionPendOrderRecordList());
+            orderRecodeRecyAdapter.notifyDataSetChanged();
+        }
     }
 }

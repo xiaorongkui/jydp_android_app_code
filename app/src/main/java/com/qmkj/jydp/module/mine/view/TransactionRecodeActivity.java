@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.PageNumberReq;
+import com.qmkj.jydp.bean.response.AccountRecordRes;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.TransactionRecodeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -22,22 +25,24 @@ import butterknife.ButterKnife;
  * description:成交记录
  */
 
-public class TransactionRecodeActivity extends BaseMvpActivity {
+public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.mine_transaction_recode_rv)
     RecyclerView mineTransactionRecodeRv;
-    private ArrayList<Object> mData;
+    private ArrayList<AccountRecordRes.DealRecordListBean> mData;
     private TransactionRecodeRecyAdapter transactionRecodeRecyAdapter;
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(0);
+        presenter.getAccountRecordInfo(req,1,true);
     }
 
     @Override
@@ -64,12 +69,6 @@ public class TransactionRecodeActivity extends BaseMvpActivity {
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
         transactionRecodeRecyAdapter = new TransactionRecodeRecyAdapter(mContext, mData, R.layout
                 .mine_transaction_reocde_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -79,5 +78,15 @@ public class TransactionRecodeActivity extends BaseMvpActivity {
         View mEmptyView = View.inflate(mContext, R.layout.empty, null);
         transactionRecodeRecyAdapter.setEmptyView(mEmptyView);
         mineTransactionRecodeRv.setAdapter(transactionRecodeRecyAdapter);
+    }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        AccountRecordRes recordRes = (AccountRecordRes)response;
+        if(recordRes.getDealRecordList()!=null){
+            transactionRecodeRecyAdapter.addData(recordRes.getDealRecordList());
+            transactionRecodeRecyAdapter.notifyDataSetChanged();
+        }
     }
 }

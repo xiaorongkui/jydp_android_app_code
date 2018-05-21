@@ -236,10 +236,12 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
         super.onSuccess(response, tag);
         switch (tag){
             case GET_CODE_TAG:
+                toast("验证码获取成功");
                 codeTimeDown();
                 break;
             case REQUEST_BY_PWD:
             case REQUEST_BY_PHONE:
+                toast("修改成功");
                 CommonUtil.gotoActivity(mContext,PersonInfoActivity.class);
                 break;
 

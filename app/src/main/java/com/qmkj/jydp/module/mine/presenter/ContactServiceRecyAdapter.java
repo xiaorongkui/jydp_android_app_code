@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.bean.response.CustomerServiceRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -17,17 +18,17 @@ import java.util.List;
  * description:
  */
 
-public class ContactServiceRecyAdapter extends BaseRecylerAdapter {
+public class ContactServiceRecyAdapter extends BaseRecylerAdapter<CustomerServiceRes.UserFeedbackListBean> {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector();
 
-    public ContactServiceRecyAdapter(Context context, List datas, int layoutId) {
+    public ContactServiceRecyAdapter(Context context, List<CustomerServiceRes.UserFeedbackListBean> datas, int layoutId) {
         super(layoutId, datas);
         this.mContext = context;
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
+    protected void convert(BaseRecyclerViewHolder helper, CustomerServiceRes.UserFeedbackListBean item, int position) {
         shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
                 .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
                 .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_gray_8))

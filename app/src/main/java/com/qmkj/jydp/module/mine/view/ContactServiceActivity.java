@@ -3,11 +3,15 @@ package com.qmkj.jydp.module.mine.view;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.PageNumberReq;
+import com.qmkj.jydp.bean.response.CustomerServiceRes;
 import com.qmkj.jydp.module.mine.presenter.ContactServiceRecyAdapter;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.SystemNoticeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -23,7 +27,7 @@ import butterknife.ButterKnife;
  * description:联系客服
  */
 
-public class ContactServiceActivity extends BaseMvpActivity {
+public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.contact_service_rv)
@@ -32,12 +36,14 @@ public class ContactServiceActivity extends BaseMvpActivity {
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(0);
+        presenter.getCustomerServiceInfo(req,1,true);
     }
 
     @Override
@@ -56,14 +62,23 @@ public class ContactServiceActivity extends BaseMvpActivity {
     }
 
     private void initRecycleView() {
-        List datas = new ArrayList();
+        ArrayList<CustomerServiceRes.UserFeedbackListBean> datas = new ArrayList();
 
-        for (int i = 0; i < 10; i++) {
-            datas.add(null);
-        }
         contactServiceRecyAdapter = new ContactServiceRecyAdapter(mContext, datas, R.layout
                 .mine_contact_service_item);
+        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
+        contactServiceRecyAdapter.setEmptyView(mEmptyView);
         contactServiceRv.setLayoutManager(new LinearLayoutManager(mContext));
         contactServiceRv.setAdapter(contactServiceRecyAdapter);
+    }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        CustomerServiceRes customerServiceRes = (CustomerServiceRes)response;
+        if(customerServiceRes.getUserFeedbackList()!=null){
+            contactServiceRecyAdapter.addData(customerServiceRes.getUserFeedbackList());
+            contactServiceRecyAdapter.notifyDataSetChanged();
+        }
     }
 }

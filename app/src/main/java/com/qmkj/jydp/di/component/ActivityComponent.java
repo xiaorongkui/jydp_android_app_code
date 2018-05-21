@@ -10,14 +10,19 @@ import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.module.login.view.CertificationActivity;
 import com.qmkj.jydp.module.login.view.ForgetLoginPwdActivity;
 import com.qmkj.jydp.module.login.view.LoginActivity;
+import com.qmkj.jydp.module.mine.view.ContactServiceActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyAssetsActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRecodeActivity;
 import com.qmkj.jydp.module.mine.view.DealerManagementActivity;
+import com.qmkj.jydp.module.mine.view.HotTopicActivity;
 import com.qmkj.jydp.module.mine.view.ModifyLoginPwdActivity;
 import com.qmkj.jydp.module.mine.view.ModifyPaymentActivity;
 import com.qmkj.jydp.module.mine.view.ModifyPhoneActivity;
 import com.qmkj.jydp.module.mine.view.OrderRecodeActivity;
+import com.qmkj.jydp.module.mine.view.OutSideExchangeRecodeActivity;
 import com.qmkj.jydp.module.mine.view.PersonInfoActivity;
+import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
+import com.qmkj.jydp.module.mine.view.TransactionRecodeActivity;
 
 import dagger.Component;
 
@@ -52,4 +57,16 @@ public interface ActivityComponent {
     void inject(ModifyPaymentActivity modifyPaymentActivity);
 
     void inject(ModifyPhoneActivity modifyPhoneActivity);
+
+    void inject(CurrencyWithDrawRecodeActivity currencyWithDrawRecodeActivity);
+
+    void inject(OutSideExchangeRecodeActivity outSideExchangeRecodeActivity);
+
+    void inject(SystemNoticeActivity systemNoticeActivity);
+
+    void inject(TransactionRecodeActivity transactionRecodeActivity);
+
+    void inject(ContactServiceActivity contactServiceActivity);
+
+    void inject(HotTopicActivity hotTopicActivity);
 }

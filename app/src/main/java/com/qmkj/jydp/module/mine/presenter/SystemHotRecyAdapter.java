@@ -1,12 +1,12 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.bean.response.SystemHotRes;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
@@ -20,19 +20,19 @@ import java.util.List;
  * description:
  */
 
-public class SystemNoticeRecyAdapter extends BaseRecylerAdapter<SystemNoticeRes.SystemNoticeListBean> {
+public class SystemHotRecyAdapter extends BaseRecylerAdapter<SystemHotRes.SystemHotListBean> {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
             .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_8));
 
-    public SystemNoticeRecyAdapter(Context context, List<SystemNoticeRes.SystemNoticeListBean> datas, int layoutId) {
+    public SystemHotRecyAdapter(Context context, List<SystemHotRes.SystemHotListBean> datas, int layoutId) {
         super(layoutId, datas);
         this.mContext = context;
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, SystemNoticeRes.SystemNoticeListBean item, int position) {
+    protected void convert(BaseRecyclerViewHolder helper, SystemHotRes.SystemHotListBean item, int position) {
         TextView system_notice_item_time_tv = helper.getView(R.id.system_notice_item_time_tv);
         TextView notice_title_item_tv = helper.getView(R.id.notice_title_item_tv);
         TextView notice_content_item_tv = helper.getView(R.id.notice_content_item_tv);
