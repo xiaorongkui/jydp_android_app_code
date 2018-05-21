@@ -125,6 +125,7 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         super.onSuccess(response, tag);
         switch (tag) {
             case EXCHANGE_CURRENCY_TAG:
+                if (refresh.isRefreshing()) refresh.refreshComplete();
                 ExchangeCurrencyRes currencyRes = (ExchangeCurrencyRes) response;
                 if (currencyRes == null) {
                     LogUtil.i("交易中心获取币种信息为空");
@@ -147,6 +148,7 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         super.onError(errorMsg, code, tag, o);
         switch (tag) {
             case EXCHANGE_CURRENCY_TAG:
+                if (refresh.isRefreshing()) refresh.refreshComplete();
                 showNetErrorView(recyclerView, true);
                 break;
         }

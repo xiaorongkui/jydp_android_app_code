@@ -1,11 +1,16 @@
 package com.qmkj.jydp.net.api;
 
 
+import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.bean.request.ExchangePwdReq;
+import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.bean.response.BaseRes;
+import com.qmkj.jydp.bean.response.BuyExchangeRes;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
+import com.qmkj.jydp.bean.response.SellExchangeRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import java.util.Map;
@@ -45,4 +50,28 @@ public interface ExchangeService {
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/entrust")
     Observable<BaseRes<ExchangeEntrustRecodeRes>> getEntrustRecodeData(@Body ExchangeCenterReq req);
+
+    /**
+     * 交易中心购买接口
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/tradeCenter/buy")
+    Observable<BaseRes<BuyExchangeRes>> buyXtExchange(@Body BuyExchangeReq req);
+
+    /**
+     * 交易中心卖出接口
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/tradeCenter/sell")
+    Observable<BaseRes<SellExchangeRes>> sellXtExchange(@Body SellExchangeReq req);
+
+    /**
+     * 交易中心记住密码接口
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/tradeCenter/rememberPwd")
+    Observable<BaseRes<BaseRes>> rememberExchangePwd(@Body ExchangePwdReq req);
 }

@@ -63,7 +63,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="9399.5"
                         android:textColor="@color/colorGreen_4"
                         android:textSize="@dimen/text_size_22"/>
 
@@ -96,7 +95,6 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_high_title_tv"
-                                android:text="99.0"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -124,7 +122,6 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_lowest_title_tv"
-                                android:text="12.0"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -159,7 +156,6 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_buy_one_title_tv"
-                                android:text="99.0"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -187,7 +183,6 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_sell_one_title_tv"
-                                android:text="99.0"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -211,7 +206,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y10"
-                            android:text="3.11万"
                             android:textColor="@color/color_black_7"
                             android:textSize="@dimen/text_size_13"/>
                     </LinearLayout>
@@ -447,49 +441,32 @@
                         android:textColor="@color/color_black_5"
                         android:textSize="@dimen/text_size_12"/>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/price_dollars"
                         android:textColor="@color/color_black_5"
                         android:textSize="@dimen/text_size_12"/>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/amount"
                         android:textColor="@color/color_black_5"
                         android:textSize="@dimen/text_size_12"/>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/have_exchange"
                         android:textColor="@color/color_black_5"
                         android:textSize="@dimen/text_size_12"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
