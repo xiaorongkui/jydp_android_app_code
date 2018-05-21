@@ -333,17 +333,6 @@
                         </LinearLayout>
 
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/exchange_price_recycle_sold"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/color_green_5"
-                            android:overScrollMode="never"
-                            android:paddingEnd="@dimen/x11"
-                            android:paddingStart="@dimen/x11"
-                            android:paddingTop="@dimen/y2"
-                            android:scrollbars="none"/>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -380,6 +369,17 @@
                             android:paddingEnd="@dimen/x11"
                             android:paddingStart="@dimen/x11"
                             android:scrollbars="none"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/exchange_price_recycle_sold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_green_5"
+                            android:overScrollMode="never"
+                            android:paddingEnd="@dimen/x11"
+                            android:paddingStart="@dimen/x11"
+                            android:paddingTop="@dimen/y2"
+                            android:scrollbars="none" />
                     </LinearLayout>
 
                     <View

@@ -1,15 +1,12 @@
 package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
@@ -97,6 +94,20 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
             @Override
             public boolean checkCanDoRefresh(View content, View header) {
                 return isCanRefresh;
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                isCanRefresh = topRowVerticalPosition >= 0;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
             }
         });
     }
