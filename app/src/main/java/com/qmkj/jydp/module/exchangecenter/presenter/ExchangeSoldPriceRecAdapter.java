@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.NumberUtil;
@@ -20,7 +20,7 @@ import butterknife.BindView;
  * description:
  */
 
-public class ExchangeSoldPriceRecAdapter extends BaseRecylerAdapter<ExchangeCenterRes
+public class ExchangeSoldPriceRecAdapter extends BaseRecycleAdapter<ExchangeCenterRes
         .TransactionPendOrderSellListBean> {
 
     private final List datas;

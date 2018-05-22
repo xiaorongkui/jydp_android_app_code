@@ -20,22 +20,22 @@ import butterknife.Unbinder;
  * description:recycleView的封装
  */
 
-public abstract class BaseRecylerAdapter<T> extends BaseQuickAdapter<T, BaseRecyclerViewHolder> {
+public abstract class BaseRecycleAdapter<T> extends BaseQuickAdapter<T, BaseRecyclerViewHolder> {
 
     private Unbinder unbinder;
 
-    public BaseRecylerAdapter(int layoutResId, @Nullable List<T> data) {
+    public BaseRecycleAdapter(int layoutResId, @Nullable List<T> data) {
         super(layoutResId, data);
         init();
     }
 
 
-    public BaseRecylerAdapter(@Nullable List<T> data) {
+    public BaseRecycleAdapter(@Nullable List<T> data) {
         super(data);
         init();
     }
 
-    public BaseRecylerAdapter(int layoutResId) {
+    public BaseRecycleAdapter(int layoutResId) {
         super(layoutResId);
         init();
     }

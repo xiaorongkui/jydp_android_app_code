@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -19,7 +19,7 @@ import java.util.List;
  * description:
  */
 
-public class CurrencyAssetsRecyAdapter extends BaseRecylerAdapter<CurrencyAssetsRes.UserCurrencyAssetsBean> {
+public class CurrencyAssetsRecyAdapter extends BaseRecycleAdapter<CurrencyAssetsRes.UserCurrencyAssetsBean> {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector;
 

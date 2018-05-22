@@ -54,7 +54,7 @@ public class SystemNoticeRes extends BaseRes implements Serializable {
         this.systemNoticeList = systemNoticeList;
     }
 
-    public static class SystemNoticeListBean {
+    public static class SystemNoticeListBean implements Serializable{
         /**
          * addTime : 1525314643000
          * content : <p>53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告v<img src="http://test.oksheng.com.cn/fileservice/upload/ueditor/20180503/1525314635977062214.jpg" title="1525314635977062214.jpg" alt="test_301.jpg" style="float: right;"/></p>

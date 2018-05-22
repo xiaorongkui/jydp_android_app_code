@@ -1,13 +1,11 @@
 package com.qmkj.jydp.module.exchangoutsidee.presenter;
 
-import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -19,7 +17,7 @@ import java.util.List;
  * @desc
  */
 
-public class OutsideExchangeAdapter extends BaseRecylerAdapter {
+public class OutsideExchangeAdapter extends BaseRecycleAdapter {
 
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))

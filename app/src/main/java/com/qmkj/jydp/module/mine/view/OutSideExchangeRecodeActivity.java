@@ -1,14 +1,12 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
@@ -16,9 +14,7 @@ import com.qmkj.jydp.module.mine.presenter.OutSideExchangeRecodeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.List;
 
 /**
  * author：rongkui.xiao --2018/5/11
@@ -26,13 +22,17 @@ import butterknife.ButterKnife;
  * description:场外交易记录
  */
 
-public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
-    @BindView(R.id.title_header_tv)
-    TextView titleHeaderTv;
-    @BindView(R.id.mine_outside_exchange_recode_rv)
-    RecyclerView mineOutsideExchangeRecodeRv;
+public class OutSideExchangeRecodeActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
     private ArrayList<OtcDealRecordRes.OtcTransactionUserDealListBean> mData;
     private OutSideExchangeRecodeRecyAdapter outSideExchangeRecodeRecyAdapter;
+    private int type;
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        type =getIntent().getIntExtra(MineRecodeActivity.RECODE_TYPE,1);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void injectPresenter() {
@@ -43,42 +43,31 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
     protected void initData() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(0);
-        presenter.getOtcDealRecordInfo(req,1,true);
+        switch (type){
+            case MineRecodeActivity.RECODE_TYPE_NORMAL:
+                presenter.getOtcDealRecordInfo(req,1,true);
+                break;
+            case MineRecodeActivity.RECODE_TYPE_AGENCY:
+                presenter.getDealOtcRecordInfo(req,1,true);
+                break;
+
+        }
+
     }
 
-    @Override
-    protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode));
-    }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.mine_activity_outside_exchange_recode;
-    }
-
-    @Override
-    protected void initView() {
+    public BaseRecycleAdapter getRecycleAdapter() {
         initRecycleView();
+        return outSideExchangeRecodeRecyAdapter;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     private void initRecycleView() {
         mData = new ArrayList<>();
         outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext, mData, R.layout
                 .mine_outside_exchange_recode_item);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mineOutsideExchangeRecodeRv.setLayoutManager(layoutManager);
 
-        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
-        outSideExchangeRecodeRecyAdapter.setEmptyView(mEmptyView);
-        mineOutsideExchangeRecodeRv.setAdapter(outSideExchangeRecodeRecyAdapter);
 
         outSideExchangeRecodeRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
@@ -98,5 +87,21 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
             outSideExchangeRecodeRecyAdapter.addData(recordRes.getOtcTransactionUserDealList());
             outSideExchangeRecodeRecyAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public List getData() {
+        return mData;
+    }
+
+    @Override
+    public String getTittle() {
+        switch (type){
+            case MineRecodeActivity.RECODE_TYPE_NORMAL:
+                return CommonUtil.getString(R.string.outside_exchange_recode);
+            case MineRecodeActivity.RECODE_TYPE_AGENCY:
+                return CommonUtil.getString(R.string.outside_exchange_recode_agcy);
+        }
+        return CommonUtil.getString(R.string.outside_exchange_recode);
     }
 }

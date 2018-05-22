@@ -10,7 +10,8 @@ public final class AppNetConfig {
 
     //        public static final String BASE_URL = "http://test.oksheng.com.cn/";//测试环境
 //    public static final String BASE_URL = "http:/192.168.12.177:8080";
-    public static final String BASE_URL = "http:/192.168.12.222:8080";
+//    public static final String BASE_URL = "http:/192.168.12.222:8080";
+    public static final String BASE_URL = "http:/192.168.1.100:8081";
 
 //    public static final String urlPath = "mockjsdata/1/";//测试环境
 //    public static final String BASE_URL = "http://rap.aiksheng.com/";//mock

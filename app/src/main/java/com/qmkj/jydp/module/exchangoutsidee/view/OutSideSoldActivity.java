@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
@@ -111,7 +110,7 @@ public class OutSideSoldActivity extends BaseMvpActivity {
         RecyclerView recyclerView = commonDialog.getView(R.id.certify_type_select_rv, RecyclerView.class);
         ImageView dialog_right_iv = commonDialog.getView(R.id.dialog_right_iv, ImageView.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setAdapter(new BaseRecylerAdapter<DialogItemBean>(R.layout.certify_type_select_item,
+        recyclerView.setAdapter(new BaseRecycleAdapter<DialogItemBean>(R.layout.certify_type_select_item,
                 certifyTypeData) {
 
             @Override
@@ -125,7 +124,7 @@ public class OutSideSoldActivity extends BaseMvpActivity {
                         .bt_unselected);
             }
         });
-        ((BaseRecylerAdapter) recyclerView.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
+        ((BaseRecycleAdapter) recyclerView.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
             payMethodShow[position] = !payMethodShow[position];
             outsidePayMothedTv.setText(certifyTypeData.get(position).getCertifyName());
             recyclerView.getAdapter().notifyDataSetChanged();

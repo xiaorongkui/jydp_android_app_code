@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * description:
  */
 
-public class CurrencyWithDrawRecodeRecyAdapter extends BaseRecylerAdapter {
+public class CurrencyWithDrawRecodeRecyAdapter extends BaseRecycleAdapter {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))

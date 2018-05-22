@@ -66,4 +66,20 @@
         app:rightIconVisible="true"
         app:rightTextColor="@color/color_black_7"/>
 
+
+    <com.qmkj.jydp.ui.widget.ClickItemView
+        android:id="@+id/mine_recode_outside_exchange_recode_agcy_civ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y19"
+        android:visibility="gone"
+        app:bottomLine="true"
+        app:bottomLineMarginTop="@dimen/y8"
+        app:leftText="@string/outside_exchange_recode_agcy"
+        app:leftTextColor="@color/color_black_6"
+        app:rightIconVisible="true"
+        app:rightTextColor="@color/color_black_7"/>
+
 </LinearLayout>

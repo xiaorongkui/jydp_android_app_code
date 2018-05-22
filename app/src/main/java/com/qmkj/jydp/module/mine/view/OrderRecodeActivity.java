@@ -1,14 +1,9 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
@@ -16,11 +11,7 @@ import com.qmkj.jydp.module.mine.presenter.OrderRecodeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.List;
 
 /**
  * author：rongkui.xiao --2018/5/11
@@ -28,11 +19,7 @@ import butterknife.ButterKnife;
  * description:挂单委托记录
  */
 
-public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
-    @BindView(R.id.title_header_tv)
-    TextView titleHeaderTv;
-    @BindView(R.id.mine_order_recode_rv)
-    RecyclerView mineOrderRecodeRv;
+public class OrderRecodeActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
     private ArrayList<OrderRecodeRes.TransactionPendOrderRecordListBean> mData;
     private OrderRecodeRecyAdapter orderRecodeRecyAdapter;
 
@@ -48,38 +35,15 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
         presenter.getTradeCenterInfo(req,1,true);
     }
 
-    @Override
-    protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.exchange_entrust_recod));
-    }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.mine_activity_order_recode;
-    }
-
-    @Override
-    protected void initView() {
+    public BaseRecycleAdapter getRecycleAdapter() {
         initRecycleView();
+        return orderRecodeRecyAdapter;
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     private void initRecycleView() {
         mData = new ArrayList<>();
         orderRecodeRecyAdapter = new OrderRecodeRecyAdapter(mContext, mData, R.layout.mine_order_reocde_item);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mineOrderRecodeRv.setLayoutManager(layoutManager);
-
-        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
-        orderRecodeRecyAdapter.setEmptyView(mEmptyView);
-        mineOrderRecodeRv.setAdapter(orderRecodeRecyAdapter);
     }
 
     @Override
@@ -90,5 +54,15 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
             orderRecodeRecyAdapter.addData(recodeRes.getTransactionPendOrderRecordList());
             orderRecodeRecyAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public List getData() {
+        return mData;
+    }
+
+    @Override
+    public String getTittle() {
+        return CommonUtil.getString(R.string.exchange_entrust_recod);
     }
 }

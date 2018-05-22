@@ -7,10 +7,14 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.module.mine.presenter.HelpCenterRecyAdapter;
+import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -20,32 +24,18 @@ import butterknife.BindView;
  * description:帮助中心
  */
 
-public class HelpCenterActivity extends BaseMvpActivity {
-    @BindView(R.id.title_header_tv)
-    TextView titleHeaderTv;
-    @BindView(R.id.help_center_rv)
-    RecyclerView helpCenterRv;
+public class HelpCenterActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
     private ArrayList<Object> mData;
     private HelpCenterRecyAdapter helpCenterRecyAdapter;
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
-
-    }
-
-    @Override
-    protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.help_center));
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.mine_activity_help_center;
+//        presenter.getHelpCenterInfo();
     }
 
     @Override
@@ -54,22 +44,25 @@ public class HelpCenterActivity extends BaseMvpActivity {
 
     }
 
+    @Override
+    public BaseRecycleAdapter getRecycleAdapter() {
+        initRecycleView();
+        return helpCenterRecyAdapter;
+    }
+
+    @Override
+    public List getData() {
+        return mData;
+    }
+
+    @Override
+    public String getTittle() {
+        return CommonUtil.getString(R.string.help_center);
+    }
+
     private void initRecycleView() {
         mData = new ArrayList<>();
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
-        mData.add("123");
         helpCenterRecyAdapter = new HelpCenterRecyAdapter(mContext, mData, R.layout.single_click_item);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        helpCenterRv.setLayoutManager(layoutManager);
-
-        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
-        helpCenterRecyAdapter.setEmptyView(mEmptyView);
-        helpCenterRv.setAdapter(helpCenterRecyAdapter);
         helpCenterRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
         });
     }

@@ -1,5 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,14 +10,18 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
 import com.qmkj.jydp.module.mine.presenter.DealerManagementRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
+import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -25,16 +31,24 @@ import butterknife.BindView;
  * description:经销商管理
  */
 
-public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
-    @BindView(R.id.title_header_tv)
-    TextView titleHeaderTv;
-    @BindView(R.id.dealer_managment_rv)
-    RecyclerView dealerManagmentRv;
-    @BindView(R.id.dealer_publish_advertise_bt)
-    Button dealerPublishAdvertiseBt;
+public class DealerManagementActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
     private ArrayList<DealerManagementRes.OtcTransactionPendOrderListBean> mData;
     private DealerManagementRecyAdapter dealerManagementRecyAdapter;
     private CommonDialog dialogUtils;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Button button = getBottomButton();
+        button.setVisibility(View.VISIBLE);
+        button.setText(CommonUtil.getString(R.string.send_advertisement));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonUtil.gotoActivity(mContext, PublishAdvertisementActivity.class);
+            }
+        });
+    }
 
     @Override
     protected void injectPresenter() {
@@ -47,32 +61,15 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     @Override
-    protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.dealer_managment));
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.mine_activity_dealer_managment;
-    }
-
-    @Override
-    protected void initView() {
-        dealerPublishAdvertiseBt.setOnClickListener(this);
+    public BaseRecycleAdapter getRecycleAdapter() {
         initRecycleView();
+        return dealerManagementRecyAdapter;
     }
 
     private void initRecycleView() {
         mData = new ArrayList<>();
         dealerManagementRecyAdapter = new DealerManagementRecyAdapter(mContext, mData, R.layout
                 .mine_dealer_managment_item);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dealerManagmentRv.setLayoutManager(layoutManager);
-
-        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
-        dealerManagementRecyAdapter.setEmptyView(mEmptyView);
-        dealerManagmentRv.setAdapter(dealerManagementRecyAdapter);
         dealerManagementRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> showDeleteDialog());
     }
 
@@ -100,15 +97,6 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.dealer_publish_advertise_bt:
-                CommonUtil.gotoActivity(mContext, PublishAdvertisementActivity.class);
-                break;
-        }
-    }
-
 
     @Override
     public void onSuccess(Object response, int tag) {
@@ -121,7 +109,12 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     @Override
-    public void onError(String errorMsg, String code, int tag, Object response) {
-        super.onError(errorMsg, code, tag, response);
+    public List getData() {
+        return mData;
+    }
+
+    @Override
+    public String getTittle() {
+        return CommonUtil.getString(R.string.dealer_managment);
     }
 }

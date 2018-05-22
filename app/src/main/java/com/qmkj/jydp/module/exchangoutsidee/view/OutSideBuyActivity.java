@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
@@ -92,7 +92,7 @@ public class OutSideBuyActivity extends BaseMvpActivity {
 
         RecyclerView recyclerView = commonDialog.getView(R.id.certify_type_select_rv, RecyclerView.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setAdapter(new BaseRecylerAdapter<DialogItemBean>(R.layout.certify_type_select_item,
+        recyclerView.setAdapter(new BaseRecycleAdapter<DialogItemBean>(R.layout.certify_type_select_item,
                 certifyTypeData) {
 
             @Override
@@ -110,7 +110,7 @@ public class OutSideBuyActivity extends BaseMvpActivity {
             }
         });
         commonDialog.show();
-        ((BaseRecylerAdapter) recyclerView.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
+        ((BaseRecycleAdapter) recyclerView.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
             commonDialog.dismiss();
             selectIndex = position;
             outsidePayMothedTv.setText(certifyTypeData.get(position).getCertifyName());

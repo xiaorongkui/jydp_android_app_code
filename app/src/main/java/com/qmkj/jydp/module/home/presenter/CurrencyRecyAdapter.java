@@ -3,7 +3,7 @@ package com.qmkj.jydp.module.home.presenter;
 import android.content.Context;
 
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * description:币种选择
  */
 
-public class CurrencyRecyAdapter extends BaseRecylerAdapter {
+public class CurrencyRecyAdapter extends BaseRecycleAdapter {
     private final List<String> datas;
     private final Context mContext;
 

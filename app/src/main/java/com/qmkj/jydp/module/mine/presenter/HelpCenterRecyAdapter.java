@@ -1,13 +1,9 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
-import android.widget.TextView;
 
-import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
-import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.SelectorFactory;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 
 import java.util.List;
 
@@ -17,7 +13,7 @@ import java.util.List;
  * description:
  */
 
-public class HelpCenterRecyAdapter extends BaseRecylerAdapter {
+public class HelpCenterRecyAdapter extends BaseRecycleAdapter {
     private final Context mContext;
 
     public HelpCenterRecyAdapter(Context context, List datas, int layoutId) {

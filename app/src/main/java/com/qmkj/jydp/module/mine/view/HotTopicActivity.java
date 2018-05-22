@@ -1,28 +1,22 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import android.content.Intent;
+import android.view.View;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.SystemHotRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.SystemHotRecyAdapter;
-import com.qmkj.jydp.module.mine.presenter.SystemNoticeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.DateUtil;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.List;
 
 /**
  * author：rongkui.xiao --2018/3/27
@@ -30,19 +24,11 @@ import butterknife.ButterKnife;
  * description:热门话题
  */
 
-public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
-    @BindView(R.id.system_hot_rv)
-    RecyclerView systemNoticeRv;
-    @BindView(R.id.title_header_tv)
-    TextView titleHeaderTv;
+public class HotTopicActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
+    public final static String HOT_TOPIC_OBJECT = "hot_object" ;
+
     private ArrayList<SystemHotRes.SystemHotListBean> datas;
     private SystemHotRecyAdapter systemHotAdapter;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-    }
 
     @Override
     protected void injectPresenter() {
@@ -57,32 +43,35 @@ public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     @Override
-    protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.hot_topic));
+    public String getTittle() {
+        return CommonUtil.getString(R.string.hot_topic);
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.mine_activity_hot_topic;
+    public List getData() {
+        return datas;
     }
 
     @Override
-    protected void initView() {
-        initRecycleView();
-    }
-
-    private void initRecycleView() {
+    public BaseRecycleAdapter getRecycleAdapter() {
         datas = new ArrayList();
         systemHotAdapter = new SystemHotRecyAdapter(mContext, datas, R.layout
                 .mine_system_notice_item);
-        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
-        systemHotAdapter.setEmptyView(mEmptyView);
-        systemNoticeRv.setLayoutManager(new LinearLayoutManager(mContext));
-        systemNoticeRv.setAdapter(systemHotAdapter);
-    }
-    @Override
-    public boolean isImmersiveStatusBar() {
-        return true;
+        systemHotAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(HotTopicActivity.this,SystemNoticeDetailsActivity.class);
+                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TITTLE,
+                        systemHotAdapter.getData().get(position).getNoticeTitle());
+                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TIMES,
+                        DateUtil.longToTimeStr(systemHotAdapter.getData().get(position).getAddTime(),
+                                DateUtil.dateFormat2));
+                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
+                        systemHotAdapter.getData().get(position).getContent());
+                CommonUtil.gotoActivity(mContext,intent);
+            }
+        });
+        return systemHotAdapter;
     }
 
     @Override
@@ -93,6 +82,6 @@ public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
            systemHotAdapter.addData(systemHotRes.getSystemHotList());
            systemHotAdapter.notifyDataSetChanged();
        }
-
     }
+
 }

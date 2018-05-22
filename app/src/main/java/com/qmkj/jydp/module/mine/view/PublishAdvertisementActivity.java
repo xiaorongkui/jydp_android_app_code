@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
@@ -79,7 +79,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity {
         paymentSelectDatas.add(new DialogItemBean(CommonUtil.getString(R.string.wechat_transfer), R
                 .mipmap.wechat_pay, false));
         publishPaymentTypeSelectRv.setLayoutManager(new LinearLayoutManager(mContext));
-        BaseRecylerAdapter recylerAdapter = new BaseRecylerAdapter<DialogItemBean>(R.layout
+        BaseRecycleAdapter recylerAdapter = new BaseRecycleAdapter<DialogItemBean>(R.layout
                 .mine_payment_type_select_item,
                 paymentSelectDatas) {
 

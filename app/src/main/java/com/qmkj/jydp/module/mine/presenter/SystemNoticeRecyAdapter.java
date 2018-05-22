@@ -1,13 +1,13 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
+import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -20,7 +20,7 @@ import java.util.List;
  * description:
  */
 
-public class SystemNoticeRecyAdapter extends BaseRecylerAdapter<SystemNoticeRes.SystemNoticeListBean> {
+public class SystemNoticeRecyAdapter extends BaseRecycleAdapter<SystemNoticeRes.SystemNoticeListBean> {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
@@ -36,7 +36,7 @@ public class SystemNoticeRecyAdapter extends BaseRecylerAdapter<SystemNoticeRes.
         TextView system_notice_item_time_tv = helper.getView(R.id.system_notice_item_time_tv);
         TextView notice_title_item_tv = helper.getView(R.id.notice_title_item_tv);
         TextView notice_content_item_tv = helper.getView(R.id.notice_content_item_tv);
-
+        helper.addOnClickListener(R.id.system_notice_item_detail_civ);
         system_notice_item_time_tv.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
         notice_title_item_tv.setText(item.getNoticeTitle()+"");
         notice_content_item_tv.setText(item.getContent()+"");

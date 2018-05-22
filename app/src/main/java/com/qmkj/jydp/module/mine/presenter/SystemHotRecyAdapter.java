@@ -5,9 +5,8 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.response.SystemHotRes;
-import com.qmkj.jydp.bean.response.SystemNoticeRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -20,7 +19,7 @@ import java.util.List;
  * description:
  */
 
-public class SystemHotRecyAdapter extends BaseRecylerAdapter<SystemHotRes.SystemHotListBean> {
+public class SystemHotRecyAdapter extends BaseRecycleAdapter<SystemHotRes.SystemHotListBean> {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
@@ -37,6 +36,7 @@ public class SystemHotRecyAdapter extends BaseRecylerAdapter<SystemHotRes.System
         TextView notice_title_item_tv = helper.getView(R.id.notice_title_item_tv);
         TextView notice_content_item_tv = helper.getView(R.id.notice_content_item_tv);
 
+        helper.addOnClickListener(R.id.system_notice_item_detail_civ);
         system_notice_item_time_tv.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
         notice_title_item_tv.setText(item.getNoticeTitle()+"");
         notice_content_item_tv.setText(item.getContent()+"");

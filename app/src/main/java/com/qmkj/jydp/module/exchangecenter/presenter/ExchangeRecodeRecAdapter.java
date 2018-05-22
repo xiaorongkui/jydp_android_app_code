@@ -5,8 +5,7 @@ import android.view.View;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
-import com.qmkj.jydp.ui.widget.ClickItemView;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * description:交易记录
  */
 
-public class ExchangeRecodeRecAdapter extends BaseRecylerAdapter {
+public class ExchangeRecodeRecAdapter extends BaseRecycleAdapter {
 
     private final List datas;
 
