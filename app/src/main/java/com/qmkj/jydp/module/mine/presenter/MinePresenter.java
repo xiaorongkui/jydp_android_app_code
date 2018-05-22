@@ -2,10 +2,8 @@ package com.qmkj.jydp.module.mine.presenter;
 
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
-import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.net.api.MineService;
 
@@ -29,7 +27,7 @@ public class MinePresenter extends BaseRxPresenter {
 
     public void getMineInfo(int tag, boolean isShowProgress) {
 
-        sendHttpRequest(mineService.getMineInfo(), tag);
+        sendHttpRequest(mineService.getMineInfo(), tag, isShowProgress);
     }
 
     public void loginOut(int tag, boolean isShowProgress){
