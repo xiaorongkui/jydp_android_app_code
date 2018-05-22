@@ -21,12 +21,6 @@ import butterknife.BindView;
  */
 
 public class ExchangebuyPriceRecAdapter extends BaseRecylerAdapter<ExchangeCenterRes.TransactionPendOrderBuyListBean> {
-    @BindView(R.id.price_status_tv)
-    TextView priceStatusTv;
-    @BindView(R.id.price_amount_tv)
-    TextView priceAmountTv;
-    @BindView(R.id.price_total_money_tv)
-    TextView priceTotalMoneyTv;
 
     public ExchangebuyPriceRecAdapter(Context context, List datas, int layoutId) {
         super(layoutId, datas);
@@ -35,10 +29,12 @@ public class ExchangebuyPriceRecAdapter extends BaseRecylerAdapter<ExchangeCente
     @Override
     protected void convert(BaseRecyclerViewHolder helper, ExchangeCenterRes.TransactionPendOrderBuyListBean item, int
             position) {
+        TextView priceStatusTv = helper.getView(R.id.price_status_tv);
+        TextView priceAmountTv = helper.getView(R.id.price_amount_tv);
+        TextView priceTotalMoneyTv = helper.getView(R.id.price_total_money_tv);
         priceStatusTv.setText(CommonUtil.getString(R.string.buy) + (position + 1));
-        if (item == null) return;
-
         priceStatusTv.setTextColor(CommonUtil.getColor(R.color.color_red_3));
+        if (item == null) return;
         priceTotalMoneyTv.setText(NumberUtil.format2Point(item.getPendingPrice()));
         priceAmountTv.setText(NumberUtil.format2Point(item.getPendingNumber()));
 

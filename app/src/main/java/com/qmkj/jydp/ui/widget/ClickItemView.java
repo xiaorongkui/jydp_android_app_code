@@ -213,7 +213,7 @@ public class ClickItemView extends LinearLayout {
         if (size < 0) {
             return;
         }
-        mTvLeft.setTextSize(size);
+        mTvLeft.setTextSize(px2sp(size));
     }
 
     public void setLeftText(int resId) {
@@ -310,7 +310,7 @@ public class ClickItemView extends LinearLayout {
         if (size < 0) {
             return;
         }
-        mTvRight.setTextSize(size);
+        mTvRight.setTextSize(px2sp(size));
     }
 
     /**
@@ -340,5 +340,10 @@ public class ClickItemView extends LinearLayout {
      */
     public View getContentView() {
         return mContentView;
+    }
+
+    public int px2sp(float pxValue) {
+        float fontScale = getContext().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
     }
 }

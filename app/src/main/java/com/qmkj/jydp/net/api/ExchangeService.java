@@ -4,6 +4,7 @@ package com.qmkj.jydp.net.api;
 import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.request.ExchangePwdReq;
+import com.qmkj.jydp.bean.request.KlineReq;
 import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.BuyExchangeRes;
@@ -73,5 +74,13 @@ public interface ExchangeService {
      * @return
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/rememberPwd")
-    Observable<BaseRes<BaseRes>> rememberExchangePwd(@Body ExchangePwdReq req);
+    Observable<BaseRes<Object>> rememberExchangePwd(@Body ExchangePwdReq req);
+
+    /**
+     * 交易中心获取K线图数据
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainGraphData")
+    Observable<BaseRes<Object>> getKlineData(@Body KlineReq req);
 }

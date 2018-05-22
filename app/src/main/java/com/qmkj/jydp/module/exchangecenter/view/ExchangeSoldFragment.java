@@ -7,12 +7,14 @@ import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -59,7 +61,7 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     ImageView exchangePassowrdIv;
     @BindView(R.id.exchange_center_sold_out_bt)
     Button exchangeCenterSoldOutBt;
-    private CommonDialog dialogUtils;
+    private CommonDialog pwdDialogUtils;
 
     public static ExchangeSoldFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -114,8 +116,8 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (dialogUtils != null) {
-            dialogUtils.dismiss();
+        if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) {
+            pwdDialogUtils.dismiss();
         }
     }
 
@@ -127,6 +129,7 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 showSettingExchangePwdDialog();
                 break;
             case R.id.exchange_center_sold_out_bt:
+
                 submitSellXt();
                 break;
         }
@@ -138,56 +141,80 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
 
     private void showSettingExchangePwdDialog() {
 
-        dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_settting_pwd);
-        TextView message = dialogUtils.getView(R.id.message, TextView.class);
+        pwdDialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_settting_pwd);
+        TextView message = pwdDialogUtils.getView(R.id.message, TextView.class);
         message.setVisibility(View.GONE);
-        FrameLayout common_dialog_content_container_fl = dialogUtils.getView(R.id.common_dialog_content_container_fl,
+        FrameLayout common_dialog_content_container_fl = pwdDialogUtils.getView(R.id.common_dialog_content_container_fl,
                 FrameLayout.class);
         View view = View.inflate(mContext, R.layout.exchange_dialog_setting_pwd_content, null);
         common_dialog_content_container_fl.addView(view);
         common_dialog_content_container_fl.setVisibility(View.VISIBLE);
         ImageView exchange_setting_pwd_login_iv = view.findViewById(R.id.exchange_setting_pwd_login_iv);
         ImageView exchange_setting_pwd_exchange_iv = view.findViewById(R.id.exchange_setting_pwd_exchange_iv);
+        LinearLayout exchange_setting_pwd_login_ll = view.findViewById(R.id.exchange_setting_pwd_login_ll);
+        LinearLayout exchange_setting_pwd_exchange_ll = view.findViewById(R.id.exchange_setting_pwd_exchange_ll);
+        LinearLayout setting_pwd_ll = view.findViewById(R.id.setting_pwd_ll);
         EditText exchange_passowrd_et = view.findViewById(R.id.exchange_passowrd_et);
+        setting_pwd_ll.setFocusable(true);
+        setting_pwd_ll.setFocusableInTouchMode(true);
+        setting_pwd_ll.requestFocus();
+
+        exchange_passowrd_et.setOnTouchListener((v, event) -> {
+            exchange_passowrd_et.setCursorVisible(true);
+            exchange_passowrd_et.setFocusable(true);
+            exchange_passowrd_et.setFocusableInTouchMode(true);
+            exchange_passowrd_et.requestFocus();
+            return false;
+        });
+
         exchange_passowrd_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
         exchange_passowrd_et.setInputType(InputType.TYPE_CLASS_TEXT | InputType
                 .TYPE_TEXT_VARIATION_PASSWORD);
         exchange_passowrd_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
         exchange_passowrd_et.setKeyListener(DigitsKeyListener.getInstance(digits));
 
-        exchange_setting_pwd_login_iv.setOnClickListener(v -> {
+        exchange_setting_pwd_login_ll.setOnClickListener(v -> {
             isRememberLoginPwd = !isRememberLoginPwd;
             exchange_setting_pwd_login_iv.setImageResource(isRememberLoginPwd ? R.mipmap.bt_selected : R.mipmap
                     .bt_unselected);
+            if (isRememberExchangePwd) {
+                exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_unselected);
+            }
         });
-        exchange_setting_pwd_exchange_iv.setOnClickListener(v -> {
+        exchange_setting_pwd_exchange_ll.setOnClickListener(v -> {
             isRememberExchangePwd = !isRememberExchangePwd;
             exchange_setting_pwd_exchange_iv.setImageResource(isRememberExchangePwd ? R.mipmap.bt_selected : R
                     .mipmap.bt_unselected);
-        });
-        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
-        dialogUtils.setOneOrTwoBtn(false);
-        dialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
-        dialogUtils.setTwoCancelBtn("取消", v -> {
-            LogUtil.i("取消");
-            //todo
-        });
-        dialogUtils.setTwoConfirmBtn("确认", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String exchangePwd = exchange_passowrd_et.getText().toString().trim();
-                if (TextUtils.isEmpty(exchangePwd)) {
-                    toast("请输入交易密码");
-                    return;
-                }
-                ExchangePwdReq exchangePwdReq = new ExchangePwdReq();
-                exchangePwdReq.setPayPasswordStatus("");
-                exchangePwdReq.setRememberPwd(exchangePwd);
-                presenter.rememberExchangePwd(exchangePwdReq, EXCHANGE_PWD_TAG, true);
+            if (isRememberLoginPwd) {
+                exchange_setting_pwd_login_iv.setImageResource(R.mipmap.bt_unselected);
             }
         });
-        dialogUtils.show();
+        pwdDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        pwdDialogUtils.setOneOrTwoBtn(false);
+        pwdDialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
+        pwdDialogUtils.setTwoCancelBtn("取消", v -> {
+            LogUtil.i("取消");
+            pwdDialogUtils.dismiss();
+        });
+        pwdDialogUtils.setTwoConfirmBtn("确认", v -> {
+            String exchangePwd = exchange_passowrd_et.getText().toString().trim();
+            if (TextUtils.isEmpty(exchangePwd)) {
+                toast("请输入交易密码");
+                return;
+            }
+            ExchangePwdReq exchangePwdReq = new ExchangePwdReq();
+            if (isRememberLoginPwd) {
+                exchangePwdReq.setPayPasswordStatus(2 + "");
+            }
+            if (isRememberExchangePwd) {
+                exchangePwdReq.setPayPasswordStatus(1 + "");
+            }
+            exchangePwdReq.setRememberPwd(exchangePwd);
+            presenter.rememberExchangePwd(exchangePwdReq, EXCHANGE_PWD_TAG, true);
+        });
+        pwdDialogUtils.show();
     }
+
 
     private void submitSellXt() {
         String buyPrice = exchangeUnitPriceEt.getText().toString().trim();
@@ -233,12 +260,15 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("密码设置成功");
+                if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
+
                 break;
         }
     }
 
-    public void refreshData(ExchangeCenterRes.UserDealCapitalMessageBean data) {
-        if (data == null) return;
+    public void refreshData(ExchangeCenterRes centerRes) {
+        if (centerRes == null || centerRes.getUserDealCapitalMessage() == null) return;
+        ExchangeCenterRes.UserDealCapitalMessageBean data = centerRes.getUserDealCapitalMessage();
         exchangeSoldForzenTv.setText(NumberUtil.format4Point(data.getUserBalanceLock()));
         exchangeSoldAvailableTv.setText(NumberUtil.format4Point(data.getUserBalance()));
 

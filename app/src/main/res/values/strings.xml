@@ -281,6 +281,10 @@
     <string name="exchange_pwd">交易密码</string>
     <string name="remember_pwd_notice">记住密码提示</string>
     <string name="area_select">选择区号</string>
+    <string name="buy_price">买入价格</string>
+    <string name="buy_amount_in">买入数量</string>
+    <string name="total_price_1">合计</string>
+    <string name="price_fee">手续费</string>
 
 
 </resources>

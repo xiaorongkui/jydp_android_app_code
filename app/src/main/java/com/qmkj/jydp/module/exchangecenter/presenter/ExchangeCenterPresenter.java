@@ -8,6 +8,7 @@ import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.request.ExchangePwdReq;
+import com.qmkj.jydp.bean.request.KlineReq;
 import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.net.api.ExchangeService;
 
@@ -52,5 +53,9 @@ public class ExchangeCenterPresenter extends BaseRxPresenter {
 
     public void rememberExchangePwd(ExchangePwdReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(exchangeService.rememberExchangePwd(req), tag, isShowProgress);
+    }
+
+    public void getKlineData(KlineReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.getKlineData(req), tag, isShowProgress);
     }
 }

@@ -60,16 +60,17 @@
 
                     <TextView
                         android:id="@+id/exchange_current_price_tv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/x106"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/colorGreen_4"
                         android:textSize="@dimen/text_size_22"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x38"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -90,11 +91,13 @@
 
                             <TextView
                                 android:id="@+id/exchange_high_price_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/x68"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_high_title_tv"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -117,11 +120,13 @@
 
                             <TextView
                                 android:id="@+id/exchange_lowest_price_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/x68"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_lowest_title_tv"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -151,11 +156,13 @@
 
                             <TextView
                                 android:id="@+id/exchange_buy_one_price_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/x77"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_buy_one_title_tv"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -178,11 +185,13 @@
 
                             <TextView
                                 android:id="@+id/exchange_sell_one_price_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/x77"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/x9"
                                 android:layout_toEndOf="@id/exchange_sell_one_title_tv"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_13"/>
                         </RelativeLayout>
@@ -203,9 +212,11 @@
 
                         <TextView
                             android:id="@+id/exchange_exchange_day_volume_tv"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y10"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:textColor="@color/color_black_7"
                             android:textSize="@dimen/text_size_13"/>
                     </LinearLayout>
@@ -332,6 +343,15 @@
                                 android:textSize="@dimen/text_size_11"/>
                         </LinearLayout>
 
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/exchange_price_recycle_buy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_red_4"
+                            android:overScrollMode="never"
+                            android:paddingEnd="@dimen/x11"
+                            android:paddingStart="@dimen/x11"
+                            android:scrollbars="none"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -359,17 +379,6 @@
                                 android:textSize="@dimen/text_size_12"/>
                         </LinearLayout>
 
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/exchange_price_recycle_buy"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/color_red_4"
-                            android:overScrollMode="never"
-                            android:paddingEnd="@dimen/x11"
-                            android:paddingStart="@dimen/x11"
-                            android:scrollbars="none"/>
-
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/exchange_price_recycle_sold"
                             android:layout_width="match_parent"
@@ -379,7 +388,7 @@
                             android:paddingEnd="@dimen/x11"
                             android:paddingStart="@dimen/x11"
                             android:paddingTop="@dimen/y2"
-                            android:scrollbars="none" />
+                            android:scrollbars="none"/>
                     </LinearLayout>
 
                     <View

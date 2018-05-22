@@ -20,6 +20,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/outside_exchange_currency_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/syl"
@@ -91,9 +92,10 @@
 
         <TextView
             android:id="@+id/dealer_name_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/x187"
             android:layout_height="wrap_content"
-            android:text="ASDFGHJKLASDFGHJ"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_15"/>
 
@@ -102,7 +104,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x197"
-            android:text="10000"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_15"/>
 
@@ -143,7 +144,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x15"
-            android:text="14000～20000"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_15"/>
 
@@ -152,7 +152,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x213"
-            android:text="中国(CN)"
             android:textColor="@color/color_black_2"
             android:textSize="@dimen/text_size_15"/>
 

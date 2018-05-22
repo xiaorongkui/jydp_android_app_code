@@ -14,6 +14,7 @@ import com.qmkj.jydp.net.api.ExchangeService;
 import com.qmkj.jydp.net.api.HomeService;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.net.api.MineService;
+import com.qmkj.jydp.net.api.OutSideExchangeService;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.StringUtil;
@@ -106,6 +107,12 @@ public class HttpModule {
     @Singleton
     ExchangeService provideExchangeService(Retrofit retrofit) {
         return retrofit.create(ExchangeService.class);
+    }
+
+    @Provides
+    @Singleton
+    OutSideExchangeService provideOutSideExchangeService(Retrofit retrofit) {
+        return retrofit.create(OutSideExchangeService.class);
     }
 
     @Provides

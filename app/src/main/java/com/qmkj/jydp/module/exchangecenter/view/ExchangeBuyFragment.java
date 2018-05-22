@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -58,7 +59,13 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     EditText exchangePassowrdEt;
     @BindView(R.id.exchange_center_buy_bt)
     Button exchangeCenterBuyBt;
-    private CommonDialog dialogUtils;
+    private CommonDialog pwdDialogUtils;
+    private CommonDialog buyDialogUtils;
+    private ExchangeCenterRes centerRes;
+    private String buyPrice;
+    private String buyAmount;
+    private String buyPassword;
+    private String currencyId;
 
     public static ExchangeBuyFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -113,10 +120,12 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (dialogUtils != null && dialogUtils.isShowing()) {
-            dialogUtils.dismiss();
+        if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) {
+            pwdDialogUtils.dismiss();
         }
-
+        if (buyDialogUtils != null && buyDialogUtils.isShowing()) {
+            buyDialogUtils.dismiss();
+        }
     }
 
     @Override
@@ -126,37 +135,35 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 showSettingExchangePwdDialog();
                 break;
             case R.id.exchange_center_buy_bt:
-                submitBuyXt();
+                buyPrice = exchangeUnitPriceEt.getText().toString().trim();
+                buyAmount = exchangeAmountEt.getText().toString().trim();
+                buyPassword = exchangePassowrdEt.getText().toString().trim();
+                ExchangeFragment parentFragment = (ExchangeFragment) getParentFragment();
+                if (parentFragment != null) {
+                    currencyId = parentFragment.getCurrencyId();
+                }
+                if (TextUtils.isEmpty(buyPrice)) {
+                    toast("购买单价不能为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(buyAmount)) {
+                    toast("购买数量不能为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(currencyId)) {
+                    LogUtil.i("购买的产品currencyId为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(buyPassword)) {
+                    LogUtil.i("密码输入不能为空为空");
+                    return;
+                }
+                showBuyDialog();
                 break;
         }
     }
 
     private void submitBuyXt() {
-        String buyPrice = exchangeUnitPriceEt.getText().toString().trim();
-        String buyAmount = exchangeAmountEt.getText().toString().trim();
-        String buyPassword = exchangePassowrdEt.getText().toString().trim();
-        String currencyId = null;
-        ExchangeFragment parentFragment = (ExchangeFragment) getParentFragment();
-        if (parentFragment != null) {
-            currencyId = parentFragment.getCurrencyId();
-        }
-
-        if (TextUtils.isEmpty(buyPrice)) {
-            toast("购买单价不能为空");
-            return;
-        }
-        if (TextUtils.isEmpty(buyAmount)) {
-            toast("购买数量不能为空");
-            return;
-        }
-        if (TextUtils.isEmpty(currencyId)) {
-            LogUtil.i("购买的产品currencyId为空");
-            return;
-        }
-        if (TextUtils.isEmpty(buyPassword)) {
-            LogUtil.i("密码输入不能为空为空");
-            return;
-        }
         BuyExchangeReq buyExchangeReq = new BuyExchangeReq();
         buyExchangeReq.setCurrencyId(currencyId);
         buyExchangeReq.setBuyPrice(buyPrice);
@@ -171,41 +178,62 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
 
     private void showSettingExchangePwdDialog() {
 
-        dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_settting_pwd);
-        TextView message = dialogUtils.getView(R.id.message, TextView.class);
+        pwdDialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_settting_pwd);
+        TextView message = pwdDialogUtils.getView(R.id.message, TextView.class);
         message.setVisibility(View.GONE);
-        FrameLayout common_dialog_content_container_fl = dialogUtils.getView(R.id.common_dialog_content_container_fl,
+        FrameLayout common_dialog_content_container_fl = pwdDialogUtils.getView(R.id.common_dialog_content_container_fl,
                 FrameLayout.class);
         View view = View.inflate(mContext, R.layout.exchange_dialog_setting_pwd_content, null);
         common_dialog_content_container_fl.addView(view);
         common_dialog_content_container_fl.setVisibility(View.VISIBLE);
         ImageView exchange_setting_pwd_login_iv = view.findViewById(R.id.exchange_setting_pwd_login_iv);
         ImageView exchange_setting_pwd_exchange_iv = view.findViewById(R.id.exchange_setting_pwd_exchange_iv);
+        LinearLayout exchange_setting_pwd_login_ll = view.findViewById(R.id.exchange_setting_pwd_login_ll);
+        LinearLayout exchange_setting_pwd_exchange_ll = view.findViewById(R.id.exchange_setting_pwd_exchange_ll);
+        LinearLayout setting_pwd_ll = view.findViewById(R.id.setting_pwd_ll);
         EditText exchange_passowrd_et = view.findViewById(R.id.exchange_passowrd_et);
+        setting_pwd_ll.setFocusable(true);
+        setting_pwd_ll.setFocusableInTouchMode(true);
+        setting_pwd_ll.requestFocus();
+
+        exchange_passowrd_et.setOnTouchListener((v, event) -> {
+            exchange_passowrd_et.setCursorVisible(true);
+            exchange_passowrd_et.setFocusable(true);
+            exchange_passowrd_et.setFocusableInTouchMode(true);
+            exchange_passowrd_et.requestFocus();
+            return false;
+        });
         exchange_passowrd_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
         exchange_passowrd_et.setInputType(InputType.TYPE_CLASS_TEXT | InputType
                 .TYPE_TEXT_VARIATION_PASSWORD);
         exchange_passowrd_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
         exchange_passowrd_et.setKeyListener(DigitsKeyListener.getInstance(digits));
 
+
         exchange_setting_pwd_login_iv.setOnClickListener(v -> {
             isRememberLoginPwd = !isRememberLoginPwd;
             exchange_setting_pwd_login_iv.setImageResource(isRememberLoginPwd ? R.mipmap.bt_selected : R.mipmap
                     .bt_unselected);
+            if (isRememberExchangePwd) {
+                exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_unselected);
+            }
         });
         exchange_setting_pwd_exchange_iv.setOnClickListener(v -> {
             isRememberExchangePwd = !isRememberExchangePwd;
             exchange_setting_pwd_exchange_iv.setImageResource(isRememberExchangePwd ? R.mipmap.bt_selected : R
                     .mipmap.bt_unselected);
+            if (isRememberLoginPwd) {
+                exchange_setting_pwd_login_iv.setImageResource(R.mipmap.bt_unselected);
+            }
         });
-        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
-        dialogUtils.setOneOrTwoBtn(false);
-        dialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
-        dialogUtils.setTwoCancelBtn("取消", v -> {
+        pwdDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        pwdDialogUtils.setOneOrTwoBtn(false);
+        pwdDialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
+        pwdDialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
-            //todo
+            pwdDialogUtils.dismiss();
         });
-        dialogUtils.setTwoConfirmBtn("确认", new View.OnClickListener() {
+        pwdDialogUtils.setTwoConfirmBtn("确认", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String exchangePwd = exchange_passowrd_et.getText().toString().trim();
@@ -214,16 +242,66 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                     return;
                 }
                 ExchangePwdReq exchangePwdReq = new ExchangePwdReq();
-                exchangePwdReq.setPayPasswordStatus("");
+                if (isRememberLoginPwd) {
+                    exchangePwdReq.setPayPasswordStatus("2");
+                }
+                if (isRememberExchangePwd) {
+                    exchangePwdReq.setPayPasswordStatus("1");
+                }
                 exchangePwdReq.setRememberPwd(exchangePwd);
                 presenter.rememberExchangePwd(exchangePwdReq, EXCHANGE_PWD_TAG, true);
             }
         });
-        dialogUtils.show();
+        pwdDialogUtils.show();
     }
 
-    public void refreshData(ExchangeCenterRes.UserDealCapitalMessageBean data) {
-        if (data == null) return;
+    private void showBuyDialog() {
+
+        buyDialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_settting_pwd);
+        TextView message = buyDialogUtils.getView(R.id.message, TextView.class);
+        message.setVisibility(View.GONE);
+        FrameLayout common_dialog_content_container_fl = buyDialogUtils.getView(R.id.common_dialog_content_container_fl,
+                FrameLayout.class);
+        View view = View.inflate(mContext, R.layout.exchange_dialog_buy_content, null);
+        common_dialog_content_container_fl.addView(view);
+        common_dialog_content_container_fl.setVisibility(View.VISIBLE);
+        TextView exchange_buy_price_tv = view.findViewById(R.id.exchange_buy_price_tv);
+        TextView exchange_buy_amount_tv = view.findViewById(R.id.exchange_buy_amount_tv);
+        TextView exchange_buy_total_tv = view.findViewById(R.id.exchange_buy_total_tv);
+        TextView exchange_buy_fee_tv = view.findViewById(R.id.exchange_buy_fee_tv);
+        ExchangeCenterRes.TransactionCurrencyBean transactionCurrency = centerRes.getTransactionCurrency();
+        if (transactionCurrency == null) {
+            toast("购买数据异常，请刷新重试");
+            return;
+        }
+        exchange_buy_price_tv.setText(buyPrice + " XT");
+        exchange_buy_amount_tv.setText(buyAmount);
+        double totalPrice = 0;
+        try {
+            totalPrice = Double.parseDouble(buyPrice) * Double.parseDouble(buyAmount);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        exchange_buy_total_tv.setText(NumberUtil.format4Point(totalPrice) + " XT");
+        exchange_buy_fee_tv.setText(transactionCurrency.getBuyFee() + " XT");
+        buyDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        buyDialogUtils.setOneOrTwoBtn(false);
+        buyDialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
+        buyDialogUtils.setTwoCancelBtn("取消", v -> {
+            LogUtil.i("取消");
+            buyDialogUtils.dismiss();
+        });
+        buyDialogUtils.setTwoConfirmBtn("确认", v -> {
+            submitBuyXt();
+        });
+        buyDialogUtils.show();
+    }
+
+    public void refreshData(ExchangeCenterRes centerRes) {
+        if (centerRes == null || centerRes.getUserDealCapitalMessage() == null) return;
+        this.centerRes = centerRes;
+        ExchangeCenterRes.UserDealCapitalMessageBean data = centerRes.getUserDealCapitalMessage();
+
         double total = 0;
         try {
             total = Double.parseDouble(data.getUserBalanceLock()) + Double.parseDouble(data.getUserBalance());
@@ -243,11 +321,12 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         switch (tag) {
             case BUY_EXCAHNGE_TAG:
                 toast("购买成功");
+                if (buyDialogUtils != null && buyDialogUtils.isShowing()) buyDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangeEvent());
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("记住密码设置成功");
-                if (dialogUtils != null) dialogUtils.dismiss();
+                if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
                 break;
         }
     }

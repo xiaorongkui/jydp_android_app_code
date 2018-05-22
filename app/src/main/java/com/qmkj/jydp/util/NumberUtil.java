@@ -151,7 +151,9 @@ public class NumberUtil {
      * @return the string
      */
     public static String format2Point(double str) {
-        return format2Point(str + "");
+        DecimalFormat myformat = new DecimalFormat();
+        myformat.applyPattern("#0.00");
+        return myformat.format(str);
     }
 
     /**
@@ -162,14 +164,15 @@ public class NumberUtil {
      */
     public static String format2Point(String str) {
         LogUtil.i("format2Point=" + str);
+        double doubleMoney = 0;
         try {
-            DecimalFormat myformat = new DecimalFormat();
-            myformat.applyPattern("##0.00");
-            return myformat.format(str);
-        } catch (Exception e) {
+            doubleMoney = Double.parseDouble(str);
+        } catch (NumberFormatException e) {
             e.printStackTrace();
+            LogUtil.i("format2Point exception! e=" + e.getMessage());
+            return str;
         }
-        return str;
+        return format2Point(doubleMoney);
     }
 
     /**
@@ -179,15 +182,16 @@ public class NumberUtil {
      * @return the string
      */
     public static String format4Point(String str) {
+        LogUtil.i("format4Point=" + str);
+        double doubleMoney = 0;
         try {
-            DecimalFormat myformat = new DecimalFormat();
-            myformat.applyPattern("##0.0000");
-            return myformat.format(str);
-        } catch (Exception e) {
+            doubleMoney = Double.parseDouble(str);
+        } catch (NumberFormatException e) {
             e.printStackTrace();
-            LogUtil.i("format4Point exception=" + str + ";e=" + e.getMessage());
+            LogUtil.i("format4Point exception! e=" + e.getMessage());
+            return str;
         }
-        return str;
+        return format4Point(doubleMoney);
     }
 
     /**
@@ -197,6 +201,8 @@ public class NumberUtil {
      * @return the string
      */
     public static String format4Point(double str) {
-        return format4Point(str + "");
+        DecimalFormat myformat = new DecimalFormat();
+        myformat.applyPattern("#0.0000");
+        return myformat.format(str);
     }
 }
