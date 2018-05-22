@@ -17,6 +17,8 @@ import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.ui.widget.ScrollRecycleView;
+import com.qmkj.jydp.ui.widget.SmoothScrollView;
+import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -36,7 +38,10 @@ import butterknife.Unbinder;
 
 public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
-
+    @BindView(R.id.mine_info_rl)
+    XRefreshLayout refreshLayout;
+    @BindView(R.id.mine_info_sv)
+    SmoothScrollView scrollView;
     @BindView(R.id.mine_rv)
     ScrollRecycleView mineRv;
     @BindView(R.id.mine_ll)
@@ -54,10 +59,11 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     NoPaddingTextView mine_userBalance_tv;
     @BindView(R.id.mine_userBalanceLock_tv)
     NoPaddingTextView mine_userBalanceLock_tv;
-
+    private boolean mIsCanRefresh = true;
     @Override
     protected void initView() {
 //        initStatus();
+        initRefreshLayout();
         initRecycleView();
         SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
                 .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x1))
@@ -65,6 +71,21 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                 .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
                 .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
         mine_distributor_tv.setBackground(shapeSelector.create());
+    }
+
+    private void initRefreshLayout() {
+        refreshLayout.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMineInfo();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return scrollView.isTop();
+            }
+        });
+
     }
 
     private void initRecycleView() {
@@ -134,7 +155,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     }
 
     private void getMineInfo() {
-        presenter.getMineInfo(1, true);
+        presenter.getMineInfo(1, false);
     }
 
 

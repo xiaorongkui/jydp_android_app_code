@@ -165,7 +165,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
     @Override
     protected void initData() {
-        getHomeData(true);
+        homeFragmentRefresh.callRefresh();
     }
 
     /**
