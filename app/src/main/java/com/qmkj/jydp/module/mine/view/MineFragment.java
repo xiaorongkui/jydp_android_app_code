@@ -187,11 +187,13 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
             mine_userBalance_tv.setText(userInfoBean.getUserBalance()+"");
             mine_userBalanceLock_tv.setText(userInfoBean.getUserBalanceLock()+"");
         }
+        refreshLayout.refreshComplete();
     }
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
         super.onError(errorMsg, code, tag, o);
+        refreshLayout.refreshComplete();
     }
 
     @Override
