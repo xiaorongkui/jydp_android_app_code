@@ -7,6 +7,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.di.module.ActivityModule;
 import com.qmkj.jydp.di.scope.ActivityScope;
 import com.qmkj.jydp.module.exchangecenter.view.KlineActivity;
+import com.qmkj.jydp.module.exchangoutsidee.view.OutSideBuyActivity;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.module.login.view.CertificationActivity;
 import com.qmkj.jydp.module.login.view.ForgetLoginPwdActivity;
@@ -16,6 +17,7 @@ import com.qmkj.jydp.module.mine.view.CurrencyAssetsActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRecodeActivity;
 import com.qmkj.jydp.module.mine.view.DealerManagementActivity;
 import com.qmkj.jydp.module.mine.view.HelpCenterActivity;
+import com.qmkj.jydp.module.mine.view.HelpCenterDetailsActivity;
 import com.qmkj.jydp.module.mine.view.HotTopicActivity;
 import com.qmkj.jydp.module.mine.view.ModifyLoginPwdActivity;
 import com.qmkj.jydp.module.mine.view.ModifyPaymentActivity;
@@ -23,6 +25,8 @@ import com.qmkj.jydp.module.mine.view.ModifyPhoneActivity;
 import com.qmkj.jydp.module.mine.view.OrderRecodeActivity;
 import com.qmkj.jydp.module.mine.view.OutSideExchangeRecodeActivity;
 import com.qmkj.jydp.module.mine.view.PersonInfoActivity;
+import com.qmkj.jydp.module.mine.view.PublishAdvertisementActivity;
+import com.qmkj.jydp.module.mine.view.ReceivablesActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.module.mine.view.TransactionRecodeActivity;
 
@@ -76,9 +80,11 @@ public interface ActivityComponent {
 
     void inject(KlineActivity klineActivity);
 
-    void inject(HelpCenterDetailsActivity helpCenterDetailsActivity);
-
     void inject(PublishAdvertisementActivity publishAdvertisementActivity);
 
+    void inject(HelpCenterDetailsActivity helpCenterDetailsActivity);
+
     void inject(OutSideBuyActivity outSideBuyActivity);
+
+    void inject(ReceivablesActivity receivablesActivity);
 }

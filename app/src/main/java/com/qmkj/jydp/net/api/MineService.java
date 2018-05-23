@@ -3,7 +3,9 @@ package com.qmkj.jydp.net.api;
 
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
+import com.qmkj.jydp.bean.request.OtcReleaseReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
+import com.qmkj.jydp.bean.request.SendAdsReq;
 import com.qmkj.jydp.bean.request.SendContactServiceReq;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.bean.response.BaseRes;
@@ -88,4 +90,12 @@ public interface MineService {
     //提交意见反馈
     @POST(AppNetConfig.urlPath + "wap/wapCustomerService/feedback")
     Observable<BaseRes<Object>> sendCustomerServiceInfo(@Body SendContactServiceReq req);
+
+    //经销售发布广告
+    @POST(AppNetConfig.urlPath + "wap/dealerManagment/initiateAds")
+    Observable<BaseRes<Object>> sendInitiateAdsInfo(@Body SendAdsReq req);
+
+    //场外交易挂单
+    @POST(AppNetConfig.urlPath + "wap/dealerManagment/otcRelease")
+    Observable<BaseRes<Object>> sendOtcReleaseInfo(@Body OtcReleaseReq req);
 }

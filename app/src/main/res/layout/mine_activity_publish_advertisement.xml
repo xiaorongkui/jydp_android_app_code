@@ -162,6 +162,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="@string/exchange_limit_min_amount"
+                            android:inputType="numberDecimal"
                             android:maxLines="1"/>
 
                         <TextView
@@ -181,6 +182,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="@string/exchange_limit_max_amount"
+                            android:inputType="numberDecimal"
                             android:maxLines="1"/>
                     </LinearLayout>
 

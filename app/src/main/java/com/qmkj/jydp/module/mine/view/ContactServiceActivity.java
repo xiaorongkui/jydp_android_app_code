@@ -106,6 +106,7 @@ public class ContactServiceActivity extends BaseRefreshRecycleMvpActivity<MinePr
     private void showConformDialog() {
         dialogUtils = new ContactServiceDialog(mContext, R.style.common_dialog);
         dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        dialogUtils.setAlertDialogHight((int) CommonUtil.getDimen(R.dimen.y290));
         dialogUtils.setConfirmBtnListener( v -> {
            String tittle = dialogUtils.getTittleText();
            String content = dialogUtils.getContentText();
