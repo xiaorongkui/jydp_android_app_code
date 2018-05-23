@@ -47,6 +47,7 @@
     <string name="select_icon">选择币种</string>
     <string name="amount_total_money_xt">账户总资产(XT)</string>
     <string name="amount_available_money_xt">可用资产(XT)</string>
+    <string name="amount_frozen_money_xt">冻结资产(XT)</string>
     <string name="recharge">充值</string>
     <string name="trading_market">交易大盘</string>
     <string name="login_hint_notice">您的登录账号</string>
