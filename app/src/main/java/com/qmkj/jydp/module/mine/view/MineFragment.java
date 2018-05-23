@@ -59,7 +59,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     NoPaddingTextView mine_userBalance_tv;
     @BindView(R.id.mine_userBalanceLock_tv)
     NoPaddingTextView mine_userBalanceLock_tv;
-    private boolean mIsCanRefresh = true;
+
     @Override
     protected void initView() {
 //        initStatus();

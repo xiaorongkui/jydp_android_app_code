@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,12 +7,12 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.view.LoginActivity;
+import com.qmkj.jydp.module.mine.dialog.TipDialog;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/5/3
@@ -61,17 +60,16 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_info_login_out_bt://退出登陆
-                presenter.loginOut(1,true);
+                TipDialog tipDialog = new TipDialog(this);
+                tipDialog.setContentText("是否确认退出");
+                tipDialog.setOnPositiveButtonClickListener((dialog, view) -> {
+                    presenter.loginOut(1, true);
+                    tipDialog.dismiss();
+                });
+                tipDialog.show();
                 break;
             case R.id.person_info_modify_payment_password_civ://修改支付密码
                 CommonUtil.gotoActivity(mContext, ModifyPaymentActivity.class);
@@ -88,9 +86,18 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        //退出登陆
+        //退出登陆 清空token
+        CommonUtil.setToken("");
         AppManager.getInstance().clear();
         CommonUtil.gotoActivity(mContext, LoginActivity.class);
+    }
 
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        //退出登陆 清空token
+        CommonUtil.setToken("");
+        AppManager.getInstance().clear();
+        CommonUtil.gotoActivity(mContext, LoginActivity.class);
     }
 }
