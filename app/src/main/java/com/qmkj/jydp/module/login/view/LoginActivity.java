@@ -390,7 +390,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 LoginRes loginBean = (LoginRes) response;
                 LoginRes.UserBean user = loginBean.getUser();
                 CommonUtil.setLoginInfo(loginBean);
-                if (user != null) CommonUtil.setUserAccount(account);
+                if (user != null) CommonUtil.setUserAccount(loginAccountEiv.getEditTextString());
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
                 AppManager.getInstance().removeCurrent();
                 break;
@@ -401,8 +401,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             case REGISTER_TAG:
                 toast("注册成功");
                 setShowStatusView(0);
-                RegisterRes registerRes = (RegisterRes) response;
-                CommonUtil.setUserAccount(registerRes.getUserAccount());
+                CommonUtil.setUserAccount(registerAccountEiv.getEditTextString());
                 Intent intent1 = new Intent(mContext, CertificationActivity.class);
                 intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
                 CommonUtil.gotoActivity(mContext, intent1);

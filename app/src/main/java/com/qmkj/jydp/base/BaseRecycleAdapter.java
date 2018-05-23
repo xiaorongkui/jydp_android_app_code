@@ -94,8 +94,9 @@ public abstract class BaseRecycleAdapter<T> extends BaseQuickAdapter<T, BaseRecy
 
     @Override
     protected BaseRecyclerViewHolder createBaseViewHolder(View view) {
+        BaseRecyclerViewHolder baseViewHolder = super.createBaseViewHolder(view);
         unbinder = ButterKnife.bind(this, view);
-        return super.createBaseViewHolder(view);
+        return baseViewHolder;
     }
 
     @Override

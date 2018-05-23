@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/setting_pwd_ll"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y20"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buy_price"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
+            android:id="@+id/exchange_buy_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x100"
+            android:text="123.00 XT"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buy_amount_in"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
+            android:id="@+id/exchange_buy_amount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x100"
+            android:text="123.00 XT"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_price_1"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
+            android:id="@+id/exchange_buy_total_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x100"
+            android:text="123.00 XT"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_fee"
+            android:textColor="@color/color_black_1"
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
+            android:id="@+id/exchange_buy_fee_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x100"
+            android:text="123.00 XT"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_15"/>
+    </RelativeLayout>
+
+</LinearLayout>

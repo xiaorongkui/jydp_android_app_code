@@ -9,6 +9,7 @@ import com.qmkj.jydp.net.api.ExchangeService;
 import com.qmkj.jydp.net.api.HomeService;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.net.api.MineService;
+import com.qmkj.jydp.net.api.OutSideExchangeService;
 import com.qmkj.jydp.util.SPHelper;
 
 import javax.inject.Singleton;
@@ -28,6 +29,8 @@ public interface AppComponent {
     HomeService provideHomeService();
 
     ExchangeService provideExchangeService();
+
+    OutSideExchangeService provideOutSideExchangeService();
 
     MineService provideMineService();
 

@@ -17,7 +17,8 @@
 
         <TextView
             android:id="@+id/entrust_status_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x16"
             android:text="@string/buy_input"
@@ -28,7 +29,7 @@
         <TextView
             android:id="@+id/entrust_price_tv"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/color_black_10"
@@ -37,7 +38,7 @@
         <TextView
             android:id="@+id/entrust_amount_tv"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/color_black_10"
@@ -47,7 +48,7 @@
         <TextView
             android:id="@+id/entrust_exchange_tv"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/color_black_10"
@@ -55,7 +56,8 @@
 
         <TextView
             android:id="@+id/entrust_cancel_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/x13"
             android:gravity="center"

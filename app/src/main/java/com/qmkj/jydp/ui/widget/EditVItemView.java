@@ -378,8 +378,7 @@ public class EditVItemView extends LinearLayout {
     }
 
     public int px2sp(float pxValue) {
-        float fontScale = getContext().getResources().getDisplayMetrics()
-                .scaledDensity;
+        float fontScale = getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 }

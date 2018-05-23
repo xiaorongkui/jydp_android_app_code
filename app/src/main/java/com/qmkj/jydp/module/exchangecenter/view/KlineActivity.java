@@ -26,7 +26,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.KlineReq;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.ui.widget.kline.CoupleChartGestureListener;
 import com.qmkj.jydp.ui.widget.kline.DataParse;
 import com.qmkj.jydp.ui.widget.kline.KLineBean;
@@ -51,8 +53,9 @@ import java.util.List;
  * description:k线图界面
  */
 
-public class KlineActivity extends BaseMvpActivity {
+public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
 
+    private static final int KLINE_DATA_TAG = 1;
     private MyCombinedChart mChartKline;
     protected MyCombinedChart mChartVolume;
     private XAxis xAxisKline;
@@ -68,10 +71,13 @@ public class KlineActivity extends BaseMvpActivity {
     private XAxis xAxisVolume;
     private YAxis axisLeftVolume;
     private YAxis axisRightVolume;
+    private String currencyId;
+    private String currencyName;
+    private TextView title_header_tv;
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -86,12 +92,17 @@ public class KlineActivity extends BaseMvpActivity {
 
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
-
+        KlineReq klineReq = new KlineReq();
+        KlineReq.RequestJsonStringBean requestJsonStringBean = new KlineReq.RequestJsonStringBean();
+        requestJsonStringBean.setCurrencyId(currencyId);
+        requestJsonStringBean.setNode(System.currentTimeMillis());
+        klineReq.setRequestJsonString(requestJsonStringBean);
+        presenter.getKlineData(klineReq, KLINE_DATA_TAG, true);
     }
 
     @Override
     protected void initTitle() {
-
+        title_header_tv.setText(currencyName);
     }
 
     @Override
@@ -101,6 +112,9 @@ public class KlineActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
+        currencyId = getIntent().getStringExtra(Constants.INTENT_PARAMETER_1);
+        currencyName = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
+
         mTvClose = (TextView) findViewById(R.id.kline_tv_close);
         mTvMax = (TextView) findViewById(R.id.kline_tv_max);
         mTvMin = (TextView) findViewById(R.id.kline_tv_min);
@@ -113,6 +127,8 @@ public class KlineActivity extends BaseMvpActivity {
         mTvKMa10 = (TextView) findViewById(R.id.view_kline_tv_ma10);
         mTvKMa20 = (TextView) findViewById(R.id.view_kline_tv_ma20);
         mTvKMa30 = (TextView) findViewById(R.id.view_kline_tv_ma30);
+
+        title_header_tv = (TextView) findViewById(R.id.title_header_tv);
     }
 
 
@@ -630,5 +646,14 @@ public class KlineActivity extends BaseMvpActivity {
         float max = 1;
         max = count / 127 * 5;
         return max;
+    }
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        switch (tag) {
+            case KLINE_DATA_TAG:
+                break;
+        }
     }
 }

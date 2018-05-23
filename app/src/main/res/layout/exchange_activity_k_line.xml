@@ -5,31 +5,7 @@
               android:background="@color/color_white_1"
               android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/exchange_header_ll"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y44"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingEnd="@dimen/y15"
-        android:paddingStart="@dimen/x15">
-
-        <ImageView
-            android:id="@+id/currency_select_iv"
-            android:layout_width="@dimen/x7"
-            android:layout_height="@dimen/y12"
-            android:src="@mipmap/back"/>
-
-        <TextView
-            android:id="@+id/exchange_title_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/syl"
-            android:textColor="@color/color_black_7"
-            android:textSize="@dimen/text_size_18"/>
-    </LinearLayout>
+    <include layout="@layout/common_header"/>
 
     <View style="@style/line1"/>
 

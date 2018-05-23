@@ -32,9 +32,10 @@
                 app:bottomLine="false"
                 app:leftText="@string/your_account"
                 app:leftTextColor="@color/color_black_6"
+                app:leftTextSize="@dimen/text_size_14"
                 app:rightIconVisible="false"
-                app:rightText="@string/certificate_identification"
-                app:rightTextColor="@color/color_black_7"/>
+                app:rightTextColor="@color/color_black_7"
+                app:rightTextSize="@dimen/text_size_14"/>
 
             <com.qmkj.jydp.ui.widget.EditVItemView
                 android:id="@+id/certify_name_name_cv"
@@ -117,6 +118,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/y19"
                 android:gravity="center_vertical"
+
                 android:text="@string/certify_picture"
                 android:textColor="@color/color_black_6"
                 android:textSize="@dimen/text_size_14"/>

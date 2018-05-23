@@ -6,6 +6,7 @@ import android.content.Context;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.di.module.ActivityModule;
 import com.qmkj.jydp.di.scope.ActivityScope;
+import com.qmkj.jydp.module.exchangecenter.view.KlineActivity;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.module.login.view.CertificationActivity;
 import com.qmkj.jydp.module.login.view.ForgetLoginPwdActivity;
@@ -72,4 +73,6 @@ public interface ActivityComponent {
     void inject(HotTopicActivity hotTopicActivity);
 
     void inject(HelpCenterActivity helpCenterActivity);
+
+    void inject(KlineActivity klineActivity);
 }
