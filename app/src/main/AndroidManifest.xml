@@ -34,10 +34,10 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".module.login.view.LoginActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".module.login.view.ForgetLoginPwdActivity"
             android:launchMode="singleTop" />
@@ -64,7 +64,7 @@
         </activity>
         <activity
             android:name=".module.exchangecenter.view.KlineActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".module.exchangoutsidee.view.OutSideBuyActivity"
             android:launchMode="singleTop" />
@@ -127,8 +127,10 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <activity android:name=".module.mine.view.SystemNoticeDetailsActivity"
-            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".module.mine.view.SystemNoticeDetailsActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".module.mine.view.HelpCenterDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,9 @@ import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
+import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +73,7 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_info_login_out_bt://退出登陆
-                presenter.loginOut(1,true);
+                showCancelDialog();
                 break;
             case R.id.person_info_modify_payment_password_civ://修改支付密码
                 CommonUtil.gotoActivity(mContext, ModifyPaymentActivity.class);
@@ -92,5 +94,20 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
         AppManager.getInstance().clear();
         CommonUtil.gotoActivity(mContext, LoginActivity.class);
 
+    }
+
+    private void showCancelDialog() {
+        CommonDialog dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
+                .common_dialog_1);
+        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x300));
+        dialogUtils.setOneOrTwoBtn(false);
+        dialogUtils.setTitle("退出登录");
+        dialogUtils.setMessage("是否确认退出？");
+        dialogUtils.setTwoConfirmBtn("确认", v -> {
+            presenter.loginOut(1,true);
+            //todo
+        });
+        dialogUtils.setTwoCancelBtn("取消", v -> dialogUtils.dismiss());
+        dialogUtils.show();
     }
 }

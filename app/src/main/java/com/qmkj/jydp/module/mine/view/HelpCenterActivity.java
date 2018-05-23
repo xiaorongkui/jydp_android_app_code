@@ -1,18 +1,22 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
+import com.qmkj.jydp.bean.HelpCenterBean;
 import com.qmkj.jydp.module.mine.presenter.HelpCenterRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.util.CommonUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,18 +28,33 @@ import butterknife.BindView;
  * description:帮助中心
  */
 
-public class HelpCenterActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
-    private ArrayList<Object> mData;
+public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
+    public static final String HELP_CENTER_TAG = "help_tag";
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
+    @BindView(R.id.help_center_rv)
+    RecyclerView helpCenterRv;
+    private ArrayList<HelpCenterBean> mData;
     private HelpCenterRecyAdapter helpCenterRecyAdapter;
 
     @Override
     protected void injectPresenter() {
-        getActivityComponent().inject(this);
+
     }
 
     @Override
     protected void initData() {
-//        presenter.getHelpCenterInfo();
+
+    }
+
+    @Override
+    protected void initTitle() {
+        titleHeaderTv.setText(CommonUtil.getString(R.string.help_center));
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.mine_activity_help_center;
     }
 
     @Override
@@ -44,26 +63,30 @@ public class HelpCenterActivity extends BaseRefreshRecycleMvpActivity<MinePresen
 
     }
 
-    @Override
-    public BaseRecycleAdapter getRecycleAdapter() {
-        initRecycleView();
-        return helpCenterRecyAdapter;
-    }
-
-    @Override
-    public List getData() {
-        return mData;
-    }
-
-    @Override
-    public String getTittle() {
-        return CommonUtil.getString(R.string.help_center);
-    }
-
     private void initRecycleView() {
         mData = new ArrayList<>();
+        mData.add(new HelpCenterBean("注册协议","101010"));
+        mData.add(new HelpCenterBean("联系我们","101013"));
+        mData.add(new HelpCenterBean("公司简介","101014"));
+        mData.add(new HelpCenterBean("充值流程","101015"));
+        mData.add(new HelpCenterBean("注册指南","101016"));
+        mData.add(new HelpCenterBean("交易指南","101017"));
         helpCenterRecyAdapter = new HelpCenterRecyAdapter(mContext, mData, R.layout.single_click_item);
-        helpCenterRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        helpCenterRv.setLayoutManager(layoutManager);
+
+        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
+        helpCenterRecyAdapter.setEmptyView(mEmptyView);
+        helpCenterRv.setAdapter(helpCenterRecyAdapter);
+        helpCenterRecyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(HelpCenterActivity.this,HelpCenterDetailsActivity.class);
+                intent.putExtra(HELP_CENTER_TAG,helpCenterRecyAdapter.getData().get(position));
+                CommonUtil.gotoActivity(mContext,intent);
+            }
         });
     }
+
 }

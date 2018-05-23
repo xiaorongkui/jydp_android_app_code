@@ -2,12 +2,15 @@ package com.qmkj.jydp.net.api;
 
 
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.bean.request.HelpCenterReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
+import com.qmkj.jydp.bean.request.SendContactServiceReq;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
 import com.qmkj.jydp.bean.response.CustomerServiceRes;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
+import com.qmkj.jydp.bean.response.HelpCenterRes;
 import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
@@ -80,5 +83,9 @@ public interface MineService {
 
     //获取帮助中心
     @POST(AppNetConfig.urlPath + "wap/wapHelpCenter/show")
-    Observable<BaseRes<Object>> getHelpCenterInfo(@Body PageNumberReq req);
+    Observable<BaseRes<HelpCenterRes>> getHelpCenterInfo(@Body HelpCenterReq req);
+
+    //提交意见反馈
+    @POST(AppNetConfig.urlPath + "wap/wapCustomerService/feedback")
+    Observable<BaseRes<Object>> sendCustomerServiceInfo(@Body SendContactServiceReq req);
 }

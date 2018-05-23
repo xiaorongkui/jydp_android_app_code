@@ -46,7 +46,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity {
 
     @Override
     protected void injectPresenter() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -108,6 +108,10 @@ public class PublishAdvertisementActivity extends BaseMvpActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.dealer_publish_advertise_bt:
+                String corn = publishAdvertiseCurrencyCiv.getRightText();
+                String type = publishAdvertiseTypeCiv.getRightText();
+                String Area = publishAdvertiseAreaCiv.getRightText();
+
                 CommonUtil.gotoActivity(mContext, ReceivablesActivity.class);
                 break;
         }

@@ -7,13 +7,14 @@
     android:background="@color/color_white_1">
 
     <com.qmkj.jydp.ui.widget.ClickItemView
-        android:id="@+id/person_info_modify_payment_password_civ"
+        android:id="@+id/person_info_help_center_civ"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y21"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
         app:bottomLine="true"
-        app:bottomLineMarginTop="@dimen/y9"
-        app:leftText="XXXXXXXXXXXXXXXXXXXXXXX"
-        app:leftTextColor="@color/color_black_1"
-        app:rightIconVisible="true"/>
+        app:bottomLineMarginTop="@dimen/y8"
+        app:leftTextColor="@color/color_black_6"
+        app:rightIconVisible="true"
+        app:rightTextColor="@color/color_black_7"/>
 </FrameLayout>
