@@ -118,10 +118,16 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
         });
     }
 
-
+    /**
+     * 获取验证码
+     */
     private void getVerificationCode() {
         String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
         String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
+        if (phone.isEmpty()) {
+            toast("手机号不能为空");
+            return;
+        }
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
         phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG);
@@ -143,7 +149,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
     private void sendRequest() {
-
+        //通过原密码修改
         if (SELECT_TYPE == 0) {
             String oldPass = modify_pwd_old_pwd_one_eiv.getEditTextString();
             String newPass = modify_pwd_new_pwd_one_eiv.getEditTextString();
@@ -163,6 +169,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             req.setConfirmPassword(newPassAgain);
             presenter.changePassWordByPwd(req, REQUEST_BY_PWD, true);
         } else if (SELECT_TYPE == 1) {
+            //通过手机号修改
             String newPass = modify_phone_pwd_one_eiv.getEditTextString();
             String newPassAgain = modify_phone_pwd_again_eiv.getEditTextString();
             String code = login_forget_pwd_vertification_code_eiv.getEditTextString();
@@ -181,6 +188,12 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     }
 
+    /**
+     * 参数验证
+     *
+     * @param newPass      新支付密码
+     * @param newPassAgain 重复新支付密码
+     */
     private void checkNewPass(String newPass, String newPassAgain) {
         if (TextUtils.isEmpty(newPass)) {
             toast("新密码不能为空");
@@ -240,19 +253,12 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
                 toast("修改成功");
                 CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
-
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (disposable != null) {
-            disposable.dispose();
-            disposable = null;
-        }
-    }
-
+    /**
+     * 获取验证码倒计时
+     */
     private void codeTimeDown() {
         disposable = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take

@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -9,16 +10,19 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.bean.request.ChangePhoneReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
+import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,7 +34,6 @@ import io.reactivex.schedulers.Schedulers;
  * email：dovexiaoen@163.com
  * description:修改手机号
  */
-
 public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     private static final int GET_CODE_TAG_1 = 1;
     private static final int GET_CODE_TAG_2 = 2;
@@ -39,7 +42,6 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     TextView titleHeaderTv;
     @BindView(R.id.modify_phone_erea_tv)
     TextView modify_phone_erea_tv;
-
     @BindView(R.id.modify_phone_erea_et)
     EditText modify_phone_erea_et;
 
@@ -102,7 +104,9 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
 
     }
 
-
+    /**
+     * 原手机号验证码倒计时
+     */
     private void codeTimeDown() {
         disposable_new = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
@@ -120,6 +124,9 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         });
     }
 
+    /**
+     * 新手机号验证码倒计时
+     */
     private void codeTimeDown_new() {
         disposable_new = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime_new - aLong.intValue()).take
@@ -139,15 +146,21 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
 
-    @OnClick(R.id.modify_phone_submit_bt)
+    @OnClick({R.id.modify_phone_submit_bt, R.id.choose_phone_area})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.modify_phone_submit_bt:
                 changePhone();
                 break;
+            case R.id.choose_phone_area:
+                CommonUtil.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
+                break;
         }
     }
 
+    /**
+     * 发送请求修改手机号
+     */
     private void changePhone() {
         String code_old = modify_phone_verification_code_civ.getEditTextString();
         String code_new = modify_phone_verification_code_eiv.getEditTextString();
@@ -187,6 +200,9 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
 
     }
 
+    /**
+     * 获取验证码
+     */
     private void getVerificationCode() {
         String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
         String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
@@ -195,6 +211,9 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG_1);
     }
 
+    /**
+     * 获取验证码
+     */
     public void getVerificationCode2() {
         String phone = modify_phone_erea_et.getText().toString();
         String phoneAreaCode = modify_phone_erea_tv.getText().toString();
@@ -205,13 +224,6 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
         phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG_2);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -230,6 +242,20 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 toast("修改成功");
                 CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            try {
+                DoubleString parcelableExtra = (DoubleString) data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
+                modify_phone_erea_tv.setText(parcelableExtra.str1);
+            } catch (Exception e) {
+                e.printStackTrace();
+                LogUtil.i("区号选择失败");
+            }
         }
     }
 

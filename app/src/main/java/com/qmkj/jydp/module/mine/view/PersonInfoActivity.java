@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,7 +12,6 @@ import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/5/3
@@ -61,13 +59,6 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_info_login_out_bt://退出登陆
@@ -88,6 +79,15 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
+        //退出登陆 清空token
+        CommonUtil.setToken("");
+        AppManager.getInstance().clear();
+        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
         //退出登陆 清空token
         CommonUtil.setToken("");
         AppManager.getInstance().clear();
