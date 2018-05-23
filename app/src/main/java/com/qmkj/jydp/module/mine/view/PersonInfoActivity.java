@@ -88,9 +88,9 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        //退出登陆
+        //退出登陆 清空token
+        CommonUtil.setToken("");
         AppManager.getInstance().clear();
         CommonUtil.gotoActivity(mContext, LoginActivity.class);
-
     }
 }

@@ -7,11 +7,20 @@
 
     <include layout="@layout/common_header"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mine_currency_withdraw_recode_rv"
+    <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
+        android:id="@+id/mine_currency_withdraw_recode_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y5"
-        android:overScrollMode="never"
-        android:scrollbars="none"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mine_currency_withdraw_recode_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y5"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+    </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
+
+
 </LinearLayout>
