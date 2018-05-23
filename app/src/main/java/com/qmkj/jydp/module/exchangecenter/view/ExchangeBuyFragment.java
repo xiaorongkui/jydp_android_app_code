@@ -59,6 +59,8 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     EditText exchangePassowrdEt;
     @BindView(R.id.exchange_center_buy_bt)
     Button exchangeCenterBuyBt;
+    @BindView(R.id.exchange_buy_pwd_notice_tv)
+    Button exchange_buy_pwd_notice_tv;
     private CommonDialog pwdDialogUtils;
     private CommonDialog buyDialogUtils;
     private ExchangeCenterRes centerRes;
@@ -210,7 +212,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         exchange_passowrd_et.setKeyListener(DigitsKeyListener.getInstance(digits));
 
 
-        exchange_setting_pwd_login_iv.setOnClickListener(v -> {
+        exchange_setting_pwd_login_ll.setOnClickListener(v -> {
             isRememberLoginPwd = !isRememberLoginPwd;
             exchange_setting_pwd_login_iv.setImageResource(isRememberLoginPwd ? R.mipmap.bt_selected : R.mipmap
                     .bt_unselected);
@@ -218,7 +220,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_unselected);
             }
         });
-        exchange_setting_pwd_exchange_iv.setOnClickListener(v -> {
+        exchange_setting_pwd_exchange_ll.setOnClickListener(v -> {
             isRememberExchangePwd = !isRememberExchangePwd;
             exchange_setting_pwd_exchange_iv.setImageResource(isRememberExchangePwd ? R.mipmap.bt_selected : R
                     .mipmap.bt_unselected);
@@ -327,6 +329,12 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             case EXCHANGE_PWD_TAG:
                 toast("记住密码设置成功");
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
+                if (isRememberLoginPwd)
+                    exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_login_notice));
+
+                if (isRememberExchangePwd)
+                    exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string
+                            .exchange_password_exchange_notice));
                 break;
         }
     }

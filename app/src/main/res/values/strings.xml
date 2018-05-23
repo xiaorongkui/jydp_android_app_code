@@ -151,7 +151,8 @@
     <string name="xt">XT</string>
     <string name="frozen_assets">冻结资产：</string>
     <string name="available_assets">可用资产：</string>
-    <string name="exchange_password_notice">每次登录只输一次密码</string>
+    <string name="exchange_password_login_notice">每次登录只输一次密码</string>
+    <string name="exchange_password_exchange_notice">每笔交易都输入交易密码</string>
     <string name="frozen_amount_1">冻结数量：</string>
     <string name="frozen_amount">冻结数量</string>
     <string name="available_amount_1">可用数量：</string>
@@ -287,6 +288,7 @@
     <string name="buy_amount_in">买入数量</string>
     <string name="total_price_1">合计</string>
     <string name="price_fee">手续费</string>
+    <string name="confirm_buy">确认购买</string>
 
 
 </resources>

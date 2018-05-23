@@ -31,7 +31,7 @@
             android:paddingStart="@dimen/x10">
 
             <com.qmkj.jydp.ui.widget.EditVItemView
-                android:id="@+id/ouside_buy_eiv"
+                android:id="@+id/ouside_buy_amount_eiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:bottomLineTopMargin="@dimen/x7"
@@ -44,6 +44,7 @@
 
 
             <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                android:id="@+id/outside_exchange_buy_ratio_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y8"
@@ -71,7 +72,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="35394F"
                     android:textColor="@color/color_black_2"
                     android:textSize="@dimen/text_size_18"/>
 
@@ -127,6 +127,7 @@
     </com.dd.ShadowLayout>
 
     <Button
+        android:id="@+id/outside_buy_bt"
         style="@style/btn_blue"
         android:layout_marginEnd="@dimen/x15"
         android:layout_marginStart="@dimen/x15"

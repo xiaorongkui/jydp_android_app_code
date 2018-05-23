@@ -211,4 +211,8 @@ public class CommonDialog extends Dialog {
         super.show();
     }
 
+    public void setAnimation(int style) {
+        Window w = getWindow();
+        w.setWindowAnimations(style);
+    }
 }

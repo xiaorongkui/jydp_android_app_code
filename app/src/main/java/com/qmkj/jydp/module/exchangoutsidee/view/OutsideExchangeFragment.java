@@ -1,8 +1,10 @@
 package com.qmkj.jydp.module.exchangoutsidee.view;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -13,6 +15,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.request.OutSideExchangeReq;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
+import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangeAdapter;
 import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
@@ -108,10 +111,20 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                     toast("去交易");
                     switch (mData.get(position).getOrderType()) {
                         case 1://1：出售
-                            CommonUtil.gotoActivity(mContext, OutSideSoldActivity.class);
+                            Intent sellIntent = new Intent(mContext, OutSideSoldActivity.class);
+                            CommonUtil.gotoActivity(mContext, sellIntent);
                             break;
                         case 2://2：回购
-                            CommonUtil.gotoActivity(mContext, OutSideBuyActivity.class);
+                            Intent buyIntent = new Intent(mContext, OutSideBuyActivity.class);
+                            String orderNo = mData.get(position).getOtcPendingOrderNo();
+                            String pendingRatio = mData.get(position).getPendingRatio() + "";
+                            if (TextUtils.isEmpty(orderNo) || TextUtils.isEmpty(pendingRatio)) {
+                                toast("挂单记录号或者比例为空");
+                                return;
+                            }
+                            buyIntent.putExtra(Constants.INTENT_PARAMETER_1, orderNo);
+                            buyIntent.putExtra(Constants.INTENT_PARAMETER_2, pendingRatio);
+                            CommonUtil.gotoActivity(mContext, buyIntent);
                             break;
                     }
 
