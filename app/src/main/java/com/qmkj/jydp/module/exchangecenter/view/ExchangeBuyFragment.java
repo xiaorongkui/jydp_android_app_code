@@ -60,7 +60,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     @BindView(R.id.exchange_center_buy_bt)
     Button exchangeCenterBuyBt;
     @BindView(R.id.exchange_buy_pwd_notice_tv)
-    Button exchange_buy_pwd_notice_tv;
+    TextView exchange_buy_pwd_notice_tv;
     private CommonDialog pwdDialogUtils;
     private CommonDialog buyDialogUtils;
     private ExchangeCenterRes centerRes;

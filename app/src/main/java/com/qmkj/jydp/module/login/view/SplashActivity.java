@@ -120,11 +120,12 @@ public class SplashActivity extends BaseMvpActivity {
     private void goMianActivity() {
         if (timeFinish && permissionFinish) {
             String token = CommonUtil.getToken();
-            if (StringUtil.isNull(token)) {
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
-            } else {
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
-            }
+//            if (StringUtil.isNull(token)) {
+//                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+//            } else {
+//                CommonUtil.gotoActivity(mContext, MainActivity.class);
+//            }
+            CommonUtil.gotoActivity(mContext, LoginActivity.class);
             AppManager.getInstance().removeCurrent();
         }
     }

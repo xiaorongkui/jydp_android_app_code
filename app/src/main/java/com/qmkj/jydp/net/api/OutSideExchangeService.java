@@ -1,9 +1,13 @@
 package com.qmkj.jydp.net.api;
 
 
+import com.qmkj.jydp.bean.request.DistributorPayMethodReq;
+import com.qmkj.jydp.bean.request.OutSideBuyPayDetailReq;
 import com.qmkj.jydp.bean.request.OutSideBuyPayReq;
 import com.qmkj.jydp.bean.request.OutSideExchangeReq;
 import com.qmkj.jydp.bean.response.BaseRes;
+import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
+import com.qmkj.jydp.bean.response.OutSideBuyPayDetailRes;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
@@ -32,4 +36,20 @@ public interface OutSideExchangeService {
      */
     @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/buy")
     Observable<BaseRes<Object>> payOutsideExchange(@Body OutSideBuyPayReq req);
+
+    /**
+     * 场外交易购买详情确认接口
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/userBuyDetail")
+    Observable<BaseRes<OutSideBuyPayDetailRes>> payOutsideDetailConfirm(@Body OutSideBuyPayDetailReq req);
+
+    /**
+     * 场外交易获取经销商的付款方式
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/getPayType")
+    Observable<BaseRes<DistributorPayMethodRes>> getDistributorPayMethod(@Body DistributorPayMethodReq req);
 }

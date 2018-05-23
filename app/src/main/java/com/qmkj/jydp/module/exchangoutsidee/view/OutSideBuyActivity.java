@@ -1,6 +1,8 @@
 package com.qmkj.jydp.module.exchangoutsidee.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
@@ -23,7 +25,9 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.DialogItemBean;
+import com.qmkj.jydp.bean.request.OutSideBuyPayDetailReq;
 import com.qmkj.jydp.bean.request.OutSideBuyPayReq;
+import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
@@ -47,7 +51,7 @@ import io.reactivex.functions.Consumer;
  */
 
 public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter> {
-    private static final int BUY_PAY_TAG = 1;
+
     private static final int DECIMAL_DIGITS = 2;//最多输入两位数值
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -64,9 +68,12 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
     @BindView(R.id.outside_buy_bt)
     Button outsideBuyBt;
     private CommonDialog commonDialog;
-    private double selectIndex = 0;//1：银行卡，2：支付宝，3：微信
+    private int selectIndex = 0;//1：银行卡，2：支付宝，3：微信
     private String orderNo;
     private String pendingRatio;
+    private DistributorPayMethodRes payMethodRes;
+    private boolean[] payMethodShow = new boolean[]{false, false, false};
+    private String userId;
 
     @Override
     protected void injectPresenter() {
@@ -77,7 +84,35 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
     protected void initData() {
         orderNo = getIntent().getStringExtra(Constants.INTENT_PARAMETER_1);
         pendingRatio = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
-        outsideExchangeBuyRatioTv.setText(CommonUtil.getString(R.string.proportion) + ":" + pendingRatio);
+        payMethodRes = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_3);
+        userId = getIntent().getStringExtra(Constants.INTENT_PARAMETER_4);
+        outsideExchangeBuyRatioTv.setText(CommonUtil.getString(R.string.proportion) + ":  1:" + pendingRatio);
+
+        if (payMethodRes != null) {
+            if (payMethodRes.getHasBank() == 1) {
+                certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.bank_card_transfer), R
+                        .mipmap.bank_card, false));
+                payMethodShow[0] = true;
+            }
+
+            if (payMethodRes.getHasAliPay() == 1) {
+                certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.alipay_transfer), R.mipmap.alipay,
+                        false));
+                payMethodShow[1] = true;
+            }
+
+            if (payMethodRes.getHasWeiXin() == 1) {
+                certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.wechat_transfer), R
+                        .mipmap.wechat_pay, false));
+                payMethodShow[2] = true;
+            }
+        }
+        if (!payMethodShow[0] && !payMethodShow[1] && !payMethodShow[2]) {
+            selectIndex = -1;
+            outsidePayMothedTv.setText("");
+        } else {
+            outsidePayMothedTv.setText(certifyTypeData.get(0).getCertifyName());
+        }
     }
 
     @Override
@@ -97,42 +132,34 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         outsideBuyBt.setOnClickListener(this);
 
         ousideBuyAmountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
-        ousideBuyAmountEiv.getEditTextView().setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        ousideBuyAmountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER | InputType
+                .TYPE_NUMBER_FLAG_DECIMAL);
         ousideBuyAmountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         InitialValueObservable<CharSequence> amountTextChanges = RxTextView.textChanges(ousideBuyAmountEiv
                 .getEditTextView());
 
         amountTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
-                .mainThread()).subscribe(new Consumer<CharSequence>() {
-            @Override
-            public void accept(CharSequence sequence) throws Exception {
-                restrictedInput(sequence);
-                String s = ousideBuyAmountEiv.getEditTextView().getText().toString();
-                double buAmount = 0;
-                double ratio = 0;
-                try {
-                    buAmount = Double.parseDouble(s);
-                    ratio = Double.parseDouble(pendingRatio);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-                totalPriceTv.setText(buAmount * ratio + "");
+                .mainThread()).subscribe(sequence -> {
+            restrictedInput(sequence);
+            String s = ousideBuyAmountEiv.getEditTextView().getText().toString();
+            double buAmount = 0;
+            double ratio = 0;
+            try {
+                buAmount = Double.parseDouble(s);
+                ratio = Double.parseDouble(pendingRatio);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
             }
+            totalPriceTv.setText(buAmount * ratio + "");
         });
     }
+
+    List<DialogItemBean> certifyTypeData = new ArrayList<>();
 
     /**
      * 选择支付方式
      */
     private void showPaymentMethodDialog() {
-        List<DialogItemBean> certifyTypeData = new ArrayList<>();
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.bank_card_transfer), R
-                .mipmap.bank_card, true));
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.alipay_transfer), R
-                .mipmap.alipay, false));
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.wechat_transfer), R
-                .mipmap.wechat_pay, false));
-
         commonDialog = new CommonDialog(mContext, R.style.common_dialog_animation, R.layout
                 .certify_type_select_dialog);
         commonDialog.setAlertDialogHight(0);
@@ -152,7 +179,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
                 imageViewLeft.setImageResource(item.getLeftImageViewId());
                 if (selectIndex == -1) {
-                    selectIndex = 0;//默认选择银行卡
+                    selectIndex = 0;//默认选择第一个
                 }
                 imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap
                         .bt_unselected);
@@ -183,20 +210,61 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
 
     private void goPay() {
         String amount = ousideBuyAmountEiv.getEditTextString();
-        OutSideBuyPayReq outSideBuyPayReq = new OutSideBuyPayReq();
-        outSideBuyPayReq.setBuyNum(amount);
-        outSideBuyPayReq.setOtcPendingOrderNo(orderNo);
-        outSideBuyPayReq.setPaymentType((selectIndex + 1) + "");
-        presenter.payOutsideExchange(outSideBuyPayReq, BUY_PAY_TAG, true);
+        String paymentMoney = totalPriceTv.getText().toString().trim();
+        double v = 0;
+        try {
+            v = Double.parseDouble(amount);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        if (v == 0 || TextUtils.isEmpty(paymentMoney)) {
+            toast("购买数量必须大于0");
+            return;
+        }
+        OutSideBuyPayDetailReq outSideBuyPayDetailReq = new OutSideBuyPayDetailReq();
+        switch (selectIndex) {
+            case 0://银行卡
+                for (int i = 0; i < payMethodShow.length; i++) {
+                    if (payMethodShow[i]) {
+                        outSideBuyPayDetailReq.setPaymentType((i + 1) + "");
+                        break;
+                    }
+                }
+                break;
+            case 1://支付宝
+                if (payMethodShow[0]) {
+                    if (payMethodShow[1]) {
+                        outSideBuyPayDetailReq.setPaymentType("2");
+                    } else {
+                        outSideBuyPayDetailReq.setPaymentType("3");
+                    }
+
+                } else {
+                    outSideBuyPayDetailReq.setPaymentType("3");
+                }
+                break;
+            case 2:
+                outSideBuyPayDetailReq.setPaymentType(3 + "");//微信
+                break;
+            default:
+                toast("付款方式不支持");
+                return;
+        }
+
+        outSideBuyPayDetailReq.setBuyNum(v + "");
+        outSideBuyPayDetailReq.setOtcPendingOrderNo(orderNo);
+        outSideBuyPayDetailReq.setPageNumber("0");
+        outSideBuyPayDetailReq.setUserId(userId);
+        outSideBuyPayDetailReq.setPayMentMoney(paymentMoney);
+        Intent intent = new Intent(mContext, OutSideBuyDetailActivity.class);
+        intent.putExtra(Constants.INTENT_PARAMETER_1, outSideBuyPayDetailReq);
+        CommonUtil.gotoActivity(mContext, intent);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag) {
-            case BUY_PAY_TAG://支付接口调用成功
-                break;
-        }
+
     }
 
     private void restrictedInput(CharSequence s) {

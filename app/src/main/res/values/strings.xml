@@ -291,6 +291,13 @@
     <string name="total_price_1">合计</string>
     <string name="price_fee">手续费</string>
     <string name="confirm_buy">确认购买</string>
+    <string name="payee_bank_card_num">收款银行卡号</string>
+    <string name="payee_bank">收款银行</string>
+    <string name="payee_bank_branch">收款支行</string>
+    <string name="payee_name">收款人姓名</string>
+    <string name="payee_phone">收款人手机号</string>
+    <string name="weixin_account">微信账号</string>
+    <string name="pay_money">支付金额</string>
 
 
 </resources>

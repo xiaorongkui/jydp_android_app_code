@@ -8,6 +8,8 @@ import com.qmkj.jydp.di.module.ActivityModule;
 import com.qmkj.jydp.di.scope.ActivityScope;
 import com.qmkj.jydp.module.exchangecenter.view.KlineActivity;
 import com.qmkj.jydp.module.exchangoutsidee.view.OutSideBuyActivity;
+import com.qmkj.jydp.module.exchangoutsidee.view.OutSideBuyDetailActivity;
+import com.qmkj.jydp.module.exchangoutsidee.view.OutSideSoldActivity;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.module.login.view.CertificationActivity;
 import com.qmkj.jydp.module.login.view.ForgetLoginPwdActivity;
@@ -85,6 +87,10 @@ public interface ActivityComponent {
     void inject(HelpCenterDetailsActivity helpCenterDetailsActivity);
 
     void inject(OutSideBuyActivity outSideBuyActivity);
+
+    void inject(OutSideSoldActivity outSideSoldActivity);
+
+    void inject(OutSideBuyDetailActivity outSideBuyDetailActivity);
 
     void inject(ReceivablesActivity receivablesActivity);
 }

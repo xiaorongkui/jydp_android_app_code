@@ -149,6 +149,16 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
 
     }
 
+    /**
+     * Show net error view.
+     *
+     * @param view   将view隐藏
+     * @param isShow 是否显示成功界面 true显示成功页面；false将页面隐藏
+     */
+    protected void showSuccessView(ViewGroup view, boolean isShow) {
+        view.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
     //点击错误界面时触发刷新
     protected void tryData(int id) {
         toast("点击重新加载");

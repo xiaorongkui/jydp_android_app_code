@@ -31,11 +31,11 @@
             app:sl_shadowRadius="@dimen/x5">
 
             <LinearLayout
-                android:paddingBottom="@dimen/y20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_view_shadow_bg"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y20">
 
                 <com.qmkj.jydp.ui.widget.ClickItemView
                     android:id="@+id/ertify_check_account_cv"
@@ -45,6 +45,7 @@
                     android:layout_marginRight="@dimen/x15"
                     android:layout_marginTop="@dimen/y20"
                     app:bottomLine="false"
+                    app:isDefaultHight="false"
                     app:leftText="@string/account"
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
@@ -61,6 +62,7 @@
                     android:layout_marginRight="@dimen/x15"
                     android:layout_marginTop="@dimen/y20"
                     app:bottomLine="false"
+                    app:isDefaultHight="false"
                     app:leftText="@string/name"
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
@@ -77,6 +79,7 @@
                     android:layout_marginRight="@dimen/x15"
                     android:layout_marginTop="@dimen/y20"
                     app:bottomLine="false"
+                    app:isDefaultHight="false"
                     app:leftText="@string/certify_type"
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
@@ -93,6 +96,7 @@
                     android:layout_marginRight="@dimen/x15"
                     android:layout_marginTop="@dimen/y20"
                     app:bottomLine="false"
+                    app:isDefaultHight="false"
                     app:leftText="@string/certificate_num"
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"

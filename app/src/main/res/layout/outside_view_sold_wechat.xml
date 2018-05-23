@@ -6,6 +6,7 @@
     android:id="@+id/sold_select_wechat_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/y10"
     android:background="@drawable/shape_view_shadow_bg"
     android:orientation="vertical"
     android:paddingBottom="@dimen/y20"

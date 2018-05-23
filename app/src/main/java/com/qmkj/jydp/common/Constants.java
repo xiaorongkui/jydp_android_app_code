@@ -12,6 +12,8 @@ public class Constants {
     public static final String BUGLY_APP_ID = "13677417ed";
     public static final String INTENT_PARAMETER_1 = "intent_parameter_1";
     public static final String INTENT_PARAMETER_2 = "intent_parameter_2";
+    public static final String INTENT_PARAMETER_3 = "intent_parameter_3";
+    public static final String INTENT_PARAMETER_4 = "intent_parameter_4";
 
     public static final String KLINEURL = "{\"code\":0,\"msg\":\"\",\"data\":{\"sz002081\":{\"day\":[[\"2015/01/08\"," +
             "\"19.12\",\"19.00\",\"19.25\",\"18.36\",\"185103.00\"],[\"2015/01/09\",\"18.72\",\"18.53\",\"19.30\"," +

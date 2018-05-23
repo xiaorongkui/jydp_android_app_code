@@ -13,7 +13,9 @@ import android.widget.RelativeLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.bean.request.DistributorPayMethodReq;
 import com.qmkj.jydp.bean.request.OutSideExchangeReq;
+import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangeAdapter;
@@ -35,6 +37,7 @@ import butterknife.BindView;
 
 public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePresenter> {
     private static final int OUTSIDE_LIST_TAG = 1;
+    private static final int DISTRIBUTOR_PAYMETHOD_TAG = 2;
     @BindView(R.id.title_ll)
     LinearLayout title_ll;
     @BindView(R.id.refresh)
@@ -45,6 +48,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
     ArrayList<OutSideExchangeRes.OtcTransactionPendOrderListBean> mData = new ArrayList<>();
     int currentPageNumber = 0;
     private boolean isRefresh = true;
+    private OutSideExchangeRes.OtcTransactionPendOrderListBean orderListBean;
 
     @Override
     protected void injectPresenter() {
@@ -108,31 +112,40 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
             LogUtil.i("view=" + view.getId() + "position=" + position);
             switch (view.getId()) {
                 case R.id.exchange_outside_go_exchange_tv:
-                    toast("去交易");
-                    switch (mData.get(position).getOrderType()) {
-                        case 1://1：出售
-                            Intent sellIntent = new Intent(mContext, OutSideSoldActivity.class);
-                            CommonUtil.gotoActivity(mContext, sellIntent);
+                    orderListBean = mData.get(position);
+                    switch (orderListBean.getOrderType()) {
+                        case 1://1：回购（对于经销商来说是出售）
+                            getDistributorPayMethod();
                             break;
-                        case 2://2：回购
-                            Intent buyIntent = new Intent(mContext, OutSideBuyActivity.class);
-                            String orderNo = mData.get(position).getOtcPendingOrderNo();
-                            String pendingRatio = mData.get(position).getPendingRatio() + "";
+                        case 2://2：出售(对于经销商来说的购买)
+                            String orderNo = orderListBean.getOtcPendingOrderNo();
+                            String pendingRatio = orderListBean.getPendingRatio() + "";
+                            String dealerName = orderListBean.getDealerName();
+                            Intent sellIntent = new Intent(mContext, OutSideSoldActivity.class);
                             if (TextUtils.isEmpty(orderNo) || TextUtils.isEmpty(pendingRatio)) {
                                 toast("挂单记录号或者比例为空");
                                 return;
                             }
-                            buyIntent.putExtra(Constants.INTENT_PARAMETER_1, orderNo);
-                            buyIntent.putExtra(Constants.INTENT_PARAMETER_2, pendingRatio);
-                            CommonUtil.gotoActivity(mContext, buyIntent);
+                            sellIntent.putExtra(Constants.INTENT_PARAMETER_1, orderNo);
+                            sellIntent.putExtra(Constants.INTENT_PARAMETER_2, pendingRatio);
+                            sellIntent.putExtra(Constants.INTENT_PARAMETER_3, dealerName);
+                            CommonUtil.gotoActivity(mContext, sellIntent);
                             break;
                     }
 
-                    break;
-                default:
-                    break;
             }
         });
+    }
+
+    private void getDistributorPayMethod() {
+        if (orderListBean == null) {
+            toast("订单信息为空请刷新重试");
+            return;
+        }
+        DistributorPayMethodReq distributorPayMethodReq = new DistributorPayMethodReq();
+        distributorPayMethodReq.setUserId(orderListBean.getUserId() + "");
+        distributorPayMethodReq.setOtcPendingOrderNo(orderListBean.getOtcPendingOrderNo());
+        presenter.getDistributorPayMethod(distributorPayMethodReq, DISTRIBUTOR_PAYMETHOD_TAG, true);
     }
 
     @Override
@@ -174,6 +187,23 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                 mData.addAll(otcTransactionPendOrderList);
                 mOutsideExchangeAdapter.notifyDataSetChanged();
                 calculatePage(outSideExchangeRes);
+                break;
+            case DISTRIBUTOR_PAYMETHOD_TAG:
+                DistributorPayMethodRes payMethodRes = (DistributorPayMethodRes) response;
+                if (payMethodRes == null) return;
+                String orderNo = orderListBean.getOtcPendingOrderNo();
+                String pendingRatio = orderListBean.getPendingRatio() + "";
+                String userId = orderListBean.getUserId() + "";
+                Intent buyIntent = new Intent(mContext, OutSideBuyActivity.class);
+                if (TextUtils.isEmpty(orderNo) || TextUtils.isEmpty(pendingRatio)) {
+                    toast("挂单记录号或者比例为空");
+                    return;
+                }
+                buyIntent.putExtra(Constants.INTENT_PARAMETER_1, orderNo);
+                buyIntent.putExtra(Constants.INTENT_PARAMETER_2, pendingRatio);
+                buyIntent.putExtra(Constants.INTENT_PARAMETER_3, payMethodRes);
+                buyIntent.putExtra(Constants.INTENT_PARAMETER_4, userId);
+                CommonUtil.gotoActivity(mContext, buyIntent);
                 break;
         }
     }

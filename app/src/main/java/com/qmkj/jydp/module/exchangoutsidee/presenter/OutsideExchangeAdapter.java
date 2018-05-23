@@ -61,21 +61,21 @@ public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRe
         exchangeOutsideRegionTv.setText(item.getArea());
 
         switch (item.getOrderType()) {
-            case 1://1：出售
-                shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
-                        .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_green_4))
-                        .setDefaultBgColor(CommonUtil.getColor(R.color.color_green_6));
-                exchangeOutsideBuyTv.setBackground(shapeSelector.create());
-                exchangeOutsideBuyTv.setText(CommonUtil.getString(R.string.sell));
-                exchangeOutsideBuyTv.setTextColor(CommonUtil.getColor(R.color.color_green_4));
-                break;
-            case 2://2：回购
+            case 1://1：购买
                 shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
                         .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_red_3))
                         .setDefaultBgColor(CommonUtil.getColor(R.color.color_red_6));
                 exchangeOutsideBuyTv.setBackground(shapeSelector.create());
                 exchangeOutsideBuyTv.setText(CommonUtil.getString(R.string.buy_1));
                 exchangeOutsideBuyTv.setTextColor(CommonUtil.getColor(R.color.color_red_3));
+                break;
+            case 2://2：卖出
+                shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
+                        .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_green_4))
+                        .setDefaultBgColor(CommonUtil.getColor(R.color.color_green_6));
+                exchangeOutsideBuyTv.setBackground(shapeSelector.create());
+                exchangeOutsideBuyTv.setText(CommonUtil.getString(R.string.sell));
+                exchangeOutsideBuyTv.setTextColor(CommonUtil.getColor(R.color.color_green_4));
                 break;
         }
     }

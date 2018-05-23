@@ -46,11 +46,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y16"
                         app:bottomLine="false"
+                        app:isDefaultHight="false"
                         app:leftText="@string/distributor"
                         app:leftTextColor="@color/color_black_6"
                         app:leftTextSize="@dimen/text_size_14"
                         app:rightIconVisible="false"
-                        app:rightText="ASDFGHJKLASDFGHJ"
                         app:rightTextColor="@color/color_black_7"
                         app:rightTextSize="@dimen/text_size_15"/>
 
@@ -68,6 +68,7 @@
 
 
                     <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                        android:id="@+id/outside_exchange_sold_ratio_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/y8"
@@ -95,7 +96,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:text="35394F"
                             android:textColor="@color/color_black_2"
                             android:textSize="@dimen/text_size_18"/>
 

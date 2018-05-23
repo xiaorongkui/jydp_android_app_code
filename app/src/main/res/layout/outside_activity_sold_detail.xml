@@ -157,7 +157,6 @@
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
                     app:rightIconVisible="false"
-                    app:rightText="1.000"
                     app:rightTextColor="@color/color_black_7"
                     app:rightTextSize="@dimen/text_size_15"/>
 
@@ -172,7 +171,6 @@
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
                     app:rightIconVisible="false"
-                    app:rightText="¥1000.0000"
                     app:rightTextColor="@color/color_black_7"
                     app:rightTextSize="@dimen/text_size_15"/>
 

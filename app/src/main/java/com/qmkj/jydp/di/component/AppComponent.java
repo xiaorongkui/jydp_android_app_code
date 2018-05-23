@@ -38,14 +38,4 @@ public interface AppComponent {
 
     SPHelper providePreferencesHelper();
 
-//    LoginPresenter provideLoginPresenter();
-//
-//    HomePresenter provideHomePresenter();
-//
-//    ExchangePresenter provideExchangePresenter();
-//
-//    ExchangeCenterPresenter provideExchangeCenterPresenter();
-//
-//    MinePresenter provideExchangeMinePresenter();
-
 }

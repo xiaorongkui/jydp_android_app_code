@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
@@ -19,30 +17,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding2.widget.RxTextView;
-import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
+import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
-import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.bean.response.LoginRes;
-import com.qmkj.jydp.bean.request.LoginReq;
-import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.Constants;
-import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.common.SystemMessageConfig;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditHItemView;
-import com.qmkj.jydp.ui.widget.EditHItemView;
-import com.qmkj.jydp.ui.widget.LoadingDialog;
 import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
-import com.qmkj.jydp.util.MD5Util;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +41,6 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
