@@ -1,6 +1,7 @@
 package com.qmkj.jydp.net.api;
 
 
+import com.qmkj.jydp.bean.request.OutSideBuyPayReq;
 import com.qmkj.jydp.bean.request.OutSideExchangeReq;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
@@ -23,4 +24,12 @@ public interface OutSideExchangeService {
      */
     @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/showMore")
     Observable<BaseRes<OutSideExchangeRes>> getOutsideExchangeData(@Body OutSideExchangeReq req);
+
+    /**
+     * 场外交易购买接口
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/buy")
+    Observable<BaseRes<Object>> payOutsideExchange(@Body OutSideBuyPayReq req);
 }

@@ -48,6 +48,8 @@ public class ClickItemView extends LinearLayout {
     private ViewGroup mContainer; //中间布局容器
 
     private View mContentView;
+    private boolean mIsDefaultHight;
+    private View mllClickItem;
 
     public ClickItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -69,6 +71,7 @@ public class ClickItemView extends LinearLayout {
         // 获取自定义属性资源ID
         mTopLineEnable = a.getBoolean(R.styleable.ClickItem_topLine, false);
         mBottomLineEnable = a.getBoolean(R.styleable.ClickItem_bottomLine, true);
+        mIsDefaultHight = a.getBoolean(R.styleable.ClickItem_isDefaultHight, true);
         mLeftIconId = a.getResourceId(R.styleable.ClickItem_leftIcon, -1);
         mLeftText = a.getText(R.styleable.ClickItem_leftText);
         mLeftTextSize = a.getDimension(R.styleable.ClickItem_leftTextSize, -1);
@@ -106,7 +109,9 @@ public class ClickItemView extends LinearLayout {
         mTvRight = findViewById(R.id.tv_item_view_right);
         mViewRedPoint = findViewById(R.id.view_item_view_red_point);
         mContainer = findViewById(R.id.rl_item_view_container);
+        mllClickItem = findViewById(R.id.ll_click_item);
 
+        setDefaultHight();
         enableTopLine(mTopLineEnable);
         enableBottomLine(mBottomLineEnable);
         setLeftIcon(mLeftIconId);
@@ -118,6 +123,15 @@ public class ClickItemView extends LinearLayout {
         setLeftTextColor(mLeftTextColorId);
         setRightTextColor(mRightTextColorId);
         enableRightIcon(mRightIconEnable);
+    }
+
+    private void setDefaultHight() {
+        if (!mIsDefaultHight) {
+            ViewGroup.LayoutParams layoutParams = mllClickItem.getLayoutParams();
+            layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            mllClickItem.setLayoutParams(layoutParams);
+            mllClickItem.setMinimumHeight(0);
+        }
     }
 
     /**

@@ -49,7 +49,7 @@ public class MinePresenter extends BaseRxPresenter {
     }
 
     public void getPresentRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getPresentRecordInfo(req), tag);
+        sendHttpRequest(mineService.getPresentRecordInfo(req), tag, isShowProgress);
     }
 
     public void getDealOtcRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
@@ -61,7 +61,7 @@ public class MinePresenter extends BaseRxPresenter {
     }
 
     public void getSystemNoticeInfo(PageNumberReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getSystemNoticeInfo(req), tag);
+        sendHttpRequest(mineService.getSystemNoticeInfo(req), tag, isShowProgress);
     }
 
     public void getSystemHotInfo(PageNumberReq req, int tag, boolean isShowProgress){

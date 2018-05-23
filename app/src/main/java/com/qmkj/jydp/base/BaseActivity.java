@@ -51,7 +51,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         if (backView != null) {
             backView.setOnClickListener(v -> AppManager.getInstance().removeCurrent());
         }
-
     }
 
     /**
@@ -75,8 +74,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         if (unbinder != null)
             unbinder.unbind();
     }
-
-    protected abstract void initData();
 
     protected abstract void initTitle();
 
@@ -103,6 +100,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
      * 初始化view
      */
     protected abstract void initView();
+
+    /**
+     * 初始化数据
+     */
+    protected abstract void initData();
 
 
     protected void toast(int res) {

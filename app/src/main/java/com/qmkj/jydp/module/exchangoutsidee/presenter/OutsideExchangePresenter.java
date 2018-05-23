@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.base.BaseView;
+import com.qmkj.jydp.bean.request.OutSideBuyPayReq;
 import com.qmkj.jydp.bean.request.OutSideExchangeReq;
 import com.qmkj.jydp.net.api.OutSideExchangeService;
 
@@ -28,5 +29,9 @@ public class OutsideExchangePresenter extends BaseRxPresenter<BaseView> {
 
     public void getOutsideExchangeData(OutSideExchangeReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(outSideExchangeService.getOutsideExchangeData(req), tag, isShowProgress);
+    }
+
+    public void payOutsideExchange(OutSideBuyPayReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(outSideExchangeService.payOutsideExchange(req), tag, isShowProgress);
     }
 }

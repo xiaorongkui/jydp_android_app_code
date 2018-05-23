@@ -87,4 +87,11 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+
+    <style name="common_dialog_animation" parent="common_dialog">
+        <!--动画的style-->
+        <item name="android:windowEnterAnimation">@anim/dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_out</item>
+    </style>
 </resources>

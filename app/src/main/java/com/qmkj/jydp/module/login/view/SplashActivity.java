@@ -6,12 +6,14 @@ import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
+import com.qmkj.jydp.util.StringUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -111,9 +113,18 @@ public class SplashActivity extends BaseMvpActivity {
         });
     }
 
+    /**
+     * 跳转主页面
+     * 根据token判断是否需要用户登录
+     */
     private void goMianActivity() {
         if (timeFinish && permissionFinish) {
-            CommonUtil.gotoActivity(mContext, LoginActivity.class);
+            String token = CommonUtil.getToken();
+            if (StringUtil.isNull(token)) {
+                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+            } else {
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
+            }
             AppManager.getInstance().removeCurrent();
         }
     }

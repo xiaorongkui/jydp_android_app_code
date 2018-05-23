@@ -36,6 +36,8 @@
         <attr name="rightTextSize"/>
         <!-- 右侧图片是否显示-->
         <attr name="rightIconVisible" format="boolean"/>
+        <!-- 是否使用默认的高度-->
+        <attr name="isDefaultHight" format="boolean"/>
         <!-- 顶部line -->
         <attr name="topLine"/>
         <!-- 底部line -->
