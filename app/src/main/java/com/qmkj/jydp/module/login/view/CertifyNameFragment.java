@@ -5,15 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,7 +21,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
@@ -42,8 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/23
@@ -188,7 +183,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
 
         RecyclerView recyclerView = commonDialog.getView(R.id.certify_type_select_rv, RecyclerView.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setAdapter(new BaseRecylerAdapter<DialogItemBean>(R.layout.certify_type_select_item,
+        recyclerView.setAdapter(new BaseRecycleAdapter<DialogItemBean>(R.layout.certify_type_select_item,
                 certifyTypeData) {
 
             @Override
@@ -203,7 +198,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
             }
         });
         commonDialog.show();
-        ((BaseRecylerAdapter) recyclerView.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
+        ((BaseRecycleAdapter) recyclerView.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
             commonDialog.dismiss();
             selectIndex = position;
             ertifyTypeSelectTv.setText(certifyTypeData.get(position).getCertifyName());

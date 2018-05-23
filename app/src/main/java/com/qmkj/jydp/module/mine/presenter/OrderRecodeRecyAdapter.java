@@ -1,11 +1,10 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
-import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * description:
  */
 
-public class OrderRecodeRecyAdapter extends BaseRecylerAdapter {
+public class OrderRecodeRecyAdapter extends BaseRecycleAdapter {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))

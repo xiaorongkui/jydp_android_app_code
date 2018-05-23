@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.NumberUtil;
@@ -19,7 +19,7 @@ import java.util.List;
  * @desc
  */
 
-public class ExchangeCenterAdapter extends BaseRecylerAdapter<ExchangeCurrencyRes.TransactionUserDealListBean> {
+public class ExchangeCenterAdapter extends BaseRecycleAdapter<ExchangeCurrencyRes.TransactionUserDealListBean> {
 
     public ExchangeCenterAdapter(int layoutResId, @Nullable List data) {
         super(layoutResId, data);

@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
 import com.qmkj.jydp.util.CommonUtil;
@@ -22,7 +22,7 @@ import butterknife.BindView;
  * description:委托记录
  */
 
-public class EntrustRecodeRecAdapter extends BaseRecylerAdapter<ExchangeCenterRes.TransactionPendOrderListBean> {
+public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRes.TransactionPendOrderListBean> {
 
     private final List datas;
     @BindView(R.id.entrust_status_tv)

@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +21,9 @@ import butterknife.OnClick;
  */
 
 public class MineRecodeActivity extends BaseMvpActivity {
+    public static final String RECODE_TYPE = "type";
+    public static final int RECODE_TYPE_NORMAL = 1;
+    public static final int RECODE_TYPE_AGENCY = 2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.mine_recode_register_recode_civ)
@@ -30,6 +34,8 @@ public class MineRecodeActivity extends BaseMvpActivity {
     ClickItemView mineRecodeCurrencyRecodeCiv;
     @BindView(R.id.mine_recode_outside_exchange_recode_civ)
     ClickItemView mineRecodeOutsideExchangeRecodeCiv;
+    @BindView(R.id.mine_recode_outside_exchange_recode_agcy_civ)
+    ClickItemView mine_recode_outside_exchange_recode_agcy_civ;
 
     @Override
     protected void injectPresenter() {
@@ -53,12 +59,15 @@ public class MineRecodeActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
-
+        if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
+            mine_recode_outside_exchange_recode_agcy_civ.setVisibility(View.VISIBLE);
+        }
     }
 
 
     @OnClick({R.id.mine_recode_register_recode_civ, R.id.mine_recode_transaction_recode_civ, R.id
-            .mine_recode_currency_recode_civ, R.id.mine_recode_outside_exchange_recode_civ})
+            .mine_recode_currency_recode_civ, R.id.mine_recode_outside_exchange_recode_civ,
+            R.id.mine_recode_outside_exchange_recode_agcy_civ})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_recode_register_recode_civ://挂单记录
@@ -71,7 +80,14 @@ public class MineRecodeActivity extends BaseMvpActivity {
                 CommonUtil.gotoActivity(mContext, CurrencyWithDrawRecodeActivity.class);
                 break;
             case R.id.mine_recode_outside_exchange_recode_civ://场外交易记录
-                CommonUtil.gotoActivity(mContext, OutSideExchangeRecodeActivity.class);
+                Intent intent = new Intent(this,OutSideExchangeRecodeActivity.class);
+                intent.putExtra("type",RECODE_TYPE_NORMAL);
+                CommonUtil.gotoActivity(mContext, intent);
+                break;
+            case R.id.mine_recode_outside_exchange_recode_agcy_civ://场外交易记录(经销商)
+                Intent intent2 = new Intent(this,OutSideExchangeRecodeActivity.class);
+                intent2.putExtra(RECODE_TYPE,RECODE_TYPE_AGENCY);
+                CommonUtil.gotoActivity(mContext, intent2);
                 break;
         }
     }

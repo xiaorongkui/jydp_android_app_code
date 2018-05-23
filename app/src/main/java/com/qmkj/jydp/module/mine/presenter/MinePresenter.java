@@ -50,6 +50,10 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.getPresentRecordInfo(req), tag, isShowProgress);
     }
 
+    public void getDealOtcRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getDealOtcRecordInfo(req), tag);
+    }
+
     public void getOtcDealRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getOtcDealRecordInfo(req), tag);
     }
@@ -68,6 +72,10 @@ public class MinePresenter extends BaseRxPresenter {
 
     public void getAccountRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getAccountRecordInfo(req), tag);
+    }
+
+    public void getHelpCenterInfo(PageNumberReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getHelpCenterInfo(req), tag);
     }
 
 }

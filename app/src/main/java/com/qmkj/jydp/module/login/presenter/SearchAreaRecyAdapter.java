@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * description:
  */
 
-public class SearchAreaRecyAdapter extends BaseRecylerAdapter<DoubleString> {
+public class SearchAreaRecyAdapter extends BaseRecycleAdapter<DoubleString> {
     private final Context mContext;
     private final List datas;
 

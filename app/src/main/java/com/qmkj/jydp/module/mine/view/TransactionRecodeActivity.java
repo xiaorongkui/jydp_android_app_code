@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
@@ -15,6 +17,7 @@ import com.qmkj.jydp.module.mine.presenter.TransactionRecodeRecyAdapter;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,11 +28,7 @@ import butterknife.ButterKnife;
  * description:成交记录
  */
 
-public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
-    @BindView(R.id.title_header_tv)
-    TextView titleHeaderTv;
-    @BindView(R.id.mine_transaction_recode_rv)
-    RecyclerView mineTransactionRecodeRv;
+public class TransactionRecodeActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
     private ArrayList<AccountRecordRes.DealRecordListBean> mData;
     private TransactionRecodeRecyAdapter transactionRecodeRecyAdapter;
 
@@ -44,40 +43,16 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
         req.setPageNumber(0);
         presenter.getAccountRecordInfo(req,1,true);
     }
-
     @Override
-    protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.transaction_recode));
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.mine_activity_transaction_recode;
-    }
-
-    @Override
-    protected void initView() {
+    public BaseRecycleAdapter getRecycleAdapter() {
         initRecycleView();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        return transactionRecodeRecyAdapter;
     }
 
     private void initRecycleView() {
         mData = new ArrayList<>();
         transactionRecodeRecyAdapter = new TransactionRecodeRecyAdapter(mContext, mData, R.layout
                 .mine_transaction_reocde_item);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mineTransactionRecodeRv.setLayoutManager(layoutManager);
-
-        View mEmptyView = View.inflate(mContext, R.layout.empty, null);
-        transactionRecodeRecyAdapter.setEmptyView(mEmptyView);
-        mineTransactionRecodeRv.setAdapter(transactionRecodeRecyAdapter);
     }
 
     @Override
@@ -88,5 +63,15 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
             transactionRecodeRecyAdapter.addData(recordRes.getDealRecordList());
             transactionRecodeRecyAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public List getData() {
+        return null;
+    }
+
+    @Override
+    public String getTittle() {
+        return CommonUtil.getString(R.string.transaction_recode);
     }
 }

@@ -54,6 +54,10 @@ public interface MineService {
     @POST(AppNetConfig.urlPath + "wap/presentRecord/showMorePresent")
     Observable<BaseRes<PresentRecordRes>> getPresentRecordInfo(@Body PageNumberReq req);
 
+    //获取场外交易成交记录(经销商)
+    @POST(AppNetConfig.urlPath + "wap/dealerOtcRecord/showMore")
+    Observable<BaseRes<OtcDealRecordRes>> getDealOtcRecordInfo(@Body PageNumberReq req);
+
     //获取场外交易成交记录
     @POST(AppNetConfig.urlPath + "wap/userOtcDealRecord/showMore")
     Observable<BaseRes<OtcDealRecordRes>> getOtcDealRecordInfo(@Body PageNumberReq req);
@@ -73,4 +77,8 @@ public interface MineService {
     //获取用户成交记录
     @POST(AppNetConfig.urlPath + "wap/wapDealRecord/getAccountRecord")
     Observable<BaseRes<AccountRecordRes>> getAccountRecordInfo(@Body PageNumberReq req);
+
+    //获取帮助中心
+    @POST(AppNetConfig.urlPath + "wap/wapHelpCenter/show")
+    Observable<BaseRes<Object>> getHelpCenterInfo(@Body PageNumberReq req);
 }

@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * @desc
  */
 
-public class OutsideExchangeAdapter extends BaseRecylerAdapter<OutSideExchangeRes.OtcTransactionPendOrderListBean> {
+public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRes.OtcTransactionPendOrderListBean> {
 
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))

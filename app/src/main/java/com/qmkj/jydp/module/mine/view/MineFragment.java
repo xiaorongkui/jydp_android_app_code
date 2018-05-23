@@ -71,6 +71,10 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                 .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
                 .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
         mine_distributor_tv.setBackground(shapeSelector.create());
+
+        if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
+            mine_distributor_tv.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initRefreshLayout() {
@@ -82,7 +86,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
             @Override
             public boolean checkCanDoRefresh(View content, View header) {
-                return scrollView.isTop();
+                return scrollView.isTop()&&!refreshLayout.isRefreshing();
             }
         });
 
@@ -178,6 +182,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
+        if(refreshLayout.isRefreshing()){
+            refreshLayout.refreshComplete();
+        }
         LogUtil.e(response.toString());
         MineRes mineRes = (MineRes) response;
         if(mineRes!=null){
@@ -192,6 +199,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
+        refreshLayout.refreshComplete();
         super.onError(errorMsg, code, tag, o);
         refreshLayout.refreshComplete();
     }

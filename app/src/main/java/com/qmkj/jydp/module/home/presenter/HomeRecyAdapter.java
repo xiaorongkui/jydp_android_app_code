@@ -1,20 +1,17 @@
 package com.qmkj.jydp.module.home.presenter;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -22,7 +19,7 @@ import butterknife.BindView;
  * description:
  */
 
-public class HomeRecyAdapter extends BaseRecylerAdapter<HomeDataRes.TransactionUserDealListBean> {
+public class HomeRecyAdapter extends BaseRecycleAdapter<HomeDataRes.TransactionUserDealListBean> {
     private final List<String> datas;
     private final Context mContext;
 

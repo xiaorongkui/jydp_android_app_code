@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecylerAdapter;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.response.CustomerServiceRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -18,7 +18,7 @@ import java.util.List;
  * description:
  */
 
-public class ContactServiceRecyAdapter extends BaseRecylerAdapter<CustomerServiceRes.UserFeedbackListBean> {
+public class ContactServiceRecyAdapter extends BaseRecycleAdapter<CustomerServiceRes.UserFeedbackListBean> {
     private final Context mContext;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector();
 

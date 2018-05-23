@@ -9,11 +9,30 @@
 
     <View style="@style/line1"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/system_hot_rv"
+    <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
+        android:id="@+id/dealer_management_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/x10"
-        android:layout_marginRight="@dimen/x10"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/system_hot_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x10"/>
+
+    </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
+
+
+    <Button
+        android:id="@+id/dealer_publish_advertise_bt"
+        style="@style/btn_blue"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/y15"
+        android:layout_marginEnd="@dimen/x15"
+        android:layout_marginStart="@dimen/x15"
+        android:text="@string/send_advertisement"/>
+
+
 </LinearLayout>

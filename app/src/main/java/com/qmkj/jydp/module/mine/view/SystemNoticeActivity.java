@@ -1,39 +1,37 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.SystemNoticeRecyAdapter;
-import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.DateUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
 /**
  * author：rongkui.xiao --2018/3/22
  * email：dovexiaoen@163.com
- * description:
+ * description:系统公告
  */
 
-public class SystemNoticeActivity extends BaseMvpActivity<MinePresenter> {
-    @BindView(R.id.system_notice_rl)
-    XRefreshLayout mRefreshLayout;
-    @BindView(R.id.system_notice_rv)
-    RecyclerView systemNoticeRv;
-    @BindView(R.id.title_header_tv)
-    TextView titleHeaderTv;
-
+public class SystemNoticeActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
+    private ArrayList<SystemNoticeRes.SystemNoticeListBean> datas;
     private SystemNoticeRecyAdapter systemNoticeAdapter;
-    private int mPage;
-    boolean mIsCanRefresh = true;
-    boolean mIsLoadMore;
 
     @Override
     protected void injectPresenter() {
@@ -41,103 +39,57 @@ public class SystemNoticeActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     @Override
-    protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.system_notice));
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.mine_activity_system_notice;
-    }
-
-    @Override
-    protected void initView() {
-        initRecycleView();
-        initListener();
-    }
-
-    @Override
     protected void initData() {
-        mRefreshLayout.callRefresh();
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(0);
+        presenter.getSystemNoticeInfo(req,1,true);
+
     }
 
     private void initRecycleView() {
-        systemNoticeAdapter = new SystemNoticeRecyAdapter(mContext);
-        systemNoticeRv.setLayoutManager(new LinearLayoutManager(mContext));
-        systemNoticeRv.setAdapter(systemNoticeAdapter);
-        systemNoticeAdapter.setEmptyView(R.layout.empty, systemNoticeRv);
-    }
-
-    private void initListener() {
-        mRefreshLayout.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
+        datas = new ArrayList();
+        systemNoticeAdapter = new SystemNoticeRecyAdapter(mContext, datas, R.layout
+                .mine_system_notice_item);
+        systemNoticeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onRefresh() {
-                mIsLoadMore = false;
-                mPage = 0;
-                getDateFromNet();
-            }
-
-            @Override
-            public boolean checkCanDoRefresh(View content, View header) {
-                return mIsCanRefresh;
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(SystemNoticeActivity.this,SystemNoticeDetailsActivity.class);
+                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TITTLE,
+                        systemNoticeAdapter.getData().get(position).getNoticeTitle());
+                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TIMES,
+                        DateUtil.longToTimeStr(systemNoticeAdapter.getData().get(position).getAddTime(),
+                                DateUtil.dateFormat2));
+                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
+                        systemNoticeAdapter.getData().get(position).getContent());
+                CommonUtil.gotoActivity(mContext,intent);
             }
         });
-
-        systemNoticeRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
-                mIsCanRefresh = topRowVerticalPosition >= 0;
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
-
-        systemNoticeAdapter.setOnLoadMoreListener(() -> {
-            mIsLoadMore = true;
-            getDateFromNet();
-        }, systemNoticeRv);
     }
 
-
-    /**
-     * 从网络获取数据
-     */
-    private void getDateFromNet() {
-        PageNumberReq req = new PageNumberReq();
-        req.setPageNumber(mPage);
-        presenter.getSystemNoticeInfo(req, 1, false);
+    @Override
+    public BaseRecycleAdapter getRecycleAdapter() {
+        initRecycleView();
+        return systemNoticeAdapter;
     }
+
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         SystemNoticeRes systemNoticeRes = (SystemNoticeRes) response;
-        if (mRefreshLayout != null && mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.refreshComplete();
-        }
-        if (mIsLoadMore) {
+        if(systemNoticeRes.getSystemNoticeList()!=null){
             systemNoticeAdapter.addData(systemNoticeRes.getSystemNoticeList());
-        } else {
-            systemNoticeAdapter.update(systemNoticeRes.getSystemNoticeList());
-        }
-        if (mPage < systemNoticeRes.getTotalPageNumber() - 1) {
-            systemNoticeAdapter.loadMoreComplete();
-            mPage++;
-        } else {
-            systemNoticeAdapter.loadMoreEnd();
+            systemNoticeAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
-    public void onError(String errorMsg, String code, int tag, Object response) {
-        super.onError(errorMsg, code, tag, response);
-        if (mRefreshLayout != null && mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.refreshComplete();
-        }
+    public List getData() {
+        return datas;
+    }
+
+    @Override
+    public String getTittle() {
+        return CommonUtil.getString(R.string.system_notice);
     }
 }
