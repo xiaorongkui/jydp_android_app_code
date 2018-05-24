@@ -34,6 +34,7 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
 
     @Override
     protected int getLayoutResId(int viewType) {
+
         return R.layout.mine_order_reocde_item;
     }
 

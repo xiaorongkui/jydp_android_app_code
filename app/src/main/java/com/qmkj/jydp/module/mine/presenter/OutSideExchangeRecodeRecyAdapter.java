@@ -39,6 +39,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
 
     @Override
     protected int getLayoutResId(int viewType) {
+
         return R.layout.mine_outside_exchange_recode_item;
     }
 

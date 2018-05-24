@@ -33,6 +33,7 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
 
     @Override
     protected int getLayoutResId(int viewType) {
+
         return R.layout.mine_transaction_reocde_item;
     }
 

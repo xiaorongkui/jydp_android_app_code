@@ -31,6 +31,7 @@ public class CurrencyWithDrawRecodeRecyAdapter extends XBaseAdapter<PresentRecor
 
     @Override
     protected int getLayoutResId(int viewType) {
+
         return R.layout.mine_currency_withdraw_reocde_item;
     }
 
