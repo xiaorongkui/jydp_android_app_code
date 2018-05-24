@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.request.DistributorPayMethodReq;
@@ -150,7 +149,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
 
     @Override
     protected void initData() {
-        getOutSideExchangeData(true);
+        refresh.callRefresh();
     }
 
     private void getOutSideExchangeData(boolean b) {

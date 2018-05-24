@@ -114,7 +114,7 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
 
     @Override
     protected void initData() {
-        getExchangeCurrencyData(true);
+        refresh.callRefresh();
     }
 
     private void getExchangeCurrencyData(boolean isShowProgress) {

@@ -124,7 +124,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initTitle() {
-
     }
 
     @Override
