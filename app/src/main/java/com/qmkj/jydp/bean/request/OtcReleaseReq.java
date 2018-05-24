@@ -8,7 +8,6 @@ package com.qmkj.jydp.bean.request;
  */
 public class OtcReleaseReq extends BaseReq{
     private String alipayAccount;//	支付宝账号
-    private String alipayImageUrl;//	支付宝收款码图片
     private String bankAccount;//	收款账号
     private String bankBranch;//	收款支行
     private String bankName;//	收款银行
@@ -20,7 +19,6 @@ public class OtcReleaseReq extends BaseReq{
     private String paymentPhone;//	收款人手机号
     private String pendingRatio;//	挂单比例
     private String wechatAccount;//	微信账号
-    private String wechatImageUrl;//	微信收款码图片
 
     public String getAlipayAccount() {
         return alipayAccount;
@@ -28,14 +26,6 @@ public class OtcReleaseReq extends BaseReq{
 
     public void setAlipayAccount(String alipayAccount) {
         this.alipayAccount = alipayAccount;
-    }
-
-    public String getAlipayImageUrl() {
-        return alipayImageUrl;
-    }
-
-    public void setAlipayImageUrl(String alipayImageUrl) {
-        this.alipayImageUrl = alipayImageUrl;
     }
 
     public String getBankAccount() {
@@ -124,13 +114,5 @@ public class OtcReleaseReq extends BaseReq{
 
     public void setWechatAccount(String wechatAccount) {
         this.wechatAccount = wechatAccount;
-    }
-
-    public String getWechatImageUrl() {
-        return wechatImageUrl;
-    }
-
-    public void setWechatImageUrl(String wechatImageUrl) {
-        this.wechatImageUrl = wechatImageUrl;
     }
 }

@@ -3,18 +3,27 @@ package com.qmkj.jydp.module.mine.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OutSideExchangeRecodeRecyAdapter;
+import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * author：rongkui.xiao --2018/5/11
@@ -22,7 +31,18 @@ import java.util.List;
  * description:场外交易记录
  */
 
-public class OutSideExchangeRecodeActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
+public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
+    @BindView(R.id.dealer_management_refresh)
+    XRefreshLayout refreshLayout;
+    @BindView(R.id.system_hot_rv)
+    RecyclerView recyclerView;
+
+    boolean mIsCanRefresh = true;
+    boolean mIsLoadMore;
+    int mPage;
+
     private ArrayList<OtcDealRecordRes.OtcTransactionUserDealListBean> mData;
     private OutSideExchangeRecodeRecyAdapter outSideExchangeRecodeRecyAdapter;
     private int type;
@@ -35,14 +55,42 @@ public class OutSideExchangeRecodeActivity extends BaseRefreshRecycleMvpActivity
     }
 
     @Override
+    protected void initTitle() {
+        switch (type){
+            case MineRecodeActivity.RECODE_TYPE_NORMAL:
+                titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode));
+            case MineRecodeActivity.RECODE_TYPE_AGENCY:
+                titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode_agcy));
+        }
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.mine_activity_base_hot_topic;
+    }
+
+    @Override
+    protected void initView() {
+        initRecycleView();
+    }
+
+    @Override
     protected void injectPresenter() {
         getActivityComponent().inject(this);
     }
 
     @Override
     protected void initData() {
+        refreshLayout.callRefresh();
+
+    }
+    /**
+     * 从网络获取数据
+     */
+    private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
-        req.setPageNumber(0);
+        req.setPageNumber(mPage);
         switch (type){
             case MineRecodeActivity.RECODE_TYPE_NORMAL:
                 presenter.getOtcDealRecordInfo(req,1,true);
@@ -52,21 +100,19 @@ public class OutSideExchangeRecodeActivity extends BaseRefreshRecycleMvpActivity
                 break;
 
         }
-
-    }
-
-
-    @Override
-    public BaseRecycleAdapter getRecycleAdapter() {
-        initRecycleView();
-        return outSideExchangeRecodeRecyAdapter;
     }
 
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext, mData, R.layout
-                .mine_outside_exchange_recode_item);
+        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(outSideExchangeRecodeRecyAdapter);
+        View mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.empty, null);
+        outSideExchangeRecodeRecyAdapter.setEmptyView(mEmptyView);
 
 
         outSideExchangeRecodeRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -77,6 +123,39 @@ public class OutSideExchangeRecodeActivity extends BaseRefreshRecycleMvpActivity
                     break;
             }
         });
+
+
+        refreshLayout.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mIsLoadMore = false;
+                mPage = 0;
+                getDataFromNet();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return mIsCanRefresh;
+            }
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mIsCanRefresh = topRowVerticalPosition >= 0;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+        outSideExchangeRecodeRecyAdapter.setOnLoadMoreListener(() -> {
+            mIsLoadMore = true;
+            getDataFromNet();
+        }, recyclerView);
     }
 
     @Override
@@ -84,24 +163,33 @@ public class OutSideExchangeRecodeActivity extends BaseRefreshRecycleMvpActivity
         super.onSuccess(response, tag);
         OtcDealRecordRes recordRes = (OtcDealRecordRes)response;
         if(recordRes.getOtcTransactionUserDealList()!=null){
-            outSideExchangeRecodeRecyAdapter.addData(recordRes.getOtcTransactionUserDealList());
+
             outSideExchangeRecodeRecyAdapter.notifyDataSetChanged();
         }
-    }
 
-    @Override
-    public List getData() {
-        return mData;
-    }
-
-    @Override
-    public String getTittle() {
-        switch (type){
-            case MineRecodeActivity.RECODE_TYPE_NORMAL:
-                return CommonUtil.getString(R.string.outside_exchange_recode);
-            case MineRecodeActivity.RECODE_TYPE_AGENCY:
-                return CommonUtil.getString(R.string.outside_exchange_recode_agcy);
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
         }
-        return CommonUtil.getString(R.string.outside_exchange_recode);
+        if (mIsLoadMore) {
+            outSideExchangeRecodeRecyAdapter.addData(recordRes.getOtcTransactionUserDealList());
+        } else {
+            outSideExchangeRecodeRecyAdapter.update(recordRes.getOtcTransactionUserDealList());
+        }
+        if (mPage < recordRes.getTotalPageNumber() - 1) {
+            outSideExchangeRecodeRecyAdapter.loadMoreComplete();
+            mPage++;
+        } else {
+            outSideExchangeRecodeRecyAdapter.loadMoreEnd();
+        }
+    }
+
+
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
+        }
     }
 }

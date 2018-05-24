@@ -29,7 +29,7 @@ import butterknife.BindView;
  */
 public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     private static final int CONTACTS_GET_MSG=1;
-    private static final int CONTACTS_SNED_MSG=2;
+    private static final int CONTACTS_SEND_MSG =2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -142,7 +142,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
                     adapter.loadMoreEnd();
                 }
                 break;
-            case CONTACTS_SNED_MSG:
+            case CONTACTS_SEND_MSG:
                 toast("提交成功");
                 dialogUtils.dismiss();
                 break;
@@ -174,7 +174,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
             SendContactServiceReq req = new SendContactServiceReq();
             req.setFeedbackTitle(tittle);
             req.setFeedbackContent(content);
-            presenter.sendCustomerServiceInfo(req,CONTACTS_SNED_MSG,true);
+            presenter.sendCustomerServiceInfo(req, CONTACTS_SEND_MSG,true);
         });
 
 

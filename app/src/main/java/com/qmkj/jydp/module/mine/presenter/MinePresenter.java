@@ -3,6 +3,7 @@ package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
 import com.qmkj.jydp.bean.request.OtcReleaseReq;
@@ -12,6 +13,10 @@ import com.qmkj.jydp.bean.request.SendContactServiceReq;
 import com.qmkj.jydp.net.api.MineService;
 
 import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * author：rongkui.xiao --2018/4/8
@@ -90,8 +95,19 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.sendInitiateAdsInfo(req), tag);
     }
 
-    public void sendOtcReleaseInfo(OtcReleaseReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.sendOtcReleaseInfo(req), tag);
+    public void sendOtcReleaseInfo(OtcReleaseReq req,byte[] ali,byte[] weixin, int tag, boolean isShowProgress){
+        RequestBody data = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(req));
+        RequestBody frontRequestBody =null;
+        RequestBody backRequestBody = null;
+        if(ali!=null){
+            frontRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), ali);
+
+        }
+        if(weixin!=null){
+
+            backRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), weixin);
+        }
+        sendHttpRequest(mineService.sendOtcReleaseInfo(data, frontRequestBody, backRequestBody), tag);
     }
 
 }

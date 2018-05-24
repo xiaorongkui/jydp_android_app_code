@@ -58,32 +58,25 @@ public class AccountRecordRes extends BaseRes implements Serializable {
          * userId : 317
          */
 
-        private int actualPrice;
+        private String actualPrice;
         private String actualPriceForWap;
         private long addTime;
-        private int currencyId;
+        private String currencyId;
         private String currencyName;
-        private int currencyNumber;
-        private int currencyTotalPrice;
-        private int fee;
+        private String currencyNumber;
+        private String currencyTotalPrice;
+        private String fee;
         private String feeForWap;
-        private int feeNumber;
+        private String feeNumber;
         private String orderNo;
         private int paymentType;
         private long pendTime;
         private String pendingOrderNo;
         private String remark;
-        private int transactionPrice;
+        private String transactionPrice;
         private String userAccount;
-        private int userId;
+        private String userId;
 
-        public int getActualPrice() {
-            return actualPrice;
-        }
-
-        public void setActualPrice(int actualPrice) {
-            this.actualPrice = actualPrice;
-        }
 
         public String getActualPriceForWap() {
             return actualPriceForWap;
@@ -101,13 +94,6 @@ public class AccountRecordRes extends BaseRes implements Serializable {
             this.addTime = addTime;
         }
 
-        public int getCurrencyId() {
-            return currencyId;
-        }
-
-        public void setCurrencyId(int currencyId) {
-            this.currencyId = currencyId;
-        }
 
         public String getCurrencyName() {
             return currencyName;
@@ -115,30 +101,6 @@ public class AccountRecordRes extends BaseRes implements Serializable {
 
         public void setCurrencyName(String currencyName) {
             this.currencyName = currencyName;
-        }
-
-        public int getCurrencyNumber() {
-            return currencyNumber;
-        }
-
-        public void setCurrencyNumber(int currencyNumber) {
-            this.currencyNumber = currencyNumber;
-        }
-
-        public int getCurrencyTotalPrice() {
-            return currencyTotalPrice;
-        }
-
-        public void setCurrencyTotalPrice(int currencyTotalPrice) {
-            this.currencyTotalPrice = currencyTotalPrice;
-        }
-
-        public int getFee() {
-            return fee;
-        }
-
-        public void setFee(int fee) {
-            this.fee = fee;
         }
 
         public String getFeeForWap() {
@@ -149,13 +111,6 @@ public class AccountRecordRes extends BaseRes implements Serializable {
             this.feeForWap = feeForWap;
         }
 
-        public int getFeeNumber() {
-            return feeNumber;
-        }
-
-        public void setFeeNumber(int feeNumber) {
-            this.feeNumber = feeNumber;
-        }
 
         public String getOrderNo() {
             return orderNo;
@@ -197,14 +152,6 @@ public class AccountRecordRes extends BaseRes implements Serializable {
             this.remark = remark;
         }
 
-        public int getTransactionPrice() {
-            return transactionPrice;
-        }
-
-        public void setTransactionPrice(int transactionPrice) {
-            this.transactionPrice = transactionPrice;
-        }
-
         public String getUserAccount() {
             return userAccount;
         }
@@ -213,11 +160,67 @@ public class AccountRecordRes extends BaseRes implements Serializable {
             this.userAccount = userAccount;
         }
 
-        public int getUserId() {
+        public String getActualPrice() {
+            return actualPrice;
+        }
+
+        public void setActualPrice(String actualPrice) {
+            this.actualPrice = actualPrice;
+        }
+
+        public String getCurrencyId() {
+            return currencyId;
+        }
+
+        public void setCurrencyId(String currencyId) {
+            this.currencyId = currencyId;
+        }
+
+        public String getCurrencyNumber() {
+            return currencyNumber;
+        }
+
+        public void setCurrencyNumber(String currencyNumber) {
+            this.currencyNumber = currencyNumber;
+        }
+
+        public String getCurrencyTotalPrice() {
+            return currencyTotalPrice;
+        }
+
+        public void setCurrencyTotalPrice(String currencyTotalPrice) {
+            this.currencyTotalPrice = currencyTotalPrice;
+        }
+
+        public String getFee() {
+            return fee;
+        }
+
+        public void setFee(String fee) {
+            this.fee = fee;
+        }
+
+        public String getFeeNumber() {
+            return feeNumber;
+        }
+
+        public void setFeeNumber(String feeNumber) {
+            this.feeNumber = feeNumber;
+        }
+
+        public String getTransactionPrice() {
+            return transactionPrice;
+        }
+
+        public void setTransactionPrice(String transactionPrice) {
+            this.transactionPrice = transactionPrice;
+        }
+
+        public String getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(String userId) {
             this.userId = userId;
         }
     }

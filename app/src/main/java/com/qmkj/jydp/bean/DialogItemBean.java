@@ -7,9 +7,9 @@ package com.qmkj.jydp.bean;
  */
 
 public class DialogItemBean {
-    public String certifyName;
-    public int leftImageViewId;
-    public boolean isSelect;
+    private String certifyName;
+    private int leftImageViewId;
+    private boolean isSelect;
 
     public DialogItemBean(String certifyName, int leftImageViewId, boolean isSelect) {
         this.certifyName = certifyName;
@@ -25,7 +25,19 @@ public class DialogItemBean {
         return leftImageViewId;
     }
 
+    public void setCertifyName(String certifyName) {
+        this.certifyName = certifyName;
+    }
+
+    public void setLeftImageViewId(int leftImageViewId) {
+        this.leftImageViewId = leftImageViewId;
+    }
+
     public boolean isSelect() {
         return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
     }
 }

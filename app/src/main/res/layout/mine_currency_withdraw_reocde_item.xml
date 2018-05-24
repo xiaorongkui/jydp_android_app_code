@@ -30,6 +30,7 @@
                 android:paddingStart="@dimen/x15">
 
                 <TextView
+                    android:id="@+id/currency_withdraw_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/syl"
@@ -53,6 +54,7 @@
                 android:layout_marginTop="@dimen/y10"/>
 
             <TextView
+                android:id="@+id/currency_withdraw_number_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y15"

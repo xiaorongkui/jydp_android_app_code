@@ -21,9 +21,12 @@ import com.qmkj.jydp.bean.response.SystemNoticeRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by Yun on 2018/1/5.
@@ -91,6 +94,9 @@ public interface MineService {
     Observable<BaseRes<Object>> sendInitiateAdsInfo(@Body SendAdsReq req);
 
     //场外交易挂单
+    @Multipart
     @POST(AppNetConfig.urlPath + "wap/dealerManagment/otcRelease")
-    Observable<BaseRes<Object>> sendOtcReleaseInfo(@Body OtcReleaseReq req);
+    Observable<BaseRes<Object>> sendOtcReleaseInfo(@Part("data") RequestBody req, @Part("alipayImageUrl\"; filename = " +
+            "\"aliPay.jpg") RequestBody frontFile, @Part("wechatImageUrl\"; filename = \"weixinPay.jpg") RequestBody backFile);
+
 }

@@ -85,12 +85,12 @@ public class OtcDealRecordRes extends BaseRes implements Serializable{
 
         private long addTime;
         private String area;
-        private int bankBranch;
-        private int bankCode;
-        private int bankName;
+        private String bankBranch;
+        private String bankCode;
+        private String bankName;
         private String currencyName;
-        private int currencyNumber;
-        private int currencyTotalPrice;
+        private String currencyNumber;
+        private String currencyTotalPrice;
         private int dealStatus;
         private int dealType;
         private String dealerName;
@@ -98,15 +98,15 @@ public class OtcDealRecordRes extends BaseRes implements Serializable{
         private String otcOrderNo;
         private String paymentAccount;
         private String paymentImage;
-        private int paymentName;
+        private String paymentName;
         private String paymentPhone;
         private int paymentType;
         private String phoneNumber;
-        private int remark;
-        private int typeId;
-        private int updateTime;
-        private int userAccount;
-        private int userPhone;
+        private String remark;
+        private String typeId;
+        private long updateTime;
+        private String userAccount;
+        private String userPhone;
 
         public long getAddTime() {
             return addTime;
@@ -124,27 +124,27 @@ public class OtcDealRecordRes extends BaseRes implements Serializable{
             this.area = area;
         }
 
-        public int getBankBranch() {
+        public String getBankBranch() {
             return bankBranch;
         }
 
-        public void setBankBranch(int bankBranch) {
+        public void setBankBranch(String bankBranch) {
             this.bankBranch = bankBranch;
         }
 
-        public int getBankCode() {
+        public String getBankCode() {
             return bankCode;
         }
 
-        public void setBankCode(int bankCode) {
+        public void setBankCode(String bankCode) {
             this.bankCode = bankCode;
         }
 
-        public int getBankName() {
+        public String getBankName() {
             return bankName;
         }
 
-        public void setBankName(int bankName) {
+        public void setBankName(String bankName) {
             this.bankName = bankName;
         }
 
@@ -156,19 +156,19 @@ public class OtcDealRecordRes extends BaseRes implements Serializable{
             this.currencyName = currencyName;
         }
 
-        public int getCurrencyNumber() {
+        public String getCurrencyNumber() {
             return currencyNumber;
         }
 
-        public void setCurrencyNumber(int currencyNumber) {
+        public void setCurrencyNumber(String currencyNumber) {
             this.currencyNumber = currencyNumber;
         }
 
-        public int getCurrencyTotalPrice() {
+        public String getCurrencyTotalPrice() {
             return currencyTotalPrice;
         }
 
-        public void setCurrencyTotalPrice(int currencyTotalPrice) {
+        public void setCurrencyTotalPrice(String currencyTotalPrice) {
             this.currencyTotalPrice = currencyTotalPrice;
         }
 
@@ -228,11 +228,11 @@ public class OtcDealRecordRes extends BaseRes implements Serializable{
             this.paymentImage = paymentImage;
         }
 
-        public int getPaymentName() {
+        public String getPaymentName() {
             return paymentName;
         }
 
-        public void setPaymentName(int paymentName) {
+        public void setPaymentName(String paymentName) {
             this.paymentName = paymentName;
         }
 
@@ -260,23 +260,23 @@ public class OtcDealRecordRes extends BaseRes implements Serializable{
             this.phoneNumber = phoneNumber;
         }
 
-        public int getRemark() {
+        public String getRemark() {
             return remark;
         }
 
-        public void setRemark(int remark) {
+        public void setRemark(String remark) {
             this.remark = remark;
         }
 
-        public int getTypeId() {
+        public String getTypeId() {
             return typeId;
         }
 
-        public void setTypeId(int typeId) {
+        public void setTypeId(String typeId) {
             this.typeId = typeId;
         }
 
-        public int getUpdateTime() {
+        public long getUpdateTime() {
             return updateTime;
         }
 
@@ -284,19 +284,19 @@ public class OtcDealRecordRes extends BaseRes implements Serializable{
             this.updateTime = updateTime;
         }
 
-        public int getUserAccount() {
+        public String getUserAccount() {
             return userAccount;
         }
 
-        public void setUserAccount(int userAccount) {
+        public void setUserAccount(String userAccount) {
             this.userAccount = userAccount;
         }
 
-        public int getUserPhone() {
+        public String getUserPhone() {
             return userPhone;
         }
 
-        public void setUserPhone(int userPhone) {
+        public void setUserPhone(String userPhone) {
             this.userPhone = userPhone;
         }
     }

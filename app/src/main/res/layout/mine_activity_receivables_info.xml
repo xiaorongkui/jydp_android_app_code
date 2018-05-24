@@ -18,6 +18,7 @@
             style="@style/line1"/>
 
         <com.dd.ShadowLayout
+            android:id="@+id/bank_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/x10"
@@ -25,6 +26,7 @@
             android:layout_marginTop="@dimen/y5"
             android:orientation="horizontal"
             app:sl_cornerRadius="@dimen/x5"
+            android:visibility="gone"
             app:sl_shadowColor="@color/color_gray_9"
             app:sl_shadowRadius="@dimen/x5">
 
@@ -113,12 +115,14 @@
         </com.dd.ShadowLayout>
 
         <com.dd.ShadowLayout
+            android:id="@+id/alipay_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/x10"
             android:layout_marginStart="@dimen/x10"
             android:orientation="horizontal"
             app:sl_cornerRadius="@dimen/x5"
+            android:visibility="gone"
             app:sl_shadowColor="@color/color_gray_9"
             app:sl_shadowRadius="@dimen/x5">
 
@@ -169,10 +173,12 @@
         </com.dd.ShadowLayout>
 
         <com.dd.ShadowLayout
+            android:id="@+id/weixin_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/x10"
             android:layout_marginStart="@dimen/x10"
+            android:visibility="gone"
             android:orientation="horizontal"
             app:sl_cornerRadius="@dimen/x5"
             app:sl_shadowColor="@color/color_gray_9"

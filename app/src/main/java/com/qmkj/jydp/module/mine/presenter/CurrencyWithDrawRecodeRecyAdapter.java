@@ -1,12 +1,14 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
+import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
 /**
@@ -35,6 +37,32 @@ public class CurrencyWithDrawRecodeRecyAdapter extends XBaseAdapter<PresentRecor
 
     @Override
     protected void convert(XBaseViewHolder helper, PresentRecordRes.CoinOutRecordListBean item) {
+        TextView name = (TextView) helper.getView(R.id.currency_withdraw_name_tv);//名称
+        TextView state = (TextView) helper.getView(R.id.currency_withdraw_status_tv);//状态
+        TextView number = (TextView) helper.getView(R.id.currency_withdraw_number_tv);//总数
+        TextView apply_mun = (TextView) helper.getView(R.id.currency_withdraw_apply_mun_tv);//申请时间
+        TextView price = (TextView) helper.getView(R.id.entrustment_price_tv);//流水单号
+        TextView remark = (TextView) helper.getView(R.id.currency_withdraw_remark_tv);//备注内容
+        TextView retract = (TextView) helper.getView(R.id.currency_withdraw_retract_tv);//撤回
+        name.setText(item.getCurrencyName());
+
+        String text =null;
+        switch (item.getHandleStatus()){
+            case 1:text = "待审核";
+                break;
+            case 2:text = "审核通过";
+                break;
+            case 3:text = "审核拒绝";
+                break;
+            case 4:text = "已撤回";
+                break;
+        }
+        state.setText(text);
+
+        number.setText(item.getCurrencyNumber()+"");
+        apply_mun.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
+        price.setText(item.getCoinRecordNo()+"");
+        remark.setText(item.getRemark()+"");
 
     }
 }

@@ -61,18 +61,18 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
          */
 
         private long addTime;
-        private int buyFee;
+        private String buyFee;
         private int currencyId;
         private String currencyName;
-        private int dealNumber;
+        private String dealNumber;
         private long endTime;
-        private int feeRemark;
+        private String feeRemark;
         private int paymentType;
-        private int pendingNumber;
+        private String pendingNumber;
         private String pendingOrderNo;
-        private int pendingPrice;
+        private String pendingPrice;
         private int pendingStatus;
-        private int remainNum;
+        private String remainNum;
         private String remark;
         private String restBalanceLock;
         private String totalPrice;
@@ -87,13 +87,6 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
             this.addTime = addTime;
         }
 
-        public int getBuyFee() {
-            return buyFee;
-        }
-
-        public void setBuyFee(int buyFee) {
-            this.buyFee = buyFee;
-        }
 
         public int getCurrencyId() {
             return currencyId;
@@ -111,13 +104,6 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
             this.currencyName = currencyName;
         }
 
-        public int getDealNumber() {
-            return dealNumber;
-        }
-
-        public void setDealNumber(int dealNumber) {
-            this.dealNumber = dealNumber;
-        }
 
         public long getEndTime() {
             return endTime;
@@ -127,13 +113,6 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
             this.endTime = endTime;
         }
 
-        public int getFeeRemark() {
-            return feeRemark;
-        }
-
-        public void setFeeRemark(int feeRemark) {
-            this.feeRemark = feeRemark;
-        }
 
         public int getPaymentType() {
             return paymentType;
@@ -143,13 +122,6 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
             this.paymentType = paymentType;
         }
 
-        public int getPendingNumber() {
-            return pendingNumber;
-        }
-
-        public void setPendingNumber(int pendingNumber) {
-            this.pendingNumber = pendingNumber;
-        }
 
         public String getPendingOrderNo() {
             return pendingOrderNo;
@@ -157,14 +129,6 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
 
         public void setPendingOrderNo(String pendingOrderNo) {
             this.pendingOrderNo = pendingOrderNo;
-        }
-
-        public int getPendingPrice() {
-            return pendingPrice;
-        }
-
-        public void setPendingPrice(int pendingPrice) {
-            this.pendingPrice = pendingPrice;
         }
 
         public int getPendingStatus() {
@@ -175,13 +139,6 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
             this.pendingStatus = pendingStatus;
         }
 
-        public int getRemainNum() {
-            return remainNum;
-        }
-
-        public void setRemainNum(int remainNum) {
-            this.remainNum = remainNum;
-        }
 
         public String getRemark() {
             return remark;
@@ -221,6 +178,54 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
 
         public void setUserId(int userId) {
             this.userId = userId;
+        }
+
+        public String getBuyFee() {
+            return buyFee;
+        }
+
+        public void setBuyFee(String buyFee) {
+            this.buyFee = buyFee;
+        }
+
+        public String getDealNumber() {
+            return dealNumber;
+        }
+
+        public void setDealNumber(String dealNumber) {
+            this.dealNumber = dealNumber;
+        }
+
+        public String getFeeRemark() {
+            return feeRemark;
+        }
+
+        public void setFeeRemark(String feeRemark) {
+            this.feeRemark = feeRemark;
+        }
+
+        public String getPendingNumber() {
+            return pendingNumber;
+        }
+
+        public void setPendingNumber(String pendingNumber) {
+            this.pendingNumber = pendingNumber;
+        }
+
+        public String getPendingPrice() {
+            return pendingPrice;
+        }
+
+        public void setPendingPrice(String pendingPrice) {
+            this.pendingPrice = pendingPrice;
+        }
+
+        public String getRemainNum() {
+            return remainNum;
+        }
+
+        public void setRemainNum(String remainNum) {
+            this.remainNum = remainNum;
         }
     }
 }

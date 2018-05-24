@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,8 @@ import butterknife.BindView;
 public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter> {
     private static final int GET_CORN_CODE = 1;
     private static final int SEND_REQUEST = 2;
+    private static final int NEXT_ACTIVITY = 11;
+    public  static final String MESSAGE_NEXT = "message";
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.publish_advertise_currency_civ)
@@ -55,7 +59,6 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     RecyclerView publishPaymentTypeSelectRv;
     @BindView(R.id.dealer_publish_advertise_bt)
     Button dealerPublishAdvertiseBt;
-    private double selectIndex;
     private CommonDialog commonDialog;
     private CommonDialog commonDialog_type;
     private CommonDialog commonDialog_country;
@@ -64,6 +67,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     private List<DialogItemBean> data_type;
     private List<DialogItemBean> data_country;
     private SendAdsReq req;
+    private ArrayList<DialogItemBean> paymentSelectDatas;
 
     @Override
     protected void injectPresenter() {
@@ -74,13 +78,16 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     protected void initData() {
         presenter.getCurrencyAssetsInfo(GET_CORN_CODE,false);
         req = new SendAdsReq();
+
+
         data_type = new ArrayList<>();
         data_type.add(new DialogItemBean("出售",1,true));
         data_type.add(new DialogItemBean("购买",2,false));
-
+        req.setOrderType(data_type.get(0).getLeftImageViewId()+"");
         data_country = new ArrayList<>();
         data_country.add(new DialogItemBean("中国(CN)",0,true));
         data_country.add(new DialogItemBean("美国(US)",0,false));
+        req.setAra(data_country.get(0).getCertifyName());
     }
 
     @Override
@@ -111,17 +118,23 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
                 CurrencyAssetsRes res =(CurrencyAssetsRes)response;
                 if(res.getUserCurrencyAssets()!=null){
                     data_corn = res.getUserCurrencyAssets();
+                    if(data_corn.size()>0){
+                        req.setCurrencyId(data_corn.get(0).getCurrencyId()+"");
+                        publishAdvertiseCurrencyCiv.setRightText(data_corn.get(0).getCurrencyName());
+                    }
                 }
                 break;
             case SEND_REQUEST:
                 toast("发送成功");
-                CommonUtil.gotoActivity(mContext, ReceivablesActivity.class);
+                Intent intent = new Intent(this, ReceivablesActivity.class);
+                intent.putExtra(MESSAGE_NEXT,req);
+                CommonUtil.startActivityForResult(mContext,intent,NEXT_ACTIVITY);
                 break;
         }
     }
 
     private void initRecycleView() {
-        List<DialogItemBean> paymentSelectDatas = new ArrayList<>();
+        paymentSelectDatas = new ArrayList<>();
         paymentSelectDatas.add(new DialogItemBean(CommonUtil.getString(R.string.bank_card_transfer), R
                 .mipmap.bank_card, true));
         paymentSelectDatas.add(new DialogItemBean(CommonUtil.getString(R.string.alipay_transfer), R
@@ -139,17 +152,19 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
                 ImageView imageViewRight = (ImageView) helper.getView(R.id.payment_type_right_iv);
                 TextView payment_type_tv = helper.getView(R.id.payment_type_tv);
                 imageViewLeft.setImageResource(item.getLeftImageViewId());
-                if (selectIndex == -1) {
-                    selectIndex = 0;//默认选择身份证
-                }
-                imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap
+                imageViewRight.setImageResource(item.isSelect() ? R.mipmap.bt_selected : R.mipmap
                         .bt_unselected);
                 payment_type_tv.setText(item.getCertifyName());
             }
         };
         publishPaymentTypeSelectRv.setAdapter(recycleAdapter);
         recycleAdapter.setOnItemClickListener((adapter, view, position) -> {
-            selectIndex = position;
+            if(paymentSelectDatas.get(position).isSelect()){
+                paymentSelectDatas.get(position).setSelect(false);
+            }else {
+                paymentSelectDatas.get(position).setSelect(true);
+            }
+
             recycleAdapter.notifyDataSetChanged();
             req.setSelectList(paymentSelectDatas.get(position).getCertifyName());
         });
@@ -160,7 +175,6 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         switch (v.getId()) {
             case R.id.dealer_publish_advertise_bt:
                 sendRequest();
-                CommonUtil.gotoActivity(mContext, ReceivablesActivity.class);
                 break;
             case R.id.publish_advertise_currency_civ: //选择币种
                 if(data_corn!=null&&data_corn.size()>0){
@@ -176,6 +190,15 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == NEXT_ACTIVITY&&resultCode== 200){
+            setResult(200);
+            finish();
+        }
+    }
+
     private void sendRequest() {
 //        String corn = publishAdvertiseCurrencyCiv.getRightText();
 //        String type = publishAdvertiseTypeCiv.getRightText();
@@ -186,10 +209,27 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
 //        publishPaymentTypeSelectRv.get
 
 //        req.setAra(area);
-        req.setMinNumbe(min_et);
-        req.setMinNumbe(max_et);
+        req.setMinNumber(min_et);
+        req.setMaxNumber(max_et);
         req.setPendingRatio(proportion);
-        req.setSelectList("支付宝转账");
+        StringBuffer bg = new StringBuffer();
+        for (int i=0;i<paymentSelectDatas.size();i++){
+            if(paymentSelectDatas.get(i).isSelect()){
+                bg.append(i+1+"");
+            }
+        }
+        req.setSelectList(bg.toString());
+        if(StringUtil.isNull(proportion)){
+            toast("交易比例不能为空");
+        }
+        if(StringUtil.isNull(min_et)||StringUtil.isNull(max_et)){
+            toast("交易限额不能为空");
+        }
+        if(bg.length()<1){
+           toast("请至少选择一个收款方式");
+           return;
+        }
+
 
         presenter.sendInitiateAdsInfo(req,SEND_REQUEST,true);
     }

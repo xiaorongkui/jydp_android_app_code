@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import butterknife.BindView;
  * description:经销商管理
  */
 public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
+    private static final int NEXT_ACTIVITY = 111;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -104,7 +106,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             mIsLoadMore = true;
             getDataFromNet();
         }, recyclerView);
-        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.gotoActivity(mContext, PublishAdvertisementActivity.class));
+        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.startActivityForResult(mContext, PublishAdvertisementActivity.class,NEXT_ACTIVITY));
     }
 
     private void getDataFromNet() {
@@ -166,6 +168,15 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
         if (dialogUtils != null && dialogUtils.isShowing()) {
             dialogUtils.dismiss();
             dialogUtils = null;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == NEXT_ACTIVITY&&requestCode==200){
+            refreshLayout.callRefresh();
         }
     }
 }

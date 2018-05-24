@@ -372,6 +372,27 @@ public class EditVItemView extends LinearLayout {
     public EditText getEditTextView() {
         return mEdit_letf_et;
     }
+    public void setEditTextView(String text) {
+        if(text!=null){
+            mEdit_letf_et.setText(text);
+        }
+    }
+    public void setEditTextInputType(int type) {
+        if(mEdit_letf_et!=null){
+            mEdit_letf_et.setInputType(type);
+        }
+    }
+
+    public void setmEditTextViewFocuseAble(boolean enable){
+        if(mEdit_letf_et!=null){
+            mEdit_letf_et.setFocusable(enable);
+        }
+    }
+
+    public void setOnEditClickListener(OnClickListener listener){
+        mEdit_letf_et.setOnClickListener(listener);
+    }
+
 
     public String getEditTextString() {
         return mEdit_letf_et.getText().toString().trim();

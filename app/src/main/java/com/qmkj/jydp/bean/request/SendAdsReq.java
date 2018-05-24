@@ -1,5 +1,7 @@
 package com.qmkj.jydp.bean.request;
 
+import java.io.Serializable;
+
 /**
  * 创建日期：2018/5/23
  * @author Yi Shan Xiang
@@ -7,12 +9,12 @@ package com.qmkj.jydp.bean.request;
  * email: 380948730@qq.com
  */
 
-public class SendAdsReq extends BaseReq{
+public class SendAdsReq extends BaseReq implements Serializable{
 
     private String ara;	//地区	string
     private String currencyId;	//	货币id	string
     private String maxNumber;	//	最大金额	string
-    private String minNumbe;    // 	最小金额	string
+    private String minNumber;    // 	最小金额	string
     private String orderType;	//	挂单类型 1：出售，2：回购	string
     private String pendingRatio;	//	挂单比例	string
     private String  selectList;	//收款方式（多个逗号分隔）
@@ -41,12 +43,12 @@ public class SendAdsReq extends BaseReq{
         this.maxNumber = maxNumber;
     }
 
-    public String getMinNumbe() {
-        return minNumbe;
+    public String getMinNumber() {
+        return minNumber;
     }
 
-    public void setMinNumbe(String minNumbe) {
-        this.minNumbe = minNumbe;
+    public void setMinNumber(String minNumber) {
+        this.minNumber = minNumber;
     }
 
     public String getOrderType() {

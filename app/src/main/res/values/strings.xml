@@ -166,6 +166,7 @@
     <string name="mine_info">个人信息</string>
     <string name="currency_assets">币种资产</string>
     <string name="mine_recode">我的记录</string>
+    <string name="get_lian">链提取</string>
     <string name="withdrawls_money">我要提币</string>
     <string name="system_notice">系统公告</string>
     <string name="system_notice_details">公告详情</string>
