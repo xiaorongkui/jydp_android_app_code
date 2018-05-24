@@ -10,12 +10,13 @@ import com.qmkj.jydp.bean.HelpCenterBean;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
 import com.qmkj.jydp.bean.response.HelpCenterRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 
 import butterknife.BindView;
 
 public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
+    public static final String ACTIVITY_TITLE_KEY = "activity_title_key";
+    private String activityTitleStr;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.help_details_tittle_tv)
@@ -28,8 +29,11 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        bean = (HelpCenterBean)getIntent().
-                        getSerializableExtra(HelpCenterActivity.HELP_CENTER_TAG);
+        bean = (HelpCenterBean) getIntent().
+                getSerializableExtra(HelpCenterActivity.HELP_CENTER_TAG);
+        if (getIntent().getExtras().containsKey(ACTIVITY_TITLE_KEY)) {
+            activityTitleStr = getIntent().getExtras().getString(ACTIVITY_TITLE_KEY);
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -37,12 +41,16 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     protected void initData() {
         HelpCenterReq helpCenterReq = new HelpCenterReq();
         helpCenterReq.setHelpId(bean.getId());
-        presenter.getHelpCenterInfo(helpCenterReq,1,true);
+        presenter.getHelpCenterInfo(helpCenterReq, 1, true);
     }
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(bean.getName());
+        if (activityTitleStr != null) {
+            titleHeaderTv.setText(activityTitleStr);
+        } else {
+            titleHeaderTv.setText(bean.getName());
+        }
     }
 
     @Override
@@ -64,8 +72,8 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
 
-        HelpCenterRes centerRes = (HelpCenterRes)response;
-        if(centerRes.getSystemHelpDO()!=null){
+        HelpCenterRes centerRes = (HelpCenterRes) response;
+        if (centerRes.getSystemHelpDO() != null) {
             help_details_tittle_tv.setText(centerRes.getSystemHelpDO().
                     getHelpTitle());
             help_details_time_tv.setText(DateUtil.longToTimeStr(

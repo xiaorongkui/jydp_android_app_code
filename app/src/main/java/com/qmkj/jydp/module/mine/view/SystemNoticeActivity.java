@@ -101,6 +101,7 @@ public class SystemNoticeActivity extends BaseMvpActivity<MinePresenter> {
                             DateUtil.dateFormat2));
             intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
                     adapter.getData().get(position).getContent());
+            intent.putExtra(SystemNoticeDetailsActivity.ACTIVITY_TITLE_KEY, "公告详情");
             CommonUtil.gotoActivity(mContext, intent);
         });
     }

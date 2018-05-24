@@ -77,6 +77,7 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
         helpCenterRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
             Intent intent = new Intent(HelpCenterActivity.this, HelpCenterDetailsActivity.class);
             intent.putExtra(HELP_CENTER_TAG, helpCenterRecyAdapter.getData().get(position));
+            intent.putExtra(HelpCenterDetailsActivity.ACTIVITY_TITLE_KEY, "帮助详情");
             CommonUtil.gotoActivity(mContext, intent);
         });
     }

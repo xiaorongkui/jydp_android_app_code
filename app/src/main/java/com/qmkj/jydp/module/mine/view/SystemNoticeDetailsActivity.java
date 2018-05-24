@@ -5,16 +5,15 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.bean.response.SystemNoticeRes;
-import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.DateUtil;
 
 import butterknife.BindView;
 
 public class SystemNoticeDetailsActivity extends BaseMvpActivity {
+    public static final String ACTIVITY_TITLE_KEY = "activity_title_key";
     public final static String NOTICE_TITTLE = "notice_tittle" ;
     public final static String NOTICE_TIMES = "notice_time" ;
     public final static String NOTICE_DETAILS = "notice_details" ;
+    private String activityTitleStr;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.notice_details_tittle_tv)
@@ -27,7 +26,9 @@ public class SystemNoticeDetailsActivity extends BaseMvpActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (getIntent().getExtras().containsKey(ACTIVITY_TITLE_KEY)) {
+            activityTitleStr = getIntent().getExtras().getString(ACTIVITY_TITLE_KEY);
+        }
     }
 
     @Override
@@ -37,7 +38,7 @@ public class SystemNoticeDetailsActivity extends BaseMvpActivity {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.system_notice_details));
+        titleHeaderTv.setText(activityTitleStr);
     }
 
     @Override
