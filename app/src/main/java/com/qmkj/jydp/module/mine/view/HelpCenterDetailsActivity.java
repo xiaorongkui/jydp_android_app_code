@@ -2,6 +2,7 @@ package com.qmkj.jydp.module.mine.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -79,7 +80,7 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
             help_details_time_tv.setText(DateUtil.longToTimeStr(
                     centerRes.getSystemHelpDO().getAddTime(),
                     DateUtil.dateFormat2));
-            help_details_meg_tv.setText(centerRes.getSystemHelpDO().getContent());
+            help_details_meg_tv.setText(Html.fromHtml(centerRes.getSystemHelpDO().getContent()));
 
         }
     }
