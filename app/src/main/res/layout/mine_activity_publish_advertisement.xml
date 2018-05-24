@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:overScrollMode="never"
-                                            android:scrollbars="none">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,10 +12,9 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/common_header"/>
+        <include layout="@layout/common_header" />
 
-        <View
-            style="@style/line1"/>
+        <View style="@style/line1" />
 
         <com.dd.ShadowLayout
             android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                     app:rightIconVisible="true"
                     app:rightText="XT"
                     app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
+                    app:rightTextSize="@dimen/text_size_15" />
 
                 <com.qmkj.jydp.ui.widget.ClickItemView
                     android:id="@+id/publish_advertise_type_civ"
@@ -67,7 +66,7 @@
                     app:rightIconVisible="true"
                     app:rightText="出售"
                     app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
+                    app:rightTextSize="@dimen/text_size_15" />
 
                 <com.qmkj.jydp.ui.widget.ClickItemView
                     android:id="@+id/publish_advertise_area_civ"
@@ -83,7 +82,7 @@
                     app:rightIconVisible="true"
                     app:rightText="中国(CN)"
                     app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
+                    app:rightTextSize="@dimen/text_size_15" />
             </LinearLayout>
         </com.dd.ShadowLayout>
 
@@ -115,9 +114,9 @@
                     app:contentEditHintText="@string/currency_exchange_ratio"
                     app:contentEditTextSize="@dimen/text_size_15"
                     app:contentEditTopMargin="@dimen/x15"
-                    app:titleText="@string/proportion"
                     app:titleEndText="@string/asterisk"
-                    app:titleTopMargin="@dimen/x20"/>
+                    app:titleText="@string/proportion"
+                    app:titleTopMargin="@dimen/x20" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -137,7 +136,7 @@
                             android:gravity="center"
                             android:text="@string/exchange_limit"
                             android:textColor="@color/color_black_1"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -145,7 +144,7 @@
                             android:gravity="center"
                             android:text="@string/asterisk"
                             android:textColor="@color/color_red_3"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
                     </LinearLayout>
 
 
@@ -163,7 +162,7 @@
                             android:layout_weight="1"
                             android:hint="@string/exchange_limit_min_amount"
                             android:inputType="numberDecimal"
-                            android:maxLines="1"/>
+                            android:maxLines="1" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -173,7 +172,7 @@
                             android:gravity="center"
                             android:text="@string/wave_line"
                             android:textColor="@color/color_black_7"
-                            android:textSize="@dimen/text_size_15"/>
+                            android:textSize="@dimen/text_size_15" />
 
                         <EditText
                             android:id="@+id/exchange_limit_max_et"
@@ -183,14 +182,14 @@
                             android:layout_weight="1"
                             android:hint="@string/exchange_limit_max_amount"
                             android:inputType="numberDecimal"
-                            android:maxLines="1"/>
+                            android:maxLines="1" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/y0.5"
                         android:layout_marginTop="@dimen/y8"
-                        android:background="@color/color_gray_3"/>
+                        android:background="@color/color_gray_3" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -209,7 +208,7 @@
                             android:gravity="center"
                             android:text="@string/payment_method"
                             android:textColor="@color/color_black_1"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -217,7 +216,7 @@
                             android:gravity="center"
                             android:text="@string/asterisk"
                             android:textColor="@color/color_red_3"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textSize="@dimen/text_size_14" />
 
                     </LinearLayout>
 
@@ -226,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="@dimen/y20"/>
+                        android:layout_marginBottom="@dimen/y20" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -238,6 +237,6 @@
             android:layout_marginEnd="@dimen/x15"
             android:layout_marginStart="@dimen/x15"
             android:layout_marginTop="@dimen/y20"
-            android:text="@string/comfirm"/>
+            android:text="@string/comfirm" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

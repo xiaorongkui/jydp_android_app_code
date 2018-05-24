@@ -3,7 +3,6 @@ package com.qmkj.jydp.module.home.presenter;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.youth.banner.loader.ImageLoader;
@@ -16,8 +15,7 @@ public class BannerImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object obj, ImageView imageView) {
         if (obj instanceof HomeDataRes.SystemAdsHomepagesListBean) {
-            GlideApp.with(context).load(((HomeDataRes.SystemAdsHomepagesListBean) obj).getAdsImageUrlFormat())
-                    .placeholder(R.mipmap.ic_launcher).into
+            GlideApp.with(context).load(((HomeDataRes.SystemAdsHomepagesListBean) obj).getAdsImageUrlFormat()).into
                     (imageView);
         }
     }

@@ -11,9 +11,9 @@
 
         <ImageView
             android:id="@+id/gride_image"
-            android:layout_width="@dimen/x39"
+            android:layout_width="@dimen/x44"
             android:layout_height="@dimen/y44"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@mipmap/logo"/>
 
         <TextView

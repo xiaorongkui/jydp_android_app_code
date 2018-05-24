@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textColor="@color/colorBlack_13"
+        android:textSize="@dimen/text_size_15" />
+
+    <EditText
+        android:id="@+id/question_title_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:hint="问题标题，2~16个字符"
+        android:maxLength="16"
+        android:singleLine="true"
+        android:background="@null"
+        android:textSize="@dimen/text_size_14"
+        android:textCursorDrawable="@null" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y0.5"
+        android:layout_marginTop="@dimen/y10"
+        android:background="@color/color_gray_3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y20"
+        android:text="内容"
+        android:textColor="@color/colorBlack_13"
+        android:textSize="@dimen/text_size_15" />
+
+    <EditText
+        android:id="@+id/question_content_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:background="@null"
+        android:hint="问题内容，最多不超过200个字符"
+        android:maxLength="200"
+        android:textSize="@dimen/text_size_14"
+        android:textCursorDrawable="@null" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y0.5"
+        android:layout_marginTop="@dimen/y10"
+        android:background="@color/color_gray_3" />
+
+</LinearLayout>

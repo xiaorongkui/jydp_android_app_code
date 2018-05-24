@@ -13,6 +13,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
 import com.qmkj.jydp.bean.response.MineRes;
+import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
@@ -97,10 +98,15 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
-        if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
-            datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
-                    .more_arrow));
-        }
+        datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
+                .more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap.more_arrow));
+//        if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
+//            datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
+//                    .more_arrow));
+//        }
+        datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
+                .more_arrow));
         datas.add(new MinelistInfo(R.mipmap.mine_recode, getString(R.string.get_lian), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.mine_recode, getString(R.string.mine_recode), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.system_notice, getString(R.string.system_notice), R.mipmap.more_arrow));
@@ -113,75 +119,40 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
-        if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
-            mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
-                switch (position) {
-                    case 0://个人信息
-                        CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
-                        break;
-                    case 1://币种资产
-                        CommonUtil.gotoActivity(mContext, CurrencyAssetsActivity.class);
-                        break;
-                    case 2://经销商管理
-                        CommonUtil.gotoActivity(mContext, DealerManagementActivity.class);
-                        break;
-                    case 3://链提取
-//                        CommonUtil.gotoActivity(mContext, .class);
-                        break;
-                    case 4://我的记录
-                        CommonUtil.gotoActivity(mContext, MineRecodeActivity.class);
-                        break;
-                    case 5://系统公告
-                        CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
-                        break;
-                    case 6://热门话题
-                        CommonUtil.gotoActivity(mContext, HotTopicActivity.class);
-                        break;
-                    case 7://帮助中心
-                        CommonUtil.gotoActivity(mContext, HelpCenterActivity.class);
-                        break;
-                    case 8://联系客服
-                        CommonUtil.gotoActivity(mContext, ContactServiceActivity.class);
-                        break;
-                    case 9://软件信息
-                        CommonUtil.gotoActivity(mContext, SoftwareInfoActivity.class);
-                        break;
-                }
-            });
-        }else {
-            mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
-                switch (position) {
-                    case 0://个人信息
-                        CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
-                        break;
-                    case 1://币种资产
-                        CommonUtil.gotoActivity(mContext, CurrencyAssetsActivity.class);
-                        break;
-                    case 2://链提取
-//                        CommonUtil.gotoActivity(mContext, .class);
-                        break;
-                    case 3://我的记录
-                        CommonUtil.gotoActivity(mContext, MineRecodeActivity.class);
-                        break;
-                    case 4://系统公告
-                        CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
-                        break;
-                    case 5://热门话题
-                        CommonUtil.gotoActivity(mContext, HotTopicActivity.class);
-                        break;
-                    case 6://帮助中心
-                        CommonUtil.gotoActivity(mContext, HelpCenterActivity.class);
-                        break;
-                    case 7://联系客服
-                        CommonUtil.gotoActivity(mContext, ContactServiceActivity.class);
-                        break;
-                    case 8://软件信息
-                        CommonUtil.gotoActivity(mContext, SoftwareInfoActivity.class);
-                        break;
-                }
-            });
-        }
-
+        mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
+            switch (position) {
+                case 0://个人信息
+                    CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
+                    break;
+                case 1://币种资产
+                    CommonUtil.gotoActivity(mContext, CurrencyAssetsActivity.class);
+                    break;
+                case 2://经销商管理
+                    CommonUtil.gotoActivity(mContext, DealerManagementActivity.class);
+                    break;
+                case 3://链提取
+                    CommonUtil.gotoActivity(mContext, ChainWithdrawActivity.class);
+                    break;
+                case 4://我的记录
+                    CommonUtil.gotoActivity(mContext, MineRecodeActivity.class);
+                    break;
+                case 5://系统公告
+                    CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
+                    break;
+                case 6://热门话题
+                    CommonUtil.gotoActivity(mContext, HotTopicActivity.class);
+                    break;
+                case 7://帮助中心
+                    CommonUtil.gotoActivity(mContext, HelpCenterActivity.class);
+                    break;
+                case 8://联系客服
+                    CommonUtil.gotoActivity(mContext, ContactServiceActivity.class);
+                    break;
+                case 9://软件信息
+                    CommonUtil.gotoActivity(mContext, SoftwareInfoActivity.class);
+                    break;
+            }
+        });
     }
 
     private void initStatus() {

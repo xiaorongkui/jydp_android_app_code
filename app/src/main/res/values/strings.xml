@@ -38,6 +38,7 @@
     <string name="unit_price_1">单价：</string>
     <string name="buy_price_input">请输入购买单价</string>
     <string name="exchange_password">交易密码</string>
+    <string name="exchange_password_star">交易密码*</string>
     <string name="exchange_password_1">交易密码：</string>
     <string name="exchange_password_again">重复交易密码</string>
     <string name="exchange_password_input_notice">请输入交易密码</string>
@@ -167,6 +168,7 @@
     <string name="currency_assets">币种资产</string>
     <string name="mine_recode">我的记录</string>
     <string name="get_lian">链提取</string>
+    <string name="chain_withdraw">链提取</string>
     <string name="withdrawls_money">我要提币</string>
     <string name="system_notice">系统公告</string>
     <string name="system_notice_details">公告详情</string>
@@ -299,6 +301,10 @@
     <string name="payee_phone">收款人手机号</string>
     <string name="weixin_account">微信账号</string>
     <string name="pay_money">支付金额</string>
-
+    <string name="chain_withdraw_now">立即提币</string>
+    <string name="choose_chain_type">链种选择*</string>
+    <string name="withdraw_num">提现数量*</string>
+    <string name="withdraw_num_hint">您要提取的数量</string>
+    <string name="chain_withdraw_notice">当前链种最低提现2.00个，超过100.00需人工审核</string>
 
 </resources>

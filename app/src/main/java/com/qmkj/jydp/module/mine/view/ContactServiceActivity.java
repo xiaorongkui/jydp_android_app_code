@@ -14,7 +14,7 @@ import com.qmkj.jydp.bean.request.SendContactServiceReq;
 import com.qmkj.jydp.bean.response.CustomerServiceRes;
 import com.qmkj.jydp.module.mine.presenter.ContactServiceRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
-import com.qmkj.jydp.ui.widget.ContactServiceDialog;
+import com.qmkj.jydp.ui.widget.dialog.SubmitQuestionDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.StringUtil;
@@ -28,8 +28,8 @@ import butterknife.BindView;
  * description:联系客服
  */
 public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
-    private static final int CONTACTS_GET_MSG=1;
-    private static final int CONTACTS_SEND_MSG =2;
+    private static final int CONTACTS_GET_MSG = 1;
+    private static final int CONTACTS_SEND_MSG = 2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -44,7 +44,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     boolean mIsLoadMore;
     int mPage;
 
-    private ContactServiceDialog dialogUtils;
+    private SubmitQuestionDialog submitQuestionDialog;
 
     @Override
     protected void initTitle() {
@@ -124,7 +124,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case CONTACTS_GET_MSG:
                 CustomerServiceRes customerServiceRes = (CustomerServiceRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
@@ -144,7 +144,6 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
                 break;
             case CONTACTS_SEND_MSG:
                 toast("提交成功");
-                dialogUtils.dismiss();
                 refreshLayout.callRefresh();
                 break;
         }
@@ -160,26 +159,20 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
 
 
     private void showConformDialog() {
-        dialogUtils = new ContactServiceDialog(mContext, R.style.common_dialog);
-        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
-        dialogUtils.setAlertDialogHight((int) CommonUtil.getDimen(R.dimen.y290));
-        dialogUtils.setConfirmBtnListener( v -> {
-           String tittle = dialogUtils.getTittleText();
-           String content = dialogUtils.getContentText();
-           if(StringUtil.isNull(tittle)){
-               toast("标题不能为空");
-           }
-           if(StringUtil.isNull(content)){
-               toast("内容不能为空");
-           }
+        submitQuestionDialog = new SubmitQuestionDialog(mContext);
+        submitQuestionDialog.setOnSubmitQuestionListener((questionTitle, questionContent) -> {
+            if (StringUtil.isNull(questionTitle)) {
+                toast("标题不能为空");
+            }
+            if (StringUtil.isNull(questionContent)) {
+                toast("内容不能为空");
+            }
             SendContactServiceReq req = new SendContactServiceReq();
-            req.setFeedbackTitle(tittle);
-            req.setFeedbackContent(content);
-            presenter.sendCustomerServiceInfo(req, CONTACTS_SEND_MSG,true);
+            req.setFeedbackTitle(questionTitle);
+            req.setFeedbackContent(questionContent);
+            presenter.sendCustomerServiceInfo(req, CONTACTS_SEND_MSG, true);
+            submitQuestionDialog.dismiss();
         });
-
-
-        dialogUtils.setCancelBtnListener( v -> dialogUtils.dismiss());
-        dialogUtils.show();
+        submitQuestionDialog.show();
     }
 }

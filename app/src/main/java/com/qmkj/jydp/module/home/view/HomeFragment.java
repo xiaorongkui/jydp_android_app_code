@@ -56,7 +56,6 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     boolean isCanRefresh = true;
     private HomeRecyAdapter homeRecyAdapter;
 
-
     @Override
     protected void initView() {
         initStatus();
@@ -65,8 +64,6 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         initRecycleView();
         initGrideView(null);
         initRefreshView();
-
-//        RxPermissionUtils.getInstance(mContext).getPermission();
     }
 
     private void initRefreshView() {

@@ -16,6 +16,7 @@ import com.qmkj.jydp.module.login.view.CertificationActivity;
 import com.qmkj.jydp.module.login.view.ForgetLoginPwdActivity;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.login.view.SplashActivity;
+import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
 import com.qmkj.jydp.module.mine.view.ContactServiceActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyAssetsActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRecodeActivity;
@@ -79,6 +80,8 @@ public interface ActivityComponent {
     void inject(ContactServiceActivity contactServiceActivity);
 
     void inject(HotTopicActivity hotTopicActivity);
+
+    void inject(ChainWithdrawActivity chainWithdrawActivity);
 
     void inject(HelpCenterActivity helpCenterActivity);
 
