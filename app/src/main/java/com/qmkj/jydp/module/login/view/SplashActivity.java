@@ -122,7 +122,8 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
                     goMianActivity();
                     return;
                 }
-                calculateUpdate(appUpdateRes);
+                goMianActivity();
+//                calculateUpdate(appUpdateRes);
                 break;
         }
     }
