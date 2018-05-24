@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.request.DistributorPayMethodReq;
 import com.qmkj.jydp.bean.request.OutSideExchangeReq;
 import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
@@ -22,11 +23,13 @@ import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 /**
  * @author wujiangming
@@ -138,7 +141,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
 
     private void getDistributorPayMethod() {
         if (orderListBean == null) {
-            toast("订单信息为空请刷新重试");
+            toast("订单信息为空,请刷新重试");
             return;
         }
         DistributorPayMethodReq distributorPayMethodReq = new DistributorPayMethodReq();
@@ -149,6 +152,12 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
 
     @Override
     protected void initData() {
+//        getOutSideExchangeData(true);
+        RxBus.getDefault().toObservable(OutSideExchangeEvent.class).compose(bindToLifecycle()).subscribe
+                (outSideExchangeEvent -> {
+                    OutsideExchangeFragment.this.getOutSideExchangeData(false);
+                    isRefresh = true;
+                });
         refresh.callRefresh();
     }
 

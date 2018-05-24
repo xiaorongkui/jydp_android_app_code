@@ -165,6 +165,7 @@
                         android:id="@+id/bank_pyament_method_bank_payee_phone_civ"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/y20"
                         android:layout_marginTop="@dimen/y20"
                         app:bottomLine="false"
                         app:isDefaultHight="false"
