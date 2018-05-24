@@ -29,6 +29,7 @@ import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.SystemMessageConfig;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
+import com.qmkj.jydp.module.mine.view.HelpCenterDetailsActivity;
 import com.qmkj.jydp.ui.widget.EditHItemView;
 import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
@@ -214,7 +215,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
     @OnClick({R.id.login_title_ll, R.id.register_title_ll, R.id.login_bt, R.id.login_forget_pwd_tv, R.id
-            .register_bt, R.id.register_phone_erea_tv, R.id.register_phone_erea_iv})
+            .register_bt, R.id.register_phone_erea_tv, R.id.register_phone_erea_iv, R.id.register_agreement_name_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_title_ll:
@@ -235,6 +236,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case R.id.login_forget_pwd_tv://选择区号
                 CommonUtil.gotoActivity(mContext, ForgetLoginPwdActivity.class);
+                break;
+            case R.id.register_agreement_name_tv://注册协议
+                Intent intent = new Intent(this, HelpCenterDetailsActivity.class);
+                intent.putExtra(HelpCenterDetailsActivity.ID_KEY, "101010");
+                intent.putExtra(HelpCenterDetailsActivity.ACTIVITY_TITLE_KEY, "注册协议");
+                CommonUtil.gotoActivity(mContext, intent);
                 break;
         }
     }

@@ -71,6 +71,7 @@
     <color name="color_gray_10">#1F1C5EB0</color><!--//阴影颜色-->
     <color name="color_gray_11">#FFF2F4F9</color><!--//阴影颜色-->
     <color name="color_gray_12">#FFFCFCFD</color>
+    <color name="color_gray_13">#E8EAEC</color>
 
     <color name="color_bule_1">#448EF1</color>
     <color name="color_bule_2">#5299F7</color>

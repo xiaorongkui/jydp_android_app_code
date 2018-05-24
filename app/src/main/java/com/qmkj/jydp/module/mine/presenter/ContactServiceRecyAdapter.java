@@ -50,7 +50,7 @@ public class ContactServiceRecyAdapter extends XBaseAdapter<CustomerServiceRes.U
                 shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x9))
                         .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
                         .setDefaultStrokeColor(CommonUtil.getColor(R.color.colorBlack_13))
-                        .setDefaultBgColor(CommonUtil.getColor(R.color.color_black_1));
+                        .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_13));
                 contact_service_deal_status_tv.setBackground(shapeSelector.create());
                 contact_service_deal_status_tv.setText("待处理");
                 contact_service_deal_status_tv.setTextColor(mContext.getResources().getColor(R.color.color_black_10));

@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.bean.HelpCenterBean;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
 import com.qmkj.jydp.bean.response.HelpCenterRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
@@ -17,6 +16,7 @@ import butterknife.BindView;
 
 public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     public static final String ACTIVITY_TITLE_KEY = "activity_title_key";
+    public static final String ID_KEY = "id_key";
     private String activityTitleStr;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -26,32 +26,25 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     TextView help_details_time_tv;
     @BindView(R.id.help_details_meg_tv)
     TextView help_details_meg_tv;
-    private HelpCenterBean bean;
+    private String id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        bean = (HelpCenterBean) getIntent().
-                getSerializableExtra(HelpCenterActivity.HELP_CENTER_TAG);
-        if (getIntent().getExtras().containsKey(ACTIVITY_TITLE_KEY)) {
-            activityTitleStr = getIntent().getExtras().getString(ACTIVITY_TITLE_KEY);
-        }
+        id = getIntent().getExtras().getString(ID_KEY);
+        activityTitleStr = getIntent().getExtras().getString(ACTIVITY_TITLE_KEY);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void initData() {
         HelpCenterReq helpCenterReq = new HelpCenterReq();
-        helpCenterReq.setHelpId(bean.getId());
+        helpCenterReq.setHelpId(id);
         presenter.getHelpCenterInfo(helpCenterReq, 1, true);
     }
 
     @Override
     protected void initTitle() {
-        if (activityTitleStr != null) {
-            titleHeaderTv.setText(activityTitleStr);
-        } else {
-            titleHeaderTv.setText(bean.getName());
-        }
+        titleHeaderTv.setText(activityTitleStr);
     }
 
     @Override
