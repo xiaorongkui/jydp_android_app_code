@@ -1,17 +1,15 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
-import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
+import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
 import com.qmkj.jydp.module.mine.presenter.DealerManagementRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
@@ -20,9 +18,6 @@ import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 
 /**
@@ -30,25 +25,22 @@ import butterknife.BindView;
  * email：dovexiaoen@163.com
  * description:经销商管理
  */
+public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
+    @BindView(R.id.refreshLayout)
+    XRefreshLayout refreshLayout;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.publish_adversite_btn)
+    Button publishAdversiteBtn;
 
-public class DealerManagementActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
-    private ArrayList<DealerManagementRes.OtcTransactionPendOrderListBean> mData;
-    private DealerManagementRecyAdapter dealerManagementRecyAdapter;
+    private DealerManagementRecyAdapter adapter;
     private CommonDialog dialogUtils;
+    boolean mIsCanRefresh = true;
+    boolean mIsLoadMore;
+    int mPage;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Button button = getBottomButton();
-        button.setVisibility(View.VISIBLE);
-        button.setText(CommonUtil.getString(R.string.send_advertisement));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CommonUtil.gotoActivity(mContext, PublishAdvertisementActivity.class);
-            }
-        });
-    }
 
     @Override
     protected void injectPresenter() {
@@ -57,22 +49,73 @@ public class DealerManagementActivity extends BaseRefreshRecycleMvpActivity<Mine
 
     @Override
     protected void initData() {
-        presenter.getDealerManagementInfo(1,true);
+        refreshLayout.callRefresh();
     }
 
     @Override
-    public BaseRecycleAdapter getRecycleAdapter() {
-        initRecycleView();
-        return dealerManagementRecyAdapter;
+    protected void initTitle() {
+        titleHeaderTv.setText(CommonUtil.getString(R.string.dealer_managment));
+
     }
 
-    private void initRecycleView() {
-        mData = new ArrayList<>();
-        dealerManagementRecyAdapter = new DealerManagementRecyAdapter(mContext, mData, R.layout
-                .mine_dealer_managment_item);
-        dealerManagementRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> showDeleteDialog());
+    @Override
+    protected int getLayoutId() {
+        return R.layout.mine_activity_dealer_management;
     }
 
+    @Override
+    protected void initView() {
+        adapter = new DealerManagementRecyAdapter(mContext);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        View mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.empty, null);
+        adapter.setEmptyView(mEmptyView);
+
+        refreshLayout.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mIsLoadMore = false;
+                mPage = 0;
+                getDataFromNet();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return mIsCanRefresh;
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mIsCanRefresh = topRowVerticalPosition >= 0;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        adapter.setOnLoadMoreListener(() -> {
+            mIsLoadMore = true;
+            getDataFromNet();
+        }, recyclerView);
+        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.gotoActivity(mContext, PublishAdvertisementActivity.class));
+    }
+
+    private void getDataFromNet() {
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(mPage);
+        presenter.getDealerManagementInfo(req, 1, false);
+    }
+
+    /**
+     * 显示删除dialog
+     */
     private void showDeleteDialog() {
         dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .common_dialog_1);
@@ -88,6 +131,35 @@ public class DealerManagementActivity extends BaseRefreshRecycleMvpActivity<Mine
         dialogUtils.show();
     }
 
+
+    @Override
+    public void onSuccess(Object response, int tag) {
+        super.onSuccess(response, tag);
+        DealerManagementRes res = (DealerManagementRes) response;
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
+        }
+        if (mIsLoadMore) {
+            adapter.addData(res.getOtcTransactionPendOrderList());
+        } else {
+            adapter.update(res.getOtcTransactionPendOrderList());
+        }
+        if (mPage < res.getTotalPageNumber() - 1) {
+            adapter.loadMoreComplete();
+            mPage++;
+        } else {
+            adapter.loadMoreEnd();
+        }
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -95,26 +167,5 @@ public class DealerManagementActivity extends BaseRefreshRecycleMvpActivity<Mine
             dialogUtils.dismiss();
             dialogUtils = null;
         }
-    }
-
-
-    @Override
-    public void onSuccess(Object response, int tag) {
-        super.onSuccess(response, tag);
-        DealerManagementRes res = (DealerManagementRes) response;
-        if(res.getOtcTransactionPendOrderList()!=null){
-            dealerManagementRecyAdapter.addData(res.getOtcTransactionPendOrderList());
-            dealerManagementRecyAdapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public List getData() {
-        return mData;
-    }
-
-    @Override
-    public String getTittle() {
-        return CommonUtil.getString(R.string.dealer_managment);
     }
 }

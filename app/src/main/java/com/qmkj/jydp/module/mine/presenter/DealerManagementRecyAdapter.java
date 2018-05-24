@@ -4,37 +4,36 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.XBaseAdapter;
+import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
-import java.util.List;
-
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description: 经销商管理Adapter
  */
-
-public class DealerManagementRecyAdapter extends BaseRecycleAdapter<DealerManagementRes.OtcTransactionPendOrderListBean> {
-    private final Context mContext;
+public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRes.OtcTransactionPendOrderListBean> {
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
             .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
             .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
             .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
 
-    public DealerManagementRecyAdapter(Context context, List<DealerManagementRes.OtcTransactionPendOrderListBean> datas, int layoutId) {
+    public DealerManagementRecyAdapter(Context context) {
+        super(context);
+    }
 
-        super(layoutId, datas);
-        this.mContext = context;
 
+    @Override
+    protected int getLayoutResId(int viewType) {
+        return R.layout.mine_dealer_managment_item;
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, DealerManagementRes.OtcTransactionPendOrderListBean item, int position) {
+    protected void convert(XBaseViewHolder helper, DealerManagementRes.OtcTransactionPendOrderListBean item) {
         TextView dealer_managment_go_exchange_tv = helper.getView(R.id.dealer_management_delete_tv);
         TextView dealer_management_area_tv = helper.getView(R.id.dealer_management_area_tv);
         TextView dealer_management_name_tv = helper.getView(R.id.dealer_management_name_tv);

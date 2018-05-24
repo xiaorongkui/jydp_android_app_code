@@ -1,25 +1,25 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
-import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.request.SendContactServiceReq;
 import com.qmkj.jydp.bean.response.CustomerServiceRes;
 import com.qmkj.jydp.module.mine.presenter.ContactServiceRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
-import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.ContactServiceDialog;
+import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.StringUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import butterknife.BindView;
 
 
 /**
@@ -27,25 +27,78 @@ import java.util.List;
  * email：dovexiaoen@163.com
  * description:联系客服
  */
-
-public class ContactServiceActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
+public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     private static final int CONTACTS_GET_MSG=1;
     private static final int CONTACTS_SNED_MSG=2;
-    private ContactServiceRecyAdapter contactServiceRecyAdapter;
-    private ArrayList datas;
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
+    @BindView(R.id.refreshLayout)
+    XRefreshLayout refreshLayout;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.submit_question_btn)
+    Button submitQuestionBtn;
+
+    private ContactServiceRecyAdapter adapter;
+    boolean mIsCanRefresh = true;
+    boolean mIsLoadMore;
+    int mPage;
+
     private ContactServiceDialog dialogUtils;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Button button = getBottomButton();
-        button.setVisibility(View.VISIBLE);
-        button.setText(CommonUtil.getString(R.string.commit_problem));
-        button.setOnClickListener(new View.OnClickListener() {
+    protected void initTitle() {
+        titleHeaderTv.setText(CommonUtil.getString(R.string.connect_service));
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.mine_activity_contact_service;
+    }
+
+    @Override
+    protected void initView() {
+        adapter = new ContactServiceRecyAdapter(mContext);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        View mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.empty, null);
+        adapter.setEmptyView(mEmptyView);
+
+        refreshLayout.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
-                showConformDialog();
+            public void onRefresh() {
+                mIsLoadMore = false;
+                mPage = 0;
+                getDataFromNet();
             }
+
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return mIsCanRefresh;
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mIsCanRefresh = topRowVerticalPosition >= 0;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        adapter.setOnLoadMoreListener(() -> {
+            mIsLoadMore = true;
+            getDataFromNet();
+        }, recyclerView);
+        submitQuestionBtn.setOnClickListener(v -> {
+            showConformDialog();
         });
     }
 
@@ -56,21 +109,16 @@ public class ContactServiceActivity extends BaseRefreshRecycleMvpActivity<MinePr
 
     @Override
     protected void initData() {
+        refreshLayout.callRefresh();
+    }
+
+    /**
+     * 从网络获取数据
+     */
+    private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
-        req.setPageNumber(0);
-        presenter.getCustomerServiceInfo(req,CONTACTS_GET_MSG,true);
-    }
-
-    @Override
-    public BaseRecycleAdapter getRecycleAdapter() {
-        initRecycleView();
-        return contactServiceRecyAdapter;
-    }
-
-    private void initRecycleView() {
-        datas = new ArrayList();
-        contactServiceRecyAdapter = new ContactServiceRecyAdapter(mContext, datas, R.layout
-                .mine_contact_service_item);
+        req.setPageNumber(mPage);
+        presenter.getCustomerServiceInfo(req, 1, false);
     }
 
     @Override
@@ -78,10 +126,20 @@ public class ContactServiceActivity extends BaseRefreshRecycleMvpActivity<MinePr
         super.onSuccess(response, tag);
         switch (tag){
             case CONTACTS_GET_MSG:
-                CustomerServiceRes customerServiceRes = (CustomerServiceRes)response;
-                if(customerServiceRes.getUserFeedbackList()!=null){
-                    contactServiceRecyAdapter.addData(customerServiceRes.getUserFeedbackList());
-                    contactServiceRecyAdapter.notifyDataSetChanged();
+                CustomerServiceRes customerServiceRes = (CustomerServiceRes) response;
+                if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                    refreshLayout.refreshComplete();
+                }
+                if (mIsLoadMore) {
+                    adapter.addData(customerServiceRes.getUserFeedbackList());
+                } else {
+                    adapter.update(customerServiceRes.getUserFeedbackList());
+                }
+                if (mPage < customerServiceRes.getTotalPageNumber() - 1) {
+                    adapter.loadMoreComplete();
+                    mPage++;
+                } else {
+                    adapter.loadMoreEnd();
                 }
                 break;
             case CONTACTS_SNED_MSG:
@@ -89,17 +147,14 @@ public class ContactServiceActivity extends BaseRefreshRecycleMvpActivity<MinePr
                 dialogUtils.dismiss();
                 break;
         }
-
     }
 
     @Override
-    public List getData() {
-        return datas;
-    }
-
-    @Override
-    public String getTittle() {
-        return CommonUtil.getString(R.string.connect_service);
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
+        }
     }
 
 

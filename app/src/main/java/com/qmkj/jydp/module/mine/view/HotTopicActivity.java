@@ -2,21 +2,23 @@ package com.qmkj.jydp.module.mine.view;
 
 
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
-import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.SystemHotRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.SystemHotRecyAdapter;
+import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import butterknife.BindView;
 
 /**
  * author：rongkui.xiao --2018/3/27
@@ -24,11 +26,18 @@ import java.util.List;
  * description:热门话题
  */
 
-public class HotTopicActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
-    public final static String HOT_TOPIC_OBJECT = "hot_object" ;
+public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
+    @BindView(R.id.refreshLayout)
+    XRefreshLayout refreshLayout;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
 
-    private ArrayList<SystemHotRes.SystemHotListBean> datas;
-    private SystemHotRecyAdapter systemHotAdapter;
+    private SystemHotRecyAdapter adapter;
+    boolean mIsCanRefresh = true;
+    boolean mIsLoadMore;
+    int mPage;
 
     @Override
     protected void injectPresenter() {
@@ -36,52 +45,110 @@ public class HotTopicActivity extends BaseRefreshRecycleMvpActivity<MinePresente
     }
 
     @Override
-    protected void initData() {
-        PageNumberReq req = new PageNumberReq();
-        req.setPageNumber(0);
-        presenter.getSystemHotInfo(req,1,true);
+    protected void initTitle() {
+        titleHeaderTv.setText(CommonUtil.getString(R.string.hot_topic));
     }
 
     @Override
-    public String getTittle() {
-        return CommonUtil.getString(R.string.hot_topic);
+    protected int getLayoutId() {
+        return R.layout.mine_activity_hot_topic;
     }
 
     @Override
-    public List getData() {
-        return datas;
-    }
+    protected void initView() {
+        adapter = new SystemHotRecyAdapter(mContext);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        View mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.empty, null);
+        adapter.setEmptyView(mEmptyView);
 
-    @Override
-    public BaseRecycleAdapter getRecycleAdapter() {
-        datas = new ArrayList();
-        systemHotAdapter = new SystemHotRecyAdapter(mContext, datas, R.layout
-                .mine_system_notice_item);
-        systemHotAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        refreshLayout.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(HotTopicActivity.this,SystemNoticeDetailsActivity.class);
-                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TITTLE,
-                        systemHotAdapter.getData().get(position).getNoticeTitle());
-                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TIMES,
-                        DateUtil.longToTimeStr(systemHotAdapter.getData().get(position).getAddTime(),
-                                DateUtil.dateFormat2));
-                intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
-                        systemHotAdapter.getData().get(position).getContent());
-                CommonUtil.gotoActivity(mContext,intent);
+            public void onRefresh() {
+                mIsLoadMore = false;
+                mPage = 0;
+                getDataFromNet();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return mIsCanRefresh;
             }
         });
-        return systemHotAdapter;
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mIsCanRefresh = topRowVerticalPosition >= 0;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        adapter.setOnLoadMoreListener(() -> {
+            mIsLoadMore = true;
+            getDataFromNet();
+        }, recyclerView);
+
+        adapter.setOnItemChildClickListener((adapter1, view, position) -> {
+            Intent intent = new Intent(HotTopicActivity.this, SystemNoticeDetailsActivity.class);
+            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TITTLE,
+                    adapter.getData().get(position).getNoticeTitle());
+            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TIMES,
+                    DateUtil.longToTimeStr(adapter.getData().get(position).getAddTime(),
+                            DateUtil.dateFormat2));
+            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
+                    adapter.getData().get(position).getContent());
+            CommonUtil.gotoActivity(mContext, intent);
+        });
+
+    }
+
+    @Override
+    protected void initData() {
+        refreshLayout.callRefresh();
+    }
+
+    /**
+     * 从网络获取数据
+     */
+    private void getDataFromNet() {
+        PageNumberReq req = new PageNumberReq();
+        req.setPageNumber(mPage);
+        presenter.getSystemHotInfo(req, 1, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-       SystemHotRes systemHotRes =  (SystemHotRes) response;
-       if(systemHotRes.getSystemHotList()!=null){
-           systemHotAdapter.addData(systemHotRes.getSystemHotList());
-           systemHotAdapter.notifyDataSetChanged();
-       }
+        SystemHotRes systemHotRes = (SystemHotRes) response;
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
+        }
+        if (mIsLoadMore) {
+            adapter.addData(systemHotRes.getSystemHotList());
+        } else {
+            adapter.update(systemHotRes.getSystemHotList());
+        }
+        if (mPage < systemHotRes.getTotalPageNumber() - 1) {
+            adapter.loadMoreComplete();
+            mPage++;
+        } else {
+            adapter.loadMoreEnd();
+        }
     }
 
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
+        }
+    }
 }

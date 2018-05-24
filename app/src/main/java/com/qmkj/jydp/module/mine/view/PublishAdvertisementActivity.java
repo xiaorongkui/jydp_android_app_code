@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.SendAdsReq;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
@@ -37,8 +37,6 @@ import butterknife.BindView;
 public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter> {
     private static final int GET_CORN_CODE = 1;
     private static final int SEND_REQUEST = 2;
-
-
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.publish_advertise_currency_civ)

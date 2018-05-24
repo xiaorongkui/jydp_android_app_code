@@ -39,15 +39,15 @@ public class MinePresenter extends BaseRxPresenter {
     }
 
     public void getCurrencyAssetsInfo(int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getCurrencyAssetsInfo(), tag);
+        sendHttpRequest(mineService.getCurrencyAssetsInfo(), tag, isShowProgress);
     }
 
-    public void getDealerManagementInfo(int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getDealerManagmentInfo(), tag);
+    public void getDealerManagementInfo(PageNumberReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(mineService.getDealerManagmentInfo(req), tag, isShowProgress);
     }
 
     public void getTradeCenterInfo(PageNumberReq id, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getTradeCenterInfo(id), tag);
+        sendHttpRequest(mineService.getTradeCenterInfo(id), tag, isShowProgress);
     }
 
     public void getPresentRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
@@ -67,15 +67,15 @@ public class MinePresenter extends BaseRxPresenter {
     }
 
     public void getSystemHotInfo(PageNumberReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getSystemHotInfo(req), tag);
+        sendHttpRequest(mineService.getSystemHotInfo(req), tag, isShowProgress);
     }
 
     public void getCustomerServiceInfo(PageNumberReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getCustomerServiceInfo(req), tag);
+        sendHttpRequest(mineService.getCustomerServiceInfo(req), tag, isShowProgress);
     }
 
     public void getAccountRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getAccountRecordInfo(req), tag);
+        sendHttpRequest(mineService.getAccountRecordInfo(req), tag, isShowProgress);
     }
 
     public void getHelpCenterInfo(HelpCenterReq req, int tag, boolean isShowProgress){

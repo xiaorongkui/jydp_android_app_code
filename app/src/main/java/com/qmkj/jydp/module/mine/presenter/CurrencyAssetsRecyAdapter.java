@@ -4,13 +4,11 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.XBaseAdapter;
+import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
-
-import java.util.List;
 
 
 /**
@@ -19,13 +17,11 @@ import java.util.List;
  * description:
  */
 
-public class CurrencyAssetsRecyAdapter extends BaseRecycleAdapter<CurrencyAssetsRes.UserCurrencyAssetsBean> {
-    private final Context mContext;
+public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.UserCurrencyAssetsBean> {
     private final SelectorFactory.ShapeSelector shapeSelector;
 
-    public CurrencyAssetsRecyAdapter(Context context, List<CurrencyAssetsRes.UserCurrencyAssetsBean> datas, int layoutId) {
-        super(layoutId, datas);
-        this.mContext = context;
+    public CurrencyAssetsRecyAdapter(Context context) {
+        super(context);
         shapeSelector = SelectorFactory.newShapeSelector()
                 .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
                 .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_bule_3))
@@ -34,8 +30,12 @@ public class CurrencyAssetsRecyAdapter extends BaseRecycleAdapter<CurrencyAssets
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper,CurrencyAssetsRes.UserCurrencyAssetsBean item, int position) {
+    protected int getLayoutResId(int viewType) {
+        return R.layout.mine_currency_assets_item;
+    }
 
+    @Override
+    protected void convert(XBaseViewHolder helper, CurrencyAssetsRes.UserCurrencyAssetsBean item) {
         TextView mine_currency_assets_item_go_exchange_tv = helper.getView(R.id
                 .mine_currency_assets_item_go_exchange_tv);
 
@@ -47,8 +47,8 @@ public class CurrencyAssetsRecyAdapter extends BaseRecycleAdapter<CurrencyAssets
         mine_currency_assets_item_go_exchange_tv.setBackground(shapeSelector.create());
 
         mine_assets_name_tv.setText(item.getCurrencyName());
-        currency_total_assets_tv.setText(item.getTotalCurrencyAssets()+"");
-        available_amount_tv.setText(item.getCurrencyNumber()+"");
-        frozen_amount_tv.setText(item.getCurrencyNumberLock()+"");
+        currency_total_assets_tv.setText(item.getTotalCurrencyAssets() + "");
+        available_amount_tv.setText(item.getCurrencyNumber() + "");
+        frozen_amount_tv.setText(item.getCurrencyNumberLock() + "");
     }
 }

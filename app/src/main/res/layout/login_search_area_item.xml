@@ -9,6 +9,8 @@
         android:id="@+id/searc_area_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
         app:bottomLine="false"
         app:leftText="@string/certify_type"
         app:leftTextColor="@color/color_black_7"

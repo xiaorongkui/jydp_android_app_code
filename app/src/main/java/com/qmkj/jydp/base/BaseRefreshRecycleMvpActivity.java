@@ -39,7 +39,7 @@ public abstract class BaseRefreshRecycleMvpActivity<T extends BasePresenter> ext
 
     @Override
     protected int getLayoutId() {
-        return R.layout.mine_activity_hot_topic;
+        return R.layout.mine_activity_base_hot_topic;
     }
 
     @Override

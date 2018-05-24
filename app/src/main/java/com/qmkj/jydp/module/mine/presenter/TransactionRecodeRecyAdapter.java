@@ -3,12 +3,11 @@ package com.qmkj.jydp.module.mine.presenter;
 import android.content.Context;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.XBaseAdapter;
+import com.qmkj.jydp.base.XBaseViewHolder;
+import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
-
-import java.util.List;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -16,23 +15,27 @@ import java.util.List;
  * description:
  */
 
-public class TransactionRecodeRecyAdapter extends BaseRecycleAdapter {
-    private final Context mContext;
+public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.DealRecordListBean> {
+
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
             .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
             .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
             .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
 
-    public TransactionRecodeRecyAdapter(Context context, List datas, int layoutId) {
-
-        super(layoutId, datas);
-        this.mContext = context;
-
+    public TransactionRecodeRecyAdapter(Context context) {
+        super(context);
     }
 
+
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, Object item, int position) {
+    protected int getLayoutResId(int viewType) {
+        return R.layout.mine_transaction_reocde_item;
+    }
+
+
+    @Override
+    protected void convert(XBaseViewHolder helper, AccountRecordRes.DealRecordListBean item) {
 
     }
 }

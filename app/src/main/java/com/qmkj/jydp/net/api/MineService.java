@@ -1,7 +1,6 @@
 package com.qmkj.jydp.net.api;
 
 
-import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
 import com.qmkj.jydp.bean.request.OtcReleaseReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
@@ -21,14 +20,10 @@ import com.qmkj.jydp.bean.response.SystemHotRes;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
-import java.util.Map;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
 
 /**
  * Created by Yun on 2018/1/5.
@@ -48,8 +43,8 @@ public interface MineService {
     Observable<BaseRes<CurrencyAssetsRes>> getCurrencyAssetsInfo();
 
     //获取经销商管理信息
-    @GET(AppNetConfig.urlPath + "wap/dealerManagment/show")
-    Observable<BaseRes<DealerManagementRes>> getDealerManagmentInfo();
+    @POST(AppNetConfig.urlPath + "wap/dealerManagment/showMore")
+    Observable<BaseRes<DealerManagementRes>> getDealerManagmentInfo(@Body PageNumberReq req);
 
     //获取挂单记录信息
     @POST(AppNetConfig.urlPath + "wap/wapTransactionPendOrderController/getTransactionPendOrderList")

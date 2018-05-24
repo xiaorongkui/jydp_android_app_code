@@ -4,13 +4,11 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.XBaseAdapter;
+import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.CustomerServiceRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
-
-import java.util.List;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -18,17 +16,22 @@ import java.util.List;
  * description:
  */
 
-public class ContactServiceRecyAdapter extends BaseRecycleAdapter<CustomerServiceRes.UserFeedbackListBean> {
-    private final Context mContext;
+public class ContactServiceRecyAdapter extends XBaseAdapter<CustomerServiceRes.UserFeedbackListBean> {
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector();
 
-    public ContactServiceRecyAdapter(Context context, List<CustomerServiceRes.UserFeedbackListBean> datas, int layoutId) {
-        super(layoutId, datas);
-        this.mContext = context;
+
+    public ContactServiceRecyAdapter(Context context) {
+        super(context);
+    }
+
+
+    @Override
+    protected int getLayoutResId(int viewType) {
+        return R.layout.mine_contact_service_item;
     }
 
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, CustomerServiceRes.UserFeedbackListBean item, int position) {
+    protected void convert(XBaseViewHolder helper, CustomerServiceRes.UserFeedbackListBean item) {
         shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
                 .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
                 .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_gray_8))

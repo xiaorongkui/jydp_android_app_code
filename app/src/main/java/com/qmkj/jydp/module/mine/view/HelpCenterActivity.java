@@ -6,19 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
-import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.HelpCenterBean;
 import com.qmkj.jydp.module.mine.presenter.HelpCenterRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.util.CommonUtil;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -79,13 +74,10 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
         View mEmptyView = View.inflate(mContext, R.layout.empty, null);
         helpCenterRecyAdapter.setEmptyView(mEmptyView);
         helpCenterRv.setAdapter(helpCenterRecyAdapter);
-        helpCenterRecyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(HelpCenterActivity.this,HelpCenterDetailsActivity.class);
-                intent.putExtra(HELP_CENTER_TAG,helpCenterRecyAdapter.getData().get(position));
-                CommonUtil.gotoActivity(mContext,intent);
-            }
+        helpCenterRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Intent intent = new Intent(HelpCenterActivity.this, HelpCenterDetailsActivity.class);
+            intent.putExtra(HELP_CENTER_TAG, helpCenterRecyAdapter.getData().get(position));
+            CommonUtil.gotoActivity(mContext, intent);
         });
     }
 

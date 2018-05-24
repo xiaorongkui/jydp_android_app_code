@@ -130,7 +130,9 @@
         <activity android:name=".module.mine.view.SystemNoticeDetailsActivity"
                   android:launchMode="singleTop"/>
         <activity android:name=".module.exchangoutsidee.view.OutSideBuyDetailActivity"/>
-        <activity android:name="com.qmkj.jydp.module.mine.view.HelpCenterDetailsActivity"/>
+        <activity
+            android:name=".module.mine.view.HelpCenterDetailsActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

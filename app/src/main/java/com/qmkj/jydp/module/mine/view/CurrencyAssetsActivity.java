@@ -1,15 +1,20 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
-import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
+import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
 import com.qmkj.jydp.module.mine.presenter.CurrencyAssetsRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
+import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import butterknife.BindView;
 
 /**
  * author：rongkui.xiao --2018/5/3
@@ -17,9 +22,19 @@ import java.util.List;
  * description:币种资产页面
  */
 
-public class CurrencyAssetsActivity extends BaseRefreshRecycleMvpActivity<MinePresenter> {
-    private List<CurrencyAssetsRes.UserCurrencyAssetsBean> mData;
-    private CurrencyAssetsRecyAdapter assetsRecyAdapter;
+public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
+    @BindView(R.id.refreshLayout)
+    XRefreshLayout refreshLayout;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    private CurrencyAssetsRecyAdapter adapter;
+
+    boolean mIsCanRefresh = true;
+    boolean mIsLoadMore;
+    int mPage;
 
     @Override
     protected void injectPresenter() {
@@ -27,37 +42,83 @@ public class CurrencyAssetsActivity extends BaseRefreshRecycleMvpActivity<MinePr
     }
 
     @Override
-    protected void initData() {
-        presenter.getCurrencyAssetsInfo(1,true);
+    protected void initTitle() {
+        titleHeaderTv.setText(CommonUtil.getString(R.string.currency_assets));
     }
 
     @Override
-    public BaseRecycleAdapter getRecycleAdapter() {
-        initRecycleView();
-        return assetsRecyAdapter;
+    protected int getLayoutId() {
+        return R.layout.mine_activity_currency_assets;
     }
 
-    private void initRecycleView() {
-        mData = new ArrayList<>();
-        assetsRecyAdapter = new CurrencyAssetsRecyAdapter(mContext, mData, R.layout.mine_currency_assets_item);
+    @Override
+    protected void initView() {
+        adapter = new CurrencyAssetsRecyAdapter(mContext);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        View mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.empty, null);
+        adapter.setEmptyView(mEmptyView);
+
+        refreshLayout.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mIsLoadMore = false;
+                mPage = 0;
+                getDataFromNet();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(View content, View header) {
+                return mIsCanRefresh;
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mIsCanRefresh = topRowVerticalPosition >= 0;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+    }
+
+    @Override
+    protected void initData() {
+        refreshLayout.callRefresh();
+    }
+
+    /**
+     * 从网络获取数据
+     */
+    private void getDataFromNet() {
+        presenter.getCurrencyAssetsInfo(1, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        CurrencyAssetsRes res =(CurrencyAssetsRes)response;
-        if(res.getUserCurrencyAssets()!=null){
-            assetsRecyAdapter.addData(res.getUserCurrencyAssets());
-            assetsRecyAdapter.notifyDataSetChanged();
+        CurrencyAssetsRes res = (CurrencyAssetsRes) response;
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
         }
-    }
-    @Override
-    public List getData() {
-        return mData;
+        adapter.update(res.getUserCurrencyAssets());
+        adapter.loadMoreEnd();
     }
 
     @Override
-    public String getTittle() {
-        return CommonUtil.getString(R.string.currency_assets);
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        if (refreshLayout != null && refreshLayout.isRefreshing()) {
+            refreshLayout.refreshComplete();
+        }
     }
 }
