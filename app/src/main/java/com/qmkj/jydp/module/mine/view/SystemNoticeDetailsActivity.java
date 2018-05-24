@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -50,7 +51,7 @@ public class SystemNoticeDetailsActivity extends BaseMvpActivity {
     protected void initView() {
         notice_details_tittle_tv.setText(getIntent().getStringExtra(NOTICE_TITTLE));
         notice_details_time_tv.setText(getIntent().getStringExtra(NOTICE_TIMES));
-        notice_details_meg_tv.setText(getIntent().getStringExtra(NOTICE_DETAILS));
+        notice_details_meg_tv.setText(Html.fromHtml(getIntent().getStringExtra(NOTICE_DETAILS)));
 
     }
 

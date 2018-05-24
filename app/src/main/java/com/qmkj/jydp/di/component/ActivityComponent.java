@@ -10,10 +10,12 @@ import com.qmkj.jydp.module.exchangecenter.view.KlineActivity;
 import com.qmkj.jydp.module.exchangoutsidee.view.OutSideBuyActivity;
 import com.qmkj.jydp.module.exchangoutsidee.view.OutSideBuyDetailActivity;
 import com.qmkj.jydp.module.exchangoutsidee.view.OutSideSoldActivity;
+import com.qmkj.jydp.module.exchangoutsidee.view.OutSideSoldDetailActivity;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.module.login.view.CertificationActivity;
 import com.qmkj.jydp.module.login.view.ForgetLoginPwdActivity;
 import com.qmkj.jydp.module.login.view.LoginActivity;
+import com.qmkj.jydp.module.login.view.SplashActivity;
 import com.qmkj.jydp.module.mine.view.ContactServiceActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyAssetsActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRecodeActivity;
@@ -93,4 +95,8 @@ public interface ActivityComponent {
     void inject(OutSideBuyDetailActivity outSideBuyDetailActivity);
 
     void inject(ReceivablesActivity receivablesActivity);
+
+    void inject(OutSideSoldDetailActivity outSideSoldDetailActivity);
+
+    void inject(SplashActivity splashActivity);
 }

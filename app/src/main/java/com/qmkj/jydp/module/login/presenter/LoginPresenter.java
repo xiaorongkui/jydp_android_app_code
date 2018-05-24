@@ -81,11 +81,17 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
     public void changePassWordByPwd(ChangePassWordReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(loginService.changePassWordByPwd(req), tag);
     }
+
     public void changePassWordByPhone(ChangePassWordReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(loginService.changePassWordByPhone(req), tag);
     }
+
     public void changePhone(ChangePhoneReq req, int tag, boolean isShowProgress) {
-        sendHttpRequest(loginService.changePhone(req), tag);
+        sendHttpRequest(loginService.changePhone(req), tag, isShowProgress);
     }
 
+
+    public void checkAppUpdate(int tag, boolean isShowProgress) {
+        sendHttpRequest(loginService.checkAppUpdate(), tag, isShowProgress);
+    }
 }

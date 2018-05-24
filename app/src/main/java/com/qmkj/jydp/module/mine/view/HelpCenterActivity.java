@@ -24,7 +24,6 @@ import butterknife.BindView;
  */
 
 public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
-    public static final String HELP_CENTER_TAG = "help_tag";
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.help_center_rv)
@@ -76,7 +75,7 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
         helpCenterRv.setAdapter(helpCenterRecyAdapter);
         helpCenterRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
             Intent intent = new Intent(HelpCenterActivity.this, HelpCenterDetailsActivity.class);
-            intent.putExtra(HELP_CENTER_TAG, helpCenterRecyAdapter.getData().get(position));
+            intent.putExtra(HelpCenterDetailsActivity.ID_KEY, helpCenterRecyAdapter.getData().get(position).getId());
             intent.putExtra(HelpCenterDetailsActivity.ACTIVITY_TITLE_KEY, "帮助详情");
             CommonUtil.gotoActivity(mContext, intent);
         });

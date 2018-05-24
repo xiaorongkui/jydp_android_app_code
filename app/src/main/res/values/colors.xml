@@ -71,12 +71,15 @@
     <color name="color_gray_10">#1F1C5EB0</color><!--//阴影颜色-->
     <color name="color_gray_11">#FFF2F4F9</color><!--//阴影颜色-->
     <color name="color_gray_12">#FFFCFCFD</color>
+    <color name="color_gray_13">#E8EAEC</color>
 
     <color name="color_bule_1">#448EF1</color>
     <color name="color_bule_2">#5299F7</color>
     <color name="color_bule_3">#68ADFA</color>
     <color name="color_bule_4">#C7DDFB</color>
     <color name="color_bule_5">#FF00A7FC</color>
+    <color name="color_blue_6">#D7EAFF</color>
+    <color name="color_blue_7">#68ADFA</color>
 
     <color name="color_black_1">#FF7F858C</color>
     <color name="color_black_2">#35394F</color>

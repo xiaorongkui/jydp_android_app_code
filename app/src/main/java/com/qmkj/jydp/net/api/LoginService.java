@@ -10,6 +10,7 @@ import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
+import com.qmkj.jydp.bean.response.AppUpdateRes;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.bean.response.LoginRes;
@@ -24,6 +25,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -103,6 +105,12 @@ public interface LoginService {
     @POST(AppNetConfig.urlPath + "wap/userInfo/phone/modify")
     Observable<BaseRes<Object>> changePhone(@Body ChangePhoneReq req);
 
-
+    /**
+     * 检查app更新
+     *
+     * @return the home auto roll product
+     */
+    @GET(AppNetConfig.urlPath + "wap/homePage/show")
+    Observable<BaseRes<AppUpdateRes>> checkAppUpdate();
 
 }

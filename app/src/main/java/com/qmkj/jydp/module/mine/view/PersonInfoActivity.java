@@ -7,9 +7,9 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.view.LoginActivity;
-import com.qmkj.jydp.module.mine.dialog.TipDialog;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
+import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
@@ -63,13 +63,13 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.person_info_login_out_bt://退出登陆
-                TipDialog tipDialog = new TipDialog(this);
-                tipDialog.setContentText("是否确认退出");
-                tipDialog.setOnPositiveButtonClickListener((dialog, view) -> {
+                CommonDialog commonDialog = new CommonDialog(this);
+                commonDialog.setContentText("是否确认退出");
+                commonDialog.setOnPositiveButtonClickListener((dialog, view) -> {
                     presenter.loginOut(1, true);
-                    tipDialog.dismiss();
+                    commonDialog.dismiss();
                 });
-                tipDialog.show();
+                commonDialog.show();
                 break;
             case R.id.person_info_modify_payment_password_civ://修改支付密码
                 CommonUtil.gotoActivity(mContext, ModifyPaymentActivity.class);

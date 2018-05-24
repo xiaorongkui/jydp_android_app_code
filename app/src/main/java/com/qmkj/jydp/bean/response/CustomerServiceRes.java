@@ -85,7 +85,7 @@ public class CustomerServiceRes extends BaseRes implements Serializable{
         private int backerAccount;
         private String feedbackContent;
         private String feedbackTitle;
-        private int handleContent;
+        private String handleContent;
         private int handleStatus;
         private int handleTime;
         private int id;
@@ -124,11 +124,11 @@ public class CustomerServiceRes extends BaseRes implements Serializable{
             this.feedbackTitle = feedbackTitle;
         }
 
-        public int getHandleContent() {
+        public String getHandleContent() {
             return handleContent;
         }
 
-        public void setHandleContent(int handleContent) {
+        public void setHandleContent(String handleContent) {
             this.handleContent = handleContent;
         }
 

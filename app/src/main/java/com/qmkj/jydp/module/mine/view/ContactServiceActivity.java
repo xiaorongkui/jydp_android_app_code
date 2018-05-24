@@ -145,6 +145,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
             case CONTACTS_SEND_MSG:
                 toast("提交成功");
                 dialogUtils.dismiss();
+                refreshLayout.callRefresh();
                 break;
         }
     }

@@ -52,7 +52,7 @@ import io.reactivex.functions.Consumer;
 
 public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter> {
 
-    private static final int DECIMAL_DIGITS = 2;//最多输入两位数值
+    private static final int DECIMAL_DIGITS = 4;//最多输入4位数值
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.outside_buy_pay_mothed_iv)
@@ -131,7 +131,6 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         outsidePayMothedTv.setOnClickListener(this);
         outsideBuyBt.setOnClickListener(this);
 
-        ousideBuyAmountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
         ousideBuyAmountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER | InputType
                 .TYPE_NUMBER_FLAG_DECIMAL);
         ousideBuyAmountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
@@ -168,6 +167,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         list_item_title_tv.setText(CommonUtil.getString(R.string.select_pay_type));
 
         RecyclerView recyclerView = commonDialog.getView(R.id.certify_type_select_rv, RecyclerView.class);
+        ImageView dialog_right_iv = commonDialog.getView(R.id.dialog_right_iv, ImageView.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(new BaseRecycleAdapter<DialogItemBean>(R.layout.certify_type_select_item,
                 certifyTypeData) {
@@ -186,13 +186,15 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 certifyType_tv.setText(item.getCertifyName());
             }
         });
-        commonDialog.show();
+
         commonDialog.setAnimation(R.style.common_dialog_animation);
         ((BaseRecycleAdapter) recyclerView.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
             commonDialog.dismiss();
             selectIndex = position;
             outsidePayMothedTv.setText(certifyTypeData.get(position).getCertifyName());
         });
+        dialog_right_iv.setOnClickListener(v -> commonDialog.dismiss());
+        commonDialog.show();
     }
 
     @Override
@@ -217,7 +219,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        if (v == 0 || TextUtils.isEmpty(paymentMoney)) {
+        if (v <= 0 || TextUtils.isEmpty(paymentMoney)) {
             toast("购买数量必须大于0");
             return;
         }
@@ -256,6 +258,8 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         outSideBuyPayDetailReq.setPageNumber("0");
         outSideBuyPayDetailReq.setUserId(userId);
         outSideBuyPayDetailReq.setPayMentMoney(paymentMoney);
+
+
         Intent intent = new Intent(mContext, OutSideBuyDetailActivity.class);
         intent.putExtra(Constants.INTENT_PARAMETER_1, outSideBuyPayDetailReq);
         CommonUtil.gotoActivity(mContext, intent);

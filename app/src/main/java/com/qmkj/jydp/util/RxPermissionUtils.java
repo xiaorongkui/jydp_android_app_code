@@ -68,22 +68,19 @@ public class RxPermissionUtils {
 
     @TargetApi(Build.VERSION_CODES.M)
     public void start() {
-        disposable = rxPermissions.requestEach(permissions).subscribe(new Consumer<Permission>() {
-            @Override
-            public void accept(Permission permission) throws Exception {
-                isGranteds.add(permission.granted);
-                if (permission.granted) {
-                    if (onPermissionListener != null) {
-                        onPermissionListener.onPermissionGranted(permission.name);
-                    }
-                } else if (permission.shouldShowRequestPermissionRationale) {
-                    if (onPermissionListener != null) {
-                        onPermissionListener.onPermissionDenied(permission.name);
-                    }
-                } else {
-                    if (onPermissionListener != null) {
-                        onPermissionListener.onPermissionDeniedAndNeverAsk(permission.name);
-                    }
+        disposable = rxPermissions.requestEach(permissions).subscribe(permission -> {
+            isGranteds.add(permission.granted);
+            if (permission.granted) {
+                if (onPermissionListener != null) {
+                    onPermissionListener.onPermissionGranted(permission.name);
+                }
+            } else if (permission.shouldShowRequestPermissionRationale) {
+                if (onPermissionListener != null) {
+                    onPermissionListener.onPermissionDenied(permission.name);
+                }
+            } else {
+                if (onPermissionListener != null) {
+                    onPermissionListener.onPermissionDeniedAndNeverAsk(permission.name);
                 }
             }
         }, throwable -> LogUtil.i("权限申请失败" + throwable.getMessage()), new Action() {
