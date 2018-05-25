@@ -1,15 +1,17 @@
 package com.qmkj.jydp.module.login.presenter;
 
-import com.qmkj.jydp.base.BasePresenter;
 import com.qmkj.jydp.base.BaseView;
+
+import java.io.File;
 
 public interface LoginContract {
 
-    interface View extends BaseView {
-    }
+    interface UpdateView extends BaseView {
+        void update(int progrss);
 
-    interface Presenter extends BasePresenter<BaseView> {
+        void downLoadFinish(File file);
 
+        void downLoadFailed();
     }
 
 }

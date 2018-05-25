@@ -110,7 +110,7 @@ public interface LoginService {
      *
      * @return the home auto roll product
      */
-    @GET(AppNetConfig.urlPath + "wap/homePage/show")
+    @GET(AppNetConfig.urlPath + "app/version/updateVersion")
     Observable<BaseRes<AppUpdateRes>> checkAppUpdate();
 
 }

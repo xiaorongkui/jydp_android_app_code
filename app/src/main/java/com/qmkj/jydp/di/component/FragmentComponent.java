@@ -1,10 +1,8 @@
 package com.qmkj.jydp.di.component;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 
 import com.qmkj.jydp.di.module.FragmentModule;
 import com.qmkj.jydp.di.scope.FragmentScope;
@@ -16,7 +14,7 @@ import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.login.view.CertifyNameFragment;
 import com.qmkj.jydp.module.login.view.CertifyNameStatusFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
-import com.qmkj.jydp.module.exchangoutsidee.view.OutsideExchangeFragment;
+import com.qmkj.jydp.module.exchangoutside.view.OutsideExchangeFragment;
 
 import dagger.Component;
 

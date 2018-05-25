@@ -1,8 +1,7 @@
-package com.qmkj.jydp.module.exchangoutsidee.presenter;
+package com.qmkj.jydp.module.exchangoutside.presenter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -13,9 +12,6 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author wujiangming

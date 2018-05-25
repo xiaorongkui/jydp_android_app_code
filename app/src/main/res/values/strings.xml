@@ -306,5 +306,12 @@
     <string name="withdraw_num">提现数量*</string>
     <string name="withdraw_num_hint">您要提取的数量</string>
     <string name="chain_withdraw_notice">当前链种最低提现2.00个，超过100.00需人工审核</string>
+    <string name="update_app_immediately">立即更新</string>
+    <string name="update_app_later">稍后更新</string>
+    <string name="upgrade_notice">发现新版本</string>
+    <string name="update_app_loading">更新中，请稍后...</string>
+    <string name="exchange_deal_recently_recod">最近成交记录</string>
+    <string name="exchange_deal_time">成交时间</string>
+
 
 </resources>

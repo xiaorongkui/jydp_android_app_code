@@ -2,7 +2,10 @@ package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -26,8 +29,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.ExchangeDealRecodeReq;
 import com.qmkj.jydp.bean.request.KlineReq;
+import com.qmkj.jydp.bean.response.DealRecodeRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.module.exchangecenter.presenter.DealRecodeRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.ui.widget.kline.CoupleChartGestureListener;
 import com.qmkj.jydp.ui.widget.kline.DataParse;
@@ -47,6 +53,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * author：rongkui.xiao --2018/3/30
  * email：dovexiaoen@163.com
@@ -56,24 +65,49 @@ import java.util.List;
 public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
 
     private static final int KLINE_DATA_TAG = 1;
-    private MyCombinedChart mChartKline;
-    protected MyCombinedChart mChartVolume;
+    private static final int EXCHANGE_DEAL_RECODE_TAG = 2;
+    @BindView(R.id.kline_tv_close)
+    TextView mTvClose;
+    //开，收，高，低，量，换，额，查，比
+    @BindView(R.id.exchange_high_title_tv)
+    TextView exchangeHighTitleTv;
+    @BindView(R.id.kline_tv_max)
+    TextView mTvMax;
+    @BindView(R.id.exchange_lowest_title_tv)
+    TextView exchangeLowestTitleTv;
+    @BindView(R.id.kline_tv_min)
+    TextView mTvMin;
+    @BindView(R.id.exchange_buy_one_title_tv)
+    TextView exchangeBuyOneTitleTv;
+    @BindView(R.id.exchange_buy_one_price_tv)
+    TextView exchangeBuyOnePriceTv;
+    @BindView(R.id.exchange_sell_one_title_tv)
+    TextView exchangeSellOneTitleTv;
+    @BindView(R.id.exchange_sell_one_price_tv)
+    TextView exchangeSellOnePriceTv;
+    @BindView(R.id.kline_tv_num)
+    TextView mTvNum;
+    @BindView(R.id.kline_chart_k)
+    MyCombinedChart mChartKline;
+    @BindView(R.id.kline_chart_volume)
+    MyCombinedChart mChartVolume;
+    @BindView(R.id.exchange_deal_recode_rv)
+    RecyclerView exchangeDealRecodeRv;
+    @BindView(R.id.title_header_tv)
+    TextView titleHeaderTv;
     private XAxis xAxisKline;
     private YAxis axisLeftKline;
     private YAxis axisRightKline;
     private DataParse mData;
     private DataParse mCacheData;
     private ArrayList<KLineBean> kLineDatas;
-
-    //开，收，高，低，量，换，额，查，比
-    protected TextView mTvClose, mTvMax, mTvMin, mTvNum;
-    protected TextView mTvKMa5, mTvKMa10, mTvKMa20, mTvKMa30;
     private XAxis xAxisVolume;
     private YAxis axisLeftVolume;
     private YAxis axisRightVolume;
     private String currencyId;
     private String currencyName;
-    private TextView title_header_tv;
+    private DealRecodeRecAdapter dealRecodeRecAdapter;
+    List<DealRecodeRes.DealListBean> recodeDatas = new ArrayList<>();
 
     @Override
     protected void injectPresenter() {
@@ -92,17 +126,27 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
 
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
+
+        getKlineData(true);
+        getExchangeDealRecode(true);
+    }
+
+    private void getExchangeDealRecode(boolean b) {
+        ExchangeDealRecodeReq exchangeDealRecodeReq = new ExchangeDealRecodeReq();
+        exchangeDealRecodeReq.setCurrencyId(currencyId);
+        presenter.getExchangeDealRecode(exchangeDealRecodeReq, EXCHANGE_DEAL_RECODE_TAG, b);
+    }
+
+    private void getKlineData(boolean b) {
         KlineReq klineReq = new KlineReq();
-        KlineReq.RequestJsonStringBean requestJsonStringBean = new KlineReq.RequestJsonStringBean();
-        requestJsonStringBean.setCurrencyId(currencyId);
-        requestJsonStringBean.setNode(System.currentTimeMillis());
-        klineReq.setRequestJsonString(requestJsonStringBean);
-        presenter.getKlineData(klineReq, KLINE_DATA_TAG, true);
+        klineReq.setCurrencyId(currencyId);
+        klineReq.setNode(System.currentTimeMillis());
+        presenter.getKlineData(klineReq, KLINE_DATA_TAG, b);
     }
 
     @Override
     protected void initTitle() {
-        title_header_tv.setText(currencyName);
+        titleHeaderTv.setText(currencyName);
     }
 
     @Override
@@ -114,21 +158,14 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     protected void initView() {
         currencyId = getIntent().getStringExtra(Constants.INTENT_PARAMETER_1);
         currencyName = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
+        initRecycleView();
+    }
 
-        mTvClose = (TextView) findViewById(R.id.kline_tv_close);
-        mTvMax = (TextView) findViewById(R.id.kline_tv_max);
-        mTvMin = (TextView) findViewById(R.id.kline_tv_min);
-        mTvNum = (TextView) findViewById(R.id.kline_tv_num);
-
-        mChartKline = (MyCombinedChart) findViewById(R.id.kline_chart_k);
-        mChartVolume = (MyCombinedChart) findViewById(R.id.kline_chart_volume);
-
-        mTvKMa5 = (TextView) findViewById(R.id.view_kline_tv_ma5);
-        mTvKMa10 = (TextView) findViewById(R.id.view_kline_tv_ma10);
-        mTvKMa20 = (TextView) findViewById(R.id.view_kline_tv_ma20);
-        mTvKMa30 = (TextView) findViewById(R.id.view_kline_tv_ma30);
-
-        title_header_tv = (TextView) findViewById(R.id.title_header_tv);
+    private void initRecycleView() {
+        dealRecodeRecAdapter = new DealRecodeRecAdapter(mContext, recodeDatas, R.layout
+                .exchange_deal_recode_item);
+        exchangeDealRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
+        exchangeDealRecodeRv.setAdapter(dealRecodeRecAdapter);
     }
 
 
@@ -232,24 +269,6 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
 
             int unit = CommonUtil.getVolUnitNum(klData.vol);
             mTvNum.setText(CommonUtil.getVolUnitText((int) Math.pow(10, unit), klData.vol));
-        }
-
-        int newIndex = index;
-        if (null != mData.getMa5DataL() && mData.getMa5DataL().size() > 0) {
-            if (newIndex >= 0 && newIndex < mData.getMa5DataL().size())
-                mTvKMa5.setText(CommonUtil.getDecimalFormatVol(mData.getMa5DataL().get(newIndex).getVal()));
-        }
-        if (null != mData.getMa10DataL() && mData.getMa10DataL().size() > 0) {
-            if (newIndex >= 0 && newIndex < mData.getMa10DataL().size())
-                mTvKMa10.setText(CommonUtil.getDecimalFormatVol(mData.getMa10DataL().get(newIndex).getVal()));
-        }
-        if (null != mData.getMa20DataL() && mData.getMa20DataL().size() > 0) {
-            if (newIndex >= 0 && newIndex < mData.getMa20DataL().size())
-                mTvKMa20.setText(CommonUtil.getDecimalFormatVol(mData.getMa20DataL().get(newIndex).getVal()));
-        }
-        if (null != mData.getMa30DataL() && mData.getMa30DataL().size() > 0) {
-            if (newIndex >= 0 && newIndex < mData.getMa30DataL().size())
-                mTvKMa30.setText(CommonUtil.getDecimalFormatVol(mData.getMa30DataL().get(newIndex).getVal()));
         }
     }
 
@@ -654,6 +673,18 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         switch (tag) {
             case KLINE_DATA_TAG:
                 break;
+            case EXCHANGE_DEAL_RECODE_TAG:
+
+                DealRecodeRes dealRecodeRes = (DealRecodeRes) response;
+                if (dealRecodeRes == null || dealRecodeRes.getDealList().size() == 0) {
+                    LogUtil.i("最近成交记录为空");
+                    return;
+                }
+                recodeDatas.clear();
+                recodeDatas.addAll(dealRecodeRes.getDealList());
+                dealRecodeRecAdapter.notifyDataSetChanged();
+                break;
         }
     }
+
 }

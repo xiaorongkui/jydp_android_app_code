@@ -1,32 +1,29 @@
 package com.qmkj.jydp.module.login.view;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.AppUpdateRes;
-import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.module.login.presenter.LoginContract;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
-import com.qmkj.jydp.util.StringUtil;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -38,17 +35,17 @@ import io.reactivex.disposables.Disposable;
  * email：dovexiaoen@163.com
  * description:启动页界面
  */
-public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
+public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements LoginContract.UpdateView {
 
     private static final int CHECK_APP_TAG = 1;
     private boolean permissionFinish = false;
     private boolean timeFinish;
     private Disposable subscribe;
     private static final int SPLASH_TOTAL_COUNTDOWN_TIME = 3;
-    private boolean isFocuseUpdate = false;
+    private boolean isUpdate = false;
     private CommonDialog alterNormalDialog;
-    private boolean isNormalUpdate;
     private CommonDialog alterFocusDialog;
+    private ProgressBar update_prg_bar_normal;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,14 +115,20 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
             case CHECK_APP_TAG:
                 AppUpdateRes appUpdateRes = (AppUpdateRes) response;
                 if (appUpdateRes == null) {
-                    isFocuseUpdate = false;
+                    isUpdate = false;
                     goMianActivity();
                     return;
                 }
                 goMianActivity();
-//                calculateUpdate(appUpdateRes);
+                calculateUpdate(appUpdateRes);
                 break;
         }
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object response) {
+        super.onError(errorMsg, code, tag, response);
+        isUpdate = false;
     }
 
     private void calculateUpdate(AppUpdateRes appUpdateRes) {
@@ -133,21 +136,13 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
         String newestVersion = appUpdateRes.getNewestVersion();//新版本
         String oldVersion = CommonUtil.getAppVersionName(mContext);
         LogUtil.i("newVersion=" + newestVersion + ";oldVersion=" + oldVersion);
-        if (!TextUtils.isEmpty(newestVersion) && (newestVersion.startsWith("V") || newestVersion
-                .startsWith("v"))) {
-            newestVersion = newestVersion.substring(1, newestVersion.length());
-        }
-        if (!TextUtils.isEmpty(oldVersion) && (oldVersion.startsWith("V") || oldVersion
-                .startsWith("v"))) {
-            oldVersion = oldVersion.substring(1, oldVersion.length());
-        }
         if (compareVersion(newestVersion, oldVersion)) {//需要升级
             switch (forceStatus) {
-                case "1":
-                    normalUpdate(appUpdateRes.getAppUrl(), appUpdateRes.getUpdateExplain());
+                case "1"://普通升级
+                    normalUpdate(appUpdateRes);
                     break;
                 case "2"://强制升级
-                    focuseUpdate(appUpdateRes.getAppUrl(), appUpdateRes.getUpdateExplain());
+                    focuseUpdate(appUpdateRes);
                     break;
             }
         }
@@ -164,55 +159,58 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
         return TextUtils.isEmpty(version1) || !version1.equalsIgnoreCase(version2);
     }
 
-    private void normalUpdate(final String url, String updateDesc) {
-        isNormalUpdate = true;
+    private void normalUpdate(AppUpdateRes appUpdateRes) {
+        isUpdate = true;
         alterNormalDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
-        alterNormalDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x290));
+        alterNormalDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         alterNormalDialog.setCanceledOnTouchOutside(false);
-        alterNormalDialog.setOneOrTwoBtn(false);
-//        alterNormalDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice));
-        alterNormalDialog.setMessage(updateDesc);
-        alterNormalDialog.setTwoCancelBtn("取消", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alterNormalDialog.dismiss();
-            }
-        });
-        alterNormalDialog.setTwoConfirmBtn("升级", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        alterNormalDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion());
+        alterNormalDialog.setMessage(appUpdateRes.getUpdateExplain());
+        Button update_immediately_bt = alterNormalDialog.getView(R.id.update_immediately_bt, Button.class);
+        Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);
+        TextView update_loading_tv = alterNormalDialog.getView(R.id.update_loading_tv, TextView.class);
+        LinearLayout update_bt_ll = alterNormalDialog.getView(R.id.update_bt_ll, LinearLayout.class);
+        LinearLayout update_app_ll = alterNormalDialog.getView(R.id.update_app_ll, LinearLayout.class);
+        update_prg_bar_normal = alterNormalDialog.getView(R.id.update_prg_bar, ProgressBar.class);
+        update_app_ll.setBackgroundResource(R.mipmap.update_bg);
 
-                alterNormalDialog.dismiss();
-            }
+        update_immediately_bt.setOnClickListener(v -> {
+            update_prg_bar_normal.setVisibility(View.VISIBLE);
+            update_bt_ll.setVisibility(View.GONE);
+            update_loading_tv.setVisibility(View.VISIBLE);
+            presenter.downLoadApk(appUpdateRes.getAppUrl());
         });
-        alterNormalDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        update_later_bt.setOnClickListener(v -> {
+            alterNormalDialog.dismiss();
+            isUpdate = false;
+            goMianActivity();
+        });
 
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                isNormalUpdate = false;
-                goMianActivity();
-            }
-        });
         alterNormalDialog.show();
     }
 
-    private void focuseUpdate(final String url, String updateDesc) {
-        isFocuseUpdate = true;
+    private void focuseUpdate(AppUpdateRes appUpdateRes) {
+        isUpdate = true;
         alterFocusDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
-        alterFocusDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x290));
-        alterFocusDialog.setOneOrTwoBtn(true);
-//        focuse_update_prg_bar = alterFocusDialog.getView(R.id.focuse_update_prg_bar, ProgressBar.class);
-//        only_confirm_btn = alterFocusDialog.getView(R.id.only_confirm_btn, TextView.class);
+        alterFocusDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         alterFocusDialog.setCanceledOnTouchOutside(false);
         alterFocusDialog.setCancelable(false);
-//        alterFocusDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice));
-        alterFocusDialog.setMessage(updateDesc);
+        alterFocusDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion());
+        alterFocusDialog.setMessage(appUpdateRes.getUpdateExplain());
+        Button update_immediately_bt = alterNormalDialog.getView(R.id.update_immediately_bt, Button.class);
+        Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);
+        TextView update_loading_tv = alterNormalDialog.getView(R.id.update_loading_tv, TextView.class);
+        LinearLayout update_bt_ll = alterNormalDialog.getView(R.id.update_bt_ll, LinearLayout.class);
+        LinearLayout update_app_ll = alterNormalDialog.getView(R.id.update_app_ll, LinearLayout.class);
+        update_prg_bar_normal = alterNormalDialog.getView(R.id.update_prg_bar, ProgressBar.class);
+        update_later_bt.setVisibility(View.GONE);
+        update_app_ll.setBackgroundResource(R.mipmap.update_bg);
 
-        alterFocusDialog.setOneConfirmBtn("升级", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        update_immediately_bt.setOnClickListener(v -> {
+            update_prg_bar_normal.setVisibility(View.VISIBLE);
+            update_bt_ll.setVisibility(View.GONE);
+            update_loading_tv.setVisibility(View.VISIBLE);
+            presenter.downLoadApk(appUpdateRes.getAppUrl());
         });
         alterFocusDialog.show();
     }
@@ -225,6 +223,8 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
             subscribe.dispose();
             subscribe = null;
         }
+        if (alterNormalDialog != null && alterNormalDialog.isShowing()) alterNormalDialog.dismiss();
+        if (alterFocusDialog != null && alterFocusDialog.isShowing()) alterFocusDialog.dismiss();
     }
 
     private void setTimeCountDown(final int splashTotalCountdownTime) {
@@ -245,7 +245,7 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
      * 根据token判断是否需要用户登录
      */
     private void goMianActivity() {
-        if (timeFinish && permissionFinish && !isFocuseUpdate) {
+        if (timeFinish && permissionFinish && !isUpdate) {
             String token = CommonUtil.getToken();
 //            if (StringUtil.isNull(token)) {
 //                CommonUtil.gotoActivity(mContext, LoginActivity.class);
@@ -254,6 +254,30 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> {
 //            }
             CommonUtil.gotoActivity(mContext, LoginActivity.class);
             AppManager.getInstance().removeCurrent();
+        }
+    }
+
+    @Override
+    public void update(int progrss) {
+        LogUtil.i("下载进度=progrss" + progrss);
+        if (update_prg_bar_normal != null) {
+            update_prg_bar_normal.setProgress(progrss);
+        }
+    }
+
+    @Override
+    public void downLoadFinish(File file) {
+        presenter.installApk(mContext, file);
+        if (update_prg_bar_normal != null) {
+            update_prg_bar_normal.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void downLoadFailed() {
+        toast("apk下载失败");
+        if (update_prg_bar_normal != null) {
+            update_prg_bar_normal.setVisibility(View.GONE);
         }
     }
 }

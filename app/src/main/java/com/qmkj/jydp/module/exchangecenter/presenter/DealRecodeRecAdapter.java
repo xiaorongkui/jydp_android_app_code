@@ -7,9 +7,10 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
+import com.qmkj.jydp.bean.response.DealRecodeRes;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
-import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import butterknife.BindView;
  * description:委托记录
  */
 
-public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRes.TransactionPendOrderListBean> {
+public class DealRecodeRecAdapter extends BaseRecycleAdapter<DealRecodeRes.DealListBean> {
 
     private final List datas;
     @BindView(R.id.entrust_status_tv)
@@ -33,19 +34,15 @@ public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRe
     TextView entrustAmountTv;
     @BindView(R.id.entrust_exchange_tv)
     TextView entrustExchangeTv;
-    @BindView(R.id.entrust_cancel_tv)
-    TextView entrustCancelTv;
 
-    public EntrustRecodeRecAdapter(Context context, List datas, int layoutId) {
+    public DealRecodeRecAdapter(Context context, List datas, int layoutId) {
         super(layoutId, datas);
         this.datas = datas;
     }
 
-
     @Override
-    protected void convert(BaseRecyclerViewHolder helper, ExchangeCenterRes.TransactionPendOrderListBean item,
+    protected void convert(BaseRecyclerViewHolder helper, DealRecodeRes.DealListBean item,
                            int position) {
-        helper.addOnClickListener(R.id.entrust_cancel_tv);
         helper.getView(R.id.common_line).setVisibility(datas.size() - 1 == position ? View.INVISIBLE : View
                 .VISIBLE);
         if (item == null) return;
@@ -61,8 +58,8 @@ public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRe
                 entrustStatusTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_6));
                 break;
         }
-        entrustPriceTv.setText(NumberUtil.format2Point(item.getPendingPrice()));
-        entrustAmountTv.setText(NumberUtil.format2Point(item.getPendingNumber()));
-        entrustExchangeTv.setText(NumberUtil.format2Point(item.getDealNumber()));
+        entrustPriceTv.setText(NumberUtil.format2Point(item.getTransactionPrice()));
+        entrustAmountTv.setText(NumberUtil.format2Point(item.getCurrencyNumber()));
+        entrustExchangeTv.setText(DateUtil.longToTimeStr(item.getAddTime(), DateUtil.dateFormat2));
     }
 }

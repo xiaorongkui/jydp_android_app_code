@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.exchangoutsidee.view;
+package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.Manifest;
 import android.app.Activity;
@@ -24,13 +24,11 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.DialogItemBean;
-import com.qmkj.jydp.bean.request.OutSideBuyPayReq;
 import com.qmkj.jydp.bean.request.OutSideSellDetailReq;
 import com.qmkj.jydp.bean.response.OutSideSellDetailRes;
 import com.qmkj.jydp.common.Constants;
-import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangePresenter;
+import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;

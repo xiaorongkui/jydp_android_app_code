@@ -66,7 +66,7 @@
             android:name=".module.exchangecenter.view.KlineActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".module.exchangoutsidee.view.OutSideBuyActivity"
+            android:name=".module.exchangoutside.view.OutSideBuyActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mine.view.PersonInfoActivity"
@@ -99,10 +99,10 @@
             android:name=".module.mine.view.ModifyLoginPwdActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".module.exchangoutsidee.view.OutSideSoldActivity"
+            android:name=".module.exchangoutside.view.OutSideSoldActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".module.exchangoutsidee.view.OutSideSoldDetailActivity"
+            android:name=".module.exchangoutside.view.OutSideSoldDetailActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mine.view.ModifyPhoneActivity"
@@ -124,13 +124,14 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
+                android:resource="@xml/provider_paths"/>
         </provider>
 
         <activity
             android:name=".module.mine.view.SystemNoticeDetailsActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".module.exchangoutsidee.view.OutSideBuyDetailActivity" />
+            android:launchMode="singleTop"/>
+        <activity android:name=".module.exchangoutside.view.OutSideBuyDetailActivity"/>
+
         <activity
             android:name=".module.mine.view.HelpCenterDetailsActivity"
             android:launchMode="singleTop" />
