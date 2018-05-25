@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine;
 
+import android.os.Build;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -59,6 +60,9 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     protected void initTitle() {
         titleHeaderTv.setText(CommonUtil.getString(R.string.chain_withdraw));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.color_bule_2));
+        }
     }
 
     @Override
