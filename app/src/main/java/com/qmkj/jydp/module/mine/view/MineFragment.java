@@ -105,8 +105,6 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 //            datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
 //                    .more_arrow));
 //        }
-        datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
-                .more_arrow));
         datas.add(new MinelistInfo(R.mipmap.mine_recode, getString(R.string.mine_recode), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.system_notice, getString(R.string.system_notice), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.hot_topic, getString(R.string.hot_topic), R.mipmap
