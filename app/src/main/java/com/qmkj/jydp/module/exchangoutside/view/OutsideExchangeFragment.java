@@ -1,4 +1,4 @@
-package com.qmkj.jydp.module.exchangoutsidee.view;
+package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.content.Intent;
 import android.os.Build;
@@ -18,8 +18,8 @@ import com.qmkj.jydp.bean.request.OutSideExchangeReq;
 import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
 import com.qmkj.jydp.common.Constants;
-import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangeAdapter;
-import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangePresenter;
+import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangeAdapter;
+import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.functions.Consumer;
 
 /**
  * @author wujiangming

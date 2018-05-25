@@ -1,7 +1,6 @@
-package com.qmkj.jydp.module.exchangoutsidee.view;
+package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,7 +17,7 @@ import com.qmkj.jydp.bean.request.OutSideSellReq;
 import com.qmkj.jydp.bean.response.OutSideSellDetailRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
-import com.qmkj.jydp.module.exchangoutsidee.presenter.OutsideExchangePresenter;
+import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.RxBus;
@@ -26,9 +25,7 @@ import com.qmkj.jydp.util.RxBus;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 
 /**
  * author：rongkui.xiao --2018/5/7

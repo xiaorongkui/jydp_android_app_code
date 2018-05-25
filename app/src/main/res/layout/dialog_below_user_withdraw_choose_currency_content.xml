@@ -1,0 +1,7 @@
+<com.qmkj.jydp.ui.widget.ListViewMaxHeight xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_below_choose_currency_lv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:listSelector="@android:color/transparent"
+    app:maxHeight="250dp" />

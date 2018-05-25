@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.bean.request.ExchangeDealRecodeReq;
 import com.qmkj.jydp.bean.request.ExchangePwdReq;
 import com.qmkj.jydp.bean.request.KlineReq;
 import com.qmkj.jydp.bean.request.SellExchangeReq;
+import com.qmkj.jydp.bean.response.CancleOrderReq;
 import com.qmkj.jydp.net.api.ExchangeService;
 
 import javax.inject.Inject;
@@ -57,5 +59,13 @@ public class ExchangeCenterPresenter extends BaseRxPresenter {
 
     public void getKlineData(KlineReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(exchangeService.getKlineData(req), tag, isShowProgress);
+    }
+
+    public void cancleOrder(CancleOrderReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.cancleOrder(req), tag, isShowProgress);
+    }
+
+    public void getExchangeDealRecode(ExchangeDealRecodeReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.getExchangeDealRecode(req), tag, isShowProgress);
     }
 }

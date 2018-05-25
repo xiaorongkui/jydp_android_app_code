@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.exchangecenter.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
@@ -22,11 +23,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.bean.response.CancleOrderReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
 import com.qmkj.jydp.common.Constants;
@@ -35,6 +38,8 @@ import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeSoldPriceRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangebuyPriceRecAdapter;
 import com.qmkj.jydp.ui.widget.MyViewPager;
+import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
+import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
@@ -66,6 +71,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private static final int EXCHANGE_TYPE_SOLD = 2;
     private static final int EXCHANGE_TYPE_RECODE = 3;
     private static final int EXCHANGE_CENTER_DATA_TAG = 1;
+    private static final int EXCHANGE_CANCLE_ORDER_TAG = 2;
     @BindView(R.id.exchange_price_recycle_buy)
     RecyclerView exchangePriceRecycleBuy;
     @BindView(R.id.exchange_price_recycle_sold)
@@ -127,6 +133,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private MyPagerAdapter pagerAdapter;
     private Disposable subscribe;
     private Disposable disposable;
+    private CommonDialog commonCancleDialog;
 
 
     public String getCurrencyId() {
@@ -204,14 +211,29 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
 
         entrustRecodeRecAdapter = new EntrustRecodeRecAdapter(mContext, entrustRecodeDatas, R.layout
                 .exchange_entrust_recode_item);
-//        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
-//        mEmptyView.setScaleX(0.8f);
-//        mEmptyView.setScaleY(0.8f);
-//        entrustRecodeRecAdapter.setEmptyView(mEmptyView);
+
         entrustRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
         entrustRecodeRv.setAdapter(entrustRecodeRecAdapter);
-        entrustRecodeRecAdapter.setOnItemClickListener((adapter, view, position) -> CommonUtil.gotoActivity(mContext,
-                EntrustRecodeActivity.class));
+        entrustRecodeRecAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.entrust_cancel_tv:
+                    showCancleDialog(position);//撤销
+                    break;
+            }
+        });
+
+    }
+
+    private void showCancleDialog(int position) {
+        commonCancleDialog = new CommonDialog(mContext);
+        commonCancleDialog.setContentText("是否撤销此单?");
+        commonCancleDialog.setOnPositiveButtonClickListener((dialog, view) -> {
+            CancleOrderReq cancleOrderReq = new CancleOrderReq();
+            cancleOrderReq.setPendingOrderNo(entrustRecodeDatas.get(position).getPendingOrderNo());
+            presenter.cancleOrder(cancleOrderReq, EXCHANGE_CANCLE_ORDER_TAG, true);
+        });
+        commonCancleDialog.setOnNegativeButtonClickListener((dialog, view) -> commonCancleDialog.dismiss());
+        commonCancleDialog.show();
     }
 
     private void initStatusBar() {
@@ -296,6 +318,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 refreshSellAccountInfo(centerRes);
 
                 refreshEntrustRecod(centerRes.getTransactionPendOrderList());
+                break;
+            case EXCHANGE_CANCLE_ORDER_TAG:
+                if (commonCancleDialog != null && commonCancleDialog.isShowing()) commonCancleDialog.dismiss();
+                toast("撤单成功");
+                getExchangeCenterData(false);
                 break;
         }
     }
@@ -503,6 +530,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
-
+        if (commonCancleDialog != null && commonCancleDialog.isShowing()) commonCancleDialog.dismiss();
     }
 }

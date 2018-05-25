@@ -7,189 +7,270 @@
     android:orientation="vertical"
     tools:context=".module.mine.ChainWithdrawActivity">
 
-    <include layout="@layout/common_header" />
-
-    <View style="@style/line1" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/color_bule_2"
+        android:minHeight="@dimen/y49"
+        android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/common_header_ll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <com.dd.ShadowLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y100"
-                android:layout_marginLeft="@dimen/x10"
-                android:layout_marginRight="@dimen/x10"
-                android:layout_marginTop="@dimen/x10"
-                app:sl_cornerRadius="@dimen/x5"
-                app:sl_shadowColor="@color/color_gray_9"
-                app:sl_shadowRadius="@dimen/x5">
+            <RelativeLayout
+                android:id="@+id/title_left_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-                <RelativeLayout
-                    android:background="@drawable/shape_view_shadow_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/common_header_back_iv"
+                    android:layout_width="@dimen/x8"
+                    android:layout_height="@dimen/y16"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x15"
+                    android:layout_marginRight="@dimen/x15"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_back_white" />
+            </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_black_2"
-                            android:textSize="@dimen/text_size_24"
-                            android:text="0.00" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/y12"
-                            android:textColor="@color/color_black_10"
-                            android:textSize="@dimen/text_size_12"
-                            android:text="当前可提现数量" />
-
-                    </LinearLayout>
-                </RelativeLayout>
-
-            </com.dd.ShadowLayout>
-
-            <com.dd.ShadowLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/title_header_tv"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x10"
-                android:layout_marginRight="@dimen/x10"
-                android:layout_marginTop="@dimen/y5"
-                app:sl_cornerRadius="@dimen/x5"
-                app:sl_shadowColor="@color/color_gray_9"
-                app:sl_shadowRadius="@dimen/x5">
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:textColor="@color/color_white_1"
+                android:textSize="@dimen/text_size_18"
+                tools:text="this is title" />
 
-                <LinearLayout
-                    android:background="@drawable/shape_view_shadow_bg"
-                    android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x15">
+
+                <TextView
+                    android:id="@+id/title_right_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/x10">
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:textColor="@color/color_black_4"
+                    android:textSize="@dimen/text_size_13" />
 
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLine="true"
-                        app:bottomLineMarginTop="@dimen/y6"
-                        app:leftEndText="@string/asterisk"
-                        app:leftText="@string/choose_chain_type"
-                        app:leftTextColor="@color/colorBlack_13"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="true"
-                        app:rightText="XT"
-                        app:rightTextColor="@color/color_black_2"
-                        app:rightTextSize="@dimen/text_size_13" />
-
-                    <com.qmkj.jydp.ui.widget.EditVItemView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x8"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/withdraw_num_hint"
-                        app:contentEditTextSize="@dimen/text_size_14"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:titleText="@string/withdraw_num"
-                        app:titleTopMargin="@dimen/x20" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y6"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/x11"
-                            android:layout_height="@dimen/y11"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/exchange_notice" />
-
-                        <TextView
-                            android:id="@+id/exchange_buy_pwd_notice_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/x5"
-                            android:text="@string/chain_withdraw_notice"
-                            android:textColor="@color/color_black_10"
-                            android:textSize="@dimen/text_size_10" />
-
-                    </LinearLayout>
-
-                    <com.qmkj.jydp.ui.widget.EditVItemView
-                        android:id="@+id/login_forget_pwd_vertification_code_eiv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x7"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/six_sms_vertification_code"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:contentRightText="@string/vertify_code_count"
-                        app:contentRightTextSize="@dimen/text_size_14"
-                        app:contentRightTextVisible="true"
-                        app:titleText="@string/verification_code"
-                        app:titleTopMargin="@dimen/x20" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y6"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="@dimen/x11"
-                            android:layout_height="@dimen/y11"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/exchange_notice" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/x5"
-                            android:text="@string/chain_withdraw_notice"
-                            android:textColor="@color/color_black_10"
-                            android:textSize="@dimen/text_size_10" />
-
-                    </LinearLayout>
-
-                    <com.qmkj.jydp.ui.widget.EditVItemView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:bottomLineTopMargin="@dimen/x8"
-                        app:bottomLineVisible="true"
-                        app:contentEditHintText="@string/exchange_password"
-                        app:contentEditTextSize="@dimen/text_size_14"
-                        app:contentEditTopMargin="@dimen/x15"
-                        app:titleText="@string/exchange_password_star"
-                        app:titleTopMargin="@dimen/x20" />
-
-                </LinearLayout>
-
-            </com.dd.ShadowLayout>
-
-            <Button
-                android:id="@+id/submit_question_btn"
-                style="@style/btn_blue"
-                android:layout_marginBottom="@dimen/y10"
-                android:layout_marginEnd="@dimen/x15"
-                android:layout_marginStart="@dimen/x15"
-                android:layout_marginTop="@dimen/y10"
-                android:text="@string/chain_withdraw_now" />
+                <ImageView
+                    android:id="@+id/title_right"
+                    android:layout_width="@dimen/x11"
+                    android:layout_height="@dimen/y11"
+                    android:layout_marginEnd="@dimen/x15"
+                    android:src="@mipmap/ic_launcher"
+                    android:visibility="invisible" />
+            </RelativeLayout>
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_user_withdraw_bg" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.dd.ShadowLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y100"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/x10"
+                    app:sl_cornerRadius="@dimen/x5"
+                    app:sl_shadowColor="@color/color_gray_9"
+                    app:sl_shadowRadius="@dimen/x5">
+
+                    <RelativeLayout
+                        android:background="@drawable/shape_view_shadow_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/can_withdraw_num_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/color_black_2"
+                                android:textSize="@dimen/text_size_24"
+                                android:text="0.00" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/y12"
+                                android:textColor="@color/color_black_10"
+                                android:textSize="@dimen/text_size_12"
+                                android:text="当前可提现数量" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </com.dd.ShadowLayout>
+
+                <com.dd.ShadowLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginTop="@dimen/y5"
+                    app:sl_cornerRadius="@dimen/x5"
+                    app:sl_shadowColor="@color/color_gray_9"
+                    app:sl_shadowRadius="@dimen/x5">
+
+                    <LinearLayout
+                        android:background="@drawable/shape_view_shadow_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/x10">
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/choose_currency_cv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:bottomLine="true"
+                            app:bottomLineMarginTop="@dimen/y6"
+                            app:leftEndText="@string/asterisk"
+                            app:leftText="@string/choose_chain_type"
+                            app:leftTextColor="@color/colorBlack_13"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="true"
+                            app:rightText="选择链种"
+                            app:rightTextColor="@color/color_black_2"
+                            app:rightTextSize="@dimen/text_size_13" />
+
+                        <com.qmkj.jydp.ui.widget.EditVItemView
+                            android:id="@+id/withdraw_num_ev"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:bottomLineTopMargin="@dimen/x8"
+                            app:bottomLineVisible="true"
+                            app:contentEditHintText="@string/withdraw_num_hint"
+                            app:contentEditTextSize="@dimen/text_size_14"
+                            app:contentEditTopMargin="@dimen/x15"
+                            app:titleText="@string/withdraw_num"
+                            app:titleTopMargin="@dimen/x20" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y6"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/x11"
+                                android:layout_height="@dimen/y11"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/exchange_notice" />
+
+                            <TextView
+                                android:id="@+id/withdraw_num_notice_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/x5"
+                                android:text="@string/chain_withdraw_notice"
+                                android:textColor="@color/color_black_10"
+                                android:textSize="@dimen/text_size_10" />
+
+                        </LinearLayout>
+
+                        <com.qmkj.jydp.ui.widget.EditVItemView
+                            android:id="@+id/verification_code_ev"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:bottomLineTopMargin="@dimen/x7"
+                            app:bottomLineVisible="true"
+                            app:contentEditHintText="@string/six_sms_vertification_code"
+                            app:contentEditTopMargin="@dimen/x15"
+                            app:contentRightText="@string/vertify_code_count"
+                            app:contentRightTextSize="@dimen/text_size_14"
+                            app:contentRightTextVisible="true"
+                            app:titleText="@string/verification_code"
+                            app:titleTopMargin="@dimen/x20" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y6"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/x11"
+                                android:layout_height="@dimen/y11"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/exchange_notice" />
+
+                            <TextView
+                                android:id="@+id/verification_code_notice_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/x5"
+                                android:text="@string/chain_withdraw_notice"
+                                android:textColor="@color/color_black_10"
+                                android:textSize="@dimen/text_size_10" />
+
+                        </LinearLayout>
+
+                        <com.qmkj.jydp.ui.widget.EditVItemView
+                            android:id="@+id/password_ev"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:bottomLineTopMargin="@dimen/x8"
+                            app:bottomLineVisible="true"
+                            app:contentEditHintText="@string/exchange_password"
+                            app:contentEditTextSize="@dimen/text_size_14"
+                            app:contentEditTopMargin="@dimen/x15"
+                            app:titleText="@string/exchange_password_star"
+                            app:titleTopMargin="@dimen/x20" />
+
+                    </LinearLayout>
+
+                </com.dd.ShadowLayout>
+
+                <Button
+                    android:id="@+id/withdraw_btn"
+                    style="@style/btn_blue"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginEnd="@dimen/x15"
+                    android:layout_marginStart="@dimen/x15"
+                    android:layout_marginTop="@dimen/y10"
+                    android:text="@string/chain_withdraw_now" />
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
 
 
 </LinearLayout>

@@ -1,8 +1,12 @@
 package com.qmkj.jydp.module.login.presenter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
@@ -16,8 +20,17 @@ import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
+import com.qmkj.jydp.module.login.modle.UpdateView;
 import com.qmkj.jydp.net.api.LoginService;
+import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.HttpHandler;
+
+import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -31,7 +44,7 @@ import okhttp3.RequestBody;
  * description:登录模块的所有网络请求
  */
 
-public class LoginPresenter extends BaseRxPresenter<BaseView> {
+public class LoginPresenter extends BaseRxPresenter<LoginContract.UpdateView> {
     @Inject
     LoginService loginService;
 
@@ -93,5 +106,76 @@ public class LoginPresenter extends BaseRxPresenter<BaseView> {
 
     public void checkAppUpdate(int tag, boolean isShowProgress) {
         sendHttpRequest(loginService.checkAppUpdate(), tag, isShowProgress);
+    }
+
+    /**
+     * 下载app
+     *
+     * @param url
+     */
+    public void downLoadApk(String url) {
+        LogUtil.i("开始下载url=" + url);
+
+        FinalHttp finalHttp = new FinalHttp();
+        String target = CommonUtil.createDir("download", CommonUtil.getFileNameFromUrl(url));
+        HttpHandler<File> httpHandler = finalHttp.download(url, target, false, new AjaxCallBack<File>() {
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+                int progrss = (int) ((float) current / (float) count) * 100;
+                LogUtil.i("下载进度=progrss" + progrss);
+                mView.update(progrss);
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                LogUtil.i("下载进度=progrss" + "下载完成");
+                super.onSuccess(file);
+                mView.downLoadFinish(file);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                LogUtil.i("下载进度=progrss" + "onFailure" + strMsg);
+                mView.downLoadFailed();
+            }
+        });
+
+    }
+
+    /**
+     * 描述：打开并安装文件.
+     *
+     * @param context the context
+     * @param file    apk文件路径
+     */
+    public void installApk(Context context, File file) {
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri fileUri = FileProvider.getUriForFile(context, "com.qmkj.jydp.fileProvider",
+                    file);//android 7.0以上
+            intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            grantUriPermission(context, fileUri, intent);
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android" + "" +
+                    ".package-archive");
+        }
+        context.startActivity(intent);
+    }
+
+    private void grantUriPermission(Context context, Uri fileUri, Intent intent) {
+        List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            context.grantUriPermission(packageName, fileUri, Intent
+                    .FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
     }
 }

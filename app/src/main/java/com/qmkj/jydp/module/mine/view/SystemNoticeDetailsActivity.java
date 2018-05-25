@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
 import android.text.Html;
 import android.widget.TextView;
 
@@ -25,20 +24,15 @@ public class SystemNoticeDetailsActivity extends BaseMvpActivity {
     TextView notice_details_meg_tv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getIntent().getExtras().containsKey(ACTIVITY_TITLE_KEY)) {
-            activityTitleStr = getIntent().getExtras().getString(ACTIVITY_TITLE_KEY);
-        }
-    }
-
-    @Override
     protected void initData() {
 
     }
 
     @Override
     protected void initTitle() {
+        if (getIntent().getExtras().containsKey(ACTIVITY_TITLE_KEY)) {
+            activityTitleStr = getIntent().getExtras().getString(ACTIVITY_TITLE_KEY);
+        }
         titleHeaderTv.setText(activityTitleStr);
     }
 

@@ -36,6 +36,7 @@
     <style name="btn_blue" parent="btn">
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@drawable/shape_btn_bule</item>
+        <item name="android:elevation">5dp</item>
     </style>
 
     <!--line样式-->
@@ -94,4 +95,24 @@
         <item name="android:windowEnterAnimation">@anim/dialog_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_out</item>
     </style>
+
+    <style name="progressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <!-- 这个属性就是配置进度的颜色和背景的颜色 -->
+        <item name="android:progressDrawable">@drawable/progressbar_upload_bg</item>
+        <item name="android:minHeight">@dimen/y2</item>
+        <item name="android:maxHeight">@dimen/y2</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_exit</item>
+    </style>
+
+    <!--最高高度ListView-->
+    <declare-styleable name="ListViewMaxHeight">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+
 </resources>

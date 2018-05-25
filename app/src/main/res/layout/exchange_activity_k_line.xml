@@ -178,18 +178,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/y170"
+        android:layout_height="@dimen/y232"
+        android:layout_marginTop="@dimen/y20"
         android:orientation="vertical"
         android:padding="@dimen/y5">
-
-        <include layout="@layout/view_kline_chart_top_ma"/>
 
         <com.qmkj.jydp.ui.widget.kline.MyCombinedChart
             android:id="@+id/kline_chart_k"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/y21"
             android:layout_weight="4"/>
 
         <com.qmkj.jydp.ui.widget.kline.MyCombinedChart
@@ -199,4 +196,80 @@
             android:layout_weight="2"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/entrust_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/y15"
+        android:layout_marginTop="@dimen/y15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/x3"
+            android:layout_height="@dimen/y13"
+            android:background="@color/color_bule_1"/>
+
+        <TextView
+            android:id="@+id/entrust_recod_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x7"
+            android:text="@string/exchange_deal_recently_recod"
+            android:textColor="@color/color_black_2"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/exchange_recode_header_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y32"
+        android:layout_marginEnd="@dimen/y15"
+        android:layout_marginStart="@dimen/y15"
+        android:layout_marginTop="@dimen/y10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/type"
+            android:textColor="@color/color_black_5"
+            android:textSize="@dimen/text_size_12"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/unit_price_xt"
+            android:textColor="@color/color_black_5"
+            android:textSize="@dimen/text_size_12"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/amount"
+            android:textColor="@color/color_black_5"
+            android:textSize="@dimen/text_size_12"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x15"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/exchange_deal_time"
+            android:textColor="@color/color_black_5"
+            android:textSize="@dimen/text_size_12"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/exchange_deal_recode_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y10"/>
 </LinearLayout>

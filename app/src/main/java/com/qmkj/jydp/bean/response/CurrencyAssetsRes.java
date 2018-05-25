@@ -1,5 +1,7 @@
 package com.qmkj.jydp.bean.response;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -36,6 +38,9 @@ public class CurrencyAssetsRes extends BaseRes implements Serializable{
         private double currencyNumber;
         private double currencyNumberLock;
         private double totalCurrencyAssets;
+        //业务字段
+        @Expose
+        private boolean isSelected;
 
         public int getCurrencyId() {
             return currencyId;
@@ -75,6 +80,26 @@ public class CurrencyAssetsRes extends BaseRes implements Serializable{
 
         public void setTotalCurrencyAssets(double totalCurrencyAssets) {
             this.totalCurrencyAssets = totalCurrencyAssets;
+        }
+
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(boolean selected) {
+            isSelected = selected;
+        }
+
+        @Override
+        public String toString() {
+            return "UserCurrencyAssetsBean{" +
+                    "currencyId=" + currencyId +
+                    ", currencyName='" + currencyName + '\'' +
+                    ", currencyNumber=" + currencyNumber +
+                    ", currencyNumberLock=" + currencyNumberLock +
+                    ", totalCurrencyAssets=" + totalCurrencyAssets +
+                    ", isSelected=" + isSelected +
+                    '}';
         }
     }
 }
