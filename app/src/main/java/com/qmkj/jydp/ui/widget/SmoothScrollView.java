@@ -1,13 +1,10 @@
 package com.qmkj.jydp.ui.widget;
 
 import android.content.Context;
-import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.ScrollView;
-
-import com.qmkj.jydp.util.LogUtil;
 
 /**
  * 解决scrollview嵌套recycleview滑动不流畅
@@ -44,7 +41,8 @@ public class SmoothScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        setTop(t == 0 || oldt == 0);
+        //setTop(t == 0 || oldt == 0);
+        setTop(t == 0);
         if (mListener != null) {
             mListener.scrollOritention(l, t, oldl, oldt);
         }

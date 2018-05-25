@@ -36,6 +36,7 @@
     <style name="btn_blue" parent="btn">
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@drawable/shape_btn_bule</item>
+        <item name="android:elevation">5dp</item>
     </style>
 
     <!--line样式-->
