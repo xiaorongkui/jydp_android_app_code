@@ -81,7 +81,7 @@ public class MineRecodeActivity extends BaseMvpActivity {
                 break;
             case R.id.mine_recode_outside_exchange_recode_civ://场外交易记录
                 Intent intent = new Intent(this,OutSideExchangeRecodeActivity.class);
-                intent.putExtra("type",RECODE_TYPE_NORMAL);
+                intent.putExtra(RECODE_TYPE,RECODE_TYPE_NORMAL);
                 CommonUtil.gotoActivity(mContext, intent);
                 break;
             case R.id.mine_recode_outside_exchange_recode_agcy_civ://场外交易记录(经销商)

@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -72,6 +73,19 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
 
         TextView see_detail = helper.getView(R.id.outside_exchange_recode_see_detail_tv);//查看详情
         TextView comfirm_receivables = helper.getView(R.id.outside_exchange_recode_comfirm_receivables_tv);//确认收款
+
+        if(item.getDealStatus() == 2){ //待确认收货
+            if(item.getDealType()==1){  //买入
+                comfirm_receivables.setVisibility(View.VISIBLE);
+                comfirm_receivables.setText(CommonUtil.getString(R.string.comfirm_receivables_corn));
+            }else if(item.getDealType()==2){
+                comfirm_receivables.setVisibility(View.VISIBLE);
+                comfirm_receivables.setText(CommonUtil.getString(R.string.comfirm_receivables));
+            }
+
+        }else {
+            comfirm_receivables.setVisibility(View.GONE);
+        }
 
         order_num.setText(item.getOtcOrderNo()+"");
         name.setText(item.getCurrencyName());

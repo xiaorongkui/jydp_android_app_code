@@ -39,7 +39,7 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     protected void initData() {
         HelpCenterReq helpCenterReq = new HelpCenterReq();
         helpCenterReq.setHelpId(id);
-        presenter.getHelpCenterInfo(helpCenterReq, 1, true);
+        presenter.getHelpCenterInfo(helpCenterReq, 1, false);
     }
 
     @Override

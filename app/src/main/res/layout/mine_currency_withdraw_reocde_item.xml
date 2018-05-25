@@ -143,6 +143,7 @@
                     android:layout_height="@dimen/y23"
                     android:gravity="center"
                     android:text="@string/retract"
+                    android:visibility="gone"
                     android:textColor="@color/color_bule_3"
                     android:textSize="@dimen/text_size_13"/>
 

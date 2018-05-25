@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -45,17 +46,22 @@ public class CurrencyWithDrawRecodeRecyAdapter extends XBaseAdapter<PresentRecor
         TextView price = (TextView) helper.getView(R.id.entrustment_price_tv);//流水单号
         TextView remark = (TextView) helper.getView(R.id.currency_withdraw_remark_tv);//备注内容
         TextView retract = (TextView) helper.getView(R.id.currency_withdraw_retract_tv);//撤回
+        helper.addOnClickListener(R.id.currency_withdraw_retract_tv);
         name.setText(item.getCurrencyName());
 
         String text =null;
         switch (item.getHandleStatus()){
             case 1:text = "待审核";
+                retract.setVisibility(View.VISIBLE);
                 break;
             case 2:text = "审核通过";
+                retract.setVisibility(View.GONE);
                 break;
             case 3:text = "审核拒绝";
+                retract.setVisibility(View.GONE);
                 break;
             case 4:text = "已撤回";
+                retract.setVisibility(View.GONE);
                 break;
         }
         state.setText(text);

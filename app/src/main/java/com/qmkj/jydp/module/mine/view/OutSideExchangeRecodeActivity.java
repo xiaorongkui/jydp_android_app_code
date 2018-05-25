@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,8 @@ import butterknife.BindView;
  */
 
 public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
+    private static final int GET_DATA = 1;
+    private static final int NEXT_ACTIVITY_CODE= 100;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.dealer_management_refresh)
@@ -59,8 +62,10 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
         switch (type){
             case MineRecodeActivity.RECODE_TYPE_NORMAL:
                 titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode));
+                break;
             case MineRecodeActivity.RECODE_TYPE_AGENCY:
                 titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode_agcy));
+                break;
         }
 
     }
@@ -93,10 +98,10 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
         req.setPageNumber(mPage);
         switch (type){
             case MineRecodeActivity.RECODE_TYPE_NORMAL:
-                presenter.getOtcDealRecordInfo(req,1,true);
+                presenter.getOtcDealRecordInfo(req,GET_DATA,false);
                 break;
             case MineRecodeActivity.RECODE_TYPE_AGENCY:
-                presenter.getDealOtcRecordInfo(req,1,true);
+                presenter.getDealOtcRecordInfo(req,GET_DATA,false);
                 break;
 
         }
@@ -116,12 +121,17 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
 
 
         outSideExchangeRecodeRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            Intent intent = new Intent(mContext, OutSideExchangeOrderDetailActivity.class);
+            intent.putExtra("NUMBER",outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
             switch (view.getId()) {
                 case R.id.outside_exchange_recode_see_detail_tv:
+                    intent.putExtra("TYPE",0);
+                    break;
                 case R.id.outside_exchange_recode_comfirm_receivables_tv:
-                    CommonUtil.gotoActivity(mContext, OutSideExchangeOrderDetailActivity.class);
+                    intent.putExtra("TYPE",1);
                     break;
             }
+            CommonUtil.startActivityForResult(mContext,intent,NEXT_ACTIVITY_CODE);
         });
 
 
@@ -190,6 +200,15 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
         super.onError(errorMsg, code, tag, response);
         if (refreshLayout != null && refreshLayout.isRefreshing()) {
             refreshLayout.refreshComplete();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==NEXT_ACTIVITY_CODE&&requestCode==200){
+            refreshLayout.callRefresh();
         }
     }
 }

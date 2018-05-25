@@ -1,8 +1,12 @@
 package com.qmkj.jydp.net.api;
 
 
+import com.qmkj.jydp.bean.request.CoinRecordCancelReq;
+import com.qmkj.jydp.bean.request.DeleteDealerReq;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
+import com.qmkj.jydp.bean.request.OrderRecodeCancelReq;
 import com.qmkj.jydp.bean.request.OtcReleaseReq;
+import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.request.SendAdsReq;
 import com.qmkj.jydp.bean.request.SendContactServiceReq;
@@ -14,6 +18,7 @@ import com.qmkj.jydp.bean.response.DealerManagementRes;
 import com.qmkj.jydp.bean.response.HelpCenterRes;
 import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
+import com.qmkj.jydp.bean.response.OtcDealRecordDetailsRes;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.bean.response.SystemHotRes;
@@ -49,13 +54,25 @@ public interface MineService {
     @POST(AppNetConfig.urlPath + "wap/dealerManagment/showMore")
     Observable<BaseRes<DealerManagementRes>> getDealerManagmentInfo(@Body PageNumberReq req);
 
+    //删除经销商管理信息
+    @POST(AppNetConfig.urlPath + "wap/dealerManagment/deleteOtcTransactionPendOrder")
+    Observable<BaseRes<Object>> deleteDealerManagementInfo(@Body DeleteDealerReq req);
+
     //获取挂单记录信息
     @POST(AppNetConfig.urlPath + "wap/wapTransactionPendOrderController/getTransactionPendOrderList")
     Observable<BaseRes<OrderRecodeRes>> getTradeCenterInfo(@Body PageNumberReq req);
 
+    //撤销挂单
+    @POST(AppNetConfig.urlPath + "wap/wapTransactionPendOrderController/revoke")
+    Observable<BaseRes<Object>> cancelTradeCenter(@Body OrderRecodeCancelReq req);
+
     //获取币种提出记录信息
     @POST(AppNetConfig.urlPath + "wap/presentRecord/showMorePresent")
     Observable<BaseRes<PresentRecordRes>> getPresentRecordInfo(@Body PageNumberReq req);
+
+    //撤回币种提现
+    @POST(AppNetConfig.urlPath + "wap/presentRecord/withdrawCoinOutRecord")
+    Observable<BaseRes<Object>> cancelPresentRecord(@Body CoinRecordCancelReq req);
 
     //获取场外交易成交记录(经销商)
     @POST(AppNetConfig.urlPath + "wap/dealerOtcRecord/showMore")
@@ -64,6 +81,22 @@ public interface MineService {
     //获取场外交易成交记录
     @POST(AppNetConfig.urlPath + "wap/userOtcDealRecord/showMore")
     Observable<BaseRes<OtcDealRecordRes>> getOtcDealRecordInfo(@Body PageNumberReq req);
+
+    //获取场外交易成交记录详情
+    @POST(AppNetConfig.urlPath + "wap/dealerOtcRecord/sellerOtcDetail")
+    Observable<BaseRes<OtcDealRecordDetailsRes>> getOutSideOrderDetaid(@Body OutSideDetailReq req);
+
+    //确认收币
+    @POST(AppNetConfig.urlPath + "wap/dealerOtcRecord/confirmTakeCoin")
+    Observable<BaseRes<Object>> getOutSideOrderTakeCoin(@Body OutSideDetailReq req);
+
+    //普通用户确认收货
+    @POST(AppNetConfig.urlPath + "wap/userOtcDealRecord/userConfirm")
+    Observable<BaseRes<Object>> getOutSideOrderTakeUser(@Body OutSideDetailReq req);
+
+    //确认收钱
+    @POST(AppNetConfig.urlPath + "wap/dealerOtcRecord/confirmTakeMoney")
+    Observable<BaseRes<Object>> getOutSideOrderTakeMoney(@Body OutSideDetailReq req);
 
     //获取系统公告
     @POST(AppNetConfig.urlPath + "wap/wapSystemNotice/showMoreNotice")

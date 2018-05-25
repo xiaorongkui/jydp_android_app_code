@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.DeleteDealerReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
 import com.qmkj.jydp.module.mine.presenter.DealerManagementRecyAdapter;
@@ -28,6 +30,8 @@ import butterknife.BindView;
  */
 public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     private static final int NEXT_ACTIVITY = 111;
+    private static final int GET_INFO = 1;
+    private static final int DELETE_INFO = 2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -42,6 +46,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     boolean mIsCanRefresh = true;
     boolean mIsLoadMore;
     int mPage;
+    private int delete_position =-1;
 
 
     @Override
@@ -107,18 +112,26 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             getDataFromNet();
         }, recyclerView);
         publishAdversiteBtn.setOnClickListener(v -> CommonUtil.startActivityForResult(mContext, PublishAdvertisementActivity.class,NEXT_ACTIVITY));
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                showDeleteDialog(position);
+            }
+        });
+
     }
 
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getDealerManagementInfo(req, 1, false);
+        presenter.getDealerManagementInfo(req, GET_INFO, false);
     }
 
     /**
      * 显示删除dialog
      */
-    private void showDeleteDialog() {
+    private void showDeleteDialog(final int position) {
         dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .common_dialog_1);
         dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
@@ -127,9 +140,16 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
         dialogUtils.setMessage(getString(R.string.deletions));
         dialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
+            dialogUtils.dismiss();
             //todo
         });
-        dialogUtils.setTwoConfirmBtn("确认", v -> dialogUtils.dismiss());
+        dialogUtils.setTwoConfirmBtn("确认",v -> {
+                    DeleteDealerReq req = new DeleteDealerReq();
+                    req.setOtcPendingOrderNo(adapter.getData().get(position).getOtcPendingOrderNo()+"");
+                    presenter.deleteDealerManagementInfo(req,DELETE_INFO,true);
+                    delete_position = position;
+                }
+        );
         dialogUtils.show();
     }
 
@@ -137,21 +157,30 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        DealerManagementRes res = (DealerManagementRes) response;
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.refreshComplete();
+        if(tag == GET_INFO){
+            DealerManagementRes res = (DealerManagementRes) response;
+            if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                refreshLayout.refreshComplete();
+            }
+            if (mIsLoadMore) {
+                adapter.addData(res.getOtcTransactionPendOrderList());
+            } else {
+                adapter.update(res.getOtcTransactionPendOrderList());
+            }
+            if (mPage < res.getTotalPageNumber() - 1) {
+                adapter.loadMoreComplete();
+                mPage++;
+            } else {
+                adapter.loadMoreEnd();
+            }
+        }else if(tag == DELETE_INFO){
+            if(delete_position>=0){
+                adapter.remove(delete_position);
+                adapter.notifyDataSetChanged();
+                dialogUtils.dismiss();
+            }
         }
-        if (mIsLoadMore) {
-            adapter.addData(res.getOtcTransactionPendOrderList());
-        } else {
-            adapter.update(res.getOtcTransactionPendOrderList());
-        }
-        if (mPage < res.getTotalPageNumber() - 1) {
-            adapter.loadMoreComplete();
-            mPage++;
-        } else {
-            adapter.loadMoreEnd();
-        }
+
     }
 
     @Override

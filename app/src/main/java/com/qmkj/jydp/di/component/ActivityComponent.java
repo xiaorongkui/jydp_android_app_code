@@ -28,6 +28,7 @@ import com.qmkj.jydp.module.mine.view.ModifyLoginPwdActivity;
 import com.qmkj.jydp.module.mine.view.ModifyPaymentActivity;
 import com.qmkj.jydp.module.mine.view.ModifyPhoneActivity;
 import com.qmkj.jydp.module.mine.view.OrderRecodeActivity;
+import com.qmkj.jydp.module.mine.view.OutSideExchangeOrderDetailActivity;
 import com.qmkj.jydp.module.mine.view.OutSideExchangeRecodeActivity;
 import com.qmkj.jydp.module.mine.view.PersonInfoActivity;
 import com.qmkj.jydp.module.mine.view.PublishAdvertisementActivity;
@@ -102,4 +103,7 @@ public interface ActivityComponent {
     void inject(OutSideSoldDetailActivity outSideSoldDetailActivity);
 
     void inject(SplashActivity splashActivity);
+
+    void inject(OutSideExchangeOrderDetailActivity outSideExchangeOrderDetailActivity);
+
 }

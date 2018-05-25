@@ -30,7 +30,6 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
     public OrderRecodeRecyAdapter(Context context) {
         super(context);
     }
-    public MyListener myListener;
 
     @Override
     protected int getLayoutResId(int viewType) {
@@ -50,24 +49,30 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
         TextView available_amount =(TextView)helper.getView(R.id.available_amount_tv); //剩余数量
         TextView entrustment =(TextView)helper.getView(R.id.order_revocation_entrustment_tv); //撤销委托
         TextView detail =(TextView)helper.getView(R.id.order_see_detail_tv); //查看详情
-
+        helper.addOnClickListener(R.id.order_revocation_entrustment_tv);
+        helper.addOnClickListener(R.id.order_see_detail_tv);
         business_phone.setLeftText("委托时间"+DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
         String text= null;
         switch (item.getPendingStatus()){
             case 1:
                 text = "未成交";
+                entrustment.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 text = "部分成交";
+                entrustment.setVisibility(View.GONE);
                 break;
             case 3:
                 text = "全部成交";
+                entrustment.setVisibility(View.GONE);
                 break;
             case 4:
                 text = "部分撤销";
+                entrustment.setVisibility(View.GONE);
                 break;
             case 5:
                 text = "全部撤销";
+                entrustment.setVisibility(View.GONE);
                 break;
         }
         business_phone.setRightText(text);
@@ -76,21 +81,5 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
         deal_amount.setText(item.getDealNumber()+"");
         total_price.setText(item.getTotalPrice()+"");
         available_amount.setText(item.getRemainNum()+"");
-
-        entrustment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                myListener.entrustment_click();
-            }
-        });
-
-    }
-
-    public void setItemSomeListener(MyListener listener){
-        this.myListener = listener;
-    }
-    public interface MyListener{
-       void entrustment_click(int position);
-       void detail_click(int position);
     }
 }

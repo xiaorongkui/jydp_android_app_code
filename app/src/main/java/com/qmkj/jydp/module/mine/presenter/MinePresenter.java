@@ -5,8 +5,12 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
+import com.qmkj.jydp.bean.request.CoinRecordCancelReq;
+import com.qmkj.jydp.bean.request.DeleteDealerReq;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
+import com.qmkj.jydp.bean.request.OrderRecodeCancelReq;
 import com.qmkj.jydp.bean.request.OtcReleaseReq;
+import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.request.SendAdsReq;
 import com.qmkj.jydp.bean.request.SendContactServiceReq;
@@ -51,20 +55,47 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.getDealerManagmentInfo(req), tag, isShowProgress);
     }
 
+    public void deleteDealerManagementInfo(DeleteDealerReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(mineService.deleteDealerManagementInfo(req), tag, isShowProgress);
+    }
+
     public void getTradeCenterInfo(PageNumberReq id, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getTradeCenterInfo(id), tag, isShowProgress);
+    }
+    public void cancelTradeCenter(OrderRecodeCancelReq id, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.cancelTradeCenter(id), tag, isShowProgress);
     }
 
     public void getPresentRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getPresentRecordInfo(req), tag, isShowProgress);
     }
 
+    public void cancelPresentRecord(CoinRecordCancelReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.cancelPresentRecord(req), tag, isShowProgress);
+    }
+
     public void getDealOtcRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getDealOtcRecordInfo(req), tag);
+        sendHttpRequest(mineService.getDealOtcRecordInfo(req), tag,isShowProgress);
     }
 
     public void getOtcDealRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getOtcDealRecordInfo(req), tag);
+        sendHttpRequest(mineService.getOtcDealRecordInfo(req), tag,isShowProgress);
+    }
+
+    public void getOutSideOrderDetaid(OutSideDetailReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getOutSideOrderDetaid(req), tag,isShowProgress);
+    }
+
+    public void getOutSideOrderTakeCoin(OutSideDetailReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getOutSideOrderTakeCoin(req), tag,isShowProgress);
+    }
+
+    public void getOutSideOrderTakeUser(OutSideDetailReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getOutSideOrderTakeCoin(req), tag,isShowProgress);
+    }
+
+    public void getOutSideOrderTakeMoney(OutSideDetailReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getOutSideOrderTakeCoin(req), tag,isShowProgress);
     }
 
     public void getSystemNoticeInfo(PageNumberReq req, int tag, boolean isShowProgress){
@@ -84,7 +115,7 @@ public class MinePresenter extends BaseRxPresenter {
     }
 
     public void getHelpCenterInfo(HelpCenterReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.getHelpCenterInfo(req), tag);
+        sendHttpRequest(mineService.getHelpCenterInfo(req), tag,isShowProgress);
     }
 
     public void sendCustomerServiceInfo(SendContactServiceReq req, int tag, boolean isShowProgress){
@@ -92,7 +123,7 @@ public class MinePresenter extends BaseRxPresenter {
     }
 
     public void sendInitiateAdsInfo(SendAdsReq req, int tag, boolean isShowProgress){
-        sendHttpRequest(mineService.sendInitiateAdsInfo(req), tag);
+        sendHttpRequest(mineService.sendInitiateAdsInfo(req), tag,isShowProgress);
     }
 
     public void sendOtcReleaseInfo(OtcReleaseReq req,byte[] ali,byte[] weixin, int tag, boolean isShowProgress){

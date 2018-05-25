@@ -7,14 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.DeleteDealerReq;
+import com.qmkj.jydp.bean.request.OrderRecodeCancelReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OrderRecodeRecyAdapter;
+import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import butterknife.BindView;
 
@@ -25,6 +30,8 @@ import butterknife.BindView;
  */
 
 public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
+    private static final int GET_MSG = 1;
+    private static final int SEND_REQUEST = 2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -36,6 +43,7 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
     boolean mIsCanRefresh = true;
     boolean mIsLoadMore;
     int mPage;
+    private CommonDialog dialogUtils;
 
     @Override
     protected void injectPresenter() {
@@ -90,6 +98,20 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter2, View view, int position) {
+                switch (view.getId()){
+                    case R.id.order_revocation_entrustment_tv:
+                        showCancelDialog(position);
+                        break;
+                    case R.id.order_see_detail_tv:
+                        break;
+                }
+            }
+        });
+
         adapter.setOnLoadMoreListener(() -> {
             mIsLoadMore = true;
             getDataFromNet();
@@ -102,32 +124,66 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     /**
+     * 显示删除dialog
+     */
+    private void showCancelDialog(final int position) {
+        dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
+                .common_dialog_1);
+        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        dialogUtils.setOneOrTwoBtn(false);
+        dialogUtils.setTitle(CommonUtil.getString(R.string.revocation_entrustment));
+        dialogUtils.setMessage(getString(R.string.deletions));
+        dialogUtils.setTwoCancelBtn("取消", v -> {
+            LogUtil.i("取消");
+            dialogUtils.dismiss();
+            //todo
+        });
+        dialogUtils.setTwoConfirmBtn("确认",v -> {
+                    OrderRecodeCancelReq req = new OrderRecodeCancelReq();
+                    req.setPendingOrderNo(adapter.getItem(position).getPendingOrderNo());
+                    presenter.cancelTradeCenter(req,SEND_REQUEST,true);
+                }
+        );
+        dialogUtils.show();
+    }
+
+
+    /**
      * 从网络获取数据
      */
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getTradeCenterInfo(req, 1, false);
+        presenter.getTradeCenterInfo(req, GET_MSG, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        OrderRecodeRes recodeRes = (OrderRecodeRes) response;
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.refreshComplete();
+        switch (tag){
+            case GET_MSG:
+                OrderRecodeRes recodeRes = (OrderRecodeRes) response;
+                if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                    refreshLayout.refreshComplete();
+                }
+                if (mIsLoadMore) {
+                    adapter.addData(recodeRes.getTransactionPendOrderRecordList());
+                } else {
+                    adapter.update(recodeRes.getTransactionPendOrderRecordList());
+                }
+                if (mPage < recodeRes.getTotalPageNumber() - 1) {
+                    adapter.loadMoreComplete();
+                    mPage++;
+                } else {
+                    adapter.loadMoreEnd();
+                }
+                break;
+            case SEND_REQUEST:
+                refreshLayout.callRefresh();
+                dialogUtils.dismiss();
+                break;
         }
-        if (mIsLoadMore) {
-            adapter.addData(recodeRes.getTransactionPendOrderRecordList());
-        } else {
-            adapter.update(recodeRes.getTransactionPendOrderRecordList());
-        }
-        if (mPage < recodeRes.getTotalPageNumber() - 1) {
-            adapter.loadMoreComplete();
-            mPage++;
-        } else {
-            adapter.loadMoreEnd();
-        }
+
     }
 
     @Override

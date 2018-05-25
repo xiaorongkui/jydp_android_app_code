@@ -7,14 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.CoinRecordCancelReq;
+import com.qmkj.jydp.bean.request.DeleteDealerReq;
+import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.module.mine.presenter.CurrencyWithDrawRecodeRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
+import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 
 import butterknife.BindView;
 
@@ -25,6 +31,8 @@ import butterknife.BindView;
  * description:币种提现记录
  */
 public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresenter> {
+    private static final int CANCEL_REQUEST = 2;
+    private static final int GET_DATA = 1;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -36,6 +44,7 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
     boolean mIsCanRefresh = true;
     boolean mIsLoadMore;
     int mPage;
+    private CommonDialog dialogUtils;
 
     @Override
     protected void injectPresenter() {
@@ -89,10 +98,45 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter2, View view, int position) {
+                if(view.getId()==R.id.currency_withdraw_retract_tv){
+
+                    showCancelDialog(position);
+                }
+            }
+        });
         adapter.setOnLoadMoreListener(() -> {
             mIsLoadMore = true;
             getDataFromNet();
         }, recyclerView);
+    }
+
+
+    /**
+     * 显示删除dialog
+     */
+    private void showCancelDialog(final int position) {
+        dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
+                .common_dialog_1);
+        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        dialogUtils.setOneOrTwoBtn(false);
+        dialogUtils.setTitle(CommonUtil.getString(R.string.retract));
+        dialogUtils.setMessage(getString(R.string.retract_question));
+        dialogUtils.setTwoCancelBtn("取消", v -> {
+            LogUtil.i("取消");
+            dialogUtils.dismiss();
+            //todo
+        });
+        dialogUtils.setTwoConfirmBtn("确认",v -> {
+            CoinRecordCancelReq req = new CoinRecordCancelReq();
+            req.setCoinRecordNo(adapter.getItem(position).getCoinRecordNo());
+            presenter.cancelPresentRecord(req,CANCEL_REQUEST,true);
+                }
+        );
+        dialogUtils.show();
     }
 
     @Override
@@ -103,27 +147,37 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getPresentRecordInfo(req, 1, false);
+        presenter.getPresentRecordInfo(req, GET_DATA, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        PresentRecordRes recordRes = (PresentRecordRes)response;
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.refreshComplete();
+        switch (tag){
+            case GET_DATA:
+                PresentRecordRes recordRes = (PresentRecordRes)response;
+                if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                    refreshLayout.refreshComplete();
+                }
+                if (mIsLoadMore) {
+                    adapter.addData(recordRes.getCoinOutRecordList());
+                } else {
+                    adapter.update(recordRes.getCoinOutRecordList());
+                }
+                if (mPage < recordRes.getTotalPageNumber() - 1) {
+                    adapter.loadMoreComplete();
+                    mPage++;
+                } else {
+                    adapter.loadMoreEnd();
+                }
+                break;
+
+            case CANCEL_REQUEST:
+                dialogUtils.dismiss();
+                refreshLayout.callRefresh();
+                break;
         }
-        if (mIsLoadMore) {
-            adapter.addData(recordRes.getCoinOutRecordList());
-        } else {
-            adapter.update(recordRes.getCoinOutRecordList());
-        }
-        if (mPage < recordRes.getTotalPageNumber() - 1) {
-            adapter.loadMoreComplete();
-            mPage++;
-        } else {
-            adapter.loadMoreEnd();
-        }
+
     }
 
     @Override

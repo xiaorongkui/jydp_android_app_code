@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/color_gray_7"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray_7"
+    android:orientation="vertical">
 
 
     <include layout="@layout/common_header"/>
@@ -42,7 +42,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/x10"
                     android:layout_toEndOf="@id/order_detail_status_iv"
-                    android:text="@string/to_finish"
                     android:textColor="@color/color_white_3"
                     android:textSize="@dimen/text_size_14"/>
             </RelativeLayout>
@@ -84,7 +83,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="123456789123456"
                             android:textColor="@color/color_black_10"
                             android:textSize="@dimen/text_size_14"/>
                     </LinearLayout>
@@ -94,6 +92,7 @@
                         android:layout_marginTop="@dimen/y10"/>
 
                     <TextView
+                        android:id="@+id/exchange_recode_detail_name_civ"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/x10"
@@ -115,7 +114,6 @@
                         app:leftTextColor="@color/color_black_1"
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
-                        app:rightText="123.0000"
                         app:rightTextColor="@color/color_black_7"
                         app:rightTextSize="@dimen/text_size_15"/>
 
@@ -131,7 +129,6 @@
                         app:leftTextColor="@color/color_black_1"
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
-                        app:rightText="¥123.0000"
                         app:rightTextColor="@color/color_black_7"
                         app:rightTextSize="@dimen/text_size_15"/>
 
@@ -147,7 +144,6 @@
                         app:leftTextColor="@color/color_black_1"
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
-                        app:rightText="@string/sell"
                         app:rightTextColor="@color/color_green_4"
                         app:rightTextSize="@dimen/text_size_15"/>
 
@@ -164,7 +160,6 @@
                         app:leftTextColor="@color/color_black_1"
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
-                        app:rightText="@string/china_cn"
                         app:rightTextColor="@color/color_black_7"
                         app:rightTextSize="@dimen/text_size_15"/>
 
@@ -379,7 +374,6 @@
                             app:leftTextColor="@color/color_black_1"
                             app:leftTextSize="@dimen/text_size_13"
                             app:rightIconVisible="false"
-                            app:rightText="ASDFGHJKLASDFGHJ"
                             app:rightTextColor="@color/color_black_7"
                             app:rightTextSize="@dimen/text_size_14"/>
 
@@ -395,7 +389,24 @@
                             app:leftTextColor="@color/color_black_1"
                             app:leftTextSize="@dimen/text_size_13"
                             app:rightIconVisible="false"
-                            app:rightText="12345678901"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+
+
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/exchange_recode_detail_dealer_weixin_account_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/x10"
+                            android:layout_marginStart="@dimen/x10"
+                            android:layout_marginTop="@dimen/y9"
+                            app:bottomLine="false"
+                            app:leftText="@string/weixin_account"
+                            app:leftTextColor="@color/color_black_1"
+                            app:leftTextSize="@dimen/text_size_13"
+                            android:visibility="gone"
+                            app:rightIconVisible="false"
                             app:rightTextColor="@color/color_black_7"
                             app:rightTextSize="@dimen/text_size_15"/>
 
@@ -407,22 +418,60 @@
                             android:layout_marginStart="@dimen/x10"
                             android:layout_marginTop="@dimen/y9"
                             app:bottomLine="false"
+                            android:visibility="gone"
                             app:leftText="@string/alipay_account"
                             app:leftTextColor="@color/color_black_1"
                             app:leftTextSize="@dimen/text_size_13"
                             app:rightIconVisible="false"
-                            app:rightText="ASSDAD"
                             app:rightTextColor="@color/color_black_7"
                             app:rightTextSize="@dimen/text_size_15"/>
 
+                        <LinearLayout
+                            android:id="@+id/exchange_recode_detail_dealer_bank_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:orientation="vertical">
+                            <com.qmkj.jydp.ui.widget.ClickItemView
+                                android:id="@+id/exchange_recode_detail_dealer_bank_civ"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/x10"
+                                android:layout_marginStart="@dimen/x10"
+                                android:layout_marginTop="@dimen/y9"
+                                app:bottomLine="false"
+                                app:leftText="@string/payee_bank"
+                                app:leftTextColor="@color/color_black_1"
+                                app:leftTextSize="@dimen/text_size_13"
+                                app:rightIconVisible="false"
+                                app:rightTextColor="@color/color_black_7"
+                                app:rightTextSize="@dimen/text_size_15"/>
+                            <com.qmkj.jydp.ui.widget.ClickItemView
+                                android:id="@+id/exchange_recode_detail_dealer_bank_branch_civ"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/x10"
+                                android:layout_marginStart="@dimen/x10"
+                                android:layout_marginTop="@dimen/y9"
+                                app:bottomLine="false"
+                                app:leftText="@string/payee_bank_branch"
+                                app:leftTextColor="@color/color_black_1"
+                                app:leftTextSize="@dimen/text_size_13"
+                                app:rightIconVisible="false"
+                                app:rightTextColor="@color/color_black_7"
+                                app:rightTextSize="@dimen/text_size_15"/>
+
+                        </LinearLayout>
+
                         <ImageView
+                            android:id="@+id/exchange_recode_detail_dealer_alipay_img"
                             android:layout_width="@dimen/x95"
                             android:layout_height="@dimen/y95"
+                            android:visibility="gone"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="@dimen/y10"
                             android:layout_marginTop="@dimen/y10"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/qr_code"/>
+                            android:scaleType="fitXY"/>
                     </LinearLayout>
                 </com.dd.ShadowLayout>
 
@@ -476,7 +525,7 @@
                         app:rightIconVisible="false"
                         app:rightText="2016-06-06 13:13:13"
                         app:rightTextColor="@color/color_black_1"
-                        app:rightTextSize="@dimen/text_size_15"/>
+                        app:rightTextSize="@dimen/text_size_14"/>
                 </LinearLayout>
             </com.dd.ShadowLayout>
         </LinearLayout>
