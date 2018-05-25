@@ -1,7 +1,6 @@
-package com.qmkj.jydp.module.exchangoutsidee.presenter;
+package com.qmkj.jydp.module.exchangoutside.presenter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;

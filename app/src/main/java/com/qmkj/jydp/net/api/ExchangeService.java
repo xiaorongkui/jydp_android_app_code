@@ -3,11 +3,14 @@ package com.qmkj.jydp.net.api;
 
 import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
+import com.qmkj.jydp.bean.request.ExchangeDealRecodeReq;
 import com.qmkj.jydp.bean.request.ExchangePwdReq;
 import com.qmkj.jydp.bean.request.KlineReq;
 import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.BuyExchangeRes;
+import com.qmkj.jydp.bean.response.CancleOrderReq;
+import com.qmkj.jydp.bean.response.DealRecodeRes;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
@@ -83,4 +86,20 @@ public interface ExchangeService {
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainGraphData")
     Observable<BaseRes<Object>> getKlineData(@Body KlineReq req);
+
+    /**
+     * 交易中心取消挂单
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/wapTransactionPendOrderController/revoke")
+    Observable<BaseRes<Object>> cancleOrder(@Body CancleOrderReq req);
+
+    /**
+     * 交易中心取消挂单
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/tradeCenter/deal")
+    Observable<BaseRes<DealRecodeRes>> getExchangeDealRecode(@Body ExchangeDealRecodeReq req);
 }

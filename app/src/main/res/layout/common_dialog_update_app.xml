@@ -3,20 +3,21 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
+              android:background="@drawable/shape_update_app_dialog_bg"
               android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/update_app_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/x25"
-        android:layout_marginStart="@dimen/x25"
-        android:layout_marginTop="@dimen/y25"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y216"
             android:includeFontPadding="false"
             android:text="撤销委托"
             android:textColor="@color/color_black_2"
@@ -26,72 +27,65 @@
             android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x15"
+            android:layout_marginStart="@dimen/x15"
             android:layout_marginTop="@dimen/y20"
             android:includeFontPadding="false"
             android:text="将撤销此次挂单委托？"
-            android:textColor="@color/color_black_1"
-            android:textSize="@dimen/text_size_15"/>
-    </LinearLayout>
+            android:textColor="@color/color_black_10"
+            android:textSize="@dimen/text_size_14"/>
 
-    <View
-        android:id="@+id/dialog_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y1"
-        android:layout_marginTop="@dimen/y30"
-        android:background="@color/divider"
-        android:visibility="gone"/>
-
-    <FrameLayout
-        android:id="@+id/dialog_fl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y25"
-        android:layout_marginEnd="@dimen/x25"
-        android:layout_marginStart="@dimen/x25"
-        android:layout_marginTop="@dimen/y30">
-
-        <TextView
-            android:id="@+id/only_confirm_btn"
-            android:layout_width="@dimen/x236"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@null"
-            android:clickable="true"
-            android:text="@string/comfirm"
-            android:textColor="@color/colorBlack_1"
-            android:textSize="@dimen/text_size_12"
-            android:visibility="gone"/>
-
-        <RelativeLayout
-            android:id="@+id/two_btn_layout"
+        <ProgressBar
+            android:id="@+id/update_prg_bar"
+            style="@style/progressBarHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginEnd="@dimen/x15"
+            android:layout_marginStart="@dimen/x15"
+            android:layout_marginTop="@dimen/y26"
+            android:max="100"
+            android:maxHeight="@dimen/y3"
+            android:minHeight="@dimen/y3"
+            android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+        <LinearLayout
+            android:id="@+id/update_bt_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/update_immediately_bt"
+                style="@style/btn_blue"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/y26"
+                android:text="@string/update_app_immediately"/>
+
+            <Button
+                android:id="@+id/update_later_bt"
+                style="@style/btn_blue"
+                android:layout_marginBottom="@dimen/y15"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/y15"
                 android:background="@null"
-                android:text="@string/comfirm"
-                android:textColor="@color/color_bule_1"
-                android:textSize="@dimen/text_size_15"
-                android:textStyle="normal"/>
+                android:includeFontPadding="false"
+                android:text="@string/update_app_later"
+                android:textColor="@color/color_black_10"/>
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x36"
-                android:layout_toStartOf="@id/yes"
-                android:background="@null"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="@string/cancel"
-                android:textColor="@color/color_bule_1"
-                android:textSize="@dimen/text_size_15"/>
+        <TextView
+            android:id="@+id/update_loading_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y15"
+            android:text="@string/update_app_loading"
+            android:textColor="@color/color_black_10"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="gone"/>
 
-        </RelativeLayout>
-    </FrameLayout>
+    </LinearLayout>
+
 </LinearLayout>
