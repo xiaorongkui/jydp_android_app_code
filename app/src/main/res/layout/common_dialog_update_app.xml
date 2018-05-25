@@ -3,13 +3,20 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
-              android:background="@drawable/shape_update_app_dialog_bg"
+
               android:orientation="vertical">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y172"
+        android:src="@mipmap/update_bg"/>
 
     <LinearLayout
         android:id="@+id/update_app_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_update_app_dialog_bg"
         android:orientation="vertical">
 
         <TextView
@@ -17,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y216"
             android:includeFontPadding="false"
             android:text="撤销委托"
             android:textColor="@color/color_black_2"

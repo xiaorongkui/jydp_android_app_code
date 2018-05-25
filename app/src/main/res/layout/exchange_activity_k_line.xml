@@ -22,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="9399.5"
             android:textColor="@color/colorGreen_4"
             android:textSize="@dimen/text_size_22"/>
 
@@ -170,18 +169,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y10"
-                android:text="3.11万"
                 android:textColor="@color/color_black_7"
                 android:textSize="@dimen/text_size_13"/>
         </LinearLayout>
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/kline_webview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y400"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y232"
-        android:layout_marginTop="@dimen/y20"
         android:orientation="vertical"
-        android:padding="@dimen/y5">
+        android:padding="@dimen/y5"
+        android:visibility="gone">
 
         <com.qmkj.jydp.ui.widget.kline.MyCombinedChart
             android:id="@+id/kline_chart_k"
@@ -201,7 +204,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/y15"
-        android:layout_marginTop="@dimen/y15"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -271,5 +273,6 @@
         android:id="@+id/exchange_deal_recode_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y10"/>
+        android:overScrollMode="never"
+        android:scrollbars="none"/>
 </LinearLayout>

@@ -1,5 +1,8 @@
 package com.qmkj.jydp.bean.response;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -207,7 +210,7 @@ public class ExchangeCenterRes extends BaseRes {
         }
     }
 
-    public static class StandardParameterBean {
+    public static class StandardParameterBean implements Parcelable {
         /**
          * nowPrice : 99999999
          * buyOne : 0.01
@@ -229,6 +232,30 @@ public class ExchangeCenterRes extends BaseRes {
         private String yesterdayPrice;
         private String dayTurnove;
         private String dayTransaction;
+
+        protected StandardParameterBean(Parcel in) {
+            nowPrice = in.readString();
+            buyOne = in.readDouble();
+            sellOne = in.readString();
+            todayMax = in.readString();
+            todayMin = in.readString();
+            todayRange = in.readString();
+            yesterdayPrice = in.readString();
+            dayTurnove = in.readString();
+            dayTransaction = in.readString();
+        }
+
+        public static final Creator<StandardParameterBean> CREATOR = new Creator<StandardParameterBean>() {
+            @Override
+            public StandardParameterBean createFromParcel(Parcel in) {
+                return new StandardParameterBean(in);
+            }
+
+            @Override
+            public StandardParameterBean[] newArray(int size) {
+                return new StandardParameterBean[size];
+            }
+        };
 
         public String getNowPrice() {
             return nowPrice;
@@ -300,6 +327,24 @@ public class ExchangeCenterRes extends BaseRes {
 
         public void setDayTransaction(String dayTransaction) {
             this.dayTransaction = dayTransaction;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(nowPrice);
+            dest.writeDouble(buyOne);
+            dest.writeString(sellOne);
+            dest.writeString(todayMax);
+            dest.writeString(todayMin);
+            dest.writeString(todayRange);
+            dest.writeString(yesterdayPrice);
+            dest.writeString(dayTurnove);
+            dest.writeString(dayTransaction);
         }
     }
 

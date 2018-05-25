@@ -164,15 +164,14 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
         alterNormalDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
         alterNormalDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         alterNormalDialog.setCanceledOnTouchOutside(false);
+        alterNormalDialog.setCancelable(false);
         alterNormalDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion());
         alterNormalDialog.setMessage(appUpdateRes.getUpdateExplain());
         Button update_immediately_bt = alterNormalDialog.getView(R.id.update_immediately_bt, Button.class);
         Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);
         TextView update_loading_tv = alterNormalDialog.getView(R.id.update_loading_tv, TextView.class);
         LinearLayout update_bt_ll = alterNormalDialog.getView(R.id.update_bt_ll, LinearLayout.class);
-        LinearLayout update_app_ll = alterNormalDialog.getView(R.id.update_app_ll, LinearLayout.class);
         update_prg_bar_normal = alterNormalDialog.getView(R.id.update_prg_bar, ProgressBar.class);
-        update_app_ll.setBackgroundResource(R.mipmap.update_bg);
 
         update_immediately_bt.setOnClickListener(v -> {
             update_prg_bar_normal.setVisibility(View.VISIBLE);
@@ -201,10 +200,8 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
         Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);
         TextView update_loading_tv = alterNormalDialog.getView(R.id.update_loading_tv, TextView.class);
         LinearLayout update_bt_ll = alterNormalDialog.getView(R.id.update_bt_ll, LinearLayout.class);
-        LinearLayout update_app_ll = alterNormalDialog.getView(R.id.update_app_ll, LinearLayout.class);
         update_prg_bar_normal = alterNormalDialog.getView(R.id.update_prg_bar, ProgressBar.class);
         update_later_bt.setVisibility(View.GONE);
-        update_app_ll.setBackgroundResource(R.mipmap.update_bg);
 
         update_immediately_bt.setOnClickListener(v -> {
             update_prg_bar_normal.setVisibility(View.VISIBLE);

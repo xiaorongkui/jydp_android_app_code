@@ -10,8 +10,13 @@ public final class AppNetConfig {
 
     //        public static final String BASE_URL = "http://test.oksheng.com.cn/";//测试环境
     public static final String BASE_URL = "http:/192.168.1.100:8080";
-    //public static final String BASE_URL = "http:/192.168.12.222:8080";
+//    public static final String BASE_URL = "http:/192.168.12.222:8080";
 //    public static final String urlPath = "mockjsdata/1/";//测试环境
 //    public static final String BASE_URL = "http://rap.aiksheng.com/";//mock
+
+    //kline里的H5页面
+    public static final String kline_url = BASE_URL + "/jydp/wap/wapDealRecord/toChartPage/";
+
+
     //.....所有的项目当中接口的请求url全部配置在这里.....//
 }

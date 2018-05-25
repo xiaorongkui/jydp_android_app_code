@@ -134,6 +134,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private Disposable subscribe;
     private Disposable disposable;
     private CommonDialog commonCancleDialog;
+    private ExchangeCenterRes.StandardParameterBean standardParameter;
 
 
     public String getCurrencyId() {
@@ -307,7 +308,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                     LogUtil.i("交易中心数据返回为空");
                     return;
                 }
-                ExchangeCenterRes.StandardParameterBean standardParameter = centerRes.getStandardParameter();
+                standardParameter = centerRes.getStandardParameter();
                 if (standardParameter != null) {
                     refreshHeader(standardParameter);
                 }
@@ -378,9 +379,14 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 setViewpagerIndicotr(1);
                 break;
             case R.id.exchange_center_kline_iv:
+                if (standardParameter == null) {
+                    toast("数据为空，请等待带刷新");
+                    return;
+                }
                 Intent intent = new Intent(mContext, KlineActivity.class);
                 intent.putExtra(Constants.INTENT_PARAMETER_1, currencyId);
                 intent.putExtra(Constants.INTENT_PARAMETER_2, currencyName);
+                intent.putExtra(Constants.INTENT_PARAMETER_3, standardParameter);
                 CommonUtil.gotoActivity(mContext, intent);
                 break;
         }

@@ -2,11 +2,20 @@ package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.Chart;
@@ -32,9 +41,13 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ExchangeDealRecodeReq;
 import com.qmkj.jydp.bean.request.KlineReq;
 import com.qmkj.jydp.bean.response.DealRecodeRes;
+import com.qmkj.jydp.bean.response.ExchangeCenterRes;
+import com.qmkj.jydp.bean.response.KlineRes;
+import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangecenter.presenter.DealRecodeRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
+import com.qmkj.jydp.ui.widget.CustomWebView;
 import com.qmkj.jydp.ui.widget.kline.CoupleChartGestureListener;
 import com.qmkj.jydp.ui.widget.kline.DataParse;
 import com.qmkj.jydp.ui.widget.kline.KLineBean;
@@ -45,6 +58,7 @@ import com.qmkj.jydp.ui.widget.kline.MyHMarkerView;
 import com.qmkj.jydp.ui.widget.kline.MyLeftMarkerView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.VolFormatter;
 
 import org.json.JSONException;
@@ -52,9 +66,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * author：rongkui.xiao --2018/3/30
@@ -95,6 +114,8 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     RecyclerView exchangeDealRecodeRv;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
+    @BindView(R.id.kline_webview)
+    FrameLayout klineWebview;
     private XAxis xAxisKline;
     private YAxis axisLeftKline;
     private YAxis axisRightKline;
@@ -108,6 +129,10 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     private String currencyName;
     private DealRecodeRecAdapter dealRecodeRecAdapter;
     List<DealRecodeRes.DealListBean> recodeDatas = new ArrayList<>();
+    public String node = "1d";
+    private CustomWebView mWebView;
+    private ExchangeCenterRes.StandardParameterBean headerData;
+    private Disposable disposable;
 
     @Override
     protected void injectPresenter() {
@@ -127,8 +152,18 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
 
-        getKlineData(true);
-        getExchangeDealRecode(true);
+        getKlineData(false);
+        getExchangeDealRecode(false);
+        mWebView.loadUrl(AppNetConfig.kline_url + currencyId);
+//        initCountTimer();
+    }
+
+    private void initCountTimer() {
+        disposable = Observable.interval(0, 2000, TimeUnit.MILLISECONDS)
+                .compose(bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> mWebView.loadUrl(AppNetConfig.kline_url + currencyId));
     }
 
     private void getExchangeDealRecode(boolean b) {
@@ -140,7 +175,7 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     private void getKlineData(boolean b) {
         KlineReq klineReq = new KlineReq();
         klineReq.setCurrencyId(currencyId);
-        klineReq.setNode(System.currentTimeMillis());
+        klineReq.setNode(node);
         presenter.getKlineData(klineReq, KLINE_DATA_TAG, b);
     }
 
@@ -158,7 +193,53 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     protected void initView() {
         currencyId = getIntent().getStringExtra(Constants.INTENT_PARAMETER_1);
         currencyName = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
+        headerData = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_3);
         initRecycleView();
+        initWebViw();
+        refreshHeader(headerData);
+    }
+
+    private void refreshHeader(ExchangeCenterRes.StandardParameterBean standardParameter) {
+        mTvClose.setText(NumberUtil.format2Point(standardParameter.getNowPrice()));
+        mTvMax.setText(NumberUtil.format2Point(standardParameter.getTodayMax()));
+        mTvMin.setText(NumberUtil.format2Point(standardParameter.getTodayMin()));
+        exchangeBuyOnePriceTv.setText(NumberUtil.format2Point(standardParameter.getBuyOne()));
+        exchangeSellOnePriceTv.setText(NumberUtil.format2Point(standardParameter.getSellOne()));
+        mTvNum.setText(NumberUtil.format2Point(standardParameter.getDayTurnove()));
+    }
+
+    private void initWebViw() {
+        //用XML引入，仍然会内存泄露https://stackoverflow.com/questions/3130654/memory-leak-in-webview
+        mWebView = new CustomWebView(mContext);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        mWebView.setLayoutParams(params);
+        mWebView.setInitialScale(40);
+        klineWebview.addView(mWebView);
+//        mWebView.getSettings().setJavaScriptEnabled(true);
+//        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        mWebView.getSettings().setLoadWithOverviewMode(true);
+//        // 设置可以支持缩放
+//        mWebView.getSettings().setSupportZoom(true);
+//        // 设置出现缩放工具
+//        mWebView.getSettings().setBuiltInZoomControls(false);
+//        //设置可在大视野范围内上下左右拖动，并且可以任意比例缩放
+//        mWebView.getSettings().setUseWideViewPort(true);
+//        // android 5.0以上默认不支持Mixed Content
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            mWebView.getSettings().setMixedContentMode(
+//                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+//        }
+//
+//        mWebView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+//        mWebView.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                LogUtil.i("url=" + url);
+//                mWebView.loadUrl(url);
+//                return true;
+//            }
+//        });
     }
 
     private void initRecycleView() {
@@ -513,7 +594,7 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         axisLeftVolume.setTextColor(getResources().getColor(R.color.colorBlack_1));
         axisLeftVolume.setGridColor(getResources().getColor(R.color.colorBlack_1));
         axisLeftVolume.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-        axisLeftVolume.setLabelCount(4, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
+        axisLeftVolume.setLabelCount(1, false); //第一个参数是Y轴坐标的个数，第二个参数是 是否不均匀分布，true是不均匀分布
         axisLeftVolume.setSpaceTop(5);//距离顶部留白
 //        axisLeftVolume.setSpaceBottom(0);//距离顶部留白
 
@@ -672,6 +753,9 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         super.onSuccess(response, tag);
         switch (tag) {
             case KLINE_DATA_TAG:
+                KlineRes klineRes = (KlineRes) response;
+
+
                 break;
             case EXCHANGE_DEAL_RECODE_TAG:
 
@@ -687,4 +771,36 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+        if (mWebView != null) {
+            // destory()
+            ViewParent parent = mWebView.getParent();
+            if (parent != null) {
+                ((ViewGroup) parent).removeView(mWebView);
+            }
+            mWebView.stopLoading();
+            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
+            mWebView.getSettings().setJavaScriptEnabled(false);
+            mWebView.clearHistory();
+            mWebView.clearView();
+            mWebView.removeAllViews();
+            try {
+                mWebView.destroy();
+            } catch (Throwable ex) {
+
+            }
+        }
+    }
 }

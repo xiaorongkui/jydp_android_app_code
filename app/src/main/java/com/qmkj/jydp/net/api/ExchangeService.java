@@ -14,6 +14,7 @@ import com.qmkj.jydp.bean.response.DealRecodeRes;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
+import com.qmkj.jydp.bean.response.KlineRes;
 import com.qmkj.jydp.bean.response.SellExchangeRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
@@ -85,7 +86,7 @@ public interface ExchangeService {
      * @return
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainGraphData")
-    Observable<BaseRes<Object>> getKlineData(@Body KlineReq req);
+    Observable<BaseRes<KlineRes>> getKlineData(@Body KlineReq req);
 
     /**
      * 交易中心取消挂单

@@ -181,6 +181,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         super.onSuccess(response, tag);
         switch (tag) {
             case OUTSIDE_LIST_TAG:
+                showSuccessView(recyclerView, true);
                 OutSideExchangeRes outSideExchangeRes = (OutSideExchangeRes) response;
                 if (outSideExchangeRes == null || outSideExchangeRes.getOtcTransactionPendOrderList() == null ||
                         outSideExchangeRes.getOtcTransactionPendOrderList().size() == 0) return;
@@ -232,5 +233,12 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         super.onError(errorMsg, code, tag, o);
         if (refresh.isRefreshing()) refresh.refreshComplete();
         if (mOutsideExchangeAdapter.isLoading()) mOutsideExchangeAdapter.loadMoreComplete();
+        showNetErrorView(recyclerView, true);
+    }
+
+    @Override
+    protected void tryData(int id) {
+        super.tryData(id);
+        getOutSideExchangeData(true);
     }
 }
