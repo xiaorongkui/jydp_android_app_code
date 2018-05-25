@@ -120,7 +120,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-
     }
 
     @Override

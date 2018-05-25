@@ -2,10 +2,10 @@ package com.qmkj.jydp.net.api;
 
 
 import com.qmkj.jydp.bean.request.HelpCenterReq;
-import com.qmkj.jydp.bean.request.OtcReleaseReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.request.SendAdsReq;
 import com.qmkj.jydp.bean.request.SendContactServiceReq;
+import com.qmkj.jydp.bean.request.UserWithdrawReq;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
@@ -18,6 +18,7 @@ import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.bean.response.SystemHotRes;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
+import com.qmkj.jydp.bean.response.UserCoinWithdrawInfo;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
@@ -44,6 +45,14 @@ public interface MineService {
     //获取用户币种信息
     @GET(AppNetConfig.urlPath + "wap/userInfo/currencyAssets")
     Observable<BaseRes<CurrencyAssetsRes>> getCurrencyAssetsInfo();
+
+    //获取用户提币币种管理信息
+    @GET(AppNetConfig.urlPath + "wap/userCoinWithdrawal/show")
+    Observable<BaseRes<UserCoinWithdrawInfo>> getUserCoinWithdrawalInfo();
+
+    //用户提币
+    @POST(AppNetConfig.urlPath + "wap/userCoinWithdrawal/mentionCoin")
+    Observable<BaseRes<UserCoinWithdrawInfo>> userWithdraw(@Body UserWithdrawReq req);
 
     //获取经销商管理信息
     @POST(AppNetConfig.urlPath + "wap/dealerManagment/showMore")

@@ -8,9 +8,13 @@ import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
 import com.qmkj.jydp.bean.request.OtcReleaseReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
+import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.SendAdsReq;
 import com.qmkj.jydp.bean.request.SendContactServiceReq;
+import com.qmkj.jydp.bean.request.UserWithdrawReq;
+import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.net.api.MineService;
+import com.qmkj.jydp.util.LogUtil;
 
 import javax.inject.Inject;
 
@@ -28,6 +32,8 @@ import okhttp3.RequestBody;
 public class MinePresenter extends BaseRxPresenter {
     @Inject
     MineService mineService;
+    @Inject
+    LoginService loginService;
 
     @Inject
     public MinePresenter(Context context) {
@@ -45,6 +51,19 @@ public class MinePresenter extends BaseRxPresenter {
 
     public void getCurrencyAssetsInfo(int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getCurrencyAssetsInfo(), tag, isShowProgress);
+    }
+
+    public void getUserCoinWithdrawalInfo(int tag, boolean isShowProgress) {
+        sendHttpRequest(mineService.getUserCoinWithdrawalInfo(), tag, isShowProgress);
+    }
+
+    /**
+     * 用户提币请求
+     *
+     * @param userWithdrawReq 用户提币信息
+     */
+    public void userWithdraw(UserWithdrawReq userWithdrawReq, int tag, boolean isShowProgress) {
+        sendHttpRequest(mineService.userWithdraw(userWithdrawReq), tag, isShowProgress);
     }
 
     public void getDealerManagementInfo(PageNumberReq req, int tag, boolean isShowProgress) {
@@ -93,6 +112,11 @@ public class MinePresenter extends BaseRxPresenter {
 
     public void sendInitiateAdsInfo(SendAdsReq req, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.sendInitiateAdsInfo(req), tag);
+    }
+
+    public void getRegisterCode(PhoneCodeReq req, int tag, boolean isShowProgress) {
+        LogUtil.i("s=" + req);
+        sendHttpRequest(loginService.getRegisterCode(req), tag, isShowProgress);
     }
 
     public void sendOtcReleaseInfo(OtcReleaseReq req,byte[] ali,byte[] weixin, int tag, boolean isShowProgress){

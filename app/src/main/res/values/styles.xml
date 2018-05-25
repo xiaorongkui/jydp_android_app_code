@@ -94,4 +94,16 @@
         <item name="android:windowEnterAnimation">@anim/dialog_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_out</item>
     </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_exit</item>
+    </style>
+
+    <!--最高高度ListView-->
+    <declare-styleable name="ListViewMaxHeight">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+
 </resources>
