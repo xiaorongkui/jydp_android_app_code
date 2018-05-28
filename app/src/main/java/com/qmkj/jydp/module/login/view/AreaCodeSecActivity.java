@@ -92,7 +92,7 @@ public class AreaCodeSecActivity extends BaseMvpActivity<LoginPresenter> {
     private void searchArea(String s) {
         datas.clear();
         for (DoubleString data : originalDatas) {
-            if (data.getStr2().contains(s)) {
+            if (data.getStr2().contains(s) || data.getStr1().contains(s)) {
                 datas.add(data);
             }
         }
