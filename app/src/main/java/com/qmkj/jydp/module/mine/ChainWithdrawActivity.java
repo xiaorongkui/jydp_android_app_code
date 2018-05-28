@@ -1,7 +1,10 @@
 package com.qmkj.jydp.module.mine;
 
 import android.os.Build;
+import android.text.InputFilter;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -15,6 +18,7 @@ import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.dialog.UserWithdrawChooseCurrencyDialog;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.MyTextWatcher;
 
 import java.util.concurrent.TimeUnit;
 
@@ -72,6 +76,22 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initView() {
+        EditText inputWithdrawNumEdt = withdrawNumEv.findViewById(R.id.edit_letf_et);
+        inputWithdrawNumEdt.setInputType(EditorInfo.TYPE_NUMBER_FLAG_DECIMAL);
+        inputWithdrawNumEdt.addTextChangedListener(new MyTextWatcher(inputWithdrawNumEdt, 4));
+        InputFilter[] withdrawNumEdtFilters = {new InputFilter.LengthFilter(16)};
+        inputWithdrawNumEdt.setFilters(withdrawNumEdtFilters);
+
+        EditText inputPasswordEdt = passwordEv.findViewById(R.id.edit_letf_et);
+        inputPasswordEdt.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+        InputFilter[] passwordEdtFilters = {new InputFilter.LengthFilter(16)};
+        inputPasswordEdt.setFilters(passwordEdtFilters);
+
+        EditText inputVerificationCodeEdt = verificationCodeEv.findViewById(R.id.edit_letf_et);
+        inputVerificationCodeEdt.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        InputFilter[] verificationCodeEdtFilters = {new InputFilter.LengthFilter(6)};
+        inputPasswordEdt.setFilters(verificationCodeEdtFilters);
+
         LoginRes.UserBean userBean = CommonUtil.getLoginInfo().getUser();
         verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + userBean.getUserPhone() + "发送一条短信验证码");
         codeTimeDownTv = verificationCodeEv.getView(R.id.edit_right_tv);
