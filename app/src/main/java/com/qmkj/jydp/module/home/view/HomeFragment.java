@@ -16,10 +16,13 @@ import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomeGrideAdapter;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
+import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
+import com.qmkj.jydp.module.mine.view.SystemNoticeDetailsActivity;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.DateUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -158,6 +161,18 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         if (noticeViews.size() <= 1) {
             marqueeHomeHeaderNotice.stopFlipping();
         }
+        marqueeHomeHeaderNotice.setOnItemClickListener((position, view) -> {
+            Intent intent = new Intent(mContext, SystemNoticeDetailsActivity.class);
+            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TITTLE,
+                    homeNoticeInfos.get(position).getNoticeTitle());
+            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TIMES,
+                    DateUtil.longToTimeStr(homeNoticeInfos.get(position).getAddTime(),
+                            DateUtil.dateFormat2));
+            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
+                    homeNoticeInfos.get(position).getContent());
+            intent.putExtra(SystemNoticeDetailsActivity.ACTIVITY_TITLE_KEY, "公告详情");
+            CommonUtil.gotoActivity(mContext, intent);
+        });
     }
 
     @Override
@@ -176,10 +191,13 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
         mTvNotice.setText(noticeListBean.getNoticeTitle());
         tv_home_header_notice_more.setText(CommonUtil.getString(R.string.more));
+        tv_home_header_notice_more.setOnClickListener(v -> {
+            CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
+        });
         notice_title_type_tv.setText("[" + noticeListBean.getNoticeType() + "]");
         itemView.setTag(noticeListBean);
 
-        itemView.setOnClickListener(v -> {
+        /*itemView.setOnClickListener(v -> {
             HomeDataRes.SystemNoticeListBean systemNoticeListBean = (HomeDataRes.SystemNoticeListBean) v.getTag();
             if (systemNoticeListBean != null) {
                 Intent intent = new Intent(mContext, WebActivity.class);
@@ -187,7 +205,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
                 intent.putExtra(Constants.INTENT_PARAMETER_2, systemNoticeListBean.getNoticeUrl());
                 CommonUtil.gotoActivity(mContext, intent);
             }
-        });
+        });*/
 
         return itemView;
     }
