@@ -4,14 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.DigitsKeyListener;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -257,11 +252,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         account = loginAccountEiv.getEditTextString();
         String password = loginPasswordEiv.getEditTextString();
         if (!CheckTextUtil.checkPassword(account)) {
-            toast("账号必须是字母、数字，6～16个字符");
+            toast("请输入登录账号");
             return;
         }
         if (!CheckTextUtil.checkPassword(password)) {
-            toast("密码必须是字母、数字，6～16个字符");
+            toast("请输入登录密码");
             return;
         }
         LoginReq loginRequest = new LoginReq();

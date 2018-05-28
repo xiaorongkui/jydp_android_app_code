@@ -44,8 +44,6 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 通用工具类
@@ -685,6 +683,11 @@ public class CommonUtil {
     /*保存登录时个人信息返回*/
     public static LoginRes getLoginInfo() {
         return (LoginRes) SPHelper.getInstance().getObject(Constants.SP_SAVE_LOGIN_USERINFO, null);
+    }
+
+    /*清除个人信息*/
+    public static void clearLoginInfo() {
+        SPHelper.getInstance().clearSharedPreferencesByKey(Constants.SP_SAVE_LOGIN_USERINFO);
     }
 
     //获取tokenId

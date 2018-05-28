@@ -97,6 +97,7 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
         super.onError(errorMsg, code, tag, response);
         //退出登陆 清空token
         CommonUtil.setToken("");
+        CommonUtil.clearLoginInfo();
         AppManager.getInstance().clear();
         CommonUtil.gotoActivity(mContext, LoginActivity.class);
     }

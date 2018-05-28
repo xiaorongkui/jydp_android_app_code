@@ -68,4 +68,12 @@ public class StringUtil {
 //        return chainAddress.replaceAll("(\\d{6})(\\d{4})", "$1****$2");
     }
 
+    /**
+     * 链地址，链地址中间4位星号替换
+     */
+    public static String formatPhoneNum(String phoneNum) {
+        return phoneNum.substring(0, 3) + "***" + phoneNum.substring(phoneNum.length() - 3, phoneNum.length());
+//        return chainAddress.replaceAll("(\\d{6})(\\d{4})", "$1****$2");
+    }
+
 }

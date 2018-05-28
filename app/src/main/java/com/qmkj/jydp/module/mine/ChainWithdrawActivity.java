@@ -1,8 +1,8 @@
 package com.qmkj.jydp.module.mine;
 
 import android.os.Build;
-import android.text.InputType;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +20,7 @@ import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.dialog.UserWithdrawChooseCurrencyDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.MyTextWatcher;
+import com.qmkj.jydp.util.StringUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -93,7 +94,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
         inputPasswordEdt.setFilters(verificationCodeEdtFilters);
 
         LoginRes.UserBean userBean = CommonUtil.getLoginInfo().getUser();
-        verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + userBean.getUserPhone() + "发送一条短信验证码");
+        verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + StringUtil.formatPhoneNum(userBean.getUserPhone()) + "发送一条短信验证码");
         codeTimeDownTv = verificationCodeEv.getView(R.id.edit_right_tv);
         chooseCurrencyCv.setOnClickListener(v -> {
             UserWithdrawChooseCurrencyDialog userWithdrawChooseCurrencyDialog = new UserWithdrawChooseCurrencyDialog(mContext, userCoinWithdrawInfo.getUserCoinConfigList());
