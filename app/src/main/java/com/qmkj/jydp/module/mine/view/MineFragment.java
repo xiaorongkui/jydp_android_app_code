@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dd.ShadowLayout;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
 import com.qmkj.jydp.bean.response.MineRes;
+import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
@@ -47,13 +50,19 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     ScrollRecycleView mineRv;
     @BindView(R.id.mine_ll)
     LinearLayout mineLl;
+    @BindView(R.id.mine_assets_ll)
+    LinearLayout mine_assets_ll;
     @BindView(R.id.mine_distributor_tv)
     TextView mine_distributor_tv;
     @BindView(R.id.mine_available_money_ll)
     LinearLayout mineAvailableMoneyLl;
+    @BindView(R.id.mine_available_money_sl)
+    ShadowLayout mine_available_money_sl;
     Unbinder unbinder;
     @BindView(R.id.mine_userAccount_tv)
     TextView mine_userAccount_tv;
+    @BindView(R.id.mine_tittle_nptv)
+    NoPaddingTextView mine_tittle_nptv;
     @BindView(R.id.mine_totalUserBalance_tv)
     NoPaddingTextView mine_totalUserBalance_tv;
     @BindView(R.id.mine_userBalance_tv)
@@ -73,10 +82,25 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                 .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
         mine_distributor_tv.setBackground(shapeSelector.create());
 
-        if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
+        if(CommonUtil.getLoginInfo()==null){
+            mine_tittle_nptv.setVisibility(View.GONE);
+            mine_totalUserBalance_tv.setVisibility(View.GONE);
+//            mine_available_money_sl.setVisibility(View.GONE);
+            mine_userAccount_tv.setText("还未登录，请先登录");
+        }
+
+        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
             mine_distributor_tv.setVisibility(View.VISIBLE);
 
         }
+
+        mine_assets_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonUtil.gotoActivity(mContext,LoginActivity.class);
+                AppManager.getInstance().removeCurrent();
+            }
+        });
     }
 
     private void initRefreshLayout() {
@@ -117,6 +141,10 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
         mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if(CommonUtil.getLoginInfo()==null){
+                toast("还未登录，请先登录");
+                return;
+            }
             switch (position) {
                 case 0://个人信息
                     CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
@@ -165,7 +193,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     protected void initData() {
-        getMineInfo();
+        if(CommonUtil.getLoginInfo()!=null) getMineInfo();
     }
 
     private void getMineInfo() {

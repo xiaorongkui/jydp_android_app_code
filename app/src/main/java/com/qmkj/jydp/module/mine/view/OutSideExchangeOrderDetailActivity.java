@@ -212,7 +212,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
                 }
                 OutSideDetailReq req =new OutSideDetailReq();
                 req.setOtcOrderNo(data.getOtcOrderNo());
-                if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){   //=2 为经销商
+                if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){   //=2 为经销商
                     if(data.getDealType()==1){  //收货
                         presenter.getOutSideOrderTakeCoin(req,SEND_REQUEST,true);
                     }else if(data.getDealType()==2){//收钱

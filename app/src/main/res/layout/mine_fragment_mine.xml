@@ -87,6 +87,7 @@
                         </LinearLayout>
 
                         <com.qmkj.jydp.ui.widget.NoPaddingTextView
+                            android:id="@+id/mine_tittle_nptv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/x30"
@@ -111,6 +112,7 @@
                 </RelativeLayout>
 
                 <com.dd.ShadowLayout
+                    android:id="@+id/mine_available_money_sl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/x10"

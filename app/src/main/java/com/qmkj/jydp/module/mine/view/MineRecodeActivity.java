@@ -59,7 +59,7 @@ public class MineRecodeActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
-        if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
+        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
             mine_recode_outside_exchange_recode_agcy_civ.setVisibility(View.VISIBLE);
         }
     }

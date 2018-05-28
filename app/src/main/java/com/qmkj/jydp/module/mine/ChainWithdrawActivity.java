@@ -77,19 +77,10 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initView() {
-        withdrawNumEv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
-
-
-        verificationCodeEv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
-        verificationCodeEv.setEditTextMaxLength(6);
-        verificationCodeEv.setEditTextMaxLine(1);
-
         passwordEv.setEditTextInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        EditText inputWithdrawNumEdt = withdrawNumEv.findViewById(R.id.edit_letf_et);
-        inputWithdrawNumEdt.setInputType(EditorInfo.TYPE_NUMBER_FLAG_DECIMAL);
-        inputWithdrawNumEdt.addTextChangedListener(new MyTextWatcher(inputWithdrawNumEdt, 4));
-        InputFilter[] withdrawNumEdtFilters = {new InputFilter.LengthFilter(16)};
-        inputWithdrawNumEdt.setFilters(withdrawNumEdtFilters);
+        withdrawNumEv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
+        withdrawNumEv.setEditTextTextWatch(new MyTextWatcher(withdrawNumEv.getEditTextView(), 4));
+        withdrawNumEv.setEditTextMaxLength(6);
 
         EditText inputPasswordEdt = passwordEv.findViewById(R.id.edit_letf_et);
         inputPasswordEdt.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);

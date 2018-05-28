@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
@@ -457,9 +458,14 @@ public class EditVItemView extends LinearLayout {
             mEdit_letf_et.setInputType(type);
         }
     }
+     public void setEditTextTextWatch(TextWatcher watch) {
+        if (mEdit_letf_et != null) {
+            mEdit_letf_et.addTextChangedListener(watch);
+        }
+    }
     public void setEditTextMaxLength(int length) {
         if(mEdit_letf_et!=null){
-            mEdit_letf_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+            mEdit_letf_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
         }
     }
     public void setEditTextMaxLine(int line) {
