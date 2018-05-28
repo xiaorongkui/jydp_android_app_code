@@ -92,8 +92,8 @@
 
     <style name="common_dialog_animation" parent="common_dialog">
         <!--动画的style-->
-        <item name="android:windowEnterAnimation">@anim/dialog_in</item>
-        <item name="android:windowExitAnimation">@anim/dialog_out</item>
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_exit</item>
     </style>
 
     <style name="progressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">

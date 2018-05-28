@@ -2,28 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-    <!--//添加侧滑布局-->
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_dl"
+    <!--&lt;!&ndash;//添加侧滑布局&ndash;&gt;-->
+    <!--<android.support.v4.widget.DrawerLayout-->
+    <!--android:id="@+id/drawer_dl"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/main_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-            <FrameLayout
-                android:id="@+id/main_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+        <include layout="@layout/activity_main_bottom"/>
+    </LinearLayout>
 
-            <include layout="@layout/activity_main_bottom"/>
-        </LinearLayout>
-
-        <include
-            android:id="@+id/drawer_view"
-            layout="@layout/exchange_layout_drawer"/>
-    </android.support.v4.widget.DrawerLayout>
+    <!--<include-->
+    <!--android:id="@+id/drawer_view"-->
+    <!--layout="@layout/exchange_layout_drawer"/>-->
+    <!--</android.support.v4.widget.DrawerLayout>-->
 </RelativeLayout>

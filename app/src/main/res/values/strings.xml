@@ -318,6 +318,7 @@
     <string name="update_app_loading">更新中，请稍后...</string>
     <string name="exchange_deal_recently_recod">最近成交记录</string>
     <string name="exchange_deal_time">成交时间</string>
+    <string name="text_digits">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM</string>
 
 
 </resources>

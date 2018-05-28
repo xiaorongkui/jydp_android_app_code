@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
               android:id="@+id/setting_pwd_ll"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
@@ -78,7 +78,10 @@
             android:layout_marginStart="@dimen/x10"
             android:background="@drawable/shape_text_input_bg"
             android:cursorVisible="false"
+            android:digits="@string/text_digits"
             android:focusable="false"
+            android:inputType="textPassword"
+            android:maxLength="16"
             android:maxLines="1"
             android:paddingRight="@dimen/x6"
             android:paddingStart="@dimen/x8"

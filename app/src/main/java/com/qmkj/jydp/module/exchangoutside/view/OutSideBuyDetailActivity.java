@@ -167,7 +167,7 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
                 obtainedMoneyCiv.setRightText(outSideBuyPayDetailReq.getPayMentMoney());//todo
                 break;
             case BUY_PAY_TAG:
-                toast("购买发起成功");
+                toast("购买成功");
                 RxBus.getDefault().post(new OutSideExchangeEvent());
                 Intent intent = new Intent(mContext, MainActivity.class);
                 intent.putExtra(Constants.INTENT_PARAMETER_1, 2);//去场外交易页面

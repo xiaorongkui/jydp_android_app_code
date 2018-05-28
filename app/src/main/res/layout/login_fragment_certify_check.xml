@@ -50,7 +50,6 @@
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
                     app:rightIconVisible="false"
-                    app:rightText="hdhdhhhaj呵呵"
                     app:rightTextColor="@color/color_black_7"
                     app:rightTextSize="@dimen/text_size_14"/>
 
@@ -67,7 +66,6 @@
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
                     app:rightIconVisible="false"
-                    app:rightText="肖荣奎"
                     app:rightTextColor="@color/color_black_7"
                     app:rightTextSize="@dimen/text_size_14"/>
 
@@ -84,7 +82,6 @@
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
                     app:rightIconVisible="false"
-                    app:rightText="身份证"
                     app:rightTextColor="@color/color_black_7"
                     app:rightTextSize="@dimen/text_size_14"/>
 
@@ -101,7 +98,6 @@
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
                     app:rightIconVisible="false"
-                    app:rightText="12134594598489439934893489"
                     app:rightTextColor="@color/color_black_7"
                     app:rightTextSize="@dimen/text_size_14"/>
 
@@ -218,7 +214,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x30"
                         android:gravity="right"
-                        android:text="多多多多多多多多多多多多多多多多多多多多多多多多多多多多"
                         android:textColor="@color/color_black_7"
                         android:textSize="@dimen/text_size_14"/>
                 </LinearLayout>

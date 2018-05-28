@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.InitialValueObservable;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
@@ -35,6 +37,7 @@ import com.qmkj.jydp.util.RxBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * author：rongkui.xiao --2018/3/27
@@ -46,7 +49,6 @@ import butterknife.Unbinder;
 public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresenter> {
     private static final int EXCHANGE_PWD_TAG = 1;
     private static final int SELL_EXCAHNGE_TAG = 2;
-    public String digits = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
     @BindView(R.id.exchange_sold_forzen_tv)
     TextView exchangeSoldForzenTv;
     @BindView(R.id.exchange_sold_available_tv)
@@ -61,7 +63,11 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     ImageView exchangePassowrdIv;
     @BindView(R.id.exchange_center_sold_out_bt)
     Button exchangeCenterSoldOutBt;
+    @BindView(R.id.exchange_max_sold_tv)
+    TextView exchange_max_sold_tv;
     private CommonDialog pwdDialogUtils;
+    private static final int DECIMAL_DIGITS_AMMOUNT = 4;//最多输入4位数值
+    private static final int DECIMAL_DIGITS_PRICE = 2;//最多输入2位数值
 
     public static ExchangeSoldFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -78,24 +84,18 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
 
     @Override
     protected void initView() {
-        initInputView();
         exchangePassowrdIv.setOnClickListener(this);
         exchangeCenterSoldOutBt.setOnClickListener(this);
-    }
-
-    private void initInputView() {
-        exchangeUnitPriceEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        exchangeUnitPriceEt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        exchangeUnitPriceEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
-
-        exchangeAmountEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        exchangeAmountEt.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        exchangePassowrdEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        exchangePassowrdEt.setInputType(InputType.TYPE_CLASS_TEXT | InputType
-                .TYPE_TEXT_VARIATION_PASSWORD);
-        exchangePassowrdEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-        exchangePassowrdEt.setKeyListener(DigitsKeyListener.getInstance(digits));
+        InitialValueObservable<CharSequence> amountTextChanges = RxTextView.textChanges(exchangeAmountEt);
+        amountTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
+                .mainThread()).subscribe(sequence -> {
+            restrictedInput(sequence, exchangeAmountEt, DECIMAL_DIGITS_AMMOUNT);
+        });
+        InitialValueObservable<CharSequence> priceTextChanges = RxTextView.textChanges(exchangeUnitPriceEt);
+        priceTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
+                .mainThread()).subscribe(sequence -> {
+            restrictedInput(sequence, exchangeUnitPriceEt, DECIMAL_DIGITS_PRICE);
+        });
     }
 
     @Override
@@ -129,7 +129,6 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 showSettingExchangePwdDialog();
                 break;
             case R.id.exchange_center_sold_out_bt:
-
                 submitSellXt();
                 break;
         }
@@ -167,12 +166,6 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             return false;
         });
 
-        exchange_passowrd_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        exchange_passowrd_et.setInputType(InputType.TYPE_CLASS_TEXT | InputType
-                .TYPE_TEXT_VARIATION_PASSWORD);
-        exchange_passowrd_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-        exchange_passowrd_et.setKeyListener(DigitsKeyListener.getInstance(digits));
-
         exchange_setting_pwd_login_ll.setOnClickListener(v -> {
             isRememberLoginPwd = !isRememberLoginPwd;
             exchange_setting_pwd_login_iv.setImageResource(isRememberLoginPwd ? R.mipmap.bt_selected : R.mipmap
@@ -202,6 +195,10 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 toast("请输入交易密码");
                 return;
             }
+            if (exchangePwd.length() < 6) {
+                toast("交易密码长度不能小于6位");
+                return;
+            }
             ExchangePwdReq exchangePwdReq = new ExchangePwdReq();
             if (isRememberLoginPwd) {
                 exchangePwdReq.setPayPasswordStatus(2 + "");
@@ -217,36 +214,58 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
 
 
     private void submitSellXt() {
-        String buyPrice = exchangeUnitPriceEt.getText().toString().trim();
-        String buyAmount = exchangeAmountEt.getText().toString().trim();
-        String buyPassword = exchangePassowrdEt.getText().toString().trim();
+        String sellPrice = exchangeUnitPriceEt.getText().toString().trim();
+        String sellAmount = exchangeAmountEt.getText().toString().trim();
+        String sellPassword = exchangePassowrdEt.getText().toString().trim();
         String currencyId = null;
         ExchangeFragment parentFragment = (ExchangeFragment) getParentFragment();
         if (parentFragment != null) {
             currencyId = parentFragment.getCurrencyId();
         }
 
-        if (TextUtils.isEmpty(buyPrice)) {
+        if (TextUtils.isEmpty(sellPrice)) {
             toast("购买单价不能为空");
             return;
         }
-        if (TextUtils.isEmpty(buyAmount)) {
+        if (TextUtils.isEmpty(sellAmount)) {
             toast("购买数量不能为空");
             return;
         }
-        if (TextUtils.isEmpty(currencyId)) {
-            LogUtil.i("购买的产品currencyId为空");
+        double parseSellPrice = 0;
+        double parseSellAmount = 0;
+        try {
+            parseSellPrice = Double.parseDouble(sellPrice);
+            parseSellAmount = Double.parseDouble(sellAmount);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        if (parseSellPrice <= 0) {
+            toast("购买单价不能小于0");
             return;
         }
-        if (TextUtils.isEmpty(buyPassword)) {
-            LogUtil.i("密码输入不能为空为空");
+        if (parseSellAmount <= 0) {
+            toast("购买单价不能小于0");
+            return;
+        }
+
+        if (TextUtils.isEmpty(currencyId)) {
+            toast("购买的产品currencyId为空");
+            return;
+        }
+        if (TextUtils.isEmpty(sellPassword)) {
+            toast("密码输入不能为空");
+            return;
+        }
+        if (sellPassword.length() < 6) {
+            toast("密码长度不能小于6位");
             return;
         }
         SellExchangeReq sellExchangeReq = new SellExchangeReq();
         sellExchangeReq.setCurrencyId(currencyId);
-        sellExchangeReq.setSellPrice(buyPrice);
-        sellExchangeReq.setSellNum(buyAmount);
-        sellExchangeReq.setSellPwd(buyPassword);
+        sellExchangeReq.setSellPrice(sellPrice);
+        sellExchangeReq.setSellNum(sellAmount);
+        sellExchangeReq.setSellPwd(sellPassword);
         presenter.sellXtExchange(sellExchangeReq, SELL_EXCAHNGE_TAG, true);
     }
 
@@ -257,11 +276,13 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             case SELL_EXCAHNGE_TAG:
                 toast("交易成功");
                 RxBus.getDefault().post(new ExchangeEvent());
+                exchangeUnitPriceEt.setText("");
+                exchangeAmountEt.setText("");
+                exchangePassowrdEt.setText("");
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("密码设置成功");
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
-
                 break;
         }
     }
@@ -271,6 +292,29 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         ExchangeCenterRes.UserDealCapitalMessageBean data = centerRes.getUserDealCapitalMessage();
         exchangeSoldForzenTv.setText(NumberUtil.format4Point(data.getUserBalanceLock()));
         exchangeSoldAvailableTv.setText(NumberUtil.format4Point(data.getUserBalance()));
+        exchange_max_sold_tv.setText("最大：" + NumberUtil.format4Point(data.getUserBalance()) + "XT");
+    }
 
+    private void restrictedInput(CharSequence s, EditText exchangeAmountEt, int i) {
+        if (TextUtils.isEmpty(s)) return;
+        if (s.toString().contains(".")) {
+            if (s.length() - 1 - s.toString().indexOf(".") > i) {
+                s = s.toString().subSequence(0, s.toString().indexOf(".") + i + 1);
+                exchangeAmountEt.setText(s);
+                exchangeAmountEt.setSelection(s.length());
+            }
+        }
+        if (s.toString().trim().substring(0).equals(".")) {
+            s = "0" + s;
+            exchangeAmountEt.setText(s);
+            exchangeAmountEt.setSelection(2);
+        }
+        if (s.toString().startsWith("0") && s.toString().trim().length() > 1) {
+            if (!s.toString().substring(1, 2).equals(".")) {
+                exchangeAmountEt.setText(s.subSequence(0, 1));
+                exchangeAmountEt.setSelection(1);
+                return;
+            }
+        }
     }
 }

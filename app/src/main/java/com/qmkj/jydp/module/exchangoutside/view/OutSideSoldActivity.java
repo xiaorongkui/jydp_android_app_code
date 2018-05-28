@@ -165,14 +165,6 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
                 .TYPE_NUMBER_FLAG_DECIMAL);
         ousideSoldAmountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
-        ouside_sold_bank_card_num_eiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
-        ouside_sold_bank_card_num_eiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(21)});
-
-
-        ouside_sold_bank_reserve_phone_eiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
-        ouside_sold_bank_reserve_phone_eiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter
-                .LengthFilter(15)});
-
         InitialValueObservable<CharSequence> amountTextChanges = RxTextView.textChanges(ousideSoldAmountEiv
                 .getEditTextView());
 
@@ -190,15 +182,6 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
             }
             totalPriceTv.setText(buAmount * ratio + "");
         });
-
-
-        ouside_sold_alipay_qr_code_eiv.getEditTextView().setCursorVisible(false);
-        ouside_sold_alipay_qr_code_eiv.getEditTextView().setFocusable(false);
-        ouside_sold_alipay_qr_code_eiv.getEditTextView().setFocusableInTouchMode(false);
-
-        ouside_sold_wechat_qr_code_eiv.getEditTextView().setCursorVisible(false);
-        ouside_sold_wechat_qr_code_eiv.getEditTextView().setFocusable(false);
-        ouside_sold_wechat_qr_code_eiv.getEditTextView().setFocusableInTouchMode(false);
 
     }
 
@@ -290,7 +273,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
                     e.printStackTrace();
                 }
                 if (amountDouble <= 0 || TextUtils.isEmpty(amount)) {
-                    toast("购买数量必须大于0");
+                    toast("出售数量必须大于0");
                     return;
                 }
 

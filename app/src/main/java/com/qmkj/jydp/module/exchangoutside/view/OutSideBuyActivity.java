@@ -121,9 +121,6 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         outsidePayMothedTv.setOnClickListener(this);
         outsideBuyBt.setOnClickListener(this);
 
-        ousideBuyAmountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER | InputType
-                .TYPE_NUMBER_FLAG_DECIMAL);
-        ousideBuyAmountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         InitialValueObservable<CharSequence> amountTextChanges = RxTextView.textChanges(ousideBuyAmountEiv
                 .getEditTextView());
 
