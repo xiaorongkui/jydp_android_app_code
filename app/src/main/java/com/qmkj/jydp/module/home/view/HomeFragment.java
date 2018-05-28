@@ -3,6 +3,7 @@ package com.qmkj.jydp.module.home.view;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
 import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeDetailsActivity;
+import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
@@ -96,10 +98,13 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         homeIntroduceGv.setOnItemClickListener((parent, view, position, id) -> {
             HomeDataRes.SystemBusinessesPartnerListBean listBean = data.get(position);
             if (listBean == null) return;
-            Intent intent = new Intent(mContext, WebActivity.class);
-            intent.putExtra(Constants.INTENT_PARAMETER_1, listBean.getBusinessesName());
-            intent.putExtra(Constants.INTENT_PARAMETER_2, listBean.getWebLinkUrl());
-            CommonUtil.gotoActivity(mContext, intent);
+            if (!TextUtils.isEmpty(listBean.getWebLinkUrl())) {
+                Intent intent = new Intent(mContext, WebActivity.class);
+                intent.putExtra(Constants.INTENT_PARAMETER_1, listBean.getBusinessesName());
+                intent.putExtra(Constants.INTENT_PARAMETER_2, listBean.getWebLinkUrl());
+                CommonUtil.gotoActivity(mContext, intent);
+            }
+
         });
     }
 
@@ -134,10 +139,13 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         homeAutoLl.isAutoPlay(true);
         homeAutoLl.setOnBannerListener(position -> {
             HomeDataRes.SystemAdsHomepagesListBean model = bannerList.get(position);
-            Intent intent = new Intent(mContext, WebActivity.class);
-            intent.putExtra(Constants.INTENT_PARAMETER_1, model.getAdsTitle());
-            intent.putExtra(Constants.INTENT_PARAMETER_2, model.getWebLinkUrl());
-            CommonUtil.gotoActivity(mContext, intent);
+            if (model == null) return;
+            if (!TextUtils.isEmpty(model.getWebLinkUrl())) {
+                Intent intent = new Intent(mContext, WebActivity.class);
+                intent.putExtra(Constants.INTENT_PARAMETER_1, model.getAdsTitle());
+                intent.putExtra(Constants.INTENT_PARAMETER_2, model.getWebLinkUrl());
+                CommonUtil.gotoActivity(mContext, intent);
+            }
         });
         //设置轮播时间
         homeAutoLl.setDelayTime(4000);

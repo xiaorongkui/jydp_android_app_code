@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.exchangoutside.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,8 @@ import com.qmkj.jydp.bean.response.OutSideExchangeRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangeAdapter;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
+import com.qmkj.jydp.module.login.view.LoginActivity;
+import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
@@ -50,6 +53,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
     int currentPageNumber = 0;
     private boolean isRefresh = true;
     private OutSideExchangeRes.OtcTransactionPendOrderListBean orderListBean;
+    private CommonDialog loginCommonDialog;
 
     @Override
     protected void injectPresenter() {
@@ -113,6 +117,16 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
             LogUtil.i("view=" + view.getId() + "position=" + position);
             switch (view.getId()) {
                 case R.id.exchange_outside_go_exchange_tv:
+                    if (TextUtils.isEmpty(CommonUtil.getToken())) {
+                        loginCommonDialog = new CommonDialog(mContext);
+                        loginCommonDialog.setContentText("请先登录");
+                        loginCommonDialog.setOnPositiveButtonClickListener((Dialog dialog, View v) -> {
+                            CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                            loginCommonDialog.dismiss();
+                        });
+                        loginCommonDialog.show();
+                        return;
+                    }
                     orderListBean = mData.get(position);
                     switch (orderListBean.getOrderType()) {
                         case 1://1：回购（对于经销商来说是出售）
@@ -240,5 +254,11 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
     protected void tryData(int id) {
         super.tryData(id);
         getOutSideExchangeData(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (loginCommonDialog != null && loginCommonDialog.isShowing()) loginCommonDialog.dismiss();
     }
 }

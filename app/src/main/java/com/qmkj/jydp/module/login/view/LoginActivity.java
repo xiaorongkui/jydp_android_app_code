@@ -107,6 +107,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     LinearLayout loginTitleLl;
     @BindView(R.id.register_title_ll)
     LinearLayout registerTitleLl;
+    @BindView(R.id.login_logo_view)
+    View login_logo_view;
     private Disposable disposable;//倒计时的disposable
     private TextView codeTimeDownTv;
     private String account;
@@ -166,9 +168,14 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
     @OnClick({R.id.login_title_ll, R.id.register_title_ll, R.id.login_bt, R.id.login_forget_pwd_tv, R.id
-            .register_bt, R.id.register_phone_erea_tv, R.id.register_phone_erea_iv, R.id.register_agreement_name_tv})
+            .register_bt, R.id.register_phone_erea_tv, R.id.register_phone_erea_iv, R.id.register_agreement_name_tv,
+            R.id.login_logo_view})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.login_logo_view:
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
+                AppManager.getInstance().removeCurrent();
+                break;
             case R.id.login_title_ll:
                 setShowStatusView(0);
                 break;
@@ -397,9 +404,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        CommonUtil.gotoActivity(mContext, MainActivity.class);
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        CommonUtil.gotoActivity(mContext, MainActivity.class);
+//    }
 }

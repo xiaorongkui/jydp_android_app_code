@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.AppUpdateRes;
@@ -22,6 +23,7 @@ import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
+import com.qmkj.jydp.util.StringUtil;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -244,12 +246,11 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
     private void goMianActivity() {
         if (timeFinish && permissionFinish && !isUpdate) {
             String token = CommonUtil.getToken();
-//            if (StringUtil.isNull(token)) {
-//                CommonUtil.gotoActivity(mContext, LoginActivity.class);
-//            } else {
-//                CommonUtil.gotoActivity(mContext, MainActivity.class);
-//            }
-            CommonUtil.gotoActivity(mContext, LoginActivity.class);
+            if (StringUtil.isNull(token)) {
+                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+            } else {
+                CommonUtil.gotoActivity(mContext, MainActivity.class);
+            }
             AppManager.getInstance().removeCurrent();
         }
     }

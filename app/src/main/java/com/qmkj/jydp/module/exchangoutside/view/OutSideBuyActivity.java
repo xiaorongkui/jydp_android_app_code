@@ -27,7 +27,9 @@ import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.NumberUtil;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +138,8 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            totalPriceTv.setText(buAmount * ratio + "");
+
+            totalPriceTv.setText(NumberUtil.mul(buAmount, ratio, 4) + "");
         });
     }
 

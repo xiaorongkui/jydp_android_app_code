@@ -129,7 +129,7 @@ public class OutSideSoldDetailActivity extends BaseMvpActivity<OutsideExchangePr
                 break;
         }
         soldAmountCiv.setRightText(outSideSellDetailRes.getSellNum() + "");
-        obtainedMoneyCiv.setRightText(outSideSellDetailRes.getSellMoney());//todo
+        obtainedMoneyCiv.setRightText("¥" + outSideSellDetailRes.getSellMoney());//todo
     }
 
     private void submitSellOrder() {

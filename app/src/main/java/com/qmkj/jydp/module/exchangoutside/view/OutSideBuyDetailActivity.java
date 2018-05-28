@@ -164,7 +164,7 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
                         break;
                 }
                 soldAmountCiv.setRightText(outSideBuyPayDetailRes.getBuyNum());
-                obtainedMoneyCiv.setRightText(outSideBuyPayDetailReq.getPayMentMoney());//todo
+                obtainedMoneyCiv.setRightText("¥" + outSideBuyPayDetailReq.getPayMentMoney());//todo
                 break;
             case BUY_PAY_TAG:
                 toast("购买成功");

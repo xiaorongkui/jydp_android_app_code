@@ -22,6 +22,9 @@
         app:contentEditHintText="@string/your_wechat_account"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
+        app:digits="@string/text_digits_1"
+        app:inputType="text"
+        app:maxLength="20"
         app:titleText="@string/wechat_account"
         app:titleTopMargin="@dimen/x20"/>
 

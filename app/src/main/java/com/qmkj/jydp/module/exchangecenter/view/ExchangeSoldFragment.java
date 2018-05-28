@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.exchangecenter.view;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -28,6 +29,7 @@ import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
+import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
@@ -68,6 +70,8 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     private CommonDialog pwdDialogUtils;
     private static final int DECIMAL_DIGITS_AMMOUNT = 4;//最多输入4位数值
     private static final int DECIMAL_DIGITS_PRICE = 2;//最多输入2位数值
+    private com.qmkj.jydp.ui.widget.dialog.CommonDialog loginCommonDialog_1;
+    private com.qmkj.jydp.ui.widget.dialog.CommonDialog loginCommonDialog_2;
 
     public static ExchangeSoldFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -119,6 +123,12 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) {
             pwdDialogUtils.dismiss();
         }
+        if (loginCommonDialog_1 != null && loginCommonDialog_1.isShowing()) {
+            loginCommonDialog_1.dismiss();
+        }
+        if (loginCommonDialog_2 != null && loginCommonDialog_2.isShowing()) {
+            loginCommonDialog_2.dismiss();
+        }
     }
 
     @Override
@@ -126,9 +136,29 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         super.onClick(v);
         switch (v.getId()) {
             case R.id.exchange_passowrd_iv:
+                if (TextUtils.isEmpty(CommonUtil.getToken())) {
+                    loginCommonDialog_1 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
+                    loginCommonDialog_1.setContentText("请先登录");
+                    loginCommonDialog_1.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
+                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        loginCommonDialog_1.dismiss();
+                    });
+                    loginCommonDialog_1.show();
+                    return;
+                }
                 showSettingExchangePwdDialog();
                 break;
             case R.id.exchange_center_sold_out_bt:
+                if (TextUtils.isEmpty(CommonUtil.getToken())) {
+                    loginCommonDialog_2 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
+                    loginCommonDialog_2.setContentText("请先登录");
+                    loginCommonDialog_2.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
+                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        loginCommonDialog_2.dismiss();
+                    });
+                    loginCommonDialog_2.show();
+                    return;
+                }
                 submitSellXt();
                 break;
         }

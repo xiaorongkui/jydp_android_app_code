@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tool="http://schemas.android.com/tools"
-    android:background="@color/color_white_1"
-    android:orientation="vertical">
+              xmlns:tool="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_white_1"
+              android:orientation="vertical">
 
-    <include layout="@layout/common_header" />
+    <include layout="@layout/common_header"/>
 
-    <View style="@style/line1" />
+    <View style="@style/line1"/>
 
     <com.qmkj.jydp.ui.widget.SmoothScrollView
         android:layout_width="match_parent"
@@ -18,38 +18,43 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingRight="@dimen/x17"
+            android:orientation="vertical"
             android:paddingLeft="@dimen/x17"
-            android:orientation="vertical">
+            android:paddingRight="@dimen/x17">
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/help_details_tittle_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:gravity="center"
                 android:textColor="@color/color_black_2"
                 android:textSize="@dimen/text_size_15"
-                android:layout_marginTop="@dimen/y10"
-                tool:text="公告详情......" />
+                tool:text="公告详情......"/>
 
             <TextView
                 android:id="@+id/help_details_time_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
                 android:textColor="@color/colorBlack_13"
                 android:textSize="@dimen/text_size_12"
-                android:layout_marginTop="@dimen/y10"
-                tool:text="2018-05-05 12:12:12" />
+                tool:text="2018-05-05 12:12:12"/>
 
             <TextView
                 android:id="@+id/help_details_meg_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
                 android:textColor="@color/color_black_2"
                 android:textSize="@dimen/text_size_14"
-                android:layout_marginTop="@dimen/y20"
-                tool:text="公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容" />
+                android:visibility="gone"
+                tool:text="公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容"/>
 
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </com.qmkj.jydp.ui.widget.SmoothScrollView>

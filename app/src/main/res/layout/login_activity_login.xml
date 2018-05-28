@@ -365,6 +365,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/login_logo_view"
                 android:layout_width="@dimen/x80"
                 android:layout_height="@dimen/x80"
                 android:layout_gravity="center_horizontal"
