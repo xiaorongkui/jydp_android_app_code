@@ -80,8 +80,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     LinearLayout exchangeHeaderLl;
     @BindView(R.id.exchange_ll)
     LinearLayout exchangeLl;
-    @BindView(R.id.currency_select_iv)
-    ImageView currencySelectIv;
     @BindView(R.id.exchange_sl)
     NestedScrollView exchangeSl;
     @BindView(R.id.exchange_continer_vp)
@@ -183,7 +181,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     private void initListener() {
-        currencySelectIv.setOnClickListener(this);
         buyLl.setOnClickListener(this);
         soldLl.setOnClickListener(this);
         exchange_center_kline_iv.setOnClickListener(this);
@@ -364,14 +361,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.currency_select_iv://币种选择
-                try {
-                    ((MainActivity) getActivity()).showDrawerLayout(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LogUtil.i("点击选择币种异常=" + e.getMessage());
-                }
-                break;
             case R.id.buy_ll:
                 setViewpagerIndicotr(0);
                 break;

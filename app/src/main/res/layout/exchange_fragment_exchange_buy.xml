@@ -17,11 +17,11 @@
             android:textSize="@dimen/text_size_12"/>
 
         <TextView
-            android:maxLines="1"
             android:id="@+id/exchange_buy_total_assets_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x58"
+            android:maxLines="1"
             android:textColor="@color/color_black_4"
             android:textSize="@dimen/text_size_12"/>
 
@@ -57,11 +57,11 @@
             android:textSize="@dimen/text_size_12"/>
 
         <TextView
-            android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x4"
             android:layout_toEndOf="@id/exchange_forzen_assets_tv"
+            android:maxLines="1"
             android:text="@string/xt"
             android:textColor="@color/color_black_9"
             android:textSize="@dimen/text_size_12"/>
@@ -89,11 +89,11 @@
             android:textSize="@dimen/text_size_12"/>
 
         <TextView
-            android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x4"
             android:layout_toEndOf="@id/exchange_available_assets_tv"
+            android:maxLines="1"
             android:text="@string/xt"
             android:textColor="@color/color_black_9"
             android:textSize="@dimen/text_size_12"/>
@@ -121,6 +121,8 @@
             android:layout_height="@dimen/y22"
             android:layout_marginStart="@dimen/x58"
             android:background="@drawable/shape_text_input_bg"
+            android:inputType="numberDecimal"
+            android:maxLength="13"
             android:maxLines="1"
             android:paddingStart="@dimen/x8"
             android:textColor="@color/color_black_2"
@@ -148,6 +150,8 @@
             android:layout_height="@dimen/y22"
             android:layout_marginStart="@dimen/x58"
             android:background="@drawable/shape_text_input_bg"
+            android:inputType="numberDecimal"
+            android:maxLength="13"
             android:maxLines="1"
             android:paddingStart="@dimen/x8"
             android:textColor="@color/color_black_2"
@@ -156,6 +160,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/buy_max_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -184,6 +189,9 @@
             android:layout_height="@dimen/y22"
             android:layout_marginStart="@dimen/x58"
             android:background="@drawable/shape_text_input_bg"
+            android:digits="@string/text_digits"
+            android:inputType="textPassword"
+            android:maxLength="16"
             android:maxLines="1"
             android:paddingRight="@dimen/x6"
             android:paddingStart="@dimen/x8"

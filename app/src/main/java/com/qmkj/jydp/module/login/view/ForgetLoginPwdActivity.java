@@ -46,7 +46,6 @@ import io.reactivex.schedulers.Schedulers;
 public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     private static final int FORGET_CODE_TAG = 1;
     private static final int FORGET_PWD_TAG = 2;
-    public String digits = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
     private static final int splashTotalCountdownTime = 60;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -91,32 +90,12 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initView() {
-        initInputType();
         forgetPwdCommitBt.setOnClickListener(this);
         forgetPwdPhoneEreaTv.setOnClickListener(this);
         forgetPwdPhoneEreaIv.setOnClickListener(this);
         codeTimeDownTv = loginForgetPwdVertificationCodeEiv.getView(R.id.edit_right_tv);
         codeTimeDownTv.setOnClickListener(this);
         codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
-    }
-
-    private void initInputType() {
-        loginForgetPwdAccountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
-        loginForgetPwdAccountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_TEXT);
-        loginForgetPwdAccountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-        loginForgetPwdAccountEiv.getEditTextView().setKeyListener(DigitsKeyListener.getInstance(digits));
-        initPwdInput(loginForgetPwdNewpwdEiv.getEditTextView());
-        initPwdInput(loginForgetPwdNewpwdAgainEiv.getEditTextView());
-
-        loginForgetPwdVertificationCodeEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
-    }
-
-    private void initPwdInput(EditText editText) {
-        editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType
-                .TYPE_TEXT_VARIATION_PASSWORD);
-        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-        editText.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
     @Override

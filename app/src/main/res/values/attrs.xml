@@ -85,18 +85,28 @@
         <!-- 底部line -->
         <attr name="bottomLineTopMargin" format="integer"/>
 
-        <attr name="textCursorVisible" format="boolean"/>
         <!-- 整个item的左右边距 -->
         <attr name="paddingLeftRight" format="integer"/>
 
+        <!-- 输入限制 -->
         <attr name="inputType">
-            <flag name="textPassword" value="0"/>
             <flag name="text" value="1"/>
             <flag name="number" value="2"/>
             <flag name="phone" value="3"/>
-            <flag name="numberPassword" value="4"/>
+            <flag name="numberDecimal" value="4"/>
+            <flag name="textPassword" value="5"/>
+            <flag name="numberPassword" value="6"/>
+            <flag name="textPersonName" value="7"/>
         </attr>
-        >
+        <!-- 输入文本限制 -->
+        <attr name="digits" format="reference|string"/>
+
+        <!-- 最大长度 -->
+        <attr name="maxLength" format="integer"/>
+
+        <!-- 光标是否可见 -->
+        <attr name="textCursorVisible" format="boolean"/>
+
     </declare-styleable>
 
     <!--start=======解决重复引用属性报错：外面单独定义重复的-->

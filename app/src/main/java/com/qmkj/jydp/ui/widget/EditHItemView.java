@@ -1,17 +1,25 @@
 package com.qmkj.jydp.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+
+import static android.text.InputType.TYPE_TEXT_VARIATION_NORMAL;
 
 
 /**
@@ -49,6 +57,17 @@ public class EditHItemView extends LinearLayout {
     private CharSequence mTitleEndText;
     private int mTitleEndTextColor;
     private boolean mTextCursorVisible;
+    private int mInputType;
+    public static final int text = 1;
+    public static final int number = 2;
+    public static final int phone = 3;
+    public static final int numberDecimal = 4;
+    public static final int textPassword = 5;
+    public static final int numberPassword = 6;
+    public static final int textPersonName = 7;
+
+    private CharSequence mDigits;
+    private int mMaxLength;
 
     public EditHItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -101,6 +120,9 @@ public class EditHItemView extends LinearLayout {
 
             mItemPaddingLeftRight = a.getDimension(R.styleable.EditItem_paddingLeftRight, 0);
 
+            mInputType = a.getInt(R.styleable.EditItem_inputType, -1);
+            mDigits = a.getText(R.styleable.EditItem_digits);
+            mMaxLength = a.getInt(R.styleable.EditItem_maxLength, 0);
             a.recycle();
         }
     }
@@ -150,7 +172,55 @@ public class EditHItemView extends LinearLayout {
         setContentRightTextSize(mContentRightTextSize);
 
         initBottomLineLayout();
+        initListener();
+        initEditText();
     }
+
+    private void initEditText() {
+        switch (mInputType) {
+            case text:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_TEXT);
+                break;
+            case number:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+            case phone:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_PHONE);
+                break;
+            case numberDecimal:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                break;
+            case textPassword:
+                mEdit_letf_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                break;
+            case numberPassword:
+                mEdit_letf_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+                break;
+            case textPersonName:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                break;
+        }
+
+
+        if (!TextUtils.isEmpty(mDigits) && !TextUtils.isEmpty(mDigits.toString())) {
+            mEdit_letf_et.setKeyListener(DigitsKeyListener.getInstance(mDigits.toString()));
+        }
+        if (mMaxLength > 0) mEdit_letf_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mMaxLength)});
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void initListener() {
+        mEdit_letf_et.setOnTouchListener((View v, MotionEvent event) -> {
+            mEdit_letf_et.setFocusable(true);
+            mEdit_letf_et.setFocusableInTouchMode(true);
+            mEdit_letf_et.requestFocus();
+            mEdit_letf_et.setCursorVisible(true);
+            return false;
+        });
+    }
+
 
     private void setContentEditTextCursorVisible(boolean mTextCursorVisible) {
         mEdit_letf_et.setCursorVisible(mTextCursorVisible);

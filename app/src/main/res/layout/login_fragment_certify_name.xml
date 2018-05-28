@@ -46,6 +46,9 @@
                 app:bottomLineVisible="true"
                 app:contentEditHintText="@string/your_real_name"
                 app:contentEditTopMargin="@dimen/x15"
+                app:inputType="textPersonName"
+                app:maxLength="20"
+                app:textCursorVisible="false"
                 app:titleText="@string/name"
                 app:titleTopMargin="@dimen/x20"/>
 
@@ -95,8 +98,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x15"
                         android:layout_toEndOf="@id/ertify_type_select_iv"
-                        android:digits="qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
+                        android:digits="@string/text_digits"
                         android:hint="@string/input_your_certificate_num"
+                        android:inputType="number"
                         android:maxLength="18"
                         android:maxLines="1"/>
 

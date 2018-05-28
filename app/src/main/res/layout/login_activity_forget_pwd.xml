@@ -35,7 +35,11 @@
                 app:bottomLineVisible="true"
                 app:contentEditHintText="@string/login_hint_notice"
                 app:contentEditTopMargin="@dimen/x15"
+                app:digits="@string/text_digits"
+                app:inputType="text"
+                app:maxLength="16"
                 app:paddingLeftRight="@dimen/x15"
+                app:textCursorVisible="false"
                 app:titleText="@string/your_account"
                 app:titleTopMargin="@dimen/x20"/>
 
@@ -83,12 +87,13 @@
                     <EditText
                         android:id="@+id/forget_pwd_phone_erea_et"
                         style="@style/edt_left"
-                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x15"
                         android:layout_toEndOf="@id/forget_pwd_phone_erea_iv"
                         android:hint="@string/register_phone_notice"
+                        android:inputType="number"
+                        android:maxLength="11"
                         android:maxLines="1"/>
 
                 </RelativeLayout>
@@ -114,6 +119,8 @@
                 app:contentRightText="@string/vertify_code_count"
                 app:contentRightTextSize="@dimen/text_size_14"
                 app:contentRightTextVisible="true"
+                app:inputType="number"
+                app:maxLength="6"
                 app:paddingLeftRight="@dimen/x16"
                 app:titleText="@string/verification_code"
                 app:titleTopMargin="@dimen/x20"/>
@@ -144,6 +151,9 @@
                 app:bottomLineVisible="true"
                 app:contentEditHintText="@string/register_account_notice"
                 app:contentEditTopMargin="@dimen/x15"
+                app:digits="@string/text_digits"
+                app:inputType="textPassword"
+                app:maxLength="16"
                 app:paddingLeftRight="@dimen/x15"
                 app:titleText="@string/new_password"
                 app:titleTopMargin="@dimen/x20"/>
@@ -157,6 +167,9 @@
                 app:bottomLineVisible="true"
                 app:contentEditHintText="@string/input_new_password"
                 app:contentEditTopMargin="@dimen/x15"
+                app:digits="@string/text_digits"
+                app:inputType="textPassword"
+                app:maxLength="16"
                 app:paddingLeftRight="@dimen/x15"
                 app:titleText="@string/password_again"
                 app:titleTopMargin="@dimen/x20"/>

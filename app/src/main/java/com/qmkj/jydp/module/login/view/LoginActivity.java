@@ -56,7 +56,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     private static final int LOGIN_SATRT_TAG = 1;
     private static final int REGISTER_CODE_TAG = 2;
     private static final int REGISTER_TAG = 3;
-    public String digits = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
     @BindView(R.id.login_login_title_tv)
     TextView loginLoginTitleTv;
     @BindView(R.id.login_login_title_line)
@@ -135,59 +134,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     protected void initView() {
 
         setShowStatusView(0);
-        loginAccountEiv.getEditTextView().setOnTouchListener((v, event) -> {
-            loginAccountEiv.getEditTextView().setCursorVisible(true);
-            return false;
-        });
-        registerAccountEiv.getEditTextView().setOnTouchListener((v, event) -> {
-            registerAccountEiv.getEditTextView().setCursorVisible(true);
-            return false;
-        });
-
         codeTimeDownTv = registerVerificationCodeEiv.getView(R.id.edit_right_tv);
         codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv.setOnClickListener(v -> {
             CommonUtil.hideInputWindow(mContext);
             getVerificationCode();
         });
-        initInputType();
-    }
-
-
-    private void initInputType() {
-        loginAccountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
-        loginAccountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_TEXT);
-        loginAccountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-        loginAccountEiv.getEditTextView().setKeyListener(DigitsKeyListener.getInstance(digits));
-        initPwdInput(loginPasswordEiv.getEditTextView());
-
-
-        registerAccountEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
-        registerAccountEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_TEXT);
-        registerAccountEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-        registerAccountEiv.getEditTextView().setKeyListener(DigitsKeyListener.getInstance(digits));
-
-        registerPhoneEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod.getInstance());
-        registerPhoneEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
-        registerPhoneEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
-
-        registerVerificationCodeEiv.getEditTextView().setTransformationMethod(PasswordTransformationMethod
-                .getInstance());
-        registerVerificationCodeEiv.getEditTextView().setInputType(InputType.TYPE_CLASS_NUMBER);
-        registerVerificationCodeEiv.getEditTextView().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
-
-        initPwdInput(registerPasswordOneEiv.getEditTextView());
-        initPwdInput(registerPasswordTwoEiv.getEditTextView());
-        initPwdInput(registerExchangePasswordOneEiv.getEditTextView());
-        initPwdInput(registerExchangePasswordTwoEiv.getEditTextView());
-    }
-
-    private void initPwdInput(EditText editText) {
-        editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType
-                .TYPE_TEXT_VARIATION_PASSWORD);
-        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
-        editText.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
     private void setShowStatusView(int index) {

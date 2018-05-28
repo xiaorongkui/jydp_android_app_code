@@ -1,11 +1,17 @@
 package com.qmkj.jydp.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -51,6 +57,17 @@ public class EditVItemView extends LinearLayout {
     private TextView mEdit_title_end_tv;
     private CharSequence mTitleEndText;
     private int mTitleEndTextColor;
+    private int mInputType;
+    private CharSequence mDigits;
+    private int mMaxLength;
+    public static final int text = 1;
+    public static final int number = 2;
+    public static final int phone = 3;
+    public static final int numberDecimal = 4;
+    public static final int textPassword = 5;
+    public static final int numberPassword = 6;
+    public static final int textPersonName = 7;
+    private boolean mTextCursorVisible;
 
     public EditVItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -104,6 +121,10 @@ public class EditVItemView extends LinearLayout {
 
             mItemPaddingLeftRight = a.getDimension(R.styleable.EditItem_paddingLeftRight, 0);
 
+            mTextCursorVisible = a.getBoolean(R.styleable.EditItem_textCursorVisible, true);
+            mInputType = a.getInt(R.styleable.EditItem_inputType, -1);
+            mDigits = a.getText(R.styleable.EditItem_digits);
+            mMaxLength = a.getInt(R.styleable.EditItem_maxLength, 0);
             a.recycle();
         }
     }
@@ -146,6 +167,7 @@ public class EditVItemView extends LinearLayout {
         setContentEditHintText(String.valueOf(mContentEditHintText));
         setContentEditHintColor(mContentEditHintTextColor);
         setContentEditSize(mContentEditTextSize);
+        setContentEditTextCursorVisible(mTextCursorVisible);
 
         initContentRightLayout();
         setContentRightText(String.valueOf(mContentRightText));
@@ -153,6 +175,57 @@ public class EditVItemView extends LinearLayout {
         setContentRightTextSize(mContentRightTextSize);
 
         initBottomLineLayout();
+        initEditText();
+        initListener();
+    }
+
+    private void setContentEditTextCursorVisible(boolean mTextCursorVisible) {
+        mEdit_letf_et.setCursorVisible(mTextCursorVisible);
+    }
+
+    private void initEditText() {
+        switch (mInputType) {
+            case text:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_TEXT);
+                break;
+            case number:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+            case phone:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_PHONE);
+                break;
+            case numberDecimal:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                break;
+            case textPassword:
+                mEdit_letf_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                break;
+            case numberPassword:
+                mEdit_letf_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+                break;
+            case textPersonName:
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                break;
+        }
+
+
+        if (!TextUtils.isEmpty(mDigits) && !TextUtils.isEmpty(mDigits.toString())) {
+            mEdit_letf_et.setKeyListener(DigitsKeyListener.getInstance(mDigits.toString()));
+        }
+        if (mMaxLength > 0) mEdit_letf_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mMaxLength)});
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void initListener() {
+        mEdit_letf_et.setOnTouchListener((View v, MotionEvent event) -> {
+            mEdit_letf_et.setFocusable(true);
+            mEdit_letf_et.setFocusableInTouchMode(true);
+            mEdit_letf_et.requestFocus();
+            mEdit_letf_et.setCursorVisible(true);
+            return false;
+        });
     }
 
     private void setTitleEndTextColor(int mTitleTextColor) {
@@ -372,24 +445,26 @@ public class EditVItemView extends LinearLayout {
     public EditText getEditTextView() {
         return mEdit_letf_et;
     }
+
     public void setEditTextView(String text) {
-        if(text!=null){
+        if (text != null) {
             mEdit_letf_et.setText(text);
         }
     }
+
     public void setEditTextInputType(int type) {
-        if(mEdit_letf_et!=null){
+        if (mEdit_letf_et != null) {
             mEdit_letf_et.setInputType(type);
         }
     }
 
-    public void setmEditTextViewFocuseAble(boolean enable){
-        if(mEdit_letf_et!=null){
+    public void setmEditTextViewFocuseAble(boolean enable) {
+        if (mEdit_letf_et != null) {
             mEdit_letf_et.setFocusable(enable);
         }
     }
 
-    public void setOnEditClickListener(OnClickListener listener){
+    public void setOnEditClickListener(OnClickListener listener) {
         mEdit_letf_et.setOnClickListener(listener);
     }
 

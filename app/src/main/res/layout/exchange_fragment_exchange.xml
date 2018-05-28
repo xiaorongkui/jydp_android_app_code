@@ -29,13 +29,6 @@
                     android:paddingEnd="@dimen/y15"
                     android:paddingStart="@dimen/x15">
 
-                    <ImageView
-                        android:id="@+id/currency_select_iv"
-                        android:layout_width="@dimen/x7"
-                        android:layout_height="@dimen/y12"
-                        android:src="@mipmap/back"
-                        android:visibility="gone"/>
-
                     <TextView
                         android:id="@+id/exchange_title_tv"
                         android:layout_width="0dp"

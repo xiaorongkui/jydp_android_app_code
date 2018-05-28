@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sold_select_bank_ll"
     android:layout_width="match_parent"
@@ -10,8 +10,7 @@
     android:orientation="vertical"
     android:paddingBottom="@dimen/y21"
     android:paddingEnd="@dimen/x10"
-    android:paddingStart="@dimen/x12"
-    tools:showIn="@layout/outside_activity_sold">
+    android:paddingStart="@dimen/x12">
 
     <com.qmkj.jydp.ui.widget.EditVItemView
         android:id="@+id/ouside_sold_bank_card_num_eiv"
@@ -22,6 +21,8 @@
         app:contentEditHintText="@string/your_bank_card_num"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
+        app:inputType="number"
+        app:maxLength="21"
         app:titleText="@string/bank_card_num"
         app:titleTopMargin="@dimen/x20"/>
 
@@ -34,6 +35,8 @@
         app:contentEditHintText="@string/bank_name_notice"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
+        app:inputType="text"
+        app:maxLength="20"
         app:titleText="@string/bank_name"
         app:titleTopMargin="@dimen/x20"/>
 
@@ -46,6 +49,8 @@
         app:contentEditHintText="@string/bank_branch_name_notice"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
+        app:inputType="text"
+        app:maxLength="20"
         app:titleText="@string/bank_branch_name"
         app:titleTopMargin="@dimen/x20"/>
 
@@ -58,6 +63,8 @@
         app:contentEditHintText="@string/bank_reserve_name_notice"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
+        app:inputType="textPersonName"
+        app:maxLength="15"
         app:titleText="@string/bank_reserve_name"
         app:titleTopMargin="@dimen/x20"/>
 
@@ -70,6 +77,8 @@
         app:contentEditHintText="@string/bank_reserve_phone_num_notice"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
+        app:inputType="phone"
+        app:maxLength="11"
         app:titleText="@string/bank_reserve_phone_num"
         app:titleTopMargin="@dimen/x20"/>
 </LinearLayout>

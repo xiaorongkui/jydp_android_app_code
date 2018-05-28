@@ -38,6 +38,9 @@
                 app:contentEditHintText="@string/buy_hint_notice"
                 app:contentEditTextSize="@dimen/text_size_13"
                 app:contentEditTopMargin="@dimen/x15"
+                app:inputType="numberDecimal"
+                app:maxLength="16"
+                app:textCursorVisible="false"
                 app:titleText="@string/buy_amount"
                 app:titleTopMargin="@dimen/x20"/>
 
