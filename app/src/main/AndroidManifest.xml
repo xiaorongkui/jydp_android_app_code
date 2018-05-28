@@ -31,6 +31,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".module.login.view.SplashActivity"
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/start_apptheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
@@ -50,18 +62,6 @@
         <activity
             android:name=".module.exchangecenter.view.EntrustRecodeActivity"
             android:launchMode="singleTop" />
-        <activity
-            android:name=".module.login.view.SplashActivity"
-            android:launchMode="singleTop"
-            android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/start_apptheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".module.exchangecenter.view.KlineActivity"
             android:launchMode="singleTop" />
@@ -107,15 +107,46 @@
         <activity
             android:name=".module.mine.view.ModifyPhoneActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".module.mine.view.ModifyPaymentActivity" />
-        <activity android:name=".module.mine.view.PublishAdvertisementActivity" />
-        <activity android:name=".module.mine.view.ReceivablesActivity" />
-        <activity android:name=".module.mine.view.OrderRecodeActivity" />
-        <activity android:name=".module.mine.view.TransactionRecodeActivity" />
-        <activity android:name=".module.mine.view.CurrencyWithDrawRecodeActivity" />
-        <activity android:name=".module.mine.view.OutSideExchangeRecodeActivity" />
-        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailActivity" />
-        <activity android:name=".module.home.view.WebActivity" />
+        <activity
+            android:name=".module.mine.view.ModifyPaymentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.PublishAdvertisementActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.ReceivablesActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.OrderRecodeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.TransactionRecodeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.CurrencyWithDrawRecodeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.OutSideExchangeRecodeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.OutSideExchangeOrderDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.home.view.WebActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.view.SystemNoticeDetailsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.exchangoutside.view.OutSideBuyDetailActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".module.mine.view.HelpCenterDetailsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mine.ChainWithdrawActivity"
+            android:launchMode="singleTop" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -124,18 +155,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
-
-        <activity
-            android:name=".module.mine.view.SystemNoticeDetailsActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".module.exchangoutside.view.OutSideBuyDetailActivity"/>
-
-        <activity
-            android:name=".module.mine.view.HelpCenterDetailsActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".module.mine.ChainWithdrawActivity"></activity>
     </application>
 
 </manifest>
