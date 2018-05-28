@@ -2,6 +2,7 @@ package com.qmkj.jydp.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -380,6 +381,16 @@ public class EditVItemView extends LinearLayout {
     public void setEditTextInputType(int type) {
         if(mEdit_letf_et!=null){
             mEdit_letf_et.setInputType(type);
+        }
+    }
+    public void setEditTextMaxLength(int length) {
+        if(mEdit_letf_et!=null){
+            mEdit_letf_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        }
+    }
+    public void setEditTextMaxLine(int line) {
+        if(mEdit_letf_et!=null){
+            mEdit_letf_et.setMaxLines(line);
         }
     }
 

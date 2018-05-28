@@ -49,10 +49,35 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
         TextView available_amount =(TextView)helper.getView(R.id.available_amount_tv); //剩余数量
         TextView entrustment =(TextView)helper.getView(R.id.order_revocation_entrustment_tv); //撤销委托
         TextView detail =(TextView)helper.getView(R.id.order_see_detail_tv); //查看详情
+        shapeSelector.setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
+                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+        detail.setBackground(shapeSelector.create());
+        shapeSelector.setDefaultStrokeColor(CommonUtil.getColor(R.color.color_bule_3))
+                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+        entrustment.setBackground(shapeSelector.create());
+
+
+
         helper.addOnClickListener(R.id.order_revocation_entrustment_tv);
         helper.addOnClickListener(R.id.order_see_detail_tv);
         business_phone.setLeftText("委托时间"+DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
+        //收支类型,1：买入，2：卖出
+        switch (item.getPaymentType()){
+            case 1:
+                exchange_statu.setBackgroundResource(R.drawable.shape_buy_bg);
+                exchange_statu.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                exchange_statu.setText(CommonUtil.getString(R.string.buy_1));
+                break;
+            case 2:
+                exchange_statu.setBackgroundResource(R.drawable.shape_shell_bg);
+                exchange_statu.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                exchange_statu.setText(CommonUtil.getString(R.string.sell));
+                break;
+        }
+
+
         String text= null;
+        //挂单状态，1：未成交，2：部分成交，3：全部成交，4：部分撤销，5：全部撤销
         switch (item.getPendingStatus()){
             case 1:
                 text = "未成交";

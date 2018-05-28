@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine;
 
 import android.os.Build;
+import android.text.InputType;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -72,6 +73,15 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initView() {
+        withdrawNumEv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
+
+
+        verificationCodeEv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
+        verificationCodeEv.setEditTextMaxLength(6);
+        verificationCodeEv.setEditTextMaxLine(1);
+
+        passwordEv.setEditTextInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
         LoginRes.UserBean userBean = CommonUtil.getLoginInfo().getUser();
         verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + userBean.getUserPhone() + "发送一条短信验证码");
         codeTimeDownTv = verificationCodeEv.getView(R.id.edit_right_tv);
@@ -140,10 +150,8 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             toast("数量不能小于最低数量");
             return;
         }
-        if (validateCode.isEmpty()) {
-            toast("验证码不能为空");
-            return;
-        }
+
+        CommonUtil.checkCode(validateCode);
         UserWithdrawReq req = new UserWithdrawReq();
         req.setBuyPwd(buyPwd);
         req.setCurrencyId(String.valueOf(currencyId));

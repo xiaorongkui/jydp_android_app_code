@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -86,6 +87,11 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initView() {
+        modify_old_login_pwd_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_new_login_pwd_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_new_login_pwd_again_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_login_pwd_verification_code_civ.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
+        modify_login_pwd_verification_code_civ.setEditTextMaxLength(6);
         codeTimeDownTv = modify_login_pwd_verification_code_civ.getView(R.id.edit_right_tv);
         codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv.setOnClickListener(v -> {
@@ -130,11 +136,7 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             toast("重复密码不能为空");
             return;
         }
-        if (TextUtils.isEmpty(code)) {
-            toast("验证码不能为空");
-            return;
-        }
-
+        CommonUtil.checkCode(code);
         if (!CheckTextUtil.checkPassword(oldPass) ||
                 !CheckTextUtil.checkPassword(newPass) ||
                 !CheckTextUtil.checkPassword(newPassAgain)
@@ -142,7 +144,7 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             toast("登录密码必须是字母、数字，6～16个字符");
             return;
         }
-        if (TextUtils.isEmpty(newPass) || !newPass.equals(newPassAgain)) {
+        if (!newPass.equals(newPassAgain)) {
             toast("两次登录密码输入不同");
             return;
         }

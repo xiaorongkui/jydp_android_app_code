@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -105,6 +106,14 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initView() {
+        modify_pwd_old_pwd_one_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_pwd_new_pwd_one_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_pwd_login_pwd_one_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_phone_pwd_one_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_phone_pwd_again_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        login_forget_pwd_vertification_code_eiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
+        login_forget_pwd_vertification_code_eiv.setEditTextMaxLength(6);
+
         modifyPwdOldPwdTitleLl.setOnClickListener(this);
         modifyPwdPhoneTitleLl.setOnClickListener(this);
         modify_pwd_bt.setOnClickListener(this);
@@ -173,10 +182,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             String newPass = modify_phone_pwd_one_eiv.getEditTextString();
             String newPassAgain = modify_phone_pwd_again_eiv.getEditTextString();
             String code = login_forget_pwd_vertification_code_eiv.getEditTextString();
-            if (TextUtils.isEmpty(code)) {
-                toast("验证码不能为空");
-                return;
-            }
+
+            CommonUtil.checkCode(code);
             checkNewPass(newPass, newPassAgain);
 
             ChangePassWordReq req = new ChangePassWordReq();
@@ -209,7 +216,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             toast("登录密码必须是字母、数字，6～16个字符");
             return;
         }
-        if (TextUtils.isEmpty(newPass) || !newPass.equals(newPassAgain)) {
+        if (!newPass.equals(newPassAgain)) {
             toast("两次登录密码输入不同");
             return;
         }

@@ -2,6 +2,7 @@ package com.qmkj.jydp.module.mine.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -87,6 +88,14 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initView() {
+        modify_phone_password_one_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        modify_phone_verification_code_civ.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
+        modify_phone_verification_code_eiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
+        modify_phone_erea_et.setInputType(InputType.TYPE_CLASS_NUMBER);
+        modify_phone_erea_tv.setInputType(InputType.TYPE_CLASS_NUMBER);
+        modify_phone_verification_code_civ.setEditTextMaxLength(6);
+        modify_phone_verification_code_eiv.setEditTextMaxLength(6);
+
         codeTimeDownTv = modify_phone_verification_code_civ.getView(R.id.edit_right_tv);
         codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv.setOnClickListener(v -> {
@@ -167,28 +176,16 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         String phone = modify_phone_erea_et.getText().toString();
         String phoneAreaCode = modify_phone_erea_tv.getText().toString();
         String passWord = modify_phone_password_one_eiv.getEditTextString();
-
-        if (TextUtils.isEmpty(code_old)) {
-            toast("验证码不能为空");
-            return;
-        }
         if (TextUtils.isEmpty(phone)) {
             toast("新的手机号码不能为空");
-            return;
-        }
-        if (TextUtils.isEmpty(code_new)) {
-            toast("新的手机验证码不能为空");
             return;
         }
         if (TextUtils.isEmpty(passWord)) {
             toast("登录密码不能为空");
             return;
         }
-
-        if (code_old.length() != 6 || code_new.length() != 6) {
-            toast("验证码必须为六位");
-            return;
-        }
+        CommonUtil.checkCode(code_old);
+        CommonUtil.checkCode(code_new);
         ChangePhoneReq changePhoneReq = new ChangePhoneReq();
         changePhoneReq.setOldValidCode(code_old);
         changePhoneReq.setNewValidCode(code_new);

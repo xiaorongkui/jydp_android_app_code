@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -77,9 +78,9 @@ public class ContactServiceRecyAdapter extends XBaseAdapter<CustomerServiceRes.U
                 break;
         }
         //title
-        helper.setText(R.id.contact_service_title_item_tv, item.getFeedbackTitle());
+        helper.setText(R.id.contact_service_title_item_tv, Html.fromHtml(item.getFeedbackTitle())+"");
         //content
-        helper.setText(R.id.contact_service_content_item_tv, item.getFeedbackContent());
+        helper.setText(R.id.contact_service_content_item_tv, Html.fromHtml(item.getFeedbackContent())+"");
         //feedback
         TextView answer = helper.getView(R.id.contact_service_answer_tv);
         View line = helper.getView(R.id.common_line);

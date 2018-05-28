@@ -3,6 +3,7 @@ package com.qmkj.jydp.module.mine.view;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -102,6 +103,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
 
     @Override
     protected void initView() {
+        publishAdvertiseProportionEiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
         initRecycleView();
         dealerPublishAdvertiseBt.setOnClickListener(this);
 
@@ -221,16 +223,16 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         req.setSelectList(bg.toString());
         if(StringUtil.isNull(proportion)){
             toast("交易比例不能为空");
+            return;
         }
         if(StringUtil.isNull(min_et)||StringUtil.isNull(max_et)){
             toast("交易限额不能为空");
+            return;
         }
         if(bg.length()<1){
            toast("请至少选择一个收款方式");
            return;
         }
-
-
         presenter.sendInitiateAdsInfo(req,SEND_REQUEST,true);
     }
 

@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -39,8 +40,8 @@ public class SystemNoticeRecyAdapter extends XBaseAdapter<SystemNoticeRes.System
         TextView notice_content_item_tv = helper.getView(R.id.notice_content_item_tv);
         helper.addOnClickListener(R.id.system_notice_item_detail_civ);
         system_notice_item_time_tv.setText(DateUtil.longToTimeStr(item.getAddTime(), DateUtil.dateFormat2));
-        notice_title_item_tv.setText(item.getNoticeTitle() + "");
-        notice_content_item_tv.setText(item.getContent() + "");
+        notice_title_item_tv.setText(Html.fromHtml(item.getNoticeTitle()) + "");
+        notice_content_item_tv.setText(Html.fromHtml(item.getContent()) + "");
 
 
         system_notice_item_time_tv.setBackground(shapeSelector.create());

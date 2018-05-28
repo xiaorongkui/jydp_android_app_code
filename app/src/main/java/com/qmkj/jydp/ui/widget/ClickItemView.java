@@ -163,11 +163,11 @@ public class ClickItemView extends LinearLayout {
     }
 
     /**
-     * 设置左边文本的颜色
+     * 设置右边文本的颜色
      *
      * @param color color
      */
-    private void setRightTextColor(int color) {
+    public void setRightTextColor(int color) {
         mTvRight.setTextColor(color);
     }
 

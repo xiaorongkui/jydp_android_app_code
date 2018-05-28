@@ -1,11 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +17,6 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/5/11
@@ -155,9 +150,13 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         switch (res.getDealType()){
             case 1:
                 text_type = "买入";
+                exchange_recode_detail_type_civ.setRightTextColor
+                        (mContext.getResources().getColor(R.color.color_red_3));
                 break;
             case 2:
                 text_type = "卖出";
+                exchange_recode_detail_type_civ.setRightTextColor
+                        (mContext.getResources().getColor(R.color.color_green_3));
                 break;
             case 3:
                 text_type = "撤销";
@@ -220,7 +219,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
                         presenter.getOutSideOrderTakeMoney(req,SEND_REQUEST,true);
                     }
                 }else {
-                    presenter.getOutSideOrderTakeCoin(req,SEND_REQUEST,true);
+                    presenter.getOutSideOrderTakeUser(req,SEND_REQUEST,true);
                 }
 
                 break;

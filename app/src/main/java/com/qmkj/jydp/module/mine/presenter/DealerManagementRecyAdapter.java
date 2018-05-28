@@ -35,6 +35,7 @@ public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRe
     @Override
     protected void convert(XBaseViewHolder helper, DealerManagementRes.OtcTransactionPendOrderListBean item) {
         TextView dealer_managment_go_exchange_tv = helper.getView(R.id.dealer_management_delete_tv);
+        TextView dealer_management_buy_tv = helper.getView(R.id.dealer_management_buy_tv);
         TextView dealer_management_area_tv = helper.getView(R.id.dealer_management_area_tv);
         TextView dealer_management_name_tv = helper.getView(R.id.dealer_management_name_tv);
         TextView dealer_management_ratio_tv = helper.getView(R.id.dealer_management_ratio_tv);
@@ -45,6 +46,20 @@ public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRe
         dealer_management_area_tv.setText(item.getArea());
         dealer_management_ratio_tv.setText(item.getPendingRatio()+"");
         dealer_management_number_tv.setText(item.getMinNumber()+"~"+item.getMaxNumber());
+
+        //挂单类型 1：出售，2：回购
+        switch (item.getOrderType()){
+            case 1:
+                dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_shell_bg);
+                dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                dealer_management_buy_tv.setText(CommonUtil.getString(R.string.sell));
+                break;
+            case 2:
+                dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_buy_bg);
+                dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                dealer_management_buy_tv.setText(CommonUtil.getString(R.string.buy_1));
+                break;
+        }
 
         dealer_managment_go_exchange_tv.setBackground(shapeSelector.create());
         helper.addOnClickListener(R.id.dealer_management_delete_tv);

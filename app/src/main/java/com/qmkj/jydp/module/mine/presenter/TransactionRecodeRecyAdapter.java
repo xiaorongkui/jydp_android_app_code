@@ -51,15 +51,22 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
 
         order_num.setText(item.getOrderNo());
         String text =null;
+        //	收支类型,1：买入，2：卖出，3：撤销
         switch (item.getPaymentType()){
             case 1:text = "买入";
-                recode_status.setTextColor(Color.RED);
+                recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
+                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                recode_status.setText(CommonUtil.getString(R.string.buy_1));
                 break;
             case 2: text = "卖出";
-                recode_status.setTextColor(Color.GREEN);
+                recode_status.setBackgroundResource(R.drawable.shape_shell_bg);
+                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                recode_status.setText(CommonUtil.getString(R.string.sell));
                 break;
             case 3: text = "撤销";
-                recode_status.setTextColor(Color.GRAY);
+                recode_status.setBackgroundResource(R.drawable.shape_cancel_bg);
+                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_gray_2));
+                recode_status.setText(CommonUtil.getString(R.string.cancel_order));
                 break;
         }
         recode_status.setText(text);

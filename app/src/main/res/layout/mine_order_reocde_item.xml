@@ -33,7 +33,6 @@
                     android:id="@+id/business_phone_civ"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y20"
                     app:bottomLine="true"
                     app:bottomLineMarginTop="@dimen/y10"
                     app:leftText="委托时间：2016-06-06 13:13:13"
