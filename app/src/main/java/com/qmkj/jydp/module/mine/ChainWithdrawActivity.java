@@ -144,6 +144,10 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
      * 立即提币
      */
     private void withdrawNow() {
+        if (chooseInfo == null) {
+            toast("请先选择币种");
+            return;
+        }
         String buyPwd = passwordEv.getEditTextString();
         int currencyId = chooseInfo.getCurrencyId();
         double number = Double.parseDouble(withdrawNumEv.getEditTextString());

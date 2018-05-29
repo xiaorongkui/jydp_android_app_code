@@ -129,7 +129,6 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         if (CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap.more_arrow));
         }
-        datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.mine_recode, getString(R.string.mine_recode), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.system_notice, getString(R.string.system_notice), R.mipmap.more_arrow));
