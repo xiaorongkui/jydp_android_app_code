@@ -394,14 +394,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
 
                 break;
             case REGISTER_TAG:
-                CommonUtil.gotoActivity(mContext, CertificationActivity.class);
                 break;
         }
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        CommonUtil.gotoActivity(mContext, MainActivity.class);
-//    }
 }
