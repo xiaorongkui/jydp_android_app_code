@@ -796,9 +796,11 @@ public class CommonUtil {
         String msg = null;
         if (TextUtils.isEmpty(code)) {
             msg = CommonUtil.getString(R.string.verification_code_null);
+            return msg;
         }
         if (code.length() != 6) {
             msg = CommonUtil.getString(R.string.verification_code_six_number);
+            return msg;
         }
         return msg;
     }
