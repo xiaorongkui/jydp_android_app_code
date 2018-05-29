@@ -140,11 +140,16 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     private void submitCertifyNameData() {
         String userName = certifyNameNameCv.getEditTextString();
         String userCertNo = ertifyTypeNumEt.getText().toString().trim();
-        if (TextUtils.isEmpty(userName) || userName.length() > 16) {
-            toast("姓名输入错误");
+        if (TextUtils.isEmpty(userName)) {
+            toast("请输入姓名");
             return;
         }
-        if (TextUtils.isEmpty(userCertNo) || userCertNo.length() < 6 || userCertNo.length() > 18) {
+        if (TextUtils.isEmpty(userName)) {
+            toast("请输入证件号");
+            return;
+        }
+
+        if (userCertNo.length() < 6 || userCertNo.length() > 18) {
             toast("证件号输入错误");
             return;
         }

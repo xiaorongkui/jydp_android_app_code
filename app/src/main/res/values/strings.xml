@@ -320,5 +320,6 @@
     <string name="exchange_deal_time">成交时间</string>
     <string name="text_digits">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="text_digits_1">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM~！@#￥%.,;</string>
+    <string name="text_digits_2">1234567890</string>
 
 </resources>

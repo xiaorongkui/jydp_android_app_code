@@ -789,10 +789,11 @@ public class CommonUtil {
 
     /**
      * 判断验证码格式
+     *
      * @param code
      * @return
      */
-    public static String checkCode(String code){
+    public static String checkCode(String code) {
         String msg = null;
         if (TextUtils.isEmpty(code)) {
             msg = CommonUtil.getString(R.string.verification_code_null);
@@ -803,5 +804,13 @@ public class CommonUtil {
             return msg;
         }
         return msg;
+    }
+
+    public static void saveExchangePwd(String trim) {
+        SPHelper.getInstance().set(Constants.SP_SAVE_EXCHANGE_PWD, trim);
+    }
+
+    public static String getExchangePwd() {
+        return SPHelper.getInstance().getString(Constants.SP_SAVE_EXCHANGE_PWD);
     }
 }

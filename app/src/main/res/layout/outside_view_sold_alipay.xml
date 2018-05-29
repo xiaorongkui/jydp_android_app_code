@@ -36,6 +36,7 @@
         app:contentEditHintText="@string/select_file"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
+        app:isEditTextEnable="false"
         app:titleText="@string/qr_code"
         app:titleTopMargin="@dimen/x20"/>
 

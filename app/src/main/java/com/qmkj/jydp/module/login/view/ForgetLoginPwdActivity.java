@@ -67,6 +67,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     Button forgetPwdCommitBt;
     private Disposable disposable;
     private TextView codeTimeDownTv;
+    private boolean isCertifyCode;
 
     @Override
     protected void injectPresenter() {
@@ -121,24 +122,73 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         String code = loginForgetPwdVertificationCodeEiv.getEditTextString();
         String newPwd = loginForgetPwdNewpwdEiv.getEditTextString();
         String newPwdAgain = loginForgetPwdNewpwdAgainEiv.getEditTextString();
-        if (!CheckTextUtil.checkPassword(accunt)) {
-            toast("请输入字母、数字、6-16个字符账号");
+        if (TextUtils.isEmpty(accunt)) {
+            toast("请输入账号");
             return;
         }
+        if (accunt.length() < 6) {
+            toast("账号不能小于六位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(area)) {
+            toast("请选择区号");
+            return;
+        }
+
         if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空");
+            toast("请先输入手机号");
             return;
         }
-        if (TextUtils.isEmpty(code) || code.length() != 6) {
-            toast("请输入正确的验证码");
+
+
+        if (area.startsWith("+86")) {
+            if (phone.length() != 11) {
+                toast("手机号必须为11位");
+                return;
+            }
+
+        } else {
+            if (phone.length() < 6) {
+                toast("手机号必须大于6位");
+                return;
+            }
+        }
+
+        if (!isCertifyCode) {
+            toast("请先获取验证码");
             return;
         }
-        if (!CheckTextUtil.checkPassword(newPwd)) {
-            toast("请输入字母、数字、6-16个字符密码");
+
+        if (TextUtils.isEmpty(code)) {
+            toast("请输入验证码");
             return;
         }
+        if (code.length() != 6) {
+            toast("验证码必须为六位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(newPwd)) {
+            toast("请输入新密码");
+            return;
+        }
+        if (newPwd.length() < 6) {
+            toast("新密码不能小于六位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(newPwdAgain)) {
+            toast("请再次输入新密码");
+            return;
+        }
+        if (newPwdAgain.length() < 6) {
+            toast("再次输入新密码不能小于六位");
+            return;
+        }
+
         if (!newPwd.equals(newPwdAgain)) {
-            toast("两次密码输入不同");
+            toast("两次登录密码输入不同");
             return;
         }
         ForgetPwdReq forgetPwdReq = new ForgetPwdReq();
@@ -153,9 +203,28 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     private void getVerificationCode() {
         String phone = forgetPwdPhoneEreaEt.getText().toString().trim();
         String areaCode = forgetPwdPhoneEreaTv.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空");
+        if (TextUtils.isEmpty(areaCode)) {
+            toast("请选择区号");
             return;
+        }
+
+        if (TextUtils.isEmpty(phone)) {
+            toast("请先输入手机号");
+            return;
+        }
+
+
+        if (areaCode.startsWith("+86")) {
+            if (phone.length() != 11) {
+                toast("手机号必须为11位");
+                return;
+            }
+
+        } else {
+            if (phone.length() < 6) {
+                toast("手机号必须大于6位");
+                return;
+            }
         }
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
         phoneCodeReq.setPhoneNumber(areaCode + phone);
@@ -168,6 +237,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         switch (tag) {
             case FORGET_CODE_TAG:
                 toast("验证码获取成功");
+                isCertifyCode = true;
                 codeTimeDown();
                 break;
             case FORGET_PWD_TAG:

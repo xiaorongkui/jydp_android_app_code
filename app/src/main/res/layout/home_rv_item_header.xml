@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/x110"
+        android:layout_marginStart="@dimen/x100"
         android:text="@string/exchange_day_volume"
         android:textColor="@color/color_black_7"
         android:textSize="@dimen/text_size_14"/>
@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/x209"
+        android:layout_marginStart="@dimen/x200"
         android:text="@string/current_xt_price"
         android:textColor="@color/color_black_7"
         android:textSize="@dimen/text_size_14"/>

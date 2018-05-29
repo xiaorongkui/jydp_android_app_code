@@ -264,4 +264,5 @@ public class Constants {
     public static final String SP_SAVE_LOGIN_USERINFO = "login_user_info";
     public static final String SP_SAVE_ACCOUNT = "sp_save_account";
     public static final String SP_SAVE_TOKEN = "sp_save_token";
+    public static final String SP_SAVE_EXCHANGE_PWD = "sp_save_exchange_pwd";
 }

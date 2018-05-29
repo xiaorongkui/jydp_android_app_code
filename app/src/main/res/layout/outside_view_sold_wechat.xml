@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         app:bottomLineTopMargin="@dimen/x7"
         app:bottomLineVisible="true"
+        app:isEditTextEnable="false"
         app:contentEditHintText="@string/select_file"
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"

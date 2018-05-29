@@ -106,6 +106,7 @@
 
         <!-- 光标是否可见 -->
         <attr name="textCursorVisible" format="boolean"/>
+        <attr name="isEditTextEnable" format="boolean"/>
 
     </declare-styleable>
 

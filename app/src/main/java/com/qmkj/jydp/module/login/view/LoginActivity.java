@@ -107,6 +107,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     private Disposable disposable;//倒计时的disposable
     private TextView codeTimeDownTv;
     private String account;
+    private boolean isCertifyCode = false;
 
 
     @Override
@@ -208,32 +209,99 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         String exchangePwdOne = registerExchangePasswordOneEiv.getEditTextString();
         String exchangePwdTwo = registerExchangePasswordTwoEiv.getEditTextString();
         String areaCode = registerPhoneEreaTv.getText().toString().trim();
-        if (!CheckTextUtil.checkPassword(registerAccount)) {
-            toast("注册账号必须是字母、数字，6～16个字符");
+
+        if (TextUtils.isEmpty(registerAccount)) {
+            toast("请输入注册账号");
             return;
         }
-        if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空");
+        if (registerAccount.length() < 6) {
+            toast("注册账号不能小于六位");
             return;
         }
 
-        if (TextUtils.isEmpty(code) || code.length() != 6) {
+        if (TextUtils.isEmpty(areaCode)) {
+            toast("请选择区号");
+            return;
+        }
+
+        if (TextUtils.isEmpty(phone)) {
+            toast("请先输入手机号");
+            return;
+        }
+
+        if (areaCode.startsWith("+86")) {
+            if (phone.length() != 11) {
+                toast("手机号必须为11位");
+                return;
+            }
+
+        } else {
+            if (phone.length() < 6) {
+                toast("手机号必须大于6位");
+                return;
+            }
+        }
+
+        if (!isCertifyCode) {
+            toast("请先获取验证码");
+            return;
+        }
+
+        if (TextUtils.isEmpty(code)) {
+            toast("请输入验证码");
+            return;
+        }
+        if (code.length() != 6) {
             toast("验证码必须为六位");
             return;
         }
-        if (!CheckTextUtil.checkPassword(loginPwdOne)) {
-            toast("登录密码必须是字母、数字，6～16个字符");
+
+        if (TextUtils.isEmpty(loginPwdOne)) {
+            toast("请输入登录密码");
             return;
         }
-        if (TextUtils.isEmpty(loginPwdOne) || !loginPwdOne.equals(loginPwdTwo)) {
+        if (loginPwdOne.length() < 6) {
+            toast("登录密码不能小于六位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(loginPwdTwo)) {
+            toast("请输入重复登录密码");
+            return;
+        }
+        if (loginPwdTwo.length() < 6) {
+            toast("重复登录密码不能小于六位");
+            return;
+        }
+
+        if (!loginPwdOne.equals(loginPwdTwo)) {
             toast("两次登录密码输入不同");
             return;
         }
-        if (!CheckTextUtil.checkPassword(exchangePwdOne)) {
-            toast("登录密码必须是字母、数字，6～16个字符");
+
+        if (TextUtils.isEmpty(exchangePwdOne)) {
+            toast("请输入交易密码");
             return;
         }
-        if (TextUtils.isEmpty(exchangePwdOne) || !exchangePwdOne.equals(exchangePwdTwo)) {
+        if (exchangePwdOne.length() < 6) {
+            toast("交易密码不能小于六位");
+            return;
+        }
+        if (loginPwdOne.equals(exchangePwdOne)) {
+            toast("登录密码和交易密码不能相同");
+            return;
+        }
+
+        if (TextUtils.isEmpty(exchangePwdOne)) {
+            toast("请输入重复交易密码");
+            return;
+        }
+        if (exchangePwdOne.length() < 6) {
+            toast("重复交易密码不能小于六位");
+            return;
+        }
+
+        if (!exchangePwdOne.equals(exchangePwdTwo)) {
             toast("两次交易密码输入不同");
             return;
         }
@@ -251,14 +319,24 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     private void loginSatart() {
         account = loginAccountEiv.getEditTextString();
         String password = loginPasswordEiv.getEditTextString();
-        if (!CheckTextUtil.checkPassword(account)) {
+        if (TextUtils.isEmpty(account)) {
             toast("请输入登录账号");
             return;
         }
-        if (!CheckTextUtil.checkPassword(password)) {
+        if (account.length() < 6) {
+            toast("登录账号不能小于六位");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
             toast("请输入登录密码");
             return;
         }
+        if (password.length() < 6) {
+            toast("登录密码不能小于六位");
+            return;
+        }
+
         LoginReq loginRequest = new LoginReq();
         loginRequest.setUserAccount(account);//13276717926
         loginRequest.setPassword(password);//123456
@@ -268,10 +346,31 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     private void getVerificationCode() {
         String phone = registerPhoneEiv.getEditTextString();
         String areaCode = registerPhoneEreaTv.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            toast("手机号不能为空");
+
+        if (TextUtils.isEmpty(areaCode)) {
+            toast("请选择区号");
             return;
         }
+
+        if (TextUtils.isEmpty(phone)) {
+            toast("请先输入手机号");
+            return;
+        }
+
+
+        if (areaCode.startsWith("+86")) {
+            if (phone.length() != 11) {
+                toast("手机号必须为11位");
+                return;
+            }
+
+        } else {
+            if (phone.length() < 6) {
+                toast("手机号必须大于6位");
+                return;
+            }
+        }
+
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
         phoneCodeReq.setPhoneNumber(areaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, REGISTER_CODE_TAG);
@@ -344,6 +443,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case REGISTER_CODE_TAG:
                 toast("验证码获取成功");
+                isCertifyCode = true;
                 codeTimeDown();
                 break;
             case REGISTER_TAG:
@@ -353,8 +453,20 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 Intent intent1 = new Intent(mContext, CertificationActivity.class);
                 intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
                 CommonUtil.gotoActivity(mContext, intent1);
+                clearRegisterData();
                 break;
         }
+    }
+
+    private void clearRegisterData() {
+        registerAccountEiv.getEditTextView().setText("");
+        registerPhoneEiv.getEditTextView().setText("");
+        registerVerificationCodeEiv.getEditTextView().setText("");
+        registerPasswordOneEiv.getEditTextView().setText("");
+        registerPasswordTwoEiv.getEditTextView().setText("");
+        registerExchangePasswordOneEiv.getEditTextView().setText("");
+        registerExchangePasswordTwoEiv.getEditTextView().setText("");
+        registerPhoneEreaTv.setText("");
     }
 
     @Override

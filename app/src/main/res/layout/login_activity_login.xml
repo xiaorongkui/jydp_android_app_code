@@ -240,6 +240,7 @@
                             app:contentEditTopMargin="@dimen/x25"
                             app:contentRightTextVisible="false"
                             app:inputType="phone"
+                            app:digits="@string/text_digits_2"
                             app:maxLength="11"
                             app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/phone"/>
@@ -257,6 +258,7 @@
                             app:contentRightTextSize="@dimen/text_size_13"
                             app:contentRightTextVisible="true"
                             app:inputType="number"
+                            app:digits="@string/text_digits_2"
                             app:maxLength="6"
                             app:paddingLeftRight="@dimen/x15"
                             app:titleText="@string/verification_code"

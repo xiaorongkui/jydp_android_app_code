@@ -140,6 +140,7 @@ public class HttpModule {
         public Response intercept(Chain chain) throws IOException {
             Request oldRequest = chain.request();
             String token = CommonUtil.getToken();
+            LogUtil.i("OkHttp====token；" + token);
             if (StringUtil.isNull(token)) {
                 return chain.proceed(oldRequest);
             }

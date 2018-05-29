@@ -139,7 +139,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 e.printStackTrace();
             }
 
-            totalPriceTv.setText(NumberUtil.mul(buAmount, ratio, 4) + "");
+            totalPriceTv.setText(NumberUtil.format4Point(NumberUtil.mul(buAmount, ratio)));
         });
     }
 
@@ -203,6 +203,10 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
     private void goPay() {
         String amount = ousideBuyAmountEiv.getEditTextString();
         String paymentMoney = totalPriceTv.getText().toString().trim();
+        if (TextUtils.isEmpty(amount)) {
+            toast("请输入购买数量");
+            return;
+        }
         double v = 0;
         try {
             v = Double.parseDouble(amount);

@@ -9,8 +9,11 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
+import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
@@ -118,6 +121,16 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 //        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
 //        homeRecyAdapter.setEmptyView(mEmptyView);
         homeListRv.setAdapter(homeRecyAdapter);
+        homeRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
+            try {
+                HomeDataRes.TransactionUserDealListBean userDealListBean = exchangeList.get(position);
+                ((MainActivity) getActivity()).showExchangeFrament(userDealListBean.getCurrencyName(),
+                        userDealListBean.getCurrencyId() + "");//去交易中心核心页面
+            } catch (Exception e) {
+                e.printStackTrace();
+                toast(getString(R.string.cerrecy_select_failed));
+            }
+        });
     }
 
     private void initAuto(List<HomeDataRes.SystemAdsHomepagesListBean> bannerList) {

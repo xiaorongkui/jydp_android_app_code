@@ -173,6 +173,7 @@
             android:src="@mipmap/exchange_notice"/>
 
         <TextView
+            android:id="@+id/exchange_sold_notice_pwd_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x5"

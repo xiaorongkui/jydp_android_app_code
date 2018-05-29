@@ -75,11 +75,20 @@ public class ExchangeCenterRes extends BaseRes {
     private StandardParameterBean standardParameter;
     private TransactionCurrencyBean transactionCurrency;
     private String webAppPath;
+    private String payPasswordStatus;
     private String currencyId;
     private List<TransactionPendOrderListBean> transactionPendOrderList;
     private List<TransactionPendOrderSellListBean> transactionPendOrderSellList;
     private List<TransactionPendOrderBuyListBean> transactionPendOrderBuyList;
     private List<DealListBean> dealList;
+
+    public String getPayPasswordStatus() {
+        return payPasswordStatus;
+    }
+
+    public void setPayPasswordStatus(String payPasswordStatus) {
+        this.payPasswordStatus = payPasswordStatus;
+    }
 
     public UserDealCapitalMessageBean getUserDealCapitalMessage() {
         return userDealCapitalMessage;

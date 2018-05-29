@@ -69,6 +69,7 @@ public class EditVItemView extends LinearLayout {
     public static final int numberPassword = 6;
     public static final int textPersonName = 7;
     private boolean mTextCursorVisible;
+    private boolean mIsEditTextEnable;
 
     public EditVItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -126,6 +127,7 @@ public class EditVItemView extends LinearLayout {
             mInputType = a.getInt(R.styleable.EditItem_inputType, -1);
             mDigits = a.getText(R.styleable.EditItem_digits);
             mMaxLength = a.getInt(R.styleable.EditItem_maxLength, 0);
+            mIsEditTextEnable = a.getBoolean(R.styleable.EditItem_isEditTextEnable, true);
             a.recycle();
         }
     }
@@ -220,7 +222,7 @@ public class EditVItemView extends LinearLayout {
 
     @SuppressLint("ClickableViewAccessibility")
     private void initListener() {
-        mEdit_letf_et.setOnTouchListener((View v, MotionEvent event) -> {
+        if (mIsEditTextEnable) mEdit_letf_et.setOnTouchListener((View v, MotionEvent event) -> {
             mEdit_letf_et.setFocusable(true);
             mEdit_letf_et.setFocusableInTouchMode(true);
             mEdit_letf_et.requestFocus();
@@ -464,11 +466,13 @@ public class EditVItemView extends LinearLayout {
             mEdit_letf_et.addTextChangedListener(watch);
         }
     }
+
     public void setEditTextMaxLength(int length) {
         if(mEdit_letf_et!=null){
             mEdit_letf_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
         }
     }
+
     public void setEditTextMaxLine(int line) {
         if(mEdit_letf_et!=null){
             mEdit_letf_et.setMaxLines(line);

@@ -15,7 +15,7 @@ android {
         minSdkVersion 19 //android 9.0将不再支持sdk 17之前的版本。低版本sdk被淘汰
         targetSdkVersion 27
         versionCode 2
-        versionName "V1.0.0"
+        versionName "V2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField("float", "DESIGN_WIDTH", "375")//设计稿上的屏幕宽度
         vectorDrawables.useSupportLibrary = true

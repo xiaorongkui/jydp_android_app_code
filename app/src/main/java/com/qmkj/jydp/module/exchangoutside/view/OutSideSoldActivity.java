@@ -36,6 +36,7 @@ import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.util.BitmapCompressTask;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
 
 import java.util.ArrayList;
@@ -156,6 +157,16 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
         refreshPaymentMethodView();
         restrictInput();
 
+        ouside_sold_alipay_qr_code_eiv.getEditTextView().setFocusable(false);
+        ouside_sold_alipay_qr_code_eiv.getEditTextView().setCursorVisible(false);
+        ouside_sold_alipay_qr_code_eiv.getEditTextView().setFocusableInTouchMode(false);
+        ouside_sold_alipay_qr_code_eiv.setClickable(true);
+
+        ouside_sold_wechat_qr_code_eiv.getEditTextView().setFocusable(false);
+        ouside_sold_wechat_qr_code_eiv.getEditTextView().setCursorVisible(false);
+        ouside_sold_wechat_qr_code_eiv.getEditTextView().setFocusableInTouchMode(false);
+        ouside_sold_wechat_qr_code_eiv.setClickable(true);
+
         ouside_sold_alipay_qr_code_eiv.setOnClickListener(this);
         ouside_sold_wechat_qr_code_eiv.setOnClickListener(this);
     }
@@ -180,7 +191,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            totalPriceTv.setText(buAmount * ratio + "");
+            totalPriceTv.setText(NumberUtil.format4Point(NumberUtil.mul(buAmount, ratio)));
         });
 
     }

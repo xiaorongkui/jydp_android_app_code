@@ -112,4 +112,26 @@ public class CheckTextUtil {
         return sb.append(endStr).toString();
     }
 
+    /**
+     * 验证输入的名字是否为“中文”或者是否包含“·”
+     *
+     * @param str w为用户输入的姓名
+     * @return
+     */
+    public static boolean verifyName(String str) {
+        if (str.contains("·") || str.contains("•")) {
+            if (str.matches("^[\\u4e00-\\u9fa5]+[·•][\\u4e00-\\u9fa5]+$")) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (str.matches("^[\\u4e00-\\u9fa5]+$")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
 }

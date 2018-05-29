@@ -78,6 +78,9 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     private static final int DECIMAL_DIGITS_PRICE = 2;//最多输入2位数值
     private com.qmkj.jydp.ui.widget.dialog.CommonDialog loginCommonDialog_1;
     private com.qmkj.jydp.ui.widget.dialog.CommonDialog loginCommonDialog_2;
+    private ExchangeCenterRes.UserDealCapitalMessageBean userDealCapitalMessage;
+    private String payPasswordStatus;
+    private EditText exchange_passowrd_et;
 
     public static ExchangeBuyFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -106,6 +109,21 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         priceTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
                 .mainThread()).subscribe(sequence -> {
             restrictedInput(sequence, exchangeUnitPriceEt, DECIMAL_DIGITS_PRICE);
+            String price = exchangeUnitPriceEt.getText().toString().trim();
+            double parseDoublePrice = 0;
+            double parseDoubleAvailable = 0;
+            try {
+                parseDoublePrice = Double.parseDouble(price);
+                parseDoubleAvailable = Double.parseDouble(userDealCapitalMessage.getUserBalance());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            if (parseDoublePrice > 0 && parseDoubleAvailable >= 0) {
+                double div = NumberUtil.div(parseDoubleAvailable, parseDoublePrice, 4);
+                buy_max_tv.setText("最大可买：" + NumberUtil.format4Point(div));
+            } else {
+                buy_max_tv.setText("最大可买：0");
+            }
         });
     }
 
@@ -177,11 +195,12 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                     currencyId = parentFragment.getCurrencyId();
                 }
                 if (TextUtils.isEmpty(buyPrice)) {
-                    toast("购买单价不能为空");
+                    toast("请输入购买单价");
                     return;
                 }
+
                 if (TextUtils.isEmpty(buyAmount)) {
-                    toast("购买数量不能为空");
+                    toast("请输入购买数量");
                     return;
                 }
                 double parseBuyPrice = 0;
@@ -194,11 +213,11 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 }
 
                 if (parseBuyPrice <= 0) {
-                    toast("购买单价不能小于0");
+                    toast("购买单价不能小于等于0");
                     return;
                 }
                 if (parseBuyAmount <= 0) {
-                    toast("购买单价不能小于0");
+                    toast("购买单价不能小于等于0");
                     return;
                 }
 
@@ -207,7 +226,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                     return;
                 }
                 if (TextUtils.isEmpty(buyPassword)) {
-                    toast("密码输入不能为空为空");
+                    toast("请输入交易密码");
                     return;
                 }
 
@@ -230,8 +249,8 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
 
     }
 
-    boolean isRememberLoginPwd = true;
     boolean isRememberExchangePwd = false;
+    boolean isInputExchangePwd = false;
 
     private void showSettingExchangePwdDialog() {
 
@@ -248,10 +267,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         LinearLayout exchange_setting_pwd_login_ll = view.findViewById(R.id.exchange_setting_pwd_login_ll);
         LinearLayout exchange_setting_pwd_exchange_ll = view.findViewById(R.id.exchange_setting_pwd_exchange_ll);
         LinearLayout setting_pwd_ll = view.findViewById(R.id.setting_pwd_ll);
-        EditText exchange_passowrd_et = view.findViewById(R.id.exchange_passowrd_et);
-        setting_pwd_ll.setFocusable(true);
-        setting_pwd_ll.setFocusableInTouchMode(true);
-        setting_pwd_ll.requestFocus();
+        exchange_passowrd_et = view.findViewById(R.id.exchange_passowrd_et);
 
         exchange_passowrd_et.setOnTouchListener((v, event) -> {
             exchange_passowrd_et.setCursorVisible(true);
@@ -261,21 +277,31 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             return false;
         });
 
+        switch (payPasswordStatus) {
+            case "1"://1：每笔交易都输入交易密码
+                isInputExchangePwd = true;
+                exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_selected);
+                break;
+            case "2"://2：每次登录只输入一次交易密码
+                isRememberExchangePwd = true;
+                exchange_setting_pwd_login_iv.setImageResource(R.mipmap.bt_selected);
+                break;
+        }
 
         exchange_setting_pwd_login_ll.setOnClickListener(v -> {
-            isRememberLoginPwd = !isRememberLoginPwd;
-            exchange_setting_pwd_login_iv.setImageResource(isRememberLoginPwd ? R.mipmap.bt_selected : R.mipmap
-                    .bt_unselected);
-            if (isRememberExchangePwd) {
+            if (!isRememberExchangePwd) {
+                isRememberExchangePwd = true;
+                isInputExchangePwd = false;
+                exchange_setting_pwd_login_iv.setImageResource(R.mipmap.bt_selected);
                 exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_unselected);
             }
         });
         exchange_setting_pwd_exchange_ll.setOnClickListener(v -> {
-            isRememberExchangePwd = !isRememberExchangePwd;
-            exchange_setting_pwd_exchange_iv.setImageResource(isRememberExchangePwd ? R.mipmap.bt_selected : R
-                    .mipmap.bt_unselected);
-            if (isRememberLoginPwd) {
+            if (!isInputExchangePwd) {
+                isInputExchangePwd = false;
+                isRememberExchangePwd = true;
                 exchange_setting_pwd_login_iv.setImageResource(R.mipmap.bt_unselected);
+                exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_selected);
             }
         });
         pwdDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
@@ -296,11 +322,11 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 return;
             }
             ExchangePwdReq exchangePwdReq = new ExchangePwdReq();
-            if (isRememberLoginPwd) {
-                exchangePwdReq.setPayPasswordStatus("2");
+            if (isInputExchangePwd) {
+                exchangePwdReq.setPayPasswordStatus("1");
             }
             if (isRememberExchangePwd) {
-                exchangePwdReq.setPayPasswordStatus("1");
+                exchangePwdReq.setPayPasswordStatus("2");
             }
             exchangePwdReq.setRememberPwd(exchangePwd);
             presenter.rememberExchangePwd(exchangePwdReq, EXCHANGE_PWD_TAG, true);
@@ -353,19 +379,36 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     public void refreshData(ExchangeCenterRes centerRes) {
         if (centerRes == null || centerRes.getUserDealCapitalMessage() == null) return;
         this.centerRes = centerRes;
-        ExchangeCenterRes.UserDealCapitalMessageBean data = centerRes.getUserDealCapitalMessage();
+        userDealCapitalMessage = centerRes.getUserDealCapitalMessage();
 
         double total = 0;
         try {
-            total = Double.parseDouble(data.getUserBalanceLock()) + Double.parseDouble(data.getUserBalance());
+            total = Double.parseDouble(userDealCapitalMessage.getUserBalanceLock()) + Double.parseDouble
+                    (userDealCapitalMessage.getUserBalance());
         } catch (NumberFormatException e) {
             e.printStackTrace();
             LogUtil.i("资产总额格式化异常" + e.getMessage());
         }
-        exchangeBuyTotalAssetsTv.setText(NumberUtil.format4Point(total));
-        exchangeForzenAssetsTv.setText(NumberUtil.format4Point(data.getUserBalanceLock()));
-        exchangeAvailableAssetsTv.setText(NumberUtil.format4Point(data.getUserBalance()));
-        buy_max_tv.setText("最大：" + NumberUtil.format4Point(data.getUserBalance()) + "XT");
+        exchangeBuyTotalAssetsTv.setText(NumberUtil.format4Point(userDealCapitalMessage.getCurrencyNumberSum()));
+        exchangeForzenAssetsTv.setText(NumberUtil.format4Point(userDealCapitalMessage.getUserBalanceLock()));
+        exchangeAvailableAssetsTv.setText(NumberUtil.format4Point(userDealCapitalMessage.getUserBalance()));
+        String price = exchangeUnitPriceEt.getText().toString().trim();
+        String amount = exchangeAmountEt.getText().toString().trim();
+        if (TextUtils.isEmpty(price) && TextUtils.isEmpty(amount)) {
+            buy_max_tv.setText("最大可买：0");
+        }
+
+        payPasswordStatus = centerRes.getPayPasswordStatus();
+        switch (payPasswordStatus) {
+            case "1"://1：每笔交易都输入交易密码
+                exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));
+                exchangePassowrdEt.setText("");
+                break;
+            case "2"://2：每次登录只输入一次交易密码
+                exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_login_notice));
+                exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
+                break;
+        }
     }
 
     @Override
@@ -382,13 +425,10 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("记住密码设置成功");
+                CommonUtil.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
-                if (isRememberLoginPwd)
-                    exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_login_notice));
-
-                if (isRememberExchangePwd)
-                    exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string
-                            .exchange_password_exchange_notice));
+                RxBus.getDefault().post(new ExchangeEvent());//去更新密码状态
+                exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
                 break;
         }
     }
