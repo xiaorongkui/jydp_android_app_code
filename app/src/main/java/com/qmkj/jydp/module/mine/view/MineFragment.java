@@ -143,7 +143,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
-        if (CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
                 if (CommonUtil.getLoginInfo() == null) {
                     CommonDialog commonDialog = new CommonDialog(mContext);
