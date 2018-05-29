@@ -319,7 +319,8 @@
     <string name="exchange_deal_recently_recod">最近成交记录</string>
     <string name="exchange_deal_time">成交时间</string>
     <string name="text_digits">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM</string>
-    <string name="text_digits_1">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM~！@#￥%.,;</string>
+    <string name="text_digits_1">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM-_</string>
     <string name="text_digits_2">1234567890</string>
+    <string name="text_digits_3">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM-_@.</string>
 
 </resources>

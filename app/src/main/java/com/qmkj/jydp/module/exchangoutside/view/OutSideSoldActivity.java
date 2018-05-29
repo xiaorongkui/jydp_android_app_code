@@ -303,6 +303,11 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
                             toast("银行卡号不能为空");
                             return;
                         }
+
+                        if (bankNum.length() < 16 || bankNum.length() > 19) {
+                            toast("银行卡号在16-19之间");
+                            return;
+                        }
                         if (TextUtils.isEmpty(bankName)) {
                             toast("银行名称不能为空");
                             return;
@@ -317,6 +322,10 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
                         }
                         if (TextUtils.isEmpty(bankReservePhone)) {
                             toast("银行预留手机号不能为空");
+                            return;
+                        }
+                        if (bankReservePhone.length() != 11) {
+                            toast("银行预留手机号必须为11位");
                             return;
                         }
                         outSideSellDetailReq.setBankCardPaymentAccount(bankNum);

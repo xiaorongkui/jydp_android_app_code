@@ -22,7 +22,7 @@
         app:contentEditTextSize="@dimen/text_size_14"
         app:contentEditTopMargin="@dimen/x15"
         app:inputType="number"
-        app:maxLength="21"
+        app:maxLength="19"
         app:titleText="@string/bank_card_num"
         app:titleTopMargin="@dimen/x20"/>
 

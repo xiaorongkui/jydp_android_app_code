@@ -298,8 +298,8 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         });
         exchange_setting_pwd_exchange_ll.setOnClickListener(v -> {
             if (!isInputExchangePwd) {
-                isInputExchangePwd = false;
-                isRememberExchangePwd = true;
+                isRememberExchangePwd = false;
+                isInputExchangePwd = true;
                 exchange_setting_pwd_login_iv.setImageResource(R.mipmap.bt_unselected);
                 exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_selected);
             }
