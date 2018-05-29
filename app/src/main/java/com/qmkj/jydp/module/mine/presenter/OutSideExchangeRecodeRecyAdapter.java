@@ -118,7 +118,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
                 break;
         }
         recode_status.setText(text);
-        amount.setText(item.getCurrencyName()+"");
+        amount.setText(item.getCurrencyNumber()+"");
         money.setText(item.getCurrencyTotalPrice()+"");
         String text_type = null;
         //交易状态：1.买入 2.卖出 3.撤销

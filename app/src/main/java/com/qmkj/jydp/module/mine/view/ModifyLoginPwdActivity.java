@@ -136,7 +136,11 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             toast("重复密码不能为空");
             return;
         }
-        CommonUtil.checkCode(code);
+        String codeText = CommonUtil.checkCode(code);
+        if(codeText!=null){
+            toast(codeText);
+            return;
+        }
         if (!CheckTextUtil.checkPassword(oldPass) ||
                 !CheckTextUtil.checkPassword(newPass) ||
                 !CheckTextUtil.checkPassword(newPassAgain)

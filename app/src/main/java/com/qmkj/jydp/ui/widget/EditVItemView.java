@@ -458,6 +458,7 @@ public class EditVItemView extends LinearLayout {
             mEdit_letf_et.setInputType(type);
         }
     }
+
      public void setEditTextTextWatch(TextWatcher watch) {
         if (mEdit_letf_et != null) {
             mEdit_letf_et.addTextChangedListener(watch);

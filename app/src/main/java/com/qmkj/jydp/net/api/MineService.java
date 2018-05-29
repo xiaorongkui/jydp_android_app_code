@@ -93,6 +93,10 @@ public interface MineService {
     Observable<BaseRes<OtcDealRecordRes>> getOtcDealRecordInfo(@Body PageNumberReq req);
 
     //获取场外交易成交记录详情
+    @POST(AppNetConfig.urlPath + "wap/userOtcDealRecord/userOtcDetail")
+    Observable<BaseRes<OtcDealRecordDetailsRes>> getUserSideOrderDetaid(@Body OutSideDetailReq req);
+
+    //获取场外交易成交记录详情(经销商)
     @POST(AppNetConfig.urlPath + "wap/dealerOtcRecord/sellerOtcDetail")
     Observable<BaseRes<OtcDealRecordDetailsRes>> getOutSideOrderDetaid(@Body OutSideDetailReq req);
 

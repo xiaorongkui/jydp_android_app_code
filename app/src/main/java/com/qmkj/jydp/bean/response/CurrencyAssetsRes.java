@@ -35,9 +35,9 @@ public class CurrencyAssetsRes extends BaseRes implements Serializable{
 
         private int currencyId;
         private String currencyName;
-        private double currencyNumber;
-        private double currencyNumberLock;
-        private double totalCurrencyAssets;
+        private String currencyNumber;
+        private String currencyNumberLock;
+        private String totalCurrencyAssets;
         //业务字段
         @Expose
         private boolean isSelected;
@@ -58,27 +58,27 @@ public class CurrencyAssetsRes extends BaseRes implements Serializable{
             this.currencyName = currencyName;
         }
 
-        public double getCurrencyNumber() {
+        public String getCurrencyNumber() {
             return currencyNumber;
         }
 
-        public void setCurrencyNumber(double currencyNumber) {
+        public void setCurrencyNumber(String currencyNumber) {
             this.currencyNumber = currencyNumber;
         }
 
-        public double getCurrencyNumberLock() {
+        public String getCurrencyNumberLock() {
             return currencyNumberLock;
         }
 
-        public void setCurrencyNumberLock(double currencyNumberLock) {
+        public void setCurrencyNumberLock(String currencyNumberLock) {
             this.currencyNumberLock = currencyNumberLock;
         }
 
-        public double getTotalCurrencyAssets() {
+        public String getTotalCurrencyAssets() {
             return totalCurrencyAssets;
         }
 
-        public void setTotalCurrencyAssets(double totalCurrencyAssets) {
+        public void setTotalCurrencyAssets(String totalCurrencyAssets) {
             this.totalCurrencyAssets = totalCurrencyAssets;
         }
 

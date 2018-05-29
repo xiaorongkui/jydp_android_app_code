@@ -1,11 +1,13 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
@@ -23,6 +25,10 @@ import butterknife.BindView;
  */
 
 public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
+    public static final int ACTIVITY_RESULT_CODE = 201;
+    public static final String CURRENT_NAME = "current_name";
+    public static final String CURRENT_ID =  "current_id";
+
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -74,6 +80,19 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
                 return mIsCanRefresh;
             }
         });
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter2, View view, int position) {
+
+                Intent intent = new Intent();
+                intent.putExtra(CURRENT_NAME,adapter.getItem(position).getCurrencyName());
+                intent.putExtra(CURRENT_ID,adapter.getItem(position).getCurrencyId()+"");
+                CurrencyAssetsActivity.this.setResult(ACTIVITY_RESULT_CODE,intent);
+                finish();
+            }
+        });
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

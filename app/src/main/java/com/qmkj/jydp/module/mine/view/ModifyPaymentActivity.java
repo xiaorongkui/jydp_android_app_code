@@ -171,7 +171,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
                 toast("登录密码必须是字母、数字，6～16个字符");
                 return;
             }
-            checkNewPass(newPass, newPassAgain);
+
+            if (checkNewPass(newPass, newPassAgain)) return;
             ChangePassWordReq req = new ChangePassWordReq();
             req.setOldPassword(oldPass);
             req.setNewPassword(newPass);
@@ -183,9 +184,12 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             String newPassAgain = modify_phone_pwd_again_eiv.getEditTextString();
             String code = login_forget_pwd_vertification_code_eiv.getEditTextString();
 
-            CommonUtil.checkCode(code);
-            checkNewPass(newPass, newPassAgain);
-
+            String codeText = CommonUtil.checkCode(code);
+            if(codeText!=null){
+                toast(codeText);
+                return;
+            }
+            if (checkNewPass(newPass, newPassAgain)) return;
             ChangePassWordReq req = new ChangePassWordReq();
             req.setNewPassword(newPass);
             req.setConfirmPassword(newPassAgain);
@@ -195,31 +199,33 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     }
 
+
     /**
      * 参数验证
      *
      * @param newPass      新支付密码
      * @param newPassAgain 重复新支付密码
      */
-    private void checkNewPass(String newPass, String newPassAgain) {
+    private boolean checkNewPass(String newPass, String newPassAgain) {
         if (TextUtils.isEmpty(newPass)) {
             toast("新密码不能为空");
-            return;
+            return true;
         }
         if (TextUtils.isEmpty(newPassAgain)) {
             toast("重复密码不能为空");
-            return;
+            return true;
         }
         if (!CheckTextUtil.checkPassword(newPass) ||
                 !CheckTextUtil.checkPassword(newPassAgain)
                 ) {
             toast("登录密码必须是字母、数字，6～16个字符");
-            return;
+            return true;
         }
         if (!newPass.equals(newPassAgain)) {
             toast("两次登录密码输入不同");
-            return;
+            return true;
         }
+        return false;
     }
 
     private void setSelect(int index) {

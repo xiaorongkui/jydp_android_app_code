@@ -105,6 +105,10 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.getOutSideOrderDetaid(req), tag,isShowProgress);
     }
 
+    public void getUserSideOrderDetaid(OutSideDetailReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getUserSideOrderDetaid(req), tag,isShowProgress);
+    }
+
     public void getOutSideOrderTakeCoin(OutSideDetailReq req, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getOutSideOrderTakeCoin(req), tag,isShowProgress);
     }

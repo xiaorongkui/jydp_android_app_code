@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,6 +25,7 @@ import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.MyTextWatcher;
 import com.qmkj.jydp.util.StringUtil;
 
 import java.util.ArrayList;
@@ -39,7 +41,8 @@ import butterknife.BindView;
 
 public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter> {
     private static final int GET_CORN_CODE = 1;
-    private static final int SEND_REQUEST = 2;
+    private static final int SEND_REQUEST_SHELL = 2;
+    private static final int SEND_REQUEST_BUY = 3;
     private static final int NEXT_ACTIVITY = 11;
     public  static final String MESSAGE_NEXT = "message";
     @BindView(R.id.title_header_tv)
@@ -60,6 +63,8 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     RecyclerView publishPaymentTypeSelectRv;
     @BindView(R.id.dealer_publish_advertise_bt)
     Button dealerPublishAdvertiseBt;
+    @BindView(R.id.publish_payment_type_layout)
+    RelativeLayout publish_payment_type_layout;
     private CommonDialog commonDialog;
     private CommonDialog commonDialog_type;
     private CommonDialog commonDialog_country;
@@ -83,7 +88,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
 
         data_type = new ArrayList<>();
         data_type.add(new DialogItemBean("出售",1,true));
-        data_type.add(new DialogItemBean("购买",2,false));
+        data_type.add(new DialogItemBean("回购",2,false));
         req.setOrderType(data_type.get(0).getLeftImageViewId()+"");
         data_country = new ArrayList<>();
         data_country.add(new DialogItemBean("中国(CN)",0,true));
@@ -104,6 +109,11 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     @Override
     protected void initView() {
         publishAdvertiseProportionEiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
+        publishAdvertiseProportionEiv.setEditTextTextWatch(new MyTextWatcher(publishAdvertiseProportionEiv.getEditTextView(), 2));
+        exchange_limit_min_et.addTextChangedListener(new MyTextWatcher(exchange_limit_min_et,4));
+        exchange_limit_max_et.addTextChangedListener(new MyTextWatcher(exchange_limit_min_et,4));
+
+
         initRecycleView();
         dealerPublishAdvertiseBt.setOnClickListener(this);
 
@@ -126,11 +136,15 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
                     }
                 }
                 break;
-            case SEND_REQUEST:
-                toast("发送成功");
+            case SEND_REQUEST_SHELL:  //出售广告
                 Intent intent = new Intent(this, ReceivablesActivity.class);
                 intent.putExtra(MESSAGE_NEXT,req);
                 CommonUtil.startActivityForResult(mContext,intent,NEXT_ACTIVITY);
+                break;
+            case SEND_REQUEST_BUY: //回购广告
+                toast("发布成功");
+                setResult(200);
+                finish();
                 break;
         }
     }
@@ -229,11 +243,17 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
             toast("交易限额不能为空");
             return;
         }
-        if(bg.length()<1){
-           toast("请至少选择一个收款方式");
-           return;
+
+        if(req.getOrderType().equals("2")){ //回购
+
+            presenter.sendInitiateAdsInfo(req, SEND_REQUEST_BUY,true);
+        }else if (req.getOrderType().equals("1")){ //出售
+            if(bg.length()<1){
+                toast("请至少选择一个收款方式");
+                return;
+            }
+            presenter.sendInitiateAdsInfo(req, SEND_REQUEST_SHELL,true);
         }
-        presenter.sendInitiateAdsInfo(req,SEND_REQUEST,true);
     }
 
     private void setCornDialog(){
@@ -312,6 +332,12 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 req.setOrderType(data_type.get(position).getLeftImageViewId()+"");
                 publishAdvertiseTypeCiv.setRightText(data_type.get(position).getCertifyName());
+                if(position == 0){
+                    publish_payment_type_layout.setVisibility(View.VISIBLE);
+                }else if(position == 1){
+                    publish_payment_type_layout.setVisibility(View.GONE);
+                }
+
                 commonDialog_type.dismiss();
             }
         });

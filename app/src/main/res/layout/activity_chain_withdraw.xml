@@ -214,7 +214,7 @@
                             app:bottomLineVisible="true"
                             app:contentEditHintText="@string/six_sms_vertification_code"
                             app:contentEditTopMargin="@dimen/x15"
-                            app:contentRightText="@string/vertify_code_count"
+                            app:contentRightText="@string/get_rigister_getvertify_code_1"
                             app:contentRightTextSize="@dimen/text_size_14"
                             app:contentRightTextVisible="true"
                             app:titleText="@string/verification_code"

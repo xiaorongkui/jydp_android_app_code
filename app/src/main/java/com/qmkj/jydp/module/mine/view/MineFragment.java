@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dd.ShadowLayout;
+import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
@@ -41,6 +43,7 @@ import butterknife.Unbinder;
  */
 
 public class MineFragment extends BaseMvpFragment<MinePresenter> {
+    public static final int ACTIVITY_REQUEST_CODE = 101;
 
     @BindView(R.id.mine_info_rl)
     XRefreshLayout refreshLayout;
@@ -126,7 +129,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
-        if (CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap.more_arrow));
         }
         datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap.more_arrow));
@@ -140,7 +143,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
-        if (CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
                 if (CommonUtil.getLoginInfo() == null) {
                     CommonDialog commonDialog = new CommonDialog(mContext);
@@ -157,7 +160,8 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                         CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                         break;
                     case 1://币种资产
-                        CommonUtil.gotoActivity(mContext, CurrencyAssetsActivity.class);
+                        Intent intent = new Intent(mContext,CurrencyAssetsActivity.class);
+                        startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
                         break;
                     case 2://经销商管理
                         CommonUtil.gotoActivity(mContext, DealerManagementActivity.class);
@@ -202,7 +206,8 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                         CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                         break;
                     case 1://币种资产
-                        CommonUtil.gotoActivity(mContext, CurrencyAssetsActivity.class);
+                        Intent intent = new Intent(mContext,CurrencyAssetsActivity.class);
+                        startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
                         break;
                     case 2://链提取
                         CommonUtil.gotoActivity(mContext, ChainWithdrawActivity.class);
@@ -305,5 +310,17 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==ACTIVITY_REQUEST_CODE&&resultCode== CurrencyAssetsActivity.ACTIVITY_RESULT_CODE){
+            ((MainActivity) getActivity()).setSelect(1);
+            String name =data.getStringExtra(CurrencyAssetsActivity.CURRENT_NAME);
+            String id =data.getStringExtra(CurrencyAssetsActivity.CURRENT_ID);
+            ((MainActivity) getActivity()).showExchangeFrament(name, id);
+
+        }
     }
 }

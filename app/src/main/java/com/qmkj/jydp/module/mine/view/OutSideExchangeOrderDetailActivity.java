@@ -51,11 +51,11 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
             ClickItemView exchange_recode_detail_dealer_phone_civ;
     @BindView(R.id.exchange_recode_detail_dealer_alipay_account_civ)//支付宝账号
             ClickItemView exchange_recode_detail_dealer_alipay_account_civ;
-     @BindView(R.id.exchange_recode_detail_dealer_weixin_account_civ)//微信账号
+    @BindView(R.id.exchange_recode_detail_dealer_weixin_account_civ)//微信账号
             ClickItemView exchange_recode_detail_dealer_weixin_account_civ;
-     @BindView(R.id.exchange_recode_detail_dealer_bank_civ)//银行
+    @BindView(R.id.exchange_recode_detail_dealer_bank_civ)//银行
             ClickItemView exchange_recode_detail_dealer_bank_civ;
-     @BindView(R.id.exchange_recode_detail_dealer_bank_branch_civ)//支行名称
+    @BindView(R.id.exchange_recode_detail_dealer_bank_branch_civ)//支行名称
             ClickItemView exchange_recode_detail_dealer_bank_branch_civ;
     @BindView(R.id.exchange_recode_detail_dealer_alipay_img)
     ImageView exchange_recode_detail_dealer_alipay_img;
@@ -77,9 +77,19 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
     @Override
     protected void initData() {
         String number =getIntent().getStringExtra("NUMBER");
+        int type = getIntent().getIntExtra("TYPE",0);
         OutSideDetailReq req = new OutSideDetailReq();
         req.setOtcOrderNo(number);
-        presenter.getOutSideOrderDetaid(req,1,true);
+        if(type == 0){
+            presenter.getUserSideOrderDetaid(req,1,true);
+        }else if(type == 1)
+        {
+            presenter.getOutSideOrderDetaid(req,1,true);
+
+        }
+
+
+
 
     }
 

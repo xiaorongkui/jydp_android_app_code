@@ -78,20 +78,19 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initView() {
+
         passwordEv.setEditTextInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         withdrawNumEv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
         withdrawNumEv.setEditTextTextWatch(new MyTextWatcher(withdrawNumEv.getEditTextView(), 4));
-        withdrawNumEv.setEditTextMaxLength(6);
+        withdrawNumEv.setEditTextMaxLength(8);
 
         EditText inputPasswordEdt = passwordEv.findViewById(R.id.edit_letf_et);
         inputPasswordEdt.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
         InputFilter[] passwordEdtFilters = {new InputFilter.LengthFilter(16)};
         inputPasswordEdt.setFilters(passwordEdtFilters);
 
-        EditText inputVerificationCodeEdt = verificationCodeEv.findViewById(R.id.edit_letf_et);
-        inputVerificationCodeEdt.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
-        InputFilter[] verificationCodeEdtFilters = {new InputFilter.LengthFilter(6)};
-        inputPasswordEdt.setFilters(verificationCodeEdtFilters);
+        verificationCodeEv.setEditTextInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        verificationCodeEv.setEditTextMaxLength(6);
 
         LoginRes.UserBean userBean = CommonUtil.getLoginInfo().getUser();
         verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + StringUtil.formatPhoneNum(userBean.getUserPhone()) + "发送一条短信验证码");
@@ -166,7 +165,11 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             return;
         }
 
-        CommonUtil.checkCode(validateCode);
+        String codeText = CommonUtil.checkCode(validateCode);
+        if(codeText!=null){
+            toast(codeText);
+            return;
+        }
         UserWithdrawReq req = new UserWithdrawReq();
         req.setBuyPwd(buyPwd);
         req.setCurrencyId(String.valueOf(currencyId));

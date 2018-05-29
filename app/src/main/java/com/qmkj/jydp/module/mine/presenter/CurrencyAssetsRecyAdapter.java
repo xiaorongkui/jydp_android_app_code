@@ -44,6 +44,7 @@ public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.Us
         TextView available_amount_tv = helper.getView(R.id.available_amount_tv);
         TextView frozen_amount_tv = helper.getView(R.id.frozen_amount_tv);
 
+        helper.addOnClickListener(R.id.mine_currency_assets_item_go_exchange_tv);
         mine_currency_assets_item_go_exchange_tv.setBackground(shapeSelector.create());
 
         mine_assets_name_tv.setText(item.getCurrencyName());

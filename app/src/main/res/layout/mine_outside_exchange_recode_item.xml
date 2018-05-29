@@ -69,7 +69,9 @@
                     android:id="@+id/outside_exchange_recode_status_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/y17"
-                    android:layout_marginStart="@dimen/x15"
+                    android:layout_marginStart="@dimen/x16"
+                    android:paddingLeft="@dimen/y5"
+                    android:paddingRight="@dimen/y5"
                     android:gravity="center"
                     android:textColor="@color/color_red_3"
                     android:textSize="@dimen/text_size_12"/>

@@ -16,10 +16,9 @@ import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
 import com.qmkj.jydp.module.mine.presenter.DealerManagementRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
-import com.qmkj.jydp.ui.widget.CommonDialog;
+import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.LogUtil;
 
 import butterknife.BindView;
 
@@ -42,11 +41,11 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     Button publishAdversiteBtn;
 
     private DealerManagementRecyAdapter adapter;
-    private CommonDialog dialogUtils;
     boolean mIsCanRefresh = true;
     boolean mIsLoadMore;
     int mPage;
     private int delete_position =-1;
+    private CommonDialog commonDialog;
 
 
     @Override
@@ -111,7 +110,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             mIsLoadMore = true;
             getDataFromNet();
         }, recyclerView);
-        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.startActivityForResult(mContext, PublishAdvertisementActivity.class,NEXT_ACTIVITY));
+        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.startActivityForResult(DealerManagementActivity.this, PublishAdvertisementActivity.class,NEXT_ACTIVITY));
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -132,25 +131,15 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
      * 显示删除dialog
      */
     private void showDeleteDialog(final int position) {
-        dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
-                .common_dialog_1);
-        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
-        dialogUtils.setOneOrTwoBtn(false);
-        dialogUtils.setTitle(CommonUtil.getString(R.string.delete_operation));
-        dialogUtils.setMessage(getString(R.string.deletions));
-        dialogUtils.setTwoCancelBtn("取消", v -> {
-            LogUtil.i("取消");
-            dialogUtils.dismiss();
-            //todo
+        commonDialog = new CommonDialog(this);
+        commonDialog.setContentText("是否确认删除");
+        commonDialog.setOnPositiveButtonClickListener((dialog, view) -> {
+            DeleteDealerReq req = new DeleteDealerReq();
+            req.setOtcPendingOrderNo(adapter.getData().get(position).getOtcPendingOrderNo()+"");
+            presenter.deleteDealerManagementInfo(req,DELETE_INFO,true);
+            delete_position = position;
         });
-        dialogUtils.setTwoConfirmBtn("确认",v -> {
-                    DeleteDealerReq req = new DeleteDealerReq();
-                    req.setOtcPendingOrderNo(adapter.getData().get(position).getOtcPendingOrderNo()+"");
-                    presenter.deleteDealerManagementInfo(req,DELETE_INFO,true);
-                    delete_position = position;
-                }
-        );
-        dialogUtils.show();
+        commonDialog.show();
     }
 
 
@@ -177,7 +166,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             if(delete_position>=0){
                 adapter.remove(delete_position);
                 adapter.notifyDataSetChanged();
-                dialogUtils.dismiss();
+                commonDialog.dismiss();
             }
         }
 
@@ -194,9 +183,9 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (dialogUtils != null && dialogUtils.isShowing()) {
-            dialogUtils.dismiss();
-            dialogUtils = null;
+        if (commonDialog != null && commonDialog.isShowing()) {
+            commonDialog.dismiss();
+            commonDialog = null;
         }
     }
 
@@ -204,7 +193,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEXT_ACTIVITY&&requestCode==200){
+        if(requestCode == NEXT_ACTIVITY&&resultCode==200){
             refreshLayout.callRefresh();
         }
     }

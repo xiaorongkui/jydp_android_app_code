@@ -2,6 +2,7 @@ package com.qmkj.jydp.module.mine.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.ui.widget.EditVItemView;
+import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
@@ -92,6 +94,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         modify_phone_verification_code_civ.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_verification_code_eiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_erea_et.setInputType(InputType.TYPE_CLASS_NUMBER);
+        modify_phone_erea_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         modify_phone_erea_tv.setInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_verification_code_civ.setEditTextMaxLength(6);
         modify_phone_verification_code_eiv.setEditTextMaxLength(6);
@@ -180,12 +183,35 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
             toast("新的手机号码不能为空");
             return;
         }
+        if(phoneAreaCode.equals("+86")){
+            if(phone.length()!=11){
+                toast("请输入正确的手机号");
+            }
+        }else {
+            if(phone.length()!=6){
+                toast("请输入正确的手机号");
+            }
+        }
+
         if (TextUtils.isEmpty(passWord)) {
             toast("登录密码不能为空");
             return;
         }
-        CommonUtil.checkCode(code_old);
-        CommonUtil.checkCode(code_new);
+        if (!CheckTextUtil.checkPassword(passWord) ) {
+            toast("登录密码必须是字母、数字，6～16个字符");
+            return;
+        }
+        String codeText = CommonUtil.checkCode(code_old);
+        if(codeText!=null){
+            toast(codeText);
+            return;
+        }
+
+        String codeNewText = CommonUtil.checkCode(code_new);
+        if(codeNewText!=null){
+            toast(codeNewText);
+            return;
+        }
         ChangePhoneReq changePhoneReq = new ChangePhoneReq();
         changePhoneReq.setOldValidCode(code_old);
         changePhoneReq.setNewValidCode(code_new);
