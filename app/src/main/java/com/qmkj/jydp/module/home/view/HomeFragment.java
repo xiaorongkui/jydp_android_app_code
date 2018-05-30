@@ -9,20 +9,16 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
-import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.bean.response.HomeDataRes;
-import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomeGrideAdapter;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
 import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeDetailsActivity;
-import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
@@ -102,9 +98,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             HomeDataRes.SystemBusinessesPartnerListBean listBean = data.get(position);
             if (listBean == null) return;
             if (!TextUtils.isEmpty(listBean.getWebLinkUrl())) {
-                Intent intent = new Intent(mContext, WebActivity.class);
-                intent.putExtra(Constants.INTENT_PARAMETER_1, listBean.getBusinessesName());
-                intent.putExtra(Constants.INTENT_PARAMETER_2, listBean.getWebLinkUrl());
+                Intent intent = WebActivity.getActivityIntent(mContext, listBean.getBusinessesName(), listBean.getWebLinkUrl());
                 CommonUtil.gotoActivity(mContext, intent);
             }
 
@@ -154,9 +148,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             HomeDataRes.SystemAdsHomepagesListBean model = bannerList.get(position);
             if (model == null) return;
             if (!TextUtils.isEmpty(model.getWebLinkUrl())) {
-                Intent intent = new Intent(mContext, WebActivity.class);
-                intent.putExtra(Constants.INTENT_PARAMETER_1, model.getAdsTitle());
-                intent.putExtra(Constants.INTENT_PARAMETER_2, model.getWebLinkUrl());
+                Intent intent = WebActivity.getActivityIntent(mContext, model.getAdsTitle(), model.getWebLinkUrl());
                 CommonUtil.gotoActivity(mContext, intent);
             }
         });

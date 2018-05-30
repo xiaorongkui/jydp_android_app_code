@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.HelpCenterBean;
+import com.qmkj.jydp.common.AppNetConfig;
+import com.qmkj.jydp.module.home.view.WebActivity;
 import com.qmkj.jydp.module.mine.presenter.HelpCenterRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.util.CommonUtil;
@@ -74,9 +76,7 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
         helpCenterRecyAdapter.setEmptyView(mEmptyView);
         helpCenterRv.setAdapter(helpCenterRecyAdapter);
         helpCenterRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
-            Intent intent = new Intent(HelpCenterActivity.this, HelpCenterDetailsActivity.class);
-            intent.putExtra(HelpCenterDetailsActivity.ID_KEY, helpCenterRecyAdapter.getData().get(position).getId());
-            intent.putExtra(HelpCenterDetailsActivity.ACTIVITY_TITLE_KEY, "帮助详情");
+            Intent intent = WebActivity.getActivityIntent(mContext, "帮助详情", AppNetConfig.HELP_CENTER_URL + mData.get(position).getId());
             CommonUtil.gotoActivity(mContext, intent);
         });
     }

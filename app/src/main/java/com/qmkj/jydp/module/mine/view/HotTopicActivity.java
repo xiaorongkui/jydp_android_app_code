@@ -12,11 +12,12 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.SystemHotRes;
+import com.qmkj.jydp.common.AppNetConfig;
+import com.qmkj.jydp.module.home.view.WebActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.SystemHotRecyAdapter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
-import com.qmkj.jydp.util.DateUtil;
 
 import butterknife.BindView;
 
@@ -97,15 +98,7 @@ public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
         }, recyclerView);
 
         adapter.setOnItemChildClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(HotTopicActivity.this, SystemNoticeDetailsActivity.class);
-            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TITTLE,
-                    adapter.getData().get(position).getNoticeTitle());
-            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TIMES,
-                    DateUtil.longToTimeStr(adapter.getData().get(position).getAddTime(),
-                            DateUtil.dateFormat2));
-            intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
-                    adapter.getData().get(position).getContent());
-            intent.putExtra(SystemNoticeDetailsActivity.ACTIVITY_TITLE_KEY, "话题详情");
+            Intent intent = WebActivity.getActivityIntent(mContext, "话题详情", AppNetConfig.HOT_TOPIC_URL + adapter.getData().get(position).getId());
             CommonUtil.gotoActivity(mContext, intent);
         });
 

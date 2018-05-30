@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseActivity;
-import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.ui.widget.CustomWebView;
 import com.qmkj.jydp.util.LogUtil;
@@ -50,8 +49,8 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void initIntentData(Intent intent) {
-        mTitle = intent.getStringExtra(Constants.INTENT_PARAMETER_1);
-        mUrl = intent.getStringExtra(Constants.INTENT_PARAMETER_2);
+        mTitle = intent.getStringExtra(TITLE);
+        mUrl = intent.getStringExtra(URL);
         LogUtil.i("title=" + mTitle + ";url=" + mUrl);
     }
 
