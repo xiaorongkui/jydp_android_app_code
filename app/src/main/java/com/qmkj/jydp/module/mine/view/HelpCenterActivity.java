@@ -59,12 +59,12 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        mData.add(new HelpCenterBean("注册协议","101010"));
-        mData.add(new HelpCenterBean("联系我们","101013"));
-        mData.add(new HelpCenterBean("公司简介","101014"));
-        mData.add(new HelpCenterBean("充值流程","101015"));
-        mData.add(new HelpCenterBean("注册指南","101016"));
-        mData.add(new HelpCenterBean("交易指南","101017"));
+        mData.add(new HelpCenterBean("注册协议详情","101010"));
+        mData.add(new HelpCenterBean("联系我们详情","101013"));
+        mData.add(new HelpCenterBean("公司简介详情","101014"));
+        mData.add(new HelpCenterBean("充值流程详情","101015"));
+        mData.add(new HelpCenterBean("注册指南详情","101016"));
+        mData.add(new HelpCenterBean("交易指南详情","101017"));
         helpCenterRecyAdapter = new HelpCenterRecyAdapter(mContext, mData, R.layout.single_click_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

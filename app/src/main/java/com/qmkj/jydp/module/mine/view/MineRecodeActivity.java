@@ -70,7 +70,7 @@ public class MineRecodeActivity extends BaseMvpActivity {
             R.id.mine_recode_outside_exchange_recode_agcy_civ})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.mine_recode_register_recode_civ://挂单记录
+            case R.id.mine_recode_register_recode_civ://委托记录
                 CommonUtil.gotoActivity(mContext, OrderRecodeActivity.class);
                 break;
             case R.id.mine_recode_transaction_recode_civ://成交记录

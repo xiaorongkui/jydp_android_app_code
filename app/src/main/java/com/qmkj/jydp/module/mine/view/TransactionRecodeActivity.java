@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.request.AccountRecordReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
@@ -100,8 +101,11 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     private void getDataFromNet() {
-        PageNumberReq req = new PageNumberReq();
+        AccountRecordReq req = new AccountRecordReq();
         req.setPageNumber(mPage);
+        if(getIntent().getStringExtra("number")!=null){
+            req.setPendingOrderNo(getIntent().getStringExtra("number"));
+        }
         presenter.getAccountRecordInfo(req, 1, false);
     }
 

@@ -216,7 +216,6 @@
                     android:layout_marginRight="@dimen/x10"
                     android:gravity="center"
                     android:text="@string/see_detail"
-                    android:visibility="gone"
                     android:textColor="@color/color_black_6"
                     android:textSize="@dimen/text_size_13"/>
                 <TextView

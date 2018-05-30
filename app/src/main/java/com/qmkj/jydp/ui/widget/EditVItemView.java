@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
@@ -20,6 +21,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -455,13 +459,31 @@ public class EditVItemView extends LinearLayout {
         }
     }
 
+    /**
+     * 禁止输入符号
+     * @param length
+     */
+    public void setEditTextNoFu(int length) {
+        InputFilter filter=new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String speChat="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+                Pattern pattern = Pattern.compile(speChat);
+                Matcher matcher = pattern.matcher(source.toString());
+                if(matcher.find())return "";
+                else return null;
+            }
+        };
+        mEdit_letf_et.setFilters(new InputFilter[]{filter,new InputFilter.LengthFilter(length)});
+    }
+
     public void setEditTextInputType(int type) {
         if (mEdit_letf_et != null) {
             mEdit_letf_et.setInputType(type);
         }
     }
 
-     public void setEditTextTextWatch(TextWatcher watch) {
+    public void setEditTextTextWatch(TextWatcher watch) {
         if (mEdit_letf_et != null) {
             mEdit_letf_et.addTextChangedListener(watch);
         }
@@ -482,6 +504,10 @@ public class EditVItemView extends LinearLayout {
     public void setmEditTextViewFocuseAble(boolean enable) {
         if (mEdit_letf_et != null) {
             mEdit_letf_et.setFocusable(enable);
+            mEdit_letf_et.setFocusableInTouchMode(enable);
+            mEdit_letf_et.setCursorVisible(false);
+            mEdit_letf_et.setInputType(0);
+            mEdit_letf_et.setTextIsSelectable(false);
         }
     }
 

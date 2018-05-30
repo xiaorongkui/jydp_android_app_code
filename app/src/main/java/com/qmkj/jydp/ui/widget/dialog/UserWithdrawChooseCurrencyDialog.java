@@ -38,7 +38,9 @@ public class UserWithdrawChooseCurrencyDialog extends BaseBottomDialog {
 
     public UserWithdrawChooseCurrencyDialog(@NonNull Context context, List<UserCoinWithdrawInfo.CoinWithdrawInfo> itemBeanList) {
         super(context);
-        this.itemBeanList.addAll(itemBeanList);
+        if(itemBeanList!=null){
+            this.itemBeanList.addAll(itemBeanList);
+        }
     }
 
     @Override

@@ -116,7 +116,10 @@
                     app:contentEditTopMargin="@dimen/x15"
                     app:titleEndText="@string/asterisk"
                     app:titleText="@string/proportion"
-                    app:titleTopMargin="@dimen/x20" />
+                    app:titleTopMargin="@dimen/x20"
+                    app:inputType="numberDecimal"
+                    app:maxLength="11"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -162,6 +165,7 @@
                             android:layout_weight="1"
                             android:hint="@string/exchange_limit_min_amount"
                             android:inputType="numberDecimal"
+                            android:maxLength="15"
                             android:maxLines="1" />
 
                         <TextView
@@ -181,6 +185,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="@string/exchange_limit_max_amount"
+                            android:maxLength="15"
                             android:inputType="numberDecimal"
                             android:maxLines="1" />
                     </LinearLayout>

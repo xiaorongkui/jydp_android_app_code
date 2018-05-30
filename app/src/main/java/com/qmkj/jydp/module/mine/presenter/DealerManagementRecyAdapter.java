@@ -57,7 +57,7 @@ public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRe
             case 2:
                 dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_buy_bg);
                 dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
-                dealer_management_buy_tv.setText(CommonUtil.getString(R.string.buy_1));
+                dealer_management_buy_tv.setText(CommonUtil.getString(R.string.buy_2));
                 break;
         }
 

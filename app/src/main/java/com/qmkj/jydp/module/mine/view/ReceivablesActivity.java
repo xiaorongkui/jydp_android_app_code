@@ -14,10 +14,8 @@ import android.widget.TextView;
 import com.dd.ShadowLayout;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.request.OtcReleaseReq;
 import com.qmkj.jydp.bean.request.SendAdsReq;
-import com.qmkj.jydp.module.login.view.CertifyNameFragment;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.BitmapCompressTask;
@@ -113,6 +111,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         releaseReq.setOrderType(sendAdsReq.getOrderType());
         releaseReq.setPendingRatio(sendAdsReq.getPendingRatio());
 
+
         msg = sendAdsReq.getSelectList();
         if(msg.contains("1")){
             bank_layout.setVisibility(View.VISIBLE);
@@ -131,8 +130,9 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         receivables_alipay_account_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         receivables_wechat_account_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        receivables_bank_branch_name_eiv.setEditTextMaxLength(50);
-        receivables_bank_name_eiv.setEditTextMaxLength(15);
+        receivables_bank_branch_name_eiv.setEditTextNoFu(30);
+        receivables_bank_name_eiv.setEditTextNoFu(15);
+        receivables_bank_reserve_name_eiv.setEditTextNoFu(20);
 
 
         receivables_alipay_receipt_code_eiv.setmEditTextViewFocuseAble(false);
@@ -184,6 +184,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
 
         String wechat_account = receivables_wechat_account_eiv.getEditTextString();
         String wechat_receipt_code = receivables_wechat_receipt_code_eiv.getEditTextString();
+
 
         if(msg.contains("1")){
             if (bankCheck(bank_card_num_eiv, bank_name, branch_name, reserve_name, phone)) return;

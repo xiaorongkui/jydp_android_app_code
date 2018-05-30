@@ -1,6 +1,7 @@
 package com.qmkj.jydp.net.api;
 
 
+import com.qmkj.jydp.bean.request.AccountRecordReq;
 import com.qmkj.jydp.bean.request.CoinRecordCancelReq;
 import com.qmkj.jydp.bean.request.DeleteDealerReq;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
@@ -48,7 +49,7 @@ public interface MineService {
     @POST(AppNetConfig.urlPath + "wap/userLogin/loginOut")
     Observable<BaseRes<Object>> loginOut();
 
-    //获取用户币种信息
+    //获取用户币种信息(所有币种)
     @GET(AppNetConfig.urlPath + "wap/userInfo/currencyAssets")
     Observable<BaseRes<CurrencyAssetsRes>> getCurrencyAssetsInfo();
 
@@ -126,7 +127,7 @@ public interface MineService {
 
     //获取用户成交记录
     @POST(AppNetConfig.urlPath + "wap/wapDealRecord/getAccountRecord")
-    Observable<BaseRes<AccountRecordRes>> getAccountRecordInfo(@Body PageNumberReq req);
+    Observable<BaseRes<AccountRecordRes>> getAccountRecordInfo(@Body AccountRecordReq req);
 
     //获取帮助中心
     @POST(AppNetConfig.urlPath + "wap/wapHelpCenter/show")

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dd.ShadowLayout;
@@ -26,9 +27,11 @@ import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.DensityHelper;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,8 +91,11 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         if(CommonUtil.getLoginInfo()==null){
             mine_tittle_nptv.setVisibility(View.GONE);
             mine_totalUserBalance_tv.setVisibility(View.GONE);
-//            mine_available_money_sl.setVisibility(View.GONE);
+            mine_available_money_sl.setVisibility(View.GONE);
             mine_userAccount_tv.setText("还未登录，请先登录");
+            mine_assets_ll.setLayoutParams(new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    (int) (DensityHelper.pt2px(mContext,134))));
         }
 
         if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
@@ -285,8 +291,8 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
             MineRes.UserInfoBean userInfoBean = mineRes.getUserInfo();
             mine_userAccount_tv.setText(userInfoBean.getUserAccount()+"");
             mine_totalUserBalance_tv.setText(userInfoBean.getTotalUserBalance()+"");
-            mine_userBalance_tv.setText(userInfoBean.getUserBalance()+"");
-            mine_userBalanceLock_tv.setText(userInfoBean.getUserBalanceLock()+"");
+            mine_userBalance_tv.setText(BigDecimal.valueOf(Double.parseDouble(userInfoBean.getUserBalance()))+"");
+            mine_userBalanceLock_tv.setText(BigDecimal.valueOf(Double.parseDouble(userInfoBean.getUserBalanceLock()))+"");
         }
         refreshLayout.refreshComplete();
     }

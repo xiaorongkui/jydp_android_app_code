@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -106,7 +107,10 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
                     case R.id.order_revocation_entrustment_tv:
                         showCancelDialog(position);
                         break;
-                    case R.id.order_see_detail_tv:
+                    case R.id.order_see_detail_tv: //查看详情
+                        Intent intent = new Intent(OrderRecodeActivity.this,TransactionRecodeActivity.class);
+                        intent.putExtra("number",adapter.getItem(position).getPendingOrderNo());
+                        CommonUtil.gotoActivity(mContext,intent);
                         break;
                 }
             }

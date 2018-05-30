@@ -19,7 +19,7 @@ import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.SendAdsReq;
-import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
+import com.qmkj.jydp.bean.response.UserCoinWithdrawInfo;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
@@ -69,7 +69,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     private CommonDialog commonDialog_type;
     private CommonDialog commonDialog_country;
 
-    private List<CurrencyAssetsRes.UserCurrencyAssetsBean> data_corn;
+    private List<UserCoinWithdrawInfo.CoinWithdrawInfo> data_corn;
     private List<DialogItemBean> data_type;
     private List<DialogItemBean> data_country;
     private SendAdsReq req;
@@ -82,7 +82,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
 
     @Override
     protected void initData() {
-        presenter.getCurrencyAssetsInfo(GET_CORN_CODE,false);
+        presenter.getUserCoinWithdrawalInfo(GET_CORN_CODE,false);
         req = new SendAdsReq();
 
 
@@ -108,10 +108,9 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
 
     @Override
     protected void initView() {
-        publishAdvertiseProportionEiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
         publishAdvertiseProportionEiv.setEditTextTextWatch(new MyTextWatcher(publishAdvertiseProportionEiv.getEditTextView(), 2));
-        exchange_limit_min_et.addTextChangedListener(new MyTextWatcher(exchange_limit_min_et,4));
-        exchange_limit_max_et.addTextChangedListener(new MyTextWatcher(exchange_limit_min_et,4));
+        exchange_limit_min_et.addTextChangedListener(new MyTextWatcher(exchange_limit_min_et,2));
+        exchange_limit_max_et.addTextChangedListener(new MyTextWatcher(exchange_limit_max_et,2));
 
 
         initRecycleView();
@@ -127,9 +126,9 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         super.onSuccess(response, tag);
         switch (tag){
             case GET_CORN_CODE:
-                CurrencyAssetsRes res =(CurrencyAssetsRes)response;
-                if(res.getUserCurrencyAssets()!=null){
-                    data_corn = res.getUserCurrencyAssets();
+                UserCoinWithdrawInfo res =(UserCoinWithdrawInfo)response;
+                if(res.getUserCoinConfigList()!=null){
+                    data_corn = res.getUserCoinConfigList();
                     if(data_corn.size()>0){
                         req.setCurrencyId(data_corn.get(0).getCurrencyId()+"");
                         publishAdvertiseCurrencyCiv.setRightText(data_corn.get(0).getCurrencyName());
@@ -152,7 +151,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     private void initRecycleView() {
         paymentSelectDatas = new ArrayList<>();
         paymentSelectDatas.add(new DialogItemBean(CommonUtil.getString(R.string.bank_card_transfer), R
-                .mipmap.bank_card, true));
+                .mipmap.bank_card, false));
         paymentSelectDatas.add(new DialogItemBean(CommonUtil.getString(R.string.alipay_transfer), R
                 .mipmap.alipay, false));
         paymentSelectDatas.add(new DialogItemBean(CommonUtil.getString(R.string.wechat_transfer), R
@@ -239,8 +238,23 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
             toast("交易比例不能为空");
             return;
         }
-        if(StringUtil.isNull(min_et)||StringUtil.isNull(max_et)){
-            toast("交易限额不能为空");
+        if(StringUtil.isNull(min_et)){
+            toast("最低交易限额不能为空");
+            return;
+        }
+
+        if(Double.parseDouble(min_et)>1000000){
+            toast("最低限额不能超过一百万");
+            return;
+        }
+
+        if(StringUtil.isNull(max_et)){
+            toast("最高交易限额不能为空");
+            return;
+        }
+
+        if(Double.parseDouble(max_et)>1000000){
+            toast("最高限额不能超过一百万");
             return;
         }
 
@@ -273,11 +287,11 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         });
         tittle.setText("选择币种");
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        BaseRecycleAdapter adapter=new BaseRecycleAdapter<CurrencyAssetsRes.UserCurrencyAssetsBean>(R.layout.bottom_select_item,
+        BaseRecycleAdapter adapter=new BaseRecycleAdapter<UserCoinWithdrawInfo.CoinWithdrawInfo>(R.layout.bottom_select_item,
                 data_corn) {
 
             @Override
-            protected void convert(BaseRecyclerViewHolder helper, CurrencyAssetsRes.UserCurrencyAssetsBean item, int position) {
+            protected void convert(BaseRecyclerViewHolder helper, UserCoinWithdrawInfo.CoinWithdrawInfo item, int position) {
 //                ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
 //                imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap

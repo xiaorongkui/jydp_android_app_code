@@ -164,11 +164,11 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             String newPass = modify_pwd_new_pwd_one_eiv.getEditTextString();
             String newPassAgain = modify_pwd_login_pwd_one_eiv.getEditTextString();
             if (TextUtils.isEmpty(oldPass)) {
-                toast("原密码不能为空");
+                toast("原支付密码不能为空");
                 return;
             }
             if (!CheckTextUtil.checkPassword(oldPass)) {
-                toast("登录密码必须是字母、数字，6～16个字符");
+                toast("支付密码必须是字母、数字，6～16个字符");
                 return;
             }
 
@@ -218,11 +218,11 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
         if (!CheckTextUtil.checkPassword(newPass) ||
                 !CheckTextUtil.checkPassword(newPassAgain)
                 ) {
-            toast("登录密码必须是字母、数字，6～16个字符");
+            toast("支付密码必须是字母、数字，6～16个字符");
             return true;
         }
         if (!newPass.equals(newPassAgain)) {
-            toast("两次登录密码输入不同");
+            toast("两次支付密码输入不同");
             return true;
         }
         return false;
