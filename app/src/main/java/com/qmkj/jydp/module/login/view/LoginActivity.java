@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
@@ -138,6 +139,14 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             CommonUtil.hideInputWindow(mContext);
             getVerificationCode();
         });
+
+        RxView.clicks(loginBt).throttleFirst(2, TimeUnit.SECONDS)
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(o -> loginSatart());//防重复点击
+
+        RxView.clicks(registerBt).throttleFirst(2, TimeUnit.SECONDS)
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(o -> startRegister());
     }
 
     private void setShowStatusView(int index) {
@@ -179,10 +188,10 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 setShowStatusView(1);
                 break;
             case R.id.login_bt://登录
-                loginSatart();
+//                loginSatart();
                 break;
             case R.id.register_bt://注册，注册成功后到实名认证界面
-                startRegister();
+//                startRegister();
                 break;
             case R.id.register_phone_erea_tv://选择区号
             case R.id.register_phone_erea_iv://选择区号
@@ -290,11 +299,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             return;
         }
 
-        if (TextUtils.isEmpty(exchangePwdOne)) {
+        if (TextUtils.isEmpty(exchangePwdTwo)) {
             toast("请输入重复交易密码");
             return;
         }
-        if (exchangePwdOne.length() < 6) {
+        if (exchangePwdTwo.length() < 6) {
             toast("重复交易密码不能小于六位");
             return;
         }

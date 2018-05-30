@@ -52,7 +52,7 @@ public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRe
 
         outsideExchangeCurrencyNameTv.setText(item.getCurrencyName());
         dealerNameTv.setText(item.getDealerName());
-        scaleTv.setText(item.getPendingRatio() + "");
+        scaleTv.setText(item.getPendingRatio() + "USD");
         exchangeOutsideTradeQuotasTv.setText(item.getMinNumber() + "～" + item.getMaxNumber());
         exchangeOutsideRegionTv.setText(item.getArea());
 

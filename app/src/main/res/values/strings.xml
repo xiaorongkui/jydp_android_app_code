@@ -132,6 +132,7 @@
 
     <string name="dealer_name">经销商名称</string>
     <string name="proportion_cny">比例(CNY)</string>
+    <string name="proportion_usd">比例(USD)</string>
     <string name="trade_quotas">交易限额(CNY)</string>
     <string name="region">地区</string>
     <string name="go_exchange">去交易</string>
@@ -188,6 +189,7 @@
     <string name="total_price">总价</string>
     <string name="dollars">¥</string>
     <string name="pay_method">支付方式</string>
+    <string name="pay_method_select">请选择收款方式</string>
     <string name="bank_card_transfer">银行卡转账</string>
     <string name="modify_pay_password">修改支付密码</string>
     <string name="modify_password">修改密码</string>

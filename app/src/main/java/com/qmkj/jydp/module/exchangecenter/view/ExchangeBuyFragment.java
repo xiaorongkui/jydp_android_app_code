@@ -81,6 +81,8 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     private ExchangeCenterRes.UserDealCapitalMessageBean userDealCapitalMessage;
     private String payPasswordStatus;
     private EditText exchange_passowrd_et;
+    private com.qmkj.jydp.ui.widget.dialog.CommonDialog loginCommonDialog_3;
+    private String buyFee;
 
     public static ExchangeBuyFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -109,22 +111,29 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         priceTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
                 .mainThread()).subscribe(sequence -> {
             restrictedInput(sequence, exchangeUnitPriceEt, DECIMAL_DIGITS_PRICE);
-            String price = exchangeUnitPriceEt.getText().toString().trim();
-            double parseDoublePrice = 0;
-            double parseDoubleAvailable = 0;
-            try {
-                parseDoublePrice = Double.parseDouble(price);
-                parseDoubleAvailable = Double.parseDouble(userDealCapitalMessage.getUserBalance());
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            if (parseDoublePrice > 0 && parseDoubleAvailable >= 0) {
-                double div = NumberUtil.div(parseDoubleAvailable, parseDoublePrice, 4);
-                buy_max_tv.setText("最大可买：" + NumberUtil.format4Point(div));
-            } else {
-                buy_max_tv.setText("最大可买：0");
-            }
+            calculateBuyAccount();
         });
+    }
+
+    private void calculateBuyAccount() {
+        String price = exchangeUnitPriceEt.getText().toString().trim();
+        double parseDoublePrice = 0;
+        double parseDoubleAvailable = 0;
+        double parseDoubleAvailableBuyFee = 0;
+        try {
+            parseDoublePrice = Double.parseDouble(price);
+            parseDoubleAvailable = Double.parseDouble(userDealCapitalMessage.getUserBalance());
+            parseDoubleAvailableBuyFee = NumberUtil.div(Double.parseDouble(buyFee), 100, 4);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        if (parseDoublePrice > 0 && parseDoubleAvailable >= 0) {
+            double totalPrice = NumberUtil.mul((1 + parseDoubleAvailableBuyFee), parseDoublePrice);
+            double div = NumberUtil.div(parseDoubleAvailable, totalPrice, 4);
+            buy_max_tv.setText("最大可买：" + NumberUtil.format4Point(div));
+        } else {
+            buy_max_tv.setText("最大可买：0");
+        }
     }
 
     @Override
@@ -156,6 +165,9 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         }
         if (loginCommonDialog_2 != null && loginCommonDialog_2.isShowing()) {
             loginCommonDialog_2.dismiss();
+        }
+        if (loginCommonDialog_3 != null && loginCommonDialog_3.isShowing()) {
+            loginCommonDialog_3.dismiss();
         }
     }
 
@@ -276,7 +288,16 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             exchange_passowrd_et.requestFocus();
             return false;
         });
-
+        if (TextUtils.isEmpty(payPasswordStatus)) {
+            loginCommonDialog_3 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
+            loginCommonDialog_3.setContentText("请先登录");
+            loginCommonDialog_3.setOnPositiveButtonClickListener((Dialog dialog, View v) -> {
+                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                loginCommonDialog_3.dismiss();
+            });
+            loginCommonDialog_3.show();
+            return;
+        }
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
                 isInputExchangePwd = true;
@@ -353,16 +374,27 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             toast("购买数据异常，请刷新重试");
             return;
         }
-        exchange_buy_price_tv.setText(buyPrice + " XT");
-        exchange_buy_amount_tv.setText(buyAmount);
-        double totalPrice = 0;
+        exchange_buy_price_tv.setText((NumberUtil.format4Point(buyPrice) + " XT"));
+        exchange_buy_amount_tv.setText((NumberUtil.format2Point(buyAmount)));
+
+        double parseDoublePrice = 0;
+        double parseDoublebuyAmount = 0;
+        double parseDoubleBuyFee = 0;
         try {
-            totalPrice = Double.parseDouble(buyPrice) * Double.parseDouble(buyAmount);
+            parseDoublePrice = Double.parseDouble(buyPrice);
+            parseDoublebuyAmount = Double.parseDouble(buyAmount);
+            parseDoubleBuyFee = Double.parseDouble(buyFee);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        exchange_buy_total_tv.setText(NumberUtil.format4Point(totalPrice) + " XT");
-        exchange_buy_fee_tv.setText(transactionCurrency.getBuyFee() + " XT");
+
+        double money = NumberUtil.mul(parseDoublePrice, parseDoublebuyAmount);
+        double totalFee = NumberUtil.mul(money, parseDoubleBuyFee);
+        double totalMoney = NumberUtil.add(money, totalFee);
+
+        exchange_buy_total_tv.setText(NumberUtil.format4Point(money) + " XT");
+        exchange_buy_fee_tv.setText(parseDoubleBuyFee + "%");
+
         buyDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         buyDialogUtils.setOneOrTwoBtn(false);
         buyDialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
@@ -399,6 +431,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         }
 
         payPasswordStatus = centerRes.getPayPasswordStatus();
+        if (TextUtils.isEmpty(payPasswordStatus)) return;
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
                 exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));
@@ -409,6 +442,11 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
                 break;
         }
+
+        ExchangeCenterRes.TransactionCurrencyBean transactionCurrency = centerRes.getTransactionCurrency();
+        if (transactionCurrency != null) {
+            buyFee = transactionCurrency.getBuyFee();
+        }
     }
 
     @Override
@@ -416,7 +454,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         super.onSuccess(response, tag);
         switch (tag) {
             case BUY_EXCAHNGE_TAG:
-                toast("购买成功");
+                toast("挂单成功");
                 if (buyDialogUtils != null && buyDialogUtils.isShowing()) buyDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangeEvent());
                 exchangeUnitPriceEt.setText("");
@@ -433,6 +471,15 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         }
     }
 
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object o) {
+        super.onError(errorMsg, code, tag, o);
+        switch (tag) {
+            case BUY_EXCAHNGE_TAG:
+                if (buyDialogUtils != null && buyDialogUtils.isShowing()) buyDialogUtils.dismiss();
+                break;
+        }
+    }
 
     private void restrictedInput(CharSequence s, EditText exchangeAmountEt, int i) {
         if (TextUtils.isEmpty(s)) return;

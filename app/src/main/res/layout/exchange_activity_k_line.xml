@@ -186,6 +186,7 @@
             </LinearLayout>
 
             <FrameLayout
+                android:visibility="gone"
                 android:id="@+id/kline_webview"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y400"/>
@@ -194,8 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y232"
                 android:orientation="vertical"
-                android:padding="@dimen/y5"
-                android:visibility="gone">
+                android:padding="@dimen/y5">
 
                 <com.qmkj.jydp.ui.widget.kline.MyCombinedChart
                     android:id="@+id/kline_chart_k"

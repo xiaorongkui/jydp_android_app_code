@@ -132,7 +132,6 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     public String node = "1d";
     private CustomWebView mWebView;
     private ExchangeCenterRes.StandardParameterBean headerData;
-    private Disposable disposable;
 
     @Override
     protected void injectPresenter() {
@@ -155,15 +154,6 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         getKlineData(false);
         getExchangeDealRecode(false);
         mWebView.loadUrl(AppNetConfig.kline_url + currencyId);
-//        initCountTimer();
-    }
-
-    private void initCountTimer() {
-        disposable = Observable.interval(0, 2000, TimeUnit.MILLISECONDS)
-                .compose(bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> mWebView.loadUrl(AppNetConfig.kline_url + currencyId));
     }
 
     private void getExchangeDealRecode(boolean b) {
@@ -216,30 +206,6 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         mWebView.setLayoutParams(params);
         mWebView.setInitialScale(40);
         klineWebview.addView(mWebView);
-//        mWebView.getSettings().setJavaScriptEnabled(true);
-//        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-//        mWebView.getSettings().setLoadWithOverviewMode(true);
-//        // 设置可以支持缩放
-//        mWebView.getSettings().setSupportZoom(true);
-//        // 设置出现缩放工具
-//        mWebView.getSettings().setBuiltInZoomControls(false);
-//        //设置可在大视野范围内上下左右拖动，并且可以任意比例缩放
-//        mWebView.getSettings().setUseWideViewPort(true);
-//        // android 5.0以上默认不支持Mixed Content
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            mWebView.getSettings().setMixedContentMode(
-//                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-//        }
-//
-//        mWebView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-//        mWebView.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                LogUtil.i("url=" + url);
-//                mWebView.loadUrl(url);
-//                return true;
-//            }
-//        });
     }
 
     private void initRecycleView() {
@@ -772,18 +738,8 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
         if (mWebView != null) {
             // destory()
             ViewParent parent = mWebView.getParent();

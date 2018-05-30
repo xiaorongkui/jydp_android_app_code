@@ -90,6 +90,7 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
         CommonUtil.setToken("");
         CommonUtil.clearLoginInfo();
         AppManager.getInstance().clear();
+        CommonUtil.saveExchangePwd("");
         CommonUtil.gotoActivity(mContext, LoginActivity.class);
     }
 

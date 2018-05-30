@@ -19,6 +19,8 @@ import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
 import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeDetailsActivity;
+import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
+import com.qmkj.jydp.ui.AutoHeighBanner;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
@@ -44,7 +46,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     @BindView(R.id.home_fragment_ll)
     LinearLayout homeFragmentLl;
     @BindView(R.id.home_auto_ll)
-    Banner homeAutoLl;
+    AutoHeighBanner homeAutoLl;
     @BindView(R.id.marquee_home_header_notice)
     UPMarqueeView marqueeHomeHeaderNotice;
     @BindView(R.id.home_list_rv)
@@ -69,7 +71,6 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         initGrideView(null);
         initRefreshView();
     }
-
     private void initRefreshView() {
         homeFragmentRefresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
