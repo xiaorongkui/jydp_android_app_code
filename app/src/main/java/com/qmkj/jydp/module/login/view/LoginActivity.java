@@ -20,13 +20,13 @@ import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.bean.response.LoginRes;
+import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.SystemMessageConfig;
 import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.module.home.view.WebActivity;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
-import com.qmkj.jydp.module.mine.view.HelpCenterDetailsActivity;
 import com.qmkj.jydp.ui.widget.EditHItemView;
-import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
@@ -192,9 +192,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 CommonUtil.gotoActivity(mContext, ForgetLoginPwdActivity.class);
                 break;
             case R.id.register_agreement_name_tv://注册协议
-                Intent intent = new Intent(this, HelpCenterDetailsActivity.class);
-                intent.putExtra(HelpCenterDetailsActivity.ID_KEY, "101010");
-                intent.putExtra(HelpCenterDetailsActivity.ACTIVITY_TITLE_KEY, "注册协议");
+                Intent intent = WebActivity.getActivityIntent(mContext, "注册协议", AppNetConfig.HELP_CENTER_URL + "101010");
                 CommonUtil.gotoActivity(mContext, intent);
                 break;
         }
