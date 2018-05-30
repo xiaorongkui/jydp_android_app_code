@@ -19,6 +19,7 @@ import com.qmkj.jydp.module.login.view.SplashActivity;
 import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
 import com.qmkj.jydp.module.mine.view.ContactServiceActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyAssetsActivity;
+import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRechargeActivity;
 import com.qmkj.jydp.module.mine.view.CurrencyWithDrawRecodeActivity;
 import com.qmkj.jydp.module.mine.view.DealerManagementActivity;
 import com.qmkj.jydp.module.mine.view.HelpCenterActivity;
@@ -108,5 +109,7 @@ public interface ActivityComponent {
     void inject(OutSideExchangeOrderDetailActivity outSideExchangeOrderDetailActivity);
 
     void inject(SoftwareInfoActivity softwareInfoActivity);
+
+    void inject(CurrencyWithDrawRechargeActivity currencyWithDrawRechargeActivity);
 
 }

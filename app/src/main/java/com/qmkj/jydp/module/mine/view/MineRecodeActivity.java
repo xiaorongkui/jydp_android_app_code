@@ -30,10 +30,10 @@ public class MineRecodeActivity extends BaseMvpActivity {
     ClickItemView mineRecodeRegisterRecodeCiv;
     @BindView(R.id.mine_recode_transaction_recode_civ)
     ClickItemView mineRecodeTransactionRecodeCiv;
-    @BindView(R.id.mine_recode_currency_recode_civ)
-    ClickItemView mineRecodeCurrencyRecodeCiv;
-    @BindView(R.id.mine_recode_outside_exchange_recode_civ)
+   @BindView(R.id.mine_recode_outside_exchange_recode_civ)
     ClickItemView mineRecodeOutsideExchangeRecodeCiv;
+   @BindView(R.id.mine_recharge_currency_recode_civ)
+    ClickItemView mine_recharge_currency_recode_civ;
     @BindView(R.id.mine_recode_outside_exchange_recode_agcy_civ)
     ClickItemView mine_recode_outside_exchange_recode_agcy_civ;
 
@@ -67,7 +67,7 @@ public class MineRecodeActivity extends BaseMvpActivity {
 
     @OnClick({R.id.mine_recode_register_recode_civ, R.id.mine_recode_transaction_recode_civ, R.id
             .mine_recode_currency_recode_civ, R.id.mine_recode_outside_exchange_recode_civ,
-            R.id.mine_recode_outside_exchange_recode_agcy_civ})
+            R.id.mine_recode_outside_exchange_recode_agcy_civ,R.id.mine_recharge_currency_recode_civ})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mine_recode_register_recode_civ://委托记录
@@ -75,6 +75,9 @@ public class MineRecodeActivity extends BaseMvpActivity {
                 break;
             case R.id.mine_recode_transaction_recode_civ://成交记录
                 CommonUtil.gotoActivity(mContext, TransactionRecodeActivity.class);
+                break;
+            case R.id.mine_recharge_currency_recode_civ://充币记录
+                CommonUtil.gotoActivity(mContext, CurrencyWithDrawRecodeActivity.class);
                 break;
             case R.id.mine_recode_currency_recode_civ://提币记录
                 CommonUtil.gotoActivity(mContext, CurrencyWithDrawRecodeActivity.class);

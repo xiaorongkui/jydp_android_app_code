@@ -91,6 +91,10 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.getPresentRecordInfo(req), tag, isShowProgress);
     }
 
+    public void getPresentRechargeCoinInfo(PageNumberReq req, int tag, boolean isShowProgress){
+        sendHttpRequest(mineService.getPresentRechargeCoinInfo(req), tag, isShowProgress);
+    }
+
     public void cancelPresentRecord(CoinRecordCancelReq req, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.cancelPresentRecord(req), tag, isShowProgress);
     }

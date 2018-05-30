@@ -209,6 +209,7 @@
     <string name="deletions">确定删除？</string>
     <string name="register_recode">委托记录</string>
     <string name="transaction_recode">成交记录</string>
+    <string name="currency_recharge">充币记录</string>
     <string name="currency_recode">提币记录</string>
     <string name="outside_exchange_recode">场外交易记录</string>
     <string name="outside_exchange_recode_agcy">场外交易记录(经销商)</string>
