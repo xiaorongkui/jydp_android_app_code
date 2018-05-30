@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
+import com.qmkj.jydp.bean.request.AccountRecordReq;
 import com.qmkj.jydp.bean.request.CoinRecordCancelReq;
 import com.qmkj.jydp.bean.request.DeleteDealerReq;
 import com.qmkj.jydp.bean.request.HelpCenterReq;
@@ -53,6 +54,7 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.loginOut(), tag);
     }
 
+    //获取用户币种信息
     public void getCurrencyAssetsInfo(int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getCurrencyAssetsInfo(), tag, isShowProgress);
     }
@@ -133,7 +135,7 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.getCustomerServiceInfo(req), tag, isShowProgress);
     }
 
-    public void getAccountRecordInfo(PageNumberReq req, int tag, boolean isShowProgress){
+    public void getAccountRecordInfo(AccountRecordReq req, int tag, boolean isShowProgress){
         sendHttpRequest(mineService.getAccountRecordInfo(req), tag, isShowProgress);
     }
 

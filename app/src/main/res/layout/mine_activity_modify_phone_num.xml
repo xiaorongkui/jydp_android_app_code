@@ -153,6 +153,7 @@
                             android:layout_marginStart="@dimen/x15"
                             android:layout_toEndOf="@id/modify_phone_erea_iv"
                             android:hint="@string/your_new_phone_num"
+                            android:maxLength="11"
                             android:maxLines="1"/>
 
                     </LinearLayout>
@@ -191,7 +192,9 @@
                     app:contentEditTextSize="@dimen/text_size_14"
                     app:contentEditTopMargin="@dimen/x14"
                     app:titleText="@string/login_password"
-                    app:titleTopMargin="@dimen/x20"/>
+                    app:titleTopMargin="@dimen/x20"
+                    app:digits="@string/text_digits"
+                    app:maxLength="16"/>
 
             </LinearLayout>
         </com.dd.ShadowLayout>

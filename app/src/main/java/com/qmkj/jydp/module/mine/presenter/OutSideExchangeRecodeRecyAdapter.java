@@ -74,7 +74,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         TextView see_detail = helper.getView(R.id.outside_exchange_recode_see_detail_tv);//查看详情
         TextView comfirm_receivables = helper.getView(R.id.outside_exchange_recode_comfirm_receivables_tv);//确认收款
 
-        if(item.getDealStatus() == 2){ //待确认收货
+        if(item.getDealStatus() == 1||item.getDealStatus() == 2){ //待确认收货
             if(item.getDealType()==1){  //买入
                 comfirm_receivables.setVisibility(View.VISIBLE);
                 comfirm_receivables.setText(CommonUtil.getString(R.string.comfirm_receivables_corn));
@@ -92,12 +92,12 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         String text = null;
         switch (item.getDealStatus()){
             case 1:
-                text = "待付款";
+                text = "待完成";
                 recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
                 recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
                 break;
             case 2:
-                text = "已付款（待确认）";
+                text = "待确认";
                 recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
                 recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
                 break;
@@ -124,11 +124,11 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         //交易状态：1.买入 2.卖出 3.撤销
         switch (item.getDealType()){
             case 1:
-                text_type = "买入";
+                text_type = "购买";
                 type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
                 break;
             case 2:
-                text_type = "卖出";
+                text_type = "出售";
                 type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
                 break;
             case 3:

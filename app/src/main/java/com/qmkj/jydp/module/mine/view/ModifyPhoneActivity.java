@@ -47,7 +47,6 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     TextView modify_phone_erea_tv;
     @BindView(R.id.modify_phone_erea_et)
     EditText modify_phone_erea_et;
-
     @BindView(R.id.user_phone_num_tv)
     TextView userPhoneNumTv;
     @BindView(R.id.modify_phone_submit_bt)
@@ -94,7 +93,6 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         modify_phone_verification_code_civ.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_verification_code_eiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_erea_et.setInputType(InputType.TYPE_CLASS_NUMBER);
-        modify_phone_erea_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         modify_phone_erea_tv.setInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_verification_code_civ.setEditTextMaxLength(6);
         modify_phone_verification_code_eiv.setEditTextMaxLength(6);

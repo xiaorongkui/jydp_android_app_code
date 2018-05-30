@@ -85,7 +85,7 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
                 break;
             case 2:
                 text = "部分成交";
-                entrustment.setVisibility(View.GONE);
+                entrustment.setVisibility(View.VISIBLE);
                 break;
             case 3:
                 text = "全部成交";

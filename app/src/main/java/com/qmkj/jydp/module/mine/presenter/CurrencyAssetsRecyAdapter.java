@@ -10,6 +10,8 @@ import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
+import java.math.BigDecimal;
+
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -48,8 +50,8 @@ public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.Us
         mine_currency_assets_item_go_exchange_tv.setBackground(shapeSelector.create());
 
         mine_assets_name_tv.setText(item.getCurrencyName());
-        currency_total_assets_tv.setText(item.getTotalCurrencyAssets() + "");
-        available_amount_tv.setText(item.getCurrencyNumber() + "");
-        frozen_amount_tv.setText(item.getCurrencyNumberLock() + "");
+        currency_total_assets_tv.setText(BigDecimal.valueOf(Double.parseDouble(item.getTotalCurrencyAssets())) + "");
+        available_amount_tv.setText(BigDecimal.valueOf(Double.parseDouble(item.getCurrencyNumber())) + "");
+        frozen_amount_tv.setText(BigDecimal.valueOf(Double.parseDouble(item.getCurrencyNumberLock())) + "");
     }
 }

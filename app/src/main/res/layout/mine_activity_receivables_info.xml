@@ -154,7 +154,9 @@
                     app:contentEditTopMargin="@dimen/x15"
                     app:titleEndText="@string/asterisk"
                     app:titleText="@string/alipay_account"
-                    app:titleTopMargin="@dimen/x20"/>
+                    app:titleTopMargin="@dimen/x20"
+                    app:maxLength="30"
+                    app:digits="@string/text_digits_3"/>
 
                 <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_alipay_receipt_code_eiv"
@@ -212,7 +214,9 @@
                     app:contentEditTopMargin="@dimen/x15"
                     app:titleEndText="@string/asterisk"
                     app:titleText="@string/wechat_account"
-                    app:titleTopMargin="@dimen/x20"/>
+                    app:titleTopMargin="@dimen/x20"
+                    app:maxLength="30"
+                    app:digits="@string/text_digits_3"/>
 
                 <com.qmkj.jydp.ui.widget.EditVItemView
                     android:id="@+id/receivables_wechat_receipt_code_eiv"

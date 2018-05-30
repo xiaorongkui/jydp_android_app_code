@@ -163,9 +163,15 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
         submitQuestionDialog.setOnSubmitQuestionListener((questionTitle, questionContent) -> {
             if (StringUtil.isNull(questionTitle)) {
                 toast("标题不能为空");
+                return;
+            }
+            if(questionTitle.length()<2){
+                toast("标题为2-16个字符");
+                return;
             }
             if (StringUtil.isNull(questionContent)) {
                 toast("内容不能为空");
+                return;
             }
             SendContactServiceReq req = new SendContactServiceReq();
             req.setFeedbackTitle(questionTitle);

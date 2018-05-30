@@ -30,7 +30,7 @@
     <string name="sold_out">卖出</string>
     <string name="sell">出售</string>
     <string name="cancel_order">撤销</string>
-    <string name="exchange_entrust_recod">挂单记录</string>
+    <string name="exchange_entrust_recod">委托记录</string>
     <string name="amount">数量</string>
     <string name="amount_1">数量：</string>
     <string name="amount_input_notice">请输入数量</string>
@@ -166,6 +166,7 @@
     <string name="available_amount_1">可用数量：</string>
     <string name="available_amount">可用数量</string>
     <string name="buy_1">购买</string>
+    <string name="buy_2">回购</string>
     <string name="distributor">经销商</string>
     <string name="field_1">(场内)</string>
     <string name="outside_1">(场外)</string>
@@ -206,7 +207,7 @@
     <string name="send_advertisement">发起广告</string>
     <string name="delete_operation">删除操作</string>
     <string name="deletions">确定删除？</string>
-    <string name="register_recode">挂单记录</string>
+    <string name="register_recode">委托记录</string>
     <string name="transaction_recode">成交记录</string>
     <string name="currency_recode">提币记录</string>
     <string name="outside_exchange_recode">场外交易记录</string>

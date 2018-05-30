@@ -445,6 +445,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 LoginRes.UserBean user = loginBean.getUser();
                 CommonUtil.setLoginInfo(loginBean);
                 if (user != null) CommonUtil.setUserAccount(loginAccountEiv.getEditTextString());
+                AppManager.getInstance().removeActivity(MainActivity.class);
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
                 AppManager.getInstance().removeCurrent();
                 break;

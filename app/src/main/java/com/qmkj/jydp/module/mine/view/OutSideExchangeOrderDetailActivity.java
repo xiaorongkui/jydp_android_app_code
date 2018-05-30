@@ -45,10 +45,10 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
             ClickItemView exchange_recode_detail_type_civ;
     @BindView(R.id.exchange_recode_detail_area_civ)//地区
             ClickItemView exchange_recode_detail_area_civ;
-    @BindView(R.id.exchange_recode_detail_dealer_name_civ)//经销商名称
-            ClickItemView exchange_recode_detail_dealer_name_civ;
-    @BindView(R.id.exchange_recode_detail_dealer_phone_civ)//手机号码
-            ClickItemView exchange_recode_detail_dealer_phone_civ;
+    @BindView(R.id.exchange_recode_detail_dealer_alipay_name_civ)//经销商名称
+            ClickItemView exchange_recode_detail_dealer_alipay_name_civ;
+    @BindView(R.id.exchange_recode_detail_dealer_alipay_phone_civ)//手机号码
+            ClickItemView exchange_recode_detail_dealer_alipay_phone_civ;
     @BindView(R.id.exchange_recode_detail_dealer_alipay_account_civ)//支付宝账号
             ClickItemView exchange_recode_detail_dealer_alipay_account_civ;
     @BindView(R.id.exchange_recode_detail_dealer_weixin_account_civ)//微信账号
@@ -175,8 +175,8 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
 
         exchange_recode_detail_type_civ.setRightText(text_type);
         exchange_recode_detail_area_civ.setRightText(res.getArea());
-        exchange_recode_detail_dealer_name_civ.setRightText(res.getDealerName());
-        exchange_recode_detail_dealer_phone_civ.setRightText(res.getPaymentPhone());
+        exchange_recode_detail_dealer_alipay_name_civ.setRightText(res.getDealerName());
+        exchange_recode_detail_dealer_alipay_phone_civ.setRightText(res.getPaymentPhone());
         exchange_recode_detail_apply_time_civ.setRightText(DateUtil.longToTimeStr(res.getAddTime(),DateUtil.dateFormat1));
         exchange_recode_detail_finish_time_civ.setRightText(DateUtil.longToTimeStr(res.getUpdateTime(),DateUtil.dateFormat1));
 

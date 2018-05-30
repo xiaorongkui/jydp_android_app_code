@@ -1,5 +1,12 @@
 package com.qmkj.jydp.util;
 
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.widget.EditText;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 字符串操作
  *
@@ -74,6 +81,25 @@ public class StringUtil {
     public static String formatPhoneNum(String phoneNum) {
         return phoneNum.substring(0, 3) + "***" + phoneNum.substring(phoneNum.length() - 3, phoneNum.length());
 //        return chainAddress.replaceAll("(\\d{6})(\\d{4})", "$1****$2");
+    }
+
+    /**
+     * 禁止EditText输入特殊字符
+     * @param editText
+     */
+    public static void setEditTextInhibitInputSpeChat(EditText editText){
+
+        InputFilter filter=new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String speChat="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+                Pattern pattern = Pattern.compile(speChat);
+                Matcher matcher = pattern.matcher(source.toString());
+                if(matcher.find())return "";
+                else return null;
+            }
+        };
+        editText.setFilters(new InputFilter[]{filter});
     }
 
 }

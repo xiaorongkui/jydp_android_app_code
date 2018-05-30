@@ -2,6 +2,7 @@ package com.qmkj.jydp.module.mine.presenter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -11,6 +12,7 @@ import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
+import com.qmkj.jydp.util.StringUtil;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -49,6 +51,8 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
         TextView actual_account = (TextView)helper.getView(R.id.transaction_actual_account_tv); //实际到帐
         TextView time = (TextView)helper.getView(R.id.transaction_time_tv); //完成时间
 
+        TextView transaction_actual_account_title_tv = (TextView)helper.getView(R.id.transaction_actual_account_title_tv); //实际到帐
+
         order_num.setText(item.getOrderNo());
         String text =null;
         //	收支类型,1：买入，2：卖出，3：撤销
@@ -75,7 +79,14 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
         price.setText(item.getTransactionPrice()+"");
         deal_amount.setText(item.getFee()+"");
         total_price.setText(item.getCurrencyTotalPrice()+"");
-        actual_account.setText(item.getActualPrice()+"");
-        time.setText(DateUtil.longToTimeStr(time.getDrawingTime(),DateUtil.dateFormat2));
+        if(!StringUtil.isNull(item.getActualPrice())){
+            actual_account.setText(item.getCurrencyTotalPrice()+"");
+            transaction_actual_account_title_tv.setVisibility(View.VISIBLE);
+            actual_account.setVisibility(View.VISIBLE);
+        }else {
+            transaction_actual_account_title_tv.setVisibility(View.INVISIBLE);
+            actual_account.setVisibility(View.INVISIBLE);
+        }
+        time.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
     }
 }
