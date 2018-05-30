@@ -147,7 +147,6 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                             CommonUtil.gotoActivity(mContext, sellIntent);
                             break;
                     }
-
             }
         });
     }

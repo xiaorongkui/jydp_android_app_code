@@ -77,6 +77,9 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     private ExchangeCenterRes.UserDealCapitalMessageBean data;
     private String payPasswordStatus;
     private boolean isInputExchangePwd;
+    private com.qmkj.jydp.ui.widget.dialog.CommonDialog loginCommonDialog_3;
+    private boolean isInitData = false;
+    private String sellFee;
 
     public static ExchangeSoldFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -104,24 +107,31 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         priceTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
                 .mainThread()).subscribe(sequence -> {
             restrictedInput(sequence, exchangeUnitPriceEt, DECIMAL_DIGITS_PRICE);
-            String price = exchangeUnitPriceEt.getText().toString().trim();
-            double parseDoublePrice = 0;
-            double parseDoubleAvailable = 0;
-            try {
-                parseDoublePrice = Double.parseDouble(price);
-                parseDoubleAvailable = Double.parseDouble(data.getCurrencyNumber());
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            if (parseDoublePrice > 0 && parseDoubleAvailable >= 0) {
-                double div = NumberUtil.mul(parseDoubleAvailable, parseDoublePrice);
-                exchange_max_sold_tv.setText("最大可获得：" + NumberUtil.format2Point(div));
-            } else {
-                exchange_max_sold_tv.setText("最大可获得：0 XT");
-            }
+            calculateSellAccount();
         });
 
 
+    }
+
+    private void calculateSellAccount() {
+        String price = exchangeUnitPriceEt.getText().toString().trim();
+        double parseDoublePrice = 0;
+        double parseDoubleAvailable = 0;
+        double parseDoubleAvailableSellFee = 0;
+        try {
+            parseDoublePrice = Double.parseDouble(price);
+            parseDoubleAvailable = Double.parseDouble(data.getCurrencyNumber());
+            parseDoubleAvailableSellFee = NumberUtil.div(Double.parseDouble(sellFee), 100, 4);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        if (parseDoublePrice > 0 && parseDoubleAvailable >= 0) {
+            double totalPrice = NumberUtil.mul((1 + parseDoubleAvailableSellFee), parseDoublePrice);
+            double div = NumberUtil.mul(parseDoubleAvailable, totalPrice);
+            exchange_max_sold_tv.setText("最大可获得：" + NumberUtil.format2Point(div) + "XT");
+        } else {
+            exchange_max_sold_tv.setText("最大可获得：0 XT");
+        }
     }
 
     @Override
@@ -150,6 +160,9 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         }
         if (loginCommonDialog_2 != null && loginCommonDialog_2.isShowing()) {
             loginCommonDialog_2.dismiss();
+        }
+        if (loginCommonDialog_3 != null && loginCommonDialog_3.isShowing()) {
+            loginCommonDialog_3.dismiss();
         }
     }
 
@@ -215,7 +228,16 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             return false;
         });
 
-
+        if (TextUtils.isEmpty(payPasswordStatus)) {
+            loginCommonDialog_3 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
+            loginCommonDialog_3.setContentText("请先登录");
+            loginCommonDialog_3.setOnPositiveButtonClickListener((Dialog dialog, View v) -> {
+                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                loginCommonDialog_3.dismiss();
+            });
+            loginCommonDialog_3.show();
+            return;
+        }
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
                 isInputExchangePwd = true;
@@ -336,7 +358,7 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         super.onSuccess(response, tag);
         switch (tag) {
             case SELL_EXCAHNGE_TAG:
-                toast("交易成功");
+                toast("挂单成功");
                 RxBus.getDefault().post(new ExchangeEvent());
                 exchangeUnitPriceEt.setText("");
                 exchangeAmountEt.setText("");
@@ -352,8 +374,8 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     public void refreshData(ExchangeCenterRes centerRes) {
         if (centerRes == null || centerRes.getUserDealCapitalMessage() == null) return;
         data = centerRes.getUserDealCapitalMessage();
-        exchangeSoldForzenTv.setText(NumberUtil.format2Point(data.getCurrencyNumberLock()));
-        exchangeSoldAvailableTv.setText(NumberUtil.format2Point(data.getCurrencyNumber()));
+        exchangeSoldForzenTv.setText(NumberUtil.format4Point(data.getCurrencyNumberLock()));
+        exchangeSoldAvailableTv.setText(NumberUtil.format4Point(data.getCurrencyNumber()));
         String price = exchangeUnitPriceEt.getText().toString().trim();
         String amount = exchangeAmountEt.getText().toString().trim();
         if (TextUtils.isEmpty(price) && TextUtils.isEmpty(amount)) {
@@ -361,15 +383,23 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         }
 
         payPasswordStatus = centerRes.getPayPasswordStatus();
+        if (TextUtils.isEmpty(payPasswordStatus)) return;
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
                 exchange_sold_notice_pwd_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));
-                exchangePassowrdEt.setText("");
+                if (!isInitData) {
+                    isInitData = true;
+                    exchangePassowrdEt.setText("");//初始化一次
+                }
                 break;
             case "2"://2：每次登录只输入一次交易密码
                 exchange_sold_notice_pwd_tv.setText(CommonUtil.getString(R.string.exchange_password_login_notice));
                 exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
                 break;
+        }
+        ExchangeCenterRes.TransactionCurrencyBean transactionCurrency = centerRes.getTransactionCurrency();
+        if (transactionCurrency != null) {
+            sellFee = transactionCurrency.getSellFee();
         }
     }
 

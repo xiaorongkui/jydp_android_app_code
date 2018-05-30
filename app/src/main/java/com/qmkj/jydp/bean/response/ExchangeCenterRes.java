@@ -13,64 +13,6 @@ import java.util.List;
 
 public class ExchangeCenterRes extends BaseRes {
 
-
-    /**
-     * userDealCapitalMessage : {"userBalance":0,"userBalanceLock":0,"currencyNumber":0,"currencyNumberLock":0,
-     * "currencyNumberSum":0}
-     * standardParameter : {"nowPrice":99999999,"buyOne":0.01,"sellOne":999999999,"todayMax":0,"todayMin":0,
-     * "todayRange":0,"yesterdayPrice":99999999,"dayTurnove":0,"dayTransaction":0}
-     * transactionPendOrderSellList : [{"pendingPrice":999999999,"pendingNumber":1.0E-4,"dealNumber":0,
-     * "restNumber":1.0E-4,"sumPrice":99999.9999}]
-     * transactionCurrency : {"currencyId":237,"currencyShortName":"tttttttttt","currencyName":"TTTTTTTTTT",
-     * "currencyImg":"/upload/transactionCyrrency/20180515/2018051516084234974882834.jpg","buyFee":0,"sellFee":0,
-     * "guidancePrice":11.11,"paymentType":1,"upStatus":2,"rankNumber":5,"backerAccount":"qianmo001",
-     * "ipAddress":"183.134.151.251","upTime":1526293161000,"addTime":1526293161000,"currencyImgUrl":"http://test
-     * .oksheng.com.cn/fileservice/upload/transactionCyrrency/20180515/2018051516084234974882834.jpg",
-     * "upTimeStr":"2018-05-14 18:19:21","reCode":0}
-     * transactionPendOrderBuyList : [{"pendingPrice":0.01,"pendingNumber":1.0E-4,"dealNumber":0,
-     * "restNumber":1.0E-4,"sumPrice":1.0E-6}]
-     * webAppPath : /jydp
-     * currencyId : 237
-     * dealList : [{"id":0,"orderNo":null,"paymentType":2,"currencyId":0,"transactionPrice":99999999,
-     * "currencyNumber":1.0E-4,"currencyTotalPrice":9999.9999,"addTime":1526366507000},{"id":0,"orderNo":null,
-     * "paymentType":1,"currencyId":0,"transactionPrice":0.01,"currencyNumber":1.0E-4,
-     * "currencyTotalPrice":1.0E-6,"addTime":1526366412000},{"id":0,"orderNo":null,"paymentType":2,
-     * "currencyId":0,"transactionPrice":1,"currencyNumber":4,"currencyTotalPrice":4,"addTime":1526366369000},
-     * {"id":0,"orderNo":null,"paymentType":1,"currencyId":0,"transactionPrice":2,"currencyNumber":2,
-     * "currencyTotalPrice":4,"addTime":1526366285000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":1,"currencyNumber":1,"currencyTotalPrice":1,"addTime":1526347708000},{"id":0,
-     * "orderNo":null,"paymentType":2,"currencyId":0,"transactionPrice":7,"currencyNumber":1,
-     * "currencyTotalPrice":7,"addTime":1526347549000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":16,"currencyNumber":36,"currencyTotalPrice":576,"addTime":1526347366000},{"id":0,
-     * "orderNo":null,"paymentType":1,"currencyId":0,"transactionPrice":1,"currencyNumber":1,
-     * "currencyTotalPrice":1,"addTime":1526347155000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":15,"currencyNumber":10,"currencyTotalPrice":150,"addTime":1526299826000},{"id":0,
-     * "orderNo":null,"paymentType":2,"currencyId":0,"transactionPrice":0.99,"currencyNumber":1,
-     * "currencyTotalPrice":0.99,"addTime":1526299742000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":15,"currencyNumber":5,"currencyTotalPrice":75,"addTime":1526299646000},{"id":0,
-     * "orderNo":null,"paymentType":1,"currencyId":0,"transactionPrice":13,"currencyNumber":13,
-     * "currencyTotalPrice":169,"addTime":1526299646000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":12,"currencyNumber":12,"currencyTotalPrice":144,"addTime":1526299646000},{"id":0,
-     * "orderNo":null,"paymentType":2,"currencyId":0,"transactionPrice":1,"currencyNumber":1,
-     * "currencyTotalPrice":1,"addTime":1526299408000},{"id":0,"orderNo":null,"paymentType":2,"currencyId":0,
-     * "transactionPrice":2,"currencyNumber":2,"currencyTotalPrice":4,"addTime":1526299408000},{"id":0,
-     * "orderNo":null,"paymentType":2,"currencyId":0,"transactionPrice":3,"currencyNumber":3,
-     * "currencyTotalPrice":9,"addTime":1526299408000},{"id":0,"orderNo":null,"paymentType":2,"currencyId":0,
-     * "transactionPrice":4,"currencyNumber":4,"currencyTotalPrice":16,"addTime":1526299408000},{"id":0,
-     * "orderNo":null,"paymentType":2,"currencyId":0,"transactionPrice":5,"currencyNumber":3,
-     * "currencyTotalPrice":15,"addTime":1526299408000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":11.01,"currencyNumber":1,"currencyTotalPrice":11.01,"addTime":1526299356000},{"id":0,
-     * "orderNo":null,"paymentType":1,"currencyId":0,"transactionPrice":11,"currencyNumber":9,
-     * "currencyTotalPrice":99,"addTime":1526299356000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":5.01,"currencyNumber":1,"currencyTotalPrice":5.01,"addTime":1526299211000},{"id":0,
-     * "orderNo":null,"paymentType":2,"currencyId":0,"transactionPrice":5,"currencyNumber":2,
-     * "currencyTotalPrice":10,"addTime":1526299175000},{"id":0,"orderNo":null,"paymentType":1,"currencyId":0,
-     * "transactionPrice":11,"currencyNumber":1,"currencyTotalPrice":11,"addTime":1526296932000},{"id":0,
-     * "orderNo":null,"paymentType":1,"currencyId":0,"transactionPrice":11,"currencyNumber":1,
-     * "currencyTotalPrice":11,"addTime":1526296623000}]
-     * transactionPendOrderList : null
-     */
-
     private UserDealCapitalMessageBean userDealCapitalMessage;
     private StandardParameterBean standardParameter;
     private TransactionCurrencyBean transactionCurrency;
@@ -535,6 +477,17 @@ public class ExchangeCenterRes extends BaseRes {
     }
 
     public static class TransactionPendOrderSellListBean {
+        @Override
+        public String toString() {
+            return "TransactionPendOrderSellListBean{" +
+                    "pendingPrice='" + pendingPrice + '\'' +
+                    ", pendingNumber='" + pendingNumber + '\'' +
+                    ", dealNumber='" + dealNumber + '\'' +
+                    ", restNumber='" + restNumber + '\'' +
+                    ", sumPrice='" + sumPrice + '\'' +
+                    '}';
+        }
+
         /**
          * pendingPrice : 999999999
          * pendingNumber : 1.0E-4
@@ -599,6 +552,17 @@ public class ExchangeCenterRes extends BaseRes {
         public TransactionPendOrderBuyListBean(String pendingPrice, String pendingNumber) {
             this.pendingPrice = pendingPrice;
             this.pendingNumber = pendingNumber;
+        }
+
+        @Override
+        public String toString() {
+            return "TransactionPendOrderBuyListBean{" +
+                    "pendingPrice='" + pendingPrice + '\'' +
+                    ", pendingNumber='" + pendingNumber + '\'' +
+                    ", dealNumber='" + dealNumber + '\'' +
+                    ", restNumber='" + restNumber + '\'' +
+                    ", sumPrice='" + sumPrice + '\'' +
+                    '}';
         }
 
         /**
@@ -773,12 +737,28 @@ public class ExchangeCenterRes extends BaseRes {
         private String dealNumber;
         private int paymentType;
         private int userId;
-        private int userAccount;
+        private String userAccount;
         private String pendingNumber;
         private String pendingOrderNo;
         private String pendingPrice;
         private int pendingStatus;
         private String restBalanceLock;
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public String getUserAccount() {
+            return userAccount;
+        }
+
+        public void setUserAccount(String userAccount) {
+            this.userAccount = userAccount;
+        }
 
         public String getCurrencyName() {
             return currencyName;

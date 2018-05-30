@@ -28,6 +28,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
+import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.response.CancleOrderReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
@@ -72,6 +73,9 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private static final int EXCHANGE_TYPE_RECODE = 3;
     private static final int EXCHANGE_CENTER_DATA_TAG = 1;
     private static final int EXCHANGE_CANCLE_ORDER_TAG = 2;
+    private static final int EXCHANGE_PENDORDER_TAG = 3;
+    private static final int EXCHANGE_ENTRUSTRECODE_TAG = 4;
+    private static final int EXCHANGE_DEALPRICE_TAG = 5;
     @BindView(R.id.exchange_price_recycle_buy)
     RecyclerView exchangePriceRecycleBuy;
     @BindView(R.id.exchange_price_recycle_sold)
@@ -121,7 +125,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     TextView exchangeExchangeDayVolumeTv;
     @BindView(R.id.exchange_current_price_xt_tv)
     TextView exchangeCurrentPriceXtTv;
-
+    boolean isCenterDataInit = false;
 
     private ExchangebuyPriceRecAdapter priceBuyRecAdapter;
     private ExchangeSoldPriceRecAdapter priceSoldRecAdapter;
@@ -129,10 +133,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private String currencyName;
     private EntrustRecodeRecAdapter entrustRecodeRecAdapter;
     private MyPagerAdapter pagerAdapter;
-    private Disposable subscribe;
+    private Disposable subscribe_1;
     private Disposable disposable;
     private CommonDialog commonCancleDialog;
     private ExchangeCenterRes.StandardParameterBean standardParameter;
+    private Disposable subscribe_2;
 
 
     public String getCurrencyId() {
@@ -158,9 +163,14 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
             currencyName = arguments.getString(Constants.INTENT_PARAMETER_1);
             currencyId = arguments.getString(Constants.INTENT_PARAMETER_2);
         }
-        subscribe = RxBus.getDefault().toObservable(ExchangeEvent.class).subscribe(exchangeEvent -> {
+        subscribe_1 = RxBus.getDefault().toObservable(ExchangeEvent.class).subscribe(exchangeEvent -> {
             getExchangeCenterData(true);
         });
+        subscribe_2 = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(exchangeEvent -> {
+            getExchangeCenterData(true);
+        });
+
+
         exchangeTitleTv.setText(currencyName);
     }
 
@@ -257,7 +267,45 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> getExchangeCenterData(false));
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+//                        getExchangeCenterData(false);
+                        getExchangeRecode(false);
+                        getExchangePendOrder(false);
+                        getExchangeDealPrice(false);
+                    }
+                });
+    }
+
+    private void getExchangeDealPrice(boolean b) {
+        if (TextUtils.isEmpty(currencyId)) {
+            LogUtil.i("currencyId is null");
+            return;
+        }
+        ExchangeCenterReq exchangeCenterReq = new ExchangeCenterReq();
+        exchangeCenterReq.setCurrencyId(currencyId);
+        presenter.getExchangeDealPrice(exchangeCenterReq, EXCHANGE_DEALPRICE_TAG, b);
+    }
+
+    private void getExchangePendOrder(boolean b) {
+        if (TextUtils.isEmpty(currencyId)) {
+            LogUtil.i("currencyId is null");
+            return;
+        }
+        ExchangeCenterReq exchangeCenterReq = new ExchangeCenterReq();
+        exchangeCenterReq.setCurrencyId(currencyId);
+        presenter.getExchangePendOrder(exchangeCenterReq, EXCHANGE_PENDORDER_TAG, b);
+    }
+
+    private void getExchangeRecode(boolean b) {
+        if (TextUtils.isEmpty(currencyId)) {
+            LogUtil.i("currencyId is null");
+            return;
+        }
+        ExchangeCenterReq exchangeCenterReq = new ExchangeCenterReq();
+        exchangeCenterReq.setCurrencyId(currencyId);
+        presenter.getEntrustRecodeData(exchangeCenterReq, EXCHANGE_ENTRUSTRECODE_TAG, b);
     }
 
     private void getExchangeCenterData(boolean isShowProgress) {
@@ -300,27 +348,74 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         super.onSuccess(response, tag);
         switch (tag) {
             case EXCHANGE_CENTER_DATA_TAG:
-                ExchangeCenterRes centerRes = (ExchangeCenterRes) response;
+                ExchangeCenterRes centerRes = null;
+                try {
+                    centerRes = (ExchangeCenterRes) response;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (centerRes == null) {
                     LogUtil.i("交易中心数据返回为空");
                     return;
                 }
-                standardParameter = centerRes.getStandardParameter();
-                if (standardParameter != null) {
-                    refreshHeader(standardParameter);
-                }
-                refreshBuyFivePrice(centerRes.getTransactionPendOrderBuyList());
-                refreshSoldFivePrice(centerRes.getTransactionPendOrderSellList());
 
                 refreshBuyAccountInfo(centerRes);
                 refreshSellAccountInfo(centerRes);
-
-                refreshEntrustRecod(centerRes.getTransactionPendOrderList());
+                if (!isCenterDataInit) {
+                    isCenterDataInit = true;
+                    refreshBuyFivePrice(centerRes.getTransactionPendOrderBuyList());
+                    refreshSoldFivePrice(centerRes.getTransactionPendOrderSellList());
+                    refreshEntrustRecod(centerRes.getTransactionPendOrderList());
+                    standardParameter = centerRes.getStandardParameter();
+                    if (standardParameter != null) {
+                        refreshHeader(standardParameter);
+                    }
+                }
                 break;
             case EXCHANGE_CANCLE_ORDER_TAG:
                 if (commonCancleDialog != null && commonCancleDialog.isShowing()) commonCancleDialog.dismiss();
                 toast("撤单成功");
                 getExchangeCenterData(false);
+                break;
+            case EXCHANGE_PENDORDER_TAG:
+                ExchangeCenterRes centerResPend0rder = null;
+                try {
+                    centerResPend0rder = (ExchangeCenterRes) response;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (centerResPend0rder == null) {
+                    LogUtil.i("交易中心数据返回为空");
+                    return;
+                }
+                refreshBuyFivePrice(centerResPend0rder.getTransactionPendOrderBuyList());
+                refreshSoldFivePrice(centerResPend0rder.getTransactionPendOrderSellList());
+                break;
+            case EXCHANGE_ENTRUSTRECODE_TAG:
+                ExchangeCenterRes centerResEntrustRecode = null;
+                try {
+                    centerResEntrustRecode = (ExchangeCenterRes) response;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (centerResEntrustRecode == null) {
+                    LogUtil.i("交易中心数据返回为空");
+                    return;
+                }
+                refreshEntrustRecod(centerResEntrustRecode.getTransactionPendOrderList());
+                break;
+            case EXCHANGE_DEALPRICE_TAG:
+                ExchangeCenterRes centerResDealPrice = null;
+                try {
+                    centerResDealPrice = (ExchangeCenterRes) response;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (centerResDealPrice == null) {
+                    LogUtil.i("交易中心数据返回为空");
+                    return;
+                }
+                refreshHeader(centerResDealPrice.getStandardParameter());
                 break;
         }
     }
@@ -343,6 +438,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         super.onHiddenChanged(hidden);
         if (!hidden) {
             initCountTimer();
+            getExchangeCenterData(true);
         } else {
             if (disposable != null && !disposable.isDisposed()) {
                 disposable.dispose();
@@ -464,7 +560,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
             } else {
                 dataSolds.addAll(transactionPendOrderSellList.subList(0, 5));
             }
-
         } else {
             for (int i = 0; i < 5; i++) {
                 dataSolds.add(new ExchangeCenterRes.TransactionPendOrderSellListBean("--", "--"));
@@ -479,10 +574,10 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         if (transactionPendOrderBuyList != null && transactionPendOrderBuyList.size() > 0) {
             int size = transactionPendOrderBuyList.size();
             if (size < 5) {
+                dataBuys.addAll(transactionPendOrderBuyList);
                 for (int i = 0; i < (5 - size); i++) {
                     dataBuys.add(new ExchangeCenterRes.TransactionPendOrderBuyListBean("--", "--"));
                 }
-                dataBuys.addAll(transactionPendOrderBuyList);
             } else if (size == 5) {
                 dataBuys.addAll(transactionPendOrderBuyList);
             } else {
@@ -497,6 +592,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     private void refreshHeader(ExchangeCenterRes.StandardParameterBean standardParameter) {
+        if (standardParameter == null) return;
         exchangeCurrentPriceTv.setText(NumberUtil.format2Point(standardParameter.getNowPrice()));
         exchangeHighPriceTv.setText(NumberUtil.format2Point(standardParameter.getTodayMax()));
         exchangeLowestPriceTv.setText(NumberUtil.format2Point(standardParameter.getTodayMin()));
@@ -506,12 +602,12 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         exchangeCurrentPriceXtTv.setText(NumberUtil.format2Point(standardParameter.getNowPrice()));
     }
 
-    private void refreshSellAccountInfo(ExchangeCenterRes centerRes) {
+    private void refreshBuyAccountInfo(ExchangeCenterRes centerRes) {
         ExchangeBuyFragment item = (ExchangeBuyFragment) pagerAdapter.getItem(0);
         item.refreshData(centerRes);
     }
 
-    private void refreshBuyAccountInfo(ExchangeCenterRes centerRes) {
+    private void refreshSellAccountInfo(ExchangeCenterRes centerRes) {
         ExchangeSoldFragment item = (ExchangeSoldFragment) pagerAdapter.getItem(1);
         item.refreshData(centerRes);
     }
@@ -519,8 +615,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (subscribe != null && !subscribe.isDisposed()) {
-            subscribe.dispose();
+        if (subscribe_1 != null && !subscribe_1.isDisposed()) {
+            subscribe_1.dispose();
+        }
+        if (subscribe_2 != null && !subscribe_2.isDisposed()) {
+            subscribe_2.dispose();
         }
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();

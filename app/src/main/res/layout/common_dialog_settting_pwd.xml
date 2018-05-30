@@ -51,10 +51,8 @@
         android:id="@+id/dialog_fl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y25"
         android:layout_marginEnd="@dimen/x25"
-        android:layout_marginStart="@dimen/x25"
-        android:layout_marginTop="@dimen/y30">
+        android:layout_marginStart="@dimen/x25">
 
         <TextView
             android:id="@+id/only_confirm_btn"
@@ -71,8 +69,10 @@
         <RelativeLayout
             android:id="@+id/two_btn_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/y15"
+            android:paddingTop="@dimen/y20">
 
             <TextView
                 android:id="@+id/yes"
@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:background="@null"
+                android:padding="@dimen/x10"
                 android:text="@string/comfirm"
                 android:textColor="@color/color_bule_1"
                 android:textSize="@dimen/text_size_15"
@@ -89,15 +90,15 @@
                 android:id="@+id/no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x36"
+                android:layout_marginEnd="@dimen/x16"
                 android:layout_toStartOf="@id/yes"
                 android:background="@null"
                 android:clickable="true"
                 android:focusable="true"
+                android:padding="@dimen/x10"
                 android:text="@string/cancel"
                 android:textColor="@color/color_bule_1"
                 android:textSize="@dimen/text_size_15"/>
-
         </RelativeLayout>
     </FrameLayout>
 </LinearLayout>

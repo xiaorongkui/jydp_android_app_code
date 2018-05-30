@@ -6,7 +6,6 @@
     <ImageView
         android:id="@+id/marker_iv"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/y2"
-        android:background="@color/colorBlack_1"
-        android:padding="3dp"/>
+        android:layout_height="@dimen/y0.5"
+        android:background="@color/colorBlack_1"/>
 </LinearLayout>

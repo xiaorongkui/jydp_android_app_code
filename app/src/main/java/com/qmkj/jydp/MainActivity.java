@@ -238,11 +238,14 @@ public class MainActivity extends BaseActivity {
         FragmentManager fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
         hideFragments();
+        resetImages();
         if (exchangeFragment == null) {
             exchangeFragment = new ExchangeFragment();
             ft.add(R.id.main_container, exchangeFragment);
         }
         exchangeFragment.setArguments(bundle);
+        exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
+        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
         ft.show(exchangeFragment);
         ft.commit();
     }

@@ -75,7 +75,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
     private View outside_view_sold_bank;
     private View outside_view_sold_alipay;
     private View outside_view_sold_wechat;
-    int selectIndex = 0;//默认选择银行卡
+    int selectIndex = -1;//默认选择银行卡
     private String orderNo;
     private String pendingRatio;
     private String dealerName;
@@ -287,7 +287,10 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
                     toast("出售数量必须大于0");
                     return;
                 }
-
+                if (selectIndex < 0) {
+                    toast("请先选择收款方式");
+                    return;
+                }
                 outSideSellDetailReq.setOtcPendingOrderNo(orderNo);
                 outSideSellDetailReq.setPaymentType((selectIndex + 1) + "");
                 outSideSellDetailReq.setSellNumStr(amount);
@@ -329,7 +332,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
                             return;
                         }
                         outSideSellDetailReq.setBankCardPaymentAccount(bankNum);
-                        outSideSellDetailReq.setBankName(bankNum);
+                        outSideSellDetailReq.setBankName(bankName);
                         outSideSellDetailReq.setBankBranch(bankBranchName);
                         outSideSellDetailReq.setPaymentName(bankReserveName);
                         outSideSellDetailReq.setPaymentPhone(bankReservePhone);

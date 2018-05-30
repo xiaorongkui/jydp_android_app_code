@@ -31,11 +31,11 @@ public class MyLeftMarkerView extends MarkerView {
         mFormat = new DecimalFormat("#0.00");
         markerTv = (TextView) findViewById(R.id.marker_tv);
 
-        markerTv.setTextSize(CommonUtil.px2sp(CommonUtil.getTextSize(R.dimen.text_size_10)));
+        markerTv.setTextSize(10);
         StateListDrawable stateListDrawable = SelectorFactory.newShapeSelector()
-                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
+                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x1))
                 .setDefaultStrokeColor(CommonUtil.getColor(R.color.colorGreen_1))
-                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
+                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x0_5))
                 .setDefaultBgColor(CommonUtil.getColor(R.color.colorWhite))
                 .create();
         markerTv.setBackground(stateListDrawable);

@@ -49,12 +49,28 @@ public interface ExchangeService {
     Observable<BaseRes<ExchangeCenterRes>> getExchangeCenterData(@Body ExchangeCenterReq req);
 
     /**
+     * 交易中心获取挂单记录
+     *
+     * @return ExchangeCenterRes
+     */
+    @POST(AppNetConfig.urlPath + "wap/tradeCenter/pend")
+    Observable<BaseRes<ExchangeCenterRes>> getExchangePendOrder(@Body ExchangeCenterReq req);
+
+    /**
      * 交易中心委托记录数据
      *
      * @return
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/entrust")
-    Observable<BaseRes<ExchangeEntrustRecodeRes>> getEntrustRecodeData(@Body ExchangeCenterReq req);
+    Observable<BaseRes<ExchangeCenterRes>> getEntrustRecodeData(@Body ExchangeCenterReq req);
+
+    /**
+     * 交易中心获取交易相关价格（基准信息）
+     *
+     * @return
+     */
+    @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainDealPrice")
+    Observable<BaseRes<ExchangeCenterRes>> getExchangeDealPrice(@Body ExchangeCenterReq req);
 
     /**
      * 交易中心购买接口

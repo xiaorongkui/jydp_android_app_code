@@ -17,6 +17,8 @@ public final class AppNetConfig {
     //kline里的H5页面
     public static final String kline_url = BASE_URL + "/jydp/wap/wapDealRecord/toChartPage/";
 
-
+    public static final String SYSTEM_NOTICE_URL = BASE_URL + "/jydp/userWap/wapSystemNotice/showNoticeDetailApp/";
+    public static final String HOT_TOPIC_URL = BASE_URL + "/jydp/userWap/wapSystemHot/showHotDetailApp/";
+    public static final String HELP_CENTER_URL = BASE_URL + "/jydp/userWap/wapHelpCenter/showApp/";
     //.....所有的项目当中接口的请求url全部配置在这里.....//
 }

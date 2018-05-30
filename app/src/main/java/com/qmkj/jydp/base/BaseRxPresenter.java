@@ -107,13 +107,13 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
     }
 
     /**
-     * Send http request.默认可以取消对话框，显示进度框
+     * Send http request.默认不可以取消对话框，显示进度框
      *
      * @param mObservable the m observable
      * @param tag         the tag
      */
     protected void sendHttpRequest(Observable mObservable, int tag) {
-        sendHttpRequest(mObservable, tag, true, true);
+        sendHttpRequest(mObservable, tag, true, false);
     }
 
     /**
@@ -124,7 +124,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
      * @param tag            the tag
      */
     protected void sendHttpRequest(Observable mObservable, int tag, boolean isShowProgress) {
-        sendHttpRequest(mObservable, tag, isShowProgress, true);
+        sendHttpRequest(mObservable, tag, isShowProgress, false);
     }
 
     @Override

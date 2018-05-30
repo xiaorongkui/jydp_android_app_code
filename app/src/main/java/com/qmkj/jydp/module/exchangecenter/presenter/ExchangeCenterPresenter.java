@@ -41,8 +41,16 @@ public class ExchangeCenterPresenter extends BaseRxPresenter {
         sendHttpRequest(exchangeService.getExchangeCenterData(req), tag, isShowProgress);
     }
 
+    public void getExchangePendOrder(ExchangeCenterReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.getExchangePendOrder(req), tag, isShowProgress);
+    }
+
     public void getEntrustRecodeData(ExchangeCenterReq req, int tag, boolean isShowProgress) {
         sendHttpRequest(exchangeService.getEntrustRecodeData(req), tag, isShowProgress);
+    }
+
+    public void getExchangeDealPrice(ExchangeCenterReq req, int tag, boolean isShowProgress) {
+        sendHttpRequest(exchangeService.getExchangeDealPrice(req), tag, isShowProgress);
     }
 
     public void buyXtExchange(BuyExchangeReq req, int tag, boolean isShowProgress) {
