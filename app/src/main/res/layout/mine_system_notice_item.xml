@@ -38,7 +38,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/notice_title_item_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,11 +73,11 @@
                 android:id="@+id/system_notice_item_detail_civ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y9"
-                android:layout_marginTop="@dimen/y9"
-                android:gravity="center_vertical">
+                android:paddingBottom="@dimen/y9"
+                android:paddingTop="@dimen/y9">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/x11"
@@ -87,11 +86,11 @@
                     android:textSize="@dimen/text_size_12" />
 
                 <ImageView
+                    android:layout_centerVertical="true"
                     android:id="@+id/iv_item_view_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/x11"
                     android:src="@mipmap/ic_common_arrow" />
 
