@@ -104,7 +104,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                     (int) (DensityHelper.pt2px(mContext,134))));
         }
 
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
+        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
             mine_distributor_tv.setVisibility(View.VISIBLE);
 
         }
@@ -141,7 +141,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
-        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (CommonUtil.getLoginInfo() != null&&CommonUtil.getLoginInfo().getUser()!=null && CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap.more_arrow));
         }
         datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap.more_arrow));
@@ -155,7 +155,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
-        if (CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
                 if (CommonUtil.getLoginInfo() == null) {
                     CommonDialog commonDialog = new CommonDialog(mContext);
@@ -261,11 +261,11 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     protected void initData() {
-        if(CommonUtil.getLoginInfo()!=null) getMineInfo();
+        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null) getMineInfo();
 
         subscribe = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(
                 exchangeEvent -> {
-                    if(CommonUtil.getLoginInfo()!=null) getMineInfo();
+                    if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null) getMineInfo();
                 }
         );
     }

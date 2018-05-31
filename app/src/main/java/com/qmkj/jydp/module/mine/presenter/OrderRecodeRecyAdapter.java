@@ -83,22 +83,27 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
             case 1:
                 text = "未成交";
                 entrustment.setVisibility(View.VISIBLE);
+                detail.setVisibility(View.GONE);
                 break;
             case 2:
                 text = "部分成交";
                 entrustment.setVisibility(View.VISIBLE);
+                detail.setVisibility(View.VISIBLE);
                 break;
             case 3:
                 text = "全部成交";
                 entrustment.setVisibility(View.GONE);
+                detail.setVisibility(View.VISIBLE);
                 break;
             case 4:
                 text = "部分撤销";
                 entrustment.setVisibility(View.GONE);
+                detail.setVisibility(View.VISIBLE);
                 break;
             case 5:
                 text = "全部撤销";
                 entrustment.setVisibility(View.GONE);
+                detail.setVisibility(View.VISIBLE);
                 break;
         }
         business_phone.setRightText(text);

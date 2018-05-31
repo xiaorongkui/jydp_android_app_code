@@ -214,7 +214,6 @@
                     android:id="@+id/order_see_detail_tv"
                     android:layout_width="@dimen/x75"
                     android:layout_height="@dimen/y24"
-                    android:layout_marginRight="@dimen/x10"
                     android:gravity="center"
                     android:text="@string/see_detail"
                     android:textColor="@color/color_black_6"
@@ -226,6 +225,7 @@
                     android:gravity="center"
                     android:text="@string/revocation_entrustment"
                     android:visibility="gone"
+                    android:layout_marginLeft="@dimen/y10"
                     android:textColor="@color/color_bule_3"
                     android:textSize="@dimen/text_size_13"/>
 

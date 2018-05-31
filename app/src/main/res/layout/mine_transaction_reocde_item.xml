@@ -61,6 +61,7 @@
                 android:paddingStart="@dimen/x10">
 
                 <TextView
+                    android:id="@+id/transaction_recode_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/syl"

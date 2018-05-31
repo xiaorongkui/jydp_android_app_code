@@ -42,6 +42,7 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
 
     @Override
     protected void convert(XBaseViewHolder helper, AccountRecordRes.DealRecordListBean item) {
+        TextView transaction_recode_name_tv = (TextView) helper.getView(R.id.transaction_recode_name_tv); //名称
         TextView order_num = (TextView) helper.getView(R.id.transsaction_order_num_tv); //订单号
         TextView recode_status = (TextView)helper.getView(R.id.transaction_recode_status_tv); //买入
         TextView amount = (TextView)helper.getView(R.id.entrustment_amount_tv); //数量
@@ -74,7 +75,7 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
                 break;
         }
         recode_status.setText(text);
-
+        transaction_recode_name_tv.setText(item.getCurrencyName());
         amount.setText(item.getCurrencyNumber()+"");
         price.setText(item.getTransactionPrice()+"");
         deal_amount.setText(item.getFeeForWap()+"");
