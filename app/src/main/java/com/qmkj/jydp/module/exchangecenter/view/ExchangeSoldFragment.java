@@ -28,6 +28,7 @@ import com.qmkj.jydp.bean.request.ExchangePwdReq;
 import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.ui.widget.CommonDialog;
@@ -372,6 +373,23 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             case EXCHANGE_PWD_TAG:
                 toast("密码设置成功");
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
+                RxBus.getDefault().post(new ExchangeEvent());//去更新密码状态
+                break;
+        }
+    }
+
+    @Override
+    public void onError(String errorMsg, String code, int tag, Object o) {
+        super.onError(errorMsg, code, tag, o);
+        switch (tag) {
+            case SELL_EXCAHNGE_TAG:
+                if (sellDialogUtils != null && sellDialogUtils.isShowing()) sellDialogUtils.dismiss();
+                if (TextUtils.isEmpty(code)) return;
+                switch (code) {
+                    case NetResponseCode.HMC_EXCHANGE_PWD_ERROR:
+                        RxBus.getDefault().post(new ExchangeEvent());//去更新密码状态
+                        break;
+                }
                 break;
         }
     }

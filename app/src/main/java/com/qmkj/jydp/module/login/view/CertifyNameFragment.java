@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -37,6 +39,8 @@ import com.qmkj.jydp.util.RxPermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 
@@ -100,11 +104,21 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     private void initItemView() {
         userAccount = ((CertificationActivity) getActivity()).getAccount();
         certifyNameAccountCv.setRightText(userAccount);
+        initInput();
+    }
+
+
+    private void initInput() {
+        String regEx = "[^a-zA-Z0-9\u4E00-\u9FA5]";
+        certifyNameNameCv.setEditTextInputFilter((source, start, end, dest, dstart, dend) -> {
+            Pattern pattern = Pattern.compile(regEx);
+            Matcher matcher = pattern.matcher(source.toString());
+            return matcher.find() ? null : matcher.matches() ? null : "";
+        });
     }
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -144,7 +158,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
             toast("请输入姓名");
             return;
         }
-        if (TextUtils.isEmpty(userName)) {
+        if (TextUtils.isEmpty(userCertNo)) {
             toast("请输入证件号");
             return;
         }
@@ -229,6 +243,9 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                 GlideApp.with(mContext).load(front).into(frontImg);
                 frontLl.setVisibility(View.INVISIBLE);
                 isFrontCompressing = true;
+                if (frontBytes != null && frontBytes.length > 0) {
+                    frontBytes = null;
+                }
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {
@@ -257,6 +274,9 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                 isBackCompressing = true;
                 GlideApp.with(mContext).load(back).into(backImg);
                 backLl.setVisibility(View.INVISIBLE);
+                if (backBytes != null && backBytes.length > 0) {
+                    backBytes = null;
+                }
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {

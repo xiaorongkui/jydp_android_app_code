@@ -47,7 +47,8 @@
                 app:contentEditHintText="@string/your_real_name"
                 app:contentEditTopMargin="@dimen/x15"
                 app:inputType="textPersonName"
-                app:maxLength="20"
+                app:digits="@string/text_digits"
+                app:maxLength="16"
                 app:textCursorVisible="false"
                 app:titleText="@string/name"
                 app:titleTopMargin="@dimen/x20"/>

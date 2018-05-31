@@ -7,4 +7,22 @@ package com.qmkj.jydp.bean.response;
  */
 
 public class BuyExchangeRes extends BaseRes {
+    public String userIsPwd;
+    public String payPasswordStatus;
+
+    public String getUserIsPwd() {
+        return userIsPwd;
+    }
+
+    public void setUserIsPwd(String userIsPwd) {
+        this.userIsPwd = userIsPwd;
+    }
+
+    public String getPayPasswordStatus() {
+        return payPasswordStatus;
+    }
+
+    public void setPayPasswordStatus(String payPasswordStatus) {
+        this.payPasswordStatus = payPasswordStatus;
+    }
 }
