@@ -134,10 +134,6 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         receivables_bank_name_eiv.setEditTextNoFu(15);
         receivables_bank_reserve_name_eiv.setEditTextNoFu(20);
 
-
-        receivables_alipay_receipt_code_eiv.setmEditTextViewFocuseAble(false);
-        receivables_wechat_receipt_code_eiv.setmEditTextViewFocuseAble(false);
-
         receivables_alipay_receipt_code_eiv.setOnEditClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

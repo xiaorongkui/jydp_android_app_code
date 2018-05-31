@@ -110,7 +110,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext);
+        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext,type);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -138,10 +138,10 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         String text = null;
         switch (res.getDealType()){
             case 1:
-                text ="待付款";
+                text ="待完成";
                 break;
             case 2:
-                text ="已付款（待确认）";
+                text ="待确认";
                 break;
             case 3:
                 text ="已完成";

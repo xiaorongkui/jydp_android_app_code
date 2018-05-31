@@ -50,7 +50,7 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
 
     @Override
     protected void injectPresenter() {
-            getActivityComponent().inject(this);
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -97,6 +97,15 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
 
         softwareInfoVersionNumTv.setBackground(shapeSelector.create());
         softwareInfoVersionNumTv.setText(CommonUtil.getAppVersionName(mContext));
+
+
+        software_info_check_update_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPermission();
+                presenter.checkAppUpdate(CHECK_APP_TAG, false);
+            }
+        });
     }
 
 
@@ -109,6 +118,9 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
                 if (appUpdateRes == null) {
                     isUpdate = false;
                     software_info_check_update_tv.setText("当前已是最新版本");
+                    return;
+                }
+                if(alterNormalDialog!=null&&alterNormalDialog.isShowing()||alterFocusDialog!=null&&!alterFocusDialog.isShowing()){
                     return;
                 }
                 calculateUpdate(appUpdateRes);

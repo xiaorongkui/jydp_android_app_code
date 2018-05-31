@@ -56,10 +56,11 @@ public class UserWithdrawChooseCurrencyDialog extends BaseBottomDialog {
         setTitleText("选择币种");
         adapter = new ListViewAdapter();
         lv.setAdapter(adapter);
-        setSelected(mChooseModel);
+//        setSelected(mChooseModel);
         lv.setOnItemClickListener((parent, view, position, id) -> {
             mChooseModel = itemBeanList.get(position);
-            setSelected(mChooseModel);
+//            setSelected(mChooseModel);
+            dismiss();
         });
         setOnDismissListener(dialog -> {
             if (onChooseCurrencyListener != null && mChooseModel != null) {
@@ -77,22 +78,22 @@ public class UserWithdrawChooseCurrencyDialog extends BaseBottomDialog {
         if (ListUtils.isEmpty(itemBeanList)) {
             return;
         }
-        //默认第一个选中
-        if (chooseModel == null) {
-            for (UserCoinWithdrawInfo.CoinWithdrawInfo model : itemBeanList) {
-                if (itemBeanList.indexOf(model) == 0) {
-                    model.setSelected(true);
-                    mChooseModel = model;
-                } else {
-                    model.setSelected(false);
-                }
-            }
-        } else {
-            for (UserCoinWithdrawInfo.CoinWithdrawInfo model : itemBeanList) {
-                model.setSelected(chooseModel.getCurrencyId() == model.getCurrencyId());
-            }
-        }
-        adapter.notifyDataSetChanged();
+//        //默认第一个选中
+//        if (chooseModel == null) {
+//            for (UserCoinWithdrawInfo.CoinWithdrawInfo model : itemBeanList) {
+//                if (itemBeanList.indexOf(model) == 0) {
+//                    model.setSelected(true);
+//                    mChooseModel = model;
+//                } else {
+//                    model.setSelected(false);
+//                }
+//            }
+//        } else {
+//        for (UserCoinWithdrawInfo.CoinWithdrawInfo model : itemBeanList) {
+//            model.setSelected(chooseModel.getCurrencyId() == model.getCurrencyId());
+//        }
+//        }
+//        adapter.notifyDataSetChanged();
     }
 
     private class ListViewAdapter extends BaseAdapter {
@@ -119,20 +120,20 @@ public class UserWithdrawChooseCurrencyDialog extends BaseBottomDialog {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_choose_currency_dialog_lv, parent, false);
                 viewHolder = new ViewHolder();
                 viewHolder.tv = convertView.findViewById(R.id.item_choose_currency_tv);
-                viewHolder.rb = convertView.findViewById(R.id.item_choose_currency_rb);
+//                viewHolder.rb = convertView.findViewById(R.id.item_choose_currency_rb);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             UserCoinWithdrawInfo.CoinWithdrawInfo itemBean = itemBeanList.get(position);
             viewHolder.tv.setText(itemBean.getCurrencyName());
-            viewHolder.rb.setChecked(itemBean.isSelected());
+//            viewHolder.rb.setChecked(itemBean.isSelected());
             return convertView;
         }
 
         class ViewHolder {
             TextView tv;
-            RadioButton rb;
+//            RadioButton rb;
         }
     }
 }
