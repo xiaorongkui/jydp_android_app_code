@@ -107,14 +107,13 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         initInput();
     }
 
-
     private void initInput() {
-        String regEx = "[^a-zA-Z0-9\u4E00-\u9FA5]";
+        String regEx = "[^a-zA-Z0-9\u4E00-\u9FA5 ]";
         certifyNameNameCv.setEditTextInputFilter((source, start, end, dest, dstart, dend) -> {
             Pattern pattern = Pattern.compile(regEx);
             Matcher matcher = pattern.matcher(source.toString());
-            return matcher.find() ? null : matcher.matches() ? null : "";
-        });
+            return matcher.matches() ? "" : null;
+        }, new InputFilter.LengthFilter(16));
     }
 
     @Override

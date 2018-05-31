@@ -25,16 +25,6 @@ import butterknife.BindView;
 public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRes.TransactionPendOrderListBean> {
 
     private final List datas;
-    @BindView(R.id.entrust_status_tv)
-    TextView entrustStatusTv;
-    @BindView(R.id.entrust_price_tv)
-    TextView entrustPriceTv;
-    @BindView(R.id.entrust_amount_tv)
-    TextView entrustAmountTv;
-    @BindView(R.id.entrust_exchange_tv)
-    TextView entrustExchangeTv;
-    @BindView(R.id.entrust_cancel_tv)
-    TextView entrustCancelTv;
 
     public EntrustRecodeRecAdapter(Context context, List datas, int layoutId) {
         super(layoutId, datas);
@@ -46,6 +36,12 @@ public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRe
     protected void convert(BaseRecyclerViewHolder helper, ExchangeCenterRes.TransactionPendOrderListBean item,
                            int position) {
         helper.addOnClickListener(R.id.entrust_cancel_tv);
+        TextView entrustStatusTv = helper.getView(R.id.entrust_status_tv);
+        TextView entrustPriceTv = helper.getView(R.id.entrust_price_tv);
+        TextView entrustAmountTv = helper.getView(R.id.entrust_amount_tv);
+        TextView entrustExchangeTv = helper.getView(R.id.entrust_exchange_tv);
+        TextView entrustCancelTv = helper.getView(R.id.entrust_cancel_tv);
+
         helper.getView(R.id.common_line).setVisibility(datas.size() - 1 == position ? View.INVISIBLE : View
                 .VISIBLE);
         if (item == null) return;
@@ -62,7 +58,7 @@ public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRe
                 break;
         }
         entrustPriceTv.setText(NumberUtil.format2Point(item.getPendingPrice()));
-        entrustAmountTv.setText(NumberUtil.format2Point(item.getPendingNumber()));
+        entrustAmountTv.setText(NumberUtil.format4Point(item.getPendingNumber()));
         entrustExchangeTv.setText(NumberUtil.format2Point(item.getDealNumber()));
     }
 }

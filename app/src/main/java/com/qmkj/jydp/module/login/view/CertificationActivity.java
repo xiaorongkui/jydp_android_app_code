@@ -169,4 +169,10 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        CommonUtil.clearLoginData();
+    }
 }

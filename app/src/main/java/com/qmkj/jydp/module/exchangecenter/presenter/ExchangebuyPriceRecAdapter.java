@@ -41,7 +41,7 @@ public class ExchangebuyPriceRecAdapter extends BaseRecycleAdapter<ExchangeCente
         if (item == null) return;
         LogUtil.i("买item=" + item.toString());
         priceTotalMoneyTv.setText(NumberUtil.format2Point(item.getPendingPrice()));
-        priceAmountTv.setText(NumberUtil.format2Point(item.getPendingNumber()));
+        priceAmountTv.setText(NumberUtil.format4Point(item.getPendingNumber()));
 
     }
 }

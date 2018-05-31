@@ -87,10 +87,8 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         //退出登陆 清空token
-        CommonUtil.setToken("");
-        CommonUtil.clearLoginInfo();
+        CommonUtil.clearLoginData();
         AppManager.getInstance().clear();
-        CommonUtil.saveExchangePwd("");
         CommonUtil.gotoActivity(mContext, LoginActivity.class);
     }
 

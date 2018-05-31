@@ -72,8 +72,9 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         refresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getOutSideExchangeData(false);
+                currentPageNumber = 0;
                 isRefresh = true;
+                getOutSideExchangeData(false);
             }
 
             @Override

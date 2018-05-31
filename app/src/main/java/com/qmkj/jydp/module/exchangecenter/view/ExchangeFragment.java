@@ -214,6 +214,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 .exchange_entrust_recode_item);
 
         entrustRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
+        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
+        entrustRecodeRecAdapter.setEmptyView(mEmptyView);
         entrustRecodeRv.setAdapter(entrustRecodeRecAdapter);
         entrustRecodeRecAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
@@ -559,8 +561,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
 
     private void refreshEntrustRecod(List<ExchangeCenterRes.TransactionPendOrderListBean>
                                              transactionPendOrderList) {
-        entrustRecodeDatas.clear();
         if (transactionPendOrderList == null) return;
+        entrustRecodeDatas.clear();
         entrustRecodeDatas.addAll(transactionPendOrderList);
         entrustRecodeRecAdapter.notifyDataSetChanged();
     }

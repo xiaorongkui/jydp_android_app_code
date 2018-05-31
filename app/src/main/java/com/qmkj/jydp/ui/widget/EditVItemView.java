@@ -461,20 +461,21 @@ public class EditVItemView extends LinearLayout {
 
     /**
      * 禁止输入符号
+     *
      * @param length
      */
     public void setEditTextNoFu(int length) {
-        InputFilter filter=new InputFilter() {
+        InputFilter filter = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                String speChat="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+                String speChat = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
                 Pattern pattern = Pattern.compile(speChat);
                 Matcher matcher = pattern.matcher(source.toString());
-                if(matcher.find())return "";
+                if (matcher.find()) return "";
                 else return null;
             }
         };
-        mEdit_letf_et.setFilters(new InputFilter[]{filter,new InputFilter.LengthFilter(length)});
+        mEdit_letf_et.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(length)});
     }
 
     public void setEditTextInputType(int type) {
@@ -490,13 +491,13 @@ public class EditVItemView extends LinearLayout {
     }
 
     public void setEditTextMaxLength(int length) {
-        if(mEdit_letf_et!=null){
+        if (mEdit_letf_et != null) {
             mEdit_letf_et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
         }
     }
 
     public void setEditTextMaxLine(int line) {
-        if(mEdit_letf_et!=null){
+        if (mEdit_letf_et != null) {
             mEdit_letf_et.setMaxLines(line);
         }
     }
@@ -523,7 +524,7 @@ public class EditVItemView extends LinearLayout {
         return (int) (pxValue / fontScale + 0.5f);
     }
 
-    public void setEditTextInputFilter(InputFilter inputFilter) {
-        mEdit_letf_et.setFilters(new InputFilter[]{inputFilter});
+    public void setEditTextInputFilter(InputFilter inputFilter1, InputFilter inputFilter2) {
+        mEdit_letf_et.setFilters(new InputFilter[]{inputFilter1, inputFilter2});
     }
 }

@@ -813,4 +813,10 @@ public class CommonUtil {
     public static String getExchangePwd() {
         return SPHelper.getInstance().getString(Constants.SP_SAVE_EXCHANGE_PWD);
     }
+
+    public static void clearLoginData() {
+        setToken("");
+        clearLoginInfo();
+        saveExchangePwd("");
+    }
 }

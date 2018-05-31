@@ -77,11 +77,11 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         getFragmentComponent().inject(this);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        initView();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        initView();
+    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -89,6 +89,7 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         if (hidden) {
             initView();
         }
+        LogUtil.i("onHiddenChanged=" + hidden);
     }
 
     @Override
@@ -158,14 +159,15 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         switch (v.getId()) {
             case R.id.certify_check_home_bt:
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
+                AppManager.getInstance().removeCurrent();
                 break;
             case R.id.certify_check_status_bt://重新认证
                 switch (status) {
-                    case 2:
+                    case 2://审核通过
                         CommonUtil.gotoActivity(mContext, LoginActivity.class);
                         AppManager.getInstance().removeCurrent();
                         break;
-                    case 3:
+                    case 3://审核拒绝
                         getReCertificationStaus();
                         break;
                 }
