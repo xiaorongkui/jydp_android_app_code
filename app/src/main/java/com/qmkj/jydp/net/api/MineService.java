@@ -22,6 +22,7 @@ import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
 import com.qmkj.jydp.bean.response.OtcDealRecordDetailsRes;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
+import com.qmkj.jydp.bean.response.PresentRechargeRes;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.bean.response.SystemHotRes;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
@@ -80,6 +81,10 @@ public interface MineService {
     //获取币种提出记录信息
     @POST(AppNetConfig.urlPath + "wap/presentRecord/showMorePresent")
     Observable<BaseRes<PresentRecordRes>> getPresentRecordInfo(@Body PageNumberReq req);
+
+    //获取币种充值记录信息
+    @POST(AppNetConfig.urlPath + "wap/wapRechargeCoinRecord/getRechargeCoinRecordList")
+    Observable<BaseRes<PresentRechargeRes>> getPresentRechargeCoinInfo(@Body PageNumberReq req);
 
     //撤回币种提现
     @POST(AppNetConfig.urlPath + "wap/presentRecord/withdrawCoinOutRecord")

@@ -77,15 +77,17 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
     @Override
     protected void initData() {
         String number =getIntent().getStringExtra("NUMBER");
-        int type = getIntent().getIntExtra("TYPE",0);
+        int type = getIntent().getIntExtra(MineRecodeActivity.RECODE_TYPE,1);
         OutSideDetailReq req = new OutSideDetailReq();
         req.setOtcOrderNo(number);
-        if(type == 0){
-            presenter.getUserSideOrderDetaid(req,1,true);
-        }else if(type == 1)
-        {
-            presenter.getOutSideOrderDetaid(req,1,true);
-
+        //1：普通用户 2：经销商
+        switch (type){
+            case MineRecodeActivity.RECODE_TYPE_NORMAL:
+                presenter.getUserSideOrderDetaid(req,1,true);
+                break;
+            case MineRecodeActivity.RECODE_TYPE_AGENCY:
+                presenter.getOutSideOrderDetaid(req,1,true);
+                break;
         }
 
 

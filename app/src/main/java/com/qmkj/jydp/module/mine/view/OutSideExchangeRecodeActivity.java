@@ -123,6 +123,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
         outSideExchangeRecodeRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Intent intent = new Intent(mContext, OutSideExchangeOrderDetailActivity.class);
             intent.putExtra("NUMBER",outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
+            intent.putExtra(MineRecodeActivity.RECODE_TYPE,type);
             switch (view.getId()) {
                 case R.id.outside_exchange_recode_see_detail_tv:
                     intent.putExtra("TYPE",0);
