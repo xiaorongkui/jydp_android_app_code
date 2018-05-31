@@ -15,7 +15,6 @@ import io.reactivex.functions.Function;
 public class BaseNetFunction<T> implements Function<BaseRes<T>, T> {
     public BaseNetFunction() {
     }
-
     @Override
     public T apply(BaseRes<T> resultEntry) throws Exception {
 

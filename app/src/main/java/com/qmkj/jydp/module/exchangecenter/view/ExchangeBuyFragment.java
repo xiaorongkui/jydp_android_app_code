@@ -25,8 +25,10 @@ import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
 import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangePwdReq;
+import com.qmkj.jydp.bean.response.BuyExchangeRes;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.ui.widget.CommonDialog;
@@ -468,7 +470,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 CommonUtil.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangeEvent());//去更新密码状态
-                exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
+//                exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
                 break;
         }
     }
@@ -492,8 +494,26 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         switch (tag) {
             case BUY_EXCAHNGE_TAG:
                 if (buyDialogUtils != null && buyDialogUtils.isShowing()) buyDialogUtils.dismiss();
+                if (TextUtils.isEmpty(code)) return;
+                switch (code) {
+                    case NetResponseCode.HMC_EXCHANGE_PWD_ERROR:
+//                        BuyExchangeRes exchangeRes = null;
+//                        try {
+//                            exchangeRes = (BuyExchangeRes) o;
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                        if (exchangeRes == null) return;
+//                        refreshExchangePwdSettings();
+                        RxBus.getDefault().post(new ExchangeEvent());//去更新密码状态
+                        break;
+                }
                 break;
         }
+    }
+
+    private void refreshExchangePwdSettings() {
+
     }
 
     private void restrictedInput(CharSequence s, EditText exchangeAmountEt, int i) {

@@ -94,14 +94,14 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                 .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
         mine_distributor_tv.setBackground(shapeSelector.create());
 
-        if(CommonUtil.getLoginInfo()==null){
+        if (CommonUtil.getLoginInfo() == null) {
             mine_tittle_nptv.setVisibility(View.GONE);
             mine_totalUserBalance_tv.setVisibility(View.GONE);
             mine_available_money_sl.setVisibility(View.GONE);
             mine_userAccount_tv.setText("还未登录，请先登录");
             mine_assets_ll.setLayoutParams(new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    (int) (DensityHelper.pt2px(mContext,134))));
+                    (int) (DensityHelper.pt2px(mContext, 134))));
         }
 
         if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){

@@ -524,4 +524,8 @@ public class EditVItemView extends LinearLayout {
         float fontScale = getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
+
+    public void setEditTextInputFilter(InputFilter inputFilter) {
+        mEdit_letf_et.setFilters(new InputFilter[]{inputFilter});
+    }
 }

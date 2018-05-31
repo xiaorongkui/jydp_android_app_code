@@ -77,6 +77,20 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         getFragmentComponent().inject(this);
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        initView();
+//    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            initView();
+        }
+    }
+
     @Override
     protected void initView() {
         checkInfo = ((CertificationActivity) getActivity()).getInfoRes();
@@ -146,7 +160,15 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
                 break;
             case R.id.certify_check_status_bt://重新认证
-                getReCertificationStaus();
+                switch (status) {
+                    case 2:
+                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        AppManager.getInstance().removeCurrent();
+                        break;
+                    case 3:
+                        getReCertificationStaus();
+                        break;
+                }
                 break;
         }
     }
@@ -171,6 +193,11 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
                 certifyCheckStatusBt.setText(CommonUtil.getString(R.string.re_certification));
                 certifyNameStatusIv.setImageResource(R.mipmap.certify_name_check);
                 checkMarkLl.setVisibility(View.GONE);
+                certifyCheckStatusBt.setVisibility(View.GONE);
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) certifyCheckHomeBt
+                        .getLayoutParams();
+                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                certifyCheckHomeBt.setLayoutParams(layoutParams);
                 break;
             case 1://审核通过
                 certifyCheckHomeBt.setBackground(CommonUtil.getDrawable(R.drawable.shape_btn_green));
