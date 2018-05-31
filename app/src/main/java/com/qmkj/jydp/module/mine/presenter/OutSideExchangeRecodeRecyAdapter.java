@@ -10,6 +10,8 @@ import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
+import com.qmkj.jydp.module.mine.view.MineRecodeActivity;
+import com.qmkj.jydp.module.mine.view.OutSideExchangeRecodeActivity;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -24,16 +26,18 @@ import java.util.List;
 
 public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecordRes.OtcTransactionUserDealListBean> {
     private final Context mContext;
+    private final int type_outside;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
             .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
             .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
             .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
             .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
 
-    public OutSideExchangeRecodeRecyAdapter(Context context) {
+    public OutSideExchangeRecodeRecyAdapter(Context context,int type) {
 
         super(context);
         this.mContext = context;
+        this.type_outside = type;
 
     }
 
@@ -121,15 +125,25 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         amount.setText(item.getCurrencyNumber()+"");
         money.setText(item.getCurrencyTotalPrice()+"");
         String text_type = null;
-        //交易状态：1.买入 2.卖出 3.撤销
+        //交易状态：1.买入 2.卖出 3.撤销  (普通用户)
         switch (item.getDealType()){
             case 1:
-                text_type = "购买";
-                type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                if(type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
+                    text_type = "购买";
+                    type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
+                    text_type = "出售";
+                    type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                }
                 break;
             case 2:
-                text_type = "出售";
-                type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                if(type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
+                    text_type = "出售";
+                    type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
+                    text_type = "购买";
+                    type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                }
                 break;
             case 3:
                 text_type = "撤销";

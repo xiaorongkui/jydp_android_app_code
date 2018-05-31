@@ -82,12 +82,12 @@ public class CustomerServiceRes extends BaseRes implements Serializable{
          */
 
         private long addTime;
-        private int backerAccount;
+        private String backerAccount;
         private String feedbackContent;
         private String feedbackTitle;
         private String handleContent;
         private int handleStatus;
-        private int handleTime;
+        private long handleTime;
         private int id;
         private String userAccount;
         private int userId;
@@ -100,11 +100,11 @@ public class CustomerServiceRes extends BaseRes implements Serializable{
             this.addTime = addTime;
         }
 
-        public int getBackerAccount() {
+        public String getBackerAccount() {
             return backerAccount;
         }
 
-        public void setBackerAccount(int backerAccount) {
+        public void setBackerAccount(String backerAccount) {
             this.backerAccount = backerAccount;
         }
 
@@ -140,11 +140,11 @@ public class CustomerServiceRes extends BaseRes implements Serializable{
             this.handleStatus = handleStatus;
         }
 
-        public int getHandleTime() {
+        public long getHandleTime() {
             return handleTime;
         }
 
-        public void setHandleTime(int handleTime) {
+        public void setHandleTime(long handleTime) {
             this.handleTime = handleTime;
         }
 

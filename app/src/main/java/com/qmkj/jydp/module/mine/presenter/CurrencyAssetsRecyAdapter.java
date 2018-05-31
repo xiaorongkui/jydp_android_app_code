@@ -8,6 +8,7 @@ import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
 import java.math.BigDecimal;
@@ -50,8 +51,8 @@ public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.Us
         mine_currency_assets_item_go_exchange_tv.setBackground(shapeSelector.create());
 
         mine_assets_name_tv.setText(item.getCurrencyName());
-        currency_total_assets_tv.setText(BigDecimal.valueOf(Double.parseDouble(item.getTotalCurrencyAssets())) + "");
-        available_amount_tv.setText(BigDecimal.valueOf(Double.parseDouble(item.getCurrencyNumber())) + "");
-        frozen_amount_tv.setText(BigDecimal.valueOf(Double.parseDouble(item.getCurrencyNumberLock())) + "");
+        currency_total_assets_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTotalCurrencyAssets()),2) + "");
+        available_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()),2) + "");
+        frozen_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumberLock()),2) + "");
     }
 }

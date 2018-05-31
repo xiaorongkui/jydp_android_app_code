@@ -41,6 +41,7 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
     @Override
     protected void convert(XBaseViewHolder helper, OrderRecodeRes.TransactionPendOrderRecordListBean item) {
         ClickItemView business_phone = (ClickItemView)helper.getView(R.id.business_phone_civ);//订单
+        TextView recode_order_exchange_name_tv =(TextView)helper.getView(R.id.recode_order_exchange_name_tv);//名称
         TextView exchange_statu =(TextView)helper.getView(R.id.recode_order_exchange_status_tv);//买入
         TextView amount =(TextView)helper.getView(R.id.entrustment_amount_tv); //数量
         TextView price =(TextView)helper.getView(R.id.entrustment_price_tv); //单价
@@ -57,7 +58,7 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
         entrustment.setBackground(shapeSelector.create());
 
 
-
+        recode_order_exchange_name_tv.setText(item.getCurrencyName());
         helper.addOnClickListener(R.id.order_revocation_entrustment_tv);
         helper.addOnClickListener(R.id.order_see_detail_tv);
         business_phone.setLeftText("委托时间"+DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));

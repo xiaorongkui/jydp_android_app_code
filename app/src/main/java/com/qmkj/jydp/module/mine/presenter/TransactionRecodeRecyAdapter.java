@@ -77,10 +77,10 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
 
         amount.setText(item.getCurrencyNumber()+"");
         price.setText(item.getTransactionPrice()+"");
-        deal_amount.setText(item.getFee()+"");
+        deal_amount.setText(item.getFeeForWap()+"");
         total_price.setText(item.getCurrencyTotalPrice()+"");
-        if(!StringUtil.isNull(item.getActualPrice())){
-            actual_account.setText(item.getCurrencyTotalPrice()+"");
+        if(!StringUtil.isNull(item.getActualPriceForWap())&&Double.parseDouble(item.getActualPriceForWap())!=0){
+            actual_account.setText(item.getActualPriceForWap()+"");
             transaction_actual_account_title_tv.setVisibility(View.VISIBLE);
             actual_account.setVisibility(View.VISIBLE);
         }else {

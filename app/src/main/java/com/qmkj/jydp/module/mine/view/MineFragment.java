@@ -16,11 +16,13 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
+import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
+import com.qmkj.jydp.net.api.OutSideExchangeService;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.ui.widget.ScrollRecycleView;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
@@ -29,6 +31,8 @@ import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DensityHelper;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.NumberUtil;
+import com.qmkj.jydp.util.RxBus;
 import com.qmkj.jydp.util.SelectorFactory;
 
 import java.math.BigDecimal;
@@ -38,6 +42,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.Disposable;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -75,6 +80,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     NoPaddingTextView mine_userBalance_tv;
     @BindView(R.id.mine_userBalanceLock_tv)
     NoPaddingTextView mine_userBalanceLock_tv;
+    private Disposable subscribe;
 
     @Override
     protected void initView() {
@@ -135,7 +141,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
-        if (CommonUtil.getLoginInfo() == null || CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (CommonUtil.getLoginInfo() != null || CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap.more_arrow));
         }
         datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap.more_arrow));
@@ -256,6 +262,12 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     @Override
     protected void initData() {
         if(CommonUtil.getLoginInfo()!=null) getMineInfo();
+
+        subscribe = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(
+                exchangeEvent -> {
+                    if(CommonUtil.getLoginInfo()!=null) getMineInfo();
+                }
+        );
     }
 
     private void getMineInfo() {
@@ -290,9 +302,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         if(mineRes!=null){
             MineRes.UserInfoBean userInfoBean = mineRes.getUserInfo();
             mine_userAccount_tv.setText(userInfoBean.getUserAccount()+"");
-            mine_totalUserBalance_tv.setText(userInfoBean.getTotalUserBalance()+"");
-            mine_userBalance_tv.setText(BigDecimal.valueOf(Double.parseDouble(userInfoBean.getUserBalance()))+"");
-            mine_userBalanceLock_tv.setText(BigDecimal.valueOf(Double.parseDouble(userInfoBean.getUserBalanceLock()))+"");
+            mine_totalUserBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getTotalUserBalance()),4)+"");
+            mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalance()),4)+"");
+            mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalanceLock()),4)+"");
         }
         refreshLayout.refreshComplete();
     }
@@ -316,6 +328,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        if (subscribe != null && !subscribe.isDisposed()) {
+            subscribe.dispose();
+        }
     }
 
     @Override

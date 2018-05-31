@@ -22,6 +22,7 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.MyTextWatcher;
 import com.qmkj.jydp.util.StringUtil;
 
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -99,7 +100,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             UserWithdrawChooseCurrencyDialog userWithdrawChooseCurrencyDialog = new UserWithdrawChooseCurrencyDialog(mContext, userCoinWithdrawInfo.getUserCoinConfigList());
             userWithdrawChooseCurrencyDialog.setOnChooseCurrencyListener(bean -> {
                 chooseInfo = bean;
-                canWithdrawNumTv.setText(bean.getCurrencyNumber() + "");
+                canWithdrawNumTv.setText(BigDecimal.valueOf(bean.getCurrencyNumber()) + "");
                 chooseCurrencyCv.setRightText(bean.getCurrencyName());
                 withdrawNumNoticeTv.setText("当前链种最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean.getFreeCurrencyNumber() + "需人工审核");
             });
@@ -193,6 +194,13 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
         switch (tag) {
             case 1:
                 userCoinWithdrawInfo = (UserCoinWithdrawInfo) response;
+                if(userCoinWithdrawInfo.getUserCoinConfigList()!=null){
+                    chooseInfo = userCoinWithdrawInfo.getUserCoinConfigList().get(0);
+                    canWithdrawNumTv.setText(BigDecimal.valueOf(chooseInfo.getCurrencyNumber()) + "");
+                    chooseCurrencyCv.setRightText(chooseInfo.getCurrencyName());
+                    withdrawNumNoticeTv.setText("当前链种最低提现" + chooseInfo.getMinCurrencyNumber() + "个，超过" + chooseInfo.getFreeCurrencyNumber() + "需人工审核");
+
+                }
                 break;
             case 2:
                 toast("验证码获取成功");
