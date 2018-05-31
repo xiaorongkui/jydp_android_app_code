@@ -188,7 +188,7 @@
             <FrameLayout
                 android:id="@+id/kline_webview"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y400"/>
+                android:layout_height="@dimen/y350"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

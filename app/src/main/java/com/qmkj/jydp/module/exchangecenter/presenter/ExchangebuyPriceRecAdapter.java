@@ -36,7 +36,7 @@ public class ExchangebuyPriceRecAdapter extends BaseRecycleAdapter<ExchangeCente
         TextView priceStatusTv = helper.getView(R.id.price_status_tv);
         TextView priceAmountTv = helper.getView(R.id.price_amount_tv);
         TextView priceTotalMoneyTv = helper.getView(R.id.price_total_money_tv);
-        priceStatusTv.setText(CommonUtil.getString(R.string.buy) + (datas.size() - position));
+        priceStatusTv.setText(CommonUtil.getString(R.string.buy) + (position + 1));
         priceStatusTv.setTextColor(CommonUtil.getColor(R.color.color_red_3));
         if (item == null) return;
         LogUtil.i("买item=" + item.toString());

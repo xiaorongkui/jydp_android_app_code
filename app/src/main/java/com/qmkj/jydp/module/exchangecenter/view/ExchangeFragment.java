@@ -1,13 +1,10 @@
 package com.qmkj.jydp.module.exchangecenter.view;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -23,8 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
@@ -32,15 +27,14 @@ import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.response.CancleOrderReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
-import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.module.exchangecenter.presenter.EntrustRecodeRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeSoldPriceRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangebuyPriceRecAdapter;
 import com.qmkj.jydp.ui.widget.MyViewPager;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
-import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
@@ -53,7 +47,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -134,11 +127,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private EntrustRecodeRecAdapter entrustRecodeRecAdapter;
     private MyPagerAdapter pagerAdapter;
     private Disposable subscribe_1;
-    private Disposable disposable;
+    private Disposable timeDownDisposable;
     private CommonDialog commonCancleDialog;
     private ExchangeCenterRes.StandardParameterBean standardParameter;
     private Disposable subscribe_2;
-
+    boolean isLogin = false;
 
     public String getCurrencyId() {
         return currencyId;
@@ -169,9 +162,9 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         subscribe_2 = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(exchangeEvent -> {
             getExchangeCenterData(true);
         });
-
-
         exchangeTitleTv.setText(currencyName);
+
+        isLogin = !TextUtils.isEmpty(CommonUtil.getToken());
     }
 
     private void initViewPager() {
@@ -263,7 +256,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     private void initCountTimer() {
-        disposable = Observable.interval(0, 2000, TimeUnit.MILLISECONDS)
+        timeDownDisposable = Observable.interval(0, 2000, TimeUnit.MILLISECONDS)
                 .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -299,6 +292,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     private void getExchangeRecode(boolean b) {
+        if (!isLogin) return;
         if (TextUtils.isEmpty(currencyId)) {
             LogUtil.i("currencyId is null");
             return;
@@ -392,6 +386,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 refreshSoldFivePrice(centerResPend0rder.getTransactionPendOrderSellList());
                 break;
             case EXCHANGE_ENTRUSTRECODE_TAG:
+                isLogin = true;
                 ExchangeCenterRes centerResEntrustRecode = null;
                 try {
                     centerResEntrustRecode = (ExchangeCenterRes) response;
@@ -424,24 +419,48 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
         super.onError(errorMsg, code, tag, o);
+        switch (tag) {
+            case EXCHANGE_ENTRUSTRECODE_TAG://挂单记录
+                switch (code) {
+                    case NetResponseCode.HMC_NO_LOGIN:
+                        isLogin = false;
+                        break;
+                }
+                break;
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        getExchangeCenterData(true);
+        if (timeDownDisposable == null || timeDownDisposable.isDisposed()) {
+            getExchangeCenterData(true);
+            initCountTimer();
+        }
         LogUtil.i("交易中心 onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtil.i("交易中心 onPause");
+        if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
+            timeDownDisposable.dispose();
+        }
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            initCountTimer();
-            getExchangeCenterData(true);
+            if (timeDownDisposable == null || timeDownDisposable.isDisposed()) {
+                getExchangeCenterData(true);
+                initCountTimer();
+            }
         } else {
-            if (disposable != null && !disposable.isDisposed()) {
-                disposable.dispose();
+            if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
+                timeDownDisposable.dispose();
             }
         }
         Bundle arguments = getArguments();
@@ -451,7 +470,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         }
         exchangeTitleTv.setText(currencyName);
         LogUtil.i("交易中心 onHiddenChanged");
-
+        ((ExchangeBuyFragment) pagerAdapter.getItem(0)).onHiddenChanged(hidden);
+        ((ExchangeSoldFragment) pagerAdapter.getItem(1)).onHiddenChanged(hidden);
     }
 
     @Override
@@ -621,8 +641,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         if (subscribe_2 != null && !subscribe_2.isDisposed()) {
             subscribe_2.dispose();
         }
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
+        if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
+            timeDownDisposable.dispose();
         }
         if (commonCancleDialog != null && commonCancleDialog.isShowing()) commonCancleDialog.dismiss();
     }

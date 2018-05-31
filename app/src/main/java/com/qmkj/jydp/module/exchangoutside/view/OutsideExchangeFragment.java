@@ -109,6 +109,8 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutmanager);
         mOutsideExchangeAdapter = new OutsideExchangeAdapter(mContext, R.layout.exchange_outside_item, mData);
+        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
+        mOutsideExchangeAdapter.setEmptyView(mEmptyView);
         recyclerView.setAdapter(mOutsideExchangeAdapter);
     }
 
@@ -194,6 +196,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         super.onSuccess(response, tag);
         switch (tag) {
             case OUTSIDE_LIST_TAG:
+                if (refresh.isRefreshing()) refresh.refreshComplete();
                 showSuccessView(recyclerView, true);
                 OutSideExchangeRes outSideExchangeRes = (OutSideExchangeRes) response;
                 if (outSideExchangeRes == null || outSideExchangeRes.getOtcTransactionPendOrderList() == null ||
@@ -203,7 +206,6 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                         outSideExchangeRes.getOtcTransactionPendOrderList();
                 if (isRefresh) {
                     mData.clear();
-                    refresh.refreshComplete();
                 }
                 mData.addAll(otcTransactionPendOrderList);
                 mOutsideExchangeAdapter.notifyDataSetChanged();

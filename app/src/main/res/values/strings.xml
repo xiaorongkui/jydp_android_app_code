@@ -65,7 +65,7 @@
     <string name="password_two_notice">再次输入密码</string>
     <string name="register_agreement_title_notice">用户注册即表示同意</string>
     <string name="register_agreement_name">《用户注册协议》</string>
-    <string name="get_rigister_getvertify_code">获取验证码(<xliff:g id="num">%1$1d</xliff:g>s)</string>
+    <string name="get_rigister_getvertify_code">重新发送(<xliff:g id="num">%1$1d</xliff:g>s)</string>
     <string name="get_rigister_getvertify_code_1">获取验证码</string>
     <string name="getvertify_name">实名认证</string>
     <string name="certify_picture">证件照</string>

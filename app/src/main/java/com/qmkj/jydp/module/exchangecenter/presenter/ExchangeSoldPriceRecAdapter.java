@@ -38,7 +38,7 @@ public class ExchangeSoldPriceRecAdapter extends BaseRecycleAdapter<ExchangeCent
         TextView priceStatusTv = helper.getView(R.id.price_status_tv);
         TextView priceAmountTv = helper.getView(R.id.price_amount_tv);
         TextView priceTotalMoneyTv = helper.getView(R.id.price_total_money_tv);
-        priceStatusTv.setText(CommonUtil.getString(R.string.sold) + (position + 1));
+        priceStatusTv.setText(CommonUtil.getString(R.string.sold) + (datas.size() - position));
         if (item == null) return;
         LogUtil.i("卖item=" + item.toString());
         priceTotalMoneyTv.setText(NumberUtil.format2Point(item.getPendingPrice()));

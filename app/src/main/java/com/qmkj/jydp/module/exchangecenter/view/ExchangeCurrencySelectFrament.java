@@ -164,4 +164,5 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
                 break;
         }
     }
+
 }

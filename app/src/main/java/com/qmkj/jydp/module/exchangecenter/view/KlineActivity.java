@@ -151,7 +151,7 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
 
-        getKlineData(false);
+//        getKlineData(false);
         getExchangeDealRecode(false);
         mWebView.loadUrl(AppNetConfig.kline_url + currencyId);
     }

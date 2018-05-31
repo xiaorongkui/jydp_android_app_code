@@ -2,6 +2,9 @@ package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -124,8 +127,9 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             parseDoublePrice = Double.parseDouble(price);
             parseDoubleAvailable = Double.parseDouble(userDealCapitalMessage.getUserBalance());
             parseDoubleAvailableBuyFee = NumberUtil.div(Double.parseDouble(buyFee), 100, 4);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            LogUtil.i("买入输入数据格式化错误" + e.getMessage());
         }
         if (parseDoublePrice > 0 && parseDoubleAvailable >= 0) {
             double totalPrice = NumberUtil.mul((1 + parseDoubleAvailableBuyFee), parseDoublePrice);
@@ -457,9 +461,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 toast("挂单成功");
                 if (buyDialogUtils != null && buyDialogUtils.isShowing()) buyDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangeEvent());
-                exchangeUnitPriceEt.setText("");
-                exchangeAmountEt.setText("");
-                exchangePassowrdEt.setText("");
+                clearBuyInput();
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("记住密码设置成功");
@@ -469,6 +471,19 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
                 break;
         }
+    }
+
+    private void clearBuyInput() {
+        exchangeUnitPriceEt.setText("");
+        exchangeAmountEt.setText("");
+        exchangePassowrdEt.setText("");
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        clearBuyInput();
+        LogUtil.i("exchangebuytest onHiddenChanged");
     }
 
     @Override

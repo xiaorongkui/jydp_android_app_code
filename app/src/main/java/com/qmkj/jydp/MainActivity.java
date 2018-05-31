@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent != null) {
-            int index = intent.getIntExtra(Constants.INTENT_PARAMETER_1, 0);//默认进入首页
+            int index = intent.getIntExtra(Constants.INTENT_PARAMETER_1, 0);//默认进入交易中心页面
             switch (index) {
                 case HOME:
                     setSelect(0);

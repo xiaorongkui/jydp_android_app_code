@@ -62,6 +62,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     boolean isCanRefresh = true;
     private HomeRecyAdapter homeRecyAdapter;
 
+
     @Override
     protected void initView() {
         initStatus();
@@ -71,6 +72,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         initGrideView(null);
         initRefreshView();
     }
+
     private void initRefreshView() {
         homeFragmentRefresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
@@ -99,7 +101,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             HomeDataRes.SystemBusinessesPartnerListBean listBean = data.get(position);
             if (listBean == null) return;
             if (!TextUtils.isEmpty(listBean.getWebLinkUrl())) {
-                Intent intent = WebActivity.getActivityIntent(mContext, listBean.getBusinessesName(), listBean.getWebLinkUrl());
+                Intent intent = WebActivity.getActivityIntent(mContext, listBean.getBusinessesName(), listBean
+                        .getWebLinkUrl());
                 CommonUtil.gotoActivity(mContext, intent);
             }
 
