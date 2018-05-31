@@ -501,13 +501,11 @@ public class EditVItemView extends LinearLayout {
         }
     }
 
-    public void setmEditTextViewFocuseAble(boolean enable) {
+    public void setEditTextViewFocuseAble(boolean enable) {
         if (mEdit_letf_et != null) {
             mEdit_letf_et.setFocusable(enable);
             mEdit_letf_et.setFocusableInTouchMode(enable);
-            mEdit_letf_et.setCursorVisible(false);
-            mEdit_letf_et.setInputType(0);
-            mEdit_letf_et.setTextIsSelectable(false);
+            mEdit_letf_et.setCursorVisible(enable);
         }
     }
 

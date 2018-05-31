@@ -134,6 +134,14 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         receivables_bank_name_eiv.setEditTextNoFu(15);
         receivables_bank_reserve_name_eiv.setEditTextNoFu(20);
 
+
+
+        receivables_alipay_receipt_code_eiv.setEditTextViewFocuseAble(false);
+        receivables_alipay_receipt_code_eiv.setClickable(true);
+
+        receivables_wechat_receipt_code_eiv.setEditTextViewFocuseAble(false);
+        receivables_wechat_receipt_code_eiv.setClickable(true);
+
         receivables_alipay_receipt_code_eiv.setOnEditClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -357,4 +365,9 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
                 }).start();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RxPermissionUtils.destory();
+    }
 }
