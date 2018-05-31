@@ -141,7 +141,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
-        if (CommonUtil.getLoginInfo() != null || CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap.more_arrow));
         }
         datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap.more_arrow));
@@ -296,6 +296,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         super.onSuccess(response, tag);
         if(refreshLayout.isRefreshing()){
             refreshLayout.refreshComplete();
+        }
+        if(response == null){
+            return;
         }
         LogUtil.e(response.toString());
         MineRes mineRes = (MineRes) response;
