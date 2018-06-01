@@ -91,7 +91,6 @@
                 android:layout_marginEnd="@dimen/x10"
                 android:layout_marginStart="@dimen/x10"
                 android:orientation="horizontal"
-                android:visibility="gone"
                 app:sl_cornerRadius="@dimen/x5"
                 app:sl_shadowColor="@color/color_gray_9"
                 app:sl_shadowRadius="@dimen/x5">

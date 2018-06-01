@@ -68,7 +68,8 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
 
     @Override
     public void onSuccess(Object response, int tag) {
-        LogUtil.i(response + "");
+//        LogUtil.i(response == null ? "null" : response.toString());
+//        if (response == null) return;
     }
 
     @Override

@@ -3,13 +3,15 @@ package com.qmkj.jydp.bean.response;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * author：rongkui.xiao --2018/5/24
  * email：dovexiaoen@163.com
  * description:
  */
 
-public class OutSideSellDetailRes extends BaseRes implements Parcelable {
+public class OutSideSellDetailRes extends BaseRes implements Serializable {
 
 
     private String paymentPhone;
@@ -29,55 +31,6 @@ public class OutSideSellDetailRes extends BaseRes implements Parcelable {
     public OutSideSellDetailRes() {
     }
 
-    protected OutSideSellDetailRes(Parcel in) {
-        paymentPhone = in.readString();
-        phoneNumber = in.readString();
-        bankBranch = in.readString();
-        otcTransactionPendOrder = in.readParcelable(OtcTransactionPendOrderBean.class.getClassLoader());
-        bankName = in.readString();
-        userName = in.readString();
-        paymentAccount = in.readString();
-        paymentName = in.readString();
-        sellNum = in.readDouble();
-        paymentType = in.readInt();
-        imageUrl = in.readString();
-        imageUrlFormat = in.readString();
-        sellMoney = in.readString();
-    }
-
-    public static final Creator<OutSideSellDetailRes> CREATOR = new Creator<OutSideSellDetailRes>() {
-        @Override
-        public OutSideSellDetailRes createFromParcel(Parcel in) {
-            return new OutSideSellDetailRes(in);
-        }
-
-        @Override
-        public OutSideSellDetailRes[] newArray(int size) {
-            return new OutSideSellDetailRes[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(paymentPhone);
-        dest.writeString(phoneNumber);
-        dest.writeString(bankBranch);
-        dest.writeParcelable(otcTransactionPendOrder, flags);
-        dest.writeString(bankName);
-        dest.writeString(userName);
-        dest.writeString(paymentAccount);
-        dest.writeString(paymentName);
-        dest.writeDouble(sellNum);
-        dest.writeInt(paymentType);
-        dest.writeString(imageUrl);
-        dest.writeString(imageUrlFormat);
-        dest.writeString(sellMoney);
-    }
 
     public String getPaymentPhone() {
         return paymentPhone;
@@ -183,7 +136,7 @@ public class OutSideSellDetailRes extends BaseRes implements Parcelable {
         this.sellMoney = sellMoney;
     }
 
-    public static class OtcTransactionPendOrderBean implements Parcelable {
+    public static class OtcTransactionPendOrderBean implements Serializable {
         /**
          * otcPendingOrderNo : 601805175750302947
          * userId : 313
@@ -228,40 +181,6 @@ public class OutSideSellDetailRes extends BaseRes implements Parcelable {
         private long addTime;
         private String dealerName;
 
-        protected OtcTransactionPendOrderBean(Parcel in) {
-            otcPendingOrderNo = in.readString();
-            userId = in.readInt();
-            userAccount = in.readString();
-            orderType = in.readInt();
-            currencyId = in.readInt();
-            currencyName = in.readString();
-            pendingRatio = in.readDouble();
-            minNumber = in.readDouble();
-            maxNumber = in.readDouble();
-            pendingNumber = in.readDouble();
-            dealNumber = in.readDouble();
-            buyFee = in.readDouble();
-            restBalanceLock = in.readDouble();
-            area = in.readString();
-            pendingStatus = in.readInt();
-            endTime = in.readLong();
-            remark = in.readString();
-            updateTime = in.readLong();
-            addTime = in.readLong();
-            dealerName = in.readString();
-        }
-
-        public static final Creator<OtcTransactionPendOrderBean> CREATOR = new Creator<OtcTransactionPendOrderBean>() {
-            @Override
-            public OtcTransactionPendOrderBean createFromParcel(Parcel in) {
-                return new OtcTransactionPendOrderBean(in);
-            }
-
-            @Override
-            public OtcTransactionPendOrderBean[] newArray(int size) {
-                return new OtcTransactionPendOrderBean[size];
-            }
-        };
 
         public String getOtcPendingOrderNo() {
             return otcPendingOrderNo;
@@ -423,52 +342,5 @@ public class OutSideSellDetailRes extends BaseRes implements Parcelable {
             this.dealerName = dealerName;
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(otcPendingOrderNo);
-            dest.writeInt(userId);
-            dest.writeString(userAccount);
-            dest.writeInt(orderType);
-            dest.writeInt(currencyId);
-            dest.writeString(currencyName);
-            dest.writeDouble(pendingRatio);
-            dest.writeDouble(minNumber);
-            dest.writeDouble(maxNumber);
-            dest.writeDouble(pendingNumber);
-            dest.writeDouble(dealNumber);
-            dest.writeDouble(buyFee);
-            dest.writeDouble(restBalanceLock);
-            dest.writeString(area);
-            dest.writeInt(pendingStatus);
-            dest.writeLong(endTime);
-            dest.writeString(remark);
-            dest.writeLong(updateTime);
-            dest.writeLong(addTime);
-            dest.writeString(dealerName);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "OutSideSellDetailRes{" +
-                "paymentPhone='" + paymentPhone + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", bankBranch='" + bankBranch + '\'' +
-                ", otcTransactionPendOrder=" + otcTransactionPendOrder +
-                ", bankName='" + bankName + '\'' +
-                ", userName='" + userName + '\'' +
-                ", paymentAccount='" + paymentAccount + '\'' +
-                ", paymentName='" + paymentName + '\'' +
-                ", sellNum=" + sellNum +
-                ", paymentType=" + paymentType +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", imageUrlFormat='" + imageUrlFormat + '\'' +
-                ", sellMoney='" + sellMoney + '\'' +
-                '}';
     }
 }

@@ -1,12 +1,15 @@
 package com.qmkj.jydp.bean.response;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * author：rongkui.xiao --2018/5/23
  * email：dovexiaoen@163.com
  * description:
  */
 
-public class OutSideBuyPayDetailRes extends BaseRes {
+public class OutSideBuyPayDetailRes extends BaseRes implements Parcelable {
 
     /**
      * phoneNumber : 10000000001
@@ -36,6 +39,29 @@ public class OutSideBuyPayDetailRes extends BaseRes {
     private UserPaymentTypeBean userPaymentType;
     private String userName;
     private int paymentType;
+
+    public OutSideBuyPayDetailRes() {
+    }
+
+    protected OutSideBuyPayDetailRes(Parcel in) {
+        phoneNumber = in.readString();
+        dealerName = in.readString();
+        buyNum = in.readString();
+        userName = in.readString();
+        paymentType = in.readInt();
+    }
+
+    public static final Creator<OutSideBuyPayDetailRes> CREATOR = new Creator<OutSideBuyPayDetailRes>() {
+        @Override
+        public OutSideBuyPayDetailRes createFromParcel(Parcel in) {
+            return new OutSideBuyPayDetailRes(in);
+        }
+
+        @Override
+        public OutSideBuyPayDetailRes[] newArray(int size) {
+            return new OutSideBuyPayDetailRes[size];
+        }
+    };
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -99,6 +125,20 @@ public class OutSideBuyPayDetailRes extends BaseRes {
 
     public void setPaymentType(int paymentType) {
         this.paymentType = paymentType;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(phoneNumber);
+        dest.writeString(dealerName);
+        dest.writeString(buyNum);
+        dest.writeString(userName);
+        dest.writeInt(paymentType);
     }
 
     public static class OtcDealerUserDOBean {
@@ -205,6 +245,7 @@ public class OutSideBuyPayDetailRes extends BaseRes {
         public void setAddTime(long addTime) {
             this.addTime = addTime;
         }
+
     }
 
     public static class OtcTransactionPendOrderBean {
@@ -411,9 +452,66 @@ public class OutSideBuyPayDetailRes extends BaseRes {
         public void setDealerName(String dealerName) {
             this.dealerName = dealerName;
         }
+
     }
 
-    public static class UserPaymentTypeBean {
+    public static class UserPaymentTypeBean implements Parcelable {
+        public UserPaymentTypeBean() {
+        }
+
+        protected UserPaymentTypeBean(Parcel in) {
+            typeId = in.readInt();
+            userId = in.readInt();
+            otcPendingOrderNo = in.readString();
+            paymentType = in.readInt();
+            paymentAccount = in.readString();
+            bankName = in.readString();
+            bankCode = in.readString();
+            bankBranch = in.readString();
+            paymentName = in.readString();
+            paymentPhone = in.readString();
+            paymentImage = in.readString();
+            typeStatus = in.readInt();
+            remark = in.readString();
+            updateTime = in.readString();
+            addTime = in.readLong();
+            paymentImageFormat = in.readString();
+        }
+
+        public static final Creator<UserPaymentTypeBean> CREATOR = new Creator<UserPaymentTypeBean>() {
+            @Override
+            public UserPaymentTypeBean createFromParcel(Parcel in) {
+                return new UserPaymentTypeBean(in);
+            }
+
+            @Override
+            public UserPaymentTypeBean[] newArray(int size) {
+                return new UserPaymentTypeBean[size];
+            }
+        };
+
+        @Override
+        public String toString() {
+            return "UserPaymentTypeBean{" +
+                    "typeId=" + typeId +
+                    ", userId=" + userId +
+                    ", otcPendingOrderNo='" + otcPendingOrderNo + '\'' +
+                    ", paymentType=" + paymentType +
+                    ", paymentAccount='" + paymentAccount + '\'' +
+                    ", bankName='" + bankName + '\'' +
+                    ", bankCode='" + bankCode + '\'' +
+                    ", bankBranch='" + bankBranch + '\'' +
+                    ", paymentName='" + paymentName + '\'' +
+                    ", paymentPhone='" + paymentPhone + '\'' +
+                    ", paymentImage='" + paymentImage + '\'' +
+                    ", typeStatus=" + typeStatus +
+                    ", remark='" + remark + '\'' +
+                    ", updateTime='" + updateTime + '\'' +
+                    ", addTime=" + addTime +
+                    ", paymentImageFormat='" + paymentImageFormat + '\'' +
+                    '}';
+        }
+
         /**
          * typeId : 871
          * userId : 313
@@ -450,6 +548,35 @@ public class OutSideBuyPayDetailRes extends BaseRes {
         private String updateTime;
         private long addTime;
         private String paymentImageFormat;
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(typeId);
+            dest.writeInt(userId);
+            dest.writeString(otcPendingOrderNo);
+            dest.writeInt(paymentType);
+            dest.writeString(paymentAccount);
+            dest.writeString(bankName);
+            dest.writeString(bankCode);
+            dest.writeString(bankBranch);
+            dest.writeString(paymentName);
+            dest.writeString(paymentPhone);
+            dest.writeString(paymentImage);
+            dest.writeInt(typeStatus);
+            dest.writeString(remark);
+            dest.writeString(updateTime);
+            dest.writeLong(addTime);
+            dest.writeString(paymentImageFormat);
+        }
+
+        public static Creator<UserPaymentTypeBean> getCREATOR() {
+            return CREATOR;
+        }
 
         public int getTypeId() {
             return typeId;

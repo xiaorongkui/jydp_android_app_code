@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding2.InitialValueObservable;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
@@ -36,6 +37,8 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.RxBus;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -104,7 +107,6 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     @Override
     protected void initView() {
         exchangePassowrdIv.setOnClickListener(this);
-        exchangeCenterSoldOutBt.setOnClickListener(this);
         InitialValueObservable<CharSequence> amountTextChanges = RxTextView.textChanges(exchangeAmountEt);
         amountTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
                 .mainThread()).subscribe(sequence -> {
@@ -116,8 +118,9 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             restrictedInput(sequence, exchangeUnitPriceEt, DECIMAL_DIGITS_PRICE);
             calculateSellAccount();
         });
-
-
+        RxView.clicks(exchangeCenterSoldOutBt).throttleFirst(2, TimeUnit.SECONDS)
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(o -> sellStart());//防重复点击
     }
 
     private void calculateSellAccount() {
@@ -191,73 +194,75 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 }
                 showSettingExchangePwdDialog();
                 break;
-            case R.id.exchange_center_sold_out_bt:
-                if (TextUtils.isEmpty(CommonUtil.getToken())) {
-                    loginCommonDialog_2 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
-                    loginCommonDialog_2.setContentText("请先登录");
-                    loginCommonDialog_2.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
-                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
-                        loginCommonDialog_2.dismiss();
-                    });
-                    loginCommonDialog_2.show();
-                    return;
-                }
-                sellPrice = exchangeUnitPriceEt.getText().toString().trim();
-                sellAmount = exchangeAmountEt.getText().toString().trim();
-                sellPassword = exchangePassowrdEt.getText().toString().trim();
-                ExchangeFragment parentFragment = (ExchangeFragment) getParentFragment();
-                if (parentFragment != null) {
-                    currencyId = parentFragment.getCurrencyId();
-                }
-
-                if (TextUtils.isEmpty(sellPrice)) {
-                    toast("请输入卖出单价");
-                    return;
-                }
-                if (TextUtils.isEmpty(sellAmount)) {
-                    toast("请输入卖出数量");
-                    return;
-                }
-                double parseSellPrice = 0;
-                double parseSellAmount = 0;
-                try {
-                    parseSellPrice = Double.parseDouble(sellPrice);
-                    parseSellAmount = Double.parseDouble(sellAmount);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-
-                if (parseSellPrice <= 0) {
-                    toast("卖出单价不能小于等于0");
-                    return;
-                }
-                if (parseSellAmount <= 0) {
-                    toast("卖出数量不能小于等于0");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(currencyId)) {
-                    toast("购买的产品currencyId为空");
-                    return;
-                }
-                if (TextUtils.isEmpty(sellPassword)) {
-                    toast("请输入交易密码");
-                    return;
-                }
-                if (sellPassword.length() < 6) {
-                    toast("交易密码长度不能小于6位");
-                    return;
-                }
-                showBuyDialog();
-                break;
         }
     }
 
+    private void sellStart() {
+        if (TextUtils.isEmpty(CommonUtil.getToken())) {
+            loginCommonDialog_2 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
+            loginCommonDialog_2.setContentText("请先登录");
+            loginCommonDialog_2.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
+                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                loginCommonDialog_2.dismiss();
+            });
+            loginCommonDialog_2.show();
+            return;
+        }
+        sellPrice = exchangeUnitPriceEt.getText().toString().trim();
+        sellAmount = exchangeAmountEt.getText().toString().trim();
+        sellPassword = exchangePassowrdEt.getText().toString().trim();
+        ExchangeFragment parentFragment = (ExchangeFragment) getParentFragment();
+        if (parentFragment != null) {
+            currencyId = parentFragment.getCurrencyId();
+        }
+
+        if (TextUtils.isEmpty(sellPrice)) {
+            toast("请输入卖出单价");
+            return;
+        }
+        if (TextUtils.isEmpty(sellAmount)) {
+            toast("请输入卖出数量");
+            return;
+        }
+        double parseSellPrice = 0;
+        double parseSellAmount = 0;
+        try {
+            parseSellPrice = Double.parseDouble(sellPrice);
+            parseSellAmount = Double.parseDouble(sellAmount);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        if (parseSellPrice <= 0) {
+            toast("卖出单价不能小于等于0");
+            return;
+        }
+        if (parseSellAmount <= 0) {
+            toast("卖出数量不能小于等于0");
+            return;
+        }
+
+        if (TextUtils.isEmpty(currencyId)) {
+            toast("购买的产品currencyId为空");
+            return;
+        }
+        if (TextUtils.isEmpty(sellPassword)) {
+            toast("请输入交易密码");
+            return;
+        }
+        if (sellPassword.length() < 6) {
+            toast("交易密码长度不能小于6位");
+            return;
+        }
+        showBuyDialog();
+    }
 
     boolean isRememberLoginPwd = false;
     boolean isRememberExchangePwd = false;
 
     private void showSettingExchangePwdDialog() {
+        isRememberLoginPwd = false;
+        isRememberExchangePwd = false;
 
         pwdDialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_settting_pwd);
         TextView message = pwdDialogUtils.getView(R.id.message, TextView.class);
@@ -391,6 +396,9 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                         break;
                 }
                 break;
+            case EXCHANGE_PWD_TAG://密码错误
+
+                break;
         }
     }
 
@@ -401,16 +409,17 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
+    protected void onViewResume() {
+        super.onViewResume();
         clearSoldInput();
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    protected void onViewPause() {
+        super.onViewPause();
         clearSoldInput();
     }
+
 
     public void refreshData(ExchangeCenterRes centerRes) {
         if (centerRes == null || centerRes.getUserDealCapitalMessage() == null) return;
@@ -510,14 +519,19 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
 
         sellDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         sellDialogUtils.setOneOrTwoBtn(false);
-        sellDialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
+        sellDialogUtils.setTitle(CommonUtil.getString(R.string.sold_notice));
         sellDialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
             sellDialogUtils.dismiss();
         });
-        sellDialogUtils.setTwoConfirmBtn("确认", v -> {
-            submitSellXt();
-        });
+
+        RxView.clicks(sellDialogUtils.getView(R.id.yes, Button.class)).throttleFirst(2, TimeUnit.SECONDS)
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(o -> submitSellXt());//防重复点击
+
+//        sellDialogUtils.setTwoConfirmBtn("确认", v -> {
+//            submitSellXt();
+//        });
         sellDialogUtils.show();
     }
 }

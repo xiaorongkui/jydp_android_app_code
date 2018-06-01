@@ -108,7 +108,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     }
 
     private void initInput() {
-        String regEx = "[^a-zA-Z0-9\u4E00-\u9FA5 ]";
+        String regEx = "[^a-zA-Z\u4E00-\u9FA5 ]";
         certifyNameNameCv.setEditTextInputFilter((source, start, end, dest, dstart, dend) -> {
             Pattern pattern = Pattern.compile(regEx);
             Matcher matcher = pattern.matcher(source.toString());
@@ -166,12 +166,16 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
             toast("证件号输入错误");
             return;
         }
-        if (backBytes == null || backBytes.length <= 0 || frontBytes == null || frontBytes.length <= 0) {
-            toast("请先上传图片");
-            return;
-        }
         if (isBackCompressing || isFrontCompressing) {
             toast("请等待压缩");
+            return;
+        }
+        if (frontBytes == null || frontBytes.length <= 0) {
+            toast("请先上传正面图片");
+            return;
+        }
+        if (backBytes == null || backBytes.length <= 0) {
+            toast("请先上传反面图片");
             return;
         }
 
@@ -242,9 +246,8 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                 GlideApp.with(mContext).load(front).into(frontImg);
                 frontLl.setVisibility(View.INVISIBLE);
                 isFrontCompressing = true;
-                if (frontBytes != null && frontBytes.length > 0) {
-                    frontBytes = null;
-                }
+
+
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {
@@ -273,9 +276,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                 isBackCompressing = true;
                 GlideApp.with(mContext).load(back).into(backImg);
                 backLl.setVisibility(View.INVISIBLE);
-                if (backBytes != null && backBytes.length > 0) {
-                    backBytes = null;
-                }
+
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {
@@ -317,11 +318,13 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                                 Intent pickFront = new Intent(Intent.ACTION_PICK);
                                 pickFront.setType("image/*");//相片类型
                                 startActivityForResult(pickFront, 1);
+                                frontBytes = null;
                                 break;
                             case 2:
                                 Intent pickBack = new Intent(Intent.ACTION_PICK);
                                 pickBack.setType("image/*");//相片类型
                                 startActivityForResult(pickBack, 2);
+                                backBytes = null;
                                 break;
                         }
                     }

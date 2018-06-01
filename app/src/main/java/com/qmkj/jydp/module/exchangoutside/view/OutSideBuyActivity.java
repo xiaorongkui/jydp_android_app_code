@@ -21,12 +21,14 @@ import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.OutSideBuyPayDetailReq;
 import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
+import com.qmkj.jydp.bean.response.OutSideBuyPayDetailRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
 import java.math.BigDecimal;
@@ -45,6 +47,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter> {
 
     private static final int DECIMAL_DIGITS = 4;//最多输入4位数值
+    private static final int BUY_DETAIL_INFO_TAG = 1;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.outside_buy_pay_mothed_iv)
@@ -60,12 +63,16 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
     @BindView(R.id.outside_buy_bt)
     Button outsideBuyBt;
     private CommonDialog commonDialog;
-    private int selectIndex = 0;//1：银行卡，2：支付宝，3：微信
+    private int selectIndex = -1;//1：银行卡，2：支付宝，3：微信
     private String orderNo;
     private String pendingRatio;
     private DistributorPayMethodRes payMethodRes;
     private boolean[] payMethodShow = new boolean[]{false, false, false};
     private String userId;
+    private String minAccount;
+    private String maxAccount;
+    private String paymentMoney;
+
 
     @Override
     protected void injectPresenter() {
@@ -78,6 +85,8 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         pendingRatio = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
         payMethodRes = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_3);
         userId = getIntent().getStringExtra(Constants.INTENT_PARAMETER_4);
+        minAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_5);
+        maxAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_6);
         outsideExchangeBuyRatioTv.setText(CommonUtil.getString(R.string.proportion) + ":  1:" + pendingRatio);
 
         if (payMethodRes != null) {
@@ -101,10 +110,11 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         }
         if (!payMethodShow[0] && !payMethodShow[1] && !payMethodShow[2]) {
             selectIndex = -1;
-            outsidePayMothedTv.setText("");
-        } else {
-            outsidePayMothedTv.setText(certifyTypeData.get(0).getCertifyName());
+            outsidePayMothedTv.setText(CommonUtil.getString(R.string.no_payment_method));
         }
+//        else {
+//            outsidePayMothedTv.setText(certifyTypeData.get(0).getCertifyName());
+//        }
     }
 
     @Override
@@ -168,9 +178,6 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
                 imageViewLeft.setImageResource(item.getLeftImageViewId());
-                if (selectIndex == -1) {
-                    selectIndex = 0;//默认选择第一个
-                }
                 imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap
                         .bt_unselected);
                 certifyType_tv.setText(item.getCertifyName());
@@ -202,11 +209,30 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
 
     private void goPay() {
         String amount = ousideBuyAmountEiv.getEditTextString();
-        String paymentMoney = totalPriceTv.getText().toString().trim();
+        paymentMoney = totalPriceTv.getText().toString().trim();
         if (TextUtils.isEmpty(amount)) {
             toast("请输入购买数量");
             return;
         }
+        double min = 0;
+        double max = 0;
+        double amu = 0;
+        try {
+            min = Double.parseDouble(minAccount);
+            max = Double.parseDouble(maxAccount);
+            amu = Double.parseDouble(amount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (min > amu) {
+            toast("购买数量必须大于" + min);
+            return;
+        }
+        if (max < amu) {
+            toast("购买数量不能大于" + max);
+            return;
+        }
+
         double v = 0;
         try {
             v = Double.parseDouble(amount);
@@ -215,6 +241,10 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         }
         if (v <= 0 || TextUtils.isEmpty(paymentMoney)) {
             toast("购买数量必须大于0");
+            return;
+        }
+        if (selectIndex < 0) {
+            toast("请先选择收款方式");
             return;
         }
         OutSideBuyPayDetailReq outSideBuyPayDetailReq = new OutSideBuyPayDetailReq();
@@ -252,16 +282,30 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         outSideBuyPayDetailReq.setPageNumber("0");
         outSideBuyPayDetailReq.setUserId(userId);
         outSideBuyPayDetailReq.setPayMentMoney(paymentMoney);
+        presenter.payOutsideDetailConfirm(outSideBuyPayDetailReq, BUY_DETAIL_INFO_TAG, true);
 
-
-        Intent intent = new Intent(mContext, OutSideBuyDetailActivity.class);
-        intent.putExtra(Constants.INTENT_PARAMETER_1, outSideBuyPayDetailReq);
-        CommonUtil.gotoActivity(mContext, intent);
     }
+
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
+        switch (tag) {
+            case BUY_DETAIL_INFO_TAG:
+                OutSideBuyPayDetailRes outSideBuyPayDetailRes = (OutSideBuyPayDetailRes) response;
+                if (outSideBuyPayDetailRes == null) {
+                    toast("获取数据为空");
+                    return;
+                }
+                Intent intent = new Intent(mContext, OutSideBuyDetailActivity.class);
+                intent.putExtra(Constants.INTENT_PARAMETER_1, outSideBuyPayDetailRes);
+                intent.putExtra(Constants.INTENT_PARAMETER_2, paymentMoney);
+                intent.putExtra(Constants.INTENT_PARAMETER_3, outSideBuyPayDetailRes.getUserPaymentType());
+                CommonUtil.gotoActivity(mContext, intent);
+                OutSideBuyPayDetailRes.UserPaymentTypeBean bean = outSideBuyPayDetailRes.getUserPaymentType();
+                LogUtil.i("bean22=" + (bean == null ? "" : bean.toString()));
+                break;
+        }
 
     }
 

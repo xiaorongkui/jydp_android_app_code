@@ -161,7 +161,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
 
     //点击错误界面时触发刷新
     protected void tryData(int id) {
-        toast("点击重新加载");
+//        toast("点击重新加载");
     }
 
     //可以自定义错误界面

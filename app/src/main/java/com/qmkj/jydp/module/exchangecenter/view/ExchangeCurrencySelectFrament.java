@@ -84,6 +84,15 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         });
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogUtil.i("交易中心币种选择 onHiddenChanged=" + hidden);
+        if (!hidden) {
+            getExchangeCurrencyData(false);
+        }
+    }
+
     private void initRefreshView() {
         refresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
@@ -101,7 +110,8 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 isCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -136,6 +146,7 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         super.onSuccess(response, tag);
         switch (tag) {
             case EXCHANGE_CURRENCY_TAG:
+                showSuccessView(recyclerView, true);
                 if (refresh.isRefreshing()) refresh.refreshComplete();
                 ExchangeCurrencyRes currencyRes = (ExchangeCurrencyRes) response;
                 if (currencyRes == null) {

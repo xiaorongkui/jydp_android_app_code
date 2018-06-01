@@ -75,7 +75,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
     private View outside_view_sold_bank;
     private View outside_view_sold_alipay;
     private View outside_view_sold_wechat;
-    int selectIndex = -1;//默认选择银行卡
+    int selectIndex = -1;
     private String orderNo;
     private String pendingRatio;
     private String dealerName;
@@ -95,6 +95,8 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
     private Bitmap weixinPay;
     private boolean isWeixinCompressing;
     private byte[] weixinBytes;
+    private String minAccount;
+    private String maxAccount;
 
     @Override
     protected void injectPresenter() {
@@ -108,6 +110,8 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
         orderNo = getIntent().getStringExtra(Constants.INTENT_PARAMETER_1);
         pendingRatio = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
         dealerName = getIntent().getStringExtra(Constants.INTENT_PARAMETER_3);
+        minAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_4);
+        maxAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_5);
         outsideExchangeSoldRatioTv.setText(CommonUtil.getString(R.string.proportion) + ":  1:" + pendingRatio);
         soldDistributorCiv.setRightText(dealerName);
 
@@ -276,15 +280,26 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
             case R.id.outside_sold_comfirm_bt:
                 OutSideSellDetailReq outSideSellDetailReq = new OutSideSellDetailReq();
                 String amount = ousideSoldAmountEiv.getEditTextString().trim();
-
-                double amountDouble = 0;
+                if (TextUtils.isEmpty(amount)) {
+                    toast("请输入出售数量");
+                    return;
+                }
+                double min = 0;
+                double max = 0;
+                double amu = 0;
                 try {
-                    amountDouble = Double.parseDouble(amount);
+                    min = Double.parseDouble(minAccount);
+                    max = Double.parseDouble(maxAccount);
+                    amu = Double.parseDouble(amount);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                if (amountDouble <= 0 || TextUtils.isEmpty(amount)) {
-                    toast("出售数量必须大于0");
+                if (min > amu) {
+                    toast("出售数量必须大于" + min);
+                    return;
+                }
+                if (max < amu) {
+                    toast("出售数量不能大于" + max);
                     return;
                 }
                 if (selectIndex < 0) {

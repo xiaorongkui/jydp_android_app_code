@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * description:
  */
 
-public class OutSideBuyPayDetailReq extends BaseReq implements Parcelable {
+public class OutSideBuyPayDetailReq extends BaseReq {
     public String buyNum;
     public String otcPendingOrderNo;
     public String paymentType;
@@ -20,41 +20,6 @@ public class OutSideBuyPayDetailReq extends BaseReq implements Parcelable {
     public OutSideBuyPayDetailReq() {
     }
 
-    protected OutSideBuyPayDetailReq(Parcel in) {
-        buyNum = in.readString();
-        otcPendingOrderNo = in.readString();
-        paymentType = in.readString();
-        pageNumber = in.readString();
-        userId = in.readString();
-        payMentMoney = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(buyNum);
-        dest.writeString(otcPendingOrderNo);
-        dest.writeString(paymentType);
-        dest.writeString(pageNumber);
-        dest.writeString(userId);
-        dest.writeString(payMentMoney);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<OutSideBuyPayDetailReq> CREATOR = new Creator<OutSideBuyPayDetailReq>() {
-        @Override
-        public OutSideBuyPayDetailReq createFromParcel(Parcel in) {
-            return new OutSideBuyPayDetailReq(in);
-        }
-
-        @Override
-        public OutSideBuyPayDetailReq[] newArray(int size) {
-            return new OutSideBuyPayDetailReq[size];
-        }
-    };
 
     public String getBuyNum() {
         return buyNum;

@@ -28,6 +28,9 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     protected boolean isVisibleToUser = false;
     protected boolean isDataInitiated = false;
     private View mNetErrorView;
+    private boolean hidden;
+    private boolean onResume;
+    private boolean onPause;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,11 +67,17 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        this.onResume = true;
+        this.onPause = false;
+        onFragmentResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        this.onResume = false;
+        this.onPause = true;
+        onFragmentPause();
     }
 
     @Override
@@ -99,7 +108,7 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
         prepareFetchData();
-        LogUtil.i("setUserVisibleHint=" + isVisibleToUser);
+        onFragmentResume();
     }
 
 
@@ -111,14 +120,36 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
         if (!isNeedLazyInitData()) {
             isVisibleToUser = true;
         }
-        LogUtil.i("isVisibleToUser=" + isVisibleToUser + ";isViewInitiated=" + isViewInitiated +
-                ";isDataInitiated=" + isDataInitiated);
         if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
             initData();//走网络请求数据
             isDataInitiated = true;
             return true;
         }
         return false;
+    }
+
+    /*当fragment被用户看到时，一定会调用的方法*/
+    private void onFragmentResume() {
+        if (isVisibleToUser && isViewInitiated && (!hidden || onResume)) {
+            onViewResume();
+            onResume = false;
+        }
+    }
+
+    /*当fragment被用户看到时，一定会调用的方法*/
+    private void onFragmentPause() {
+        if (hidden || onPause) {
+            onViewPause();
+            onPause = false;
+        }
+    }
+
+    protected void onViewResume() {
+        LogUtil.i(getSimpleNme() + "onViewResume;onHiddenChanged=" + hidden + ";onResume=" + onResume);
+    }
+
+    protected void onViewPause() {
+        LogUtil.i(getSimpleNme() + "onViewPause;onHiddenChanged=" + hidden + ";onPause=" + onPause);
     }
 
     //是否需要懒加载，如果需要必须是使用FragmentPageAdapter
@@ -150,8 +181,10 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        this.hidden = hidden;
         prepareFetchData();
-        LogUtil.i("onHiddenChanged=" + hidden);
+        onFragmentResume();
+        onFragmentPause();
     }
 
     /**
@@ -189,6 +222,7 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     protected void showSuccessView(ViewGroup view, boolean isShow) {
         view.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
+
     //点击错误界面时触发刷新
     protected void tryData(int id) {
         toast("点击重新加载");

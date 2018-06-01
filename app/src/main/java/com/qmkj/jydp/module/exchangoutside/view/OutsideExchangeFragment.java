@@ -94,6 +94,15 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         return topRowVerticalPosition >= 0;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogUtil.i("场外交易 onHiddenChanged=" + hidden);
+        if (!hidden) {
+            getOutSideExchangeData(false);
+        }
+    }
+
     private void initStatusBar() {
         //状态栏占用的兼容性
         if (Build.VERSION.SDK_INT >= 21) {
@@ -147,6 +156,8 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                             sellIntent.putExtra(Constants.INTENT_PARAMETER_1, orderNo);
                             sellIntent.putExtra(Constants.INTENT_PARAMETER_2, pendingRatio);
                             sellIntent.putExtra(Constants.INTENT_PARAMETER_3, dealerName);
+                            sellIntent.putExtra(Constants.INTENT_PARAMETER_4, orderListBean.getMinNumber() + "");
+                            sellIntent.putExtra(Constants.INTENT_PARAMETER_5, orderListBean.getMaxNumber() + "");
                             CommonUtil.gotoActivity(mContext, sellIntent);
                             break;
                     }
@@ -227,6 +238,8 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                 buyIntent.putExtra(Constants.INTENT_PARAMETER_2, pendingRatio);
                 buyIntent.putExtra(Constants.INTENT_PARAMETER_3, payMethodRes);
                 buyIntent.putExtra(Constants.INTENT_PARAMETER_4, userId);
+                buyIntent.putExtra(Constants.INTENT_PARAMETER_5, orderListBean.getMinNumber() + "");
+                buyIntent.putExtra(Constants.INTENT_PARAMETER_6, orderListBean.getMaxNumber() + "");
                 CommonUtil.gotoActivity(mContext, buyIntent);
                 break;
         }
@@ -249,7 +262,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         super.onError(errorMsg, code, tag, o);
         if (refresh.isRefreshing()) refresh.refreshComplete();
         if (mOutsideExchangeAdapter.isLoading()) mOutsideExchangeAdapter.loadMoreComplete();
-        showNetErrorView(recyclerView, true);
+//        showNetErrorView(recyclerView, true);
     }
 
     @Override

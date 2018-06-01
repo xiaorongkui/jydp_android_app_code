@@ -188,9 +188,10 @@
     <string name="sold_hint_notice">您要出售的数量，单位：个</string>
     <string name="proportion">比例</string>
     <string name="total_price">总价</string>
-    <string name="dollars">¥</string>
+    <string name="dollars">$</string>
     <string name="pay_method">支付方式</string>
     <string name="pay_method_select">请选择收款方式</string>
+    <string name="sell_method_select">请选择付款方式</string>
     <string name="bank_card_transfer">银行卡转账</string>
     <string name="modify_pay_password">修改支付密码</string>
     <string name="modify_password">修改密码</string>
@@ -326,5 +327,10 @@
     <string name="text_digits_1">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM-_</string>
     <string name="text_digits_2">1234567890</string>
     <string name="text_digits_3">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM-_@.</string>
+    <string name="buy_notice">买入提示</string>
+    <string name="sold_notice">卖出提示</string>
+    <string name="no_payment_method">不支持的收款方式</string>
+    <string name="go_buy">去购买</string>
+    <string name="go_sell">去出售</string>
 
 </resources>
