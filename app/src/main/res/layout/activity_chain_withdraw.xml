@@ -162,7 +162,7 @@
                             android:layout_height="wrap_content"
                             app:bottomLine="true"
                             app:bottomLineMarginTop="@dimen/y6"
-                            app:leftEndText="@string/asterisk"
+                            app:titleEndText="@string/asterisk"
                             app:leftText="@string/choose_chain_type"
                             app:leftTextColor="@color/colorBlack_13"
                             app:leftTextSize="@dimen/text_size_14"
@@ -180,7 +180,10 @@
                             app:contentEditHintText="@string/withdraw_num_hint"
                             app:contentEditTextSize="@dimen/text_size_14"
                             app:contentEditTopMargin="@dimen/x15"
+                            app:titleEndText="@string/asterisk"
+                            app:inputType="numberDecimal"
                             app:titleText="@string/withdraw_num"
+                            app:maxLength="11"
                             app:titleTopMargin="@dimen/x20" />
 
                         <LinearLayout
@@ -217,7 +220,9 @@
                             app:contentRightText="@string/get_rigister_getvertify_code_1"
                             app:contentRightTextSize="@dimen/text_size_14"
                             app:contentRightTextVisible="true"
+                            app:titleEndText="@string/asterisk"
                             app:titleText="@string/verification_code"
+                            app:maxLength="6"
                             app:titleTopMargin="@dimen/x20" />
 
                         <LinearLayout
@@ -253,6 +258,9 @@
                             app:contentEditTextSize="@dimen/text_size_14"
                             app:contentEditTopMargin="@dimen/x15"
                             app:titleText="@string/exchange_password_star"
+                            app:maxLength="16"
+                            app:titleEndText="@string/asterisk"
+                            app:digits="@string/text_digits"
                             app:titleTopMargin="@dimen/x20" />
 
                     </LinearLayout>

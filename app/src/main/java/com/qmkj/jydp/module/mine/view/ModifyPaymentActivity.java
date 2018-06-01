@@ -183,13 +183,13 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             String newPass = modify_phone_pwd_one_eiv.getEditTextString();
             String newPassAgain = modify_phone_pwd_again_eiv.getEditTextString();
             String code = login_forget_pwd_vertification_code_eiv.getEditTextString();
+            if (checkNewPass(newPass, newPassAgain)) return;
 
             String codeText = CommonUtil.checkCode(code);
             if(codeText!=null){
                 toast(codeText);
                 return;
             }
-            if (checkNewPass(newPass, newPassAgain)) return;
             ChangePassWordReq req = new ChangePassWordReq();
             req.setNewPassword(newPass);
             req.setConfirmPassword(newPassAgain);

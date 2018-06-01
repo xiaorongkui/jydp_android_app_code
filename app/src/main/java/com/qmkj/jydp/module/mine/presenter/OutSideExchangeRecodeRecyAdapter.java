@@ -80,7 +80,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
 
         if(item.getDealStatus() == 1||item.getDealStatus() == 2){ //待确认收货
             if(item.getDealType()==1){  //买入
-                comfirm_receivables.setVisibility(View.VISIBLE);
+                comfirm_receivables.setVisibility(View.GONE);
                 comfirm_receivables.setText(CommonUtil.getString(R.string.comfirm_receivables_corn));
             }else if(item.getDealType()==2){
                 comfirm_receivables.setVisibility(View.VISIBLE);

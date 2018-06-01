@@ -14,6 +14,7 @@ public class MineRes extends BaseRes implements Serializable {
      */
 
     private UserInfoBean userInfo;
+    private int isDealer;
 
     public UserInfoBean getUserInfo() {
         return userInfo;
@@ -21,6 +22,14 @@ public class MineRes extends BaseRes implements Serializable {
 
     public void setUserInfo(UserInfoBean userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public int getIsDealer() {
+        return isDealer;
+    }
+
+    public void setIsDealer(int isDealer) {
+        this.isDealer = isDealer;
     }
 
     public static class UserInfoBean {

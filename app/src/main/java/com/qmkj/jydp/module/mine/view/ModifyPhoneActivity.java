@@ -59,8 +59,8 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     EditVItemView modify_phone_verification_code_eiv;
     @BindView(R.id.modify_phone_password_one_eiv)
     EditVItemView modify_phone_password_one_eiv;
-    private int splashTotalCountdownTime;
-    private int splashTotalCountdownTime_new;
+    private int splashTotalCountdownTime = 60;
+    private int splashTotalCountdownTime_new = 60;
     private Disposable disposable;
     private Disposable disposable_new;
 
@@ -201,13 +201,13 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         }
         String codeText = CommonUtil.checkCode(code_old);
         if(codeText!=null){
-            toast(codeText);
+            toast("旧手机"+codeText);
             return;
         }
 
         String codeNewText = CommonUtil.checkCode(code_new);
         if(codeNewText!=null){
-            toast(codeNewText);
+            toast("新手机"+codeNewText);
             return;
         }
         ChangePhoneReq changePhoneReq = new ChangePhoneReq();
@@ -261,6 +261,8 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case SEND_REQUEST:
                 toast("修改成功");
+                CommonUtil.getLoginInfo().getUser().setUserPhone( modify_phone_erea_et.getText().toString());
+                CommonUtil.getLoginInfo().getUser().setPhoneAreaCode( modify_phone_erea_tv.getText().toString());
                 CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
         }

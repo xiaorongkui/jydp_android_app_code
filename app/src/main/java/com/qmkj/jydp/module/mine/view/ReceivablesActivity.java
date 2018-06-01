@@ -125,10 +125,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
 
         receivables_bank_card_num_eiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         receivables_bank_card_num_eiv.setEditTextMaxLength(19);
-        receivables_bank_reserve_phone_eiv.setEditTextInputType(InputType.TYPE_CLASS_PHONE);
         receivables_bank_reserve_phone_eiv.setEditTextMaxLength(11);
-        receivables_alipay_account_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        receivables_wechat_account_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         receivables_bank_branch_name_eiv.setEditTextNoFu(30);
         receivables_bank_name_eiv.setEditTextNoFu(15);

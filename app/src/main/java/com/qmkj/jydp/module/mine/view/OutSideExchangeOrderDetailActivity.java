@@ -89,10 +89,6 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
                 presenter.getOutSideOrderDetaid(req,1,true);
                 break;
         }
-
-
-
-
     }
 
     @Override
@@ -136,7 +132,8 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
 
     private void setMessageView(OtcDealRecordDetailsRes.OtcTransactionUserDealBean res ) {
         String text = null;
-        switch (res.getDealType()){
+        //1：待完成，2：已付款（待确认），3：已完成，4：用户取消，5：商家取消
+        switch (res.getDealStatus()){
             case 1:
                 text ="待完成";
                 break;
@@ -178,7 +175,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         exchange_recode_detail_type_civ.setRightText(text_type);
         exchange_recode_detail_area_civ.setRightText(res.getArea());
         exchange_recode_detail_dealer_alipay_name_civ.setRightText(res.getDealerName());
-        exchange_recode_detail_dealer_alipay_phone_civ.setRightText(res.getPaymentPhone());
+        exchange_recode_detail_dealer_alipay_phone_civ.setRightText(res.getPhoneNumber());
         exchange_recode_detail_apply_time_civ.setRightText(DateUtil.longToTimeStr(res.getAddTime(),DateUtil.dateFormat1));
         exchange_recode_detail_finish_time_civ.setRightText(DateUtil.longToTimeStr(res.getUpdateTime(),DateUtil.dateFormat1));
 
@@ -199,7 +196,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
             case 3:
                 exchange_recode_detail_dealer_weixin_account_civ.setVisibility(View.VISIBLE);
                 exchange_recode_detail_dealer_alipay_img.setVisibility(View.VISIBLE);
-                exchange_recode_detail_dealer_alipay_account_civ.setRightText(res.getPaymentAccount());
+                exchange_recode_detail_dealer_weixin_account_civ.setRightText(res.getPaymentAccount());
                 GlideApp.with(mContext).load(res.getPaymentImage()).placeholder(R.mipmap.ic_launcher).into
                         (exchange_recode_detail_dealer_alipay_img);
                 break;

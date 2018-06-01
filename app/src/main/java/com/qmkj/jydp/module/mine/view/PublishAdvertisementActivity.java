@@ -238,12 +238,17 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
             toast("交易比例不能为空");
             return;
         }
+        if(Double.parseDouble(proportion)>=1000000){
+            toast("交易比例不能超过一百万");
+            return;
+        }
+
         if(StringUtil.isNull(min_et)){
             toast("最低交易限额不能为空");
             return;
         }
 
-        if(Double.parseDouble(min_et)>1000000){
+        if(Double.parseDouble(min_et)>=1000000){
             toast("最低限额不能超过一百万");
             return;
         }
@@ -253,7 +258,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
             return;
         }
 
-        if(Double.parseDouble(max_et)>1000000){
+        if(Double.parseDouble(max_et)>=1000000){
             toast("最高限额不能超过一百万");
             return;
         }

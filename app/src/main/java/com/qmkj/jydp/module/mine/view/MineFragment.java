@@ -261,17 +261,13 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     protected void initData() {
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null) getMineInfo();
-
-        subscribe = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(
-                exchangeEvent -> {
-                    if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null) getMineInfo();
-                }
-        );
+//        getMineInfo();
     }
 
     private void getMineInfo() {
-        presenter.getMineInfo(1, false);
+        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null){
+            presenter.getMineInfo(1, false);
+        }
     }
 
 
@@ -308,6 +304,15 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
             mine_totalUserBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getTotalUserBalance()),4)+"");
             mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalance()),4)+"");
             mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalanceLock()),4)+"");
+            if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null){
+                CommonUtil.getLoginInfo().getUser().setIsDealer(mineRes.getIsDealer());
+            }
+            if(mineRes.getIsDealer()==2){ //是经销商
+                mine_distributor_tv.setVisibility(View.VISIBLE);
+            }else {
+                mine_distributor_tv.setVisibility(View.GONE);
+            }
+            initRecycleView();
         }
         refreshLayout.refreshComplete();
     }
@@ -347,4 +352,17 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
         }
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        getMineInfo();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMineInfo();
+    }
+
 }

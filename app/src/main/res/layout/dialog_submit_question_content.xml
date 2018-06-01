@@ -4,12 +4,27 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="标题"
-        android:textColor="@color/colorBlack_13"
-        android:textSize="@dimen/text_size_15" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标题"
+            android:textColor="@color/colorBlack_13"
+            android:textSize="@dimen/text_size_15" />
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/color_red_3"
+            android:textSize="@dimen/text_size_15" />
+
+
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/question_title_edt"
@@ -28,14 +43,27 @@
         android:layout_height="@dimen/y0.5"
         android:layout_marginTop="@dimen/y10"
         android:background="@color/color_gray_3" />
-
-    <TextView
+    
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y20"
-        android:text="内容"
-        android:textColor="@color/colorBlack_13"
-        android:textSize="@dimen/text_size_15" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="内容"
+            android:textColor="@color/colorBlack_13"
+            android:textSize="@dimen/text_size_15" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/color_red_3"
+            android:textSize="@dimen/text_size_15" />
+
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/question_content_edt"

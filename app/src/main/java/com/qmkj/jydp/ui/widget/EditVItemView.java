@@ -199,7 +199,7 @@ public class EditVItemView extends LinearLayout {
                 mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER);
                 break;
             case phone:
-                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_PHONE);
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED);
                 break;
             case numberDecimal:
                 mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -468,7 +468,7 @@ public class EditVItemView extends LinearLayout {
         InputFilter filter = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                String speChat = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+                String speChat = "[_`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
                 Pattern pattern = Pattern.compile(speChat);
                 Matcher matcher = pattern.matcher(source.toString());
                 if (matcher.find()) return "";

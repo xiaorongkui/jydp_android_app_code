@@ -136,7 +136,7 @@ public class BaseRxPresenter<T extends BaseView> implements BasePresenter<T>, Ht
     public void onError(HandlerException.ResponeThrowable e, int tag) {
         switch (e.getCode()) {
             case NetResponseCode.HMC_SUCCESS_NULL:
-                onNext(new Object(), tag);
+                onNext(null, tag);
                 break;
             default:
                 mView.onError(e.getMessage(), e.getCode(), tag, e.getData());

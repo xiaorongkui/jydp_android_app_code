@@ -20,6 +20,7 @@ import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.dialog.UserWithdrawChooseCurrencyDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.MyTextWatcher;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.StringUtil;
 
 import java.math.BigDecimal;
@@ -80,18 +81,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     protected void initView() {
 
-        passwordEv.setEditTextInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        withdrawNumEv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_NUMBER_FLAG_SIGNED);
         withdrawNumEv.setEditTextTextWatch(new MyTextWatcher(withdrawNumEv.getEditTextView(), 4));
-        withdrawNumEv.setEditTextMaxLength(8);
-
-        EditText inputPasswordEdt = passwordEv.findViewById(R.id.edit_letf_et);
-        inputPasswordEdt.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
-        InputFilter[] passwordEdtFilters = {new InputFilter.LengthFilter(16)};
-        inputPasswordEdt.setFilters(passwordEdtFilters);
-
-        verificationCodeEv.setEditTextInputType(EditorInfo.TYPE_CLASS_NUMBER);
-        verificationCodeEv.setEditTextMaxLength(6);
 
         LoginRes.UserBean userBean = CommonUtil.getLoginInfo().getUser();
         verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + StringUtil.formatPhoneNum(userBean.getUserPhone()) + "发送一条短信验证码");
@@ -100,7 +90,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             UserWithdrawChooseCurrencyDialog userWithdrawChooseCurrencyDialog = new UserWithdrawChooseCurrencyDialog(mContext, userCoinWithdrawInfo.getUserCoinConfigList());
             userWithdrawChooseCurrencyDialog.setOnChooseCurrencyListener(bean -> {
                 chooseInfo = bean;
-                canWithdrawNumTv.setText(BigDecimal.valueOf(bean.getCurrencyNumber()) + "");
+                canWithdrawNumTv.setText(NumberUtil.doubleFormat(bean.getCurrencyNumber(),4) + "");
                 chooseCurrencyCv.setRightText(bean.getCurrencyName());
                 withdrawNumNoticeTv.setText("当前链种最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean.getFreeCurrencyNumber() + "需人工审核");
             });
@@ -148,9 +138,9 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             toast("请先选择币种");
             return;
         }
+        String number =withdrawNumEv.getEditTextString();
         String buyPwd = passwordEv.getEditTextString();
         int currencyId = chooseInfo.getCurrencyId();
-        double number = Double.parseDouble(withdrawNumEv.getEditTextString());
         String validateCode = verificationCodeEv.getEditTextString();
         //校验参数
         if (currencyId == 0) {
@@ -161,7 +151,10 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             toast("密码不能为空");
             return;
         }
-        if (number < chooseInfo.getMinCurrencyNumber()) {
+        if(StringUtil.isNull(number)){
+            toast("提币数量不能为空");
+        }
+        if (Double.valueOf(number) < chooseInfo.getMinCurrencyNumber()) {
             toast("数量不能小于最低数量");
             return;
         }

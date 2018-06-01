@@ -110,6 +110,7 @@
                     app:contentEditTextSize="@dimen/text_size_14"
                     app:contentEditTopMargin="@dimen/x15"
                     app:titleEndText="@string/asterisk"
+                    app:inputType="phone"
                     app:titleText="@string/bank_reserve_phone_num"
                     app:titleTopMargin="@dimen/x20"/>
             </LinearLayout>
