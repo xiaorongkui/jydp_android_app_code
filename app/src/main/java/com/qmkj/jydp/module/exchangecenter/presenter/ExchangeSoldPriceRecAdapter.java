@@ -4,16 +4,14 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -42,6 +40,6 @@ public class ExchangeSoldPriceRecAdapter extends BaseRecycleAdapter<ExchangeCent
         if (item == null) return;
         LogUtil.i("卖item=" + item.toString());
         priceTotalMoneyTv.setText(NumberUtil.format2Point(item.getPendingPrice()));
-        priceAmountTv.setText(NumberUtil.format4Point(item.getPendingNumber()));
+        priceAmountTv.setText(NumberUtil.format4Point(item.getRestNumber()));
     }
 }

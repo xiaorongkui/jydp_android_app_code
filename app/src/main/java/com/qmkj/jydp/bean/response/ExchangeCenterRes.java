@@ -502,9 +502,9 @@ public class ExchangeCenterRes extends BaseRes {
         private String restNumber;
         private String sumPrice;
 
-        public TransactionPendOrderSellListBean(String pendingPrice, String pendingNumber) {
+        public TransactionPendOrderSellListBean(String pendingPrice, String restNumber) {
             this.pendingPrice = pendingPrice;
-            this.pendingNumber = pendingNumber;
+            this.restNumber = restNumber;
         }
 
         public String getPendingPrice() {
@@ -549,9 +549,9 @@ public class ExchangeCenterRes extends BaseRes {
     }
 
     public static class TransactionPendOrderBuyListBean {
-        public TransactionPendOrderBuyListBean(String pendingPrice, String pendingNumber) {
+        public TransactionPendOrderBuyListBean(String pendingPrice, String restNumber) {
             this.pendingPrice = pendingPrice;
-            this.pendingNumber = pendingNumber;
+            this.restNumber = restNumber;
         }
 
         @Override

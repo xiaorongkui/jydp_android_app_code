@@ -100,7 +100,7 @@ public class OutSideSoldDetailActivity extends BaseMvpActivity<OutsideExchangePr
 
     @Override
     protected void initView() {
-        outSideSellDetailRes = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_1);
+        outSideSellDetailRes = (OutSideSellDetailRes) getIntent().getSerializableExtra(Constants.INTENT_PARAMETER_1);
         if (outSideSellDetailRes == null || outSideSellDetailRes.getOtcTransactionPendOrder() == null) return;
 
         distributorNameCiv.setRightText(outSideSellDetailRes.getOtcTransactionPendOrder().getDealerName());

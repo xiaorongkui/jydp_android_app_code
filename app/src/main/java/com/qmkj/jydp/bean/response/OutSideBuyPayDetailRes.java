@@ -47,6 +47,7 @@ public class OutSideBuyPayDetailRes extends BaseRes implements Parcelable {
         phoneNumber = in.readString();
         dealerName = in.readString();
         buyNum = in.readString();
+        userPaymentType = in.readParcelable(getClass().getClassLoader());
         userName = in.readString();
         paymentType = in.readInt();
     }
@@ -137,6 +138,7 @@ public class OutSideBuyPayDetailRes extends BaseRes implements Parcelable {
         dest.writeString(phoneNumber);
         dest.writeString(dealerName);
         dest.writeString(buyNum);
+        dest.writeParcelable(userPaymentType, flags);
         dest.writeString(userName);
         dest.writeInt(paymentType);
     }

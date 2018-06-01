@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding2.view.RxView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
@@ -381,6 +380,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
             case EXCHANGE_CANCLE_ORDER_TAG:
                 toast("撤单成功");
                 getExchangeRecode(true);
+                getExchangeCenterData(false);
                 break;
             case EXCHANGE_PENDORDER_TAG:
                 ExchangeCenterRes centerResPend0rder = null;

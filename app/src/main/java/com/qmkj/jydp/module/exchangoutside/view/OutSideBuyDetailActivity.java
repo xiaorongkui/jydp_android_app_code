@@ -1,7 +1,6 @@
 package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,13 +8,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dd.ShadowLayout;
-import com.jakewharton.rxbinding2.view.RxView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
-import com.qmkj.jydp.bean.request.OutSideBuyPayDetailReq;
 import com.qmkj.jydp.bean.request.OutSideBuyPayReq;
 import com.qmkj.jydp.bean.response.OutSideBuyPayDetailRes;
 import com.qmkj.jydp.common.Constants;
@@ -26,10 +23,7 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxBus;
 
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * author：rongkui.xiao --2018/5/7
@@ -137,8 +131,11 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
 
     @Override
     protected void initView() {
-        RxView.clicks(comfirmSoldComfirmBt).throttleFirst(2, TimeUnit.SECONDS).compose(bindToLifecycle()).observeOn
-                (AndroidSchedulers.mainThread()).subscribe(o -> startPayment());
+        comfirmSoldComfirmBt.setOnClickListener(v -> {
+            startPayment();
+        });
+//        RxView.clicks(comfirmSoldComfirmBt).throttleFirst(2, TimeUnit.SECONDS).compose(bindToLifecycle()).observeOn
+//                (AndroidSchedulers.mainThread()).subscribe(o -> startPayment());
     }
 
     private void startPayment() {

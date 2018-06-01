@@ -13,8 +13,6 @@ import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
@@ -41,7 +39,7 @@ public class ExchangebuyPriceRecAdapter extends BaseRecycleAdapter<ExchangeCente
         if (item == null) return;
         LogUtil.i("买item=" + item.toString());
         priceTotalMoneyTv.setText(NumberUtil.format2Point(item.getPendingPrice()));
-        priceAmountTv.setText(NumberUtil.format4Point(item.getPendingNumber()));
+        priceAmountTv.setText(NumberUtil.format4Point(item.getRestNumber()));
 
     }
 }
