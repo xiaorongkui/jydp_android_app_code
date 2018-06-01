@@ -21,11 +21,13 @@ import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeDetailsActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.ui.AutoHeighBanner;
+import com.qmkj.jydp.ui.widget.FullGridView;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
+import com.qmkj.jydp.util.LogUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -52,7 +54,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     @BindView(R.id.home_list_rv)
     RecyclerView homeListRv;
     @BindView(R.id.home_introduce_gv)
-    GridView homeIntroduceGv;
+    FullGridView homeIntroduceGv;
     @BindView(R.id.home_scroll_view)
     SmoothScrollView homeScrollView;
     @BindView(R.id.home_fragment_hcswipe_refresh)
@@ -100,13 +102,22 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         homeIntroduceGv.setOnItemClickListener((parent, view, position, id) -> {
             HomeDataRes.SystemBusinessesPartnerListBean listBean = data.get(position);
             if (listBean == null) return;
-            if (!TextUtils.isEmpty(listBean.getWebLinkUrl())) {
+            if (!TextUtils.isEmpty(listBean.getWebLinkUrl()) && listBean.getWebLinkUrl().startsWith("http")) {
                 Intent intent = WebActivity.getActivityIntent(mContext, listBean.getBusinessesName(), listBean
                         .getWebLinkUrl());
                 CommonUtil.gotoActivity(mContext, intent);
             }
 
         });
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogUtil.i("首页 onHiddenChanged=" + hidden);
+        if (!hidden) {
+            getHomeData(false);
+        }
     }
 
     ArrayList<HomeDataRes.TransactionUserDealListBean> exchangeList = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxBus;
 
 import java.util.concurrent.TimeUnit;
@@ -36,7 +38,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  */
 
 public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePresenter> {
-    private static final int BUY_DETAIL_INFO_TAG = 1;
     private static final int BUY_PAY_TAG = 2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -78,8 +79,9 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
     ImageView weixinIv;
     @BindView(R.id.weixin_pyament_method_sl)
     ShadowLayout weixinPyamentMethodSl;
-    private OutSideBuyPayDetailReq outSideBuyPayDetailReq;
-
+    private OutSideBuyPayDetailRes outSideBuyPayDetailRes;
+    private String paymentMoney;
+    OutSideBuyPayDetailRes.UserPaymentTypeBean bean;
     @Override
     protected void injectPresenter() {
         getActivityComponent().inject(this);
@@ -87,14 +89,41 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
 
     @Override
     protected void initData() {
-        outSideBuyPayDetailReq = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_1);
-        getBuyDetailData();
+        outSideBuyPayDetailRes = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_1);
+        paymentMoney = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
+        bean = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_3);
+        if (outSideBuyPayDetailRes == null) return;
+        outsideBuyDistributorNameCiv.setRightText(outSideBuyPayDetailRes.getDealerName());
+        businessPhoneCiv.setRightText(outSideBuyPayDetailRes.getPhoneNumber());
+        businessNameCiv.setRightText(outSideBuyPayDetailRes.getUserName());
+
+        LogUtil.i("bean=" + (bean == null ? "" : bean.toString()));
+        if (bean == null) return;
+        switch (bean.getPaymentType()) {
+            case 1://银行卡
+                bankPyamentMethodSl.setVisibility(View.VISIBLE);
+                bankPyamentMethodCardNumCiv.setRightText(bean.getPaymentAccount());
+                bankPyamentMethodBankNameCiv.setRightText(bean.getBankName());
+                bankPyamentMethodBankBranchNameCiv.setRightText(bean.getBankBranch());
+                bankPyamentMethodBankPayeeNameCiv.setRightText(bean.getPaymentName());
+                bankPyamentMethodBankPayeePhoneCiv.setRightText(bean.getPaymentPhone());
+                break;
+            case 2://支付宝
+                alipayPyamentMethodSl.setVisibility(View.VISIBLE);
+
+                alipayCiv.setRightText(bean.getPaymentAccount());
+                GlideApp.with(mContext).load(bean.getPaymentImageFormat()).into(alipayIv);
+                break;
+            case 3://微信
+                weixinPyamentMethodSl.setVisibility(View.VISIBLE);
+                weixinCiv.setRightText(bean.getPaymentAccount());
+                GlideApp.with(mContext).load(bean.getPaymentImageFormat()).into(weixinIv);
+                break;
+        }
+        soldAmountCiv.setRightText(outSideBuyPayDetailRes.getBuyNum());
+        obtainedMoneyCiv.setRightText("¥" + paymentMoney);//todo
     }
 
-    private void getBuyDetailData() {
-        if (outSideBuyPayDetailReq == null) return;
-        presenter.payOutsideDetailConfirm(outSideBuyPayDetailReq, BUY_DETAIL_INFO_TAG, true);
-    }
 
     @Override
     protected void initTitle() {
@@ -108,16 +137,17 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
 
     @Override
     protected void initView() {
-        showSuccessView(exchangeOutsideDetailLl, false);
         RxView.clicks(comfirmSoldComfirmBt).throttleFirst(2, TimeUnit.SECONDS).compose(bindToLifecycle()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe(o -> startPayment());
     }
 
     private void startPayment() {
         OutSideBuyPayReq outSideBuyPayReq = new OutSideBuyPayReq();
-        outSideBuyPayReq.setPaymentType(outSideBuyPayDetailReq.getPaymentType());
-        outSideBuyPayReq.setOtcPendingOrderNo(outSideBuyPayDetailReq.getOtcPendingOrderNo());
-        outSideBuyPayReq.setBuyNum(outSideBuyPayDetailReq.getBuyNum());
+        OutSideBuyPayDetailRes.UserPaymentTypeBean userPaymentType = outSideBuyPayDetailRes.getUserPaymentType();
+        if (userPaymentType == null) return;
+        outSideBuyPayReq.setPaymentType(userPaymentType.getPaymentType() + "");
+        outSideBuyPayReq.setOtcPendingOrderNo(userPaymentType.getOtcPendingOrderNo());
+        outSideBuyPayReq.setBuyNum(outSideBuyPayDetailRes.getBuyNum());
         presenter.payOutsideExchange(outSideBuyPayReq, BUY_PAY_TAG, true);
     }
 
@@ -125,47 +155,6 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag) {
-            case BUY_DETAIL_INFO_TAG:
-                OutSideBuyPayDetailRes outSideBuyPayDetailRes = (OutSideBuyPayDetailRes) response;
-                if (outSideBuyPayDetailRes == null || outSideBuyPayDetailRes.getOtcDealerUserDO() == null ||
-                        outSideBuyPayDetailRes
-                                .getUserPaymentType() == null) {
-                    toast("数去获取为空");
-                    return;
-                }
-                OutSideBuyPayDetailRes.OtcDealerUserDOBean otcDealerUserDO = outSideBuyPayDetailRes
-                        .getOtcDealerUserDO();
-                showSuccessView(exchangeOutsideDetailLl, true);
-                outsideBuyDistributorNameCiv.setRightText(outSideBuyPayDetailRes.getDealerName());
-                businessPhoneCiv.setRightText(outSideBuyPayDetailRes.getPhoneNumber());
-                businessNameCiv.setRightText(outSideBuyPayDetailRes.getUserName());
-
-                OutSideBuyPayDetailRes.UserPaymentTypeBean bean = outSideBuyPayDetailRes
-                        .getUserPaymentType();
-                switch (bean.getPaymentType()) {
-                    case 1://银行卡
-                        bankPyamentMethodSl.setVisibility(View.VISIBLE);
-                        bankPyamentMethodCardNumCiv.setRightText(bean.getPaymentAccount());
-                        bankPyamentMethodBankNameCiv.setRightText(bean.getBankName());
-                        bankPyamentMethodBankBranchNameCiv.setRightText(bean.getBankBranch());
-                        bankPyamentMethodBankPayeeNameCiv.setRightText(bean.getPaymentName());
-                        bankPyamentMethodBankPayeePhoneCiv.setRightText(bean.getPaymentPhone());
-                        break;
-                    case 2://支付宝
-                        alipayPyamentMethodSl.setVisibility(View.VISIBLE);
-
-                        alipayCiv.setRightText(bean.getPaymentAccount());
-                        GlideApp.with(mContext).load(bean.getPaymentImageFormat()).into(alipayIv);
-                        break;
-                    case 3://微信
-                        weixinPyamentMethodSl.setVisibility(View.VISIBLE);
-                        weixinCiv.setRightText(bean.getPaymentAccount());
-                        GlideApp.with(mContext).load(bean.getPaymentImageFormat()).into(weixinIv);
-                        break;
-                }
-                soldAmountCiv.setRightText(outSideBuyPayDetailRes.getBuyNum());
-                obtainedMoneyCiv.setRightText("¥" + outSideBuyPayDetailReq.getPayMentMoney());//todo
-                break;
             case BUY_PAY_TAG:
                 toast("购买成功");
                 RxBus.getDefault().post(new OutSideExchangeEvent());
@@ -181,21 +170,6 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
     @Override
     public void onError(String errorMsg, String code, int tag, Object response) {
         super.onError(errorMsg, code, tag, response);
-        switch (tag) {
-            case BUY_DETAIL_INFO_TAG:
-                showNetErrorView(exchangeOutsideDetailLl, true);
-                break;
-        }
-    }
-
-    @Override
-    protected void tryData(int id) {
-        super.tryData(id);
-        switch (id) {
-            case R.id.exchange_outside_detail_ll:
-                getBuyDetailData();
-                break;
-        }
     }
 
 }

@@ -106,4 +106,5 @@ public abstract class BaseRecycleAdapter<T> extends BaseQuickAdapter<T, BaseRecy
             unbinder.unbind();
         }
     }
+
 }

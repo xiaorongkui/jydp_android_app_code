@@ -77,19 +77,11 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         getFragmentComponent().inject(this);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        initView();
-    }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            initView();
-        }
-        LogUtil.i("onHiddenChanged=" + hidden);
+    protected void onViewResume() {
+        super.onViewResume();
+        initView();
     }
 
     @Override

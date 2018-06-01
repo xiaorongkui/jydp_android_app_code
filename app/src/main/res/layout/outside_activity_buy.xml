@@ -120,7 +120,7 @@
                     android:layout_marginEnd="@dimen/x5"
                     android:layout_toStartOf="@id/outside_buy_pay_mothed_iv"
                     android:gravity="center_vertical"
-                    android:text="@string/bank_card_transfer"
+                    android:text="@string/sell_method_select"
                     android:textColor="@color/color_bule_1"
                     android:textSize="@dimen/text_size_15"/>
             </RelativeLayout>

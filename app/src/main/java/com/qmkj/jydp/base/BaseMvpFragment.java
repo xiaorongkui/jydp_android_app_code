@@ -31,6 +31,7 @@ import javax.inject.Named;
  */
 
 public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragment implements BaseView {
+
     @Inject
     public T presenter;
     private CommonDialog loginCommonDialog;
@@ -68,15 +69,15 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
 
     @Override
     public void onSuccess(Object response, int tag) {
-
+//        LogUtil.i(response == null ? "null" : response.toString());
+//        if (response == null) return;
     }
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
         LogUtil.i("接口请求失败" + ";errorMsg=" + errorMsg + ";errorcode=" + code + ";tag=" + tag);
-
+        if (isShowDefaultToast()) toast(errorMsg);
         if (TextUtils.isEmpty(code)) {
-            toast(errorMsg);
             return;
         }
         switch (code) {
@@ -94,9 +95,12 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
                 }
                 break;
             default:
-                toast(errorMsg);
                 break;
         }
+    }
+
+    protected boolean isShowDefaultToast() {
+        return true;
     }
 
     @Override

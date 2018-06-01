@@ -461,6 +461,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 CommonUtil.setUserAccount(registerAccountEiv.getEditTextString());
                 Intent intent1 = new Intent(mContext, CertificationActivity.class);
                 intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
+                intent1.putExtra(Constants.INTENT_PARAMETER_2, registerAccountEiv.getEditTextString());
+                CommonUtil.setUserAccount(account);
                 CommonUtil.gotoActivity(mContext, intent1);
                 clearRegisterData();
                 break;
@@ -491,9 +493,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 }
                 switch (code) {
                     case SystemMessageConfig.NOIDENTIFICATION_CODE + ""://未审核
-                        if (TextUtils.isEmpty(account)) {
-                            account = registerAccountEiv.getEditTextString();
-                        }
+
                         CommonUtil.setUserAccount(account);
                         Intent intent1 = new Intent(mContext, CertificationActivity.class);
                         intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
@@ -501,9 +501,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                         CommonUtil.gotoActivity(mContext, intent1);
                         break;
                     case SystemMessageConfig.NOADOPT_CODE + ""://审核中
-                        if (TextUtils.isEmpty(account)) {
-                            account = registerAccountEiv.getEditTextString();
-                        }
+
                         CommonUtil.setUserAccount(account);
                         Intent intent2 = new Intent(mContext, CertificationActivity.class);
                         intent2.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_CHECK);
@@ -511,9 +509,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                         CommonUtil.gotoActivity(mContext, intent2);
                         break;
                     case SystemMessageConfig.REFUE_CODE + ""://拒绝
-                        if (TextUtils.isEmpty(account)) {
-                            account = registerAccountEiv.getEditTextString();
-                        }
+
                         CommonUtil.setUserAccount(account);
                         Intent intent3 = new Intent(mContext, CertificationActivity.class);
                         intent3.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_PASS);

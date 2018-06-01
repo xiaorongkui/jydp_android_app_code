@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
@@ -132,6 +133,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private ExchangeCenterRes.StandardParameterBean standardParameter;
     private Disposable subscribe_2;
     boolean isLogin = false;
+    private double recodeTime;
 
     public String getCurrencyId() {
         return currencyId;
@@ -158,6 +160,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         }
         subscribe_1 = RxBus.getDefault().toObservable(ExchangeEvent.class).subscribe(exchangeEvent -> {
             getExchangeCenterData(true);
+            getExchangeRecode(false);
+            getExchangePendOrder(true);
         });
         subscribe_2 = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(exchangeEvent -> {
             getExchangeCenterData(true);
@@ -217,14 +221,19 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
         entrustRecodeRecAdapter.setEmptyView(mEmptyView);
         entrustRecodeRv.setAdapter(entrustRecodeRecAdapter);
+
         entrustRecodeRecAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.entrust_cancel_tv:
-                    showCancleDialog(position);//撤销
+                    if (System.currentTimeMillis() - recodeTime < 2000) {
+                        //退出程序 两秒内的事件不触发
+                    } else {
+                        showCancleDialog(position);//撤销
+                        recodeTime = System.currentTimeMillis();
+                    }
                     break;
             }
         });
-
     }
 
     private void showCancleDialog(int position) {
@@ -233,6 +242,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         commonCancleDialog.setOnPositiveButtonClickListener((dialog, view) -> {
             CancleOrderReq cancleOrderReq = new CancleOrderReq();
             cancleOrderReq.setPendingOrderNo(entrustRecodeDatas.get(position).getPendingOrderNo());
+            if (commonCancleDialog != null && commonCancleDialog.isShowing()) commonCancleDialog.dismiss();
             presenter.cancleOrder(cancleOrderReq, EXCHANGE_CANCLE_ORDER_TAG, true);
         });
         commonCancleDialog.setOnNegativeButtonClickListener((dialog, view) -> commonCancleDialog.dismiss());
@@ -369,9 +379,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 }
                 break;
             case EXCHANGE_CANCLE_ORDER_TAG:
-                if (commonCancleDialog != null && commonCancleDialog.isShowing()) commonCancleDialog.dismiss();
                 toast("撤单成功");
-                getExchangeCenterData(false);
+                getExchangeRecode(true);
                 break;
             case EXCHANGE_PENDORDER_TAG:
                 ExchangeCenterRes centerResPend0rder = null;
@@ -401,7 +410,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 }
                 refreshEntrustRecod(centerResEntrustRecode.getTransactionPendOrderList());
                 break;
-            case EXCHANGE_DEALPRICE_TAG:
+            case EXCHANGE_DEALPRICE_TAG://获取当前价
                 ExchangeCenterRes centerResDealPrice = null;
                 try {
                     centerResDealPrice = (ExchangeCenterRes) response;
@@ -422,25 +431,31 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     public void onError(String errorMsg, String code, int tag, Object o) {
         super.onError(errorMsg, code, tag, o);
         switch (tag) {
-            case EXCHANGE_ENTRUSTRECODE_TAG://挂单记录
+            case EXCHANGE_ENTRUSTRECODE_TAG://委托记录
                 switch (code) {
                     case NetResponseCode.HMC_NO_LOGIN:
                         isLogin = false;
                         break;
                 }
+            case EXCHANGE_CANCLE_ORDER_TAG://取消挂单
+                getExchangeRecode(false);
+                break;
+            case EXCHANGE_DEALPRICE_TAG://获取当前价，头部信息
+//                toast(errorMsg);
+                break;
+            case EXCHANGE_PENDORDER_TAG://五档信息
+//              LogUtil.i();
+                break;
+            case EXCHANGE_CENTER_DATA_TAG://交易中心数据
+                toast(errorMsg);
                 break;
         }
 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (timeDownDisposable == null || timeDownDisposable.isDisposed()) {
-            getExchangeCenterData(true);
-            initCountTimer();
-        }
-        LogUtil.i("交易中心 onResume");
+    protected boolean isShowDefaultToast() {
+        return false;
     }
 
     @Override
@@ -453,17 +468,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            if (timeDownDisposable == null || timeDownDisposable.isDisposed()) {
-                getExchangeCenterData(true);
-                initCountTimer();
-            }
-        } else {
-            if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
-                timeDownDisposable.dispose();
-            }
+    protected void onViewResume() {
+        super.onViewResume();
+        if (timeDownDisposable == null || timeDownDisposable.isDisposed()) {
+            getExchangeCenterData(true);
+            initCountTimer();
         }
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -471,10 +480,32 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
             currencyId = arguments.getString(Constants.INTENT_PARAMETER_2);
         }
         exchangeTitleTv.setText(currencyName);
-        LogUtil.i("交易中心 onHiddenChanged");
-        ((ExchangeBuyFragment) pagerAdapter.getItem(0)).onHiddenChanged(hidden);
-        ((ExchangeSoldFragment) pagerAdapter.getItem(1)).onHiddenChanged(hidden);
     }
+
+    @Override
+    protected void onViewPause() {
+        super.onViewPause();
+        if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
+            timeDownDisposable.dispose();
+        }
+    }
+
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        this.hidden = hidden;
+//        if (!hidden) {
+//            if (timeDownDisposable == null || timeDownDisposable.isDisposed()) {
+//                getExchangeCenterData(true);
+//                initCountTimer();
+//            }
+//        } else {
+//            if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
+//                timeDownDisposable.dispose();
+//            }
+//        }
+//
+//    }
 
     @Override
     public void onClick(View v) {
