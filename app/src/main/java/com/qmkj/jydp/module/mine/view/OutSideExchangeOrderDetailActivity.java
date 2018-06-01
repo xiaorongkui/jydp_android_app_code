@@ -126,28 +126,13 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
 
     private void setMessageView(OtcDealRecordDetailsRes.OtcTransactionUserDealBean res ) {
         String text = null;
-        //1：待完成，2：已付款（待确认），3：已完成，4：用户取消，5：商家取消
-        switch (res.getDealStatus()){
-            case 1:
-                text ="待完成";
-                register_bt.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                text ="待确认";
-                register_bt.setVisibility(View.VISIBLE);
-                break;
-            case 3:
-                text ="已完成";
-                register_bt.setVisibility(View.GONE);
-                break;
-            case 4:
-                text ="用户取消";
-                register_bt.setVisibility(View.GONE);
-                break;
-            case 5:
-                text ="商家取消";
-                register_bt.setVisibility(View.GONE);
-                break;
+        //4：已完成， 其他：待确认
+        if(res.getDealStatus()==4){
+            text ="已完成";
+            register_bt.setVisibility(View.GONE);
+        }else {
+            text ="待确认";
+            register_bt.setVisibility(View.VISIBLE);
         }
         order_detail_status_tv.setText(text);
         outside_exchange_recode_order_num_tv.setText(res.getOtcOrderNo());

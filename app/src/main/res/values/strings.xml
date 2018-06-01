@@ -201,7 +201,7 @@
     <string name="look_more">查看更多</string>
     <string name="dealer_managment">经销商管理</string>
     <string name="area">地区</string>
-    <string name="exchange_limit_cny">交易限额(CNY)</string>
+    <string name="exchange_limit_cny">交易限量(个)</string>
     <string name="exchange_limit">交易限额</string>
     <string name="delete">删除</string>
     <string name="send_advertisement">发起广告</string>

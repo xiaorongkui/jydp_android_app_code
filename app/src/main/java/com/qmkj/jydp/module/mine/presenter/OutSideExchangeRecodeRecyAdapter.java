@@ -101,32 +101,14 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         order_num.setText(item.getOtcOrderNo()+"");
         name.setText(item.getCurrencyName());
         String text = null;
-        switch (item.getDealStatus()){
-            case 1:
-                text = "待完成";
-                recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
-                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
-                break;
-            case 2:
-                text = "待确认";
-                recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
-                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
-                break;
-            case 3:
-                text = "已完成";
-                recode_status.setBackgroundResource(R.drawable.shape_shell_bg);
-                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
-                break;
-            case 4:
-                text = "用户取消";
-                recode_status.setBackgroundResource(R.drawable.shape_cancel_bg);
-                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_gray_2));
-                break;
-            case 5:
-                text = "商家取消";
-                recode_status.setBackgroundResource(R.drawable.shape_cancel_bg);
-                recode_status.setTextColor(mContext.getResources().getColor(R.color.color_gray_2));
-                break;
+        if(item.getDealStatus()==4){
+            text = "已完成";
+            recode_status.setBackgroundResource(R.drawable.shape_shell_bg);
+            recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+        }else {
+            text = "待确认";
+            recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
+            recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
         }
         recode_status.setText(text);
         amount.setText(item.getCurrencyNumber()+"");

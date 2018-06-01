@@ -177,6 +177,11 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         String phone = modify_phone_erea_et.getText().toString();
         String phoneAreaCode = modify_phone_erea_tv.getText().toString();
         String passWord = modify_phone_password_one_eiv.getEditTextString();
+        String codeText = CommonUtil.checkCode(code_old);
+        if(codeText!=null){
+            toast("旧手机"+codeText);
+            return;
+        }
         if (TextUtils.isEmpty(phone)) {
             toast("新的手机号码不能为空");
             return;
@@ -191,6 +196,11 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
             }
         }
 
+        String codeNewText = CommonUtil.checkCode(code_new);
+        if(codeNewText!=null){
+            toast("新手机"+codeNewText);
+            return;
+        }
         if (TextUtils.isEmpty(passWord)) {
             toast("登录密码不能为空");
             return;
@@ -199,17 +209,8 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
             toast("登录密码必须是字母、数字，6～16个字符");
             return;
         }
-        String codeText = CommonUtil.checkCode(code_old);
-        if(codeText!=null){
-            toast("旧手机"+codeText);
-            return;
-        }
 
-        String codeNewText = CommonUtil.checkCode(code_new);
-        if(codeNewText!=null){
-            toast("新手机"+codeNewText);
-            return;
-        }
+
         ChangePhoneReq changePhoneReq = new ChangePhoneReq();
         changePhoneReq.setOldValidCode(code_old);
         changePhoneReq.setNewValidCode(code_new);
@@ -264,6 +265,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 CommonUtil.getLoginInfo().getUser().setUserPhone( modify_phone_erea_et.getText().toString());
                 CommonUtil.getLoginInfo().getUser().setPhoneAreaCode( modify_phone_erea_tv.getText().toString());
                 CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
+                finish();
                 break;
         }
     }
