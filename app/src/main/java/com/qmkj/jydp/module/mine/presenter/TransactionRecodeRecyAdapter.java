@@ -62,10 +62,13 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
                 recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
                 recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
                 recode_status.setText(CommonUtil.getString(R.string.buy_1));
+                transaction_actual_account_title_tv.setText(CommonUtil.getString(R.string.actual_account2_xt));
+
                 break;
             case 2: text = "卖出";
                 recode_status.setBackgroundResource(R.drawable.shape_shell_bg);
                 recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                transaction_actual_account_title_tv.setText(CommonUtil.getString(R.string.actual_account_xt));
                 recode_status.setText(CommonUtil.getString(R.string.sell));
                 break;
             case 3: text = "撤销";

@@ -167,7 +167,7 @@
                             app:leftTextColor="@color/colorBlack_13"
                             app:leftTextSize="@dimen/text_size_14"
                             app:rightIconVisible="true"
-                            app:rightText="选择链种"
+                            app:rightText="选择链"
                             app:rightTextColor="@color/color_black_2"
                             app:rightTextSize="@dimen/text_size_13" />
 
