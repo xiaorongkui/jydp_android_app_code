@@ -534,6 +534,7 @@
     <Button
         android:id="@+id/register_bt"
         style="@style/btn_blue"
+        android:visibility="gone"
         android:layout_marginBottom="@dimen/y15"
         android:layout_marginLeft="@dimen/x15"
         android:layout_marginRight="@dimen/x15"

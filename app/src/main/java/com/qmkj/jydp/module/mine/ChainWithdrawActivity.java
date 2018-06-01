@@ -90,7 +90,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             UserWithdrawChooseCurrencyDialog userWithdrawChooseCurrencyDialog = new UserWithdrawChooseCurrencyDialog(mContext, userCoinWithdrawInfo.getUserCoinConfigList());
             userWithdrawChooseCurrencyDialog.setOnChooseCurrencyListener(bean -> {
                 chooseInfo = bean;
-                canWithdrawNumTv.setText(NumberUtil.doubleFormat(bean.getCurrencyNumber(),4) + "");
+                canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(bean.getCurrencyNumber()+""),4) + "");
                 chooseCurrencyCv.setRightText(bean.getCurrencyName());
                 withdrawNumNoticeTv.setText("当前链种最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean.getFreeCurrencyNumber() + "需人工审核");
             });

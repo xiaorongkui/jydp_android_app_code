@@ -84,7 +84,9 @@ public class ContactServiceRecyAdapter extends XBaseAdapter<CustomerServiceRes.U
         //feedback
         TextView answer = helper.getView(R.id.contact_service_answer_tv);
         View line = helper.getView(R.id.common_line);
-        answer.setText(Html.fromHtml(item.getHandleContent()));
+        if(item!=null&&item.getHandleContent()!=null){
+            answer.setText(Html.fromHtml(item.getHandleContent()));
+        }
         if (StringUtil.isNull(item.getHandleContent())) {
             line.setVisibility(View.GONE);
             answer.setVisibility(View.GONE);

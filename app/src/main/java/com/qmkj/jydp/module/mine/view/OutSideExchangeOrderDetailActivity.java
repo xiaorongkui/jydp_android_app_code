@@ -103,12 +103,6 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
 
     @Override
     protected void initView() {
-        int type =getIntent().getIntExtra("TYPE",0);
-        if(type==0){
-            register_bt.setVisibility(View.GONE);
-        }else {
-            register_bt.setVisibility(View.VISIBLE);
-        }
 
     }
 
@@ -136,18 +130,23 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         switch (res.getDealStatus()){
             case 1:
                 text ="待完成";
+                register_bt.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 text ="待确认";
+                register_bt.setVisibility(View.VISIBLE);
                 break;
             case 3:
                 text ="已完成";
+                register_bt.setVisibility(View.GONE);
                 break;
             case 4:
                 text ="用户取消";
+                register_bt.setVisibility(View.GONE);
                 break;
             case 5:
                 text ="商家取消";
+                register_bt.setVisibility(View.GONE);
                 break;
         }
         order_detail_status_tv.setText(text);
@@ -202,11 +201,6 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
                 break;
         }
 
-        if(res.getDealType()==1){  //买入
-            register_bt.setText(CommonUtil.getString(R.string.comfirm_receivables_corn));
-        }else if(res.getDealType()==2){
-            register_bt.setText(CommonUtil.getString(R.string.comfirm_receivables));
-        }
         register_bt.setOnClickListener(this);
     }
 
@@ -222,15 +216,15 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
                 OutSideDetailReq req =new OutSideDetailReq();
                 req.setOtcOrderNo(data.getOtcOrderNo());
                 if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){   //=2 为经销商
-                    if(data.getDealType()==1){  //收货
-                        presenter.getOutSideOrderTakeCoin(req,SEND_REQUEST,true);
-                    }else if(data.getDealType()==2){//收钱
-                        presenter.getOutSideOrderTakeMoney(req,SEND_REQUEST,true);
-                    }
+//                    if(data.getDealType()==1){  //收货
+//                        presenter.getOutSideOrderTakeCoin(req,SEND_REQUEST,true);
+//                    }else
+//                    if(data.getDealType()==2){//收钱
+                    presenter.getOutSideOrderTakeMoney(req,SEND_REQUEST,true);
+//                    }
                 }else {
                     presenter.getOutSideOrderTakeUser(req,SEND_REQUEST,true);
                 }
-
                 break;
         }
     }

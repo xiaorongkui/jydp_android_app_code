@@ -50,13 +50,13 @@ public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRe
         //挂单类型 1：出售，2：回购
         switch (item.getOrderType()){
             case 1:
-                dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_shell_bg);
-                dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_buy_bg);
+                dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
                 dealer_management_buy_tv.setText(CommonUtil.getString(R.string.sell));
                 break;
             case 2:
-                dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_buy_bg);
-                dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_shell_bg);
+                dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
                 dealer_management_buy_tv.setText(CommonUtil.getString(R.string.buy_2));
                 break;
         }

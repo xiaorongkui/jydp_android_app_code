@@ -1,6 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,10 +15,13 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
+import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OutSideExchangeRecodeRecyAdapter;
+import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
+import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -33,6 +37,7 @@ import butterknife.BindView;
  */
 
 public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
+    private static final int SEND_REQUEST = 2;
     private static final int GET_DATA = 1;
     private static final int NEXT_ACTIVITY_CODE= 100;
     @BindView(R.id.title_header_tv)
@@ -125,14 +130,30 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
             intent.putExtra("NUMBER",outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
             intent.putExtra(MineRecodeActivity.RECODE_TYPE,type);
             switch (view.getId()) {
-                case R.id.outside_exchange_recode_see_detail_tv:
-                    intent.putExtra("TYPE",0);
+                case R.id.outside_exchange_recode_see_detail_tv: //查看详情
+                    CommonUtil.startActivityForResult(mContext,intent,NEXT_ACTIVITY_CODE);
+
                     break;
-                case R.id.outside_exchange_recode_comfirm_receivables_tv:
-                    intent.putExtra("TYPE",1);
+                case R.id.outside_exchange_recode_comfirm_receivables_tv: //确认收款
+                    CommonDialog commonDialog = new CommonDialog(this);
+                    commonDialog.setTitleText("确认收款");
+                    commonDialog.setContentText("确认已收到货款？");
+                    commonDialog.setOnPositiveButtonClickListener(new BaseDialog.OnPositiveButtonClickListener() {
+                        @Override
+                        public void onClick(Dialog dialog, View view) {
+                            OutSideDetailReq req =new OutSideDetailReq();
+                            req.setOtcOrderNo(outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
+                            if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){   //=2 为经销商
+                                presenter.getOutSideOrderTakeMoney(req,SEND_REQUEST,true);
+                            }else {
+                                presenter.getOutSideOrderTakeUser(req,SEND_REQUEST,true);
+                            }
+                            commonDialog.dismiss();
+                        }
+                    });
+                    commonDialog.show();
                     break;
             }
-            CommonUtil.startActivityForResult(mContext,intent,NEXT_ACTIVITY_CODE);
         });
 
 
@@ -172,26 +193,34 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        OtcDealRecordRes recordRes = (OtcDealRecordRes)response;
-        if(recordRes.getOtcTransactionUserDealList()!=null){
+        switch (tag){
+            case SEND_REQUEST:
+                refreshLayout.callRefresh();
+                break;
+            case GET_DATA:
+                OtcDealRecordRes recordRes = (OtcDealRecordRes)response;
+                if(recordRes.getOtcTransactionUserDealList()!=null){
 
-            outSideExchangeRecodeRecyAdapter.notifyDataSetChanged();
+                    outSideExchangeRecodeRecyAdapter.notifyDataSetChanged();
+                }
+
+                if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                    refreshLayout.refreshComplete();
+                }
+                if (mIsLoadMore) {
+                    outSideExchangeRecodeRecyAdapter.addData(recordRes.getOtcTransactionUserDealList());
+                } else {
+                    outSideExchangeRecodeRecyAdapter.update(recordRes.getOtcTransactionUserDealList());
+                }
+                if (mPage < recordRes.getTotalPageNumber() - 1) {
+                    outSideExchangeRecodeRecyAdapter.loadMoreComplete();
+                    mPage++;
+                } else {
+                    outSideExchangeRecodeRecyAdapter.loadMoreEnd();
+                }
+                break;
         }
 
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.refreshComplete();
-        }
-        if (mIsLoadMore) {
-            outSideExchangeRecodeRecyAdapter.addData(recordRes.getOtcTransactionUserDealList());
-        } else {
-            outSideExchangeRecodeRecyAdapter.update(recordRes.getOtcTransactionUserDealList());
-        }
-        if (mPage < recordRes.getTotalPageNumber() - 1) {
-            outSideExchangeRecodeRecyAdapter.loadMoreComplete();
-            mPage++;
-        } else {
-            outSideExchangeRecodeRecyAdapter.loadMoreEnd();
-        }
     }
 
 
