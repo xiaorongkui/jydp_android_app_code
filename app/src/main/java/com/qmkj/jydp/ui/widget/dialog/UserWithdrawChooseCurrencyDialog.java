@@ -53,7 +53,7 @@ public class UserWithdrawChooseCurrencyDialog extends BaseBottomDialog {
     protected void initContentView(View contentView) {
         itemBeanList = new ArrayList<>();
         lv = contentView.findViewById(R.id.dialog_below_choose_currency_lv);
-        setTitleText("选择币种");
+        setTitleText("选择链");
         adapter = new ListViewAdapter();
         lv.setAdapter(adapter);
 //        setSelected(mChooseModel);

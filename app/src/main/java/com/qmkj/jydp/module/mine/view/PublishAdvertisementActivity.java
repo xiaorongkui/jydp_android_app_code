@@ -244,22 +244,22 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         }
 
         if(StringUtil.isNull(min_et)){
-            toast("最低交易限额不能为空");
+            toast("最低交易限量不能为空");
             return;
         }
 
         if(Double.parseDouble(min_et)>=1000000){
-            toast("最低限额不能超过一百万");
+            toast("最低限量不能超过一百万");
             return;
         }
 
         if(StringUtil.isNull(max_et)){
-            toast("最高交易限额不能为空");
+            toast("最高交易限量不能为空");
             return;
         }
 
         if(Double.parseDouble(max_et)>=1000000){
-            toast("最高限额不能超过一百万");
+            toast("最高限量不能超过一百万");
             return;
         }
 
@@ -290,7 +290,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
                 commonDialog.dismiss();
             }
         });
-        tittle.setText("选择币种");
+        tittle.setText("选择链");
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         BaseRecycleAdapter adapter=new BaseRecycleAdapter<UserCoinWithdrawInfo.CoinWithdrawInfo>(R.layout.bottom_select_item,
                 data_corn) {

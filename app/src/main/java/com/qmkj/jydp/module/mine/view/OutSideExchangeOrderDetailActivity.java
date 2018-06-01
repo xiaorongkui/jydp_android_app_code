@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.app.Dialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +14,8 @@ import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordDetailsRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
+import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
+import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 
@@ -68,6 +71,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
     @BindView(R.id.exchange_recode_detail_dealer_bank_layout)
     LinearLayout exchange_recode_detail_dealer_bank_layout;
     private OtcDealRecordDetailsRes.OtcTransactionUserDealBean data;
+    private int type;  //1.普通用户  2.经销商
 
     @Override
     protected void injectPresenter() {
@@ -77,7 +81,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
     @Override
     protected void initData() {
         String number =getIntent().getStringExtra("NUMBER");
-        int type = getIntent().getIntExtra(MineRecodeActivity.RECODE_TYPE,1);
+        type = getIntent().getIntExtra(MineRecodeActivity.RECODE_TYPE,1);
         OutSideDetailReq req = new OutSideDetailReq();
         req.setOtcOrderNo(number);
         //1：普通用户 2：经销商
@@ -118,20 +122,20 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
                 }
                 break;
             case SEND_REQUEST:
-                finish();
                 setResult(200);
+                finish();
         }
 
     }
 
     private void setMessageView(OtcDealRecordDetailsRes.OtcTransactionUserDealBean res ) {
         String text = null;
-        //4：已完成， 其他：待确认
+        //4：已完成， 其他：待完成
         if(res.getDealStatus()==4){
             text ="已完成";
             register_bt.setVisibility(View.GONE);
         }else {
-            text ="待确认";
+            text ="待完成";
             register_bt.setVisibility(View.VISIBLE);
         }
         order_detail_status_tv.setText(text);
@@ -142,17 +146,26 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         String text_type = null;
         switch (res.getDealType()){
             case 1:
-                text_type = "买入";
-                exchange_recode_detail_type_civ.setRightTextColor
-                        (mContext.getResources().getColor(R.color.color_red_3));
+                if(type == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
+                    text_type = "购买";
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                }else if(type == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
+                    text_type = "出售";
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                }
                 break;
             case 2:
-                text_type = "卖出";
-                exchange_recode_detail_type_civ.setRightTextColor
-                        (mContext.getResources().getColor(R.color.color_green_3));
+                if(type == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
+                    text_type = "出售";
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                }else if(type == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
+                    text_type = "回购";
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                }
                 break;
             case 3:
                 text_type = "撤销";
+                exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_gray_3));
                 break;
         }
 
@@ -160,8 +173,8 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         exchange_recode_detail_area_civ.setRightText(res.getArea());
         exchange_recode_detail_dealer_alipay_name_civ.setRightText(res.getDealerName());
         exchange_recode_detail_dealer_alipay_phone_civ.setRightText(res.getPhoneNumber());
-        exchange_recode_detail_apply_time_civ.setRightText(DateUtil.longToTimeStr(res.getAddTime(),DateUtil.dateFormat1));
-        exchange_recode_detail_finish_time_civ.setRightText(DateUtil.longToTimeStr(res.getUpdateTime(),DateUtil.dateFormat1));
+        exchange_recode_detail_apply_time_civ.setRightText(DateUtil.longToTimeStr(res.getAddTime(),DateUtil.dateFormat2));
+        exchange_recode_detail_finish_time_civ.setRightText(DateUtil.longToTimeStr(res.getUpdateTime(),DateUtil.dateFormat2));
 
         //收款方式标识：1：银行卡，2：支付宝，3：微信
         switch (res.getPaymentType()){
@@ -195,21 +208,27 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         super.onClick(v);
         switch (v.getId()){
             case R.id.register_bt:
-                if(data == null){
-                    return;
-                }
-                OutSideDetailReq req =new OutSideDetailReq();
-                req.setOtcOrderNo(data.getOtcOrderNo());
-                if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){   //=2 为经销商
-//                    if(data.getDealType()==1){  //收货
-//                        presenter.getOutSideOrderTakeCoin(req,SEND_REQUEST,true);
-//                    }else
-//                    if(data.getDealType()==2){//收钱
-                    presenter.getOutSideOrderTakeMoney(req,SEND_REQUEST,true);
-//                    }
-                }else {
-                    presenter.getOutSideOrderTakeUser(req,SEND_REQUEST,true);
-                }
+                CommonDialog commonDialog = new CommonDialog(this);
+                commonDialog.setTitleText("确认收款");
+                commonDialog.setContentText("确认已收到货款？");
+                commonDialog.setOnPositiveButtonClickListener(new BaseDialog.OnPositiveButtonClickListener() {
+                    @Override
+                    public void onClick(Dialog dialog, View view) {
+                        if(data == null){
+                            return;
+                        }
+                        OutSideDetailReq req =new OutSideDetailReq();
+                        req.setOtcOrderNo(data.getOtcOrderNo());
+                        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){   //=2 为经销商
+                            presenter.getOutSideOrderTakeMoney(req,SEND_REQUEST,true);
+                        }else {
+                            presenter.getOutSideOrderTakeUser(req,SEND_REQUEST,true);
+                        }
+                        commonDialog.dismiss();
+                    }
+                });
+                commonDialog.show();
+
                 break;
         }
     }

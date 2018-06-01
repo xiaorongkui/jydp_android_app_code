@@ -92,7 +92,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
                 chooseInfo = bean;
                 canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(bean.getCurrencyNumber()+""),4) + "");
                 chooseCurrencyCv.setRightText(bean.getCurrencyName());
-                withdrawNumNoticeTv.setText("当前链种最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean.getFreeCurrencyNumber() + "需人工审核");
+                withdrawNumNoticeTv.setText("当前链最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean.getFreeCurrencyNumber() + "需人工审核");
             });
             userWithdrawChooseCurrencyDialog.show();
         });
@@ -135,7 +135,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
      */
     private void withdrawNow() {
         if (chooseInfo == null) {
-            toast("请先选择币种");
+            toast("请先选择链");
             return;
         }
         String number =withdrawNumEv.getEditTextString();
@@ -144,7 +144,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
         String validateCode = verificationCodeEv.getEditTextString();
         //校验参数
         if (currencyId == 0) {
-            toast("请先选择币种");
+            toast("请先选择链");
             return;
         }
         if (buyPwd.isEmpty()) {
@@ -152,7 +152,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             return;
         }
         if(StringUtil.isNull(number)){
-            toast("提币数量不能为空");
+            toast("提链数量不能为空");
         }
         if (Double.valueOf(number) < chooseInfo.getMinCurrencyNumber()) {
             toast("数量不能小于最低数量");
@@ -191,7 +191,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
                     chooseInfo = userCoinWithdrawInfo.getUserCoinConfigList().get(0);
                     canWithdrawNumTv.setText(BigDecimal.valueOf(chooseInfo.getCurrencyNumber()) + "");
                     chooseCurrencyCv.setRightText(chooseInfo.getCurrencyName());
-                    withdrawNumNoticeTv.setText("当前链种最低提现" + chooseInfo.getMinCurrencyNumber() + "个，超过" + chooseInfo.getFreeCurrencyNumber() + "需人工审核");
+                    withdrawNumNoticeTv.setText("当前链最低提现" + chooseInfo.getMinCurrencyNumber() + "个，超过" + chooseInfo.getFreeCurrencyNumber() + "需人工审核");
 
                 }
                 break;

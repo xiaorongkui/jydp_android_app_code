@@ -78,26 +78,6 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         TextView see_detail = helper.getView(R.id.outside_exchange_recode_see_detail_tv);//查看详情
         TextView comfirm_receivables = helper.getView(R.id.outside_exchange_recode_comfirm_receivables_tv);//确认收款
 
-        if(item.getDealStatus() == 1||item.getDealStatus() == 2){ //待确认收货
-            if(item.getDealType()==1){  //买入
-                if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
-                    comfirm_receivables.setVisibility(View.VISIBLE);
-                }else {
-                    comfirm_receivables.setVisibility(View.GONE);
-                }
-
-            }else if(item.getDealType()==2){
-                if(CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
-                    comfirm_receivables.setVisibility(View.GONE);
-                }else {
-                    comfirm_receivables.setVisibility(View.VISIBLE);
-                }
-            }
-
-        }else {
-            comfirm_receivables.setVisibility(View.GONE);
-        }
-
         order_num.setText(item.getOtcOrderNo()+"");
         name.setText(item.getCurrencyName());
         String text = null;
@@ -106,7 +86,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
             recode_status.setBackgroundResource(R.drawable.shape_shell_bg);
             recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
         }else {
-            text = "待确认";
+            text = "待完成";
             recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
             recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
         }
@@ -115,23 +95,32 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         money.setText(item.getCurrencyTotalPrice()+"");
         String text_type = null;
         //交易状态：1.买入 2.卖出 3.撤销  (普通用户)
+        comfirm_receivables.setVisibility(View.GONE);
         switch (item.getDealType()){
             case 1:
                 if(type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
                     text_type = "购买";
-                    type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                    type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
                 }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
                     text_type = "出售";
-                    type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                    type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+
+                    if(item.getDealStatus() != 4){//待确认收货
+                        comfirm_receivables.setVisibility(View.VISIBLE);
+                    }
+
                 }
                 break;
             case 2:
                 if(type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
                     text_type = "出售";
-                    type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
-                }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
-                    text_type = "购买";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                    if(item.getDealStatus() != 4){
+                        comfirm_receivables.setVisibility(View.VISIBLE);
+                    }
+                }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
+                    text_type = "回购";
+                    type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
                 }
                 break;
             case 3:

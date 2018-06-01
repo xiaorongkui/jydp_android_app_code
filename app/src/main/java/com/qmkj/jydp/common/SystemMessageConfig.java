@@ -132,7 +132,7 @@ public class SystemMessageConfig {
 
     //全部币种没有上线
     public static final int CURRENCY_NOTONLINE_CODE = 401005;
-    public static final String CURRENCYNOTONLINE_MESSAGE = "没有上线币种";
+    public static final String CURRENCYNOTONLINE_MESSAGE = "没有上线链";
 
     //用户账号被禁用
     public static final int ACCOUNT_DISABLED_CODE = 401006;
@@ -140,11 +140,11 @@ public class SystemMessageConfig {
 
     //币种已下线
     public static final int CURRENCY_OFFLINE_CODE = 401007;
-    public static final String CURRENCY_OFFLINE_MESSAGE = "该币种已下线";
+    public static final String CURRENCY_OFFLINE_MESSAGE = "该链已下线";
 
     //币种不在交易状态
     public static final int CURRENCY_NOT_TRADED_CODE = 401008;
-    public static final String CURRENCY_NOT_TRADED_MESSAGE = "该币种不在交易状态";
+    public static final String CURRENCY_NOT_TRADED_MESSAGE = "该链不在交易状态";
 
     //不在交易时间
     public static final int NOT_IN_TRADED_TIME_CODE = 401009;
@@ -169,10 +169,10 @@ public class SystemMessageConfig {
     public static final String PEND_SUCCESS_MESSAGE = "挂单成功";
     //币种信息不存在
     public static final int NOT_HAVE_CURRENCY_INFO_CODE = 401016;
-    public static final String NOT_HAVE_CURRENCY_INFO_MESSAGE = "币种信息获取失败,请稍候再试";
+    public static final String NOT_HAVE_CURRENCY_INFO_MESSAGE = "链信息获取失败,请稍候再试";
     //币不足
     public static final int COIN_NOT_ENOUGH_CODE = 401017;
-    public static final String COIN_NOT_ENOUGH_MESSAGE = "用户币不足";
+    public static final String COIN_NOT_ENOUGH_MESSAGE = "用户链不足";
     //修改成功
     public static final int MODIFY_SUCCESS_CODE = 1;
     public static final String MODIFY_SUCCESS_MESSAGE = "修改成功";
@@ -390,22 +390,22 @@ public class SystemMessageConfig {
      * 用户币不足（703011）
      */
     public static final int USER_NO_COIN_CODE = 703011;
-    public static final String USER_NO_COIN_MESSAGE = "用户币不足";
+    public static final String USER_NO_COIN_MESSAGE = "用户链不足";
     /**
      * 该币种不存在 （703012）
      */
     public static final int CURRENCY_NOT_EXSITE_CODE = 703012;
-    public static final String CURRENCY_NOT_EXSITE_MESSAGE = "该币种不存在";
+    public static final String CURRENCY_NOT_EXSITE_MESSAGE = "该链不存在";
     /**
      * 该币种已下线（703013）
      */
     public static final int CURRENCY_DISABLE_CODE = 703013;
-    public static final String CURRENCY_DISABLE_MESSAGE = "该币种已下线";
+    public static final String CURRENCY_DISABLE_MESSAGE = "该链已下线";
     /**
      * 经销商币不足 （703011）
      */
     public static final int DEALER_NO_COIN_CODE = 703014;
-    public static final String DEALER_NO_COIN_MESSAGE = "经销商币不足";
+    public static final String DEALER_NO_COIN_MESSAGE = "经销商链不足";
     //经销商不存在或已被禁用
     public static final int DEALER_NOT_EXIST_OR_DISABLE_CODE = 703015;
     public static final String DEALER_NOT_EXIST_OR_DISABLE_MESSAGE = "经销商已被禁用或被禁用";
@@ -426,9 +426,9 @@ public class SystemMessageConfig {
     public static final String TRADE_ORDER_TYPE_ERROR_MESSAGE = "订单类型错误";
     //币种信息查询失败
     public static final int CURRENCY_INFO_NULL_CODE = 703021;
-    public static final String CURRENCY_INFO_NULL_MESSAGE = "币种信息查询失败";
+    public static final String CURRENCY_INFO_NULL_MESSAGE = "链信息查询失败";
     //经销商币不足
     public static final int DEALER_CURRENCY_NOT_ENOUGH_CODE = 703022;
-    public static final String DEALER_CURRENCY_NOT_ENOUGH_MESSAGE = "经销商币不足";
+    public static final String DEALER_CURRENCY_NOT_ENOUGH_MESSAGE = "经销商链不足";
 
 }
