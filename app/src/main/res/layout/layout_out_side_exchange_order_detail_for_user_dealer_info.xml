@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/my_bank_pay_info_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.qmkj.jydp.ui.widget.ClickItemView
+            android:id="@+id/bank_pay_bank_card_no_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            app:bottomLine="false"
+            app:leftText="@string/bank_card_num"
+            app:leftTextColor="@color/color_black_1"
+            app:leftTextSize="@dimen/text_size_13"
+            app:rightIconVisible="false"
+            app:rightText="12345689901"
+            app:rightTextColor="@color/color_black_7"
+            app:rightTextSize="@dimen/text_size_15" />
+
+        <com.qmkj.jydp.ui.widget.ClickItemView
+            android:id="@+id/bank_pay_bank_info_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            app:bottomLine="false"
+            app:leftText="@string/bank_info"
+            app:leftTextColor="@color/color_black_1"
+            app:leftTextSize="@dimen/text_size_13"
+            app:rightIconVisible="false"
+            app:rightText="中国工商银行浙江XXXX分行"
+            app:rightTextColor="@color/color_black_7"
+            app:rightTextSize="@dimen/text_size_14" />
+
+        <com.qmkj.jydp.ui.widget.ClickItemView
+            android:id="@+id/bank_pay_user_name_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            app:bottomLine="false"
+            app:leftText="@string/bank_reserve_name"
+            app:leftTextColor="@color/color_black_1"
+            app:leftTextSize="@dimen/text_size_13"
+            app:rightIconVisible="false"
+            app:rightText="张三"
+            app:rightTextColor="@color/color_black_7"
+            app:rightTextSize="@dimen/text_size_14" />
+
+        <com.qmkj.jydp.ui.widget.ClickItemView
+            android:id="@+id/bank_pay_user_phone_num_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            app:bottomLine="false"
+            app:leftText="@string/bank_reserve_phone"
+            app:leftTextColor="@color/color_black_1"
+            app:leftTextSize="@dimen/text_size_13"
+            app:rightIconVisible="false"
+            app:rightText="12354678901"
+            app:rightTextColor="@color/color_black_7"
+            app:rightTextSize="@dimen/text_size_15" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/my_ali_weixin_pay_info_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.qmkj.jydp.ui.widget.ClickItemView
+            android:id="@+id/ali_weixin_pay_account_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginStart="@dimen/x10"
+            app:bottomLine="false"
+            app:leftText="@string/bank_card_num"
+            app:leftTextColor="@color/color_black_1"
+            app:leftTextSize="@dimen/text_size_13"
+            app:rightIconVisible="false"
+            app:rightText="12345689901"
+            app:rightTextColor="@color/color_black_7"
+            app:rightTextSize="@dimen/text_size_15" />
+
+        <ImageView
+            android:id="@+id/ali_weixin_pay_qrcode_img"
+            android:layout_width="@dimen/x95"
+            android:layout_height="@dimen/y95"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/y10"
+            android:layout_marginTop="@dimen/y10"
+            android:scaleType="fitXY" />
+
+    </LinearLayout>
+
+</FrameLayout>

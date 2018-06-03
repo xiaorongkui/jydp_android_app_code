@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -22,8 +21,8 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
@@ -150,6 +149,9 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         }
     }
 
+    /**
+     * 提交认证请求
+     */
     private void submitCertifyNameData() {
         String userName = certifyNameNameCv.getEditTextString();
         String userCertNo = ertifyTypeNumEt.getText().toString().trim();
@@ -300,7 +302,27 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         }
     }
 
+    /**
+     * 先检测权限，再打开系统相册选择图片
+     *
+     * @param index 1 选择正面照片 2 选择背面照片
+     */
     private void checkPermission(int index) {
+        //判断是否处于压缩状态，如果处于压缩状态，则提示用户稍候再操作
+        switch (index) {
+            case 1:
+                if (isFrontCompressing) {
+                    toast("正在压缩中，请稍后");
+                    return;
+                }
+                break;
+            case 2:
+                if (isBackCompressing) {
+                    toast("正在压缩中，请稍后");
+                    return;
+                }
+                break;
+        }
         RxPermissionUtils.getInstance(mContext).setPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest
                 .permission.WRITE_EXTERNAL_STORAGE)
                 .setOnPermissionCallBack(new RxPermissionUtils

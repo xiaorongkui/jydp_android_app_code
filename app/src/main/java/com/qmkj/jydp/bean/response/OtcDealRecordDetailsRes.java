@@ -52,31 +52,38 @@ public class OtcDealRecordDetailsRes extends BaseRes implements Serializable{
          * userAccount : 1
          * userPhone : 1
          */
+        private String otcOrderNo;  //记录号
+        private int dealStatus;  //状态：1：待付款，2：已付款（待确认），3：已完成，4：用户取消，5：商家取消
 
-        private long addTime;
-        private String area;
-        private String bankBranch;
-        private String bankCode;
-        private String bankName;
-        private String currencyName;
-        private String currencyNumber;
-        private String currencyTotalPrice;
-        private int dealStatus;
-        private int dealType;
-        private String dealerName;
-        private String imageUrl;
-        private String otcOrderNo;
-        private String paymentAccount;
-        private String paymentImage;
-        private String paymentName;
-        private String paymentPhone;
-        private int paymentType;
-        private String phoneNumber;
-        private String remark;
-        private String typeId;
-        private long updateTime;
-        private String userAccount;
-        private String userPhone;
+        private String currencyName;  //货币名称
+        private String currencyNumber;  //成交数量
+        private String currencyTotalPrice;  //成交总价
+        private String area;  //地区
+        private int dealType;  //（普通用户）收支类型：1：买入，2：卖出，3：撤销（经销商）收支类型：1：卖出，2：买入，3：撤销
+
+        private String dealerName;  //经销商名称
+        private String phoneNumber;  //经销商电话
+
+        private String typeId;  //收款方式Id
+        private int paymentType;  //收款方式标识：1：银行卡，2：支付宝，3：微信
+
+        private String bankBranch;  //收款支行
+        private String bankName;  //收款银行
+        private String bankCode;  //收款银行标识
+
+        private String imageUrl;  //二维码地址
+        private String paymentImage;  //二维码地址（绝对路径
+
+        private String paymentAccount;  //收款账号
+        private String paymentName;  //收款人姓名
+        private String paymentPhone;  //收款人手机号
+
+        private String userAccount;  //用户账号
+        private String userPhone;  //用户手机号
+        private String remark;  //备注
+
+        private long addTime;  //添加时间
+        private long updateTime;  //修改时间
 
         public long getAddTime() {
             return addTime;

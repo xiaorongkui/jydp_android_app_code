@@ -16,13 +16,11 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
-import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.MineRecyAdapter;
-import com.qmkj.jydp.net.api.OutSideExchangeService;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.ui.widget.ScrollRecycleView;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
@@ -32,10 +30,8 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DensityHelper;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
-import com.qmkj.jydp.util.RxBus;
 import com.qmkj.jydp.util.SelectorFactory;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -304,7 +300,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
             mine_totalUserBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getTotalUserBalance()),4)+"");
             mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalance()),4)+"");
             mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalanceLock()),4)+"");
-            if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null){
+            if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
                 CommonUtil.getLoginInfo().getUser().setIsDealer(mineRes.getIsDealer());
             }
             if(mineRes.getIsDealer()==2){ //是经销商

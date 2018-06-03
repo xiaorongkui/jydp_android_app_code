@@ -5,18 +5,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.module.mine.view.MineRecodeActivity;
-import com.qmkj.jydp.module.mine.view.OutSideExchangeRecodeActivity;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
-
-import java.util.List;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -92,7 +87,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         }
         recode_status.setText(text);
         amount.setText(item.getCurrencyNumber()+"");
-        money.setText(item.getCurrencyTotalPrice()+"");
+        money.setText("$" + item.getCurrencyTotalPrice());
         String text_type = null;
         //交易状态：1.买入 2.卖出 3.撤销  (普通用户)
         comfirm_receivables.setVisibility(View.GONE);

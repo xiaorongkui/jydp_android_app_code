@@ -1,7 +1,7 @@
 package com.qmkj.jydp.module.mine.view;
 
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,20 +13,16 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.base.BaseRecycleAdapter;
-import com.qmkj.jydp.base.BaseRefreshRecycleMvpActivity;
 import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OutSideExchangeRecodeRecyAdapter;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
-import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -39,7 +35,7 @@ import butterknife.BindView;
 public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
     private static final int SEND_REQUEST = 2;
     private static final int GET_DATA = 1;
-    private static final int NEXT_ACTIVITY_CODE= 100;
+    private static final int NEXT_ACTIVITY_CODE = 100;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.dealer_management_refresh)
@@ -58,13 +54,13 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        type =getIntent().getIntExtra(MineRecodeActivity.RECODE_TYPE,1);
+        type = getIntent().getIntExtra(MineRecodeActivity.RECODE_TYPE, 1);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void initTitle() {
-        switch (type){
+        switch (type) {
             case MineRecodeActivity.RECODE_TYPE_NORMAL:
                 titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode));
                 break;
@@ -95,18 +91,19 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
         refreshLayout.callRefresh();
 
     }
+
     /**
      * 从网络获取数据
      */
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        switch (type){
+        switch (type) {
             case MineRecodeActivity.RECODE_TYPE_NORMAL:
-                presenter.getOtcDealRecordInfo(req,GET_DATA,false);
+                presenter.getOtcDealRecordInfo(req, GET_DATA, false);
                 break;
             case MineRecodeActivity.RECODE_TYPE_AGENCY:
-                presenter.getDealOtcRecordInfo(req,GET_DATA,false);
+                presenter.getDealOtcRecordInfo(req, GET_DATA, false);
                 break;
 
         }
@@ -115,7 +112,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext,type);
+        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext, type);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -126,30 +123,35 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
 
 
         outSideExchangeRecodeRecyAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            Intent intent = new Intent(mContext, OutSideExchangeOrderDetailActivity.class);
-            intent.putExtra("NUMBER",outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
-            intent.putExtra(MineRecodeActivity.RECODE_TYPE,type);
+
             switch (view.getId()) {
                 case R.id.outside_exchange_recode_see_detail_tv: //查看详情
-                    CommonUtil.startActivityForResult(mContext,intent,NEXT_ACTIVITY_CODE);
-
+                    Intent intent;
+                    if (type == MineRecodeActivity.RECODE_TYPE_NORMAL) {
+                        //普通用户
+                        intent = new Intent(mContext, OutSideExchangeOrderDetailForUserActivity.class);
+                    } else {
+                        //经销商
+                        intent = new Intent(mContext, OutSideExchangeOrderDetailForDealerActivity.class);
+                    }
+                    intent.putExtra("NUMBER", outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
+                    CommonUtil.startActivityForResult(mContext, intent, NEXT_ACTIVITY_CODE);
                     break;
                 case R.id.outside_exchange_recode_comfirm_receivables_tv: //确认收款
                     CommonDialog commonDialog = new CommonDialog(this);
                     commonDialog.setTitleText("确认收款");
                     commonDialog.setContentText("确认已收到货款？");
-                    commonDialog.setOnPositiveButtonClickListener(new BaseDialog.OnPositiveButtonClickListener() {
-                        @Override
-                        public void onClick(Dialog dialog, View view) {
-                            OutSideDetailReq req =new OutSideDetailReq();
-                            req.setOtcOrderNo(outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
-                            if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){   //=2 为经销商
-                                presenter.getOutSideOrderTakeMoney(req,SEND_REQUEST,true);
-                            }else {
-                                presenter.getOutSideOrderTakeUser(req,SEND_REQUEST,true);
-                            }
-                            commonDialog.dismiss();
+                    commonDialog.setOnPositiveButtonClickListener((dialog, view1) -> {
+                        OutSideDetailReq req = new OutSideDetailReq();
+                        req.setOtcOrderNo(outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
+                        if (type == MineRecodeActivity.RECODE_TYPE_NORMAL) {
+                            //普通用户
+                            presenter.getOutSideOrderTakeUser(req, SEND_REQUEST, true);
+                        } else {
+                            //经销商
+                            presenter.getOutSideOrderTakeMoney(req, SEND_REQUEST, true);
                         }
+                        commonDialog.dismiss();
                     });
                     commonDialog.show();
                     break;
@@ -193,13 +195,13 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case SEND_REQUEST:
                 refreshLayout.callRefresh();
                 break;
             case GET_DATA:
-                OtcDealRecordRes recordRes = (OtcDealRecordRes)response;
-                if(recordRes.getOtcTransactionUserDealList()!=null){
+                OtcDealRecordRes recordRes = (OtcDealRecordRes) response;
+                if (recordRes.getOtcTransactionUserDealList() != null) {
 
                     outSideExchangeRecodeRecyAdapter.notifyDataSetChanged();
                 }
@@ -220,9 +222,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
                 }
                 break;
         }
-
     }
-
 
 
     @Override
@@ -236,8 +236,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==NEXT_ACTIVITY_CODE&&requestCode==200){
+        if (requestCode == NEXT_ACTIVITY_CODE && resultCode == Activity.RESULT_OK) {
             refreshLayout.callRefresh();
         }
     }

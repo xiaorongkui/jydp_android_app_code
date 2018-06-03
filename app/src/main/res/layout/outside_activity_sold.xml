@@ -122,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@string/pay_method"
+                            android:text="@string/shell_method"
                             android:textColor="@color/color_black_1"
                             android:textSize="@dimen/text_size_14"/>
 

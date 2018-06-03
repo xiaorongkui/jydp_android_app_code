@@ -140,7 +140,6 @@
         <activity
             android:name=".module.exchangoutside.view.OutSideBuyDetailActivity"
             android:launchMode="singleTop" />
-
         <activity
             android:name=".module.mine.view.HelpCenterDetailsActivity"
             android:launchMode="singleTop" />
@@ -157,6 +156,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailForUserActivity" />
+        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailForDealerActivity"></activity>
     </application>
 
 </manifest>

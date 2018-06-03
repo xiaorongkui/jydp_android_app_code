@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".module.mine.view.OutSideExchangeOrderDetailForDealerActivity">
+
+    <include layout="@layout/common_header" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--状态信息-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y100"
+                android:background="@mipmap/order_detail">
+
+                <ImageView
+                    android:id="@+id/order_detail_status_iv"
+                    android:layout_width="@dimen/x25"
+                    android:layout_height="@dimen/y25"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/x15"
+                    android:src="@mipmap/to_finish" />
+
+                <TextView
+                    android:id="@+id/order_detail_status_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/x10"
+                    android:layout_toEndOf="@id/order_detail_status_iv"
+                    android:textColor="@color/color_white_3"
+                    android:textSize="@dimen/text_size_14" />
+            </RelativeLayout>
+
+            <!--交易流水号、币信息等-->
+            <com.dd.ShadowLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginTop="@dimen/y5"
+                android:orientation="horizontal"
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_view_shadow_bg"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y13"
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/x10"
+                        android:paddingStart="@dimen/x10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/order_num_1"
+                            android:textColor="@color/color_black_10"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/order_detail_order_num_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/color_black_10"
+                            android:textSize="@dimen/text_size_14" />
+                    </LinearLayout>
+
+                    <View
+                        style="@style/line1"
+                        android:layout_marginTop="@dimen/y10" />
+
+                    <TextView
+                        android:id="@+id/order_detail_currency_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        android:layout_marginTop="@dimen/y10"
+                        android:text="@string/syl"
+                        android:textColor="@color/color_black_7"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_currency_num_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/amount"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_currency_total_price_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/money"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_deal_type_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/type"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_green_4"
+                        app:rightTextSize="@dimen/text_size_15" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_area_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/area"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15" />
+
+                </LinearLayout>
+            </com.dd.ShadowLayout>
+
+            <!--用户信息-->
+            <com.dd.ShadowLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginTop="-5pt"
+                android:orientation="horizontal"
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_view_shadow_bg"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        android:layout_marginTop="@dimen/y15"
+                        android:text="@string/user_information"
+                        android:textColor="@color/color_black_7"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_user_account_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/user_account"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_14" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_user_phone_num_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/user_phone"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_user_payment_type_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/payment_type"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15" />
+
+                    <FrameLayout
+                        android:id="@+id/order_detail_user_info_content_fl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </com.dd.ShadowLayout>
+
+            <!--我的信息-->
+            <com.dd.ShadowLayout
+                android:id="@+id/order_detail_my_info_sl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginTop="-5pt"
+                android:orientation="horizontal"
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_view_shadow_bg"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        android:layout_marginTop="@dimen/y15"
+                        android:text="@string/mine_info_my"
+                        android:textColor="@color/color_black_7"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <FrameLayout
+                        android:id="@+id/order_detail_my_info_content_fl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </com.dd.ShadowLayout>
+
+            <!--时间信息-->
+            <com.dd.ShadowLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginTop="-5pt"
+                android:orientation="horizontal"
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_view_shadow_bg"
+                    android:orientation="vertical">
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_add_time_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/apply_time"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightText="2016-06-06 13:13:13"
+                        app:rightTextColor="@color/color_black_1"
+                        app:rightTextSize="@dimen/text_size_14" />
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/order_detail_update_time_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/x10"
+                        android:layout_marginStart="@dimen/x10"
+                        app:bottomLine="false"
+                        app:leftText="@string/finish_time"
+                        app:leftTextColor="@color/color_black_1"
+                        app:leftTextSize="@dimen/text_size_13"
+                        app:rightIconVisible="false"
+                        app:rightText="2016-06-06 13:13:13"
+                        app:rightTextColor="@color/color_black_1"
+                        app:rightTextSize="@dimen/text_size_14" />
+                </LinearLayout>
+            </com.dd.ShadowLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/confirm_receipt_btn"
+        style="@style/btn_blue"
+        android:layout_marginBottom="@dimen/y15"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:text="@string/comfirm_receivables"
+        android:visibility="gone" />
+
+</LinearLayout>

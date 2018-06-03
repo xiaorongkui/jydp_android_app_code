@@ -118,7 +118,7 @@
                     android:layout_below="@id/outside_exchange_recode_money_title_tv"
                     android:layout_marginStart="@dimen/x174"
                     android:layout_marginTop="@dimen/y7"
-                    android:text="¥123.0000"
+                    android:text="$123.0000"
                     android:textColor="@color/color_black_2"
                     android:textSize="@dimen/text_size_15"/>
             </RelativeLayout>

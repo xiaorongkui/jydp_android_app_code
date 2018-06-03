@@ -2,7 +2,6 @@ package com.qmkj.jydp.module.mine.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +14,7 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.bean.request.ChangePhoneReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
+import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
@@ -262,8 +262,11 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case SEND_REQUEST:
                 toast("修改成功");
-                CommonUtil.getLoginInfo().getUser().setUserPhone( modify_phone_erea_et.getText().toString());
-                CommonUtil.getLoginInfo().getUser().setPhoneAreaCode( modify_phone_erea_tv.getText().toString());
+                //密码修改成功 更新用户信息
+                LoginRes loginInfo = CommonUtil.getLoginInfo();
+                loginInfo.getUser().setUserPhone(modify_phone_erea_et.getText().toString());
+                loginInfo.getUser().setPhoneAreaCode(modify_phone_erea_tv.getText().toString());
+                CommonUtil.setLoginInfo(loginInfo);
                 CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
                 finish();
                 break;
