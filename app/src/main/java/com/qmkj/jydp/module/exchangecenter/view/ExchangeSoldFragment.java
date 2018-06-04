@@ -24,6 +24,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
+import com.qmkj.jydp.bean.event.ExchangePwdEvent;
 import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangePwdReq;
 import com.qmkj.jydp.bean.request.SellExchangeReq;
@@ -44,6 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * author：rongkui.xiao --2018/3/27
@@ -91,6 +93,7 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     private String currencyId;
     boolean isRefreshPwd = true;
     private EditText exchange_passowrd_et;
+    private Disposable subscribe_1;
 
     public static ExchangeSoldFragment newInstance(int index) {
         Bundle args = new Bundle();
@@ -122,6 +125,10 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         RxView.clicks(exchangeCenterSoldOutBt).throttleFirst(2, TimeUnit.SECONDS)
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(o -> sellStart());//防重复点击
+
+        subscribe_1 = RxBus.getDefault().toObservable(ExchangePwdEvent.class).subscribe(exchangeEvent -> {
+            isRefreshPwd = true;
+        });
     }
 
     private void calculateSellAccount() {
@@ -175,6 +182,9 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         }
         if (loginCommonDialog_3 != null && loginCommonDialog_3.isShowing()) {
             loginCommonDialog_3.dismiss();
+        }
+        if (subscribe_1 != null && subscribe_1.isDisposed()) {
+            subscribe_1.dispose();
         }
     }
 
@@ -381,7 +391,7 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 isRefreshPwd = true;
                 CommonUtil.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
-                RxBus.getDefault().post(new ExchangeEvent());//去更新密码状态
+                RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                 break;
         }
     }
@@ -408,7 +418,6 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     private void clearSoldInput() {
         exchangeUnitPriceEt.setText("");
         exchangeAmountEt.setText("");
-        exchangePassowrdEt.setText("");
     }
 
     @Override
@@ -425,8 +434,8 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     }
 
     public void cleanAssetes() {
-        exchangeSoldForzenTv.setText("");
-        exchangeSoldAvailableTv.setText("");
+        exchangeSoldForzenTv.setText("--");
+        exchangeSoldAvailableTv.setText("--");
     }
 
     public void refreshData(ExchangeCenterRes centerRes) {
@@ -450,7 +459,6 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             case "1"://1：每笔交易都输入交易密码
                 exchange_sold_notice_pwd_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));
                 exchangePassowrdEt.setText("");//初始化一次
-
                 break;
             case "2"://2：每次登录只输入一次交易密码
                 exchange_sold_notice_pwd_tv.setText(CommonUtil.getString(R.string.exchange_password_login_notice));

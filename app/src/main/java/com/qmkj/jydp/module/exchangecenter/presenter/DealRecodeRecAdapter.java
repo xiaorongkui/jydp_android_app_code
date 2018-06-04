@@ -26,14 +26,6 @@ import butterknife.BindView;
 public class DealRecodeRecAdapter extends BaseRecycleAdapter<DealRecodeRes.DealListBean> {
 
     private final List datas;
-    @BindView(R.id.entrust_status_tv)
-    TextView entrustStatusTv;
-    @BindView(R.id.entrust_price_tv)
-    TextView entrustPriceTv;
-    @BindView(R.id.entrust_amount_tv)
-    TextView entrustAmountTv;
-    @BindView(R.id.entrust_exchange_tv)
-    TextView entrustExchangeTv;
 
     public DealRecodeRecAdapter(Context context, List datas, int layoutId) {
         super(layoutId, datas);
@@ -45,6 +37,11 @@ public class DealRecodeRecAdapter extends BaseRecycleAdapter<DealRecodeRes.DealL
                            int position) {
         helper.getView(R.id.common_line).setVisibility(datas.size() - 1 == position ? View.INVISIBLE : View
                 .VISIBLE);
+        TextView entrustStatusTv = helper.getView(R.id.entrust_status_tv);
+        TextView entrustPriceTv = helper.getView(R.id.entrust_price_tv);
+        TextView entrustAmountTv = helper.getView(R.id.entrust_amount_tv);
+        TextView entrustExchangeTv = helper.getView(R.id.entrust_exchange_tv);
+
         if (item == null) return;
         int paymentType = item.getPaymentType();
         switch (paymentType) {

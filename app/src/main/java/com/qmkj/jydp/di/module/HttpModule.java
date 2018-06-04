@@ -141,15 +141,14 @@ public class HttpModule {
             Request oldRequest = chain.request();
             String token = CommonUtil.getToken();
             LogUtil.i("OkHttp====token；" + token);
-            Request request = oldRequest.newBuilder()
-                    .addHeader("JYDP_PUBLIC_KEY",Constants.JYDP_PUBLIC_KEY)
-                    .addHeader("JYDP_SIGN",CommonUtil.getJYDPSecretKey())
-                    .build();
+            Request.Builder builder = oldRequest.newBuilder()
+                    .addHeader("JYDP_PUBLIC_KEY", Constants.JYDP_PUBLIC_KEY)
+                    .addHeader("JYDP_SIGN", CommonUtil.getJYDPSecretKey());
             if (StringUtil.isNull(token)) {
-                return chain.proceed(request);
+                return chain.proceed(builder.build());
             }
-            request.newBuilder().addHeader("X-Access-Auth-Token", token).build();
-            return chain.proceed(request);
+            builder.addHeader("X-Access-Auth-Token", token).build();
+            return chain.proceed(builder.build());
         }
     }
 

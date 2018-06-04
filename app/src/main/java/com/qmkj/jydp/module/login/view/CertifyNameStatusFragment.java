@@ -111,10 +111,8 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
         ertifyCheckNumberCv.setRightText(identification.getUserCertNo());
         List<CertificetionInfoRes.IdentificationImageListBean> identificationImageList = checkInfo
                 .getIdentificationImageList();
-        GlideApp.with(mContext).load(identificationImageList.get(0).getImageUrlFormat())
-                .placeholder(R.mipmap.ic_launcher).into(certifyNameFrontIv);
-        GlideApp.with(mContext).load(identificationImageList.get(1).getImageUrlFormat())
-                .placeholder(R.mipmap.ic_launcher).into(certifyNameBackIv);
+        GlideApp.with(mContext).load(identificationImageList.get(0).getImageUrlFormat()).into(certifyNameFrontIv);
+        GlideApp.with(mContext).load(identificationImageList.get(1).getImageUrlFormat()).into(certifyNameBackIv);
         switch (status) {
             case 1://待审核
                 setCertifyNameStatus(0);

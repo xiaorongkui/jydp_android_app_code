@@ -50,8 +50,7 @@ import java.text.DecimalFormat;
  */
 public class CommonUtil {
 
-    private static String JYDPPublicKey ;  //公钥加密
-    private static String JYDPSecretKey ; //公钥+私钥加密
+    private static String JYDPSecretKey; //公钥+私钥加密
 
     /**
      * 跳转activity
@@ -823,22 +822,9 @@ public class CommonUtil {
     }
 
     /**
-     * 获取公钥加密
-     */
-    public static String getJYDPPublicKey(){
-        if(JYDPPublicKey == null){
-            JYDPPublicKey = MD5Util.toMd5(Constants.JYDP_PUBLIC_KEY);
-        }
-        return JYDPPublicKey;
-    }
-    /**
      * 获取公私钥加密
      */
-    public static String getJYDPSecretKey(){
-        if(JYDPSecretKey == null){
-            JYDPSecretKey = MD5Util.toMd5(Constants.JYDP_PUBLIC_KEY+Constants.JYDP_SECRET_KEY);
-        }
-
-        return JYDPSecretKey;
+    public static String getJYDPSecretKey() {
+        return Constants.JYDP_SECRET_SIGN;
     }
 }

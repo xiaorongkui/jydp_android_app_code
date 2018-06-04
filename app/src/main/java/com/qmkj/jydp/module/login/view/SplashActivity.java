@@ -122,7 +122,11 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
                     return;
                 }
                 goMianActivity();
-                calculateUpdate(appUpdateRes);
+                try {
+                    calculateUpdate(appUpdateRes);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -133,7 +137,7 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
         isUpdate = false;
     }
 
-    private void calculateUpdate(AppUpdateRes appUpdateRes) {
+    private void calculateUpdate(AppUpdateRes appUpdateRes) throws Exception {
         String forceStatus = appUpdateRes.getForceStatus();//1强制升级，2，普通升级
         String newestVersion = appUpdateRes.getNewestVersion();//新版本
         String oldVersion = CommonUtil.getAppVersionName(mContext);
@@ -155,10 +159,50 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
      *
      * @param version1
      * @param version2
-     * @return true代表version1大于version2, 需要升级
+     * @return true代表需要升级，false代表不需要升级
+     * 0代表相等，1代表version1大于version2，-1代表version1小于version2
      */
-    public boolean compareVersion(String version1, String version2) {
-        return TextUtils.isEmpty(version1) || !version1.equalsIgnoreCase(version2);
+    public static boolean compareVersion(String version1, String version2) throws Exception {
+        if (version1.equalsIgnoreCase(version2)) {
+            return false;
+        }
+        if (!TextUtils.isEmpty(version1) && (version1.startsWith("V") || version1
+                .startsWith("v"))) {
+            version1 = version1.substring(1, version1.length());
+        }
+        if (!TextUtils.isEmpty(version2) && (version2.startsWith("V") || version2
+                .startsWith("v"))) {
+            version2 = version2.substring(1, version2.length());
+        }
+
+        String[] version1Array = version1.split("\\.");
+        String[] version2Array = version2.split("\\.");
+        int index = 0;
+        // 获取最小长度值
+        int minLen = Math.min(version1Array.length, version2Array.length);
+        int diff = 0;
+        // 循环判断每位的大小
+        while (index < minLen && (diff = Integer.parseInt(version1Array[index]) - Integer
+                .parseInt(version2Array[index])) == 0) {
+            index++;
+        }
+        if (diff == 0) {
+            // 如果位数不一致，比较多余位数
+            for (int i = index; i < version1Array.length; i++) {
+                if (Integer.parseInt(version1Array[i]) > 0) {
+                    return true;
+                }
+            }
+
+            for (int i = index; i < version2Array.length; i++) {
+                if (Integer.parseInt(version2Array[i]) > 0) {
+                    return false;
+                }
+            }
+            return false;
+        } else {
+            return diff > 0;
+        }
     }
 
     private void normalUpdate(AppUpdateRes appUpdateRes) {
