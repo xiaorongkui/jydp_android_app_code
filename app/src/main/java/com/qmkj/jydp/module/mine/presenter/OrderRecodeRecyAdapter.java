@@ -67,12 +67,12 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
             case 1:
                 exchange_statu.setBackgroundResource(R.drawable.shape_buy_bg);
                 exchange_statu.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
-                exchange_statu.setText(CommonUtil.getString(R.string.buy_1));
+                exchange_statu.setText(CommonUtil.getString(R.string.buy_input));
                 break;
             case 2:
                 exchange_statu.setBackgroundResource(R.drawable.shape_shell_bg);
                 exchange_statu.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
-                exchange_statu.setText(CommonUtil.getString(R.string.sell));
+                exchange_statu.setText(CommonUtil.getString(R.string.sold_out));
                 break;
         }
 

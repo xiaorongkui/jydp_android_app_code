@@ -16,6 +16,7 @@ import com.qmkj.jydp.bean.request.ChangePhoneReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.ui.widget.EditVItemView;
@@ -268,7 +269,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 loginInfo.getUser().setPhoneAreaCode(modify_phone_erea_tv.getText().toString());
                 CommonUtil.setLoginInfo(loginInfo);
                 CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
-                finish();
+                AppManager.getInstance().removeCurrent();
                 break;
         }
     }

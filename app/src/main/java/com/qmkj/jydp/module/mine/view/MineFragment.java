@@ -263,6 +263,8 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     private void getMineInfo() {
         if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null){
             presenter.getMineInfo(1, false);
+        }else{
+            refreshLayout.refreshComplete();
         }
     }
 
@@ -315,7 +317,6 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
-        refreshLayout.refreshComplete();
         super.onError(errorMsg, code, tag, o);
         refreshLayout.refreshComplete();
     }

@@ -50,7 +50,6 @@ import java.text.DecimalFormat;
  */
 public class CommonUtil {
 
-
     /**
      * 跳转activity
      */
@@ -819,4 +818,17 @@ public class CommonUtil {
         clearLoginInfo();
         saveExchangePwd("");
     }
+
+//    /**
+//     * 获取公钥加密
+//     */
+//    public static void getJYDPPublicKey(){
+//        JYDPPublicKey = MD5Util.toMd5(Constants.JYDP_PUBLIC_KEY);
+//    }
+//    /**
+//     * 获取公私钥加密
+//     */
+//    public static void getJYDPSecretKey(){
+//
+//    }
 }

@@ -210,7 +210,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
             toast("微信账号不能为空");
             return true;
         }
-        if(weiChatPicture.length<1){
+        if(weiChatPicture!=null&&weiChatPicture.length<1){
             toast("请选择微信收款二维码");
             return true;
         }
@@ -227,7 +227,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
             toast("支付宝账号不能为空");
             return true;
         }
-        if(aliPicture.length<1){
+        if(aliPicture!=null&&aliPicture.length<1){
             toast("请选择支付宝收款二维码");
             return true;
         }
