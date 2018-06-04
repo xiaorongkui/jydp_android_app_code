@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.event.ExchangeEvent;
+import com.qmkj.jydp.bean.event.ExchangePwdEvent;
 import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.request.ExchangeCenterReq;
 import com.qmkj.jydp.bean.response.CancleOrderReq;
@@ -133,6 +134,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     private Disposable subscribe_2;
     boolean isLogin = false;
     private double recodeTime;
+    private Disposable subscribe_3;
 
     public String getCurrencyId() {
         return currencyId;
@@ -165,8 +167,10 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         subscribe_2 = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(exchangeEvent -> {
             getExchangeCenterData(true);
         });
+        subscribe_3 = RxBus.getDefault().toObservable(ExchangePwdEvent.class).subscribe(exchangeEvent -> {
+            getExchangeCenterData(true);
+        });
         exchangeTitleTv.setText(currencyName);
-
         isLogin = !TextUtils.isEmpty(CommonUtil.getToken());
     }
 
@@ -485,23 +489,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
 
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        this.hidden = hidden;
-//        if (!hidden) {
-//            if (timeDownDisposable == null || timeDownDisposable.isDisposed()) {
-//                getExchangeCenterData(true);
-//                initCountTimer();
-//            }
-//        } else {
-//            if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
-//                timeDownDisposable.dispose();
-//            }
-//        }
-//
-//    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -668,6 +655,9 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         }
         if (subscribe_2 != null && !subscribe_2.isDisposed()) {
             subscribe_2.dispose();
+        }
+        if (subscribe_3 != null && !subscribe_3.isDisposed()) {
+            subscribe_3.dispose();
         }
         if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
             timeDownDisposable.dispose();

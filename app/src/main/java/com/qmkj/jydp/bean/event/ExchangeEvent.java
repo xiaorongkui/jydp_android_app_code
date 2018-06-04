@@ -7,5 +7,13 @@ package com.qmkj.jydp.bean.event;
  */
 
 public class ExchangeEvent {
+    public boolean isFocusUpdate;
 
+    public boolean isFocusUpdate() {
+        return isFocusUpdate;
+    }
+
+    public void setFocusUpdate(boolean focusUpdate) {
+        isFocusUpdate = focusUpdate;
+    }
 }

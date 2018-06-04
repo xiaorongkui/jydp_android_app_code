@@ -1,5 +1,7 @@
 package com.qmkj.jydp.common;
 
+import com.qmkj.jydp.util.MD5Util;
+
 import org.json.JSONObject;
 
 /**
@@ -270,4 +272,6 @@ public class Constants {
 
     public static final String JYDP_PUBLIC_KEY = "524bee776fe6267bbcf3b3d3ac2ecbf8";
     public static final String JYDP_SECRET_KEY = "2c4e87caae0de93675387f3fcea369f8";
+    public static final String JYDP_SECRET_SIGN = MD5Util.toMd5(Constants.JYDP_PUBLIC_KEY + Constants.JYDP_SECRET_KEY);
+
 }

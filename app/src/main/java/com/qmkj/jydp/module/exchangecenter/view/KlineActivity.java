@@ -212,6 +212,7 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         dealRecodeRecAdapter = new DealRecodeRecAdapter(mContext, recodeDatas, R.layout
                 .exchange_deal_recode_item);
         exchangeDealRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
+        dealRecodeRecAdapter.setEmptyView(View.inflate(mContext, R.layout.empty, null));
         exchangeDealRecodeRv.setAdapter(dealRecodeRecAdapter);
     }
 
