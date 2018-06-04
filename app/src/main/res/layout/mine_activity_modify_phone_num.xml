@@ -193,6 +193,7 @@
                     app:contentEditTopMargin="@dimen/x14"
                     app:titleText="@string/login_password"
                     app:titleTopMargin="@dimen/x20"
+                    app:inputType="textPassword"
                     app:digits="@string/text_digits"
                     app:maxLength="16"/>
 

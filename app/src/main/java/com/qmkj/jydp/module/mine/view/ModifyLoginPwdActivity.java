@@ -87,9 +87,6 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initView() {
-        modify_old_login_pwd_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        modify_new_login_pwd_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        modify_new_login_pwd_again_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         modify_login_pwd_verification_code_civ.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_login_pwd_verification_code_civ.setEditTextMaxLength(6);
         codeTimeDownTv = modify_login_pwd_verification_code_civ.getView(R.id.edit_right_tv);

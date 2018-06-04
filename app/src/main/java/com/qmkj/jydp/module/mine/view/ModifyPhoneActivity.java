@@ -90,7 +90,6 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initView() {
-        modify_phone_password_one_eiv.setEditTextInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         modify_phone_verification_code_civ.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_verification_code_eiv.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_phone_erea_et.setInputType(InputType.TYPE_CLASS_NUMBER);

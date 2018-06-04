@@ -225,10 +225,6 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         String max_et = exchange_limit_max_et.getText().toString();
 //        publishPaymentTypeSelectRv.get
 
-//        req.setAra(area);
-        req.setMinNumber(min_et);
-        req.setMaxNumber(max_et);
-        req.setPendingRatio(proportion);
         StringBuffer bg = new StringBuffer();
         for (int i=0;i<paymentSelectDatas.size();i++){
             if(paymentSelectDatas.get(i).isSelect()){
@@ -264,7 +260,21 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
             toast("最高限量不能超过一百万");
             return;
         }
+        if(proportion.lastIndexOf(".")==proportion.length()-1){
+            proportion = proportion + "0";
+        }
+        if(min_et.lastIndexOf(".")==min_et.length()-1){
+            min_et = min_et + "0";
+        }
+        if(max_et.lastIndexOf(".")==max_et.length()-1){
+            max_et = max_et + "0";
+        }
 
+
+//        req.setAra(area);
+        req.setMinNumber(min_et);
+        req.setMaxNumber(max_et);
+        req.setPendingRatio(proportion);
         if(req.getOrderType().equals("2")){ //回购
 
             presenter.sendInitiateAdsInfo(req, SEND_REQUEST_BUY,true);

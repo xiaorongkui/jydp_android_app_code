@@ -80,10 +80,26 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
         }
         recode_status.setText(text);
         transaction_recode_name_tv.setText(item.getCurrencyName());
-        amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()),4)+"");
-        price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTransactionPrice()),4)+"");
-        deal_amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getFeeForWap()),4)+"");
-        total_price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyTotalPrice()),4)+"");
+        if(!StringUtil.isNull(item.getCurrencyNumber())){
+            amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()),4)+"");
+        }else {
+            amount.setText("0");
+        }
+        if(!StringUtil.isNull(item.getTransactionPrice())){
+            price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTransactionPrice()),4)+"");
+        }else {
+            amount.setText("0");
+        }
+        if(!StringUtil.isNull(item.getFeeForWap())){
+            deal_amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getFeeForWap()),4)+"");
+        }else {
+            deal_amount.setText("0");
+        }
+        if(!StringUtil.isNull(item.getCurrencyTotalPrice())){
+            total_price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyTotalPrice()),4)+"");
+        }else {
+            total_price.setText("0");
+        }
         if(!StringUtil.isNull(item.getActualPriceForWap())&&Double.parseDouble(item.getActualPriceForWap())!=0){
             actual_account.setText(item.getActualPriceForWap()+"");
             transaction_actual_account_title_tv.setVisibility(View.VISIBLE);
