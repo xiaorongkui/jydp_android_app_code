@@ -83,11 +83,11 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         }else if(item.getDealStatus()==5){
             text = "已撤销";
             recode_status.setBackgroundResource(R.drawable.shape_cancel_bg);
-            recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+            recode_status.setTextColor(mContext.getResources().getColor(R.color.color_gray_2));
         }else {
             text = "待完成";
-            recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
-            recode_status.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
+            recode_status.setBackgroundResource(R.drawable.shape_wite_bg);
+            recode_status.setTextColor(mContext.getResources().getColor(R.color.color_blue_7));
         }
         recode_status.setText(text);
         amount.setText(item.getCurrencyNumber()+"");
