@@ -19,6 +19,7 @@ import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.SendAdsReq;
+import com.qmkj.jydp.bean.response.OtcCoinConfigRes;
 import com.qmkj.jydp.bean.response.UserCoinWithdrawInfo;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
@@ -69,7 +70,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     private CommonDialog commonDialog_type;
     private CommonDialog commonDialog_country;
 
-    private List<UserCoinWithdrawInfo.CoinWithdrawInfo> data_corn;
+    private List<OtcCoinConfigRes.UserOtcCoinConfigListBean> data_corn;
     private List<DialogItemBean> data_type;
     private List<DialogItemBean> data_country;
     private SendAdsReq req;
@@ -82,7 +83,8 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
 
     @Override
     protected void initData() {
-        presenter.getUserCoinWithdrawalInfo(GET_CORN_CODE,false);
+//        presenter.getUserCoinWithdrawalInfo(GET_CORN_CODE,false);
+        presenter.getDealerManagmentCoinInfo(GET_CORN_CODE,false);
         req = new SendAdsReq();
 
 
@@ -126,9 +128,9 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         super.onSuccess(response, tag);
         switch (tag){
             case GET_CORN_CODE:
-                UserCoinWithdrawInfo res =(UserCoinWithdrawInfo)response;
-                if(res.getUserCoinConfigList()!=null){
-                    data_corn = res.getUserCoinConfigList();
+                OtcCoinConfigRes res =(OtcCoinConfigRes)response;
+                if(res.getUserOtcCoinConfigList()!=null){
+                    data_corn = res.getUserOtcCoinConfigList();
                     if(data_corn.size()>0){
                         req.setCurrencyId(data_corn.get(0).getCurrencyId()+"");
                         publishAdvertiseCurrencyCiv.setRightText(data_corn.get(0).getCurrencyName());
@@ -292,11 +294,11 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         });
         tittle.setText("选择链");
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        BaseRecycleAdapter adapter=new BaseRecycleAdapter<UserCoinWithdrawInfo.CoinWithdrawInfo>(R.layout.bottom_select_item,
+        BaseRecycleAdapter adapter=new BaseRecycleAdapter<OtcCoinConfigRes.UserOtcCoinConfigListBean>(R.layout.bottom_select_item,
                 data_corn) {
 
             @Override
-            protected void convert(BaseRecyclerViewHolder helper, UserCoinWithdrawInfo.CoinWithdrawInfo item, int position) {
+            protected void convert(BaseRecyclerViewHolder helper, OtcCoinConfigRes.UserOtcCoinConfigListBean item, int position) {
 //                ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
 //                imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap

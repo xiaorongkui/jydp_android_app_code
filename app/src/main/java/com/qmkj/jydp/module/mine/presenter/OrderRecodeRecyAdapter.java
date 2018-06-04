@@ -11,6 +11,7 @@ import com.qmkj.jydp.bean.response.OrderRecodeRes;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
 /**
@@ -107,10 +108,10 @@ public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.Transact
                 break;
         }
         business_phone.setRightText(text);
-        amount.setText(item.getPendingNumber()+"");
-        price.setText(item.getPendingPrice()+"");
-        deal_amount.setText(item.getDealNumber()+"");
-        total_price.setText(item.getTotalPrice()+"");
-        available_amount.setText(item.getRemainNum()+"");
+        amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getPendingNumber()),4)+"");
+        price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getPendingPrice()),4)+"");
+        deal_amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getDealNumber()),4)+"");
+        total_price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTotalPrice()),4)+"");
+        available_amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getRemainNum()),4)+"");
     }
 }

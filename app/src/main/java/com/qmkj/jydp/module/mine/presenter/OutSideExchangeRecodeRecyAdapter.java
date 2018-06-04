@@ -80,6 +80,10 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
             text = "已完成";
             recode_status.setBackgroundResource(R.drawable.shape_shell_bg);
             recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
+        }else if(item.getDealStatus()==5){
+            text = "已撤销";
+            recode_status.setBackgroundResource(R.drawable.shape_cancel_bg);
+            recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
         }else {
             text = "待完成";
             recode_status.setBackgroundResource(R.drawable.shape_buy_bg);
@@ -100,7 +104,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
                     text_type = "出售";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
 
-                    if(item.getDealStatus() != 4){//待确认收货
+                    if(item.getDealStatus() != 4&&item.getDealStatus() != 4){//待确认收货
                         comfirm_receivables.setVisibility(View.VISIBLE);
                     }
 
@@ -110,7 +114,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
                 if(type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
                     text_type = "出售";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
-                    if(item.getDealStatus() != 4){
+                    if(item.getDealStatus() != 4&&item.getDealStatus() != 5){
                         comfirm_receivables.setVisibility(View.VISIBLE);
                     }
                 }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商

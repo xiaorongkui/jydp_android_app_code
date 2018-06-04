@@ -11,6 +11,7 @@ import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 import com.qmkj.jydp.util.StringUtil;
 
@@ -79,10 +80,10 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
         }
         recode_status.setText(text);
         transaction_recode_name_tv.setText(item.getCurrencyName());
-        amount.setText(item.getCurrencyNumber()+"");
-        price.setText(item.getTransactionPrice()+"");
-        deal_amount.setText(item.getFeeForWap()+"");
-        total_price.setText(item.getCurrencyTotalPrice()+"");
+        amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()),4)+"");
+        price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTransactionPrice()),4)+"");
+        deal_amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getFeeForWap()),4)+"");
+        total_price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyTotalPrice()),4)+"");
         if(!StringUtil.isNull(item.getActualPriceForWap())&&Double.parseDouble(item.getActualPriceForWap())!=0){
             actual_account.setText(item.getActualPriceForWap()+"");
             transaction_actual_account_title_tv.setVisibility(View.VISIBLE);

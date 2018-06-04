@@ -33,6 +33,7 @@
             android:layout_marginStart="@dimen/x10"
             app:bottomLine="false"
             app:leftText="@string/bank_info"
+            android:visibility="gone"
             app:leftTextColor="@color/color_black_1"
             app:leftTextSize="@dimen/text_size_13"
             app:rightIconVisible="false"
@@ -50,6 +51,7 @@
             app:leftText="@string/bank_reserve_name"
             app:leftTextColor="@color/color_black_1"
             app:leftTextSize="@dimen/text_size_13"
+            android:visibility="gone"
             app:rightIconVisible="false"
             app:rightText="张三"
             app:rightTextColor="@color/color_black_7"
@@ -62,6 +64,7 @@
             android:layout_marginEnd="@dimen/x10"
             android:layout_marginStart="@dimen/x10"
             app:bottomLine="false"
+            android:visibility="gone"
             app:leftText="@string/bank_reserve_phone"
             app:leftTextColor="@color/color_black_1"
             app:leftTextSize="@dimen/text_size_13"
@@ -100,6 +103,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/y10"
             android:layout_marginTop="@dimen/y10"
+            android:visibility="gone"
             android:scaleType="fitXY" />
 
     </LinearLayout>

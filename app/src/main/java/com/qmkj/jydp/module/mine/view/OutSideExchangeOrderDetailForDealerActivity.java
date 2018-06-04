@@ -110,7 +110,9 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         }
         if (orderDetailInfo.getDealStatus() == 4) {
             orderDetailStatusTv.setText("已完成");
-        } else {
+        } else if(orderDetailInfo.getDealStatus() == 5){
+            orderDetailStatusTv.setText("待撤销");
+        }else {
             orderDetailStatusTv.setText("待完成");
         }
         orderDetailOrderNoTv.setText(orderDetailInfo.getOtcOrderNo());
@@ -151,7 +153,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         orderDetailAddTimeCv.setRightText(DateUtil.longToTimeStr(orderDetailInfo.getAddTime(), DateUtil.dateFormat2));
         orderDetailUpdateTimeCv.setRightText(DateUtil.longToTimeStr(orderDetailInfo.getUpdateTime(), DateUtil.dateFormat2));
         //只有当交易状态为未确认且交易类型为出售时 才显示确认收款按钮
-        if (orderDetailInfo.getDealStatus() != 4 && orderDetailInfo.getDealType() == 1) {
+        if (orderDetailInfo.getDealStatus() != 4 &&orderDetailInfo.getDealStatus() != 5&& orderDetailInfo.getDealType() == 1) {
             confirmReceiptBtn.setVisibility(View.VISIBLE);
         } else {
             confirmReceiptBtn.setVisibility(View.GONE);
@@ -213,6 +215,8 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
                 orderDetailMyInfoSl.setVisibility(View.GONE);
                 //显示经销商支付信息
                 orderDetailUserInfoContentFl.addView(dealerPayLayout);
+                //显示支付二维码
+                aliWeiXinPayQrcodeImg.setVisibility(View.VISIBLE);
                 break;
             case 3:
                 //撤销暂时不做处理

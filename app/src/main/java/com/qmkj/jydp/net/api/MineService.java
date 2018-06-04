@@ -20,6 +20,7 @@ import com.qmkj.jydp.bean.response.DealerManagementRes;
 import com.qmkj.jydp.bean.response.HelpCenterRes;
 import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
+import com.qmkj.jydp.bean.response.OtcCoinConfigRes;
 import com.qmkj.jydp.bean.response.OtcDealRecordDetailsRes;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
 import com.qmkj.jydp.bean.response.PresentRechargeRes;
@@ -57,6 +58,10 @@ public interface MineService {
     //获取用户提币币种管理信息
     @GET(AppNetConfig.urlPath + "wap/userCoinWithdrawal/show")
     Observable<BaseRes<UserCoinWithdrawInfo>> getUserCoinWithdrawalInfo();
+
+    //经销商发起广告币种信息
+    @GET(AppNetConfig.urlPath + "wap/userCoinWithdrawal/show")
+    Observable<BaseRes<OtcCoinConfigRes>> getDealerManagmentCoinInfo();
 
     //用户提币
     @POST(AppNetConfig.urlPath + "wap/userCoinWithdrawal/mentionCoin")

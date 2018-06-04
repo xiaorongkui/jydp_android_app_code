@@ -268,6 +268,6 @@ public class Constants {
     public static final String SP_SAVE_TOKEN = "sp_save_token";
     public static final String SP_SAVE_EXCHANGE_PWD = "sp_save_exchange_pwd";
 
-    public static final String JYDP_PUBLIC_KEY = "交易大盘";
-    public static final String JYDP_SECRET_KEY = "交易大盘APP";
+    public static final String JYDP_PUBLIC_KEY = "524bee776fe6267bbcf3b3d3ac2ecbf8";
+    public static final String JYDP_SECRET_KEY = "2c4e87caae0de93675387f3fcea369f8";
 }

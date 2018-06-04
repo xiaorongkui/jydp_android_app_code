@@ -130,9 +130,12 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
 
     private void setMessageView(OtcDealRecordDetailsRes.OtcTransactionUserDealBean res) {
         String text = null;
-        //4：已完成， 其他：待完成
+        //4：已完成，5:已撤销, 其他：待完成
         if (res.getDealStatus() == 4) {
             text = "已完成";
+            register_bt.setVisibility(View.GONE);
+        }else if(res.getDealStatus() == 5){
+            text = "已撤销";
             register_bt.setVisibility(View.GONE);
         } else {
             text = "待完成";

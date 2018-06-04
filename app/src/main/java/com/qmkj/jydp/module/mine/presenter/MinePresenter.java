@@ -63,6 +63,11 @@ public class MinePresenter extends BaseRxPresenter {
         sendHttpRequest(mineService.getUserCoinWithdrawalInfo(), tag, isShowProgress);
     }
 
+    //经销商发起广告币种信息
+    public void getDealerManagmentCoinInfo(int tag, boolean isShowProgress) {
+        sendHttpRequest(mineService.getDealerManagmentCoinInfo(), tag, isShowProgress);
+    }
+
     /**
      * 用户提币请求
      *
