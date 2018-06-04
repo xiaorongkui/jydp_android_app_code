@@ -271,14 +271,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-//                        getExchangeCenterData(false);
-                        getExchangeRecode(false);
-                        getExchangePendOrder(false);
-                        getExchangeDealPrice(false);
-                    }
+                .subscribe(aLong -> {
+                    getExchangeCenterData(false);
+                    getExchangeRecode(false);
+                    getExchangePendOrder(false);
+                    getExchangeDealPrice(false);
                 });
     }
 
@@ -458,14 +455,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         return false;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        LogUtil.i("交易中心 onPause");
-        if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
-            timeDownDisposable.dispose();
-        }
-    }
 
     @Override
     protected void onViewResume() {
@@ -487,8 +476,14 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         super.onViewPause();
         if (timeDownDisposable != null && !timeDownDisposable.isDisposed()) {
             timeDownDisposable.dispose();
+            timeDownDisposable = null;
         }
+        ExchangeBuyFragment item1 = (ExchangeBuyFragment) pagerAdapter.getItem(0);
+        item1.cleanAssetes();
+        ExchangeSoldFragment item2 = (ExchangeSoldFragment) pagerAdapter.getItem(1);
+        item2.cleanAssetes();
     }
+
 
 //    @Override
 //    public void onHiddenChanged(boolean hidden) {

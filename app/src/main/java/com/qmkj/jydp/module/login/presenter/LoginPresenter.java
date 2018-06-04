@@ -24,6 +24,7 @@ import com.qmkj.jydp.module.login.modle.UpdateView;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.RxUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -34,6 +35,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -68,10 +73,10 @@ public class LoginPresenter extends BaseRxPresenter<LoginContract.UpdateView> {
         sendHttpRequest(loginService.startRegister(req), tag);
     }
 
-    public void submitCertify(CertifyNameReq req, byte[] backBytes, byte[] frontBytes, int tag) {
+    public void submitCertify(CertifyNameReq req, byte[] frontBytes, byte[] backBytes, int tag) {
         RequestBody data = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(req));
-        RequestBody frontRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), backBytes);
-        RequestBody backRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), frontBytes);
+        RequestBody frontRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), frontBytes);
+        RequestBody backRequestBody = MultipartBody.create(MediaType.parse("image/jpg"), backBytes);
         sendHttpRequest(loginService.submitCertify(data, frontRequestBody, backRequestBody), tag);
     }
 

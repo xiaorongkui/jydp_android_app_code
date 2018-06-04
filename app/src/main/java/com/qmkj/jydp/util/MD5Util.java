@@ -30,9 +30,8 @@ public class MD5Util {
         String newStr = endStr + preStr;
 
         //MD5加密
-        String md5Str = MD5(newStr);
 
-        return md5Str;
+        return MD5(newStr);
     }
 
     /**
@@ -61,9 +60,7 @@ public class MD5Util {
             mdInst2.update(btInput2);
             byte[] md2 = mdInst2.digest();
 
-            String md5Str2 = getMD5Str(md2);
-
-            return md5Str2;
+            return getMD5Str(md2);
         } catch (Exception e) {
             LogUtil.e(TAG, e.getMessage());
             return null;

@@ -295,7 +295,7 @@
                     android:layout_marginTop="@dimen/y16"
                     app:bottomLine="false"
                     app:isDefaultHight="false"
-                    app:leftText="@string/buy_amount"
+                    app:leftText="@string/sold_amount"
                     app:leftTextColor="@color/color_black_6"
                     app:leftTextSize="@dimen/text_size_14"
                     app:rightIconVisible="false"

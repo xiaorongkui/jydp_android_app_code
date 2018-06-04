@@ -149,7 +149,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 e.printStackTrace();
             }
 
-            totalPriceTv.setText(NumberUtil.format4Point(NumberUtil.mul(buAmount, ratio)));
+            totalPriceTv.setText(NumberUtil.format5Point(NumberUtil.mul(buAmount, ratio)));
         });
     }
 

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
@@ -187,7 +188,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         certifyNameReq.setUserCertNo(userCertNo);
         certifyNameReq.setUserCertTypeStr((selectIndex + 1) + "");
 
-        presenter.submitCertify(certifyNameReq, backBytes, frontBytes, CERTIFY_NAME_TAG);
+        presenter.submitCertify(certifyNameReq, frontBytes, backBytes, CERTIFY_NAME_TAG);
     }
 
     /**
@@ -249,7 +250,6 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                 frontLl.setVisibility(View.INVISIBLE);
                 isFrontCompressing = true;
 
-
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {
@@ -261,6 +261,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                 bitmapCompressTask.execute(front);
             } catch (Exception e) {
                 e.printStackTrace();
+                LogUtil.i("图片正面照出错=" + e.getMessage());
             }
         }
         if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
@@ -290,6 +291,7 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
                 bitmapCompressTask.execute(back);
             } catch (Exception e) {
                 e.printStackTrace();
+                LogUtil.i("图片反面照出错=" + e.getMessage());
             }
         }
     }

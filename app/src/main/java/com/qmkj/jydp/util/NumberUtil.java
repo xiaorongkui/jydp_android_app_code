@@ -88,6 +88,17 @@ public class NumberUtil {
     }
 
     /**
+     * Format 2 point 格式化4位有效数字.
+     *
+     * @param str the str
+     * @return the string
+     */
+    public static String format5Point(double str) {
+        DecimalFormat myformat = new DecimalFormat();
+        myformat.applyPattern("#0.00000");
+        return myformat.format(str);
+    }
+    /**
      * 加法
      *
      * @param var1
