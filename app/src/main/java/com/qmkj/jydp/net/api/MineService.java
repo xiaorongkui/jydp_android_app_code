@@ -60,7 +60,7 @@ public interface MineService {
     Observable<BaseRes<UserCoinWithdrawInfo>> getUserCoinWithdrawalInfo();
 
     //经销商发起广告币种信息
-    @GET(AppNetConfig.urlPath + "wap/userCoinWithdrawal/show")
+    @GET(AppNetConfig.urlPath + "wap/dealerManagment/openInitiateAds")
     Observable<BaseRes<OtcCoinConfigRes>> getDealerManagmentCoinInfo();
 
     //用户提币

@@ -1,5 +1,6 @@
 package com.qmkj.jydp.bean.response;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * email: 380948730@qq.com
  */
 
-public class OtcCoinConfigRes extends BaseRes{
+public class OtcCoinConfigRes extends BaseRes implements Serializable{
 
     /**
      * dealerCode : 1
