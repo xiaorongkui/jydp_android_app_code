@@ -164,6 +164,7 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         super.onSuccess(response, tag);
         switch (tag) {
             case GET_CODE_TAG:
+                toast("验证码获取成功");
                 codeTimeDown();
                 break;
             case SEND_REQUEST_TAG:

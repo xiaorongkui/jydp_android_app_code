@@ -65,24 +65,29 @@
                     android:layout_marginTop="@dimen/y12"
                     android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/forget_pwd_phone_erea_tv"
+                    <RelativeLayout
+                        android:id="@+id/forget_pwd_phone_erea_layout"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/phone_86"
-                        android:textColor="@color/color_black_2"
-                        android:textSize="@dimen/text_size_13"/>
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/forget_pwd_phone_erea_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/phone_86"
+                            android:textColor="@color/color_black_2"
+                            android:textSize="@dimen/text_size_13" />
 
-                    <ImageView
-                        android:id="@+id/forget_pwd_phone_erea_iv"
-                        android:layout_width="@dimen/x7"
-                        android:layout_height="@dimen/y4"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/x19"
-                        android:layout_toEndOf="@id/forget_pwd_phone_erea_tv"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/down_arrow"/>
+                        <ImageView
+                            android:id="@+id/forget_pwd_phone_erea_iv"
+                            android:layout_width="@dimen/x7"
+                            android:layout_height="@dimen/y4"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/x19"
+                            android:layout_toEndOf="@id/forget_pwd_phone_erea_tv"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/down_arrow" />
+                    </RelativeLayout>
 
                     <EditText
                         android:id="@+id/forget_pwd_phone_erea_et"
@@ -90,11 +95,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/x15"
-                        android:layout_toEndOf="@id/forget_pwd_phone_erea_iv"
+                        android:layout_toEndOf="@id/forget_pwd_phone_erea_layout"
                         android:hint="@string/register_phone_notice"
                         android:inputType="number"
                         android:maxLength="11"
-                        android:maxLines="1"/>
+                        android:maxLines="1" />
 
                 </RelativeLayout>
 

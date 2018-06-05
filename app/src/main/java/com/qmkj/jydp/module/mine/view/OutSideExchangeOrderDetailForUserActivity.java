@@ -84,6 +84,7 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
     Button confirmReceiptBtn;
     //订单详情信息
     private OtcDealRecordDetailsRes.OtcTransactionUserDealBean orderDetailInfo;
+    private CommonDialog commonDialog;
 
     @Override
     protected void injectPresenter() {
@@ -173,6 +174,9 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
         if (orderDetailInfo.getPaymentType() == 1) {
             //银行卡
             bankPayInfoLayout.setVisibility(View.VISIBLE);
+            bankPayBankInfoCv.setVisibility(View.VISIBLE);
+            bankPayBankUserNameCv.setVisibility(View.VISIBLE);
+            bankPayBankUserPhoneNumCv.setVisibility(View.VISIBLE);
             aliWeiXinPayInfoLayout.setVisibility(View.GONE);
             bankPayBankNoCv.setRightText(orderDetailInfo.getPaymentAccount());
             bankPayBankInfoCv.setRightText(orderDetailInfo.getBankName() + "" + orderDetailInfo.getBankBranch());
@@ -218,7 +222,10 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
 
     @OnClick(R.id.confirm_receipt_btn)
     public void onViewClicked() {
-        CommonDialog commonDialog = new CommonDialog(this);
+        if(commonDialog!=null&&commonDialog.isShowing()){
+            return;
+        }
+        commonDialog = new CommonDialog(this);
         commonDialog.setTitleText("确认收款");
         commonDialog.setContentText("确认已收到货款？");
         commonDialog.setOnPositiveButtonClickListener((dialog, view) -> {

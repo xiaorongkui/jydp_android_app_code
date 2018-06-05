@@ -104,7 +104,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
                     text_type = "出售";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
 
-                    if(item.getDealStatus() != 4&&item.getDealStatus() != 4){//待确认收货
+                    if(item.getDealStatus() != 4&&item.getDealStatus() != 5){//待确认收货
                         comfirm_receivables.setVisibility(View.VISIBLE);
                     }
 

@@ -50,6 +50,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
     private ArrayList<OtcDealRecordRes.OtcTransactionUserDealListBean> mData;
     private OutSideExchangeRecodeRecyAdapter outSideExchangeRecodeRecyAdapter;
     private int type;
+    private CommonDialog commonDialog;
 
 
     @Override
@@ -138,7 +139,10 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
                     CommonUtil.startActivityForResult(mContext, intent, NEXT_ACTIVITY_CODE);
                     break;
                 case R.id.outside_exchange_recode_comfirm_receivables_tv: //确认收款
-                    CommonDialog commonDialog = new CommonDialog(this);
+                    if(commonDialog!=null&&commonDialog.isShowing()){
+                        return;
+                    }
+                    commonDialog = new CommonDialog(this);
                     commonDialog.setTitleText("确认收款");
                     commonDialog.setContentText("确认已收到货款？");
                     commonDialog.setOnPositiveButtonClickListener((dialog, view1) -> {

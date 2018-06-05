@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -49,6 +50,8 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     private static final int splashTotalCountdownTime = 60;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
+    @BindView(R.id.forget_pwd_phone_erea_layout)
+    RelativeLayout forget_pwd_phone_erea_layout;
     @BindView(R.id.login_forget_pwd_account_eiv)
     EditVItemView loginForgetPwdAccountEiv;
     @BindView(R.id.forget_pwd_phone_erea_tv)
@@ -92,8 +95,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     protected void initView() {
         forgetPwdCommitBt.setOnClickListener(this);
-        forgetPwdPhoneEreaTv.setOnClickListener(this);
-        forgetPwdPhoneEreaIv.setOnClickListener(this);
+        forget_pwd_phone_erea_layout.setOnClickListener(this);
         codeTimeDownTv = loginForgetPwdVertificationCodeEiv.getView(R.id.edit_right_tv);
         codeTimeDownTv.setOnClickListener(this);
         codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
@@ -108,8 +110,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             case R.id.edit_right_tv:
                 getVerificationCode();
                 break;
-            case R.id.forget_pwd_phone_erea_tv:
-            case R.id.forget_pwd_phone_erea_iv:
+            case R.id.forget_pwd_phone_erea_layout:
                 CommonUtil.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
                 break;
         }

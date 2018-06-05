@@ -87,6 +87,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
     Button confirmReceiptBtn;
     //订单详情信息
     private OtcDealRecordDetailsRes.OtcTransactionUserDealBean orderDetailInfo;
+    private CommonDialog commonDialog;
 
     @Override
     protected void injectPresenter() {
@@ -124,6 +125,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
             case 1:
                 orderDetailDealTypeCv.setRightText("出售");
                 orderDetailDealTypeCv.setRightTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                orderDetailUserPhoneNumCv.setVisibility(View.GONE);
                 break;
             case 2:
                 orderDetailDealTypeCv.setRightText("回购");
@@ -236,7 +238,10 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
 
     @OnClick(R.id.confirm_receipt_btn)
     public void onViewClicked() {
-        CommonDialog commonDialog = new CommonDialog(this);
+        if(commonDialog!=null&&commonDialog.isShowing()){
+            return;
+        }
+        commonDialog = new CommonDialog(this);
         commonDialog.setTitleText("确认收款");
         commonDialog.setContentText("确认已收到货款？");
         commonDialog.setOnPositiveButtonClickListener((dialog, view) -> {
