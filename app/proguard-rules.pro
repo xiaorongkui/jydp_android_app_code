@@ -11,7 +11,13 @@
 -keepclassmembers class fqcn.of.javascript.interface.for.webview {
    public *;
 }
-
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+    public boolean *(android.webkit.WebView, java.lang.String);
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.webView, jav.lang.String);
+}
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
@@ -155,6 +161,7 @@ public static final int *;
 -keep class com.qmkj.jydp.bean.**{*;}
 
 
+
 # Bugly
 -dontwarn com.tencent.bugly.**
 -keep class com.tencent.bugly.** {*;}
@@ -185,15 +192,20 @@ public static final int *;
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 #BaseRecyclerViewAdapterHelper代码混淆
--keep class com.chad.library.** {
+-keep class com.chad.library.adapter.** {
 *;
 }
 -keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
--keep public abstract class * extends com.chad.library.adapter.base.BaseQuickAdapter
 -keep public class * extends com.chad.library.adapter.base.BaseViewHolder
 -keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
      <init>(...);
 }
+
+-keep class com.qmkj.jydp.base.BaseRecyclerViewHolder{*;}
+-keep class com.qmkj.jydp.base.BaseRecycleAdapter{*;}
+-keep class com.qmkj.jydp.base.XBaseAdapter{*;}
+-keep class com.qmkj.jydp.base.XBaseViewHolder{*;}
+
 
 #rxjava混淆
 -dontwarn javax.annotation.**
@@ -261,3 +273,8 @@ public static final int *;
 -keep interface   com.tbruyelle.** { *; }
 -dontwarn   com.tbruyelle.**
 
+# 对于带有回调函数的onXXEvent、**On*Listener的，不能被混淆
+-keepclassmembers class * {
+    void *(**On*Event);
+    void *(**On*Listener);
+}
