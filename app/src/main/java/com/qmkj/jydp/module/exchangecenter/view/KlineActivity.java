@@ -139,7 +139,7 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
 
-        getKlineData(false);
+//        getKlineData(false);
         getExchangeDealRecode(false);
         mWebView.loadUrl(AppNetConfig.kline_url + currencyId);
     }
@@ -197,7 +197,7 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
     }
 
     private void initRecycleView() {
-        dealRecodeRecAdapter = new DealRecodeRecAdapter(mContext, recodeDatas, R.layout
+        dealRecodeRecAdapter = new DealRecodeRecAdapter(recodeDatas, R.layout
                 .exchange_deal_recode_item);
         exchangeDealRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
         dealRecodeRecAdapter.setEmptyView(View.inflate(mContext, R.layout.empty, null));
@@ -709,7 +709,6 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         switch (tag) {
             case KLINE_DATA_TAG:
                 KlineRes klineRes = (KlineRes) response;
-
 
                 break;
             case EXCHANGE_DEAL_RECODE_TAG:

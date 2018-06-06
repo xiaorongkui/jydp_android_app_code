@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,16 +18,13 @@ import com.qmkj.jydp.module.home.presenter.HomePresenter;
 import com.qmkj.jydp.module.home.presenter.HomeRecyAdapter;
 import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeDetailsActivity;
-import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
-import com.qmkj.jydp.ui.AutoHeighBanner;
+import com.qmkj.jydp.ui.widget.AutoHeighBanner;
 import com.qmkj.jydp.ui.widget.FullGridView;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
-import com.qmkj.jydp.util.LogUtil;
-import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
@@ -44,7 +40,7 @@ import butterknife.BindView;
  */
 
 public class HomeFragment extends BaseMvpFragment<HomePresenter> {
-    private static final int HOME_DATA_TAG = 1;
+    private static final int HOME_DATA_REQUEST_TAG = 1;
     @BindView(R.id.home_fragment_ll)
     LinearLayout homeFragmentLl;
     @BindView(R.id.home_auto_ll)
@@ -90,7 +86,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     }
 
     private void getHomeData(boolean isShowProgress) {
-        presenter.getCurrentPrice(HOME_DATA_TAG, isShowProgress);
+        presenter.getCurrentPrice(HOME_DATA_REQUEST_TAG, isShowProgress);
     }
 
     private void initGrideView(List<HomeDataRes.SystemBusinessesPartnerListBean> data) {
@@ -112,12 +108,16 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        LogUtil.i("首页 onHiddenChanged=" + hidden);
-        if (!hidden) {
-            getHomeData(false);
-        }
+    protected void onViewResume() {
+        super.onViewResume();
+        getHomeData(false);//当首页可见时刷新数据
+        marqueeHomeHeaderNotice.startFlipping();//解决重影问题
+    }
+
+    @Override
+    protected void onViewPause() {
+        super.onViewPause();
+        marqueeHomeHeaderNotice.stopFlipping();
     }
 
     ArrayList<HomeDataRes.TransactionUserDealListBean> exchangeList = new ArrayList<>();
@@ -127,14 +127,16 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         homeListRv.setLayoutManager(mLayoutManager);
-//        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
-//        homeRecyAdapter.setEmptyView(mEmptyView);
+        View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
+        homeRecyAdapter.setEmptyView(mEmptyView);
         homeListRv.setAdapter(homeRecyAdapter);
         homeRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
             try {
                 HomeDataRes.TransactionUserDealListBean userDealListBean = exchangeList.get(position);
-                ((MainActivity) getActivity()).showExchangeFrament(userDealListBean.getCurrencyName(),
-                        userDealListBean.getCurrencyId() + "");//去交易中心核心页面
+                if (getActivity() != null) {
+                    ((MainActivity) getActivity()).showExchangeFrament(userDealListBean.getCurrencyName(),
+                            userDealListBean.getCurrencyId() + "");//去交易中心核心页面
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 toast(getString(R.string.cerrecy_select_failed));
@@ -142,11 +144,11 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         });
     }
 
+    //初始化首页自动轮播图
     private void initAuto(List<HomeDataRes.SystemAdsHomepagesListBean> bannerList) {
         if (bannerList == null) {
             return;
         }
-
         //设置banner样式
         homeAutoLl.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
@@ -178,6 +180,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     //公告Views
     List<View> noticeViews = new ArrayList<>();
 
+    /*系统公告的跑马灯*/
     private void initMarquee(List<HomeDataRes.SystemNoticeListBean> homeNoticeInfos) {
         if (homeNoticeInfos == null) return;
         noticeViews.clear();
@@ -201,6 +204,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             intent.putExtra(SystemNoticeDetailsActivity.ACTIVITY_TITLE_KEY, "公告详情");
             CommonUtil.gotoActivity(mContext, intent);
         });
+        marqueeHomeHeaderNotice.startFlipping();
     }
 
     @Override
@@ -219,21 +223,10 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
 
         mTvNotice.setText(noticeListBean.getNoticeTitle());
         tv_home_header_notice_more.setText(CommonUtil.getString(R.string.more));
-        tv_home_header_notice_more.setOnClickListener(v -> {
-            CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
-        });
-        notice_title_type_tv.setText("[" + noticeListBean.getNoticeType() + "]");
+        tv_home_header_notice_more.setOnClickListener(v -> CommonUtil.gotoActivity(mContext, SystemNoticeActivity
+                .class));
+        notice_title_type_tv.setText(String.format("[%s]", noticeListBean.getNoticeType()));
         itemView.setTag(noticeListBean);
-
-        /*itemView.setOnClickListener(v -> {
-            HomeDataRes.SystemNoticeListBean systemNoticeListBean = (HomeDataRes.SystemNoticeListBean) v.getTag();
-            if (systemNoticeListBean != null) {
-                Intent intent = new Intent(mContext, WebActivity.class);
-                intent.putExtra(Constants.INTENT_PARAMETER_1, systemNoticeListBean.getNoticeTitle());
-                intent.putExtra(Constants.INTENT_PARAMETER_2, systemNoticeListBean.getNoticeUrl());
-                CommonUtil.gotoActivity(mContext, intent);
-            }
-        });*/
 
         return itemView;
     }
@@ -272,7 +265,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag) {
-            case HOME_DATA_TAG:
+            case HOME_DATA_REQUEST_TAG://广告首页的数据返回
                 homeFragmentRefresh.refreshComplete();
                 HomeDataRes homeDataRes = (HomeDataRes) response;
                 if (homeDataRes == null) return;
@@ -306,7 +299,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     public void onError(String errorMsg, String code, int tag, Object o) {
         super.onError(errorMsg, code, tag, o);
         switch (tag) {
-            case HOME_DATA_TAG:
+            case HOME_DATA_REQUEST_TAG:
                 homeFragmentRefresh.refreshComplete();
                 break;
         }

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
@@ -79,7 +78,6 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
     int selectIndex = -1;
     private String orderNo;
     private String pendingRatio;
-    private String dealerName;
     private EditVItemView ouside_sold_bank_card_num_eiv;
     private EditVItemView ouside_sold_bank_card_name_eiv;
     private EditVItemView ouside_sold_bank_branch_name_eiv;
@@ -98,7 +96,6 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
     private byte[] weixinBytes;
     private String minAccount;
     private String maxAccount;
-    private CommonDialog qrCodeDialog;
 
     @Override
     protected void injectPresenter() {
@@ -111,7 +108,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
     protected void initData() {
         orderNo = getIntent().getStringExtra(Constants.INTENT_PARAMETER_1);
         pendingRatio = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
-        dealerName = getIntent().getStringExtra(Constants.INTENT_PARAMETER_3);
+        String dealerName = getIntent().getStringExtra(Constants.INTENT_PARAMETER_3);
         minAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_4);
         maxAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_5);
         outsideExchangeSoldRatioTv.setText(CommonUtil.getString(R.string.proportion) + ":  1:" + pendingRatio);
@@ -220,7 +217,6 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
             if (!s.toString().substring(1, 2).equals(".")) {
                 ousideSoldAmountEiv.getEditTextView().setText(s.subSequence(0, 1));
                 ousideSoldAmountEiv.getEditTextView().setSelection(1);
-                return;
             }
         }
     }
@@ -251,8 +247,8 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
 
             @Override
             protected void convert(BaseRecyclerViewHolder helper, DialogItemBean item, int position) {
-                ImageView imageViewLeft = (ImageView) helper.getView(R.id.certify_type_left_iv);
-                ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
+                ImageView imageViewLeft = helper.getView(R.id.certify_type_left_iv);
+                ImageView imageViewRight = helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
                 imageViewLeft.setImageResource(item.getLeftImageViewId());
                 certifyType_tv.setText(item.getCertifyName());

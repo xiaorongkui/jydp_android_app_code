@@ -36,11 +36,10 @@ import butterknife.BindView;
 /**
  * @author wujiangming
  * @date 2018/4/23
- * @desc
  */
 
 public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePresenter> {
-    private static final int OUTSIDE_LIST_TAG = 1;
+    private static final int OUTSIDE_LIST_DATA_TAG = 1;
     private static final int DISTRIBUTOR_PAYMETHOD_TAG = 2;
     @BindView(R.id.title_ll)
     LinearLayout title_ll;
@@ -118,7 +117,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         LinearLayoutManager layoutmanager = new LinearLayoutManager(mContext);
         layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutmanager);
-        mOutsideExchangeAdapter = new OutsideExchangeAdapter(mContext, R.layout.exchange_outside_item, mData);
+        mOutsideExchangeAdapter = new OutsideExchangeAdapter(R.layout.exchange_outside_item, mData);
         View mEmptyView = View.inflate(getContext(), R.layout.empty, null);
         mOutsideExchangeAdapter.setEmptyView(mEmptyView);
         recyclerView.setAdapter(mOutsideExchangeAdapter);
@@ -190,7 +189,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
     private void getOutSideExchangeData(boolean b) {
         OutSideExchangeReq outSideExchangeReq = new OutSideExchangeReq();
         outSideExchangeReq.setPageNumber(currentPageNumber + "");
-        presenter.getOutsideExchangeData(outSideExchangeReq, OUTSIDE_LIST_TAG, b);
+        presenter.getOutsideExchangeData(outSideExchangeReq, OUTSIDE_LIST_DATA_TAG, b);
     }
 
     @Override
@@ -207,7 +206,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag) {
-            case OUTSIDE_LIST_TAG:
+            case OUTSIDE_LIST_DATA_TAG:
                 if (refresh.isRefreshing()) refresh.refreshComplete();
                 showSuccessView(recyclerView, true);
                 OutSideExchangeRes outSideExchangeRes = (OutSideExchangeRes) response;

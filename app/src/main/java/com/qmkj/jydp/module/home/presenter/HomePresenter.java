@@ -2,14 +2,10 @@ package com.qmkj.jydp.module.home.presenter;
 
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import com.qmkj.jydp.base.BaseRxPresenter;
 import com.qmkj.jydp.base.BaseView;
-import com.qmkj.jydp.bean.request.BaseReq;
 import com.qmkj.jydp.net.api.HomeService;
-
-import java.util.Map;
 
 import javax.inject.Inject;
 

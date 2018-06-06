@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.exchangecenter.presenter;
 
-import android.content.Context;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -24,7 +23,7 @@ public class ExchangeSoldPriceRecAdapter extends BaseRecycleAdapter<ExchangeCent
 
     private final List datas;
 
-    public ExchangeSoldPriceRecAdapter(Context context, List datas, int layoutId) {
+    public ExchangeSoldPriceRecAdapter(List<ExchangeCenterRes.TransactionPendOrderSellListBean> datas, int layoutId) {
         super(layoutId, datas);
         this.datas = datas;
     }

@@ -5,8 +5,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.NumberUtil;
@@ -16,12 +16,12 @@ import java.util.List;
 /**
  * @author wujiangming
  * @date 2018/4/23
- * @desc
  */
 
 public class ExchangeCenterAdapter extends BaseRecycleAdapter<ExchangeCurrencyRes.TransactionUserDealListBean> {
 
-    public ExchangeCenterAdapter(int layoutResId, @Nullable List data) {
+    public ExchangeCenterAdapter(int layoutResId, @Nullable List<ExchangeCurrencyRes.TransactionUserDealListBean>
+            data) {
         super(layoutResId, data);
     }
 
@@ -46,7 +46,7 @@ public class ExchangeCenterAdapter extends BaseRecycleAdapter<ExchangeCurrencyRe
             home_exchange_updown_percent_iv.setImageResource(R.mipmap.exchange_down);
             home_exchange_updown_percent_tv.setTextColor(CommonUtil.getColor(R.color.color_green_4));
         }
-        home_exchange_updown_percent_tv.setText(NumberUtil.doubleFormat(change, 2) + "%");
+        home_exchange_updown_percent_tv.setText(String.format("%s%%", NumberUtil.doubleFormat(change, 2)));
 
 
     }

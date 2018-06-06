@@ -31,7 +31,6 @@ public class AppManager {
     /**
      * 添加一个activity
      *
-     * @param activity
      */
     public void addActivity(Activity activity) {
         if (!activityStack.contains(activity)) activityStack.add(activity);
@@ -42,7 +41,6 @@ public class AppManager {
     /**
      * 删除指定activity
      *
-     * @param activity
      */
     public void removeActivity(Activity activity) {
         if (activityStack != null && activityStack.contains(activity)) {
@@ -54,7 +52,6 @@ public class AppManager {
     /**
      * 删除指定activity
      *
-     * @param clazz
      */
     public void removeActivity(Class<?> clazz) {
         Activity act = null;
@@ -105,7 +102,6 @@ public class AppManager {
     /**
      * 求栈大小
      *
-     * @return
      */
     public int getSize() {
         return activityStack.size();

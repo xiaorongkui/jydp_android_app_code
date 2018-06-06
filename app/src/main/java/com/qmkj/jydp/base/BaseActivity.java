@@ -111,17 +111,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         toast(mContext.getResources().getText(res));
     }
 
-
-    protected void toastdefine(int str) {
-        toastdefine(mContext.getResources().getText(str));
-    }
-
     protected void toast(CharSequence res) {
         ToastUtil.showShort(res);
-    }
-
-    protected void toastdefine(CharSequence s) {
-        ToastUtil.showDefinedToast(mContext, s);
     }
 
     /**
@@ -161,10 +152,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
 
     //点击错误界面时触发刷新
     protected void tryData(int id) {
-//        toast("点击重新加载");
     }
 
-    //可以自定义错误界面
+    /*可以自定义错误界面*/
     protected int getNetErrorLayoutRes() {
         return R.layout.net_load_error;
     }

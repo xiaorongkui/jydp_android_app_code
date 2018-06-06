@@ -44,7 +44,6 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     boolean isCanRefresh = true;
     ArrayList<ExchangeCurrencyRes.TransactionUserDealListBean> mData = new ArrayList<>();
     ExchangeCenterAdapter exchangeCenterAdapter;
-    private Disposable timeDownDisposable;
 
     @Override
     protected void injectPresenter() {
@@ -58,8 +57,8 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         initRefreshView();
     }
 
+    /*状态栏占用的兼容性*/
     private void initStatusBar() {
-        //状态栏占用的兼容性
         if (Build.VERSION.SDK_INT >= 21) {
             View statusView = new View(getActivity());
             statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
@@ -78,11 +77,12 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
         recyclerView.setAdapter(exchangeCenterAdapter);
 
         exchangeCenterAdapter.setOnItemClickListener((adapter, view, position) -> {
-
             try {
                 ExchangeCurrencyRes.TransactionUserDealListBean cerrencyData = mData.get(position);
-                ((MainActivity) getActivity()).showExchangeFrament(cerrencyData.getCurrencyName(), cerrencyData
-                        .getCurrencyId() + "");//去交易中心核心页面
+                if (getActivity() != null) {
+                    ((MainActivity) getActivity()).showExchangeFrament(cerrencyData.getCurrencyName(), cerrencyData
+                            .getCurrencyId() + "");//去交易中心核心页面
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 toast(getString(R.string.cerrecy_select_failed));
@@ -91,12 +91,9 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        LogUtil.i("交易中心币种选择 onHiddenChanged=" + hidden);
-        if (!hidden) {
-            getExchangeCurrencyData(false);
-        }
+    protected void onViewResume() {
+        super.onViewResume();
+        getExchangeCurrencyData(false);//页面可见时刷新数据
     }
 
     private void initRefreshView() {
@@ -131,17 +128,8 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     @Override
     protected void initData() {
         refresh.callRefresh();
-//        initCountTimer();
     }
 
-    //    private void initCountTimer() {
-//        timeDownDisposable = Observable.interval(0, 2000, TimeUnit.MILLISECONDS)
-//                .compose(bindToLifecycle())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(aLong -> {
-//                });
-//    }
     private void getExchangeCurrencyData(boolean isShowProgress) {
         presenter.getExchangeCurrency(EXCHANGE_CURRENCY_TAG, isShowProgress);
     }

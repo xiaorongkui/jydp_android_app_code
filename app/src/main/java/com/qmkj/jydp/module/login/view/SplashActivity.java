@@ -16,8 +16,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.AppUpdateRes;
-import com.qmkj.jydp.manager.AppManager;
-import com.qmkj.jydp.module.login.presenter.LoginContract;
+import com.qmkj.jydp.module.login.modle.LoginContract;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
@@ -57,7 +56,6 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
         //设置当前窗体为全屏显示
         window.setFlags(flag, flag);
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -157,8 +155,8 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
     /**
      * 版本号比较
      *
-     * @param version1
-     * @param version2
+     * @param version1 新版本号
+     * @param version2 旧版本号
      * @return true代表需要升级，false代表不需要升级
      * 0代表相等，1代表version1大于version2，-1代表version1小于version2
      */
@@ -274,7 +272,6 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
         subscribe = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(AndroidSchedulers
                 .mainThread()).observeOn(AndroidSchedulers.mainThread()).map(increaseTime -> splashTotalCountdownTime
                 - increaseTime.intValue()).take(splashTotalCountdownTime + 1).subscribe(integer -> {
-            LogUtil.i("integer=" + integer);
 //                logoTime_tv.setText(getSpannableStringBuilder(integer));
             if (integer == 0) {
                 timeFinish = true;

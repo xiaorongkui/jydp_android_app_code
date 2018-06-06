@@ -1,10 +1,5 @@
 package com.qmkj.jydp.common;
 
-/**
- * 生产接口地址：http://test.oksheng.com.cn/jydp/
- * 新测试环境地址：http://test.oksheng.com.cn/jydp/
- */
-
 public final class AppNetConfig {
     public static final String urlPath = "jydp/";//测试环境
 

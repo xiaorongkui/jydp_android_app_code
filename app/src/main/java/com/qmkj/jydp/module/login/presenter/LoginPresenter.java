@@ -10,7 +10,6 @@ import android.support.v4.content.FileProvider;
 
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
-import com.qmkj.jydp.base.BaseView;
 import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
@@ -20,11 +19,10 @@ import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
-import com.qmkj.jydp.module.login.modle.UpdateView;
+import com.qmkj.jydp.module.login.modle.LoginContract;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
-import com.qmkj.jydp.util.RxUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -35,10 +33,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

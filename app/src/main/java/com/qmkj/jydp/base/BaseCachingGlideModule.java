@@ -1,11 +1,7 @@
 package com.qmkj.jydp.base;
 
-import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.PixelFormat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -13,7 +9,7 @@ import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool;
-import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
+import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
@@ -26,14 +22,9 @@ import com.qmkj.jydp.R;
 
 import java.io.InputStream;
 
-import javax.crypto.spec.IvParameterSpec;
-
-import okhttp3.OkHttpClient;
-
 /**
  * Created by Rongkui.xiao on 2017/5/19.
  *
- * @description
  */
 @GlideModule
 public final class BaseCachingGlideModule extends AppGlideModule {
@@ -50,7 +41,7 @@ public final class BaseCachingGlideModule extends AppGlideModule {
         int cacheSize = 100 * 1024 * 1024;
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context, IMAGE_CACHE_NAME, cacheSize));
 
-        builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, IMAGE_CACHE_NAME, cacheSize));
+        builder.setDiskCache(new ExternalPreferredCacheDiskCacheFactory(context, IMAGE_CACHE_NAME, cacheSize));
         // 20%大的内存缓存作为 Glide 的默认值
         MemorySizeCalculator.Builder builder1 = new MemorySizeCalculator.Builder(context);
         MemorySizeCalculator calculator = builder1.build();

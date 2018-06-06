@@ -90,24 +90,24 @@ public class HandlerException {
         /**
          * 未知错误
          */
-        public static final int UNKNOWN = 1000;
+        static final int UNKNOWN = 1000;
         /**
          * 解析错误
          */
-        public static final int PARSE_ERROR = 1001;
+        static final int PARSE_ERROR = 1001;
         /**
          * 网络错误
          */
-        public static final int NETWORD_ERROR = 1002;
+        static final int NETWORD_ERROR = 1002;
         /**
          * 协议出错
          */
-        public static final int HTTP_ERROR = 1003;
+        static final int HTTP_ERROR = 1003;
 
         /**
          * 证书出错
          */
-        public static final int SSL_ERROR = 1005;
+        static final int SSL_ERROR = 1005;
     }
 
     public static class ResponeThrowable extends RuntimeException {

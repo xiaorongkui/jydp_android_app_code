@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.exchangecenter.presenter;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,14 +7,11 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.response.DealRecodeRes;
-import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * author：rongkui.xiao --2018/3/20
@@ -27,7 +23,7 @@ public class DealRecodeRecAdapter extends BaseRecycleAdapter<DealRecodeRes.DealL
 
     private final List datas;
 
-    public DealRecodeRecAdapter(Context context, List datas, int layoutId) {
+    public DealRecodeRecAdapter(List<DealRecodeRes.DealListBean> datas, int layoutId) {
         super(layoutId, datas);
         this.datas = datas;
     }

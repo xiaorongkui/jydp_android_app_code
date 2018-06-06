@@ -40,7 +40,7 @@ import retrofit2.http.Part;
 
 /**
  * Created by Yun on 2018/1/5.
- * 网络请求接口,入参统一使用map集合,
+ * 网络请求接口,入参统一使用json,
  */
 public interface MineService {
     //获取我的信息

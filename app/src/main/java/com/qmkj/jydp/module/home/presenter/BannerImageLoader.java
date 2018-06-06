@@ -8,9 +8,6 @@ import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.response.HomeDataRes;
 import com.youth.banner.loader.ImageLoader;
 
-/**
- * Created by Yun on 2018/1/6.
- */
 
 public class BannerImageLoader extends ImageLoader {
     @Override

@@ -1,6 +1,5 @@
 package com.qmkj.jydp.base;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,11 +17,7 @@ import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -52,9 +47,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         injectPresenter();
-        if (presenter != null) {
-            presenter.attachView(this);
-        }
+        if (presenter != null) presenter.attachView(this);
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -69,14 +62,12 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
 
     @Override
     public void onSuccess(Object response, int tag) {
-//        LogUtil.i(response == null ? "null" : response.toString());
-//        if (response == null) return;
     }
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object o) {
         LogUtil.i("接口请求失败" + ";errorMsg=" + errorMsg + ";errorcode=" + code + ";tag=" + tag);
-        if (isShowDefaultToast()) toast(errorMsg);
+        if (isShowNetErrorDefaultToast()) toast(errorMsg);
         if (TextUtils.isEmpty(code)) {
             return;
         }
@@ -99,7 +90,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
         }
     }
 
-    protected boolean isShowDefaultToast() {
+    protected boolean isShowNetErrorDefaultToast() {
         return true;
     }
 

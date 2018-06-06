@@ -2,6 +2,7 @@ package com.qmkj.jydp.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,6 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-/**
- * Created by Administrator on 2017/3/6.
- */
 public abstract class BaseFragment extends RxFragment implements View.OnClickListener {
 
     private Unbinder unbinder;
@@ -44,7 +42,7 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         if (rootView == null) {// 生命周期方法会反复调用，但如果反复去加载布局是浪费，所以避免反复加载
             rootView = inflater.inflate(getLayoutId(), null);
@@ -225,7 +223,6 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
 
     //点击错误界面时触发刷新
     protected void tryData(int id) {
-        toast("点击重新加载");
     }
 
     //可以自定义错误界面
@@ -235,6 +232,5 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
     }
 }

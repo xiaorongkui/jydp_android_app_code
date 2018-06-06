@@ -10,10 +10,10 @@ import java.util.List;
 
 public class HomeDataRes extends BaseRes {
 
-    private List<SystemAdsHomepagesListBean> systemAdsHomepagesList;
-    private List<SystemBusinessesPartnerListBean> systemBusinessesPartnerList;
-    private List<SystemNoticeListBean> systemNoticeList;
-    private List<TransactionUserDealListBean> transactionUserDealList;
+    private List<SystemAdsHomepagesListBean> systemAdsHomepagesList;//首页轮播图
+    private List<SystemBusinessesPartnerListBean> systemBusinessesPartnerList;//合作商家信息
+    private List<SystemNoticeListBean> systemNoticeList;//系统公告
+    private List<TransactionUserDealListBean> transactionUserDealList;//币种行情列表
 
     public List<SystemAdsHomepagesListBean> getSystemAdsHomepagesList() {
         return systemAdsHomepagesList;
@@ -149,12 +149,12 @@ public class HomeDataRes extends BaseRes {
 
         private long addTime;
         private String businessesImageUrl;
-        private String businessesImageUrlFormat;
-        private String businessesName;
+        private String businessesImageUrlFormat;//合作商家的图片路径
+        private String businessesName;//合作商家名称
         private int id;
         private int rankNumber;
         private String wapLinkUrl;
-        private String webLinkUrl;
+        private String webLinkUrl;//合作商家的H5页面url
 
         public long getAddTime() {
             return addTime;
@@ -237,8 +237,8 @@ public class HomeDataRes extends BaseRes {
         private long addTime;
         private String content;
         private int id;
-        private String noticeTitle;
-        private String noticeType;
+        private String noticeTitle;//公告标题
+        private String noticeType;//公告类型
         private String noticeUrl;
         private String noticeUrlFormat;
         private int rankNumber;
@@ -325,15 +325,15 @@ public class HomeDataRes extends BaseRes {
          */
 
         private double buyOnePrice;
-        private double change;
+        private double change;//日涨跌
         private int currencyId;
         private String currencyImg;
         private String currencyImgUrl;
-        private String currencyName;
+        private String currencyName;//币种名称
         private String currencyShortName;
-        private double latestPrice;
+        private double latestPrice;//当前价
         private double sellOnePrice;
-        private double volume;
+        private double volume;//日成交量
         private double yesterdayLastPrice;
 
         public double getBuyOnePrice() {

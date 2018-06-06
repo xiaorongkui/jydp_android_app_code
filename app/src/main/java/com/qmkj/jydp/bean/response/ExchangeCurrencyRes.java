@@ -5,12 +5,12 @@ import java.util.List;
 /**
  * author：rongkui.xiao --2018/5/18
  * email：dovexiaoen@163.com
- * description:
+ * description:交易中心币种选择页面数据返回
  */
 
 public class ExchangeCurrencyRes extends BaseRes {
 
-    private List<TransactionUserDealListBean> transactionUserDealList;
+    private List<TransactionUserDealListBean> transactionUserDealList;//当前交易币种类表
 
     public List<TransactionUserDealListBean> getTransactionUserDealList() {
         return transactionUserDealList;
@@ -37,13 +37,13 @@ public class ExchangeCurrencyRes extends BaseRes {
          */
 
         private int currencyId;
-        private String currencyName;
-        private String currencyShortName;
-        private double latestPrice;
+        private String currencyName;//币种名称
+        private String currencyShortName;//币种简称
+        private double latestPrice;//币种当前价
         private double buyOnePrice;
         private double sellOnePrice;
-        private double volume;
-        private double change;
+        private double volume;//成交量
+        private double change;//日涨跌
         private double yesterdayLastPrice;
         private String currencyImg;
         private String currencyImgUrl;
