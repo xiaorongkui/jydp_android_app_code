@@ -41,6 +41,7 @@ import butterknife.BindView;
  */
 
 public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter> {
+    public static final int ACTIVITY_RESULT_CODE =200;
     private static final int GET_CORN_CODE = 1;
     private static final int SEND_REQUEST_SHELL = 2;
     private static final int SEND_REQUEST_BUY = 3;
@@ -144,7 +145,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
                 break;
             case SEND_REQUEST_BUY: //回购广告
                 toast("发布成功");
-                setResult(200);
+                setResult(ACTIVITY_RESULT_CODE);
                 finish();
                 break;
         }

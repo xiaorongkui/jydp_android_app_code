@@ -14,7 +14,7 @@ import com.qmkj.jydp.util.SelectorFactory;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description:热门话题适配器
  */
 
 public class SystemHotRecyAdapter extends XBaseAdapter<SystemHotRes.SystemHotListBean> {
@@ -34,9 +34,9 @@ public class SystemHotRecyAdapter extends XBaseAdapter<SystemHotRes.SystemHotLis
 
     @Override
     protected void convert(XBaseViewHolder helper, SystemHotRes.SystemHotListBean item) {
-        TextView system_notice_item_time_tv = helper.getView(R.id.system_notice_item_time_tv);
-        TextView notice_title_item_tv = helper.getView(R.id.notice_title_item_tv);
-        TextView notice_content_item_tv = helper.getView(R.id.notice_content_item_tv);
+        TextView system_notice_item_time_tv = helper.getView(R.id.system_notice_item_time_tv); //时间
+        TextView notice_title_item_tv = helper.getView(R.id.notice_title_item_tv);//标题
+        TextView notice_content_item_tv = helper.getView(R.id.notice_content_item_tv);//内容
 
         helper.addOnClickListener(R.id.system_notice_item_detail_civ);
         system_notice_item_time_tv.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));

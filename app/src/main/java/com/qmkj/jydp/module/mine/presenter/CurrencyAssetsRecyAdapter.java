@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description:链资产适配器
  */
 
 public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.UserCurrencyAssetsBean> {
@@ -40,19 +40,19 @@ public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.Us
     @Override
     protected void convert(XBaseViewHolder helper, CurrencyAssetsRes.UserCurrencyAssetsBean item) {
         TextView mine_currency_assets_item_go_exchange_tv = helper.getView(R.id
-                .mine_currency_assets_item_go_exchange_tv);
+                .mine_currency_assets_item_go_exchange_tv);  //去交易
 
-        TextView mine_assets_name_tv = helper.getView(R.id.mine_assets_name_tv);
-        TextView currency_total_assets_tv = helper.getView(R.id.currency_total_assets_tv);
-        TextView available_amount_tv = helper.getView(R.id.available_amount_tv);
-        TextView frozen_amount_tv = helper.getView(R.id.frozen_amount_tv);
+        TextView mine_assets_name_tv = helper.getView(R.id.mine_assets_name_tv); //链名称
+        TextView currency_total_assets_tv = helper.getView(R.id.currency_total_assets_tv);//总资产
+        TextView available_amount_tv = helper.getView(R.id.available_amount_tv); //可用数量
+        TextView frozen_amount_tv = helper.getView(R.id.frozen_amount_tv); //冻结数量
 
         helper.addOnClickListener(R.id.mine_currency_assets_item_go_exchange_tv);
         mine_currency_assets_item_go_exchange_tv.setBackground(shapeSelector.create());
 
         mine_assets_name_tv.setText(item.getCurrencyName());
-        currency_total_assets_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTotalCurrencyAssets()),2) + "");
-        available_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()),2) + "");
-        frozen_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumberLock()),2) + "");
+        currency_total_assets_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTotalCurrencyAssets()),4) + "");
+        available_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()),4) + "");
+        frozen_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumberLock()),4) + "");
     }
 }

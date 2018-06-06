@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 创建日期：2018/5/21
  * @author Yi Shan Xiang
- * 文件名称： CustomerServiceRes
+ * 文件名称： 联系客户返回实体类
  * email: 380948730@qq.com
  */
 
@@ -21,11 +21,11 @@ public class CustomerServiceRes extends BaseRes implements Serializable{
      * webAppPath : /jydp
      */
 
-    private int pageNumber;
-    private int totalNumber;
-    private int totalPageNumber;
-    private String webAppPath;
-    private List<UserFeedbackListBean> userFeedbackList;
+    private int pageNumber; //页码
+    private int totalNumber; //总数量
+    private int totalPageNumber;//总页数
+    private String webAppPath; //项目名
+    private List<UserFeedbackListBean> userFeedbackList; //意见反馈
 
     public int getPageNumber() {
         return pageNumber;
@@ -81,16 +81,16 @@ public class CustomerServiceRes extends BaseRes implements Serializable{
          * userId : 313
          */
 
-        private long addTime;
-        private String backerAccount;
-        private String feedbackContent;
-        private String feedbackTitle;
-        private String handleContent;
-        private int handleStatus;
-        private long handleTime;
-        private int id;
-        private String userAccount;
-        private int userId;
+        private long addTime; //反馈时间
+        private String backerAccount;//处理的后台管理员帐号
+        private String feedbackContent; //反馈内容
+        private String feedbackTitle; //反馈标题
+        private String handleContent; //处理说明
+        private int handleStatus; //处理状态，1：待处理，2：处理中，3：已处理
+        private long handleTime; //处理时间
+        private int id; //记录Id
+        private String userAccount; //用户账号
+        private int userId; //用户Id
 
         public long getAddTime() {
             return addTime;

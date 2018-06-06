@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018/5/21.
+ * 创建日期：2018/6/6
+ * @author Yi Shan Xiang
+ * 文件名称： 币种提现记录
+ * email: 380948730@qq.com
  */
 
 public class PresentRecordRes extends BaseRes implements Serializable{
@@ -16,10 +19,10 @@ public class PresentRecordRes extends BaseRes implements Serializable{
      * totalPageNumber : 1
      */
 
-    private int pageNumber;
-    private int totalNumber;
-    private int totalPageNumber;
-    private List<CoinOutRecordListBean> coinOutRecordList;
+    private int pageNumber; //页码
+    private int totalNumber; //总数量
+    private int totalPageNumber; //总页数
+    private List<CoinOutRecordListBean> coinOutRecordList;//币种提现记录
 
     public int getPageNumber() {
         return pageNumber;
@@ -72,21 +75,21 @@ public class PresentRecordRes extends BaseRes implements Serializable{
          * addTime : 1524721496000
          */
 
-        private String coinRecordNo;
-        private String sylRecordNo;
-        private int currencyId;
-        private int userId;
-        private String userAccount;
-        private String walletAccount;
-        private String currencyName;
-        private String currencyNumber;
-        private int handleStatus;
-        private long handleTime;
-        private int outStatus;
-        private int sendStatus;
-        private String finishTime;
-        private String remark;
-        private long addTime;
+        private String coinRecordNo; //币种转出记录号
+        private String sylRecordNo; //电子钱包操作记录号
+        private int currencyId;   //币种Id
+        private int userId;  //用户Id
+        private String userAccount;  //用户帐号
+        private String walletAccount; //电子钱包帐号
+        private String currencyName; //币种名称
+        private String currencyNumber; //币种数量
+        private int handleStatus; //审核状态 1：待审核，2：审核通过，3：审核拒绝 4:已撤回
+        private long handleTime; //审核时间
+        private int outStatus; //推送状态，1：未推送，2：已推送
+        private int sendStatus; //转出状态，1：未转出，2：转出中，3：转出成功，4：转出失败
+        private String finishTime; //完成时间
+        private String remark; //备注
+        private long addTime; //添加时间
 
         public String getCoinRecordNo() {
             return coinRecordNo;

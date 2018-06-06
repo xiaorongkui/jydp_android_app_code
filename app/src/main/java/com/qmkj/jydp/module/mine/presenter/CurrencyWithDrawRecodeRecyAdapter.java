@@ -15,7 +15,7 @@ import com.qmkj.jydp.util.SelectorFactory;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description:币种提现记录适配器
  */
 
 public class CurrencyWithDrawRecodeRecyAdapter extends XBaseAdapter<PresentRecordRes.CoinOutRecordListBean> {

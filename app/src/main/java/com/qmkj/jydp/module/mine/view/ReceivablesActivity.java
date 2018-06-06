@@ -68,11 +68,9 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
 
     @BindView(R.id.receivables_confirm_bt)
     Button receivables_confirm_bt;
-    private Bitmap alipay_bitmap;
     private boolean isAliCompressing; //正在阿里二维码压缩图片
     private boolean isWeichatCompressing;//正在微信压缩图片
     private OtcReleaseReq releaseReq;
-    private Bitmap weichat_bitmap;
     private String msg; //提交广告时选择的收款方式
     private byte[] aliPicture; //阿里付款码
     private byte[] weiChatPicture;
@@ -281,11 +279,8 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             try {
-                if (alipay_bitmap != null && !alipay_bitmap.isRecycled()) {
-                    alipay_bitmap.recycle();
-                    alipay_bitmap = null;
-                }
-                alipay_bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
+
+                final Bitmap alipay_bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
                 if (alipay_bitmap == null) {
                     toast("选择的图片存在问题，请重新选择图片");
                     return;
@@ -298,6 +293,9 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
                     aliPicture = bytes;
                     isAliCompressing = false;
 
+                    if (alipay_bitmap != null && !alipay_bitmap.isRecycled()) {
+                        alipay_bitmap.recycle();
+                    }
                 });
                 bitmapCompressTask.execute(alipay_bitmap);
             } catch (Exception e) {
@@ -309,11 +307,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             try {
-                if (weichat_bitmap != null && !weichat_bitmap.isRecycled()) {
-                    weichat_bitmap.recycle();
-                    weichat_bitmap = null;
-                }
-                weichat_bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
+                final Bitmap weichat_bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
                 if (weichat_bitmap == null) {
                     toast("选择的图片存在问题，请重新选择图片");
                     return;
@@ -325,6 +319,9 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
                     receivables_wechat_receipt_code_eiv.setEditTextView(uri+"");
                     weiChatPicture = bytes;
                     isWeichatCompressing = false;
+                    if (weichat_bitmap != null && !weichat_bitmap.isRecycled()) {
+                        weichat_bitmap.recycle();
+                    }
                 });
                 bitmapCompressTask.execute(weichat_bitmap);
             } catch (Exception e) {

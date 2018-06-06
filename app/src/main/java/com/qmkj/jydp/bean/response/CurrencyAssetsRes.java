@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 创建日期：2018/5/17
  * @author Yi Shan Xiang
- * 文件名称： CurrencyAssetsRes
+ * 文件名称： 链资产(用户币种信息)
  * email: 380948730@qq.com
  */
 
@@ -33,11 +33,11 @@ public class CurrencyAssetsRes extends BaseRes implements Serializable{
          * totalCurrencyAssets : 1.11111264E8
          */
 
-        private int currencyId;
-        private String currencyName;
-        private String currencyNumber;
-        private String currencyNumberLock;
-        private String totalCurrencyAssets;
+        private int currencyId; //币种id
+        private String currencyName; //货币名称
+        private String currencyNumber;//货币数量
+        private String currencyNumberLock;//冻结数量
+        private String totalCurrencyAssets; //币种总资产
         //业务字段
         @Expose
         private boolean isSelected;

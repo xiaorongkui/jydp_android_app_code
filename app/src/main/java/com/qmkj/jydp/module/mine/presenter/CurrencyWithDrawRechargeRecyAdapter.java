@@ -16,7 +16,7 @@ import com.qmkj.jydp.util.SelectorFactory;
 /**
  * 创建日期：2018/5/30
  * @author Yi Shan Xiang
- * 文件名称： CurrencyWithDrawRechargeRecyAdapter
+ * 文件名称： 充币记录适配器
  * email: 380948730@qq.com
  */
 

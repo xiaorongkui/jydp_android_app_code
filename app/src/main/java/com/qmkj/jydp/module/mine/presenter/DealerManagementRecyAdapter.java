@@ -34,12 +34,12 @@ public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRe
 
     @Override
     protected void convert(XBaseViewHolder helper, DealerManagementRes.OtcTransactionPendOrderListBean item) {
-        TextView dealer_managment_go_exchange_tv = helper.getView(R.id.dealer_management_delete_tv);
-        TextView dealer_management_buy_tv = helper.getView(R.id.dealer_management_buy_tv);
-        TextView dealer_management_area_tv = helper.getView(R.id.dealer_management_area_tv);
-        TextView dealer_management_name_tv = helper.getView(R.id.dealer_management_name_tv);
-        TextView dealer_management_ratio_tv = helper.getView(R.id.dealer_management_ratio_tv);
-        TextView dealer_management_number_tv = helper.getView(R.id.dealer_management_number_tv);
+        TextView dealer_managment_go_exchange_tv = helper.getView(R.id.dealer_management_delete_tv);//删除
+        TextView dealer_management_buy_tv = helper.getView(R.id.dealer_management_buy_tv);//交易类型
+        TextView dealer_management_area_tv = helper.getView(R.id.dealer_management_area_tv);//地区
+        TextView dealer_management_name_tv = helper.getView(R.id.dealer_management_name_tv);//链名称
+        TextView dealer_management_ratio_tv = helper.getView(R.id.dealer_management_ratio_tv);//交易比例
+        TextView dealer_management_number_tv = helper.getView(R.id.dealer_management_number_tv);//交易数量
 
 
         dealer_management_name_tv.setText(item.getCurrencyName());

@@ -8,6 +8,12 @@ import android.widget.EditText;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 
+/**
+ * 创建日期：2018/6/6
+ * @author Yi Shan Xiang
+ * 文件名称： 联系客服弹出框
+ * email: 380948730@qq.com
+ */
 public class SubmitQuestionDialog extends BaseDialog {
     private EditText questionTitleEdt;
     private EditText questionContentEdt;
@@ -34,8 +40,8 @@ public class SubmitQuestionDialog extends BaseDialog {
     @Override
     protected void initContentView(View contentView) {
         setTitleText("提交问题");
-        questionTitleEdt = contentView.findViewById(R.id.question_title_edt);
-        questionContentEdt = contentView.findViewById(R.id.question_content_edt);
+        questionTitleEdt = contentView.findViewById(R.id.question_title_edt);//标题
+        questionContentEdt = contentView.findViewById(R.id.question_content_edt);//内容
         setOnPositiveButtonClickListener((dialog, view) -> {
             if (onSubmitQuestionListener != null) {
                 onSubmitQuestionListener.onSubmitQuestion(questionTitleEdt.getText().toString(), questionContentEdt.getText().toString());

@@ -76,6 +76,7 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
         helpCenterRecyAdapter.setEmptyView(mEmptyView);
         helpCenterRv.setAdapter(helpCenterRecyAdapter);
         helpCenterRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
+            //进去详情界面
             Intent intent = WebActivity.getActivityIntent(mContext, mData.get(position).getName()+"详情", AppNetConfig.HELP_CENTER_URL + mData.get(position).getId());
             CommonUtil.gotoActivity(mContext, intent);
         });

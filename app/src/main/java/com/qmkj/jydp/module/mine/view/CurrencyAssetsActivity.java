@@ -21,13 +21,14 @@ import butterknife.BindView;
 /**
  * author：rongkui.xiao --2018/5/3
  * email：dovexiaoen@163.com
- * description:币种资产页面
+ * description:链资产页面
  */
 
 public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
     public static final int ACTIVITY_RESULT_CODE = 201;
-    public static final String CURRENT_NAME = "current_name";
-    public static final String CURRENT_ID =  "current_id";
+    private static final int REQUEST_GET_DATA = 1;
+    public static final String CURRENT_NAME = "current_name";  //链种名称
+    public static final String CURRENT_ID =  "current_id";    //链种id
 
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -84,7 +85,7 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter2, View view, int position) {
-
+                //点击去交易，回到首页
                 Intent intent = new Intent();
                 intent.putExtra(CURRENT_NAME,adapter.getItem(position).getCurrencyName());
                 intent.putExtra(CURRENT_ID,adapter.getItem(position).getCurrencyId()+"");
@@ -119,18 +120,23 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
      * 从网络获取数据
      */
     private void getDataFromNet() {
-        presenter.getCurrencyAssetsInfo(1, false);
+        presenter.getCurrencyAssetsInfo(REQUEST_GET_DATA, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        CurrencyAssetsRes res = (CurrencyAssetsRes) response;
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.refreshComplete();
+        switch (tag){
+            case REQUEST_GET_DATA:
+                CurrencyAssetsRes res = (CurrencyAssetsRes) response;
+                if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                    refreshLayout.refreshComplete();
+                }
+                adapter.update(res.getUserCurrencyAssets());
+                adapter.loadMoreEnd();
+                break;
         }
-        adapter.update(res.getUserCurrencyAssets());
-        adapter.loadMoreEnd();
+
     }
 
     @Override

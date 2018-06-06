@@ -11,8 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.CoinRecordCancelReq;
-import com.qmkj.jydp.bean.request.DeleteDealerReq;
-import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.module.mine.presenter.CurrencyWithDrawRecodeRecyAdapter;
@@ -31,8 +29,8 @@ import butterknife.BindView;
  * description:币种提现记录
  */
 public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresenter> {
-    private static final int CANCEL_REQUEST = 2;
-    private static final int GET_DATA = 1;
+    private static final int REQUEST_GET_DATA = 1;
+    private static final int REQUEST_CANCEL = 2;  //发送撤回请求
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -133,7 +131,7 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
         dialogUtils.setTwoConfirmBtn("确认",v -> {
             CoinRecordCancelReq req = new CoinRecordCancelReq();
             req.setCoinRecordNo(adapter.getItem(position).getCoinRecordNo());
-            presenter.cancelPresentRecord(req,CANCEL_REQUEST,true);
+            presenter.cancelPresentRecord(req, REQUEST_CANCEL,true);
                 }
         );
         dialogUtils.show();
@@ -144,17 +142,20 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
         refreshLayout.callRefresh();
     }
 
+    /**
+     * 获取网络数据
+     */
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getPresentRecordInfo(req, GET_DATA, false);
+        presenter.getPresentRecordInfo(req, REQUEST_GET_DATA, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag){
-            case GET_DATA:
+            case REQUEST_GET_DATA:
                 PresentRecordRes recordRes = (PresentRecordRes)response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();
@@ -172,7 +173,7 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
                 }
                 break;
 
-            case CANCEL_REQUEST:
+            case REQUEST_CANCEL://撤回
                 dialogUtils.dismiss();
                 refreshLayout.callRefresh();
                 break;

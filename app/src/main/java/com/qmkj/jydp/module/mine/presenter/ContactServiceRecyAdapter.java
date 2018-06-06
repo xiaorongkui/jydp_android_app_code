@@ -17,7 +17,7 @@ import com.qmkj.jydp.util.StringUtil;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description: 联系客服适配器
  */
 
 public class ContactServiceRecyAdapter extends XBaseAdapter<CustomerServiceRes.UserFeedbackListBean> {

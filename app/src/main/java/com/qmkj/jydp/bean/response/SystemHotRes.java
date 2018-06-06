@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 创建日期：2018/5/21
  * @author Yi Shan Xiang
- * 文件名称： SystemHotRes
+ * 文件名称： 热门话题
  * email: 380948730@qq.com
  */
 
@@ -20,10 +20,10 @@ public class SystemHotRes extends BaseRes implements Serializable{
      * totalPageNumber : 2
      */
 
-    private String pageNumber;
-    private int totalNumber;
-    private int totalPageNumber;
-    private List<SystemHotListBean> systemHotList;
+    private String pageNumber; //页码
+    private int totalNumber;  //总数量
+    private int totalPageNumber;  //总页数
+    private List<SystemHotListBean> systemHotList; //热门话题
 
     public String getPageNumber() {
         return pageNumber;
@@ -69,14 +69,14 @@ public class SystemHotRes extends BaseRes implements Serializable{
          * rankNumber : 1
          */
 
-        private long addTime;
-        private String content;
-        private int id;
-        private String noticeTitle;
-        private String noticeType;
-        private String noticeUrl;
-        private String noticeUrlFormat;
-        private int rankNumber;
+        private long addTime;  //添加时间
+        private String content;  //话题内容
+        private int id; //记录Id
+        private String noticeTitle;  //话题标题
+        private String noticeType;  //话题类型
+        private String noticeUrl;   //话题封面图地址
+        private String noticeUrlFormat; //话题封面图绝对路径
+        private int rankNumber; //排名位置
 
         public long getAddTime() {
             return addTime;

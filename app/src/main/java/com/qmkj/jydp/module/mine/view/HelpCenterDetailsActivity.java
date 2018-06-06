@@ -19,6 +19,12 @@ import com.qmkj.jydp.util.DateUtil;
 
 import butterknife.BindView;
 
+/**
+ * 创建日期：2018/6/6
+ * @author Yi Shan Xiang
+ * 文件名称： 帮助中心详情界面 此界面暂时没有使用，采用的是web界面来加载详情
+ * email: 380948730@qq.com
+ */
 public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     public static final String ACTIVITY_TITLE_KEY = "activity_title_key";
     public static final String ID_KEY = "id_key";

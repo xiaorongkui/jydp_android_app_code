@@ -28,6 +28,7 @@ import butterknife.BindView;
  */
 
 public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
+    private static final int REQUEST_GET_DATA = 1;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -115,26 +116,30 @@ public class HotTopicActivity extends BaseMvpActivity<MinePresenter> {
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getSystemHotInfo(req, 1, false);
+        presenter.getSystemHotInfo(req, REQUEST_GET_DATA, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        SystemHotRes systemHotRes = (SystemHotRes) response;
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.refreshComplete();
-        }
-        if (mIsLoadMore) {
-            adapter.addData(systemHotRes.getSystemHotList());
-        } else {
-            adapter.update(systemHotRes.getSystemHotList());
-        }
-        if (mPage < systemHotRes.getTotalPageNumber() - 1) {
-            adapter.loadMoreComplete();
-            mPage++;
-        } else {
-            adapter.loadMoreEnd();
+        switch (tag){
+            case REQUEST_GET_DATA:
+                SystemHotRes systemHotRes = (SystemHotRes) response;
+                if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                    refreshLayout.refreshComplete();
+                }
+                if (mIsLoadMore) {
+                    adapter.addData(systemHotRes.getSystemHotList());
+                } else {
+                    adapter.update(systemHotRes.getSystemHotList());
+                }
+                if (mPage < systemHotRes.getTotalPageNumber() - 1) {
+                    adapter.loadMoreComplete();
+                    mPage++;
+                } else {
+                    adapter.loadMoreEnd();
+                }
+                break;
         }
     }
 

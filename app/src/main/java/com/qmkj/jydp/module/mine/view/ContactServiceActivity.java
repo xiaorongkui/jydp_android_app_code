@@ -36,7 +36,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     XRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.submit_question_btn)
+    @BindView(R.id.submit_question_btn) //提交问题
     Button submitQuestionBtn;
 
     private ContactServiceRecyAdapter adapter;
@@ -125,7 +125,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag) {
-            case CONTACTS_GET_MSG:
+            case CONTACTS_GET_MSG:  //获取数据
                 CustomerServiceRes customerServiceRes = (CustomerServiceRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();
@@ -142,7 +142,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
                     adapter.loadMoreEnd();
                 }
                 break;
-            case CONTACTS_SEND_MSG:
+            case CONTACTS_SEND_MSG: //提交表单
                 toast("提交成功");
                 refreshLayout.callRefresh();
                 break;
@@ -158,6 +158,9 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     }
 
 
+    /**
+     * 弹出表单弹出框
+     */
     private void showConformDialog() {
         submitQuestionDialog = new SubmitQuestionDialog(mContext);
         submitQuestionDialog.setOnSubmitQuestionListener((questionTitle, questionContent) -> {

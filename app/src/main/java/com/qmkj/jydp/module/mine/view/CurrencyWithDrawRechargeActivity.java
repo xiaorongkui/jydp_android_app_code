@@ -6,16 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.PresentRechargeRes;
-import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.module.mine.presenter.CurrencyWithDrawRechargeRecyAdapter;
-import com.qmkj.jydp.module.mine.presenter.CurrencyWithDrawRecodeRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
-import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
 
@@ -29,7 +25,7 @@ import butterknife.BindView;
  */
 
 public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresenter> {
-    private static final int GET_DATA = 1;
+    private static final int REQUEST_GET_DATA = 1;
 
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -102,10 +98,13 @@ public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresen
         }, recyclerView);
     }
 
+    /**
+     * 获取网络数据
+     */
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getPresentRechargeCoinInfo(req, GET_DATA, false);
+        presenter.getPresentRechargeCoinInfo(req, REQUEST_GET_DATA, false);
     }
 
 
@@ -119,7 +118,7 @@ public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresen
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag){
-            case GET_DATA:
+            case REQUEST_GET_DATA:
                 PresentRechargeRes recordRes = (PresentRechargeRes)response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();

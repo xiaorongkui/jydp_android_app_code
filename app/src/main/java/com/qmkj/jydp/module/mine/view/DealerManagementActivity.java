@@ -28,16 +28,16 @@ import butterknife.BindView;
  * description:经销商管理
  */
 public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
-    private static final int NEXT_ACTIVITY = 111;
-    private static final int GET_INFO = 1;
-    private static final int DELETE_INFO = 2;
+    private static final int ACTIVITY_REQUEST_CODE = 100;  //打开发起广告界面请求码
+    private static final int REQUEST_GET_DATA = 1; //请求数据
+    private static final int REQUEST_DELETE_INFO = 2;//删除
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
     XRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.publish_adversite_btn)
+    @BindView(R.id.publish_adversite_btn) //发起广告
     Button publishAdversiteBtn;
 
     private DealerManagementRecyAdapter adapter;
@@ -110,7 +110,8 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             mIsLoadMore = true;
             getDataFromNet();
         }, recyclerView);
-        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.startActivityForResult(DealerManagementActivity.this, PublishAdvertisementActivity.class,NEXT_ACTIVITY));
+        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.startActivityForResult(
+                DealerManagementActivity.this, PublishAdvertisementActivity.class, ACTIVITY_REQUEST_CODE));
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -121,10 +122,13 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
 
     }
 
+    /**
+     * 获取网络数据
+     */
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getDealerManagementInfo(req, GET_INFO, false);
+        presenter.getDealerManagementInfo(req, REQUEST_GET_DATA, false);
     }
 
     /**
@@ -136,7 +140,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
         commonDialog.setOnPositiveButtonClickListener((dialog, view) -> {
             DeleteDealerReq req = new DeleteDealerReq();
             req.setOtcPendingOrderNo(adapter.getData().get(position).getOtcPendingOrderNo()+"");
-            presenter.deleteDealerManagementInfo(req,DELETE_INFO,true);
+            presenter.deleteDealerManagementInfo(req, REQUEST_DELETE_INFO,true);
             delete_position = position;
         });
         commonDialog.show();
@@ -146,7 +150,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        if(tag == GET_INFO){
+        if(tag == REQUEST_GET_DATA){
             DealerManagementRes res = (DealerManagementRes) response;
             if (refreshLayout != null && refreshLayout.isRefreshing()) {
                 refreshLayout.refreshComplete();
@@ -162,7 +166,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             } else {
                 adapter.loadMoreEnd();
             }
-        }else if(tag == DELETE_INFO){
+        }else if(tag == REQUEST_DELETE_INFO){
             if(delete_position>=0){
                 adapter.remove(delete_position);
                 adapter.notifyDataSetChanged();
@@ -193,7 +197,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEXT_ACTIVITY&&resultCode==200){
+        if(requestCode == ACTIVITY_REQUEST_CODE &&resultCode==PublishAdvertisementActivity.ACTIVITY_RESULT_CODE){
             refreshLayout.callRefresh();
         }
     }

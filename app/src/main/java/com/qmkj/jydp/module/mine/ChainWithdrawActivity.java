@@ -82,7 +82,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     protected void initView() {
 
-        withdrawNumEv.setEditTextTextWatch(new MyTextWatcher(withdrawNumEv.getEditTextView(), 4));
+        withdrawNumEv.setEditTextTextWatch(new MyTextWatcher(withdrawNumEv.getEditTextView(), 2));
 
         LoginRes.UserBean userBean = CommonUtil.getLoginInfo().getUser();
         verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + StringUtil.formatPhoneNum(userBean.getUserPhone()) + "发送一条短信验证码");
@@ -195,7 +195,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
                 userCoinWithdrawInfo = (UserCoinWithdrawInfo) response;
                 if(userCoinWithdrawInfo.getUserCoinConfigList()!=null){
                     chooseInfo = userCoinWithdrawInfo.getUserCoinConfigList().get(0);
-                    canWithdrawNumTv.setText(BigDecimal.valueOf(chooseInfo.getCurrencyNumber()) + "");
+                    canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(chooseInfo.getCurrencyNumber()+""),4)+ "");
                     chooseCurrencyCv.setRightText(chooseInfo.getCurrencyName());
                     withdrawNumNoticeTv.setText("当前链最低提现" + chooseInfo.getMinCurrencyNumber() + "个，超过" + chooseInfo.getFreeCurrencyNumber() + "需人工审核");
 

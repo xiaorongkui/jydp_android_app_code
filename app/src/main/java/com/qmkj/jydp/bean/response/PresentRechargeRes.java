@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 创建日期：2018/5/30
  * @author Yi Shan Xiang
- * 文件名称： PresentRecharge
+ * 文件名称： 充币记录
  * email: 380948730@qq.com
  */
 public class PresentRechargeRes extends BaseRes{
@@ -18,10 +18,10 @@ public class PresentRechargeRes extends BaseRes{
      * webAppPath : /jydp
      */
 
-    private int pageNumber;
-    private int totalPageNumber;
+    private int pageNumber; //页码
+    private int totalPageNumber; //总页数
     private String webAppPath;
-    private List<UserRechargeCoinRecordListBean> userRechargeCoinRecordList;
+    private List<UserRechargeCoinRecordListBean> userRechargeCoinRecordList;//用户充币记录
 
     public int getPageNumber() {
         return pageNumber;
@@ -64,11 +64,11 @@ public class PresentRechargeRes extends BaseRes{
          * walletOrderNo : 10152474899108043408
          */
 
-        private String currencyName;
-        private String currencyNumber;
-        private long orderTime;
-        private String remark;
-        private String walletOrderNo;
+        private String currencyName; //货币名称
+        private String currencyNumber; //币种数量
+        private long orderTime; //订单时间
+        private String remark; //备注
+        private String walletOrderNo; //钱包订单号
 
         public String getCurrencyName() {
             return currencyName;

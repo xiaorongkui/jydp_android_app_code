@@ -48,11 +48,12 @@ import io.reactivex.disposables.Disposable;
 
 public class MineFragment extends BaseMvpFragment<MinePresenter> {
     public static final int ACTIVITY_REQUEST_CODE = 101;
+    private static final int REQUEST_GET_DATA=1;
 
     @BindView(R.id.mine_info_rl)
     XRefreshLayout refreshLayout;
     @BindView(R.id.mine_info_sv)
-    SmoothScrollView scrollView;
+    SmoothScrollView scrollView;  //滑动
     @BindView(R.id.mine_rv)
     ScrollRecycleView mineRv;
     @BindView(R.id.mine_ll)
@@ -65,18 +66,16 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     LinearLayout mineAvailableMoneyLl;
     @BindView(R.id.mine_available_money_sl)
     ShadowLayout mine_available_money_sl;
-    Unbinder unbinder;
-    @BindView(R.id.mine_userAccount_tv)
-    TextView mine_userAccount_tv;
-    @BindView(R.id.mine_tittle_nptv)
-    NoPaddingTextView mine_tittle_nptv;
-    @BindView(R.id.mine_totalUserBalance_tv)
-    NoPaddingTextView mine_totalUserBalance_tv;
-    @BindView(R.id.mine_userBalance_tv)
-    NoPaddingTextView mine_userBalance_tv;
-    @BindView(R.id.mine_userBalanceLock_tv)
-    NoPaddingTextView mine_userBalanceLock_tv;
-    private Disposable subscribe;
+    @BindView(R.id.mine_userAccount_tv)  //身份类别（是否是经销商）
+            TextView mine_userAccount_tv;
+    @BindView(R.id.mine_tittle_nptv)        //账号总资产
+            NoPaddingTextView mine_tittle_nptv;
+    @BindView(R.id.mine_totalUserBalance_tv)    //账号总资产
+            NoPaddingTextView mine_totalUserBalance_tv;
+    @BindView(R.id.mine_userBalance_tv)        //可用资产
+            NoPaddingTextView mine_userBalance_tv;
+    @BindView(R.id.mine_userBalanceLock_tv)     //冻结资产
+            NoPaddingTextView mine_userBalanceLock_tv;
 
     @Override
     protected void initView() {
@@ -133,6 +132,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     }
 
+    /**
+     * 初始化个人中心界面布局
+     */
     private void initRecycleView() {
         List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
@@ -151,6 +153,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         MineRecyAdapter mineRecyAdapter = new MineRecyAdapter(mContext, datas, R.layout.mine_item);
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
+        //是否是经销商
         if (CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
             mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
                 if (CommonUtil.getLoginInfo() == null) {
@@ -260,9 +263,12 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 //        getMineInfo();
     }
 
+    /**
+     * 获取个人中心数据
+     */
     private void getMineInfo() {
         if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null){
-            presenter.getMineInfo(1, false);
+            presenter.getMineInfo(REQUEST_GET_DATA, false);
         }else{
             refreshLayout.refreshComplete();
         }
@@ -288,31 +294,36 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        if(refreshLayout.isRefreshing()){
-            refreshLayout.refreshComplete();
+        switch (tag){
+            case REQUEST_GET_DATA:
+                if(refreshLayout.isRefreshing()){
+                    refreshLayout.refreshComplete();
+                }
+                if(response == null){
+                    return;
+                }
+                LogUtil.e(response.toString());
+                MineRes mineRes = (MineRes) response;
+                if(mineRes!=null){
+                    MineRes.UserInfoBean userInfoBean = mineRes.getUserInfo();
+                    mine_userAccount_tv.setText(userInfoBean.getUserAccount()+"");
+                    mine_totalUserBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getTotalUserBalance()),4)+"");
+                    mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalance()),4)+"");
+                    mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalanceLock()),4)+"");
+                    if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
+                        CommonUtil.getLoginInfo().getUser().setIsDealer(mineRes.getIsDealer());
+                    }
+                    if(mineRes.getIsDealer()==2){ //是经销商
+                        mine_distributor_tv.setVisibility(View.VISIBLE);
+                    }else {
+                        mine_distributor_tv.setVisibility(View.GONE);
+                    }
+                    initRecycleView();
+                }
+                refreshLayout.refreshComplete();
+                break;
         }
-        if(response == null){
-            return;
-        }
-        LogUtil.e(response.toString());
-        MineRes mineRes = (MineRes) response;
-        if(mineRes!=null){
-            MineRes.UserInfoBean userInfoBean = mineRes.getUserInfo();
-            mine_userAccount_tv.setText(userInfoBean.getUserAccount()+"");
-            mine_totalUserBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getTotalUserBalance()),4)+"");
-            mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalance()),4)+"");
-            mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalanceLock()),4)+"");
-            if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
-                CommonUtil.getLoginInfo().getUser().setIsDealer(mineRes.getIsDealer());
-            }
-            if(mineRes.getIsDealer()==2){ //是经销商
-                mine_distributor_tv.setVisibility(View.VISIBLE);
-            }else {
-                mine_distributor_tv.setVisibility(View.GONE);
-            }
-            initRecycleView();
-        }
-        refreshLayout.refreshComplete();
+
     }
 
     @Override
@@ -322,25 +333,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        if (subscribe != null && !subscribe.isDisposed()) {
-            subscribe.dispose();
-        }
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //点击了链提取页面的去交易按钮，进去交易中心的去交易界面
         if(requestCode==ACTIVITY_REQUEST_CODE&&resultCode== CurrencyAssetsActivity.ACTIVITY_RESULT_CODE){
             ((MainActivity) getActivity()).setSelect(1);
             String name =data.getStringExtra(CurrencyAssetsActivity.CURRENT_NAME);
@@ -350,6 +345,10 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         }
     }
 
+    /**
+     * Fragment获取焦点时刷新数据
+     * @param hidden
+     */
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);

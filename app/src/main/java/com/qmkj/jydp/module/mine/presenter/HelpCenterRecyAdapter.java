@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description:帮助中心适配器
  */
 
 public class HelpCenterRecyAdapter extends BaseRecycleAdapter<HelpCenterBean> {
@@ -29,7 +29,7 @@ public class HelpCenterRecyAdapter extends BaseRecycleAdapter<HelpCenterBean> {
 
     @Override
     protected void convert(BaseRecyclerViewHolder helper, HelpCenterBean item, int position) {
-        ClickItemView clickItemView = helper.getView(R.id.person_info_help_center_civ);
+        ClickItemView clickItemView = helper.getView(R.id.person_info_help_center_civ); //名称
         clickItemView.setLeftText(item.getName());
 
     }
