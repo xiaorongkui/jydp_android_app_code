@@ -16,10 +16,10 @@ public class AppUpdateRes extends BaseRes {
      * newestVersion : V2.0.0
      */
 
-    private String forceStatus;
-    private String updateExplain;
-    private String appUrl;
-    private String newestVersion;
+    private String forceStatus;//是否强制更新
+    private String updateExplain;//app更新的内容
+    private String appUrl;//app下载的url
+    private String newestVersion;//新版本号
 
     public String getForceStatus() {
         return forceStatus;

@@ -458,11 +458,12 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 if (buyDialogUtils != null && buyDialogUtils.isShowing()) buyDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangeEvent());
                 RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
-                clearBuyInput();
-                String exchanegPwd = exchange_passowrd_et.getText().toString().trim();
+
+                String exchanegPwd = exchangePassowrdEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(exchanegPwd)) {
                     CommonUtil.saveExchangePwd(exchanegPwd);
                 }
+                clearBuyInput();
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("记住密码设置成功");

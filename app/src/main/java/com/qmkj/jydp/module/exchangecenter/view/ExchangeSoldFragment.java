@@ -369,12 +369,13 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             case SELL_EXCAHNGE_TAG:
                 toast("挂单成功");
                 RxBus.getDefault().post(new ExchangeEvent());
-                clearSoldInput();
-                String exchanegPwd = exchange_passowrd_et.getText().toString().trim();
+                RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
+                String exchanegPwd = exchangePassowrdEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(exchanegPwd)) {
                     CommonUtil.saveExchangePwd(exchanegPwd);
                 }
                 if (sellDialogUtils != null && sellDialogUtils.isShowing()) sellDialogUtils.dismiss();
+                clearSoldInput();
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("密码设置成功");

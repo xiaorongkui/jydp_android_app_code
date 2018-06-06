@@ -7,8 +7,8 @@ package com.qmkj.jydp.bean.response;
  */
 public class BaseRes<T> {
     private String code;//1成功
-    private String message;
-    private T data;
+    private String message;//成功的返回信息
+    private T data;//具体数据
 
     public String getCode() {
         return code;

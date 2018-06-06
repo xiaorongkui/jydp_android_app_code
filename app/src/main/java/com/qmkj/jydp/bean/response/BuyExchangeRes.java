@@ -8,7 +8,7 @@ package com.qmkj.jydp.bean.response;
 
 public class BuyExchangeRes extends BaseRes {
     public String userIsPwd;
-    public String payPasswordStatus;
+    public String payPasswordStatus;//支付密码的
 
     public String getUserIsPwd() {
         return userIsPwd;
