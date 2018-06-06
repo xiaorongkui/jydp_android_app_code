@@ -15,7 +15,7 @@ public final class AppNetConfig {
 //    public static final String BASE_URL = "http://rap.aiksheng.com/";//mock
 
     //kline里的H5页面
-    public static final String kline_url = BASE_URL + "/jydp/wap/wapDealRecord/toChartPage/";
+    public static final String kline_url = BASE_URL + "/jydp/userWap/wapDealRecord/toChartPage/";
 
     public static final String SYSTEM_NOTICE_URL = BASE_URL + "/jydp/userWap/wapSystemNotice/showNoticeDetailApp/";
     public static final String HOT_TOPIC_URL = BASE_URL + "/jydp/userWap/wapSystemHot/showHotDetailApp/";
