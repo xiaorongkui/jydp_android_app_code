@@ -87,6 +87,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
     Button confirmReceiptBtn;
     //订单详情信息
     private OtcDealRecordDetailsRes.OtcTransactionUserDealBean orderDetailInfo;
+    //确认收款二次确认Dialog
     private CommonDialog commonDialog;
 
     @Override
@@ -206,7 +207,6 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         //1：出售 2：购买 3：撤销
         switch (orderDetailInfo.getDealType()) {
             case 1:
-
                 //出售不显示经销商支付信息 显示我的信息
                 orderDetailMyInfoSl.setVisibility(View.VISIBLE);
                 orderDetailMyInfoContentFl.addView(dealerPayLayout);
@@ -235,7 +235,9 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         presenter.getOutSideOrderDetaid(req, REQUEST_TAG_GET_ORDER_DETAIL, true);
     }
 
-
+    /**
+     * 确认收款
+     */
     @OnClick(R.id.confirm_receipt_btn)
     public void onViewClicked() {
         if(commonDialog!=null&&commonDialog.isShowing()){

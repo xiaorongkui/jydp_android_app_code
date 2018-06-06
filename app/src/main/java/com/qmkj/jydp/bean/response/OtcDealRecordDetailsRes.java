@@ -15,7 +15,7 @@ public class OtcDealRecordDetailsRes extends BaseRes implements Serializable{
      * otcTransactionUserDeal : {"addTime":1525250731000,"area":"中国(CN)","bankBranch":1,"bankCode":1,"bankName":1,"currencyName":"XT","currencyNumber":1,"currencyTotalPrice":1,"dealStatus":2,"dealType":2,"dealerName":"IIIUYTWQ","imageUrl":"1231","otcOrderNo":"611805024496671550","paymentAccount":"123","paymentImage":"http://test.oksheng.com.cn/fileservice1231","paymentName":"1","paymentPhone":1,"paymentType":2,"phoneNumber":"15375455110","remark":1,"typeId":"726","updateTime":1525405710000,"userAccount":1,"userPhone":1}
      */
 
-    private OtcTransactionUserDealBean otcTransactionUserDeal;
+    private OtcTransactionUserDealBean otcTransactionUserDeal;  //订单详情信息
 
     public OtcTransactionUserDealBean getOtcTransactionUserDeal() {
         return otcTransactionUserDeal;

@@ -2,9 +2,6 @@ package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -66,14 +60,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * author：rongkui.xiao --2018/3/30
@@ -151,7 +139,7 @@ public class KlineActivity extends BaseMvpActivity<ExchangeCenterPresenter> {
         mChartKline.moveViewToX(kLineDatas.size() - 1);
         mChartVolume.moveViewToX(kLineDatas.size() - 1);
 
-//        getKlineData(false);
+        getKlineData(false);
         getExchangeDealRecode(false);
         mWebView.loadUrl(AppNetConfig.kline_url + currencyId);
     }
