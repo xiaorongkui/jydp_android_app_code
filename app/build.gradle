@@ -40,8 +40,8 @@ android {
             buildConfigField("boolean", "LOG_DEBUG", "true")//全局的变量配置
             debuggable false
             zipAlignEnabled true //zip优化
-//            shrinkResources true
-//            minifyEnabled true
+            shrinkResources true
+            minifyEnabled true
             multiDexEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.signing //签名
@@ -126,13 +126,13 @@ dependencies {
     //    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.google.dagger:dagger:2.13'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     //内存泄漏检测
     //    compile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     implementation project(':MPChartLib')
     implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
     //阴影库，暂时先用
     implementation 'com.wang.avi:library:2.1.3'
-    compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
     implementation files('src/libs/afinal_0.5.1_bin.jar')
 }

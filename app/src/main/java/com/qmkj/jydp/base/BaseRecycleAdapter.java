@@ -11,9 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 /**
  * author：rongkui.xiao --2018/3/29
  * email：dovexiaoen@163.com
@@ -22,7 +19,6 @@ import butterknife.Unbinder;
 
 public abstract class BaseRecycleAdapter<T> extends BaseQuickAdapter<T, BaseRecyclerViewHolder> {
 
-    private Unbinder unbinder;
 
     public BaseRecycleAdapter(int layoutResId, @Nullable List<T> data) {
         super(layoutResId, data);
@@ -96,16 +92,12 @@ public abstract class BaseRecycleAdapter<T> extends BaseQuickAdapter<T, BaseRecy
     @Override
     protected BaseRecyclerViewHolder createBaseViewHolder(View view) {
         BaseRecyclerViewHolder baseViewHolder = super.createBaseViewHolder(view);
-        unbinder = ButterKnife.bind(this, view);
         return baseViewHolder;
     }
 
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
     }
 
 }
