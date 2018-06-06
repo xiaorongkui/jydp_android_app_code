@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description: 个人中心适配器
  */
 
 public class MineRecyAdapter extends BaseRecycleAdapter<MinelistInfo> {
@@ -30,8 +30,8 @@ public class MineRecyAdapter extends BaseRecycleAdapter<MinelistInfo> {
     protected void convert(BaseRecyclerViewHolder helper, MinelistInfo item, int position) {
         if (item == null) return;
 
-        ImageView mine_icon_iv = helper.getView(R.id.mine_item_icon_iv);
-        TextView mine_name_tv = helper.getView(R.id.mine_item_name_tv);
+        ImageView mine_icon_iv = helper.getView(R.id.mine_item_icon_iv); //图标
+        TextView mine_name_tv = helper.getView(R.id.mine_item_name_tv); //名称
         ImageView mine_person_iv = helper.getView(R.id.mine_item_more_iv);
         View mine_item_line = helper.getView(R.id.mine_item_line);
 

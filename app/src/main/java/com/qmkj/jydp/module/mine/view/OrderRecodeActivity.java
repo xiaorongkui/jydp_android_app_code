@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.bean.request.DeleteDealerReq;
 import com.qmkj.jydp.bean.request.OrderRecodeCancelReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
@@ -31,7 +30,7 @@ import butterknife.BindView;
  */
 
 public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
-    private static final int GET_MSG = 1;
+    private static final int REQUEST_GET_DATA = 1;
     private static final int SEND_REQUEST = 2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -158,14 +157,14 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
     private void getDataFromNet() {
         PageNumberReq req = new PageNumberReq();
         req.setPageNumber(mPage);
-        presenter.getTradeCenterInfo(req, GET_MSG, false);
+        presenter.getTradeCenterInfo(req, REQUEST_GET_DATA, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag){
-            case GET_MSG:
+            case REQUEST_GET_DATA:
                 OrderRecodeRes recodeRes = (OrderRecodeRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();

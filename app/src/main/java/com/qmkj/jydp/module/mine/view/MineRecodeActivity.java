@@ -26,15 +26,15 @@ public class MineRecodeActivity extends BaseMvpActivity {
     public static final int RECODE_TYPE_AGENCY = 2;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
-    @BindView(R.id.mine_recode_register_recode_civ)
+    @BindView(R.id.mine_recode_register_recode_civ) //委托记录
     ClickItemView mineRecodeRegisterRecodeCiv;
-    @BindView(R.id.mine_recode_transaction_recode_civ)
+    @BindView(R.id.mine_recode_transaction_recode_civ) //成交记录
     ClickItemView mineRecodeTransactionRecodeCiv;
-   @BindView(R.id.mine_recode_outside_exchange_recode_civ)
+   @BindView(R.id.mine_recode_outside_exchange_recode_civ) //场外交易记录
     ClickItemView mineRecodeOutsideExchangeRecodeCiv;
-   @BindView(R.id.mine_recharge_currency_recode_civ)
+   @BindView(R.id.mine_recharge_currency_recode_civ)  //充链记录
     ClickItemView mine_recharge_currency_recode_civ;
-    @BindView(R.id.mine_recode_outside_exchange_recode_agcy_civ)
+    @BindView(R.id.mine_recode_outside_exchange_recode_agcy_civ) //场外交易记录(经销商)
     ClickItemView mine_recode_outside_exchange_recode_agcy_civ;
 
     @Override

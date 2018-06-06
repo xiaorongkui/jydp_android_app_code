@@ -44,24 +44,24 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     private static final int SEND_REQUEST = 3;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
-    @BindView(R.id.modify_phone_erea_tv)
+    @BindView(R.id.modify_phone_erea_tv) //区号
     TextView modify_phone_erea_tv;
-    @BindView(R.id.modify_phone_erea_et)
+    @BindView(R.id.modify_phone_erea_et)  //新的手机号码
     EditText modify_phone_erea_et;
     @BindView(R.id.user_phone_num_tv)
     TextView userPhoneNumTv;
-    @BindView(R.id.modify_phone_submit_bt)
+    @BindView(R.id.modify_phone_submit_bt) //提交
     Button modify_phone_submit_bt;
-    @BindView(R.id.modify_phone_verification_code_civ)
+    @BindView(R.id.modify_phone_verification_code_civ) //获取验证码（旧的）
     EditVItemView modify_phone_verification_code_civ;
     private TextView codeTimeDownTv;
     private TextView codeTimeDownTv_new;
-    @BindView(R.id.modify_phone_verification_code_eiv)
+    @BindView(R.id.modify_phone_verification_code_eiv)//获取验证码（新的）
     EditVItemView modify_phone_verification_code_eiv;
-    @BindView(R.id.modify_phone_password_one_eiv)
+    @BindView(R.id.modify_phone_password_one_eiv) //登录密码
     EditVItemView modify_phone_password_one_eiv;
-    private int splashTotalCountdownTime = 60;
-    private int splashTotalCountdownTime_new = 60;
+    private int splashTotalCountdownTime = 60; //旧的手机验证码倒计时
+    private int splashTotalCountdownTime_new = 60;//新的手机验证码倒计时
     private Disposable disposable;
     private Disposable disposable_new;
 

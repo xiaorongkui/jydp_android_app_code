@@ -49,21 +49,21 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     public  static final String MESSAGE_NEXT = "message";
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
-    @BindView(R.id.publish_advertise_currency_civ)
+    @BindView(R.id.publish_advertise_currency_civ) //链名称
     ClickItemView publishAdvertiseCurrencyCiv;
-    @BindView(R.id.publish_advertise_type_civ)
+    @BindView(R.id.publish_advertise_type_civ)//类型
     ClickItemView publishAdvertiseTypeCiv;
-    @BindView(R.id.publish_advertise_area_civ)
+    @BindView(R.id.publish_advertise_area_civ) //地区
     ClickItemView publishAdvertiseAreaCiv;
-    @BindView(R.id.publish_advertise_proportion_eiv)
+    @BindView(R.id.publish_advertise_proportion_eiv) //交易比例
     EditVItemView publishAdvertiseProportionEiv;
-    @BindView(R.id.exchange_limit_min_et)
+    @BindView(R.id.exchange_limit_min_et)//最小限额
     EditText exchange_limit_min_et;
-    @BindView(R.id.exchange_limit_max_et)
+    @BindView(R.id.exchange_limit_max_et)//最大限额
     EditText exchange_limit_max_et;
-    @BindView(R.id.publish_payment_type_select_rv)
+    @BindView(R.id.publish_payment_type_select_rv) //付款方式
     RecyclerView publishPaymentTypeSelectRv;
-    @BindView(R.id.dealer_publish_advertise_bt)
+    @BindView(R.id.dealer_publish_advertise_bt) //发起广告
     Button dealerPublishAdvertiseBt;
     @BindView(R.id.publish_payment_type_layout)
     RelativeLayout publish_payment_type_layout;
@@ -85,14 +85,18 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     @Override
     protected void initData() {
 //        presenter.getUserCoinWithdrawalInfo(GET_CORN_CODE,false);
+        //获取链信息
         presenter.getDealerManagmentCoinInfo(GET_CORN_CODE,false);
         req = new SendAdsReq();
 
 
+        //设置类型数据
         data_type = new ArrayList<>();
         data_type.add(new DialogItemBean("出售",1,true));
         data_type.add(new DialogItemBean("回购",2,false));
         req.setOrderType(data_type.get(0).getLeftImageViewId()+"");
+
+        //设置地区数据
         data_country = new ArrayList<>();
         data_country.add(new DialogItemBean("中国(CN)",0,true));
         data_country.add(new DialogItemBean("美国(US)",0,false));
@@ -128,7 +132,7 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag){
-            case GET_CORN_CODE:
+            case GET_CORN_CODE: //获取链信息
                 OtcCoinConfigRes res =(OtcCoinConfigRes)response;
                 if(res.getUserOtcCoinConfigList()!=null){
                     data_corn = res.getUserOtcCoinConfigList();
@@ -151,6 +155,9 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         }
     }
 
+    /**
+     * 初始化支付类型布局
+     */
     private void initRecycleView() {
         paymentSelectDatas = new ArrayList<>();
         paymentSelectDatas.add(new DialogItemBean(CommonUtil.getString(R.string.bank_card_transfer), R
@@ -211,12 +218,16 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEXT_ACTIVITY&&resultCode== 200){
-            setResult(200);
+        if(requestCode == NEXT_ACTIVITY&&resultCode== ReceivablesActivity.ACTIVITY_RESULT_CODE){
+            setResult(ACTIVITY_RESULT_CODE);
             finish();
         }
     }
 
+
+    /**
+     * 发起广告请求
+     */
     private void sendRequest() {
 //        String corn = publishAdvertiseCurrencyCiv.getRightText();
 //        String type = publishAdvertiseTypeCiv.getRightText();
@@ -288,6 +299,9 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
         }
     }
 
+    /**
+     * 显示选择链弹出框
+     */
     private void setCornDialog(){
         commonDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .certify_type_select_dialog);
@@ -331,6 +345,9 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     }
 
 
+    /**
+     * 显示选择类型弹出框
+     */
     private void setTypeDialog(){
         commonDialog_type = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .certify_type_select_dialog);
@@ -378,6 +395,9 @@ public class PublishAdvertisementActivity extends BaseMvpActivity<MinePresenter>
     }
 
 
+    /**
+     * 显示选择地区弹出框
+     */
     private void setCountryDialog(){
         commonDialog_country = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .certify_type_select_dialog);

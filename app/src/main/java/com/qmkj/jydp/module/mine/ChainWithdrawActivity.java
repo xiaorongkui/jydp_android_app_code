@@ -20,6 +20,7 @@ import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.dialog.UserWithdrawChooseCurrencyDialog;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.MyTextWatcher;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.StringUtil;
@@ -91,6 +92,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             UserWithdrawChooseCurrencyDialog userWithdrawChooseCurrencyDialog = new UserWithdrawChooseCurrencyDialog(mContext, userCoinWithdrawInfo.getUserCoinConfigList());
             userWithdrawChooseCurrencyDialog.setOnChooseCurrencyListener(bean -> {
                 chooseInfo = bean;
+                LogUtil.e(Double.parseDouble(bean.getCurrencyNumber()+"")+"");
                 canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(bean.getCurrencyNumber()+""),4) + "");
                 chooseCurrencyCv.setRightText(bean.getCurrencyName());
                 withdrawNumNoticeTv.setText("当前链最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean.getFreeCurrencyNumber() + "需人工审核");
@@ -195,6 +197,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
                 userCoinWithdrawInfo = (UserCoinWithdrawInfo) response;
                 if(userCoinWithdrawInfo.getUserCoinConfigList()!=null){
                     chooseInfo = userCoinWithdrawInfo.getUserCoinConfigList().get(0);
+                    LogUtil.e(Double.parseDouble(chooseInfo.getCurrencyNumber()+"")+"");
                     canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(chooseInfo.getCurrencyNumber()+""),4)+ "");
                     chooseCurrencyCv.setRightText(chooseInfo.getCurrencyName());
                     withdrawNumNoticeTv.setText("当前链最低提现" + chooseInfo.getMinCurrencyNumber() + "个，超过" + chooseInfo.getFreeCurrencyNumber() + "需人工审核");

@@ -39,13 +39,13 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
-    @BindView(R.id.modify_pwd_old_pwd_title_tv)
+    @BindView(R.id.modify_pwd_old_pwd_title_tv) //原密码修改
     TextView modifyPwdOldPwdTitleTv;
     @BindView(R.id.modify_pwd_old_pwd_title_line)
     View modifyPwdOldPwdTitleLine;
     @BindView(R.id.modify_pwd_old_pwd_title_ll)
     LinearLayout modifyPwdOldPwdTitleLl;
-    @BindView(R.id.modify_pwd_phone_title_tv)
+    @BindView(R.id.modify_pwd_phone_title_tv) //通过手机号修改
     TextView modifyPwdPhoneTitleTv;
     @BindView(R.id.modify_pwd_phone_title_line)
     View modifyPwdPhoneTitleLine;
@@ -58,24 +58,24 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.modify_code_layout)
     ShadowLayout modify_code_layout;
 
-    @BindView(R.id.user_phone_num_tv)
+    @BindView(R.id.user_phone_num_tv)  //手机号码
     TextView userPhoneNumTv;
-    @BindView(R.id.login_forget_pwd_vertification_code_eiv)
+    @BindView(R.id.login_forget_pwd_vertification_code_eiv) //获取验证码
     EditVItemView login_forget_pwd_vertification_code_eiv;
 
-    @BindView(R.id.modify_pwd_old_pwd_one_eiv)
+    @BindView(R.id.modify_pwd_old_pwd_one_eiv) //原密码
     EditVItemView modify_pwd_old_pwd_one_eiv;
-    @BindView(R.id.modify_pwd_new_pwd_one_eiv)
+    @BindView(R.id.modify_pwd_new_pwd_one_eiv) //新密码
     EditVItemView modify_pwd_new_pwd_one_eiv;
-    @BindView(R.id.modify_pwd_login_pwd_one_eiv)
+    @BindView(R.id.modify_pwd_login_pwd_one_eiv) //重复密码
     EditVItemView modify_pwd_login_pwd_one_eiv;
 
-    @BindView(R.id.modify_phone_pwd_one_eiv)
+    @BindView(R.id.modify_phone_pwd_one_eiv) //新密码(手机修改)
     EditVItemView modify_phone_pwd_one_eiv;
-    @BindView(R.id.modify_phone_pwd_again_eiv)
+    @BindView(R.id.modify_phone_pwd_again_eiv) //重复密码(手机修改)
     EditVItemView modify_phone_pwd_again_eiv;
 
-    @BindView(R.id.modify_pwd_bt)
+    @BindView(R.id.modify_pwd_bt) //提 交
     Button modify_pwd_bt;
     private TextView codeTimeDownTv;
     private Disposable disposable;
@@ -141,13 +141,13 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.modify_pwd_old_pwd_title_ll:
-                setSelect(0);
+                setSelect(0);  //通过原密码修改
                 break;
             case R.id.modify_pwd_phone_title_ll:
-                setSelect(1);
+                setSelect(1); //通过手机修改
                 break;
             case R.id.modify_pwd_bt:
-                sendRequest();
+                sendRequest(); //发送修改请求
                 break;
         }
     }
@@ -223,6 +223,10 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
         return false;
     }
 
+    /**
+     * 选择修改方式
+     * @param index
+     */
     private void setSelect(int index) {
         switch (index) {
             case 0:

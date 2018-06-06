@@ -17,7 +17,7 @@ import com.qmkj.jydp.util.SelectorFactory;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description:挂单委托记录适配器
  */
 
 public class OrderRecodeRecyAdapter extends XBaseAdapter<OrderRecodeRes.TransactionPendOrderRecordListBean> {

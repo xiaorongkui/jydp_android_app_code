@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 创建日期：2018/5/18
  * @author Yi Shan Xiang
- * 文件名称： OrderRecodeRes 
+ * 文件名称： 挂单委托记录
  * email: 380948730@qq.com
  */
 
@@ -19,8 +19,8 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
      * transactionPendOrderRecordList : [{"addTime":1525336486000,"buyFee":0,"currencyId":202,"currencyName":"量子链","dealNumber":2038,"endTime":1525396002000,"feeRemark":1,"paymentType":1,"pendingNumber":2038,"pendingOrderNo":"301805039939696925","pendingPrice":5,"pendingStatus":3,"remainNum":0,"remark":"","restBalanceLock":"0","totalPrice":"10190","userAccount":"syl002","userId":314}]
      */
 
-    private int totalPageNumber;
-    private List<TransactionPendOrderRecordListBean> transactionPendOrderRecordList;
+    private int totalPageNumber; //总页数
+    private List<TransactionPendOrderRecordListBean> transactionPendOrderRecordList; //挂单记录
 
     public int getTotalPageNumber() {
         return totalPageNumber;
@@ -60,24 +60,24 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
          * userId : 314
          */
 
-        private long addTime;
-        private String buyFee;
-        private int currencyId;
-        private String currencyName;
-        private String dealNumber;
-        private long endTime;
-        private String feeRemark;
-        private int paymentType;
-        private String pendingNumber;
-        private String pendingOrderNo;
-        private String pendingPrice;
-        private int pendingStatus;
-        private String remainNum;
-        private String remark;
-        private String restBalanceLock;
-        private String totalPrice;
-        private String userAccount;
-        private int userId;
+        private long addTime; //添加时间
+        private String buyFee; //买入手续费
+        private int currencyId; //币种Id
+        private String currencyName; //货币名称
+        private String dealNumber; //成交数量
+        private long endTime;  //完成时间
+        private String feeRemark; //费率备注，手续费
+        private int paymentType; //收支类型,1：买入，2：卖出
+        private String pendingNumber; //挂单数量
+        private String pendingOrderNo; //记录号
+        private String pendingPrice; //挂单单价
+        private int pendingStatus; //挂单状态，1：未成交，2：部分成交，3：全部成交，4：部分撤销，5：全部撤销
+        private String remainNum; //剩余数量
+        private String remark; //备注
+        private String restBalanceLock; //剩余冻结XT
+        private String totalPrice; //总价
+        private String userAccount; //用户账号
+        private int userId; //用户Id
 
         public long getAddTime() {
             return addTime;

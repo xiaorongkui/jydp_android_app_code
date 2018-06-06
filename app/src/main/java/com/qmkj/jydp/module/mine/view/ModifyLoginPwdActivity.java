@@ -42,15 +42,15 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     TextView titleHeaderTv;
     @BindView(R.id.user_phone_num_tv)
     TextView userPhoneNumTv;
-    @BindView(R.id.modify_old_login_pwd_eiv)
+    @BindView(R.id.modify_old_login_pwd_eiv) //原密码
     EditVItemView modify_old_login_pwd_eiv;
-    @BindView(R.id.modify_new_login_pwd_eiv)
+    @BindView(R.id.modify_new_login_pwd_eiv) //新密码
     EditVItemView modify_new_login_pwd_eiv;
-    @BindView(R.id.modify_new_login_pwd_again_eiv)
+    @BindView(R.id.modify_new_login_pwd_again_eiv) //重复密码
     EditVItemView modify_new_login_pwd_again_eiv;
-    @BindView(R.id.modify_login_pwd_verification_code_civ)
+    @BindView(R.id.modify_login_pwd_verification_code_civ) //获取验证码
     EditVItemView modify_login_pwd_verification_code_civ;
-    @BindView(R.id.modify_login_pwd_submit_bt)
+    @BindView(R.id.modify_login_pwd_submit_bt)  //提 交
     Button modify_login_pwd_submit_bt;
 
     private TextView codeTimeDownTv;
@@ -97,6 +97,9 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         });
     }
 
+    /**
+     * 发送获取验证码请求
+     */
     private void getVerificationCode() {
         String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
         String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
@@ -115,6 +118,9 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         }
     }
 
+    /**
+     * 发送更改密码请求
+     */
     private void changeRequest() {
         String oldPass = modify_old_login_pwd_eiv.getEditTextString();
         String newPass = modify_new_login_pwd_eiv.getEditTextString();
@@ -174,6 +180,9 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         }
     }
 
+    /**
+     * 点击了获取验证码
+     */
     private void codeTimeDown() {
         disposable = Observable.interval(0, 1, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take

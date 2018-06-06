@@ -27,11 +27,11 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     TextView titleHeaderTv;
     @BindView(R.id.person_info_login_out_bt)
     TextView personInfoLoginOutBt;
-    @BindView(R.id.person_info_modify_payment_password_civ)
+    @BindView(R.id.person_info_modify_payment_password_civ) //修改支付密码
     ClickItemView personInfoModifyPaymentPasswordCiv;
-    @BindView(R.id.person_info_modify_password_civ)
+    @BindView(R.id.person_info_modify_password_civ) //修改密码
     ClickItemView personInfoModifyPasswordCiv;
-    @BindView(R.id.person_info_modify_phone_num_civ)
+    @BindView(R.id.person_info_modify_phone_num_civ) //修改手机号
     ClickItemView personInfoModifyPhoneNumCiv;
 
     @Override

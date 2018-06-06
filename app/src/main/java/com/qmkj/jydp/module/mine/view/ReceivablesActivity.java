@@ -33,6 +33,7 @@ import butterknife.BindView;
  */
 
 public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
+    public static final int ACTIVITY_RESULT_CODE =200;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
 
@@ -166,7 +167,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         super.onSuccess(response, tag);
 
         toast("发起广告成功");
-        setResult(200);
+        setResult(ACTIVITY_RESULT_CODE);
         finish();
 
     }
