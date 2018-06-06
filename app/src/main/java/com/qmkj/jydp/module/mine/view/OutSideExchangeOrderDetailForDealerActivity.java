@@ -1,13 +1,19 @@
 package com.qmkj.jydp.module.mine.view;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.dd.ShadowLayout;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
@@ -89,6 +95,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
     private OtcDealRecordDetailsRes.OtcTransactionUserDealBean orderDetailInfo;
     //确认收款二次确认Dialog
     private CommonDialog commonDialog;
+    private com.qmkj.jydp.ui.widget.CommonDialog qrCodeDialog;
 
     @Override
     protected void injectPresenter() {
@@ -113,7 +120,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         if (orderDetailInfo.getDealStatus() == 4) {
             orderDetailStatusTv.setText("已完成");
         } else if(orderDetailInfo.getDealStatus() == 5){
-            orderDetailStatusTv.setText("待撤销");
+            orderDetailStatusTv.setText("已撤销");
         }else {
             orderDetailStatusTv.setText("待完成");
         }
@@ -224,6 +231,12 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
                 //撤销暂时不做处理
                 break;
         }
+        aliWeiXinPayQrcodeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showQRCodeDialog();
+            }
+        });
     }
 
     @Override
@@ -234,6 +247,32 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         req.setOtcOrderNo(orderNo);
         presenter.getOutSideOrderDetaid(req, REQUEST_TAG_GET_ORDER_DETAIL, true);
     }
+
+    private void showQRCodeDialog() {
+        qrCodeDialog = new com.qmkj.jydp.ui.widget.CommonDialog(mContext, R.style.common_dialog, R.layout.dialog_qr_code);
+        ImageView qr_code_iv = qrCodeDialog.getView(R.id.qr_code_iv, ImageView.class);
+        if (orderDetailInfo == null || TextUtils.isEmpty(orderDetailInfo.getPaymentImage())) return;
+        GlideApp.with(mContext).asBitmap().signature(new MediaStoreSignature("image/jpeg", System.currentTimeMillis()
+                , 0)).load(orderDetailInfo.getPaymentImage()).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                if (resource != null) {
+                    qr_code_iv.setImageBitmap(resource);
+                    ViewGroup.LayoutParams layoutParams = qr_code_iv.getLayoutParams();
+                    layoutParams.width = (int) CommonUtil.getDimen(R.dimen.x200);
+                    layoutParams.height = (int) CommonUtil.getDimen(R.dimen.x400);
+                    qr_code_iv.setLayoutParams(layoutParams);
+                }
+            }
+        });
+
+        qrCodeDialog.setCanceledOnTouchOutside(true);
+        qrCodeDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x250));
+        qrCodeDialog.show();
+    }
+
+
+
 
     /**
      * 确认收款
@@ -284,6 +323,14 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
             //确认收款
             case REQUEST_TAG_CONFIRM_RECEIPET:
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (qrCodeDialog != null && qrCodeDialog.isShowing()) {
+            qrCodeDialog.dismiss();
         }
     }
 }

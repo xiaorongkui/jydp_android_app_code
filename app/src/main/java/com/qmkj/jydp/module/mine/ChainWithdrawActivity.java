@@ -148,24 +148,28 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             toast("请先选择链");
             return;
         }
-        if (buyPwd.isEmpty()) {
-            toast("密码不能为空");
-            return;
-        }
         if(StringUtil.isNull(number)){
             toast("提链数量不能为空");
             return;
         }
+
         if (Double.valueOf(number) < chooseInfo.getMinCurrencyNumber()) {
             toast("数量不能小于最低数量");
             return;
         }
 
         String codeText = CommonUtil.checkCode(validateCode);
-        if (TextUtils.isEmpty(codeText)) {
+        if (!TextUtils.isEmpty(codeText)) {
             toast(codeText);
             return;
         }
+
+        if (buyPwd.isEmpty()) {
+            toast("密码不能为空");
+            return;
+        }
+
+
         UserWithdrawReq req = new UserWithdrawReq();
         req.setBuyPwd(buyPwd);
         req.setCurrencyId(String.valueOf(currencyId));

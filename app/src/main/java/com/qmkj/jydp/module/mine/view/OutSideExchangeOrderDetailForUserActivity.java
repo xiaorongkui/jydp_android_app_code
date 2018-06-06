@@ -1,13 +1,19 @@
 package com.qmkj.jydp.module.mine.view;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.dd.ShadowLayout;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
@@ -85,6 +91,7 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
     //订单详情信息
     private OtcDealRecordDetailsRes.OtcTransactionUserDealBean orderDetailInfo;
     private CommonDialog commonDialog;
+    private com.qmkj.jydp.ui.widget.CommonDialog qrCodeDialog;
 
     @Override
     protected void injectPresenter() {
@@ -209,6 +216,13 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
                 //撤销暂时不做处理
                 break;
         }
+
+        aliWeiXinPayQrcodeImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showQRCodeDialog();
+            }
+        });
     }
 
     @Override
@@ -235,6 +249,29 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
             commonDialog.dismiss();
         });
         commonDialog.show();
+    }
+
+    private void showQRCodeDialog() {
+        qrCodeDialog = new com.qmkj.jydp.ui.widget.CommonDialog(mContext, R.style.common_dialog, R.layout.dialog_qr_code);
+        ImageView qr_code_iv = qrCodeDialog.getView(R.id.qr_code_iv, ImageView.class);
+        if (orderDetailInfo == null || TextUtils.isEmpty(orderDetailInfo.getPaymentImage())) return;
+        GlideApp.with(mContext).asBitmap().signature(new MediaStoreSignature("image/jpeg", System.currentTimeMillis()
+                , 0)).load(orderDetailInfo.getPaymentImage()).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                if (resource != null) {
+                    qr_code_iv.setImageBitmap(resource);
+                    ViewGroup.LayoutParams layoutParams = qr_code_iv.getLayoutParams();
+                    layoutParams.width = (int) CommonUtil.getDimen(R.dimen.x200);
+                    layoutParams.height = (int) CommonUtil.getDimen(R.dimen.x400);
+                    qr_code_iv.setLayoutParams(layoutParams);
+                }
+            }
+        });
+
+        qrCodeDialog.setCanceledOnTouchOutside(true);
+        qrCodeDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x250));
+        qrCodeDialog.show();
     }
 
 
@@ -267,6 +304,14 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
             //确认收款
             case REQUEST_TAG_CONFIRM_RECEIPET:
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (qrCodeDialog != null && qrCodeDialog.isShowing()) {
+            qrCodeDialog.dismiss();
         }
     }
 }

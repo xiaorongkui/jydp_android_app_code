@@ -223,6 +223,7 @@
                             app:titleEndText="@string/asterisk"
                             app:titleText="@string/verification_code"
                             app:maxLength="6"
+                            app:inputType="number"
                             app:titleTopMargin="@dimen/x20" />
 
                         <LinearLayout
@@ -260,6 +261,7 @@
                             app:titleText="@string/exchange_password_star"
                             app:maxLength="16"
                             app:titleEndText="@string/asterisk"
+                            app:inputType="textPassword"
                             app:digits="@string/text_digits"
                             app:titleTopMargin="@dimen/x20" />
 
