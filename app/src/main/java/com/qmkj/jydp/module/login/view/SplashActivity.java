@@ -295,7 +295,7 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
             } else {
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
             }
-            AppManager.getInstance().removeCurrent();
+//            AppManager.getInstance().removeCurrent();
         }
     }
 

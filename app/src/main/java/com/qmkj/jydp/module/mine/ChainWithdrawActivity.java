@@ -3,6 +3,7 @@ package com.qmkj.jydp.module.mine;
 import android.os.Build;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -153,6 +154,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
         }
         if(StringUtil.isNull(number)){
             toast("提链数量不能为空");
+            return;
         }
         if (Double.valueOf(number) < chooseInfo.getMinCurrencyNumber()) {
             toast("数量不能小于最低数量");
@@ -160,7 +162,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
         }
 
         String codeText = CommonUtil.checkCode(validateCode);
-        if(codeText!=null){
+        if (TextUtils.isEmpty(codeText)) {
             toast(codeText);
             return;
         }

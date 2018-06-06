@@ -153,7 +153,11 @@ public static final int *;
 # 如果使用了Gson之类的工具要使被它解析的JavaBean类即实体类不被混淆。
 -keepattributes EnclosingMethod
 -keep class com.qmkj.jydp.bean.**{*;}
--keep class com.qmkj.jydp.bean.event.**{*;}
+
+
+# Bugly
+-dontwarn com.tencent.bugly.**
+-keep class com.tencent.bugly.** {*;}
 
 #butterknife
 -keep class butterknife.** { *; }
@@ -178,17 +182,19 @@ public static final int *;
 }
 
 # for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 #BaseRecyclerViewAdapterHelper代码混淆
--keep class com.chad.library.adapter.** {
+-keep class com.chad.library.** {
 *;
 }
 -keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
+-keep public abstract class * extends com.chad.library.adapter.base.BaseQuickAdapter
 -keep public class * extends com.chad.library.adapter.base.BaseViewHolder
 -keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
      <init>(...);
 }
+
 #rxjava混淆
 -dontwarn javax.annotation.**
 -dontwarn javax.inject.**
@@ -201,7 +207,8 @@ public static final int *;
 # Retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
--keepattributes Signature-keepattributes Exceptions
+-keepattributes Signature
+-keepattributes Exceptions
 # RxJava RxAndroid
 -dontwarn sun.misc.**
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
@@ -218,3 +225,39 @@ public static final int *;
 # AVLoadingIndicatorView
 -keep class com.wang.avi.** { *; }
 -keep class com.wang.avi.indicators.** { *; }
+
+#afinal不被混淆
+-keep class net.tsz.** { *; }
+-keep interface net.tsz.** { *; }
+-dontwarn net.tsz.**
+
+#shadow不被混淆
+-keep class  com.dd.** { *; }
+-keep interface  com.dd.** { *; }
+-dontwarn  com.dd.**
+
+#下拉刷新不被混淆
+-keep class  in.srain.cube.** { *; }
+-keep interface  in.srain.cube.** { *; }
+-dontwarn  in.srain.cube.**
+
+#banner不被混淆
+-keep class  com.youth.banner.** { *; }
+-keep interface  com.youth.banner.** { *; }
+-dontwarn  com.youth.banner.**
+
+#logger不被混淆
+-keep class  com.orhanobut.logger.** { *; }
+-keep interface  com.orhanobut.logger.** { *; }
+-dontwarn  com.orhanobut.logger.**
+
+#dagger不被混淆
+-keep class  dagger.** { *; }
+-keep interface  dagger.** { *; }
+-dontwarn  dagger.**
+
+#rxpermission不被混淆
+-keep class   com.tbruyelle.** { *; }
+-keep interface   com.tbruyelle.** { *; }
+-dontwarn   com.tbruyelle.**
+

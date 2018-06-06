@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
@@ -97,6 +98,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
     private byte[] weixinBytes;
     private String minAccount;
     private String maxAccount;
+    private CommonDialog qrCodeDialog;
 
     @Override
     protected void injectPresenter() {

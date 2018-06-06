@@ -67,7 +67,7 @@ public class SmoothScrollView extends ScrollView {
             case MotionEvent.ACTION_MOVE:
                 int moveY = (int) e.getRawY();
                 if (Math.abs(moveY - downY) > mTouchSlop) {
-                    return true;
+//                    return true;
                 }
         }
         return super.onInterceptTouchEvent(e);

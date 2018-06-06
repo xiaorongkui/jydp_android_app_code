@@ -459,7 +459,10 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             buyFee = transactionCurrency.getBuyFee();
         }
         payPasswordStatus = centerRes.getPayPasswordStatus();
-        if (TextUtils.isEmpty(payPasswordStatus) || !isRefreshPwd) return;
+        if (!isRefreshPwd) return;
+        if (TextUtils.isEmpty(payPasswordStatus)) {
+            payPasswordStatus = "1";
+        }
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
                 exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));

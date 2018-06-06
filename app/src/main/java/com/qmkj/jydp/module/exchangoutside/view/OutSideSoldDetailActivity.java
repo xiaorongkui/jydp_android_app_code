@@ -1,17 +1,26 @@
 package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.dd.ShadowLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.GlideApp;
+import com.qmkj.jydp.base.GlideRequest;
 import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.request.OutSideSellReq;
 import com.qmkj.jydp.bean.response.OutSideSellDetailRes;
@@ -19,6 +28,8 @@ import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
+import com.qmkj.jydp.ui.widget.CommonDialog;
+import com.qmkj.jydp.util.BitmapCompressUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.RxBus;
 
@@ -74,6 +85,7 @@ public class OutSideSoldDetailActivity extends BaseMvpActivity<OutsideExchangePr
     @BindView(R.id.comfirm_sold_comfirm_bt)
     Button comfirmSoldComfirmBt;
     private OutSideSellDetailRes outSideSellDetailRes;
+    private CommonDialog qrCodeDialog;
 
     @Override
     protected void injectPresenter() {
@@ -130,6 +142,9 @@ public class OutSideSoldDetailActivity extends BaseMvpActivity<OutsideExchangePr
         }
         soldAmountCiv.setRightText(outSideSellDetailRes.getSellNum() + "");
         obtainedMoneyCiv.setRightText("¥" + outSideSellDetailRes.getSellMoney());//todo
+
+        alipayIv.setOnClickListener(this);
+        weixinIv.setOnClickListener(this);
     }
 
     private void submitSellOrder() {
@@ -162,6 +177,51 @@ public class OutSideSoldDetailActivity extends BaseMvpActivity<OutsideExchangePr
                 AppManager.getInstance().removeCurrent();
                 AppManager.getInstance().removeActivity(OutSideSoldActivity.class);
                 break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.alipay_iv:
+                showQRCodeDialog();
+                break;
+            case R.id.weixin_iv:
+                showQRCodeDialog();
+                break;
+        }
+    }
+
+    private void showQRCodeDialog() {
+        qrCodeDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.dialog_qr_code);
+        ImageView qr_code_iv = qrCodeDialog.getView(R.id.qr_code_iv, ImageView.class);
+        if (outSideSellDetailRes == null || TextUtils.isEmpty(outSideSellDetailRes.getImageUrlFormat())) return;
+
+        GlideApp.with(mContext).asBitmap().signature(new MediaStoreSignature("image/jpeg", System.currentTimeMillis()
+                , 0)).load(outSideSellDetailRes.getImageUrlFormat()).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                if (resource != null) {
+                    qr_code_iv.setImageBitmap(resource);
+                    ViewGroup.LayoutParams layoutParams = qr_code_iv.getLayoutParams();
+                    layoutParams.width = (int) CommonUtil.getDimen(R.dimen.x200);
+                    layoutParams.height = (int) CommonUtil.getDimen(R.dimen.x400);
+                    qr_code_iv.setLayoutParams(layoutParams);
+                }
+            }
+        });
+
+        qrCodeDialog.setCanceledOnTouchOutside(true);
+        qrCodeDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x250));
+        qrCodeDialog.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (qrCodeDialog != null && qrCodeDialog.isShowing()) {
+            qrCodeDialog.dismiss();
         }
     }
 }

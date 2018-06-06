@@ -67,6 +67,7 @@ public abstract class BaseRecycleAdapter<T> extends BaseQuickAdapter<T, BaseRecy
         }
     }
 
+    @NonNull
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (this.mLayoutResId == 0) {

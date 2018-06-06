@@ -17,6 +17,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
+import com.qmkj.jydp.bean.event.ExchangePwdEvent;
 import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
@@ -30,6 +31,7 @@ import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditHItemView;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.RxBus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -442,6 +444,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             case LOGIN_SATRT_TAG:
                 toast("登录成功");
                 LogUtil.i(response.toString());
+                RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                 LoginRes loginBean = (LoginRes) response;
                 LoginRes.UserBean user = loginBean.getUser();
                 CommonUtil.setLoginInfo(loginBean);

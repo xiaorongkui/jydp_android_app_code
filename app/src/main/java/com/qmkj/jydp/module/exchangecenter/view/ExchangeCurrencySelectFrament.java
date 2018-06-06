@@ -19,8 +19,13 @@ import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author
@@ -39,6 +44,7 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     boolean isCanRefresh = true;
     ArrayList<ExchangeCurrencyRes.TransactionUserDealListBean> mData = new ArrayList<>();
     ExchangeCenterAdapter exchangeCenterAdapter;
+    private Disposable timeDownDisposable;
 
     @Override
     protected void injectPresenter() {
@@ -125,8 +131,17 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     @Override
     protected void initData() {
         refresh.callRefresh();
+//        initCountTimer();
     }
 
+    //    private void initCountTimer() {
+//        timeDownDisposable = Observable.interval(0, 2000, TimeUnit.MILLISECONDS)
+//                .compose(bindToLifecycle())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(aLong -> {
+//                });
+//    }
     private void getExchangeCurrencyData(boolean isShowProgress) {
         presenter.getExchangeCurrency(EXCHANGE_CURRENCY_TAG, isShowProgress);
     }

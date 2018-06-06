@@ -56,7 +56,7 @@ public class DealRecodeRecAdapter extends BaseRecycleAdapter<DealRecodeRes.DealL
                 break;
         }
         entrustPriceTv.setText(NumberUtil.format2Point(item.getTransactionPrice()));
-        entrustAmountTv.setText(NumberUtil.format2Point(item.getCurrencyNumber()));
+        entrustAmountTv.setText(NumberUtil.format4Point(item.getCurrencyNumber()));
         entrustExchangeTv.setText(DateUtil.longToTimeStr(item.getAddTime(), DateUtil.dateFormat2));
     }
 }

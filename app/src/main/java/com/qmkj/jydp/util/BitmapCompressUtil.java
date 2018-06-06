@@ -1,6 +1,9 @@
 package com.qmkj.jydp.util;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,7 +22,8 @@ public class BitmapCompressUtil {
     /*public static byte[] compress(Bitmap bitmap) {
         double maxSize = 500 * 1024 * 1024;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, (int) Math.min(maxSize / bitmap.getByteCount() / 8 * 100, 100), stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, (int) Math.min(maxSize / bitmap.getByteCount() / 8 * 100, 100),
+        stream);
         return stream.toByteArray();
     }*/
 
@@ -29,7 +33,7 @@ public class BitmapCompressUtil {
      * @return 压缩至500k以内的图片byte[]
      */
     public static byte[] compress(Bitmap bitmap) {
-        double maxSize = 500;
+        double maxSize = 5000;
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         // scale
         int options = 100;
@@ -53,4 +57,39 @@ public class BitmapCompressUtil {
         return compressBytes;
     }
 
+    /**
+     * 根据路径获得突破并压缩返回bitmap用于显示
+     *
+     * @param reqWidth  要求的图片的像素
+     * @param reqHeight 要求的图片的像素
+     * @return
+     */
+    public static Bitmap getSmallBitmap(Bitmap bitMap, int reqWidth, int reqHeight) {
+        int width = bitMap.getWidth();
+        int height = bitMap.getHeight();
+        LogUtil.i("width=" + width + ";height=" + height);
+// 计算缩放比例
+        float scaleWidth = ((float) reqWidth) / width;
+        float scaleHeight = ((float) reqHeight) / height;
+// 取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+// 得到新的图片
+        return Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, true);
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height
+                    / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
+    }
 }

@@ -5,12 +5,14 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
+import com.qmkj.jydp.bean.event.ExchangePwdEvent;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.RxBus;
 
 import butterknife.BindView;
 
@@ -89,6 +91,7 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
         //退出登陆 清空token
         CommonUtil.clearLoginData();
         AppManager.getInstance().clear();
+        RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
         CommonUtil.gotoActivity(mContext, LoginActivity.class);
     }
 

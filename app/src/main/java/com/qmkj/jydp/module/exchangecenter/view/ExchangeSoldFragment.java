@@ -454,7 +454,10 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             sellFee = transactionCurrency.getSellFee();
         }
         payPasswordStatus = centerRes.getPayPasswordStatus();
-        if (TextUtils.isEmpty(payPasswordStatus) || !isRefreshPwd) return;
+        if (!isRefreshPwd) return;
+        if (TextUtils.isEmpty(payPasswordStatus)) {
+            payPasswordStatus = "1";
+        }
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
                 exchange_sold_notice_pwd_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));
