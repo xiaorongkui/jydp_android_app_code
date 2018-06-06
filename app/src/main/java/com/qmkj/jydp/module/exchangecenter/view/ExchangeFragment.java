@@ -47,11 +47,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -64,12 +62,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
 
     private static final int EXCHANGE_TYPE_BUY = 1;
     private static final int EXCHANGE_TYPE_SOLD = 2;
-    private static final int EXCHANGE_TYPE_RECODE = 3;
-    private static final int EXCHANGE_CENTER_DATA_TAG = 1;
-    private static final int EXCHANGE_CANCLE_ORDER_TAG = 2;
-    private static final int EXCHANGE_PENDORDER_TAG = 3;
-    private static final int EXCHANGE_ENTRUSTRECODE_TAG = 4;
-    private static final int EXCHANGE_DEALPRICE_TAG = 5;
+    private static final int EXCHANGE_CENTER_DATA_TAG = 1;//交易中心页面数据
+    private static final int EXCHANGE_CANCLE_ORDER_TAG = 2;//交易中心撤单
+    private static final int EXCHANGE_PENDORDER_TAG = 3;//交易中心五档数据
+    private static final int EXCHANGE_ENTRUSTRECODE_TAG = 4;//交易中心委托记录
+    private static final int EXCHANGE_DEALPRICE_TAG = 5;//交易中心币种信息数据
     @BindView(R.id.exchange_price_recycle_buy)
     RecyclerView exchangePriceRecycleBuy;
     @BindView(R.id.exchange_price_recycle_sold)
@@ -98,7 +95,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     LinearLayout buy0rSellHeaderLl;
     @BindView(R.id.exchange_recode_header_ll)
     LinearLayout exchangeRecodeHeaderLl;
-    Unbinder unbinder;
     @BindView(R.id.exchange_entrust_recode_rv)
     RecyclerView entrustRecodeRv;
     @BindView(R.id.exchange_center_kline_iv)
@@ -164,12 +160,10 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
             getExchangeRecode(false);
             getExchangePendOrder(true);
         });
-        subscribe_2 = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(exchangeEvent -> {
-            getExchangeCenterData(true);
-        });
-        subscribe_3 = RxBus.getDefault().toObservable(ExchangePwdEvent.class).subscribe(exchangeEvent -> {
-            getExchangeCenterData(true);
-        });
+        subscribe_2 = RxBus.getDefault().toObservable(OutSideExchangeEvent.class).subscribe(exchangeEvent ->
+                getExchangeCenterData(true));
+        subscribe_3 = RxBus.getDefault().toObservable(ExchangePwdEvent.class).subscribe(exchangeEvent ->
+                getExchangeCenterData(true));
         exchangeTitleTv.setText(currencyName);
         isLogin = !TextUtils.isEmpty(CommonUtil.getToken());
     }
@@ -195,7 +189,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         soldLl.setOnClickListener(this);
         exchange_center_kline_iv.setOnClickListener(this);
     }
-
     List<ExchangeCenterRes.TransactionPendOrderBuyListBean> dataBuys = new ArrayList<>();
     List<ExchangeCenterRes.TransactionPendOrderSellListBean> dataSolds = new ArrayList<>();
     //委托记录
@@ -203,8 +196,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
 
 
     private void initRecycleView() {
-        priceBuyRecAdapter = new ExchangebuyPriceRecAdapter(mContext, dataBuys, R.layout.exchange_price_item);
-        priceSoldRecAdapter = new ExchangeSoldPriceRecAdapter(mContext, dataSolds, R.layout.exchange_price_item);
+        priceBuyRecAdapter = new ExchangebuyPriceRecAdapter(dataBuys, R.layout.exchange_price_item);
+        priceSoldRecAdapter = new ExchangeSoldPriceRecAdapter(dataSolds, R.layout.exchange_price_item);
 
         LinearLayoutManager mBuyLayoutManager = new LinearLayoutManager(mContext);
         mBuyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -217,7 +210,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         exchangePriceRecycleBuy.setAdapter(priceBuyRecAdapter);
         exchangePriceRecycleSold.setAdapter(priceSoldRecAdapter);
 
-        entrustRecodeRecAdapter = new EntrustRecodeRecAdapter(mContext, entrustRecodeDatas, R.layout
+        entrustRecodeRecAdapter = new EntrustRecodeRecAdapter(entrustRecodeDatas, R.layout
                 .exchange_entrust_recode_item);
 
         entrustRecodeRv.setLayoutManager(new LinearLayoutManager(mContext));
@@ -228,9 +221,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         entrustRecodeRecAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.entrust_cancel_tv:
-                    if (System.currentTimeMillis() - recodeTime < 2000) {
+                    if (System.currentTimeMillis() - recodeTime >= 2000) {
                         //退出程序 两秒内的事件不触发
-                    } else {
                         showCancleDialog(position);//撤销
                         recodeTime = System.currentTimeMillis();
                     }
@@ -267,7 +259,6 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     @Override
     protected void initData() {
         getExchangeCenterData(true);
-        initCountTimer();
     }
 
     private void initCountTimer() {
@@ -276,21 +267,20 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
-                    getExchangeCenterData(false);
                     getExchangeRecode(false);
                     getExchangePendOrder(false);
-                    getExchangeDealPrice(false);
+                    getExchangeDealPrice();
                 });
     }
 
-    private void getExchangeDealPrice(boolean b) {
+    private void getExchangeDealPrice() {
         if (TextUtils.isEmpty(currencyId)) {
             LogUtil.i("currencyId is null");
             return;
         }
         ExchangeCenterReq exchangeCenterReq = new ExchangeCenterReq();
         exchangeCenterReq.setCurrencyId(currencyId);
-        presenter.getExchangeDealPrice(exchangeCenterReq, EXCHANGE_DEALPRICE_TAG, b);
+        presenter.getExchangeDealPrice(exchangeCenterReq, EXCHANGE_DEALPRICE_TAG, false);
     }
 
     private void getExchangePendOrder(boolean b) {
@@ -455,7 +445,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     @Override
-    protected boolean isShowDefaultToast() {
+    protected boolean isShowNetErrorDefaultToast() {
         return false;
     }
 
@@ -517,12 +507,12 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         private final List<Fragment> mFragments = new ArrayList<>();
         private final FragmentManager fm;
 
-        public MyPagerAdapter(FragmentManager fm) {
+        MyPagerAdapter(FragmentManager fm) {
             super(fm);
             this.fm = fm;
         }
 
-        public void addFragment(Fragment fragment) {
+        void addFragment(Fragment fragment) {
             mFragments.add(fragment);
         }
 
@@ -537,6 +527,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         }
 
 
+        @NonNull
         @Override
         public Fragment instantiateItem(ViewGroup container, int position) {
             Fragment fragment = (Fragment) super.instantiateItem(container, position);

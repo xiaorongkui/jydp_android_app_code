@@ -417,7 +417,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             try {
-                DoubleString parcelableExtra = (DoubleString) data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
+                DoubleString parcelableExtra = data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
                 registerPhoneEreaTv.setText(parcelableExtra.str1);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -432,7 +432,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             setTheme(R.style.mainActivityTheme);
             CommonUtil.setStatusBarInvisible(this, false);
         } else {
-            setTheme(R.style.AppTheme);
+            setTheme(R.style.BaseAppTheme);
         }
         super.onCreate(savedInstanceState);
     }

@@ -339,5 +339,6 @@
     <string name="no_payment_method">不支持的收款方式</string>
     <string name="go_buy">去购买</string>
     <string name="go_sell">去出售</string>
+    <string name="max_sold_get_xt">最大可获得：0 XT</string>
 
 </resources>

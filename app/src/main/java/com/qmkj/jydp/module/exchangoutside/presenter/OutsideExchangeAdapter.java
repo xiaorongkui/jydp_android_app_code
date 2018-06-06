@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.exchangoutside.presenter;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import java.util.List;
 /**
  * @author wujiangming
  * @date 2018/4/23
- * @desc
  */
 
 public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRes.OtcTransactionPendOrderListBean> {
@@ -27,7 +25,8 @@ public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRe
             .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
             .setDefaultBgColor(CommonUtil.getColor(R.color.color_red_6));
 
-    public OutsideExchangeAdapter(Context context, int layoutResId, @Nullable List data) {
+    public OutsideExchangeAdapter(int layoutResId, @Nullable List<OutSideExchangeRes.OtcTransactionPendOrderListBean>
+            data) {
         super(layoutResId, data);
     }
 
@@ -52,8 +51,8 @@ public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRe
 
         outsideExchangeCurrencyNameTv.setText(item.getCurrencyName());
         dealerNameTv.setText(item.getDealerName());
-        scaleTv.setText(item.getPendingRatio() + "USD");
-        exchangeOutsideTradeQuotasTv.setText(item.getMinNumber() + "～" + item.getMaxNumber());
+        scaleTv.setText(String.format("%sUSD", item.getPendingRatio()));
+        exchangeOutsideTradeQuotasTv.setText(String.format("%s～%s", item.getMinNumber(), item.getMaxNumber()));
         exchangeOutsideRegionTv.setText(item.getArea());
 
         switch (item.getOrderType()) {

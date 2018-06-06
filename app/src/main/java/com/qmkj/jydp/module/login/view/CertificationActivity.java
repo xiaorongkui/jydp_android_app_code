@@ -1,7 +1,6 @@
 package com.qmkj.jydp.module.login.view;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
@@ -11,7 +10,6 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.response.CertificetionInfoRes;
-import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.util.CommonUtil;
@@ -39,10 +37,6 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     public int status;
     private String account;
     private CertificetionInfoRes infoRes;
-
-    public int getStatus() {
-        return status;
-    }
 
     public CertificetionInfoRes getInfoRes() {
         return infoRes;
@@ -129,10 +123,6 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (certifyNameFragment != null) {
-//            certifyNameFragment.onActivityResult(requestCode, resultCode, data);
-        }
-
     }
 
     @Override

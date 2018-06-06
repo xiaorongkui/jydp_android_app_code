@@ -21,11 +21,9 @@ import java.util.List;
 
 public class ExchangebuyPriceRecAdapter extends BaseRecycleAdapter<ExchangeCenterRes.TransactionPendOrderBuyListBean> {
 
-    private List datas;
 
-    public ExchangebuyPriceRecAdapter(Context context, List datas, int layoutId) {
+    public ExchangebuyPriceRecAdapter(List<ExchangeCenterRes.TransactionPendOrderBuyListBean> datas, int layoutId) {
         super(layoutId, datas);
-        this.datas = datas;
     }
 
     @Override

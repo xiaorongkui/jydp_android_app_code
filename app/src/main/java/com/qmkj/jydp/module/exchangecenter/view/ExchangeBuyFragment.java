@@ -2,14 +2,7 @@ package com.qmkj.jydp.module.exchangecenter.view;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.DigitsKeyListener;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +20,6 @@ import com.qmkj.jydp.bean.event.ExchangeEvent;
 import com.qmkj.jydp.bean.event.ExchangePwdEvent;
 import com.qmkj.jydp.bean.request.BuyExchangeReq;
 import com.qmkj.jydp.bean.request.ExchangePwdReq;
-import com.qmkj.jydp.bean.response.BuyExchangeRes;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.NetResponseCode;
@@ -57,7 +49,6 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     private static final int EXCHANGE_PWD_TAG = 2;
     @BindView(R.id.exchange_passowrd_iv)
     ImageView exchangePassowrdIv;
-    Unbinder unbinder;
     @BindView(R.id.exchange_buy_total_assets_tv)
     TextView exchangeBuyTotalAssetsTv;
     @BindView(R.id.exchange_forzen_assets_tv)
@@ -116,9 +107,8 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
 
         InitialValueObservable<CharSequence> amountTextChanges = RxTextView.textChanges(exchangeAmountEt);
         amountTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
-                .mainThread()).subscribe(sequence -> {
-            restrictedInput(sequence, exchangeAmountEt, DECIMAL_DIGITS_AMMOUNT);
-        });
+                .mainThread()).subscribe(sequence -> restrictedInput(sequence, exchangeAmountEt,
+                DECIMAL_DIGITS_AMMOUNT));
         InitialValueObservable<CharSequence> priceTextChanges = RxTextView.textChanges(exchangeUnitPriceEt);
         priceTextChanges.compose(bindToLifecycle()).observeOn(AndroidSchedulers
                 .mainThread()).subscribe(sequence -> {
@@ -129,9 +119,8 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(o -> buyStart());//防重复点击
 
-        subscribe_1 = RxBus.getDefault().toObservable(ExchangePwdEvent.class).subscribe(exchangeEvent -> {
-            isRefreshPwd = true;
-        });
+        subscribe_1 = RxBus.getDefault().toObservable(ExchangePwdEvent.class).subscribe(exchangeEvent -> isRefreshPwd
+                = true);
     }
 
     private void calculateBuyAccount() {
@@ -150,7 +139,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         if (parseDoublePrice > 0 && parseDoubleAvailable >= 0) {
             double totalPrice = NumberUtil.mul((1 + parseDoubleAvailableBuyFee), parseDoublePrice);
             double div = NumberUtil.div(parseDoubleAvailable, totalPrice, 6);
-            buy_max_tv.setText("最大可买：" + NumberUtil.format4Point(div));
+            buy_max_tv.setText(String.format("最大可买：%s", NumberUtil.format4Point(div)));
         } else {
             buy_max_tv.setText("最大可买：0");
         }
@@ -303,7 +292,6 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         ImageView exchange_setting_pwd_exchange_iv = view.findViewById(R.id.exchange_setting_pwd_exchange_iv);
         LinearLayout exchange_setting_pwd_login_ll = view.findViewById(R.id.exchange_setting_pwd_login_ll);
         LinearLayout exchange_setting_pwd_exchange_ll = view.findViewById(R.id.exchange_setting_pwd_exchange_ll);
-        LinearLayout setting_pwd_ll = view.findViewById(R.id.setting_pwd_ll);
         exchange_passowrd_et = view.findViewById(R.id.exchange_passowrd_et);
 
         exchange_passowrd_et.setOnTouchListener((v, event) -> {
@@ -411,21 +399,15 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         double money = NumberUtil.mul(parseDoublePrice, parseDoublebuyAmount);
-        double totalFee = NumberUtil.mul(money, parseDoubleBuyFee);
-        double totalMoney = NumberUtil.add(money, totalFee);
 
-        exchange_buy_total_tv.setText(NumberUtil.format4Point(money) + " XT");
-        exchange_buy_fee_tv.setText(parseDoubleBuyFee + "%");
+        exchange_buy_total_tv.setText(String.format("%s XT", NumberUtil.format4Point(money)));
+        exchange_buy_fee_tv.setText(String.format("%s%%", parseDoubleBuyFee));
 
         buyDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         buyDialogUtils.setOneOrTwoBtn(false);
         buyDialogUtils.setTitle(CommonUtil.getString(R.string.buy_notice));
-        buyDialogUtils.setTwoCancelBtn("取消", v -> {
-            LogUtil.i("取消");
-            buyDialogUtils.dismiss();
-        });
+        buyDialogUtils.setTwoCancelBtn("取消", v -> buyDialogUtils.dismiss());
         RxView.clicks(buyDialogUtils.getView(R.id.yes, Button.class)).throttleFirst(2, TimeUnit.SECONDS)
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(o -> submitBuyXt());//防重复点击
@@ -436,15 +418,6 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         if (centerRes == null || centerRes.getUserDealCapitalMessage() == null) return;
         this.centerRes = centerRes;
         userDealCapitalMessage = centerRes.getUserDealCapitalMessage();
-
-        double total = 0;
-        try {
-            total = Double.parseDouble(userDealCapitalMessage.getUserBalanceLock()) + Double.parseDouble
-                    (userDealCapitalMessage.getUserBalance());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            LogUtil.i("资产总额格式化异常" + e.getMessage());
-        }
         exchangeBuyTotalAssetsTv.setText(NumberUtil.format4Point(userDealCapitalMessage.getCurrencyNumberSum()));
         exchangeForzenAssetsTv.setText(NumberUtil.format4Point(userDealCapitalMessage.getUserBalanceLock()));
         exchangeAvailableAssetsTv.setText(NumberUtil.format4Point(userDealCapitalMessage.getUserBalance()));
@@ -484,15 +457,18 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 toast("挂单成功");
                 if (buyDialogUtils != null && buyDialogUtils.isShowing()) buyDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangeEvent());
+                RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                 clearBuyInput();
+                String exchanegPwd = exchange_passowrd_et.getText().toString().trim();
+                if (!TextUtils.isEmpty(exchanegPwd)) {
+                    CommonUtil.saveExchangePwd(exchanegPwd);
+                }
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("记住密码设置成功");
                 CommonUtil.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
-                isRefreshPwd = true;
-//                exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
                 break;
         }
     }
@@ -528,15 +504,16 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 if (TextUtils.isEmpty(code)) return;
                 switch (code) {
                     case NetResponseCode.HMC_EXCHANGE_PWD_ERROR:
-//                        BuyExchangeRes exchangeRes = null;
-//                        try {
-//                            exchangeRes = (BuyExchangeRes) o;
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                        if (exchangeRes == null) return;
-//                        refreshExchangePwdSettings();
-                        RxBus.getDefault().post(new ExchangeEvent());//去更新密码状态
+                        RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
+                        break;
+                }
+                break;
+            case EXCHANGE_PWD_TAG:
+                if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
+                if (TextUtils.isEmpty(code)) return;
+                switch (code) {
+                    case NetResponseCode.HMC_EXCHANGE_PWD_ERROR:
+                        RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                         break;
                 }
                 break;
@@ -552,7 +529,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 exchangeAmountEt.setSelection(s.length());
             }
         }
-        if (s.toString().trim().substring(0).equals(".")) {
+        if (s.toString().trim().equals(".")) {
             s = "0" + s;
             exchangeAmountEt.setText(s);
             exchangeAmountEt.setSelection(2);
@@ -561,7 +538,6 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             if (!s.toString().substring(1, 2).equals(".")) {
                 exchangeAmountEt.setText(s.subSequence(0, 1));
                 exchangeAmountEt.setSelection(1);
-                return;
             }
         }
     }

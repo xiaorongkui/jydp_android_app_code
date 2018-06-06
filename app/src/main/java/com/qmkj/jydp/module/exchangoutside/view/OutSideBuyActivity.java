@@ -3,8 +3,6 @@ package com.qmkj.jydp.module.exchangoutside.view;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -16,8 +14,8 @@ import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.OutSideBuyPayDetailReq;
 import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
@@ -31,7 +29,6 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +63,6 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
     private int selectIndex = -1;//1：银行卡，2：支付宝，3：微信
     private String orderNo;
     private String pendingRatio;
-    private DistributorPayMethodRes payMethodRes;
     private boolean[] payMethodShow = new boolean[]{false, false, false};
     private String userId;
     private String minAccount;
@@ -83,7 +79,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
     protected void initData() {
         orderNo = getIntent().getStringExtra(Constants.INTENT_PARAMETER_1);
         pendingRatio = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
-        payMethodRes = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_3);
+        DistributorPayMethodRes payMethodRes = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_3);
         userId = getIntent().getStringExtra(Constants.INTENT_PARAMETER_4);
         minAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_5);
         maxAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_6);
@@ -112,9 +108,6 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
             selectIndex = -1;
             outsidePayMothedTv.setText(CommonUtil.getString(R.string.no_payment_method));
         }
-//        else {
-//            outsidePayMothedTv.setText(certifyTypeData.get(0).getCertifyName());
-//        }
     }
 
     @Override
@@ -174,8 +167,8 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
 
             @Override
             protected void convert(BaseRecyclerViewHolder helper, DialogItemBean item, int position) {
-                ImageView imageViewLeft = (ImageView) helper.getView(R.id.certify_type_left_iv);
-                ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
+                ImageView imageViewLeft = helper.getView(R.id.certify_type_left_iv);
+                ImageView imageViewRight = helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
                 imageViewLeft.setImageResource(item.getLeftImageViewId());
                 imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap
@@ -303,7 +296,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 intent.putExtra(Constants.INTENT_PARAMETER_3, outSideBuyPayDetailRes.getUserPaymentType());
                 CommonUtil.gotoActivity(mContext, intent);
                 OutSideBuyPayDetailRes.UserPaymentTypeBean bean = outSideBuyPayDetailRes.getUserPaymentType();
-                LogUtil.i("bean22=" + (bean == null ? "" : bean.toString()));
+                LogUtil.i("bean2=" + (bean == null ? "" : bean.toString()));
                 break;
         }
 
@@ -318,7 +311,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 ousideBuyAmountEiv.getEditTextView().setSelection(s.length());
             }
         }
-        if (s.toString().trim().substring(0).equals(".")) {
+        if (s.toString().trim().equals(".")) {
             s = "0" + s;
             ousideBuyAmountEiv.getEditTextView().setText(s);
             ousideBuyAmountEiv.getEditTextView().setSelection(2);
@@ -327,7 +320,6 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
             if (!s.toString().substring(1, 2).equals(".")) {
                 ousideBuyAmountEiv.getEditTextView().setText(s.subSequence(0, 1));
                 ousideBuyAmountEiv.getEditTextView().setSelection(1);
-                return;
             }
         }
     }

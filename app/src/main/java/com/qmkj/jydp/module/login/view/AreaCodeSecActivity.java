@@ -116,7 +116,7 @@ public class AreaCodeSecActivity extends BaseMvpActivity<LoginPresenter> {
             originalDatas.add(new DoubleString(stringStringEntry.getKey(), stringStringEntry.getValue()));
         }
         datas.addAll(originalDatas);
-        areaRecyAdapter = new SearchAreaRecyAdapter(mContext, datas, R.layout
+        areaRecyAdapter = new SearchAreaRecyAdapter(datas, R.layout
                 .login_search_area_item);
         searchAreaCodeRv.setLayoutManager(new LinearLayoutManager(mContext));
         searchAreaCodeRv.setAdapter(areaRecyAdapter);

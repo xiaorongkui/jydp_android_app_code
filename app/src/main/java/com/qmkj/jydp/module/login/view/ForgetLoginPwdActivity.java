@@ -2,12 +2,7 @@ package com.qmkj.jydp.module.login.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.DigitsKeyListener;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,15 +19,12 @@ import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditVItemView;
-import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
-import com.qmkj.jydp.util.StringUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -280,7 +272,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             try {
-                DoubleString parcelableExtra = (DoubleString) data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
+                DoubleString parcelableExtra = data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
                 forgetPwdPhoneEreaTv.setText(parcelableExtra.str1);
             } catch (Exception e) {
                 e.printStackTrace();

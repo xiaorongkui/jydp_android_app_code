@@ -1,4 +1,4 @@
-package com.qmkj.jydp.ui;
+package com.qmkj.jydp.ui.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

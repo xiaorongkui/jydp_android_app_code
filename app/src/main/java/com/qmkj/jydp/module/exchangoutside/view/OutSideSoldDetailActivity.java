@@ -2,7 +2,6 @@ package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.MediaStoreSignature;
@@ -20,7 +18,6 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.GlideApp;
-import com.qmkj.jydp.base.GlideRequest;
 import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.request.OutSideSellReq;
 import com.qmkj.jydp.bean.response.OutSideSellDetailRes;
@@ -29,7 +26,6 @@ import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
-import com.qmkj.jydp.util.BitmapCompressUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.RxBus;
 

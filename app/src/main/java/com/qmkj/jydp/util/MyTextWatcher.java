@@ -34,7 +34,7 @@ public class MyTextWatcher implements TextWatcher {
                 editText.setSelection(s.length());
             }
         }
-        if (s.toString().trim().substring(0).equals(".")) {
+        if (s.toString().trim().equals(".")) {
             s = "0" + s;
             editText.setText(s);
             editText.setSelection(2);

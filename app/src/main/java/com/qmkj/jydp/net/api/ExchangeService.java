@@ -13,29 +13,24 @@ import com.qmkj.jydp.bean.response.CancleOrderReq;
 import com.qmkj.jydp.bean.response.DealRecodeRes;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
-import com.qmkj.jydp.bean.response.ExchangeEntrustRecodeRes;
 import com.qmkj.jydp.bean.response.KlineRes;
 import com.qmkj.jydp.bean.response.SellExchangeRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
-import java.util.Map;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+
 /**
- * Created by Yun on 2018/1/5.
- * 网络请求接口,入参统一使用map集合,
+ * The interface Exchange service.
  */
 public interface ExchangeService {
     /**
      * 交易中心币种获取
      *
-     * @return ExchangeCurrencyRes
+     * @return ExchangeCurrencyRes exchange currency
      */
     @GET(AppNetConfig.urlPath + "wap/tradeCenter/currencyInfo")
     Observable<BaseRes<ExchangeCurrencyRes>> getExchangeCurrency();
@@ -43,7 +38,8 @@ public interface ExchangeService {
     /**
      * 交易中心数据
      *
-     * @return ExchangeCenterRes
+     * @param req the req
+     * @return ExchangeCenterRes exchange center data
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/getWapTradeCenterInfo")
     Observable<BaseRes<ExchangeCenterRes>> getExchangeCenterData(@Body ExchangeCenterReq req);
@@ -51,7 +47,8 @@ public interface ExchangeService {
     /**
      * 交易中心获取挂单记录
      *
-     * @return ExchangeCenterRes
+     * @param req the req
+     * @return ExchangeCenterRes exchange pend order
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/pend")
     Observable<BaseRes<ExchangeCenterRes>> getExchangePendOrder(@Body ExchangeCenterReq req);
@@ -59,7 +56,8 @@ public interface ExchangeService {
     /**
      * 交易中心委托记录数据
      *
-     * @return
+     * @param req the req
+     * @return the entrust recode data
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/entrust")
     Observable<BaseRes<ExchangeCenterRes>> getEntrustRecodeData(@Body ExchangeCenterReq req);
@@ -67,7 +65,8 @@ public interface ExchangeService {
     /**
      * 交易中心获取交易相关价格（基准信息）
      *
-     * @return
+     * @param req the req
+     * @return the exchange deal price
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainDealPrice")
     Observable<BaseRes<ExchangeCenterRes>> getExchangeDealPrice(@Body ExchangeCenterReq req);
@@ -75,7 +74,8 @@ public interface ExchangeService {
     /**
      * 交易中心购买接口
      *
-     * @return
+     * @param req the req
+     * @return the observable
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/buy")
     Observable<BaseRes<BuyExchangeRes>> buyXtExchange(@Body BuyExchangeReq req);
@@ -83,7 +83,8 @@ public interface ExchangeService {
     /**
      * 交易中心卖出接口
      *
-     * @return
+     * @param req the req
+     * @return the observable
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/sell")
     Observable<BaseRes<SellExchangeRes>> sellXtExchange(@Body SellExchangeReq req);
@@ -91,7 +92,8 @@ public interface ExchangeService {
     /**
      * 交易中心记住密码接口
      *
-     * @return
+     * @param req the req
+     * @return the observable
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/rememberPwd")
     Observable<BaseRes<Object>> rememberExchangePwd(@Body ExchangePwdReq req);
@@ -99,7 +101,8 @@ public interface ExchangeService {
     /**
      * 交易中心获取K线图数据
      *
-     * @return
+     * @param req the req
+     * @return the kline data
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainGraphData")
     Observable<BaseRes<KlineRes>> getKlineData(@Body KlineReq req);
@@ -107,7 +110,8 @@ public interface ExchangeService {
     /**
      * 交易中心取消挂单
      *
-     * @return
+     * @param req the req
+     * @return the observable
      */
     @POST(AppNetConfig.urlPath + "wap/wapTransactionPendOrderController/revoke")
     Observable<BaseRes<Object>> cancleOrder(@Body CancleOrderReq req);
@@ -115,7 +119,8 @@ public interface ExchangeService {
     /**
      * 交易中心取消挂单
      *
-     * @return
+     * @param req the req
+     * @return the exchange deal recode
      */
     @POST(AppNetConfig.urlPath + "wap/tradeCenter/deal")
     Observable<BaseRes<DealRecodeRes>> getExchangeDealRecode(@Body ExchangeDealRecodeReq req);

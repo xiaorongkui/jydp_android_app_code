@@ -1,9 +1,6 @@
 package com.qmkj.jydp.module.login.view;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +13,6 @@ import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.response.CertificetionInfoRes;
-import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
@@ -27,8 +23,6 @@ import com.qmkj.jydp.util.SelectorFactory;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * author：rongkui.xiao --2018/3/23
@@ -86,7 +80,9 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
     @Override
     protected void initView() {
-        checkInfo = ((CertificationActivity) getActivity()).getInfoRes();
+        if (getActivity() != null) {
+            checkInfo = ((CertificationActivity) getActivity()).getInfoRes();
+        }
         if (checkInfo == null) return;
         status = checkInfo.getIdentification().getIdentificationStatus();
         certifyCheckHomeBt.setOnClickListener(this);

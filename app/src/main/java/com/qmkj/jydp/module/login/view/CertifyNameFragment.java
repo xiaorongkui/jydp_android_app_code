@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
@@ -102,7 +101,9 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
     }
 
     private void initItemView() {
-        userAccount = ((CertificationActivity) getActivity()).getAccount();
+        if (getActivity() != null) {
+            userAccount = ((CertificationActivity) getActivity()).getAccount();
+        }
         certifyNameAccountCv.setRightText(userAccount);
         initInput();
     }
@@ -213,8 +214,8 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
 
             @Override
             protected void convert(BaseRecyclerViewHolder helper, DialogItemBean item, int position) {
-                ImageView imageViewLeft = (ImageView) helper.getView(R.id.certify_type_left_iv);
-                ImageView imageViewRight = (ImageView) helper.getView(R.id.certify_type_right_iv);
+                ImageView imageViewLeft = helper.getView(R.id.certify_type_left_iv);
+                ImageView imageViewRight = helper.getView(R.id.certify_type_right_iv);
                 TextView certifyType_tv = helper.getView(R.id.certify_type_tv);
                 imageViewLeft.setImageResource(item.getLeftImageViewId());
                 imageViewRight.setImageResource(selectIndex == position ? R.mipmap.bt_selected : R.mipmap
@@ -368,7 +369,9 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
         switch (tag) {
             case CERTIFY_NAME_TAG:
                 toast("提交成功");
-                ((CertificationActivity) getActivity()).getCertifyStatus();
+                if (getActivity() != null) {
+                    ((CertificationActivity) getActivity()).getCertifyStatus();
+                }
                 break;
         }
     }
@@ -380,7 +383,9 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
             case CERTIFY_NAME_TAG:
                 switch (code) {
                     case NetResponseCode.HMC_HAS_CHECKING://审核中
-                        ((CertificationActivity) getActivity()).setSelect(0);
+                        if (getActivity() != null) {
+                            ((CertificationActivity) getActivity()).setSelect(0);
+                        }
                         break;
                 }
                 break;

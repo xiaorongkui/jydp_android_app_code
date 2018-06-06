@@ -2,9 +2,6 @@ package com.qmkj.jydp.module.exchangoutside.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.MediaStoreSignature;
@@ -30,7 +26,6 @@ import com.qmkj.jydp.manager.AppManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
-import com.qmkj.jydp.util.BitmapCompressUtil;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxBus;
@@ -86,7 +81,6 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
     @BindView(R.id.weixin_pyament_method_sl)
     ShadowLayout weixinPyamentMethodSl;
     private OutSideBuyPayDetailRes outSideBuyPayDetailRes;
-    private String paymentMoney;
     OutSideBuyPayDetailRes.UserPaymentTypeBean bean;
     private CommonDialog qrCodeDialog;
 
@@ -98,7 +92,7 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
     @Override
     protected void initData() {
         outSideBuyPayDetailRes = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_1);
-        paymentMoney = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
+        String paymentMoney = getIntent().getStringExtra(Constants.INTENT_PARAMETER_2);
         bean = getIntent().getParcelableExtra(Constants.INTENT_PARAMETER_3);
         if (outSideBuyPayDetailRes == null) return;
         outsideBuyDistributorNameCiv.setRightText(outSideBuyPayDetailRes.getDealerName());
@@ -183,9 +177,7 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
 
     @Override
     protected void initView() {
-        comfirmSoldComfirmBt.setOnClickListener(v -> {
-            startPayment();
-        });
+        comfirmSoldComfirmBt.setOnClickListener(v -> startPayment());
 //        RxView.clicks(comfirmSoldComfirmBt).throttleFirst(2, TimeUnit.SECONDS).compose(bindToLifecycle()).observeOn
 //                (AndroidSchedulers.mainThread()).subscribe(o -> startPayment());
     }

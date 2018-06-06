@@ -54,8 +54,8 @@ public class HomeGrideAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, layoutId, null);
             holder = new Holder();
-            holder.tv = (TextView) convertView.findViewById(R.id.gride_text);
-            holder.img = (ImageView) convertView.findViewById(R.id.gride_image);
+            holder.tv = convertView.findViewById(R.id.gride_text);
+            holder.img = convertView.findViewById(R.id.gride_image);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();

@@ -2,29 +2,24 @@ package com.qmkj.jydp.net.api;
 
 
 import com.qmkj.jydp.bean.request.CertificetionInfoReq;
-import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
 import com.qmkj.jydp.bean.request.ChangePhoneReq;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
+import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
-import com.qmkj.jydp.bean.request.RegisterCodeReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.bean.response.AppUpdateRes;
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.bean.response.LoginRes;
-import com.qmkj.jydp.bean.request.LoginReq;
 import com.qmkj.jydp.bean.response.ReCertificetionRes;
 import com.qmkj.jydp.bean.response.RegisterRes;
 import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;

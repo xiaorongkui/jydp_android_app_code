@@ -17,7 +17,6 @@ import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -37,9 +36,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         injectPresenter();
-        if (presenter != null) {
-            presenter.attachView(this);
-        }
+        if (presenter != null) presenter.attachView(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -68,14 +65,11 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
 
     @Override
     public void onSuccess(Object response, int tag) {
-//        LogUtil.i(response == null ? "null" : response.toString());
-//        if (response == null) return;
     }
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object response) {
         LogUtil.i("接口请求失败" + ";errorMsg=" + errorMsg + ";errorcode=" + code + ";tag=" + tag);
-
         if (TextUtils.isEmpty(code)) {
             toast(errorMsg);
             return;

@@ -1,7 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
 import android.Manifest;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.AppUpdateRes;
-import com.qmkj.jydp.module.login.presenter.LoginContract;
+import com.qmkj.jydp.module.login.modle.LoginContract;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
@@ -23,7 +22,6 @@ import com.qmkj.jydp.util.SelectorFactory;
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * author：rongkui.xiao --2018/5/4

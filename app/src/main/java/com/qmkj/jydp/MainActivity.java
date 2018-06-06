@@ -3,15 +3,10 @@ package com.qmkj.jydp;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,16 +15,12 @@ import com.qmkj.jydp.base.BaseActivity;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeCurrencySelectFrament;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
-import com.qmkj.jydp.module.home.presenter.CurrencyRecyAdapter;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
 import com.qmkj.jydp.module.exchangoutside.view.OutsideExchangeFragment;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -79,7 +70,7 @@ public class MainActivity extends BaseActivity {
             setTheme(R.style.mainActivityTheme);
             CommonUtil.setStatusBarInvisible(this, false);
         } else {
-            setTheme(R.style.AppTheme);
+            setTheme(R.style.BaseAppTheme);
         }
         super.onCreate(savedInstanceState);
         LogUtil.i("MainActivity onCreate,状态栏高度=" + CommonUtil.getStatusBarHeight() + ";\t 分辨率=" +

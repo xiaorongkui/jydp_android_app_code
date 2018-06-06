@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="colorPrimaryDark">@color/colorBlack</item>
@@ -24,6 +24,11 @@
 
     <style name="mainActivityTheme" parent="Theme.AppCompat.Light">
         <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseAppTheme">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="btn" parent="@style/Widget.AppCompat.Button.Borderless">
@@ -77,12 +82,12 @@
     </style>
 
     <!--防止白屏-->
-    <style name="start_apptheme" parent="AppTheme">
+    <style name="start_apptheme" parent="BaseAppTheme">
         <item name="android:windowBackground">@mipmap/lanucher</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="no_background_dialog" parent="AppTheme">
+    <style name="no_background_dialog" parent="BaseAppTheme">
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>

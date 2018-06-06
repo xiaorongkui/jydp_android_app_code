@@ -20,13 +20,9 @@ import java.util.List;
  */
 
 public class HomeRecyAdapter extends BaseRecycleAdapter<HomeDataRes.TransactionUserDealListBean> {
-    private final List<String> datas;
-    private final Context mContext;
 
     public HomeRecyAdapter(Context context, List datas, int layoutId) {
         super(layoutId, datas);
-        this.datas = datas;
-        this.mContext = context;
     }
 
     @Override
