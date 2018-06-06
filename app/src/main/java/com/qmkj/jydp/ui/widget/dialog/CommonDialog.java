@@ -27,9 +27,7 @@ public class CommonDialog extends BaseDialog {
 
     @Override
     protected View setContentView() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_common_content, null);
-
-        return view;
+        return LayoutInflater.from(getContext()).inflate(R.layout.dialog_common_content, null);
     }
 
     @Override
@@ -37,11 +35,9 @@ public class CommonDialog extends BaseDialog {
         if (TextUtils.isEmpty(titleStr)) {
             titleStr = "提示";
         }
-
         if (TextUtils.isEmpty(positiveButtonStr)) {
             positiveButtonStr = "确认";
         }
-
         if (TextUtils.isEmpty(negativeButtonStr)) {
             negativeButtonStr = "取消";
         }
