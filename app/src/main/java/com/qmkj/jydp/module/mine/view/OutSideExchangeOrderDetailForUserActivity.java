@@ -237,7 +237,8 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
 
     @OnClick(R.id.confirm_receipt_btn)
     public void onViewClicked() {
-        if(commonDialog!=null&&commonDialog.isShowing()){
+        //确认收款
+        if (commonDialog != null && commonDialog.isShowing()) {
             return;
         }
         commonDialog = new CommonDialog(this);
@@ -252,7 +253,13 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
         commonDialog.show();
     }
 
+    /**
+     * 显示二维码Dialog
+     */
     private void showQRCodeDialog() {
+        if (qrCodeDialog != null && qrCodeDialog.isShowing()) {
+            return;
+        }
         qrCodeDialog = new com.qmkj.jydp.ui.widget.CommonDialog(mContext, R.style.common_dialog, R.layout.dialog_qr_code);
         ImageView qr_code_iv = qrCodeDialog.getView(R.id.qr_code_iv, ImageView.class);
         if (orderDetailInfo == null || TextUtils.isEmpty(orderDetailInfo.getPaymentImage())) return;
