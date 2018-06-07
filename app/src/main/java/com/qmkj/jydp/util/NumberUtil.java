@@ -25,7 +25,7 @@ public class NumberUtil {
         numberFormat.setMinimumFractionDigits( 0 );//设置数值的小数部分允许的最小位数。
         numberFormat.setMaximumFractionDigits(accuracy); // 设置数值的小数部分允许的最大位数。
         numberFormat.setMaximumIntegerDigits( 10 ); //设置数值的整数部分允许的最大位数。
-        numberFormat.setMinimumIntegerDigits(0); //设置数值的整数部分允许的最小位数.
+        numberFormat.setMinimumIntegerDigits(1); //设置数值的整数部分允许的最小位数.
         return numberFormat.format(Double.valueOf(resultValue.toString()));
     }
 
