@@ -25,6 +25,7 @@ import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
+import com.qmkj.jydp.util.NumberUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -122,8 +123,8 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
         }
         orderDetailOrderNoTv.setText(orderDetailInfo.getOtcOrderNo());
         orderDetailCurrencyNameTv.setText(orderDetailInfo.getCurrencyName());
-        orderDetailCurrencyNumCv.setRightText(orderDetailInfo.getCurrencyNumber());
-        orderDetailCurrencyTotalPriceCv.setRightText("$" + orderDetailInfo.getCurrencyTotalPrice());
+        orderDetailCurrencyNumCv.setRightText(NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo.getCurrencyNumber() + ""), 4));
+        orderDetailCurrencyTotalPriceCv.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo.getCurrencyTotalPrice() + ""), 2));
         //1：买入，2：卖出，3：撤销
         switch (orderDetailInfo.getDealType()) {
             case 1:

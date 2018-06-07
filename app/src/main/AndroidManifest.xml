@@ -146,6 +146,14 @@
             android:name=".module.mine.ChainWithdrawActivity"
             android:launchMode="singleTop"/>
 
+        <activity
+            android:name=".module.mine.view.OutSideExchangeOrderDetailForUserActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".module.mine.view.OutSideExchangeOrderDetailForDealerActivity"
+            android:launchMode="singleTop" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -156,8 +164,7 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
-        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailForUserActivity"/>
-        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailForDealerActivity"/>
+
     </application>
 
 </manifest>

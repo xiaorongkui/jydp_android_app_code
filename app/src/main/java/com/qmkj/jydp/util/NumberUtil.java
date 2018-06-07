@@ -102,6 +102,19 @@ public class NumberUtil {
         myformat.applyPattern("#0.00000");
         return myformat.format(str);
     }
+
+    /**
+     * Format 6 point 格式化6位有效数字.
+     *
+     * @param str the str
+     * @return the string
+     */
+    public static String format6Point(double str) {
+        DecimalFormat myformat = new DecimalFormat();
+        myformat.applyPattern("#0.000000");
+        return myformat.format(str);
+    }
+
     /**
      * 加法
      *
