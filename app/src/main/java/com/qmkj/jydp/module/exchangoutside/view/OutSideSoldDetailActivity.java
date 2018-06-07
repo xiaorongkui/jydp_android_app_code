@@ -150,7 +150,7 @@ public class OutSideSoldDetailActivity extends BaseMvpActivity<OutsideExchangePr
         outSideSellReq.setBankBranch(outSideSellDetailRes.getBankBranch());
         outSideSellReq.setBankCardPaymentAccount(outSideSellDetailRes.getPaymentAccount());
         outSideSellReq.setBankName(outSideSellDetailRes.getBankName());
-        outSideSellReq.setImageUrl(outSideSellDetailRes.getImageUrlFormat());
+        outSideSellReq.setImageUrl(outSideSellDetailRes.getImageUrl());
         outSideSellReq.setOtcPendingOrderNo(outSideSellDetailRes.getOtcTransactionPendOrder().getOtcPendingOrderNo());
         outSideSellReq.setPaymentName(outSideSellDetailRes.getPaymentName());
         outSideSellReq.setPaymentPhone(outSideSellDetailRes.getPaymentPhone());
