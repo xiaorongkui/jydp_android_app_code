@@ -18,6 +18,7 @@ import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
+import com.qmkj.jydp.util.NumberUtil;
 
 import butterknife.BindView;
 
@@ -144,8 +145,8 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         order_detail_status_tv.setText(text);
         outside_exchange_recode_order_num_tv.setText(res.getOtcOrderNo());
         exchange_recode_detail_name_civ.setText(res.getCurrencyName());
-        exchange_recode_detail_amount_civ.setRightText(res.getCurrencyNumber());
-        exchange_recode_detail_money_civ.setRightText("$" + res.getCurrencyTotalPrice());
+        exchange_recode_detail_amount_civ.setRightText(NumberUtil.doubleFormat(Double.parseDouble(res.getCurrencyNumber()+""),4));
+        exchange_recode_detail_money_civ.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(res.getCurrencyTotalPrice()+""),2));
         String text_type = null;
         switch (res.getDealType()) {
             case 1:

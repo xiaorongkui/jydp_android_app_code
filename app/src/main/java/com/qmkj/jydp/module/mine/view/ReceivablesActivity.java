@@ -44,27 +44,27 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.weixin_layout)
     ShadowLayout weixin_layout;
 
-    @BindView(R.id.receivables_bank_card_num_eiv)
+    @BindView(R.id.receivables_bank_card_num_eiv) //银行卡号
     EditVItemView receivables_bank_card_num_eiv;
-    @BindView(R.id.receivables_bank_name_eiv)
+    @BindView(R.id.receivables_bank_name_eiv)  //银行名称
     EditVItemView receivables_bank_name_eiv;
-    @BindView(R.id.receivables_bank_branch_name_eiv)
+    @BindView(R.id.receivables_bank_branch_name_eiv)//支行名称
     EditVItemView receivables_bank_branch_name_eiv;
-    @BindView(R.id.receivables_bank_reserve_name_eiv)
+    @BindView(R.id.receivables_bank_reserve_name_eiv)//银行预留姓名
     EditVItemView receivables_bank_reserve_name_eiv;
-    @BindView(R.id.receivables_bank_reserve_phone_eiv)
+    @BindView(R.id.receivables_bank_reserve_phone_eiv) //银行预留电话
     EditVItemView receivables_bank_reserve_phone_eiv;
 
 
-    @BindView(R.id.receivables_alipay_account_eiv)
+    @BindView(R.id.receivables_alipay_account_eiv)  //支付宝账号
     EditVItemView receivables_alipay_account_eiv;
-    @BindView(R.id.receivables_alipay_receipt_code_eiv)
+    @BindView(R.id.receivables_alipay_receipt_code_eiv)//收款码
     EditVItemView receivables_alipay_receipt_code_eiv;
 
 
-    @BindView(R.id.receivables_wechat_account_eiv)
+    @BindView(R.id.receivables_wechat_account_eiv) //微信账号
     EditVItemView receivables_wechat_account_eiv;
-    @BindView(R.id.receivables_wechat_receipt_code_eiv)
+    @BindView(R.id.receivables_wechat_receipt_code_eiv) //收款码
     EditVItemView receivables_wechat_receipt_code_eiv;
 
     @BindView(R.id.receivables_confirm_bt)

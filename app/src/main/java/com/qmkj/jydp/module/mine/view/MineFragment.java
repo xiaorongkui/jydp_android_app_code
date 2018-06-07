@@ -16,6 +16,7 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
+import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.bean.response.MineRes;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
@@ -311,7 +312,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                     mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalance()),4)+"");
                     mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalanceLock()),4)+"");
                     if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
-                        CommonUtil.getLoginInfo().getUser().setIsDealer(mineRes.getIsDealer());
+                        LoginRes loginRes = CommonUtil.getLoginInfo();
+                        loginRes.getUser().setIsDealer(mineRes.getIsDealer());
+                        CommonUtil.setLoginInfo(loginRes);
                     }
                     if(mineRes.getIsDealer()==2){ //是经销商
                         mine_distributor_tv.setVisibility(View.VISIBLE);
