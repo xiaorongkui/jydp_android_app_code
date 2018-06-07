@@ -83,20 +83,22 @@ public class RxPermissionUtils {
                     onPermissionListener.onPermissionDeniedAndNeverAsk(permission.name);
                 }
             }
-        }, throwable -> LogUtil.i("权限申请失败" + throwable.getMessage()), new Action() {
-            @Override
-            public void run() throws Exception {
-                LogUtil.i("权限申请完成");
-                if (onPermissionListener != null) {
-                    onPermissionListener.onAllPermissionFinish();
-                }
+        }, throwable -> {
+            LogUtil.i("权限申请失败" + throwable.getMessage());
+            if (onPermissionListener != null) {
+                onPermissionListener.onPermissionException(throwable);
+            }
+        }, () -> {
+            LogUtil.i("权限申请完成");
+            if (onPermissionListener != null) {
+                onPermissionListener.onAllPermissionFinish();
+            }
 
-                for (Boolean isGranted : isGranteds) {
-                    if (!isGranted) return;
-                }
-                if (onPermissionListener != null) {
-                    onPermissionListener.onAllPermissionGranted();
-                }
+            for (Boolean isGranted : isGranteds) {
+                if (!isGranted) return;
+            }
+            if (onPermissionListener != null) {
+                onPermissionListener.onAllPermissionGranted();
             }
         });
 
@@ -119,7 +121,7 @@ public class RxPermissionUtils {
         protected void onPermissionDenied(String name) {
         }
 
-        //所有权限申请全部通过
+        //所有权限申请都通过
         protected void onAllPermissionGranted() {
         }
 
@@ -130,6 +132,10 @@ public class RxPermissionUtils {
 
         //所有权限申请完成
         protected void onAllPermissionFinish() {
+        }
+
+        protected void onPermissionException(Throwable e) {
+
         }
     }
 }

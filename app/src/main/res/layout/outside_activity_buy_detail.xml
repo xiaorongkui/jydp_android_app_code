@@ -10,347 +10,354 @@
     <View
         style="@style/line1"/>
 
-    <LinearLayout
-        android:id="@+id/exchange_outside_detail_ll"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.dd.ShadowLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x10"
-            android:layout_marginStart="@dimen/x10"
-            android:layout_marginTop="@dimen/y5"
-            android:orientation="horizontal"
-            app:sl_cornerRadius="@dimen/x5"
-            app:sl_shadowColor="@color/color_gray_9"
-            app:sl_shadowRadius="@dimen/x5">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_view_shadow_bg"
-                android:orientation="vertical"
-                android:paddingEnd="@dimen/x11"
-                android:paddingStart="@dimen/x11">
-
-                <com.qmkj.jydp.ui.widget.ClickItemView
-                    android:id="@+id/outside_buy_distributor_name_civ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y16"
-                    app:bottomLine="false"
-                    app:isDefaultHight="false"
-                    app:leftText="@string/distributor_name"
-                    app:leftTextColor="@color/color_black_6"
-                    app:leftTextSize="@dimen/text_size_14"
-                    app:rightIconVisible="false"
-                    app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
-
-                <com.qmkj.jydp.ui.widget.ClickItemView
-                    android:id="@+id/business_phone_civ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y20"
-                    app:bottomLine="false"
-                    app:isDefaultHight="false"
-                    app:leftText="@string/business_phone"
-                    app:leftTextColor="@color/color_black_6"
-                    app:leftTextSize="@dimen/text_size_14"
-                    app:rightIconVisible="false"
-                    app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
-
-                <com.qmkj.jydp.ui.widget.ClickItemView
-                    android:id="@+id/business_name_civ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/y21"
-                    android:layout_marginTop="@dimen/y20"
-                    app:bottomLine="false"
-                    app:isDefaultHight="false"
-                    app:leftText="@string/business_name"
-                    app:leftTextColor="@color/color_black_6"
-                    app:leftTextSize="@dimen/text_size_14"
-                    app:rightIconVisible="false"
-                    app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
-            </LinearLayout>
-        </com.dd.ShadowLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.dd.ShadowLayout
-                android:id="@+id/bank_pyament_method_sl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x10"
-                android:layout_marginStart="@dimen/x10"
-                android:orientation="horizontal"
-                app:sl_cornerRadius="@dimen/x5"
-                app:sl_shadowColor="@color/color_gray_9"
-                app:sl_shadowRadius="@dimen/x5">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_view_shadow_bg"
-                    android:orientation="vertical"
-                    android:paddingEnd="@dimen/x11"
-                    android:paddingStart="@dimen/x11">
-
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:id="@+id/bank_pyament_method_card_num_civ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y20"
-                        app:bottomLine="false"
-                        app:isDefaultHight="false"
-                        app:leftText="@string/payee_bank_card_num"
-                        app:leftTextColor="@color/color_black_6"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="false"
-                        app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15"/>
-
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:id="@+id/bank_pyament_method_bank_name_civ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y20"
-                        app:bottomLine="false"
-                        app:isDefaultHight="false"
-                        app:leftText="@string/payee_bank"
-                        app:leftTextColor="@color/color_black_6"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="false"
-                        app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15"/>
-
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:id="@+id/bank_pyament_method_bank_branch_name_civ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y20"
-                        app:bottomLine="false"
-                        app:isDefaultHight="false"
-                        app:leftText="@string/payee_bank_branch"
-                        app:leftTextColor="@color/color_black_6"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="false"
-                        app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15"/>
-
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:id="@+id/bank_pyament_method_bank_payee_name_civ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y20"
-                        app:bottomLine="false"
-                        app:isDefaultHight="false"
-                        app:leftText="@string/payee_name"
-                        app:leftTextColor="@color/color_black_6"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="false"
-                        app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15"/>
-
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:id="@+id/bank_pyament_method_bank_payee_phone_civ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/y20"
-                        android:layout_marginTop="@dimen/y20"
-                        app:bottomLine="false"
-                        app:isDefaultHight="false"
-                        app:leftText="@string/payee_phone"
-                        app:leftTextColor="@color/color_black_6"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="false"
-                        app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15"/>
-                </LinearLayout>
-            </com.dd.ShadowLayout>
-
-            <com.dd.ShadowLayout
-                android:id="@+id/alipay_pyament_method_sl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x10"
-                android:layout_marginStart="@dimen/x10"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:sl_cornerRadius="@dimen/x5"
-                app:sl_shadowColor="@color/color_gray_9"
-                app:sl_shadowRadius="@dimen/x5">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_view_shadow_bg"
-                    android:orientation="vertical"
-                    android:paddingEnd="@dimen/x11"
-                    android:paddingStart="@dimen/x11">
-
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:id="@+id/alipay_civ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y20"
-                        app:bottomLine="false"
-                        app:isDefaultHight="false"
-                        app:leftText="@string/alipay_account"
-                        app:leftTextColor="@color/color_black_6"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="false"
-                        app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15"/>
-
-                    <ImageView
-                        android:id="@+id/alipay_iv"
-                        android:layout_width="@dimen/x95"
-                        android:layout_height="@dimen/y95"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/y19"
-                        android:layout_marginTop="@dimen/y11"
-                        android:scaleType="fitXY"/>
-
-                </LinearLayout>
-            </com.dd.ShadowLayout>
-
-            <com.dd.ShadowLayout
-                android:id="@+id/weixin_pyament_method_sl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/x10"
-                android:layout_marginStart="@dimen/x10"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:sl_cornerRadius="@dimen/x5"
-                app:sl_shadowColor="@color/color_gray_9"
-                app:sl_shadowRadius="@dimen/x5">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_view_shadow_bg"
-                    android:orientation="vertical"
-                    android:paddingEnd="@dimen/x11"
-                    android:paddingStart="@dimen/x11">
-
-                    <com.qmkj.jydp.ui.widget.ClickItemView
-                        android:id="@+id/weixin_civ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/y20"
-                        app:bottomLine="false"
-                        app:isDefaultHight="false"
-                        app:leftText="@string/weixin_account"
-                        app:leftTextColor="@color/color_black_6"
-                        app:leftTextSize="@dimen/text_size_14"
-                        app:rightIconVisible="false"
-                        app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15"/>
-
-                    <ImageView
-                        android:id="@+id/weixin_iv"
-                        android:layout_width="@dimen/x95"
-                        android:layout_height="@dimen/y95"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/y19"
-                        android:layout_marginTop="@dimen/y11"
-                        android:scaleType="fitXY"/>
-
-                </LinearLayout>
-            </com.dd.ShadowLayout>
-        </FrameLayout>
-
-
-        <com.dd.ShadowLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x10"
-            android:layout_marginStart="@dimen/x10"
-            android:orientation="horizontal"
-            app:sl_cornerRadius="@dimen/x5"
-            app:sl_shadowColor="@color/color_gray_9"
-            app:sl_shadowRadius="@dimen/x5">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_view_shadow_bg"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/y15"
-                android:paddingEnd="@dimen/x11"
-                android:paddingStart="@dimen/x11">
-
-                <com.qmkj.jydp.ui.widget.ClickItemView
-                    android:id="@+id/sold_amount_civ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y16"
-                    app:bottomLine="false"
-                    app:isDefaultHight="false"
-                    app:leftText="@string/buy_amount"
-                    app:leftTextColor="@color/color_black_6"
-                    app:leftTextSize="@dimen/text_size_14"
-                    app:rightIconVisible="false"
-                    app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
-
-                <com.qmkj.jydp.ui.widget.ClickItemView
-                    android:id="@+id/obtained_money_civ"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y24"
-                    app:bottomLine="false"
-                    app:isDefaultHight="false"
-                    app:leftText="@string/pay_money"
-                    app:leftTextColor="@color/color_black_6"
-                    app:leftTextSize="@dimen/text_size_14"
-                    app:rightIconVisible="false"
-                    app:rightTextColor="@color/color_black_7"
-                    app:rightTextSize="@dimen/text_size_15"/>
-
-            </LinearLayout>
-        </com.dd.ShadowLayout>
-
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
+            android:id="@+id/exchange_outside_detail_ll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x15"
-            android:layout_marginStart="@dimen/x15"
-            android:layout_marginTop="@dimen/y5"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="@dimen/x16"
-                android:layout_height="@dimen/y16"
-                android:src="@mipmap/confirm_sold_notice"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+            <com.dd.ShadowLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x10"
                 android:layout_marginStart="@dimen/x10"
-                android:text="@string/confirm_slod_notice"
-                android:textColor="@color/color_black_10"
-                android:textSize="@dimen/text_size_13"/>
+                android:layout_marginTop="@dimen/y5"
+                android:orientation="horizontal"
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_view_shadow_bg"
+                    android:orientation="vertical"
+                    android:paddingEnd="@dimen/x11"
+                    android:paddingStart="@dimen/x11">
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/outside_buy_distributor_name_civ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y16"
+                        app:bottomLine="false"
+                        app:isDefaultHight="false"
+                        app:leftText="@string/distributor_name"
+                        app:leftTextColor="@color/color_black_6"
+                        app:leftTextSize="@dimen/text_size_14"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15"/>
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/business_phone_civ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y20"
+                        app:bottomLine="false"
+                        app:isDefaultHight="false"
+                        app:leftText="@string/business_phone"
+                        app:leftTextColor="@color/color_black_6"
+                        app:leftTextSize="@dimen/text_size_14"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15"/>
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/business_name_civ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/y21"
+                        android:layout_marginTop="@dimen/y20"
+                        app:bottomLine="false"
+                        app:isDefaultHight="false"
+                        app:leftText="@string/business_name"
+                        app:leftTextColor="@color/color_black_6"
+                        app:leftTextSize="@dimen/text_size_14"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15"/>
+                </LinearLayout>
+            </com.dd.ShadowLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dd.ShadowLayout
+                    android:id="@+id/bank_pyament_method_sl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/x10"
+                    android:layout_marginStart="@dimen/x10"
+                    android:orientation="horizontal"
+                    app:sl_cornerRadius="@dimen/x5"
+                    app:sl_shadowColor="@color/color_gray_9"
+                    app:sl_shadowRadius="@dimen/x5">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_view_shadow_bg"
+                        android:orientation="vertical"
+                        android:paddingEnd="@dimen/x11"
+                        android:paddingStart="@dimen/x11">
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/bank_pyament_method_card_num_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y20"
+                            app:bottomLine="false"
+                            app:isDefaultHight="false"
+                            app:leftText="@string/payee_bank_card_num"
+                            app:leftTextColor="@color/color_black_6"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="false"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/bank_pyament_method_bank_name_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y20"
+                            app:bottomLine="false"
+                            app:isDefaultHight="false"
+                            app:leftText="@string/payee_bank"
+                            app:leftTextColor="@color/color_black_6"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="false"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/bank_pyament_method_bank_branch_name_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y20"
+                            app:bottomLine="false"
+                            app:isDefaultHight="false"
+                            app:leftText="@string/payee_bank_branch"
+                            app:leftTextColor="@color/color_black_6"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="false"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/bank_pyament_method_bank_payee_name_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y20"
+                            app:bottomLine="false"
+                            app:isDefaultHight="false"
+                            app:leftText="@string/payee_name"
+                            app:leftTextColor="@color/color_black_6"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="false"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/bank_pyament_method_bank_payee_phone_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/y20"
+                            android:layout_marginTop="@dimen/y20"
+                            app:bottomLine="false"
+                            app:isDefaultHight="false"
+                            app:leftText="@string/payee_phone"
+                            app:leftTextColor="@color/color_black_6"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="false"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+                    </LinearLayout>
+                </com.dd.ShadowLayout>
+
+                <com.dd.ShadowLayout
+                    android:id="@+id/alipay_pyament_method_sl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/x10"
+                    android:layout_marginStart="@dimen/x10"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:sl_cornerRadius="@dimen/x5"
+                    app:sl_shadowColor="@color/color_gray_9"
+                    app:sl_shadowRadius="@dimen/x5">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_view_shadow_bg"
+                        android:orientation="vertical"
+                        android:paddingEnd="@dimen/x11"
+                        android:paddingStart="@dimen/x11">
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/alipay_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y20"
+                            app:bottomLine="false"
+                            app:isDefaultHight="false"
+                            app:leftText="@string/alipay_account"
+                            app:leftTextColor="@color/color_black_6"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="false"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+
+                        <ImageView
+                            android:id="@+id/alipay_iv"
+                            android:layout_width="@dimen/x95"
+                            android:layout_height="@dimen/y95"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/y19"
+                            android:layout_marginTop="@dimen/y11"
+                            android:scaleType="fitXY"/>
+
+                    </LinearLayout>
+                </com.dd.ShadowLayout>
+
+                <com.dd.ShadowLayout
+                    android:id="@+id/weixin_pyament_method_sl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/x10"
+                    android:layout_marginStart="@dimen/x10"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:sl_cornerRadius="@dimen/x5"
+                    app:sl_shadowColor="@color/color_gray_9"
+                    app:sl_shadowRadius="@dimen/x5">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_view_shadow_bg"
+                        android:orientation="vertical"
+                        android:paddingEnd="@dimen/x11"
+                        android:paddingStart="@dimen/x11">
+
+                        <com.qmkj.jydp.ui.widget.ClickItemView
+                            android:id="@+id/weixin_civ"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y20"
+                            app:bottomLine="false"
+                            app:isDefaultHight="false"
+                            app:leftText="@string/weixin_account"
+                            app:leftTextColor="@color/color_black_6"
+                            app:leftTextSize="@dimen/text_size_14"
+                            app:rightIconVisible="false"
+                            app:rightTextColor="@color/color_black_7"
+                            app:rightTextSize="@dimen/text_size_15"/>
+
+                        <ImageView
+                            android:id="@+id/weixin_iv"
+                            android:layout_width="@dimen/x95"
+                            android:layout_height="@dimen/y95"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/y19"
+                            android:layout_marginTop="@dimen/y11"
+                            android:scaleType="fitXY"/>
+
+                    </LinearLayout>
+                </com.dd.ShadowLayout>
+            </FrameLayout>
+
+
+            <com.dd.ShadowLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginStart="@dimen/x10"
+                android:orientation="horizontal"
+                app:sl_cornerRadius="@dimen/x5"
+                app:sl_shadowColor="@color/color_gray_9"
+                app:sl_shadowRadius="@dimen/x5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_view_shadow_bg"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/y15"
+                    android:paddingEnd="@dimen/x11"
+                    android:paddingStart="@dimen/x11">
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/sold_amount_civ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y16"
+                        app:bottomLine="false"
+                        app:isDefaultHight="false"
+                        app:leftText="@string/buy_amount"
+                        app:leftTextColor="@color/color_black_6"
+                        app:leftTextSize="@dimen/text_size_14"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15"/>
+
+                    <com.qmkj.jydp.ui.widget.ClickItemView
+                        android:id="@+id/obtained_money_civ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y24"
+                        app:bottomLine="false"
+                        app:isDefaultHight="false"
+                        app:leftText="@string/pay_money"
+                        app:leftTextColor="@color/color_black_6"
+                        app:leftTextSize="@dimen/text_size_14"
+                        app:rightIconVisible="false"
+                        app:rightTextColor="@color/color_black_7"
+                        app:rightTextSize="@dimen/text_size_15"/>
+
+                </LinearLayout>
+            </com.dd.ShadowLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/y5"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/x16"
+                    android:layout_height="@dimen/y16"
+                    android:src="@mipmap/confirm_sold_notice"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x10"
+                    android:text="@string/confirm_slod_notice"
+                    android:textColor="@color/color_black_10"
+                    android:textSize="@dimen/text_size_13"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/comfirm_sold_comfirm_bt"
+                style="@style/btn_blue"
+                android:layout_marginBottom="@dimen/y15"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginTop="@dimen/y25"
+                android:text="@string/comfirm"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/comfirm_sold_comfirm_bt"
-            style="@style/btn_blue"
-            android:layout_marginBottom="@dimen/y15"
-            android:layout_marginEnd="@dimen/x15"
-            android:layout_marginStart="@dimen/x15"
-            android:layout_marginTop="@dimen/y25"
-            android:text="@string/comfirm"/>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

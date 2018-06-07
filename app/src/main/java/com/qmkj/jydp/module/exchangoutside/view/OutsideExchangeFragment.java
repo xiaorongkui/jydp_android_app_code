@@ -93,13 +93,13 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         return topRowVerticalPosition >= 0;
     }
 
+
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        LogUtil.i("场外交易 onHiddenChanged=" + hidden);
-        if (!hidden) {
-            getOutSideExchangeData(false);
-        }
+    protected void onViewResume() {
+        super.onViewResume();
+        currentPageNumber = 0;
+        isRefresh = true;
+        getOutSideExchangeData(false);
     }
 
     private void initStatusBar() {
@@ -181,6 +181,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         RxBus.getDefault().toObservable(OutSideExchangeEvent.class).compose(bindToLifecycle()).subscribe
                 (outSideExchangeEvent -> {
                     OutsideExchangeFragment.this.getOutSideExchangeData(false);
+                    currentPageNumber = 0;
                     isRefresh = true;
                 });
         refresh.callRefresh();

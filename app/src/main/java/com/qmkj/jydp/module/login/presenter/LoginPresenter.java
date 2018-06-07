@@ -1,5 +1,7 @@
 package com.qmkj.jydp.module.login.presenter;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,6 +9,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
@@ -23,10 +26,11 @@ import com.qmkj.jydp.module.login.modle.LoginContract;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
+import com.qmkj.jydp.util.RxPermissionUtils;
+import com.qmkj.jydp.util.ToastUtil;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.HttpHandler;
 
 import java.io.File;
 import java.util.List;
@@ -110,37 +114,57 @@ public class LoginPresenter extends BaseRxPresenter<LoginContract.UpdateView> {
     /**
      * 下载app
      *
+     * @param mContext
      * @param url
      */
-    public void downLoadApk(String url) {
+    public void downLoadApk(Activity mContext, String url) {
         LogUtil.i("开始下载url=" + url);
-
-        FinalHttp finalHttp = new FinalHttp();
-        String target = CommonUtil.createDir("download", CommonUtil.getFileNameFromUrl(url));
-        HttpHandler<File> httpHandler = finalHttp.download(url, target, false, new AjaxCallBack<File>() {
+        RxPermissionUtils.getInstance(mContext).setPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission
+                        .READ_PHONE_STATE).setOnPermissionCallBack(new RxPermissionUtils
+                .OnPermissionListener() {
 
             @Override
-            public void onLoading(long count, long current) {
-                super.onLoading(count, current);
-                int progrss = (int) ((float) current / (float) count) * 100;
-                LogUtil.i("下载进度=progrss" + progrss);
-                mView.update(progrss);
+            public void onPermissionGranted(String name) {
+                LogUtil.i("onPermissionGranted name=" + name);
             }
 
             @Override
-            public void onSuccess(File file) {
-                LogUtil.i("下载进度=progrss" + "下载完成");
-                super.onSuccess(file);
-                mView.downLoadFinish(file);
+            protected void onPermissionException(Throwable e) {
+                super.onPermissionException(e);
+                ToastUtil.toast(mContext, "权限申请失败" + e.getMessage());
             }
 
             @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                super.onFailure(t, errorNo, strMsg);
-                LogUtil.i("下载进度=progrss" + "onFailure" + strMsg);
-                mView.downLoadFailed();
+            protected void onAllPermissionFinish() {
+                FinalHttp finalHttp = new FinalHttp();
+                String target = CommonUtil.createDir("download", CommonUtil.getFileNameFromUrl(url));
+                finalHttp.download(url, target, false, new AjaxCallBack<File>() {
+
+                    @Override
+                    public void onLoading(long count, long current) {
+                        super.onLoading(count, current);
+                        int progrss = (int) ((float) current / (float) count) * 100;
+                        LogUtil.i("下载进度=progrss" + progrss);
+                        mView.update(progrss);
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        LogUtil.i("下载进度=progrss" + "下载完成");
+                        super.onSuccess(file);
+                        mView.downLoadFinish(file);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t, int errorNo, String strMsg) {
+                        super.onFailure(t, errorNo, strMsg);
+                        LogUtil.i("下载进度=progrss" + "onFailure" + strMsg);
+                        mView.downLoadFailed();
+                    }
+                });
             }
-        });
+        }).start();
 
     }
 
