@@ -90,6 +90,7 @@
             android:text="@string/update_app_loading"
             android:textColor="@color/color_black_10"
             android:textSize="@dimen/text_size_14"
+            android:layout_marginBottom="@dimen/y10"
             android:visibility="gone"/>
 
     </LinearLayout>

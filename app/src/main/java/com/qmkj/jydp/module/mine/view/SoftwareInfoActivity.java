@@ -40,11 +40,10 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
 
     @BindView(R.id.software_info_check_update_tv)
     TextView software_info_check_update_tv;
-    private boolean permissionFinish; //是否拥有权限
-    private boolean isUpdate = false; //是否需要更新
     private CommonDialog alterNormalDialog;
     private ProgressBar update_prg_bar_normal;
     private CommonDialog alterFocusDialog;
+    private boolean permissionFinish;
 
     @Override
     protected void injectPresenter() {
@@ -114,23 +113,23 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
             case CHECK_APP_TAG:
                 AppUpdateRes appUpdateRes = (AppUpdateRes) response;
                 if (appUpdateRes == null) {
-                    isUpdate = false;
-                    software_info_check_update_tv.setText("当前已是最新版本");
+                    software_info_check_update_tv.setText(R.string.no_version_update_notice);
                     return;
                 }
-                if(alterNormalDialog!=null&&alterNormalDialog.isShowing()||alterFocusDialog!=null&&!alterFocusDialog.isShowing()){
+                if (alterNormalDialog != null && alterNormalDialog.isShowing() || alterFocusDialog != null &&
+                        !alterFocusDialog.isShowing()) {
                     return;
                 }
-                calculateUpdate(appUpdateRes);
+                try {
+                    calculateUpdate(appUpdateRes);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
 
-    /**
-     * 升级应用
-     * @param appUpdateRes
-     */
-    private void calculateUpdate(AppUpdateRes appUpdateRes) {
+    private void calculateUpdate(AppUpdateRes appUpdateRes) throws Exception {
         String forceStatus = appUpdateRes.getForceStatus();//1强制升级，2，普通升级
         String newestVersion = appUpdateRes.getNewestVersion();//新版本
         String oldVersion = CommonUtil.getAppVersionName(mContext);
@@ -144,27 +143,68 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
                     focuseUpdate(appUpdateRes);
                     break;
             }
+        } else {
+            software_info_check_update_tv.setText(R.string.no_version_update_notice);
         }
     }
 
     /**
      * 版本号比较
      *
-     * @param version1
-     * @param version2
-     * @return true代表version1大于version2, 需要升级
+     * @param version1 新版本号
+     * @param version2 旧版本号
+     * @return true代表需要升级，false代表不需要升级
      */
-    private boolean compareVersion(String version1, String version2) {
-        return TextUtils.isEmpty(version1) || !version1.equalsIgnoreCase(version2);
+    public boolean compareVersion(String version1, String version2) throws Exception {
+        if (version1.equalsIgnoreCase(version2)) {
+            return false;
+        }
+        if (!TextUtils.isEmpty(version1) && (version1.startsWith("V") || version1
+                .startsWith("v"))) {
+            version1 = version1.substring(1, version1.length());
+        }
+        if (!TextUtils.isEmpty(version2) && (version2.startsWith("V") || version2
+                .startsWith("v"))) {
+            version2 = version2.substring(1, version2.length());
+        }
+
+        String[] version1Array = version1.split("\\.");
+        String[] version2Array = version2.split("\\.");
+        int index = 0;
+        // 获取最小长度值
+        int minLen = Math.min(version1Array.length, version2Array.length);
+        int diff = 0;
+        // 循环判断每位的大小
+        while (index < minLen && (diff = Integer.parseInt(version1Array[index]) - Integer
+                .parseInt(version2Array[index])) == 0) {
+            index++;
+        }
+        if (diff == 0) {
+            // 如果位数不一致，比较多余位数
+            for (int i = index; i < version1Array.length; i++) {
+                if (Integer.parseInt(version1Array[i]) > 0) {
+                    return true;
+                }
+            }
+
+            for (int i = index; i < version2Array.length; i++) {
+                if (Integer.parseInt(version2Array[i]) > 0) {
+                    return false;
+                }
+            }
+            return false;
+        } else {
+            return diff > 0;
+        }
     }
 
 
     /**
      * 选择升级
+     *
      * @param appUpdateRes
      */
     private void normalUpdate(AppUpdateRes appUpdateRes) {
-        isUpdate = true;
         alterNormalDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
         alterNormalDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         alterNormalDialog.setCanceledOnTouchOutside(false);
@@ -181,23 +221,17 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
             update_prg_bar_normal.setVisibility(View.VISIBLE);
             update_bt_ll.setVisibility(View.GONE);
             update_loading_tv.setVisibility(View.VISIBLE);
-            presenter.downLoadApk(appUpdateRes.getAppUrl());
+            presenter.downLoadApk(mContext, appUpdateRes.getAppUrl());
         });
         update_later_bt.setOnClickListener(v -> {
             alterNormalDialog.dismiss();
-            isUpdate = false;
         });
 
         alterNormalDialog.show();
     }
 
 
-    /**
-     * 强制升级
-     * @param appUpdateRes
-     */
     private void focuseUpdate(AppUpdateRes appUpdateRes) {
-        isUpdate = true;
         alterFocusDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
         alterFocusDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
         alterFocusDialog.setCanceledOnTouchOutside(false);
@@ -215,7 +249,7 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
             update_prg_bar_normal.setVisibility(View.VISIBLE);
             update_bt_ll.setVisibility(View.GONE);
             update_loading_tv.setVisibility(View.VISIBLE);
-            presenter.downLoadApk(appUpdateRes.getAppUrl());
+            presenter.downLoadApk(mContext, appUpdateRes.getAppUrl());
         });
         alterFocusDialog.show();
     }
@@ -234,10 +268,10 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
         if (update_prg_bar_normal != null) {
             update_prg_bar_normal.setVisibility(View.GONE);
         }
-        if(alterNormalDialog!=null&&alterNormalDialog.isShowing()){
+        if (alterNormalDialog != null && alterNormalDialog.isShowing()) {
             alterNormalDialog.dismiss();
         }
-        if(alterFocusDialog!=null&&alterFocusDialog.isShowing()){
+        if (alterFocusDialog != null && alterFocusDialog.isShowing()) {
             alterFocusDialog.dismiss();
         }
     }
@@ -248,11 +282,17 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
         if (update_prg_bar_normal != null) {
             update_prg_bar_normal.setVisibility(View.GONE);
         }
-        if(alterNormalDialog!=null&&alterNormalDialog.isShowing()){
+        if (alterNormalDialog != null && alterNormalDialog.isShowing()) {
             alterNormalDialog.dismiss();
         }
-        if(alterFocusDialog!=null&&alterFocusDialog.isShowing()){
+        if (alterFocusDialog != null && alterFocusDialog.isShowing()) {
             alterFocusDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RxPermissionUtils.destory();
     }
 }

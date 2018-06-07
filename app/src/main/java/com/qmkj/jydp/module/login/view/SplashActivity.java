@@ -119,7 +119,7 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
                     goMianActivity();
                     return;
                 }
-                goMianActivity();
+//                goMianActivity();
                 try {
                     calculateUpdate(appUpdateRes);
                 } catch (Exception e) {
@@ -148,7 +148,13 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
                 case "2"://强制升级
                     focuseUpdate(appUpdateRes);
                     break;
+                default:
+                    normalUpdate(appUpdateRes);
+                    break;
             }
+        } else {//不需要升级
+            isUpdate = false;
+            goMianActivity();
         }
     }
 
@@ -157,10 +163,9 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
      *
      * @param version1 新版本号
      * @param version2 旧版本号
-     * @return true代表需要升级，false代表不需要升级
-     * 0代表相等，1代表version1大于version2，-1代表version1小于version2
+     * @return true代表version1大于version2，需要升级;false代表不需要升级
      */
-    public static boolean compareVersion(String version1, String version2) throws Exception {
+    public boolean compareVersion(String version1, String version2) throws Exception {
         if (version1.equalsIgnoreCase(version2)) {
             return false;
         }
@@ -191,7 +196,6 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
                     return true;
                 }
             }
-
             for (int i = index; i < version2Array.length; i++) {
                 if (Integer.parseInt(version2Array[i]) > 0) {
                     return false;
@@ -218,10 +222,15 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
         update_prg_bar_normal = alterNormalDialog.getView(R.id.update_prg_bar, ProgressBar.class);
 
         update_immediately_bt.setOnClickListener(v -> {
-            update_prg_bar_normal.setVisibility(View.VISIBLE);
-            update_bt_ll.setVisibility(View.GONE);
-            update_loading_tv.setVisibility(View.VISIBLE);
-            presenter.downLoadApk(appUpdateRes.getAppUrl());
+            if (permissionFinish) {
+                update_prg_bar_normal.setVisibility(View.VISIBLE);
+                update_bt_ll.setVisibility(View.GONE);
+                update_loading_tv.setVisibility(View.VISIBLE);
+                presenter.downLoadApk(mContext, appUpdateRes.getAppUrl());
+            } else {
+                checkPermission();
+            }
+
         });
         update_later_bt.setOnClickListener(v -> {
             alterNormalDialog.dismiss();
@@ -251,7 +260,7 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
             update_prg_bar_normal.setVisibility(View.VISIBLE);
             update_bt_ll.setVisibility(View.GONE);
             update_loading_tv.setVisibility(View.VISIBLE);
-            presenter.downLoadApk(appUpdateRes.getAppUrl());
+            presenter.downLoadApk(mContext, appUpdateRes.getAppUrl());
         });
         alterFocusDialog.show();
     }
@@ -292,7 +301,6 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
             } else {
                 CommonUtil.gotoActivity(mContext, MainActivity.class);
             }
-//            AppManager.getInstance().removeCurrent();
         }
     }
 
