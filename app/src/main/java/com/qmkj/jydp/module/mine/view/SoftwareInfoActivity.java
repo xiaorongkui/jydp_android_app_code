@@ -126,6 +126,10 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
         }
     }
 
+    /**
+     * 升级应用
+     * @param appUpdateRes
+     */
     private void calculateUpdate(AppUpdateRes appUpdateRes) {
         String forceStatus = appUpdateRes.getForceStatus();//1强制升级，2，普通升级
         String newestVersion = appUpdateRes.getNewestVersion();//新版本
@@ -188,6 +192,10 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
     }
 
 
+    /**
+     * 强制升级
+     * @param appUpdateRes
+     */
     private void focuseUpdate(AppUpdateRes appUpdateRes) {
         isUpdate = true;
         alterFocusDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);

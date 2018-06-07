@@ -18,7 +18,7 @@ import com.qmkj.jydp.util.StringUtil;
 /**
  * author：rongkui.xiao --2018/3/20
  * email：dovexiaoen@163.com
- * description:
+ * description:成交记录适配器
  */
 
 public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.DealRecordListBean> {

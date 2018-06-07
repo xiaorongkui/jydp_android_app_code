@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 创建日期：2018/5/21
  * @author Yi Shan Xiang
- * 文件名称： AccountRecordRes
+ * 文件名称：用户成交记录
  * email: 380948730@qq.com
  */
 public class AccountRecordRes extends BaseRes implements Serializable {
@@ -17,8 +17,8 @@ public class AccountRecordRes extends BaseRes implements Serializable {
      * totalPageNumber : 1
      */
 
-    private int totalPageNumber;
-    private List<DealRecordListBean> dealRecordList;
+    private int totalPageNumber; //总页数
+    private List<DealRecordListBean> dealRecordList;//用户成交记录
 
     public int getTotalPageNumber() {
         return totalPageNumber;
@@ -58,24 +58,24 @@ public class AccountRecordRes extends BaseRes implements Serializable {
          * userId : 317
          */
 
-        private String actualPrice;
-        private String actualPriceForWap;
-        private long addTime;
-        private String currencyId;
-        private String currencyName;
-        private String currencyNumber;
-        private String currencyTotalPrice;
-        private String fee;
-        private String feeForWap;
-        private String feeNumber;
-        private String orderNo;
-        private int paymentType;
-        private long pendTime;
-        private String pendingOrderNo;
-        private String remark;
-        private String transactionPrice;
-        private String userAccount;
-        private String userId;
+        private String actualPrice; //实际价
+        private String actualPriceForWap; //wap端实际总价
+        private long addTime; //添加时间
+        private String currencyId; //币种Id
+        private String currencyName; //货币名称
+        private String currencyNumber; //成交数量
+        private String currencyTotalPrice; //成交总价
+        private String fee; //手续费
+        private String feeForWap; //wap端手续费
+        private String feeNumber;//成交费率
+        private String orderNo; //记录号
+        private int paymentType; //收支类型,1：买入，2：卖出，3：撤销
+        private long pendTime; //挂单时间
+        private String pendingOrderNo; //挂单记录号
+        private String remark; //备注
+        private String transactionPrice; //成交单价
+        private String userAccount; //用户账号
+        private String userId; //用户Id
 
 
         public String getActualPriceForWap() {

@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.AccountRecordReq;
-import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.TransactionRecodeRecyAdapter;
@@ -25,6 +24,7 @@ import butterknife.BindView;
  */
 
 public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
+    private static final int REQUEST_GET_DATA = 1;
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.refreshLayout)
@@ -100,33 +100,41 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
         refreshLayout.callRefresh();
     }
 
+    /**
+     * 获取网络数据
+     */
     private void getDataFromNet() {
         AccountRecordReq req = new AccountRecordReq();
         req.setPageNumber(mPage);
         if(getIntent().getStringExtra("number")!=null){
             req.setPendingOrderNo(getIntent().getStringExtra("number"));
         }
-        presenter.getAccountRecordInfo(req, 1, false);
+        presenter.getAccountRecordInfo(req, REQUEST_GET_DATA, false);
     }
 
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        AccountRecordRes recordRes = (AccountRecordRes)response;
-        if (refreshLayout != null && refreshLayout.isRefreshing()) {
-            refreshLayout.refreshComplete();
+        switch (tag){
+            case REQUEST_GET_DATA:
+                AccountRecordRes recordRes = (AccountRecordRes)response;
+                if (refreshLayout != null && refreshLayout.isRefreshing()) {
+                    refreshLayout.refreshComplete();
+                }
+                if (mIsLoadMore) {
+                    adapter.addData(recordRes.getDealRecordList());
+                } else {
+                    adapter.update(recordRes.getDealRecordList());
+                }
+                if (mPage < recordRes.getTotalPageNumber() - 1) {
+                    adapter.loadMoreComplete();
+                    mPage++;
+                } else {
+                    adapter.loadMoreEnd();
+                }
+                break;
         }
-        if (mIsLoadMore) {
-            adapter.addData(recordRes.getDealRecordList());
-        } else {
-            adapter.update(recordRes.getDealRecordList());
-        }
-        if (mPage < recordRes.getTotalPageNumber() - 1) {
-            adapter.loadMoreComplete();
-            mPage++;
-        } else {
-            adapter.loadMoreEnd();
-        }
+
     }
 
     @Override

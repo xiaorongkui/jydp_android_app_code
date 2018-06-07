@@ -1,6 +1,5 @@
 package com.qmkj.jydp.module.mine.view;
 
-import android.text.Html;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebView;
@@ -13,6 +12,12 @@ import com.qmkj.jydp.common.AppNetConfig;
 
 import butterknife.BindView;
 
+/**
+ * 创建日期：2018/6/7
+ * @author Yi Shan Xiang
+ * 文件名称： 系统公告详情
+ * email: 380948730@qq.com
+ */
 public class SystemNoticeDetailsActivity extends BaseMvpActivity {
     public static final String ACTIVITY_TITLE_KEY = "activity_title_key";
     public final static String NOTICE_TITTLE = "notice_tittle";
