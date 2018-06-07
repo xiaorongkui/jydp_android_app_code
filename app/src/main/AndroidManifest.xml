@@ -157,7 +157,7 @@
         </provider>
 
         <activity android:name=".module.mine.view.OutSideExchangeOrderDetailForUserActivity"/>
-        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailForDealerActivity"></activity>
+        <activity android:name=".module.mine.view.OutSideExchangeOrderDetailForDealerActivity"/>
     </application>
 
 </manifest>
