@@ -33,6 +33,10 @@ public class BitmapCompressUtil {
      * @return 压缩至500k以内的图片byte[]
      */
     public static byte[] compress(Bitmap bitmap) {
+        if (bitmap == null || bitmap.isRecycled()) {
+            LogUtil.i("图片的bitmap为空或被回收，无法压缩，请重新选者");
+            return null;
+        }
         double maxSize = 5000;
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         // scale

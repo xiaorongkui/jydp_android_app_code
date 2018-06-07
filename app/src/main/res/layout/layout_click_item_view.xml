@@ -39,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center|right"
-        android:maxLines="1"
         android:ellipsize="end"
         android:textColor="#9d9d9d"
         android:textSize="13sp"
