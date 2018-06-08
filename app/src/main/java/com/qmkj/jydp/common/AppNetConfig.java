@@ -8,7 +8,7 @@ import com.qmkj.jydp.util.MD5Util;
 public final class AppNetConfig {
     //正式服地址 http://www.extez.com/
     //测试服地址 http://192.168.4.212:8080/jydp/
-    public static final String BASE_URL = "http://192.168.4.212:8080/jydp/";
+    public static final String BASE_URL = "http://192.168.4.216:8080/jydp/";
     //请求公钥
     public static final String JYDP_PUBLIC_KEY = "524bee776fe6267bbcf3b3d3ac2ecbf8";
     //请求私钥 测试服:2c4e87caae0de93675387f3fcea369f8

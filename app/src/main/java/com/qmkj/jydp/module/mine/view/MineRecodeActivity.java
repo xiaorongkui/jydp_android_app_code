@@ -77,7 +77,7 @@ public class MineRecodeActivity extends BaseMvpActivity {
                 CommonUtil.gotoActivity(mContext, TransactionRecodeActivity.class);
                 break;
             case R.id.mine_recharge_currency_recode_civ://充币记录
-                CommonUtil.gotoActivity(mContext, CurrencyWithDrawRecodeActivity.class);
+                CommonUtil.gotoActivity(mContext, CurrencyWithDrawRechargeActivity.class);
                 break;
             case R.id.mine_recode_currency_recode_civ://提币记录
                 CommonUtil.gotoActivity(mContext, CurrencyWithDrawRecodeActivity.class);

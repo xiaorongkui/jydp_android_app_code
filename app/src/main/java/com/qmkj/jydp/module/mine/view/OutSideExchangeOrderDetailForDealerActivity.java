@@ -243,7 +243,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
     @Override
     protected void initData() {
         //获取订单号 发起请求获取订单详情
-        String orderNo = getIntent().getStringExtra("NUMBER");
+        String orderNo = getIntent().getStringExtra(OutSideExchangeRecodeActivity.OtcOrderNo_KEY);
         OutSideDetailReq req = new OutSideDetailReq();
         req.setOtcOrderNo(orderNo);
         presenter.getOutSideOrderDetaid(req, REQUEST_TAG_GET_ORDER_DETAIL, true);

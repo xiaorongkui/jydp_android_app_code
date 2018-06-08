@@ -34,6 +34,10 @@ import butterknife.BindView;
 
 public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
     public static final int ACTIVITY_RESULT_CODE =200;
+
+    private static final String PAY_BY_BANK = "1";
+    private static final String PAY_BY_ZHIFUBAO = "2";
+    private static final String PAY_BY_WEIXIN = "3";
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
 
@@ -112,13 +116,13 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
 
 
         msg = sendAdsReq.getSelectList();
-        if(msg.contains("1")){
+        if(msg.contains(PAY_BY_BANK)){  //银行支付
             bank_layout.setVisibility(View.VISIBLE);
         }
-        if(msg.contains("2")){
+        if(msg.contains(PAY_BY_ZHIFUBAO)){ //支付宝支付
             alipay_layout.setVisibility(View.VISIBLE);
         }
-        if(msg.contains("3")){
+        if(msg.contains(PAY_BY_WEIXIN)){ //微信支付
             weixin_layout.setVisibility(View.VISIBLE);
         }
 
@@ -186,13 +190,13 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         String wechat_receipt_code = receivables_wechat_receipt_code_eiv.getEditTextString();
 
 
-        if(msg.contains("1")){
+        if(msg.contains(PAY_BY_BANK)){
             if (bankCheck(bank_card_num_eiv, bank_name, branch_name, reserve_name, phone)) return;
         }
-        if(msg.contains("2")){
+        if(msg.contains(PAY_BY_ZHIFUBAO)){
             if (aliCheck(alipay_account)) return;
         }
-        if(msg.contains("3")){
+        if(msg.contains(PAY_BY_WEIXIN)){
             if (weiChatCheck(wechat_account)) return;
         }
 

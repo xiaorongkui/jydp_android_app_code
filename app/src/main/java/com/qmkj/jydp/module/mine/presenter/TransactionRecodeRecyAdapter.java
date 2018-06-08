@@ -91,17 +91,17 @@ public class TransactionRecodeRecyAdapter extends XBaseAdapter<AccountRecordRes.
             amount.setText("0");
         }
         if(!StringUtil.isNull(item.getFeeForWap())){
-            deal_amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getFeeForWap()),4)+"");
+            deal_amount.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getFeeForWap()),8)+"");
         }else {
             deal_amount.setText("0");
         }
         if(!StringUtil.isNull(item.getCurrencyTotalPrice())){
-            total_price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyTotalPrice()),4)+"");
+            total_price.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyTotalPrice()),6)+"");
         }else {
             total_price.setText("0");
         }
         if(!StringUtil.isNull(item.getActualPriceForWap())&&Double.parseDouble(item.getActualPriceForWap())!=0){
-            actual_account.setText(item.getActualPriceForWap()+"");
+            actual_account.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getActualPriceForWap()+""),6));
             transaction_actual_account_title_tv.setVisibility(View.VISIBLE);
             actual_account.setVisibility(View.VISIBLE);
         }else {

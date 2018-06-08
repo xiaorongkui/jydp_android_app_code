@@ -122,6 +122,9 @@
             android:name=".module.mine.view.TransactionRecodeActivity"
             android:launchMode="singleTop"/>
         <activity
+            android:name=".module.mine.view.CurrencyWithDrawRechargeActivity"
+            android:launchMode="singleTop"/>
+        <activity
             android:name=".module.mine.view.CurrencyWithDrawRecodeActivity"
             android:launchMode="singleTop"/>
         <activity

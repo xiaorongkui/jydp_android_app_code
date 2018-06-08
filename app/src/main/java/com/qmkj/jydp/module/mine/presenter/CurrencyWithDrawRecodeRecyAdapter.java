@@ -10,6 +10,7 @@ import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
 /**
@@ -66,7 +67,7 @@ public class CurrencyWithDrawRecodeRecyAdapter extends XBaseAdapter<PresentRecor
         }
         state.setText(text);
 
-        number.setText(item.getCurrencyNumber()+"");
+        number.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()+""),4)+"");
         apply_mun.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
         price.setText(item.getCoinRecordNo()+"");
         remark.setText(item.getRemark()+"");

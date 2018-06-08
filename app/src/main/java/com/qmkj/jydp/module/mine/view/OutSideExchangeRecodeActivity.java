@@ -33,6 +33,7 @@ import butterknife.BindView;
  */
 
 public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
+    protected static final String OtcOrderNo_KEY= "NUMBER";
     private static final int SEND_REQUEST = 2;
     private static final int GET_DATA = 1;
     private static final int NEXT_ACTIVITY_CODE = 100;
@@ -101,9 +102,11 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
         req.setPageNumber(mPage);
         switch (type) {
             case MineRecodeActivity.RECODE_TYPE_NORMAL:
+                //获取场外交易成交记录
                 presenter.getOtcDealRecordInfo(req, GET_DATA, false);
                 break;
             case MineRecodeActivity.RECODE_TYPE_AGENCY:
+                //获取场外交易成交记录(经销商)
                 presenter.getDealOtcRecordInfo(req, GET_DATA, false);
                 break;
 
@@ -135,7 +138,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
                         //经销商
                         intent = new Intent(mContext, OutSideExchangeOrderDetailForDealerActivity.class);
                     }
-                    intent.putExtra("NUMBER", outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
+                    intent.putExtra(OtcOrderNo_KEY, outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
                     CommonUtil.startActivityForResult(mContext, intent, NEXT_ACTIVITY_CODE);
                     break;
                 case R.id.outside_exchange_recode_comfirm_receivables_tv: //确认收款

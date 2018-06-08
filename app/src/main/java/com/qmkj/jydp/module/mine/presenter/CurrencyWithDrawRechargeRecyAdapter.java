@@ -11,6 +11,7 @@ import com.qmkj.jydp.bean.response.PresentRechargeRes;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
+import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
 /**
@@ -45,7 +46,7 @@ public class CurrencyWithDrawRechargeRecyAdapter extends XBaseAdapter<PresentRec
         name.setText(item.getCurrencyName());
 
 
-        number.setText(item.getCurrencyNumber()+"");
+        number.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()+""),4)+"");
         apply_mun.setText(DateUtil.longToTimeStr(item.getOrderTime(),DateUtil.dateFormat2));
         price.setText(item.getWalletOrderNo()+"");
         remark.setText(item.getRemark()+"");
