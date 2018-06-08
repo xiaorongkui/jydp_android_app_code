@@ -12,7 +12,13 @@ public class SystemNoticeRes extends BaseRes implements Serializable {
 
     /**
      * pageNumber : 0
-     * systemNoticeList : [{"addTime":1525314643000,"content":"<p>53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告v<img src=\"http://test.oksheng.com.cn/fileservice/upload/ueditor/20180503/1525314635977062214.jpg\" title=\"1525314635977062214.jpg\" alt=\"test_301.jpg\" style=\"float: right;\"/><\/p>","id":253,"noticeTitle":"53新增公告53新增公告53新增公告53新增公告53新增公告53","noticeType":"53新增公告53新增公告53新增","noticeUrl":"1","noticeUrlFormat":"http://test.oksheng.com.cn/fileservice1","rankNumber":1}]
+     * systemNoticeList : [{"addTime":1525314643000,
+     * "content":"<p>53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53
+     * 新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告v<img src=\"http://test
+     * .oksheng.com.cn/fileservice/upload/ueditor/20180503/1525314635977062214.jpg\"
+     * title=\"1525314635977062214.jpg\" alt=\"test_301.jpg\" style=\"float: right;\"/><\/p>","id":253,
+     * "noticeTitle":"53新增公告53新增公告53新增公告53新增公告53新增公告53","noticeType":"53新增公告53新增公告53新增","noticeUrl":"1",
+     * "noticeUrlFormat":"http://test.oksheng.com.cn/fileservice1","rankNumber":1}]
      * totalNumber : 23
      * totalPageNumber : 3
      */
@@ -54,10 +60,13 @@ public class SystemNoticeRes extends BaseRes implements Serializable {
         this.systemNoticeList = systemNoticeList;
     }
 
-    public static class SystemNoticeListBean implements Serializable{
+    public static class SystemNoticeListBean implements Serializable {
         /**
          * addTime : 1525314643000
-         * content : <p>53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告v<img src="http://test.oksheng.com.cn/fileservice/upload/ueditor/20180503/1525314635977062214.jpg" title="1525314635977062214.jpg" alt="test_301.jpg" style="float: right;"/></p>
+         * content : <p>53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53
+         * 新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告53新增公告v<img src="http://test
+         * .oksheng.com.cn/fileservice/upload/ueditor/20180503/1525314635977062214.jpg"
+         * title="1525314635977062214.jpg" alt="test_301.jpg" style="float: right;"/></p>
          * id : 253
          * noticeTitle : 53新增公告53新增公告53新增公告53新增公告53新增公告53
          * noticeType : 53新增公告53新增公告53新增

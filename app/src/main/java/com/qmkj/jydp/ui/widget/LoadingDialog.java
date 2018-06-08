@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.wang.avi.AVLoadingIndicatorView;
 
 
 /**
@@ -73,7 +71,9 @@ public class LoadingDialog extends Dialog {
 
     public void setAlertDialogSize(int width, int height) {
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(getWindow().getAttributes());
+        if (getWindow() != null) {
+            lp.copyFrom(getWindow().getAttributes());
+        }
         lp.width = width;
         lp.height = height;
         getWindow().setAttributes(lp);

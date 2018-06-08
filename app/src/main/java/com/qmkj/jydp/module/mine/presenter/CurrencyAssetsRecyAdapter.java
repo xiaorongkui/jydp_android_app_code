@@ -7,11 +7,9 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.SelectorFactory;
-
-import java.math.BigDecimal;
 
 
 /**
@@ -26,10 +24,10 @@ public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.Us
     public CurrencyAssetsRecyAdapter(Context context) {
         super(context);
         shapeSelector = SelectorFactory.newShapeSelector()
-                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
-                .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_bule_3))
-                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+                .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x12))
+                .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_bule_3))
+                .setStrokeWidth((int) ResourcesManager.getDimen(R.dimen.x1))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
     }
 
     @Override
@@ -51,8 +49,11 @@ public class CurrencyAssetsRecyAdapter extends XBaseAdapter<CurrencyAssetsRes.Us
         mine_currency_assets_item_go_exchange_tv.setBackground(shapeSelector.create());
 
         mine_assets_name_tv.setText(item.getCurrencyName());
-        currency_total_assets_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getTotalCurrencyAssets()),4) + "");
-        available_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumber()),4) + "");
-        frozen_amount_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(item.getCurrencyNumberLock()),4) + "");
+        currency_total_assets_tv.setText(String.format("%s", NumberUtil.doubleFormat(Double.parseDouble(item
+                .getTotalCurrencyAssets()), 4)));
+        available_amount_tv.setText(String.format("%s", NumberUtil.doubleFormat(Double.parseDouble(item
+                .getCurrencyNumber()), 4)));
+        frozen_amount_tv.setText(String.format("%s", NumberUtil.doubleFormat(Double.parseDouble(item
+                .getCurrencyNumberLock()), 4)));
     }
 }

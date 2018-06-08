@@ -13,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.qmkj.jydp.R;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;

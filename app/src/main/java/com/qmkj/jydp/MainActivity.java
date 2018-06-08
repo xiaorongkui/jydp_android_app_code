@@ -13,12 +13,13 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.base.BaseActivity;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeCurrencySelectFrament;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
 import com.qmkj.jydp.module.exchangoutside.view.OutsideExchangeFragment;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
 
@@ -68,13 +69,13 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= 21) {
             setTheme(R.style.mainActivityTheme);
-            CommonUtil.setStatusBarInvisible(this, false);
+            SystemManager.setStatusBarInvisible(this, false);
         } else {
             setTheme(R.style.BaseAppTheme);
         }
         super.onCreate(savedInstanceState);
-        LogUtil.i("MainActivity onCreate,状态栏高度=" + CommonUtil.getStatusBarHeight() + ";\t 分辨率=" +
-                CommonUtil.getAndroidPix(mContext) + ";\t设备信息");
+        LogUtil.i("MainActivity onCreate,状态栏高度=" + SystemManager.getStatusBarHeight() + ";\t 分辨率=" +
+                SystemManager.getAndroidPixWidth(mContext) + ";\t设备信息");
     }
 
     private long recodeTime = 0;
@@ -168,7 +169,7 @@ public class MainActivity extends BaseActivity {
                 }
                 ft.show(homeFragment);
                 homeBottomIv.setImageResource(R.mipmap.home_select);
-                homeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
+                homeBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
                 break;
             case 1://币种选择页面
                 if (exchangeCurrencySelectFrament == null) {
@@ -177,7 +178,7 @@ public class MainActivity extends BaseActivity {
                 }
                 ft.show(exchangeCurrencySelectFrament);
                 exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
-                exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
+                exchangeBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
                 break;
             case 2://场外交易页面
                 if (outsideExchangeFragment == null) {
@@ -186,7 +187,7 @@ public class MainActivity extends BaseActivity {
                 }
                 ft.show(outsideExchangeFragment);
                 outsideExchangeBottomIv.setImageResource(R.mipmap.outside_exchange_select);
-                outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
+                outsideExchangeBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
                 break;
             case 3://我的页面
                 if (mineFragment == null) {
@@ -195,7 +196,7 @@ public class MainActivity extends BaseActivity {
                 }
                 ft.show(mineFragment);
                 mineBottomIv.setImageResource(R.mipmap.mine_select);
-                mineBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
+                mineBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
                 break;
         }
         ft.commit();
@@ -234,7 +235,7 @@ public class MainActivity extends BaseActivity {
         }
         exchangeFragment.setArguments(bundle);
         exchangeBottomIv.setImageResource(R.mipmap.exchange_select);
-        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
+        exchangeBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
         ft.show(exchangeFragment);
         ft.commit();
     }
@@ -246,10 +247,10 @@ public class MainActivity extends BaseActivity {
         outsideExchangeBottomIv.setImageResource(R.mipmap.outside_exchange_unselect);
         mineBottomIv.setImageResource(R.mipmap.mine_unselect);
 
-        homeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
-        exchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
-        outsideExchangeBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
-        mineBottomTv.setTextColor(CommonUtil.getColor(R.color.color_black_5));
+        homeBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_black_5));
+        exchangeBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_black_5));
+        outsideExchangeBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_black_5));
+        mineBottomTv.setTextColor(ResourcesManager.getColor(R.color.color_black_5));
     }
 
     /**

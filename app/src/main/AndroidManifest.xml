@@ -151,11 +151,11 @@
 
         <activity
             android:name=".module.mine.view.OutSideExchangeOrderDetailForUserActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".module.mine.view.OutSideExchangeOrderDetailForDealerActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -171,7 +171,7 @@
                     app:contentEditTopMargin="@dimen/x15"
                     app:titleEndText="@string/asterisk"
                     app:titleText="@string/receipt_code"
-                    app:isEditTextEnable = "false"
+                    app:isEditTextEnable="false"
                     app:titleTopMargin="@dimen/x20"/>
 
             </LinearLayout>
@@ -232,7 +232,7 @@
                     app:contentEditTopMargin="@dimen/x15"
                     app:titleEndText="@string/asterisk"
                     app:titleText="@string/receipt_code"
-                    app:isEditTextEnable = "false"
+                    app:isEditTextEnable="false"
                     app:titleTopMargin="@dimen/x20"/>
 
             </LinearLayout>

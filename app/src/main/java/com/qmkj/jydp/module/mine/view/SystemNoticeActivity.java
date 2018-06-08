@@ -12,11 +12,12 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
 import com.qmkj.jydp.common.AppNetConfig;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.home.view.WebActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.SystemNoticeRecyAdapter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
 
@@ -46,7 +47,7 @@ public class SystemNoticeActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.system_notice));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.system_notice));
 
     }
 
@@ -83,7 +84,8 @@ public class SystemNoticeActivity extends BaseMvpActivity<MinePresenter> {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -94,8 +96,9 @@ public class SystemNoticeActivity extends BaseMvpActivity<MinePresenter> {
         });
 
         adapter.setOnItemChildClickListener((adapter1, view, position) -> {
-            Intent intent = WebActivity.getActivityIntent(mContext, "公告详情", AppNetConfig.SYSTEM_NOTICE_URL + adapter.getData().get(position).getId());
-            CommonUtil.gotoActivity(mContext, intent);
+            Intent intent = WebActivity.getActivityIntent(mContext, "公告详情", AppNetConfig.SYSTEM_NOTICE_URL + adapter
+                    .getData().get(position).getId());
+            ActivityManager.gotoActivity(mContext, intent);
         });
     }
 

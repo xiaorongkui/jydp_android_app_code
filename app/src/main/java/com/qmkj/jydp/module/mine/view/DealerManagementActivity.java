@@ -14,11 +14,12 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.DeleteDealerReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.DealerManagementRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
 
@@ -38,13 +39,13 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.publish_adversite_btn) //发起广告
-    Button publishAdversiteBtn;
+            Button publishAdversiteBtn;
 
     private DealerManagementRecyAdapter adapter;
     boolean mIsCanRefresh = true;
     boolean mIsLoadMore;
     int mPage;
-    private int delete_position =-1;
+    private int delete_position = -1;
     private CommonDialog commonDialog;
 
 
@@ -60,7 +61,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.dealer_managment));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.dealer_managment));
 
     }
 
@@ -97,7 +98,8 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -110,7 +112,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             mIsLoadMore = true;
             getDataFromNet();
         }, recyclerView);
-        publishAdversiteBtn.setOnClickListener(v -> CommonUtil.startActivityForResult(
+        publishAdversiteBtn.setOnClickListener(v -> ActivityManager.startActivityForResult(
                 DealerManagementActivity.this, PublishAdvertisementActivity.class, ACTIVITY_REQUEST_CODE));
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -139,8 +141,8 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
         commonDialog.setContentText("是否确认删除");
         commonDialog.setOnPositiveButtonClickListener((dialog, view) -> {
             DeleteDealerReq req = new DeleteDealerReq();
-            req.setOtcPendingOrderNo(adapter.getData().get(position).getOtcPendingOrderNo()+"");
-            presenter.deleteDealerManagementInfo(req, REQUEST_DELETE_INFO,true);
+            req.setOtcPendingOrderNo(adapter.getData().get(position).getOtcPendingOrderNo() + "");
+            presenter.deleteDealerManagementInfo(req, REQUEST_DELETE_INFO, true);
             delete_position = position;
         });
         commonDialog.show();
@@ -150,7 +152,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        if(tag == REQUEST_GET_DATA){
+        if (tag == REQUEST_GET_DATA) {
             DealerManagementRes res = (DealerManagementRes) response;
             if (refreshLayout != null && refreshLayout.isRefreshing()) {
                 refreshLayout.refreshComplete();
@@ -166,8 +168,8 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
             } else {
                 adapter.loadMoreEnd();
             }
-        }else if(tag == REQUEST_DELETE_INFO){
-            if(delete_position>=0){
+        } else if (tag == REQUEST_DELETE_INFO) {
+            if (delete_position >= 0) {
                 adapter.remove(delete_position);
                 adapter.notifyDataSetChanged();
                 commonDialog.dismiss();
@@ -197,7 +199,7 @@ public class DealerManagementActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ACTIVITY_REQUEST_CODE &&resultCode==PublishAdvertisementActivity.ACTIVITY_RESULT_CODE){
+        if (requestCode == ACTIVITY_REQUEST_CODE && resultCode == PublishAdvertisementActivity.ACTIVITY_RESULT_CODE) {
             refreshLayout.callRefresh();
         }
     }

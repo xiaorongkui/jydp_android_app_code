@@ -11,10 +11,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.CurrencyAssetsRes;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.CurrencyAssetsRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
 
@@ -28,7 +28,7 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
     public static final int ACTIVITY_RESULT_CODE = 201;
     private static final int REQUEST_GET_DATA = 1;
     public static final String CURRENT_NAME = "current_name";  //链种名称
-    public static final String CURRENT_ID =  "current_id";    //链种id
+    public static final String CURRENT_ID = "current_id";    //链种id
 
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
@@ -50,7 +50,7 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.currency_assets));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.currency_assets));
     }
 
     @Override
@@ -86,10 +86,12 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter2, View view, int position) {
                 //点击去交易，回到首页
+                CurrencyAssetsRes.UserCurrencyAssetsBean item = adapter.getItem(position);
+                if (item == null) return;
                 Intent intent = new Intent();
-                intent.putExtra(CURRENT_NAME,adapter.getItem(position).getCurrencyName());
-                intent.putExtra(CURRENT_ID,adapter.getItem(position).getCurrencyId()+"");
-                CurrencyAssetsActivity.this.setResult(ACTIVITY_RESULT_CODE,intent);
+                intent.putExtra(CURRENT_NAME, item.getCurrencyName());
+                intent.putExtra(CURRENT_ID, item.getCurrencyId() + "");
+                CurrencyAssetsActivity.this.setResult(ACTIVITY_RESULT_CODE, intent);
                 finish();
             }
         });
@@ -99,7 +101,8 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -126,7 +129,7 @@ public class CurrencyAssetsActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case REQUEST_GET_DATA:
                 CurrencyAssetsRes res = (CurrencyAssetsRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {

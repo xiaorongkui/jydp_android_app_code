@@ -15,6 +15,10 @@ import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.MinelistInfo;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.bean.response.MineRes;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.ChainWithdrawActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
@@ -24,7 +28,6 @@ import com.qmkj.jydp.ui.widget.ScrollRecycleView;
 import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DensityHelper;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
@@ -43,7 +46,7 @@ import butterknife.BindView;
 
 public class MineFragment extends BaseMvpFragment<MinePresenter> {
     public static final int ACTIVITY_REQUEST_CODE = 101;
-    private static final int REQUEST_GET_DATA=1;
+    private static final int REQUEST_GET_DATA = 1;
 
     @BindView(R.id.mine_info_rl)
     XRefreshLayout refreshLayout;
@@ -78,13 +81,13 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         initRefreshLayout();
         initRecycleView();
         SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x1))
-                .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_gray_1))
-                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+                .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x1))
+                .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_gray_1))
+                .setStrokeWidth((int) ResourcesManager.getDimen(R.dimen.x1))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
         mine_distributor_tv.setBackground(shapeSelector.create());
 
-        if (CommonUtil.getLoginInfo() == null) {
+        if (DataManager.getLoginInfo() == null) {
             mine_tittle_nptv.setVisibility(View.GONE);
             mine_totalUserBalance_tv.setVisibility(View.GONE);
             mine_available_money_sl.setVisibility(View.GONE);
@@ -94,17 +97,18 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                     (int) (DensityHelper.pt2px(mContext, 134))));
         }
 
-        if(CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer()==2){
+        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null && DataManager
+                .getLoginInfo().getUser().getIsDealer() == 2) {
             mine_distributor_tv.setVisibility(View.VISIBLE);
 
         }
 
         mine_assets_ll.setOnClickListener(view -> {
-            if (CommonUtil.getLoginInfo() == null) {
+            if (DataManager.getLoginInfo() == null) {
                 CommonDialog commonDialog = new CommonDialog(mContext);
                 commonDialog.setContentText("请先登录");
                 commonDialog.setOnPositiveButtonClickListener((dialog, v) -> {
-                    CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                    ActivityManager.gotoActivity(mContext, LoginActivity.class);
                     commonDialog.dismiss();
                 });
                 commonDialog.show();
@@ -121,7 +125,7 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
             @Override
             public boolean checkCanDoRefresh(View content, View header) {
-                return scrollView.isTop()&&!refreshLayout.isRefreshing();
+                return scrollView.isTop() && !refreshLayout.isRefreshing();
             }
         });
 
@@ -134,10 +138,13 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         List<MinelistInfo> datas = new ArrayList<>();
         datas.add(new MinelistInfo(R.mipmap.mine_info, getString(R.string.mine_info), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.currency_assets, getString(R.string.currency_assets), R.mipmap.more_arrow));
-        if (CommonUtil.getLoginInfo() != null&&CommonUtil.getLoginInfo().getUser()!=null && CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
-            datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap.more_arrow));
+        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null && DataManager
+                .getLoginInfo().getUser().getIsDealer() == 2) {
+            datas.add(new MinelistInfo(R.mipmap.distributor_manager, getString(R.string.dealer_managment), R.mipmap
+                    .more_arrow));
         }
-        datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap.more_arrow));
+        datas.add(new MinelistInfo(R.mipmap.ic_chain_withdraw, getString(R.string.chain_withdraw), R.mipmap
+                .more_arrow));
         datas.add(new MinelistInfo(R.mipmap.mine_recode, getString(R.string.mine_recode), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.system_notice, getString(R.string.system_notice), R.mipmap.more_arrow));
         datas.add(new MinelistInfo(R.mipmap.hot_topic, getString(R.string.hot_topic), R.mipmap.more_arrow));
@@ -149,13 +156,14 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         mineRv.setLayoutManager(new LinearLayoutManager(mContext));
         mineRv.setAdapter(mineRecyAdapter);
         //是否是经销商
-        if (CommonUtil.getLoginInfo()!=null&&CommonUtil.getLoginInfo().getUser()!=null&&CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {
+        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null && DataManager
+                .getLoginInfo().getUser().getIsDealer() == 2) {
             mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
-                if (CommonUtil.getLoginInfo() == null) {
+                if (DataManager.getLoginInfo() == null) {
                     CommonDialog commonDialog = new CommonDialog(mContext);
                     commonDialog.setContentText("请先登录");
                     commonDialog.setOnPositiveButtonClickListener((dialog, v) -> {
-                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        ActivityManager.gotoActivity(mContext, LoginActivity.class);
                         commonDialog.dismiss();
                     });
                     commonDialog.show();
@@ -163,45 +171,45 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                 }
                 switch (position) {
                     case 0://个人信息
-                        CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
+                        ActivityManager.gotoActivity(mContext, PersonInfoActivity.class);
                         break;
                     case 1://币种资产
-                        Intent intent = new Intent(mContext,CurrencyAssetsActivity.class);
+                        Intent intent = new Intent(mContext, CurrencyAssetsActivity.class);
                         startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
                         break;
                     case 2://经销商管理
-                        CommonUtil.gotoActivity(mContext, DealerManagementActivity.class);
+                        ActivityManager.gotoActivity(mContext, DealerManagementActivity.class);
                         break;
                     case 3://链提取
-                        CommonUtil.gotoActivity(mContext, ChainWithdrawActivity.class);
+                        ActivityManager.gotoActivity(mContext, ChainWithdrawActivity.class);
                         break;
                     case 4://我的记录
-                        CommonUtil.gotoActivity(mContext, MineRecodeActivity.class);
+                        ActivityManager.gotoActivity(mContext, MineRecodeActivity.class);
                         break;
                     case 5://系统公告
-                        CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
+                        ActivityManager.gotoActivity(mContext, SystemNoticeActivity.class);
                         break;
                     case 6://热门话题
-                        CommonUtil.gotoActivity(mContext, HotTopicActivity.class);
+                        ActivityManager.gotoActivity(mContext, HotTopicActivity.class);
                         break;
                     case 7://帮助中心
-                        CommonUtil.gotoActivity(mContext, HelpCenterActivity.class);
+                        ActivityManager.gotoActivity(mContext, HelpCenterActivity.class);
                         break;
                     case 8://联系客服
-                        CommonUtil.gotoActivity(mContext, ContactServiceActivity.class);
+                        ActivityManager.gotoActivity(mContext, ContactServiceActivity.class);
                         break;
                     case 9://软件信息
-                        CommonUtil.gotoActivity(mContext, SoftwareInfoActivity.class);
+                        ActivityManager.gotoActivity(mContext, SoftwareInfoActivity.class);
                         break;
                 }
             });
         } else {
             mineRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
-                if (CommonUtil.getLoginInfo() == null) {
+                if (DataManager.getLoginInfo() == null) {
                     CommonDialog commonDialog = new CommonDialog(mContext);
                     commonDialog.setContentText("请先登录");
                     commonDialog.setOnPositiveButtonClickListener((dialog, v) -> {
-                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        ActivityManager.gotoActivity(mContext, LoginActivity.class);
                         commonDialog.dismiss();
                     });
                     commonDialog.show();
@@ -209,32 +217,32 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
                 }
                 switch (position) {
                     case 0://个人信息
-                        CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
+                        ActivityManager.gotoActivity(mContext, PersonInfoActivity.class);
                         break;
                     case 1://币种资产
-                        Intent intent = new Intent(mContext,CurrencyAssetsActivity.class);
+                        Intent intent = new Intent(mContext, CurrencyAssetsActivity.class);
                         startActivityForResult(intent, ACTIVITY_REQUEST_CODE);
                         break;
                     case 2://链提取
-                        CommonUtil.gotoActivity(mContext, ChainWithdrawActivity.class);
+                        ActivityManager.gotoActivity(mContext, ChainWithdrawActivity.class);
                         break;
                     case 3://我的记录
-                        CommonUtil.gotoActivity(mContext, MineRecodeActivity.class);
+                        ActivityManager.gotoActivity(mContext, MineRecodeActivity.class);
                         break;
                     case 4://系统公告
-                        CommonUtil.gotoActivity(mContext, SystemNoticeActivity.class);
+                        ActivityManager.gotoActivity(mContext, SystemNoticeActivity.class);
                         break;
                     case 5://热门话题
-                        CommonUtil.gotoActivity(mContext, HotTopicActivity.class);
+                        ActivityManager.gotoActivity(mContext, HotTopicActivity.class);
                         break;
                     case 6://帮助中心
-                        CommonUtil.gotoActivity(mContext, HelpCenterActivity.class);
+                        ActivityManager.gotoActivity(mContext, HelpCenterActivity.class);
                         break;
                     case 7://联系客服
-                        CommonUtil.gotoActivity(mContext, ContactServiceActivity.class);
+                        ActivityManager.gotoActivity(mContext, ContactServiceActivity.class);
                         break;
                     case 8://软件信息
-                        CommonUtil.gotoActivity(mContext, SoftwareInfoActivity.class);
+                        ActivityManager.gotoActivity(mContext, SoftwareInfoActivity.class);
                         break;
                 }
             });
@@ -246,9 +254,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
         //状态栏占用的兼容性
         if (Build.VERSION.SDK_INT >= 21) {
             View statusView = new View(getActivity());
-            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
+            statusView.setBackgroundColor(ResourcesManager.getColor(R.color.status_bar_color));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup
-                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
+                    .LayoutParams.MATCH_PARENT, SystemManager.getStatusBarHeight());
             mineLl.addView(statusView, 0, lp);
         }
     }
@@ -262,9 +270,9 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
      * 获取个人中心数据
      */
     private void getMineInfo() {
-        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null){
+        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null) {
             presenter.getMineInfo(REQUEST_GET_DATA, false);
-        }else{
+        } else {
             refreshLayout.refreshComplete();
         }
     }
@@ -289,34 +297,35 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case REQUEST_GET_DATA:
-                if(refreshLayout.isRefreshing()){
+                if (refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();
                 }
-                if(response == null){
+                if (response == null) {
                     return;
                 }
                 LogUtil.e(response.toString());
                 MineRes mineRes = (MineRes) response;
-                if(mineRes!=null){
-                    MineRes.UserInfoBean userInfoBean = mineRes.getUserInfo();
-                    mine_userAccount_tv.setText(userInfoBean.getUserAccount()+"");
-                    mine_totalUserBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getTotalUserBalance()),4)+"");
-                    mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalance()),4)+"");
-                    mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean.getUserBalanceLock()),4)+"");
-                    if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
-                        LoginRes loginRes = CommonUtil.getLoginInfo();
-                        loginRes.getUser().setIsDealer(mineRes.getIsDealer());
-                        CommonUtil.setLoginInfo(loginRes);
-                    }
-                    if(mineRes.getIsDealer()==2){ //是经销商
-                        mine_distributor_tv.setVisibility(View.VISIBLE);
-                    }else {
-                        mine_distributor_tv.setVisibility(View.GONE);
-                    }
-                    initRecycleView();
+                MineRes.UserInfoBean userInfoBean = mineRes.getUserInfo();
+                mine_userAccount_tv.setText(userInfoBean.getUserAccount() + "");
+                mine_totalUserBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean
+                        .getTotalUserBalance()), 4) + "");
+                mine_userBalance_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean
+                        .getUserBalance()), 4) + "");
+                mine_userBalanceLock_tv.setText(NumberUtil.doubleFormat(Double.parseDouble(userInfoBean
+                        .getUserBalanceLock()), 4) + "");
+                if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null) {
+                    LoginRes loginRes = DataManager.getLoginInfo();
+                    loginRes.getUser().setIsDealer(mineRes.getIsDealer());
+                    DataManager.setLoginInfo(loginRes);
                 }
+                if (mineRes.getIsDealer() == 2) { //是经销商
+                    mine_distributor_tv.setVisibility(View.VISIBLE);
+                } else {
+                    mine_distributor_tv.setVisibility(View.GONE);
+                }
+                initRecycleView();
                 refreshLayout.refreshComplete();
                 break;
         }
@@ -333,10 +342,12 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //点击了链提取页面的去交易按钮，进去交易中心的去交易界面
-        if(requestCode==ACTIVITY_REQUEST_CODE&&resultCode== CurrencyAssetsActivity.ACTIVITY_RESULT_CODE){
-            ((MainActivity) getActivity()).setSelect(1);
-            String name =data.getStringExtra(CurrencyAssetsActivity.CURRENT_NAME);
-            String id =data.getStringExtra(CurrencyAssetsActivity.CURRENT_ID);
+        if (requestCode == ACTIVITY_REQUEST_CODE && resultCode == CurrencyAssetsActivity.ACTIVITY_RESULT_CODE) {
+            if ((getActivity()) != null) {
+                ((MainActivity) getActivity()).setSelect(1);
+            }
+            String name = data.getStringExtra(CurrencyAssetsActivity.CURRENT_NAME);
+            String id = data.getStringExtra(CurrencyAssetsActivity.CURRENT_ID);
             ((MainActivity) getActivity()).showExchangeFrament(name, id);
 
         }
@@ -344,17 +355,10 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
 
     /**
      * Fragment获取焦点时刷新数据
-     * @param hidden
      */
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        getMineInfo();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+    protected void onViewResume() {
+        super.onViewResume();
         getMineInfo();
     }
 

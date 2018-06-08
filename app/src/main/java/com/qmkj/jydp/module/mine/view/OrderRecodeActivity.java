@@ -14,11 +14,12 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.OrderRecodeCancelReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OrderRecodeRes;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OrderRecodeRecyAdapter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import butterknife.BindView;
@@ -52,7 +53,7 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.exchange_entrust_recod));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.exchange_entrust_recod));
 
     }
 
@@ -89,7 +90,8 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -102,14 +104,15 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter2, View view, int position) {
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.order_revocation_entrustment_tv:
                         showCancelDialog(position);
                         break;
                     case R.id.order_see_detail_tv: //查看详情
-                        Intent intent = new Intent(OrderRecodeActivity.this,TransactionRecodeActivity.class);
-                        intent.putExtra("number",adapter.getItem(position).getPendingOrderNo());
-                        CommonUtil.gotoActivity(mContext,intent);
+                        Intent intent = new Intent(OrderRecodeActivity.this, TransactionRecodeActivity.class);
+                        OrderRecodeRes.TransactionPendOrderRecordListBean item = adapter.getItem(position);
+                        if (item != null) intent.putExtra("number", item.getPendingOrderNo());
+                        ActivityManager.gotoActivity(mContext, intent);
                         break;
                 }
             }
@@ -135,19 +138,20 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
         }
         dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .common_dialog_1);
-        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        dialogUtils.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         dialogUtils.setOneOrTwoBtn(false);
-        dialogUtils.setTitle(CommonUtil.getString(R.string.revocation_entrustment));
+        dialogUtils.setTitle(ResourcesManager.getString(R.string.revocation_entrustment));
         dialogUtils.setMessage(getString(R.string.deletions));
         dialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
             dialogUtils.dismiss();
             //todo
         });
-        dialogUtils.setTwoConfirmBtn("确认",v -> {
+        dialogUtils.setTwoConfirmBtn("确认", v -> {
                     OrderRecodeCancelReq req = new OrderRecodeCancelReq();
-                    req.setPendingOrderNo(adapter.getItem(position).getPendingOrderNo());
-                    presenter.cancelTradeCenter(req,SEND_REQUEST,true);
+            OrderRecodeRes.TransactionPendOrderRecordListBean item = adapter.getItem(position);
+            if (item != null) req.setPendingOrderNo(item.getPendingOrderNo());
+            presenter.cancelTradeCenter(req, SEND_REQUEST, true);
                 }
         );
         dialogUtils.show();
@@ -166,7 +170,7 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case REQUEST_GET_DATA:
                 OrderRecodeRes recodeRes = (OrderRecodeRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {

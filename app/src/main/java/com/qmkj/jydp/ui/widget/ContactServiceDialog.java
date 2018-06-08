@@ -14,32 +14,33 @@ import com.qmkj.jydp.R;
 
 /**
  * 创建日期：2018/5/23
+ *
  * @author Yi Shan Xiang
- * 文件名称： 客服提交问题弹出框
- * email: 380948730@qq.com
+ *         文件名称： 客服提交问题弹出框
+ *         email: 380948730@qq.com
  */
 
-public class ContactServiceDialog extends Dialog{
+public class ContactServiceDialog extends Dialog {
 
-    private  TextView cancelBtn;
-    private  TextView confirmBtn;
-    private  EditText content_et;
-    private  EditText tittle_et;
+    private TextView cancelBtn;
+    private TextView confirmBtn;
+    private EditText content_et;
+    private EditText tittle_et;
     private Activity activity;
-    private  View mView;
+    private View mView;
 
     public ContactServiceDialog(@NonNull Context context) {
         super(context);
     }
 
-    public ContactServiceDialog(Activity context,int theme) {
+    public ContactServiceDialog(Activity context, int theme) {
         super(context, theme);
         this.activity = context;
         mView = LayoutInflater.from(getContext()).inflate(R.layout.contact_service_dialog, null);
-        tittle_et = (EditText)mView.findViewById(R.id.tittle_et);
-        content_et = (EditText)mView.findViewById(R.id.content_et);
-        confirmBtn = (TextView) mView.findViewById(R.id.conform_btn);
-        cancelBtn = (TextView) mView.findViewById(R.id.cancel_btn);
+        tittle_et = mView.findViewById(R.id.tittle_et);
+        content_et = mView.findViewById(R.id.content_et);
+        confirmBtn = mView.findViewById(R.id.conform_btn);
+        cancelBtn = mView.findViewById(R.id.cancel_btn);
         setContentView(mView);
         super.setContentView(mView);
     }
@@ -53,7 +54,9 @@ public class ContactServiceDialog extends Dialog{
 //        getWindow().setLayout(width, attrs.height);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(getWindow().getAttributes());
+        if (getWindow() != null) {
+            lp.copyFrom(getWindow().getAttributes());
+        }
         lp.width = width;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         getWindow().setAttributes(lp);
@@ -65,13 +68,17 @@ public class ContactServiceDialog extends Dialog{
     public void setAlertDialogHight(int height) {
         if (height <= 0) {
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-            lp.copyFrom(getWindow().getAttributes());
+            if (getWindow() != null) {
+                lp.copyFrom(getWindow().getAttributes());
+            }
             lp.width = WindowManager.LayoutParams.MATCH_PARENT;
             lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
             getWindow().setAttributes(lp);
         } else {
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-            lp.copyFrom(getWindow().getAttributes());
+            if (getWindow() != null) {
+                lp.copyFrom(getWindow().getAttributes());
+            }
             lp.width = WindowManager.LayoutParams.MATCH_PARENT;
             lp.height = height;
             getWindow().setAttributes(lp);
@@ -84,20 +91,23 @@ public class ContactServiceDialog extends Dialog{
      */
     public void setAlertDialogGravity(int gravity) {
         //定义宽度
-        final WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        attrs.gravity = gravity;
-        getWindow().setAttributes(attrs);
+        if (getWindow() != null) {
+            final WindowManager.LayoutParams attrs = getWindow().getAttributes();
+            attrs.gravity = gravity;
+            getWindow().setAttributes(attrs);
+        }
+
     }
 
     public String getTittleText() {
-        if(tittle_et.getText() ==null){
+        if (tittle_et.getText() == null) {
             return null;
         }
         return tittle_et.getText().toString();
     }
 
     public String getContentText() {
-        if(content_et.getText() ==null){
+        if (content_et.getText() == null) {
             return null;
         }
         return content_et.getText().toString();
@@ -127,6 +137,7 @@ public class ContactServiceDialog extends Dialog{
     public void setConfirmBtnListener(View.OnClickListener listener) {
         confirmBtn.setOnClickListener(listener);
     }
+
     public void setCancelBtnListener(View.OnClickListener listener) {
         cancelBtn.setOnClickListener(listener);
     }

@@ -24,10 +24,12 @@ import com.qmkj.jydp.bean.request.SellExchangeReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.NetResponseCode;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.ui.widget.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.RxBus;
@@ -180,11 +182,11 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         super.onClick(v);
         switch (v.getId()) {
             case R.id.exchange_passowrd_iv:
-                if (TextUtils.isEmpty(CommonUtil.getToken())) {
+                if (TextUtils.isEmpty(DataManager.getToken())) {
                     loginCommonDialog_1 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
                     loginCommonDialog_1.setContentText("请先登录");
                     loginCommonDialog_1.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
-                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        ActivityManager.gotoActivity(mContext, LoginActivity.class);
                         loginCommonDialog_1.dismiss();
                     });
                     loginCommonDialog_1.show();
@@ -196,11 +198,11 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
     }
 
     private void sellStart() {
-        if (TextUtils.isEmpty(CommonUtil.getToken())) {
+        if (TextUtils.isEmpty(DataManager.getToken())) {
             loginCommonDialog_2 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
             loginCommonDialog_2.setContentText("请先登录");
             loginCommonDialog_2.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                ActivityManager.gotoActivity(mContext, LoginActivity.class);
                 loginCommonDialog_2.dismiss();
             });
             loginCommonDialog_2.show();
@@ -288,7 +290,7 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
             loginCommonDialog_3 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
             loginCommonDialog_3.setContentText("请先登录");
             loginCommonDialog_3.setOnPositiveButtonClickListener((Dialog dialog, View v) -> {
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                ActivityManager.gotoActivity(mContext, LoginActivity.class);
                 loginCommonDialog_3.dismiss();
             });
             loginCommonDialog_3.show();
@@ -321,9 +323,9 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_selected);
             }
         });
-        pwdDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        pwdDialogUtils.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         pwdDialogUtils.setOneOrTwoBtn(false);
-        pwdDialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
+        pwdDialogUtils.setTitle(ResourcesManager.getString(R.string.remember_pwd_notice));
         pwdDialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
             pwdDialogUtils.dismiss();
@@ -372,14 +374,14 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
                 RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                 String exchanegPwd = exchangePassowrdEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(exchanegPwd)) {
-                    CommonUtil.saveExchangePwd(exchanegPwd);
+                    DataManager.saveExchangePwd(exchanegPwd);
                 }
                 if (sellDialogUtils != null && sellDialogUtils.isShowing()) sellDialogUtils.dismiss();
                 clearSoldInput();
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("密码设置成功");
-                CommonUtil.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
+                DataManager.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                 break;
@@ -456,12 +458,14 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         }
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
-                exchange_sold_notice_pwd_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));
+                exchange_sold_notice_pwd_tv.setText(ResourcesManager.getString(R.string
+                        .exchange_password_exchange_notice));
                 exchangePassowrdEt.setText("");//初始化一次
                 break;
             case "2"://2：每次登录只输入一次交易密码
-                exchange_sold_notice_pwd_tv.setText(CommonUtil.getString(R.string.exchange_password_login_notice));
-                exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
+                exchange_sold_notice_pwd_tv.setText(ResourcesManager.getString(R.string
+                        .exchange_password_login_notice));
+                exchangePassowrdEt.setText(DataManager.getExchangePwd());
                 break;
         }
         isRefreshPwd = false;
@@ -526,9 +530,9 @@ public class ExchangeSoldFragment extends BaseMvpFragment<ExchangeCenterPresente
         exchange_buy_total_tv.setText(String.format("%s XT", NumberUtil.format4Point(money)));
         exchange_buy_fee_tv.setText(String.format("%s%%", parseDoubleSellFee));
 
-        sellDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        sellDialogUtils.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         sellDialogUtils.setOneOrTwoBtn(false);
-        sellDialogUtils.setTitle(CommonUtil.getString(R.string.sold_notice));
+        sellDialogUtils.setTitle(ResourcesManager.getString(R.string.sold_notice));
         sellDialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
             sellDialogUtils.dismiss();

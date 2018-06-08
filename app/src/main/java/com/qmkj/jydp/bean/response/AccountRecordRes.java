@@ -5,15 +5,19 @@ import java.util.List;
 
 /**
  * 创建日期：2018/5/21
+ *
  * @author Yi Shan Xiang
- * 文件名称：用户成交记录
- * email: 380948730@qq.com
+ *         文件名称：用户成交记录
+ *         email: 380948730@qq.com
  */
 public class AccountRecordRes extends BaseRes implements Serializable {
 
 
     /**
-     * dealRecordList : [{"actualPrice":1,"actualPriceForWap":"1","addTime":1524711448000,"currencyId":216,"currencyName":"ceui0","currencyNumber":1,"currencyTotalPrice":1,"fee":0,"feeForWap":"0","feeNumber":0,"orderNo":"311804260000018385","paymentType":2,"pendTime":1524707802000,"pendingOrderNo":"301804263315737265","remark":"挂单成交","transactionPrice":1,"userAccount":"syl005","userId":317}]
+     * dealRecordList : [{"actualPrice":1,"actualPriceForWap":"1","addTime":1524711448000,"currencyId":216,
+     * "currencyName":"ceui0","currencyNumber":1,"currencyTotalPrice":1,"fee":0,"feeForWap":"0","feeNumber":0,
+     * "orderNo":"311804260000018385","paymentType":2,"pendTime":1524707802000,"pendingOrderNo":"301804263315737265",
+     * "remark":"挂单成交","transactionPrice":1,"userAccount":"syl005","userId":317}]
      * totalPageNumber : 1
      */
 

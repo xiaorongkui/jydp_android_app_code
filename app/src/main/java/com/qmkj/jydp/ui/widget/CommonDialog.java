@@ -2,8 +2,6 @@ package com.qmkj.jydp.ui.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -31,11 +29,11 @@ public class CommonDialog extends Dialog {
         super(context, theme);
         this.activity = context;
         mView = LayoutInflater.from(getContext()).inflate(R.layout.common_dialog, null);
-        messageView = (TextView) mView.findViewById(R.id.message);
-        oneBtnView = (TextView) mView.findViewById(R.id.only_confirm_btn);
+        messageView = mView.findViewById(R.id.message);
+        oneBtnView = mView.findViewById(R.id.only_confirm_btn);
         twoBtnView = mView.findViewById(R.id.two_btn_layout);
-        confirmBtn = (TextView) mView.findViewById(R.id.yes);
-        cancelBtn = (TextView) mView.findViewById(R.id.no);
+        confirmBtn = mView.findViewById(R.id.yes);
+        cancelBtn = mView.findViewById(R.id.no);
         setContentView(mView);
         super.setContentView(mView);
     }
@@ -45,18 +43,18 @@ public class CommonDialog extends Dialog {
         super(context, theme);
         this.activity = context;
         mView = LayoutInflater.from(getContext()).inflate(layoutResId, null);
-        messageView = (TextView) mView.findViewById(R.id.message);
-        oneBtnView = (TextView) mView.findViewById(R.id.only_confirm_btn);
+        messageView = mView.findViewById(R.id.message);
+        oneBtnView = mView.findViewById(R.id.only_confirm_btn);
         twoBtnView = mView.findViewById(R.id.two_btn_layout);
-        confirmBtn = (TextView) mView.findViewById(R.id.yes);
-        cancelBtn = (TextView) mView.findViewById(R.id.no);
+        confirmBtn = mView.findViewById(R.id.yes);
+        cancelBtn = mView.findViewById(R.id.no);
         setContentView(mView);
         super.setContentView(mView);
     }
 
 
     public void setTitle(String title) {
-        TextView mTitle = (TextView) mView.findViewById(R.id.title);
+        TextView mTitle = mView.findViewById(R.id.title);
         mTitle.setVisibility(View.VISIBLE);
         mTitle.setText(title);
     }
@@ -68,10 +66,12 @@ public class CommonDialog extends Dialog {
     public void setAlertDialogSize(int width, int height) {
 //        getWindow().setLayout(width, height);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(getWindow().getAttributes());
-        lp.width = width;
-        lp.height = height;
-        getWindow().setAttributes(lp);
+        if (getWindow() != null) {
+            lp.copyFrom(getWindow().getAttributes());
+            lp.width = width;
+            lp.height = height;
+            getWindow().setAttributes(lp);
+        }
     }
 
     /**
@@ -83,10 +83,13 @@ public class CommonDialog extends Dialog {
 //        getWindow().setLayout(width, attrs.height);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(getWindow().getAttributes());
-        lp.width = width;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        getWindow().setAttributes(lp);
+        if (getWindow() != null) {
+            lp.copyFrom(getWindow().getAttributes());
+            lp.width = width;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            getWindow().setAttributes(lp);
+        }
+
     }
 
     /**
@@ -95,16 +98,21 @@ public class CommonDialog extends Dialog {
     public void setAlertDialogHight(int height) {
         if (height <= 0) {
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-            lp.copyFrom(getWindow().getAttributes());
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            getWindow().setAttributes(lp);
+            if (getWindow() != null) {
+                lp.copyFrom(getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                getWindow().setAttributes(lp);
+            }
         } else {
-            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-            lp.copyFrom(getWindow().getAttributes());
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            lp.height = height;
-            getWindow().setAttributes(lp);
+            if (getWindow() != null) {
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = height;
+                getWindow().setAttributes(lp);
+            }
+
         }
 
     }
@@ -114,9 +122,11 @@ public class CommonDialog extends Dialog {
      */
     public void setAlertDialogGravity(int gravity) {
         //定义宽度
-        final WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        attrs.gravity = gravity;
-        getWindow().setAttributes(attrs);
+        if (getWindow() != null) {
+            final WindowManager.LayoutParams attrs = getWindow().getAttributes();
+            attrs.gravity = gravity;
+            getWindow().setAttributes(attrs);
+        }
     }
 
     /**
@@ -213,6 +223,8 @@ public class CommonDialog extends Dialog {
 
     public void setAnimation(int style) {
         Window w = getWindow();
-        w.setWindowAnimations(style);
+        if (w != null) {
+            w.setWindowAnimations(style);
+        }
     }
 }

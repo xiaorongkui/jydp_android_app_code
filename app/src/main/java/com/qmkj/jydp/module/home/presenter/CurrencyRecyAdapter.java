@@ -2,8 +2,8 @@ package com.qmkj.jydp.module.home.presenter;
 
 import android.content.Context;
 
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 
 import java.util.List;
 

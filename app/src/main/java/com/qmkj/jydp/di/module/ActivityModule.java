@@ -3,7 +3,6 @@ package com.qmkj.jydp.di.module;
 import android.app.Activity;
 import android.content.Context;
 
-
 import com.qmkj.jydp.di.scope.ActivityScope;
 
 import dagger.Module;

@@ -12,6 +12,8 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.response.HomeDataRes;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.home.presenter.BannerImageLoader;
 import com.qmkj.jydp.module.home.presenter.HomeGrideAdapter;
 import com.qmkj.jydp.module.home.presenter.HomePresenter;
@@ -22,7 +24,6 @@ import com.qmkj.jydp.ui.widget.AutoHeighBanner;
 import com.qmkj.jydp.ui.widget.FullGridView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -163,7 +164,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             if (!TextUtils.isEmpty(listBean.getWebLinkUrl()) && listBean.getWebLinkUrl().startsWith("http")) {
                 Intent intent = WebActivity.getActivityIntent(mContext, listBean.getBusinessesName(), listBean
                         .getWebLinkUrl());
-                CommonUtil.gotoActivity(mContext, intent);
+                ActivityManager.gotoActivity(mContext, intent);
             }
         });
         if (systemBusinessesPartnerList.size() == 0) {
@@ -208,7 +209,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             if (model == null) return;
             if (!TextUtils.isEmpty(model.getWebLinkUrl())) {
                 Intent intent = WebActivity.getActivityIntent(mContext, model.getAdsTitle(), model.getWebLinkUrl());
-                CommonUtil.gotoActivity(mContext, intent);
+                ActivityManager.gotoActivity(mContext, intent);
             }
         });
         //设置轮播时间
@@ -246,7 +247,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
                     systemNoticeList.get(position).getContent());
             intent.putExtra(SystemNoticeDetailsActivity.ACTIVITY_TITLE_KEY, "公告详情");
-            CommonUtil.gotoActivity(mContext, intent);
+            ActivityManager.gotoActivity(mContext, intent);
         });
         upMarqueeView.startFlipping();
         if (systemNoticeList.size() == 0) {
@@ -271,8 +272,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         TextView tv_home_header_notice_more = itemView.findViewById(R.id.tv_home_header_notice_more);
 
         mTvNotice.setText(noticeListBean.getNoticeTitle());
-        tv_home_header_notice_more.setText(CommonUtil.getString(R.string.more));
-        tv_home_header_notice_more.setOnClickListener(v -> CommonUtil.gotoActivity(mContext, SystemNoticeActivity
+        tv_home_header_notice_more.setText(ResourcesManager.getString(R.string.more));
+        tv_home_header_notice_more.setOnClickListener(v -> ActivityManager.gotoActivity(mContext, SystemNoticeActivity
                 .class));
         notice_title_type_tv.setText(String.format("[%s]", noticeListBean.getNoticeType()));
         itemView.setTag(noticeListBean);

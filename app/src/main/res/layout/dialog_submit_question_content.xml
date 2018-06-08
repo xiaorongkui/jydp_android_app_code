@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="标题"
             android:textColor="@color/colorBlack_13"
-            android:textSize="@dimen/text_size_15" />
-            <TextView
+            android:textSize="@dimen/text_size_15"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*"
             android:textColor="@color/color_red_3"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_15"/>
 
 
     </LinearLayout>
@@ -36,31 +38,33 @@
         android:singleLine="true"
         android:background="@null"
         android:textSize="@dimen/text_size_14"
-        android:textCursorDrawable="@null" />
+        android:textCursorDrawable="@null"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/y0.5"
         android:layout_marginTop="@dimen/y10"
-        android:background="@color/color_gray_3" />
-    
+        android:background="@color/color_gray_3"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y20"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="内容"
             android:textColor="@color/colorBlack_13"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_15"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="*"
             android:textColor="@color/color_red_3"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_15"/>
 
 
     </LinearLayout>
@@ -74,12 +78,12 @@
         android:hint="问题内容，最多不超过200个字符"
         android:maxLength="200"
         android:textSize="@dimen/text_size_14"
-        android:textCursorDrawable="@null" />
+        android:textCursorDrawable="@null"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/y0.5"
         android:layout_marginTop="@dimen/y10"
-        android:background="@color/color_gray_3" />
+        android:background="@color/color_gray_3"/>
 
 </LinearLayout>

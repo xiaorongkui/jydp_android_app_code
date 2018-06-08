@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".module.mine.ChainWithdrawActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".module.mine.ChainWithdrawActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                     android:layout_marginLeft="@dimen/x15"
                     android:layout_marginRight="@dimen/x15"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_back_white" />
+                    android:src="@mipmap/ic_back_white"/>
             </RelativeLayout>
 
             <TextView
@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:textColor="@color/color_white_1"
                 android:textSize="@dimen/text_size_18"
-                tools:text="this is title" />
+                tools:text="this is title"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:textColor="@color/color_black_4"
-                    android:textSize="@dimen/text_size_13" />
+                    android:textSize="@dimen/text_size_13"/>
 
                 <ImageView
                     android:id="@+id/title_right"
@@ -70,7 +70,7 @@
                     android:layout_height="@dimen/y11"
                     android:layout_marginEnd="@dimen/x15"
                     android:src="@mipmap/ic_launcher"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"/>
             </RelativeLayout>
         </LinearLayout>
 
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_user_withdraw_bg" />
+            android:src="@mipmap/ic_user_withdraw_bg"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -124,7 +124,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/color_black_2"
                                 android:textSize="@dimen/text_size_24"
-                                android:text="0.00" />
+                                android:text="0.00"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                                 android:layout_marginTop="@dimen/y12"
                                 android:textColor="@color/color_black_10"
                                 android:textSize="@dimen/text_size_12"
-                                android:text="当前可提现数量" />
+                                android:text="当前可提现数量"/>
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -169,7 +169,7 @@
                             app:rightIconVisible="true"
                             app:rightText="选择链"
                             app:rightTextColor="@color/color_black_2"
-                            app:rightTextSize="@dimen/text_size_13" />
+                            app:rightTextSize="@dimen/text_size_13"/>
 
                         <com.qmkj.jydp.ui.widget.EditVItemView
                             android:id="@+id/withdraw_num_ev"
@@ -184,7 +184,7 @@
                             app:inputType="numberDecimal"
                             app:titleText="@string/withdraw_num"
                             app:maxLength="11"
-                            app:titleTopMargin="@dimen/x20" />
+                            app:titleTopMargin="@dimen/x20"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
                                 android:layout_width="@dimen/x11"
                                 android:layout_height="@dimen/y11"
                                 android:scaleType="fitXY"
-                                android:src="@mipmap/exchange_notice" />
+                                android:src="@mipmap/exchange_notice"/>
 
                             <TextView
                                 android:id="@+id/withdraw_num_notice_tv"
@@ -205,7 +205,7 @@
                                 android:layout_marginStart="@dimen/x5"
                                 android:text="@string/chain_withdraw_notice"
                                 android:textColor="@color/color_black_10"
-                                android:textSize="@dimen/text_size_10" />
+                                android:textSize="@dimen/text_size_10"/>
 
                         </LinearLayout>
 
@@ -224,7 +224,7 @@
                             app:titleText="@string/verification_code"
                             app:maxLength="6"
                             app:inputType="number"
-                            app:titleTopMargin="@dimen/x20" />
+                            app:titleTopMargin="@dimen/x20"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -236,7 +236,7 @@
                                 android:layout_width="@dimen/x11"
                                 android:layout_height="@dimen/y11"
                                 android:scaleType="fitXY"
-                                android:src="@mipmap/exchange_notice" />
+                                android:src="@mipmap/exchange_notice"/>
 
                             <TextView
                                 android:id="@+id/verification_code_notice_tv"
@@ -245,7 +245,7 @@
                                 android:layout_marginStart="@dimen/x5"
                                 android:text="@string/chain_withdraw_notice"
                                 android:textColor="@color/color_black_10"
-                                android:textSize="@dimen/text_size_10" />
+                                android:textSize="@dimen/text_size_10"/>
 
                         </LinearLayout>
 
@@ -263,7 +263,7 @@
                             app:titleEndText="@string/asterisk"
                             app:inputType="textPassword"
                             app:digits="@string/text_digits"
-                            app:titleTopMargin="@dimen/x20" />
+                            app:titleTopMargin="@dimen/x20"/>
 
                     </LinearLayout>
 
@@ -276,7 +276,7 @@
                     android:layout_marginEnd="@dimen/x15"
                     android:layout_marginStart="@dimen/x15"
                     android:layout_marginTop="@dimen/y10"
-                    android:text="@string/chain_withdraw_now" />
+                    android:text="@string/chain_withdraw_now"/>
             </LinearLayout>
 
         </ScrollView>

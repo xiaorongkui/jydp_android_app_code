@@ -7,7 +7,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.DealerManagementRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.SelectorFactory;
 
 /**
@@ -17,10 +17,10 @@ import com.qmkj.jydp.util.SelectorFactory;
  */
 public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRes.OtcTransactionPendOrderListBean> {
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-            .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
-            .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
-            .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
-            .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+            .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x12))
+            .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_black_1))
+            .setStrokeWidth((int) ResourcesManager.getDimen(R.dimen.x1))
+            .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
 
     public DealerManagementRecyAdapter(Context context) {
         super(context);
@@ -44,20 +44,20 @@ public class DealerManagementRecyAdapter extends XBaseAdapter<DealerManagementRe
 
         dealer_management_name_tv.setText(item.getCurrencyName());
         dealer_management_area_tv.setText(item.getArea());
-        dealer_management_ratio_tv.setText(item.getPendingRatio()+"");
-        dealer_management_number_tv.setText(item.getMinNumber()+"~"+item.getMaxNumber());
+        dealer_management_ratio_tv.setText(item.getPendingRatio() + "");
+        dealer_management_number_tv.setText(item.getMinNumber() + "~" + item.getMaxNumber());
 
         //挂单类型 1：出售，2：回购
-        switch (item.getOrderType()){
+        switch (item.getOrderType()) {
             case 1:
                 dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_buy_bg);
                 dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
-                dealer_management_buy_tv.setText(CommonUtil.getString(R.string.sell));
+                dealer_management_buy_tv.setText(ResourcesManager.getString(R.string.sell));
                 break;
             case 2:
                 dealer_management_buy_tv.setBackgroundResource(R.drawable.shape_shell_bg);
                 dealer_management_buy_tv.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
-                dealer_management_buy_tv.setText(CommonUtil.getString(R.string.buy_2));
+                dealer_management_buy_tv.setText(ResourcesManager.getString(R.string.buy_2));
                 break;
         }
 

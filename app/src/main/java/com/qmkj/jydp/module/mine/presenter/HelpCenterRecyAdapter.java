@@ -3,10 +3,9 @@ package com.qmkj.jydp.module.mine.presenter;
 import android.content.Context;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.HelpCenterBean;
-import com.qmkj.jydp.module.mine.view.HelpCenterActivity;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package com.qmkj.jydp.common;
 import com.qmkj.jydp.util.MD5Util;
 
 /**
- * APP参数配置
+ * APP网络请求基本参数配置
  */
 public final class AppNetConfig {
     //正式服地址 http://www.extez.com/

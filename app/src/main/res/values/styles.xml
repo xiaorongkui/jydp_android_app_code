@@ -116,7 +116,7 @@
 
     <!--最高高度ListView-->
     <declare-styleable name="ListViewMaxHeight">
-        <attr name="maxHeight" format="dimension" />
+        <attr name="maxHeight" format="dimension"/>
     </declare-styleable>
 
 

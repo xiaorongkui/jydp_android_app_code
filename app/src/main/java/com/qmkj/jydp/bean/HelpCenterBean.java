@@ -4,9 +4,10 @@ import java.io.Serializable;
 
 /**
  * 创建日期：2018/5/23
+ *
  * @author Yi Shan Xiang
- * 文件名称： HelpCenterBean
- * email: 380948730@qq.com
+ *         文件名称： HelpCenterBean
+ *         email: 380948730@qq.com
  */
 
 public class HelpCenterBean implements Serializable {

@@ -9,7 +9,6 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.qmkj.jydp.base.BaseRxPresenter;
@@ -24,7 +23,7 @@ import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.request.RegisterReq;
 import com.qmkj.jydp.module.login.modle.LoginContract;
 import com.qmkj.jydp.net.api.LoginService;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.FileUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
 import com.qmkj.jydp.util.ToastUtil;
@@ -138,7 +137,7 @@ public class LoginPresenter extends BaseRxPresenter<LoginContract.UpdateView> {
             @Override
             protected void onAllPermissionFinish() {
                 FinalHttp finalHttp = new FinalHttp();
-                String target = CommonUtil.createDir("download", CommonUtil.getFileNameFromUrl(url));
+                String target = FileUtil.createDir("download", FileUtil.getFileNameFromUrl(url));
                 finalHttp.download(url, target, false, new AjaxCallBack<File>() {
 
                     @Override

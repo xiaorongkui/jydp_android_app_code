@@ -1,8 +1,5 @@
 package com.qmkj.jydp.bean.request;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * author：rongkui.xiao --2018/5/23
  * email：dovexiaoen@163.com

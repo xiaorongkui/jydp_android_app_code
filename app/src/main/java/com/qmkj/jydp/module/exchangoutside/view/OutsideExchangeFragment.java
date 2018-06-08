@@ -19,12 +19,15 @@ import com.qmkj.jydp.bean.request.OutSideExchangeReq;
 import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangeAdapter;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxBus;
 
@@ -106,9 +109,9 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
         //状态栏占用的兼容性
         if (Build.VERSION.SDK_INT >= 21) {
             View statusView = new View(getActivity());
-            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
+            statusView.setBackgroundColor(ResourcesManager.getColor(R.color.status_bar_color));
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup
-                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
+                    .LayoutParams.MATCH_PARENT, SystemManager.getStatusBarHeight());
             title_ll.addView(statusView, 0, lp);
         }
     }
@@ -128,11 +131,11 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
             LogUtil.i("view=" + view.getId() + "position=" + position);
             switch (view.getId()) {
                 case R.id.exchange_outside_go_exchange_tv:
-                    if (TextUtils.isEmpty(CommonUtil.getToken())) {
+                    if (TextUtils.isEmpty(DataManager.getToken())) {
                         loginCommonDialog = new CommonDialog(mContext);
                         loginCommonDialog.setContentText("请先登录");
                         loginCommonDialog.setOnPositiveButtonClickListener((Dialog dialog, View v) -> {
-                            CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                            ActivityManager.gotoActivity(mContext, LoginActivity.class);
                             loginCommonDialog.dismiss();
                         });
                         loginCommonDialog.show();
@@ -157,7 +160,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                             sellIntent.putExtra(Constants.INTENT_PARAMETER_3, dealerName);
                             sellIntent.putExtra(Constants.INTENT_PARAMETER_4, orderListBean.getMinNumber() + "");
                             sellIntent.putExtra(Constants.INTENT_PARAMETER_5, orderListBean.getMaxNumber() + "");
-                            CommonUtil.gotoActivity(mContext, sellIntent);
+                            ActivityManager.gotoActivity(mContext, sellIntent);
                             break;
                     }
             }
@@ -240,7 +243,7 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                 buyIntent.putExtra(Constants.INTENT_PARAMETER_4, userId);
                 buyIntent.putExtra(Constants.INTENT_PARAMETER_5, orderListBean.getMinNumber() + "");
                 buyIntent.putExtra(Constants.INTENT_PARAMETER_6, orderListBean.getMaxNumber() + "");
-                CommonUtil.gotoActivity(mContext, buyIntent);
+                ActivityManager.gotoActivity(mContext, buyIntent);
                 break;
         }
     }

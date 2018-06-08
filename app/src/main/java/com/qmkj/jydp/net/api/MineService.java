@@ -152,7 +152,9 @@ public interface MineService {
     //场外交易挂单
     @Multipart
     @POST("wap/dealerManagment/otcRelease")
-    Observable<BaseRes<Object>> sendOtcReleaseInfo(@Part("data") RequestBody req, @Part("alipayImageUrl\"; filename = " +
-            "\"aliPay.jpg") RequestBody frontFile, @Part("wechatImageUrl\"; filename = \"weixinPay.jpg") RequestBody backFile);
+    Observable<BaseRes<Object>> sendOtcReleaseInfo(@Part("data") RequestBody req, @Part("alipayImageUrl\"; filename =" +
+            " " +
+            "\"aliPay.jpg") RequestBody frontFile, @Part("wechatImageUrl\"; filename = \"weixinPay.jpg") RequestBody
+                                                           backFile);
 
 }

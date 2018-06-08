@@ -12,9 +12,9 @@ import com.qmkj.jydp.common.NetResponseCode;
 import com.qmkj.jydp.di.component.DaggerFragmentComponent;
 import com.qmkj.jydp.di.component.FragmentComponent;
 import com.qmkj.jydp.di.module.FragmentModule;
+import com.qmkj.jydp.manager.ActivityManager;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import javax.inject.Inject;
@@ -77,7 +77,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
                     loginCommonDialog = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
                     loginCommonDialog.setContentText("登录失效，请登录");
                     loginCommonDialog.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
-                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        ActivityManager.gotoActivity(mContext, LoginActivity.class);
                         loginCommonDialog.dismiss();
                     });
                     loginCommonDialog.show();

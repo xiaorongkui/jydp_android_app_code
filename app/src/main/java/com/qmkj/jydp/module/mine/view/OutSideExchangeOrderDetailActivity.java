@@ -12,11 +12,12 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordDetailsRes;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
@@ -98,7 +99,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.order_detail));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.order_detail));
     }
 
     @Override
@@ -135,7 +136,7 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         if (res.getDealStatus() == 4) {
             text = "已完成";
             register_bt.setVisibility(View.GONE);
-        }else if(res.getDealStatus() == 5){
+        } else if (res.getDealStatus() == 5) {
             text = "已撤销";
             register_bt.setVisibility(View.GONE);
         } else {
@@ -145,31 +146,38 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         order_detail_status_tv.setText(text);
         outside_exchange_recode_order_num_tv.setText(res.getOtcOrderNo());
         exchange_recode_detail_name_civ.setText(res.getCurrencyName());
-        exchange_recode_detail_amount_civ.setRightText(NumberUtil.doubleFormat(Double.parseDouble(res.getCurrencyNumber()+""),4));
-        exchange_recode_detail_money_civ.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(res.getCurrencyTotalPrice()+""),2));
+        exchange_recode_detail_amount_civ.setRightText(NumberUtil.doubleFormat(Double.parseDouble(res
+                .getCurrencyNumber() + ""), 4));
+        exchange_recode_detail_money_civ.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(res
+                .getCurrencyTotalPrice() + ""), 2));
         String text_type = null;
         switch (res.getDealType()) {
             case 1:
                 if (type == MineRecodeActivity.RECODE_TYPE_NORMAL) { //普通用户
                     text_type = "购买";
-                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color
+                            .color_green_3));
                 } else if (type == MineRecodeActivity.RECODE_TYPE_AGENCY) { //经销商
                     text_type = "出售";
-                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color
+                            .color_red_3));
                 }
                 break;
             case 2:
                 if (type == MineRecodeActivity.RECODE_TYPE_NORMAL) { //普通用户
                     text_type = "出售";
-                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_red_3));
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color
+                            .color_red_3));
                 } else if (type == MineRecodeActivity.RECODE_TYPE_AGENCY) { //经销商
                     text_type = "回购";
-                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_green_3));
+                    exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color
+                            .color_green_3));
                 }
                 break;
             case 3:
                 text_type = "撤销";
-                exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color.color_gray_3));
+                exchange_recode_detail_type_civ.setRightTextColor(mContext.getResources().getColor(R.color
+                        .color_gray_3));
                 break;
         }
 
@@ -177,8 +185,10 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
         exchange_recode_detail_area_civ.setRightText(res.getArea());
         exchange_recode_detail_dealer_alipay_name_civ.setRightText(res.getDealerName());
         exchange_recode_detail_dealer_alipay_phone_civ.setRightText(res.getPhoneNumber());
-        exchange_recode_detail_apply_time_civ.setRightText(DateUtil.longToTimeStr(res.getAddTime(), DateUtil.dateFormat2));
-        exchange_recode_detail_finish_time_civ.setRightText(DateUtil.longToTimeStr(res.getUpdateTime(), DateUtil.dateFormat2));
+        exchange_recode_detail_apply_time_civ.setRightText(DateUtil.longToTimeStr(res.getAddTime(), DateUtil
+                .dateFormat2));
+        exchange_recode_detail_finish_time_civ.setRightText(DateUtil.longToTimeStr(res.getUpdateTime(), DateUtil
+                .dateFormat2));
 
         //收款方式标识：1：银行卡，2：支付宝，3：微信
         switch (res.getPaymentType()) {
@@ -223,7 +233,8 @@ public class OutSideExchangeOrderDetailActivity extends BaseMvpActivity<MinePres
                         }
                         OutSideDetailReq req = new OutSideDetailReq();
                         req.setOtcOrderNo(data.getOtcOrderNo());
-                        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser().getIsDealer() == 2) {   //=2 为经销商
+                        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser().getIsDealer()
+                                == 2) {   //=2 为经销商
                             presenter.getOutSideOrderTakeMoney(req, SEND_REQUEST, true);
                         } else {
                             presenter.getOutSideOrderTakeUser(req, SEND_REQUEST, true);

@@ -16,10 +16,10 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.OtcReleaseReq;
 import com.qmkj.jydp.bean.request.SendAdsReq;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.BitmapCompressTask;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
 import com.qmkj.jydp.util.StringUtil;
@@ -33,7 +33,7 @@ import butterknife.BindView;
  */
 
 public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
-    public static final int ACTIVITY_RESULT_CODE =200;
+    public static final int ACTIVITY_RESULT_CODE = 200;
 
     private static final String PAY_BY_BANK = "1";
     private static final String PAY_BY_ZHIFUBAO = "2";
@@ -49,27 +49,27 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
     ShadowLayout weixin_layout;
 
     @BindView(R.id.receivables_bank_card_num_eiv) //银行卡号
-    EditVItemView receivables_bank_card_num_eiv;
+            EditVItemView receivables_bank_card_num_eiv;
     @BindView(R.id.receivables_bank_name_eiv)  //银行名称
-    EditVItemView receivables_bank_name_eiv;
+            EditVItemView receivables_bank_name_eiv;
     @BindView(R.id.receivables_bank_branch_name_eiv)//支行名称
-    EditVItemView receivables_bank_branch_name_eiv;
+            EditVItemView receivables_bank_branch_name_eiv;
     @BindView(R.id.receivables_bank_reserve_name_eiv)//银行预留姓名
-    EditVItemView receivables_bank_reserve_name_eiv;
+            EditVItemView receivables_bank_reserve_name_eiv;
     @BindView(R.id.receivables_bank_reserve_phone_eiv) //银行预留电话
-    EditVItemView receivables_bank_reserve_phone_eiv;
+            EditVItemView receivables_bank_reserve_phone_eiv;
 
 
     @BindView(R.id.receivables_alipay_account_eiv)  //支付宝账号
-    EditVItemView receivables_alipay_account_eiv;
+            EditVItemView receivables_alipay_account_eiv;
     @BindView(R.id.receivables_alipay_receipt_code_eiv)//收款码
-    EditVItemView receivables_alipay_receipt_code_eiv;
+            EditVItemView receivables_alipay_receipt_code_eiv;
 
 
     @BindView(R.id.receivables_wechat_account_eiv) //微信账号
-    EditVItemView receivables_wechat_account_eiv;
+            EditVItemView receivables_wechat_account_eiv;
     @BindView(R.id.receivables_wechat_receipt_code_eiv) //收款码
-    EditVItemView receivables_wechat_receipt_code_eiv;
+            EditVItemView receivables_wechat_receipt_code_eiv;
 
     @BindView(R.id.receivables_confirm_bt)
     Button receivables_confirm_bt;
@@ -93,7 +93,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.receiables_info));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.receiables_info));
 
     }
 
@@ -106,7 +106,8 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
     protected void initView() {
         releaseReq = new OtcReleaseReq();
         receivables_confirm_bt.setOnClickListener(this);
-        SendAdsReq sendAdsReq = (SendAdsReq) getIntent().getSerializableExtra(PublishAdvertisementActivity.MESSAGE_NEXT);
+        SendAdsReq sendAdsReq = (SendAdsReq) getIntent().getSerializableExtra(PublishAdvertisementActivity
+                .MESSAGE_NEXT);
 
         releaseReq.setCurrencyId(sendAdsReq.getCurrencyId());
         releaseReq.setMinNumber(sendAdsReq.getMinNumber());
@@ -116,13 +117,13 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
 
 
         msg = sendAdsReq.getSelectList();
-        if(msg.contains(PAY_BY_BANK)){  //银行支付
+        if (msg.contains(PAY_BY_BANK)) {  //银行支付
             bank_layout.setVisibility(View.VISIBLE);
         }
-        if(msg.contains(PAY_BY_ZHIFUBAO)){ //支付宝支付
+        if (msg.contains(PAY_BY_ZHIFUBAO)) { //支付宝支付
             alipay_layout.setVisibility(View.VISIBLE);
         }
-        if(msg.contains(PAY_BY_WEIXIN)){ //微信支付
+        if (msg.contains(PAY_BY_WEIXIN)) { //微信支付
             weixin_layout.setVisibility(View.VISIBLE);
         }
 
@@ -133,7 +134,6 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         receivables_bank_branch_name_eiv.setEditTextNoFu(30);
         receivables_bank_name_eiv.setEditTextNoFu(15);
         receivables_bank_reserve_name_eiv.setEditTextNoFu(20);
-
 
 
         receivables_alipay_receipt_code_eiv.setEditTextViewFocuseAble(false);
@@ -159,7 +159,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.receivables_confirm_bt:
                 sentRequest();
                 break;
@@ -190,30 +190,30 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
         String wechat_receipt_code = receivables_wechat_receipt_code_eiv.getEditTextString();
 
 
-        if(msg.contains(PAY_BY_BANK)){
+        if (msg.contains(PAY_BY_BANK)) {
             if (bankCheck(bank_card_num_eiv, bank_name, branch_name, reserve_name, phone)) return;
         }
-        if(msg.contains(PAY_BY_ZHIFUBAO)){
+        if (msg.contains(PAY_BY_ZHIFUBAO)) {
             if (aliCheck(alipay_account)) return;
         }
-        if(msg.contains(PAY_BY_WEIXIN)){
+        if (msg.contains(PAY_BY_WEIXIN)) {
             if (weiChatCheck(wechat_account)) return;
         }
 
-        presenter.sendOtcReleaseInfo(releaseReq,aliPicture,weiChatPicture,1,true);
+        presenter.sendOtcReleaseInfo(releaseReq, aliPicture, weiChatPicture, 1, true);
     }
 
 
     private boolean weiChatCheck(String wechat_account) {
-        if(isWeichatCompressing){
+        if (isWeichatCompressing) {
             toast("图片正在压缩，请稍等");
             return true;
         }
-        if(StringUtil.isNull(wechat_account)){
+        if (StringUtil.isNull(wechat_account)) {
             toast("微信账号不能为空");
             return true;
         }
-        if(weiChatPicture==null||weiChatPicture.length<1){
+        if (weiChatPicture == null || weiChatPicture.length < 1) {
             toast("请选择微信收款二维码");
             return true;
         }
@@ -222,15 +222,15 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
     }
 
     private boolean aliCheck(String alipay_account) {
-        if(isAliCompressing){
+        if (isAliCompressing) {
             toast("图片正在压缩，请稍等");
             return true;
         }
-        if(StringUtil.isNull(alipay_account)){
+        if (StringUtil.isNull(alipay_account)) {
             toast("支付宝账号不能为空");
             return true;
         }
-        if(aliPicture==null||aliPicture.length<1){
+        if (aliPicture == null || aliPicture.length < 1) {
             toast("请选择支付宝收款二维码");
             return true;
         }
@@ -240,6 +240,7 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
 
     /**
      * 检查银行参数合法性
+     *
      * @param bank_card_num_eiv
      * @param bank_name
      * @param branch_name
@@ -247,24 +248,25 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
      * @param phone
      * @return
      */
-    private boolean bankCheck(String bank_card_num_eiv, String bank_name, String branch_name, String reserve_name, String phone) {
-        if(StringUtil.isNull(bank_card_num_eiv)){
+    private boolean bankCheck(String bank_card_num_eiv, String bank_name, String branch_name, String reserve_name,
+                              String phone) {
+        if (StringUtil.isNull(bank_card_num_eiv)) {
             toast("银行卡号不能为空");
             return true;
         }
-        if(StringUtil.isNull(bank_name)){
+        if (StringUtil.isNull(bank_name)) {
             toast("银行名称不能为空");
             return true;
         }
-        if(StringUtil.isNull(branch_name)){
+        if (StringUtil.isNull(branch_name)) {
             toast("支行名称不能为空");
             return true;
         }
-        if(StringUtil.isNull(reserve_name)){
+        if (StringUtil.isNull(reserve_name)) {
             toast("银行预留姓名不能为空");
             return true;
         }
-        if(StringUtil.isNull(phone)){
+        if (StringUtil.isNull(phone)) {
             toast("银行预留电话不能为空");
             return true;
         }
@@ -294,11 +296,11 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {
-                    receivables_alipay_receipt_code_eiv.setEditTextView(uri+"");
+                    receivables_alipay_receipt_code_eiv.setEditTextView(uri + "");
                     aliPicture = bytes;
                     isAliCompressing = false;
 
-                    if (alipay_bitmap != null && !alipay_bitmap.isRecycled()) {
+                    if (!alipay_bitmap.isRecycled()) {
                         alipay_bitmap.recycle();
                     }
                 });
@@ -321,10 +323,10 @@ public class ReceivablesActivity extends BaseMvpActivity<MinePresenter> {
                 //压缩图片
                 BitmapCompressTask bitmapCompressTask = new BitmapCompressTask();
                 bitmapCompressTask.setOnCompressFinishListener(bytes -> {
-                    receivables_wechat_receipt_code_eiv.setEditTextView(uri+"");
+                    receivables_wechat_receipt_code_eiv.setEditTextView(uri + "");
                     weiChatPicture = bytes;
                     isWeichatCompressing = false;
-                    if (weichat_bitmap != null && !weichat_bitmap.isRecycled()) {
+                    if (!weichat_bitmap.isRecycled()) {
                         weichat_bitmap.recycle();
                     }
                 });

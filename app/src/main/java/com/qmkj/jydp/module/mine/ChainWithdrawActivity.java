@@ -1,12 +1,8 @@
 package com.qmkj.jydp.module.mine;
 
 import android.os.Build;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -15,17 +11,19 @@ import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.request.UserWithdrawReq;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.bean.response.UserCoinWithdrawInfo;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.dialog.UserWithdrawChooseCurrencyDialog;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.util.CheckTextUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.MyTextWatcher;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.StringUtil;
 
-import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -69,7 +67,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.chain_withdraw));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.chain_withdraw));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.color_bule_2));
         }
@@ -85,22 +83,26 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
 
         withdrawNumEv.setEditTextTextWatch(new MyTextWatcher(withdrawNumEv.getEditTextView(), 2));
 
-        LoginRes.UserBean userBean = CommonUtil.getLoginInfo().getUser();
-        verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + StringUtil.formatPhoneNum(userBean.getUserPhone()) + "发送一条短信验证码");
+        LoginRes.UserBean userBean = DataManager.getLoginInfo().getUser();
+        verificationCodeNoticeTv.setText("将向手机" + userBean.getPhoneAreaCode() + " " + StringUtil.formatPhoneNum
+                (userBean.getUserPhone()) + "发送一条短信验证码");
         codeTimeDownTv = verificationCodeEv.getView(R.id.edit_right_tv);
         chooseCurrencyCv.setOnClickListener(v -> {
-            UserWithdrawChooseCurrencyDialog userWithdrawChooseCurrencyDialog = new UserWithdrawChooseCurrencyDialog(mContext, userCoinWithdrawInfo.getUserCoinConfigList());
+            UserWithdrawChooseCurrencyDialog userWithdrawChooseCurrencyDialog = new UserWithdrawChooseCurrencyDialog
+                    (mContext, userCoinWithdrawInfo.getUserCoinConfigList());
             userWithdrawChooseCurrencyDialog.setOnChooseCurrencyListener(bean -> {
                 chooseInfo = bean;
-                LogUtil.e(Double.parseDouble(bean.getCurrencyNumber()+"")+"");
-                canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(bean.getCurrencyNumber()+""),4) + "");
+                LogUtil.e(Double.parseDouble(bean.getCurrencyNumber() + "") + "");
+                canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(bean.getCurrencyNumber() + ""),
+                        4) + "");
                 chooseCurrencyCv.setRightText(bean.getCurrencyName());
-                withdrawNumNoticeTv.setText("当前链最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean.getFreeCurrencyNumber() + "需人工审核");
+                withdrawNumNoticeTv.setText("当前链最低提现" + bean.getMinCurrencyNumber() + "个，超过" + bean
+                        .getFreeCurrencyNumber() + "需人工审核");
             });
             userWithdrawChooseCurrencyDialog.show();
         });
         codeTimeDownTv.setOnClickListener(v -> {
-            CommonUtil.hideInputWindow(mContext);
+            SystemManager.hideInputWindow(mContext);
             getVerificationCode();
         });
         withdrawBtn.setOnClickListener(v -> withdrawNow());
@@ -122,8 +124,8 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
      * 获取验证码
      */
     private void getVerificationCode() {
-        String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
-        String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
+        String phone = DataManager.getLoginInfo().getUser().getUserPhone();
+        String phoneAreaCode = DataManager.getLoginInfo().getUser().getPhoneAreaCode();
         if (phone.isEmpty()) {
             toast("手机号不能为空");
             return;
@@ -141,7 +143,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             toast("请先选择链");
             return;
         }
-        String number =withdrawNumEv.getEditTextString();
+        String number = withdrawNumEv.getEditTextString();
         String buyPwd = passwordEv.getEditTextString();
         int currencyId = chooseInfo.getCurrencyId();
         String validateCode = verificationCodeEv.getEditTextString();
@@ -150,7 +152,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             toast("请先选择链");
             return;
         }
-        if(StringUtil.isNull(number)){
+        if (StringUtil.isNull(number)) {
             toast("提链数量不能为空");
             return;
         }
@@ -160,7 +162,7 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
             return;
         }
 
-        String codeText = CommonUtil.checkCode(validateCode);
+        String codeText = CheckTextUtil.checkCode(validateCode);
         if (!TextUtils.isEmpty(codeText)) {
             toast(codeText);
             return;
@@ -195,12 +197,14 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
         switch (tag) {
             case 1:
                 userCoinWithdrawInfo = (UserCoinWithdrawInfo) response;
-                if(userCoinWithdrawInfo.getUserCoinConfigList()!=null){
+                if (userCoinWithdrawInfo.getUserCoinConfigList() != null) {
                     chooseInfo = userCoinWithdrawInfo.getUserCoinConfigList().get(0);
-                    LogUtil.e(Double.parseDouble(chooseInfo.getCurrencyNumber()+"")+"");
-                    canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(chooseInfo.getCurrencyNumber()+""),4)+ "");
+                    LogUtil.e(Double.parseDouble(chooseInfo.getCurrencyNumber() + "") + "");
+                    canWithdrawNumTv.setText(NumberUtil.doubleFormat(Double.parseDouble(chooseInfo.getCurrencyNumber
+                            () + ""), 4) + "");
                     chooseCurrencyCv.setRightText(chooseInfo.getCurrencyName());
-                    withdrawNumNoticeTv.setText("当前链最低提现" + chooseInfo.getMinCurrencyNumber() + "个，超过" + chooseInfo.getFreeCurrencyNumber() + "需人工审核");
+                    withdrawNumNoticeTv.setText("当前链最低提现" + chooseInfo.getMinCurrencyNumber() + "个，超过" + chooseInfo
+                            .getFreeCurrencyNumber() + "需人工审核");
 
                 }
                 break;
@@ -233,11 +237,11 @@ public class ChainWithdrawActivity extends BaseMvpActivity<MinePresenter> {
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
                 (splashTotalCountdownTime + 1).subscribe(integer -> {
             if (integer == 0) {
-                codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
                 codeTimeDownTv.setEnabled(true);
                 codeTimeDownTv.setAlpha(1);
             } else {
-                codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                codeTimeDownTv.setText(String.format(ResourcesManager.getString(R.string.get_rigister_getvertify_code),
                         integer));
                 codeTimeDownTv.setEnabled(false);
                 codeTimeDownTv.setAlpha(0.5f);

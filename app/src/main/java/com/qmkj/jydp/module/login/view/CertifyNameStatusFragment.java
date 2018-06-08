@@ -13,10 +13,10 @@ import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.request.ReCertificetionReq;
 import com.qmkj.jydp.bean.response.CertificetionInfoRes;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -114,8 +114,8 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
                 setCertifyNameStatus(0);
                 break;
             case 2://审核通过
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
-                AppManager.getInstance().removeCurrent();
+                ActivityManager.gotoActivity(mContext, MainActivity.class);
+                ActivityManager.getInstance().removeCurrent();
                 break;
             case 3://审核拒绝
                 setCertifyNameStatus(2);
@@ -144,14 +144,14 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.certify_check_home_bt:
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
-                AppManager.getInstance().removeCurrent();
+                ActivityManager.gotoActivity(mContext, MainActivity.class);
+                ActivityManager.getInstance().removeCurrent();
                 break;
             case R.id.certify_check_status_bt://重新认证
                 switch (status) {
                     case 2://审核通过
-                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
-                        AppManager.getInstance().removeCurrent();
+                        ActivityManager.gotoActivity(mContext, LoginActivity.class);
+                        ActivityManager.getInstance().removeCurrent();
                         break;
                     case 3://审核拒绝
                         getReCertificationStaus();
@@ -169,16 +169,16 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
 
     public void setCertifyNameStatus(int index) {
         SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x3))
-                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+                .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x3))
+                .setStrokeWidth((int) ResourcesManager.getDimen(R.dimen.x1))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
         switch (index) {
             case 0://审核中
-                certifyCheckHomeBt.setBackground(CommonUtil.getDrawable(R.drawable.shape_btn_bule));
-                shapeSelector.setDefaultStrokeColor(CommonUtil.getColor(R.color.color_bule_1));
+                certifyCheckHomeBt.setBackground(ResourcesManager.getDrawable(R.drawable.shape_btn_bule));
+                shapeSelector.setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_bule_1));
                 certifyCheckStatusBt.setBackground(shapeSelector.create());
-                certifyCheckStatusBt.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
-                certifyCheckStatusBt.setText(CommonUtil.getString(R.string.re_certification));
+                certifyCheckStatusBt.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
+                certifyCheckStatusBt.setText(ResourcesManager.getString(R.string.re_certification));
                 certifyNameStatusIv.setImageResource(R.mipmap.certify_name_check);
                 checkMarkLl.setVisibility(View.GONE);
                 certifyCheckStatusBt.setVisibility(View.GONE);
@@ -188,19 +188,19 @@ public class CertifyNameStatusFragment extends BaseMvpFragment<LoginPresenter> {
                 certifyCheckHomeBt.setLayoutParams(layoutParams);
                 break;
             case 1://审核通过
-                certifyCheckHomeBt.setBackground(CommonUtil.getDrawable(R.drawable.shape_btn_green));
-                shapeSelector.setDefaultStrokeColor(CommonUtil.getColor(R.color.color_green_2));
+                certifyCheckHomeBt.setBackground(ResourcesManager.getDrawable(R.drawable.shape_btn_green));
+                shapeSelector.setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_green_2));
                 certifyCheckStatusBt.setBackground(shapeSelector.create());
-                certifyCheckStatusBt.setTextColor(CommonUtil.getColor(R.color.color_green_3));
-                certifyCheckStatusBt.setText(CommonUtil.getString(R.string.login));
+                certifyCheckStatusBt.setTextColor(ResourcesManager.getColor(R.color.color_green_3));
+                certifyCheckStatusBt.setText(ResourcesManager.getString(R.string.login));
                 certifyNameStatusIv.setImageResource(R.mipmap.certify_name_check_pass);
                 break;
             case 2://审核拒绝
-                certifyCheckHomeBt.setBackground(CommonUtil.getDrawable(R.drawable.shape_btn_red));
-                shapeSelector.setDefaultStrokeColor(CommonUtil.getColor(R.color.color_red_2));
+                certifyCheckHomeBt.setBackground(ResourcesManager.getDrawable(R.drawable.shape_btn_red));
+                shapeSelector.setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_red_2));
                 certifyCheckStatusBt.setBackground(shapeSelector.create());
-                certifyCheckStatusBt.setTextColor(CommonUtil.getColor(R.color.color_red_2));
-                certifyCheckStatusBt.setText(CommonUtil.getString(R.string.re_certification));
+                certifyCheckStatusBt.setTextColor(ResourcesManager.getColor(R.color.color_red_2));
+                certifyCheckStatusBt.setText(ResourcesManager.getString(R.string.re_certification));
                 certifyNameStatusIv.setImageResource(R.mipmap.certify_name_check_refuse);
                 checkMarkLl.setVisibility(View.VISIBLE);
                 checkMarkContentTv.setText(checkInfo.getIdentification().getRemark());

@@ -12,7 +12,7 @@ import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.di.component.AppComponent;
 import com.qmkj.jydp.di.component.DaggerAppComponent;
 import com.qmkj.jydp.di.module.AppModule;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
 import com.qmkj.jydp.util.DensityHelper;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -21,9 +21,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by Yun on 2018/3/13 0013.
- */
 public class JYDPExchangeApp extends Application {
     private static JYDPExchangeApp context;
     private static AppComponent mAppComponent;
@@ -95,9 +92,7 @@ public class JYDPExchangeApp extends Application {
      * 退出应用
      */
     public static void exit() {
-        AppManager.getInstance().removeCurrent();
-        AppManager.getInstance().clear();
-        System.exit(0);
+        ActivityManager.exit();
     }
 
     @Override

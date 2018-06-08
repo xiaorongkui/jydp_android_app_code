@@ -10,10 +10,11 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.HelpCenterBean;
 import com.qmkj.jydp.common.AppNetConfig;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.home.view.WebActivity;
 import com.qmkj.jydp.module.mine.presenter.HelpCenterRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
-import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.help_center));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.help_center));
     }
 
     @Override
@@ -61,12 +62,12 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
 
     private void initRecycleView() {
         mData = new ArrayList<>();
-        mData.add(new HelpCenterBean("注册协议","101010"));
-        mData.add(new HelpCenterBean("联系我们","101013"));
-        mData.add(new HelpCenterBean("公司简介","101014"));
-        mData.add(new HelpCenterBean("充值流程","101015"));
-        mData.add(new HelpCenterBean("注册指南","101016"));
-        mData.add(new HelpCenterBean("交易指南","101017"));
+        mData.add(new HelpCenterBean("注册协议", "101010"));
+        mData.add(new HelpCenterBean("联系我们", "101013"));
+        mData.add(new HelpCenterBean("公司简介", "101014"));
+        mData.add(new HelpCenterBean("充值流程", "101015"));
+        mData.add(new HelpCenterBean("注册指南", "101016"));
+        mData.add(new HelpCenterBean("交易指南", "101017"));
         helpCenterRecyAdapter = new HelpCenterRecyAdapter(mContext, mData, R.layout.single_click_item);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -77,8 +78,9 @@ public class HelpCenterActivity extends BaseMvpActivity<MinePresenter> {
         helpCenterRv.setAdapter(helpCenterRecyAdapter);
         helpCenterRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
             //进去详情界面
-            Intent intent = WebActivity.getActivityIntent(mContext, mData.get(position).getName()+"详情", AppNetConfig.HELP_CENTER_URL + mData.get(position).getId());
-            CommonUtil.gotoActivity(mContext, intent);
+            Intent intent = WebActivity.getActivityIntent(mContext, mData.get(position).getName() + "详情",
+                    AppNetConfig.HELP_CENTER_URL + mData.get(position).getId());
+            ActivityManager.gotoActivity(mContext, intent);
         });
     }
 

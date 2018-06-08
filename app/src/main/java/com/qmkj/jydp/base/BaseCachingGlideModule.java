@@ -24,7 +24,6 @@ import java.io.InputStream;
 
 /**
  * Created by Rongkui.xiao on 2017/5/19.
- *
  */
 @GlideModule
 public final class BaseCachingGlideModule extends AppGlideModule {

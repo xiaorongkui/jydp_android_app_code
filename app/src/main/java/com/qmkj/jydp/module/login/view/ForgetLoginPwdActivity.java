@@ -16,10 +16,10 @@ import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.bean.request.ForgetPwdReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.common.Constants;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditVItemView;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -76,7 +76,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.find_back_login_pwd));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.find_back_login_pwd));
     }
 
     @Override
@@ -90,7 +90,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         forget_pwd_phone_erea_layout.setOnClickListener(this);
         codeTimeDownTv = loginForgetPwdVertificationCodeEiv.getView(R.id.edit_right_tv);
         codeTimeDownTv.setOnClickListener(this);
-        codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+        codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
                 getVerificationCode();
                 break;
             case R.id.forget_pwd_phone_erea_layout:
-                CommonUtil.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
+                ActivityManager.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
                 break;
         }
     }
@@ -235,8 +235,8 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case FORGET_PWD_TAG:
                 toast("密码修改成功");
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
-                AppManager.getInstance().removeCurrent();
+                ActivityManager.gotoActivity(mContext, LoginActivity.class);
+                ActivityManager.getInstance().removeCurrent();
                 break;
         }
     }
@@ -246,11 +246,11 @@ public class ForgetLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
                 (splashTotalCountdownTime + 1).subscribe(integer -> {
             if (integer == 0) {
-                codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
                 codeTimeDownTv.setEnabled(true);
                 codeTimeDownTv.setAlpha(1);
             } else {
-                codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                codeTimeDownTv.setText(String.format(ResourcesManager.getString(R.string.get_rigister_getvertify_code),
                         integer));
                 codeTimeDownTv.setEnabled(false);
                 codeTimeDownTv.setAlpha(0.5f);

@@ -5,17 +5,25 @@ import java.util.List;
 
 /**
  * 创建日期：2018/6/6
+ *
  * @author Yi Shan Xiang
- * 文件名称： 经销商管理
- * email: 380948730@qq.com
+ *         文件名称： 经销商管理
+ *         email: 380948730@qq.com
  */
-public class DealerManagementRes extends BaseRes implements Serializable{
+public class DealerManagementRes extends BaseRes implements Serializable {
 
     /**
      * totalNumber : 11
      * totalPageNumber : 1
      * pageNumber : 0
-     * otcTransactionPendOrderList : [{"otcPendingOrderNo":"601805160153825972","userId":313,"userAccount":"syl001","orderType":1,"currencyId":999,"currencyName":"XT","pendingRatio":1,"minNumber":1,"maxNumber":222,"pendingNumber":0,"dealNumber":0,"buyFee":0,"restBalanceLock":0,"area":"中国(CN)","pendingStatus":1,"endTime":"11","remark":"11","updateTime":"11","addTime":1526461297000},{"otcPendingOrderNo":"601805168541748216","userId":313,"userAccount":"syl001","orderType":1,"currencyId":999,"currencyName":"XT","pendingRatio":12,"minNumber":1,"maxNumber":2,"pendingNumber":0,"dealNumber":0,"buyFee":0,"restBalanceLock":0,"area":"中国(CN)","pendingStatus":1,"endTime":"11","remark":"11","updateTime":"11","addTime":1526460040000}]
+     * otcTransactionPendOrderList : [{"otcPendingOrderNo":"601805160153825972","userId":313,"userAccount":"syl001",
+     * "orderType":1,"currencyId":999,"currencyName":"XT","pendingRatio":1,"minNumber":1,"maxNumber":222,
+     * "pendingNumber":0,"dealNumber":0,"buyFee":0,"restBalanceLock":0,"area":"中国(CN)","pendingStatus":1,
+     * "endTime":"11","remark":"11","updateTime":"11","addTime":1526461297000},
+     * {"otcPendingOrderNo":"601805168541748216","userId":313,"userAccount":"syl001","orderType":1,"currencyId":999,
+     * "currencyName":"XT","pendingRatio":12,"minNumber":1,"maxNumber":2,"pendingNumber":0,"dealNumber":0,"buyFee":0,
+     * "restBalanceLock":0,"area":"中国(CN)","pendingStatus":1,"endTime":"11","remark":"11","updateTime":"11",
+     * "addTime":1526460040000}]
      */
 
     private int totalNumber; //总数量

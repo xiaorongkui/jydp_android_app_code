@@ -5,10 +5,11 @@ import android.content.Context;
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.common.NetResponseCode;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.net.HttpCallBack;
 import com.qmkj.jydp.net.exception.HandlerException;
 import com.qmkj.jydp.ui.widget.LoadingDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ProgressDialogUtil;
 
@@ -73,10 +74,11 @@ public class BaseShowLoadingObserver<T> extends BaseObserver<T> {
             initProgressDialog(isCancel);
             showLoading();
         }
-        if (!CommonUtil.isNetworkAvailable(JYDPExchangeApp.getContext())) {
+        if (!SystemManager.isNetworkAvailable(JYDPExchangeApp.getContext())) {
             onRequestError(HandlerException.handleException(new
-                    HandlerException.ResponeThrowable(CommonUtil.getString(R.string.net_connect_error), NetResponseCode
-                    .HMC_NETWORK_ERROR)));
+                    HandlerException.ResponeThrowable(ResourcesManager.getString(R.string.net_connect_error),
+                    NetResponseCode
+                            .HMC_NETWORK_ERROR)));
 
         }
     }

@@ -12,10 +12,13 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CheckTextUtil;
-import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,13 +43,13 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.modify_pwd_old_pwd_title_tv) //原密码修改
-    TextView modifyPwdOldPwdTitleTv;
+            TextView modifyPwdOldPwdTitleTv;
     @BindView(R.id.modify_pwd_old_pwd_title_line)
     View modifyPwdOldPwdTitleLine;
     @BindView(R.id.modify_pwd_old_pwd_title_ll)
     LinearLayout modifyPwdOldPwdTitleLl;
     @BindView(R.id.modify_pwd_phone_title_tv) //通过手机号修改
-    TextView modifyPwdPhoneTitleTv;
+            TextView modifyPwdPhoneTitleTv;
     @BindView(R.id.modify_pwd_phone_title_line)
     View modifyPwdPhoneTitleLine;
     @BindView(R.id.modify_pwd_phone_title_ll)
@@ -59,24 +62,24 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
     ShadowLayout modify_code_layout;
 
     @BindView(R.id.user_phone_num_tv)  //手机号码
-    TextView userPhoneNumTv;
+            TextView userPhoneNumTv;
     @BindView(R.id.login_forget_pwd_vertification_code_eiv) //获取验证码
-    EditVItemView login_forget_pwd_vertification_code_eiv;
+            EditVItemView login_forget_pwd_vertification_code_eiv;
 
     @BindView(R.id.modify_pwd_old_pwd_one_eiv) //原密码
-    EditVItemView modify_pwd_old_pwd_one_eiv;
+            EditVItemView modify_pwd_old_pwd_one_eiv;
     @BindView(R.id.modify_pwd_new_pwd_one_eiv) //新密码
-    EditVItemView modify_pwd_new_pwd_one_eiv;
+            EditVItemView modify_pwd_new_pwd_one_eiv;
     @BindView(R.id.modify_pwd_login_pwd_one_eiv) //重复密码
-    EditVItemView modify_pwd_login_pwd_one_eiv;
+            EditVItemView modify_pwd_login_pwd_one_eiv;
 
     @BindView(R.id.modify_phone_pwd_one_eiv) //新密码(手机修改)
-    EditVItemView modify_phone_pwd_one_eiv;
+            EditVItemView modify_phone_pwd_one_eiv;
     @BindView(R.id.modify_phone_pwd_again_eiv) //重复密码(手机修改)
-    EditVItemView modify_phone_pwd_again_eiv;
+            EditVItemView modify_phone_pwd_again_eiv;
 
     @BindView(R.id.modify_pwd_bt) //提 交
-    Button modify_pwd_bt;
+            Button modify_pwd_bt;
     private TextView codeTimeDownTv;
     private Disposable disposable;
 
@@ -89,14 +92,15 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
-            userPhoneNumTv.setText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode() + " " + CommonUtil.getLoginInfo().getUser().getUserPhone());
+        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null) {
+            userPhoneNumTv.setText(String.format("%s %s", DataManager.getLoginInfo().getUser().getPhoneAreaCode(),
+                    DataManager.getLoginInfo().getUser().getUserPhone()));
         }
     }
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.modify_payment_pwd));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.modify_payment_pwd));
     }
 
     @Override
@@ -115,9 +119,9 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
         setSelect(0);
 
         codeTimeDownTv = login_forget_pwd_vertification_code_eiv.getView(R.id.edit_right_tv);
-        codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+        codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv.setOnClickListener(v -> {
-            CommonUtil.hideInputWindow(mContext);
+            SystemManager.hideInputWindow(mContext);
             getVerificationCode();
         });
     }
@@ -126,8 +130,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
      * 获取验证码
      */
     private void getVerificationCode() {
-        String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
-        String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
+        String phone = DataManager.getLoginInfo().getUser().getUserPhone();
+        String phoneAreaCode = DataManager.getLoginInfo().getUser().getPhoneAreaCode();
         if (phone.isEmpty()) {
             toast("手机号不能为空");
             return;
@@ -180,8 +184,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             String code = login_forget_pwd_vertification_code_eiv.getEditTextString();
             if (checkNewPass(newPass, newPassAgain)) return;
 
-            String codeText = CommonUtil.checkCode(code);
-            if(codeText!=null){
+            String codeText = CheckTextUtil.checkCode(code);
+            if (codeText != null) {
                 toast(codeText);
                 return;
             }
@@ -225,13 +229,14 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
 
     /**
      * 选择修改方式
+     *
      * @param index
      */
     private void setSelect(int index) {
         switch (index) {
             case 0:
-                modifyPwdOldPwdTitleTv.setTextColor(CommonUtil.getColor(R.color.color_bule_5));
-                modifyPwdPhoneTitleTv.setTextColor(CommonUtil.getColor(R.color.color_black_10));
+                modifyPwdOldPwdTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_5));
+                modifyPwdPhoneTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_black_10));
                 modifyPwdPhoneTitleLine.setVisibility(View.INVISIBLE);
                 modifyPwdOldPwdTitleLine.setVisibility(View.VISIBLE);
                 modifyOriginalPwdLl.setVisibility(View.VISIBLE);
@@ -240,8 +245,8 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
                 SELECT_TYPE = 0;
                 break;
             case 1:
-                modifyPwdOldPwdTitleTv.setTextColor(CommonUtil.getColor(R.color.color_black_10));
-                modifyPwdPhoneTitleTv.setTextColor(CommonUtil.getColor(R.color.color_bule_5));
+                modifyPwdOldPwdTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_black_10));
+                modifyPwdPhoneTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_5));
                 modifyPwdPhoneTitleLine.setVisibility(View.VISIBLE);
                 modifyPwdOldPwdTitleLine.setVisibility(View.INVISIBLE);
                 modifyOriginalPwdLl.setVisibility(View.GONE);
@@ -263,7 +268,7 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
             case REQUEST_BY_PWD:
             case REQUEST_BY_PHONE:
                 toast("修改成功");
-                CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
+                ActivityManager.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
         }
     }
@@ -276,11 +281,11 @@ public class ModifyPaymentActivity extends BaseMvpActivity<LoginPresenter> {
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
                 (splashTotalCountdownTime + 1).subscribe(integer -> {
             if (integer == 0) {
-                codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
                 codeTimeDownTv.setEnabled(true);
                 codeTimeDownTv.setAlpha(1);
             } else {
-                codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                codeTimeDownTv.setText(String.format(ResourcesManager.getString(R.string.get_rigister_getvertify_code),
                         integer));
                 codeTimeDownTv.setEnabled(false);
                 codeTimeDownTv.setAlpha(0.5f);

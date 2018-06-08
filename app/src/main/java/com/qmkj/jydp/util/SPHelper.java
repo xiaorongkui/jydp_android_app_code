@@ -27,7 +27,6 @@ import java.util.Set;
 public class SPHelper {
     private final static String PRE_NAME = Constants.PROJECT;
 
-    private static Context mContext = null;
     private SharedPreferences mConfig = null;
 
     private SPHelper() {
@@ -38,7 +37,6 @@ public class SPHelper {
     }
 
     public static SPHelper getInstance() {
-        mContext = JYDPExchangeApp.getContext().getApplicationContext();
         return Instance.ph;
     }
 
@@ -130,7 +128,7 @@ public class SPHelper {
 
     private SharedPreferences getConfig() {
         if (mConfig == null) {
-            mConfig = mContext.getSharedPreferences(PRE_NAME, Context.MODE_PRIVATE);
+            mConfig = JYDPExchangeApp.getContext().getSharedPreferences(PRE_NAME, Context.MODE_PRIVATE);
         }
         return mConfig;
     }
@@ -139,7 +137,7 @@ public class SPHelper {
      * 清楚所有数据
      */
     public void clearAppSharedPreferences() {
-        getConfig().edit().clear().commit();
+        getConfig().edit().clear().apply();
     }
 
     /**
@@ -148,14 +146,14 @@ public class SPHelper {
     public void clearSharedPreferencesByKey(String key) {
         SharedPreferences.Editor edit = getConfig().edit();
         edit.remove(key);
-        edit.commit();
+        edit.apply();
     }
 
     /**
      * 保存对象，object所在的类必须实现{@link Serializable}接口
      *
-     * @param key
-     * @param object
+     * @param key    存储的关键词
+     * @param object 传入的json对象
      */
     public void saveObject(String key, Object object) {
         if (object == null) clearSharedPreferencesByKey(key);
@@ -174,16 +172,29 @@ public class SPHelper {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            IOUtlis.closeStream(oos);
-            IOUtlis.closeStream(baos);
+            //关闭资源
+            if (oos != null) {//检查资源是否为null
+                try {
+                    oos.close();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+            if (baos != null) {
+                try {
+                    baos.close();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
         }
     }
 
     /**
      * 获取存储的object
      *
-     * @param key
-     * @param defValue
+     * @param key      取出的关键词
+     * @param defValue 传入的json对象
      * @return 获取成功则返回存储的object，否则返回默认值
      */
     public Object getObject(String key, Object defValue) {
@@ -203,8 +214,21 @@ public class SPHelper {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            IOUtlis.closeStream(bis);
-            IOUtlis.closeStream(bais);
+            //关闭资源
+            if (bis != null) {//检查资源是否为null
+                try {
+                    bis.close();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+            if (bais != null) {
+                try {
+                    bais.close();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
         }
         return defValue;
     }

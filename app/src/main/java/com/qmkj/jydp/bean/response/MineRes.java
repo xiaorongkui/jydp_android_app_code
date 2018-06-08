@@ -4,13 +4,15 @@ import java.io.Serializable;
 
 /**
  * 创建日期：2018/5/16
+ *
  * @author Yi Shan Xiang
- * 文件名称： 个人中心
- * email: 380948730@qq.com
+ *         文件名称： 个人中心
+ *         email: 380948730@qq.com
  */
 public class MineRes extends BaseRes implements Serializable {
     /**
-     * userInfo : {"userId":313,"userAccount":"syl001","userBalance":979.99,"userBalanceLock":24.2,"totalUserBalance":1004.19}
+     * userInfo : {"userId":313,"userAccount":"syl001","userBalance":979.99,"userBalanceLock":24.2,
+     * "totalUserBalance":1004.19}
      */
 
     private UserInfoBean userInfo; //用户信息

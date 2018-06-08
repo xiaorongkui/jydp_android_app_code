@@ -1,7 +1,5 @@
 package com.qmkj.jydp.bean.request;
 
-import java.io.Serializable;
-
 /**
  * author：rongkui.xiao --2018/5/8
  * email：dovexiaoen@163.com

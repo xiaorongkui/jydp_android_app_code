@@ -88,11 +88,11 @@ public class LoginRes extends BaseRes implements Serializable {
         }
 
         public String getUserPhone() {
-            return  userPhone;
+            return userPhone;
         }
 
-        public void setUserPhone(String  userPhone) {
-            this. userPhone =  userPhone;
+        public void setUserPhone(String userPhone) {
+            this.userPhone = userPhone;
         }
 
         public long getOutTime() {

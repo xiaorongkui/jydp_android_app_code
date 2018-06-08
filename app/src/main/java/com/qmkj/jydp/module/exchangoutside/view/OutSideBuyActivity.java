@@ -21,11 +21,12 @@ import com.qmkj.jydp.bean.request.OutSideBuyPayDetailReq;
 import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
 import com.qmkj.jydp.bean.response.OutSideBuyPayDetailRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
@@ -83,36 +84,37 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         userId = getIntent().getStringExtra(Constants.INTENT_PARAMETER_4);
         minAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_5);
         maxAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_6);
-        outsideExchangeBuyRatioTv.setText(CommonUtil.getString(R.string.proportion) + ":  1:" + pendingRatio);
+        outsideExchangeBuyRatioTv.setText(ResourcesManager.getString(R.string.proportion) + ":  1:" + pendingRatio);
 
         if (payMethodRes != null) {
             if (payMethodRes.getHasBank() == 1) {
-                certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.bank_card_transfer), R
+                certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.bank_card_transfer), R
                         .mipmap.bank_card, false));
                 payMethodShow[0] = true;
             }
 
             if (payMethodRes.getHasAliPay() == 1) {
-                certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.alipay_transfer), R.mipmap.alipay,
+                certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.alipay_transfer), R.mipmap
+                        .alipay,
                         false));
                 payMethodShow[1] = true;
             }
 
             if (payMethodRes.getHasWeiXin() == 1) {
-                certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.wechat_transfer), R
+                certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.wechat_transfer), R
                         .mipmap.wechat_pay, false));
                 payMethodShow[2] = true;
             }
         }
         if (!payMethodShow[0] && !payMethodShow[1] && !payMethodShow[2]) {
             selectIndex = -1;
-            outsidePayMothedTv.setText(CommonUtil.getString(R.string.no_payment_method));
+            outsidePayMothedTv.setText(ResourcesManager.getString(R.string.no_payment_method));
         }
     }
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.buy_1));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.buy_1));
     }
 
     @Override
@@ -157,7 +159,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
         commonDialog.setAlertDialogHight(0);
         commonDialog.setAlertDialogGravity(Gravity.BOTTOM);
         TextView list_item_title_tv = commonDialog.getView(R.id.list_item_title_tv, TextView.class);
-        list_item_title_tv.setText(CommonUtil.getString(R.string.select_pay_type));
+        list_item_title_tv.setText(ResourcesManager.getString(R.string.select_pay_type));
 
         RecyclerView recyclerView = commonDialog.getView(R.id.certify_type_select_rv, RecyclerView.class);
         ImageView dialog_right_iv = commonDialog.getView(R.id.dialog_right_iv, ImageView.class);
@@ -294,7 +296,7 @@ public class OutSideBuyActivity extends BaseMvpActivity<OutsideExchangePresenter
                 intent.putExtra(Constants.INTENT_PARAMETER_1, outSideBuyPayDetailRes);
                 intent.putExtra(Constants.INTENT_PARAMETER_2, paymentMoney);
                 intent.putExtra(Constants.INTENT_PARAMETER_3, outSideBuyPayDetailRes.getUserPaymentType());
-                CommonUtil.gotoActivity(mContext, intent);
+                ActivityManager.gotoActivity(mContext, intent);
                 OutSideBuyPayDetailRes.UserPaymentTypeBean bean = outSideBuyPayDetailRes.getUserPaymentType();
                 LogUtil.i("bean2=" + (bean == null ? "" : bean.toString()));
                 break;

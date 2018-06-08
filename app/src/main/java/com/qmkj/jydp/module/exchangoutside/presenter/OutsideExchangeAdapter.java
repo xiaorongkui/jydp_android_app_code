@@ -7,7 +7,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.SelectorFactory;
 
 import java.util.List;
@@ -20,10 +20,10 @@ import java.util.List;
 public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRes.OtcTransactionPendOrderListBean> {
 
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-            .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
-            .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_red_5))
-            .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
-            .setDefaultBgColor(CommonUtil.getColor(R.color.color_red_6));
+            .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x2))
+            .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_red_5))
+            .setStrokeWidth((int) ResourcesManager.getDimen(R.dimen.x1))
+            .setDefaultBgColor(ResourcesManager.getColor(R.color.color_red_6));
 
     public OutsideExchangeAdapter(int layoutResId, @Nullable List<OutSideExchangeRes.OtcTransactionPendOrderListBean>
             data) {
@@ -44,9 +44,9 @@ public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRe
 
         helper.addOnClickListener(R.id.exchange_outside_go_exchange_tv);
 
-        shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
-                .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_bule_3))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+        shapeSelector.setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x12))
+                .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_bule_3))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
         exchangeOutsideGoExchangeTv.setBackground(shapeSelector.create());
 
         outsideExchangeCurrencyNameTv.setText(item.getCurrencyName());
@@ -57,22 +57,22 @@ public class OutsideExchangeAdapter extends BaseRecycleAdapter<OutSideExchangeRe
 
         switch (item.getOrderType()) {
             case 2://1：购买
-                shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
-                        .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_green_4))
-                        .setDefaultBgColor(CommonUtil.getColor(R.color.color_green_6));
+                shapeSelector.setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x2))
+                        .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_green_4))
+                        .setDefaultBgColor(ResourcesManager.getColor(R.color.color_green_6));
                 exchangeOutsideBuyTv.setBackground(shapeSelector.create());
-                exchangeOutsideBuyTv.setText(CommonUtil.getString(R.string.buy_2));
-                exchangeOutsideBuyTv.setTextColor(CommonUtil.getColor(R.color.color_green_4));
-                exchangeOutsideGoExchangeTv.setText(CommonUtil.getString(R.string.go_sell));
+                exchangeOutsideBuyTv.setText(ResourcesManager.getString(R.string.buy_2));
+                exchangeOutsideBuyTv.setTextColor(ResourcesManager.getColor(R.color.color_green_4));
+                exchangeOutsideGoExchangeTv.setText(ResourcesManager.getString(R.string.go_sell));
                 break;
             case 1://2：卖出
-                shapeSelector.setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
-                        .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_red_3))
-                        .setDefaultBgColor(CommonUtil.getColor(R.color.color_red_6));
+                shapeSelector.setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x2))
+                        .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_red_3))
+                        .setDefaultBgColor(ResourcesManager.getColor(R.color.color_red_6));
                 exchangeOutsideBuyTv.setBackground(shapeSelector.create());
-                exchangeOutsideBuyTv.setText(CommonUtil.getString(R.string.sell));
-                exchangeOutsideBuyTv.setTextColor(CommonUtil.getColor(R.color.color_red_3));
-                exchangeOutsideGoExchangeTv.setText(CommonUtil.getString(R.string.go_buy));
+                exchangeOutsideBuyTv.setText(ResourcesManager.getString(R.string.sell));
+                exchangeOutsideBuyTv.setTextColor(ResourcesManager.getColor(R.color.color_red_3));
+                exchangeOutsideGoExchangeTv.setText(ResourcesManager.getString(R.string.go_buy));
                 break;
         }
     }

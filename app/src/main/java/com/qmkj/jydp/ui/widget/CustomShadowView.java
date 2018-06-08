@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.SelectorFactory;
 
 /**
@@ -30,12 +30,12 @@ public class CustomShadowView extends FrameLayout {
     /**
      * 阴影的颜色,
      */
-    private int mShadowColor = CommonUtil.getColor(R.color.color_gray_4);
+    private int mShadowColor = ResourcesManager.getColor(R.color.color_gray_4);
 
     /**
      * 阴影的大小范围 radius越大越模糊，越小越清晰
      */
-    private float mShadowRadius = CommonUtil.getDimen(R.dimen.x25);
+    private float mShadowRadius = ResourcesManager.getDimen(R.dimen.x25);
 
     /**
      * 阴影的宽度，比如底部的阴影，那就是底部阴影的高度
@@ -45,12 +45,12 @@ public class CustomShadowView extends FrameLayout {
     /**
      * 阴影 x 轴的偏移量, 计算padding时需要计算在内
      */
-    private float mShadowDx = CommonUtil.getDimen(R.dimen.x1);
+    private float mShadowDx = ResourcesManager.getDimen(R.dimen.x1);
 
     /**
      * 阴影 y 轴的偏移量，计算padding时需要计算在内，比如想底部的阴影多一些，这个设置值就可以了
      */
-    private float mShadowDy = CommonUtil.getDimen(R.dimen.x1);
+    private float mShadowDy = ResourcesManager.getDimen(R.dimen.x1);
 
     public CustomShadowView(Context context) {
         this(context, null);
@@ -104,10 +104,10 @@ public class CustomShadowView extends FrameLayout {
 
         int childCount = getChildCount();
         StateListDrawable stateListDrawable = SelectorFactory.newShapeSelector()
-                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x5))
-                .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_white_1))
+                .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x5))
+                .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_white_1))
                 .setStrokeWidth(0)
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1))
                 .create();
         for (int i = 0; i < childCount; i++) {
             View view = getChildAt(i);
@@ -133,7 +133,8 @@ public class CustomShadowView extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRoundRect(mRectF, (int) CommonUtil.getDimen(R.dimen.x5), (int) CommonUtil.getDimen(R.dimen.x5),
+        canvas.drawRoundRect(mRectF, (int) ResourcesManager.getDimen(R.dimen.x5), (int) ResourcesManager.getDimen(R
+                        .dimen.x5),
                 mPaint);
     }
 

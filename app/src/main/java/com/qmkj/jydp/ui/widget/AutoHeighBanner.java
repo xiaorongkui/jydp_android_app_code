@@ -31,8 +31,7 @@ public class AutoHeighBanner extends Banner {
         ViewGroup.LayoutParams params = getLayoutParams();
 
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int height = (int) (widthSize * 2 / 5);
-        params.height = height;
+        params.height = (int) (widthSize * 2.0 / 5);
         //        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

@@ -5,10 +5,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
+import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.response.HomeDataRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
@@ -40,11 +40,11 @@ public class HomeRecyAdapter extends BaseRecycleAdapter<HomeDataRes.TransactionU
         double change = item.getChange();
         if (change >= 0) {
             home_exchange_updown_percent_iv.setImageResource(R.mipmap.exchange_up);
-            home_exchange_updown_percent_tv.setTextColor(CommonUtil.getColor(R.color.color_red_3));
+            home_exchange_updown_percent_tv.setTextColor(ResourcesManager.getColor(R.color.color_red_3));
         } else {
             home_exchange_updown_percent_iv.setImageResource(R.mipmap.exchange_down);
-            home_exchange_updown_percent_tv.setTextColor(CommonUtil.getColor(R.color.color_green_4));
+            home_exchange_updown_percent_tv.setTextColor(ResourcesManager.getColor(R.color.color_green_4));
         }
-        home_exchange_updown_percent_tv.setText(NumberUtil.doubleFormat(change, 2) + "%");
+        home_exchange_updown_percent_tv.setText(String.format("%s%%", NumberUtil.doubleFormat(change, 2)));
     }
 }

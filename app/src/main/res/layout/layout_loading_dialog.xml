@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_loading_dialog"
-    android:paddingTop="@dimen/x10"
-    android:paddingBottom="@dimen/x10"
-    android:paddingLeft="@dimen/y20"
-    android:paddingRight="@dimen/y20">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:background="@drawable/shape_loading_dialog"
+             android:paddingTop="@dimen/x10"
+             android:paddingBottom="@dimen/x10"
+             android:paddingLeft="@dimen/y20"
+             android:paddingRight="@dimen/y20">
 
     <LinearLayout
         android:id="@+id/body"
@@ -23,7 +23,7 @@
             android:layout_width="@dimen/x50"
             android:layout_height="@dimen/y50"
             app:indicatorColor="@color/color_bule_1"
-            app:indicatorName="LineScaleIndicator" />
+            app:indicatorName="LineScaleIndicator"/>
 
         <TextView
             android:id="@+id/message"
@@ -32,7 +32,7 @@
             android:layout_marginTop="@dimen/y7"
             android:text="@string/loading"
             android:textColor="#333333"
-            android:textSize="@dimen/text_size_13" />
+            android:textSize="@dimen/text_size_13"/>
     </LinearLayout>
 
 </FrameLayout>

@@ -259,23 +259,25 @@ public class SuperSwipeRefreshLayout extends ViewGroup {
         a.recycle();
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        final DisplayMetrics metrics = getResources().getDisplayMetrics();
-        mHeaderViewWidth = (int) display.getWidth();
-        mFooterViewWidth = (int) display.getWidth();
+        if (wm != null) {
+            Display display = wm.getDefaultDisplay();
+            final DisplayMetrics metrics = getResources().getDisplayMetrics();
+            mHeaderViewWidth = display.getWidth();
+            mFooterViewWidth = display.getWidth();
 
-        mHeaderViewHeight = (int) (HEADER_VIEW_HEIGHT * metrics.density);
-        mFooterViewHeight = (int) (HEADER_VIEW_HEIGHT * metrics.density);
+            mHeaderViewHeight = (int) (HEADER_VIEW_HEIGHT * metrics.density);
+            mFooterViewHeight = (int) (HEADER_VIEW_HEIGHT * metrics.density);
 
-        //        mHeaderViewHeight = (int) CommonUtil.getDimen(R.dimen.y40);
-        //        mFooterViewHeight = (int) CommonUtil.getDimen(R.dimen.y40);
-        defaultProgressView = new CircleProgressView(getContext());
-        createHeaderViewContainer();
-        createFooterViewContainer();
-        ViewCompat.setChildrenDrawingOrderEnabled(this, true);
-        mSpinnerFinalOffset = DEFAULT_CIRCLE_TARGET * metrics.density;
-        density = metrics.density;
-        mTotalDragDistance = mSpinnerFinalOffset;
+            //        mHeaderViewHeight = (int) ResourcesManager.getDimen(R.dimen.y40);
+            //        mFooterViewHeight = (int) ResourcesManager.getDimen(R.dimen.y40);
+            defaultProgressView = new CircleProgressView(getContext());
+            createHeaderViewContainer();
+            createFooterViewContainer();
+            ViewCompat.setChildrenDrawingOrderEnabled(this, true);
+            mSpinnerFinalOffset = DEFAULT_CIRCLE_TARGET * metrics.density;
+            density = metrics.density;
+            mTotalDragDistance = mSpinnerFinalOffset;
+        }
     }
 
     /**
@@ -609,7 +611,7 @@ public class SuperSwipeRefreshLayout extends ViewGroup {
             return false;
         } else if (mTarget instanceof ScrollView) {
             ScrollView scrollView = (ScrollView) mTarget;
-            View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+            View view = scrollView.getChildAt(scrollView.getChildCount() - 1);
             if (view != null) {
                 int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
                 if (diff == 0) {
@@ -618,7 +620,7 @@ public class SuperSwipeRefreshLayout extends ViewGroup {
             }
         } else if (mTarget instanceof NestedScrollView) {
             NestedScrollView nestedScrollView = (NestedScrollView) mTarget;
-            View view = (View) nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1);
+            View view = nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1);
             if (view != null) {
                 int diff = (view.getBottom() - (nestedScrollView.getHeight() + nestedScrollView
                         .getScrollY()));

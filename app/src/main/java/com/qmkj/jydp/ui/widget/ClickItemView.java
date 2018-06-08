@@ -309,12 +309,13 @@ public class ClickItemView extends LinearLayout {
         }
         mTvRight.setText(getResources().getString(resId));
     }
+
     /**
      * 获取右边文本
      */
     public String getRightText() {
-        if(mTvRight.getText()!=null){
-            return  mTvRight.getText().toString();
+        if (mTvRight.getText() != null) {
+            return mTvRight.getText().toString();
         }
         return null;
     }

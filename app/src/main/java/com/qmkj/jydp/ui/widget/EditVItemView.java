@@ -199,7 +199,7 @@ public class EditVItemView extends LinearLayout {
                 mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER);
                 break;
             case phone:
-                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_SIGNED);
+                mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 break;
             case numberDecimal:
                 mEdit_letf_et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);

@@ -1,5 +1,6 @@
 package com.qmkj.jydp.module.mine.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
@@ -20,9 +21,10 @@ import butterknife.BindView;
 
 /**
  * 创建日期：2018/6/6
+ *
  * @author Yi Shan Xiang
- * 文件名称： 帮助中心详情界面 此界面暂时没有使用，采用的是web界面来加载详情
- * email: 380948730@qq.com
+ *         文件名称： 帮助中心详情界面 此界面暂时没有使用，采用的是web界面来加载详情
+ *         email: 380948730@qq.com
  */
 public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     public static final String ACTIVITY_TITLE_KEY = "activity_title_key";
@@ -40,9 +42,11 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
     WebView webview;
     private String id;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        id = getIntent().getExtras().getString(ID_KEY);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) id = extras.getString(ID_KEY);
         activityTitleStr = getIntent().getExtras().getString(ACTIVITY_TITLE_KEY);
         super.onCreate(savedInstanceState);
         webview.setVerticalScrollBarEnabled(false);

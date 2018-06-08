@@ -3,7 +3,6 @@ package com.qmkj.jydp.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class BitmapCompressUtil {
             LogUtil.i("图片的bitmap为空或被回收，无法压缩，请重新选者");
             return null;
         }
-        double maxSize = 5000;
+        double maxSize = 500;
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         // scale
         int options = 100;

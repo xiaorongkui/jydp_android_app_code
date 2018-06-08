@@ -5,19 +5,22 @@ import java.util.List;
 
 /**
  * 创建日期：2018/5/21
+ *
  * @author Yi Shan Xiang
- * 文件名称： 联系客户返回实体类
- * email: 380948730@qq.com
+ *         文件名称： 联系客户返回实体类
+ *         email: 380948730@qq.com
  */
 
-public class CustomerServiceRes extends BaseRes implements Serializable{
+public class CustomerServiceRes extends BaseRes implements Serializable {
 
 
     /**
      * pageNumber : 0
      * totalNumber : 7
      * totalPageNumber : 1
-     * userFeedbackList : [{"addTime":1523606744000,"backerAccount":1,"feedbackContent":"啥哈哈哈哈","feedbackTitle":"啥哈哈哈哈","handleContent":1,"handleStatus":1,"handleTime":1,"id":221,"userAccount":"syl001","userId":313}]
+     * userFeedbackList : [{"addTime":1523606744000,"backerAccount":1,"feedbackContent":"啥哈哈哈哈",
+     * "feedbackTitle":"啥哈哈哈哈","handleContent":1,"handleStatus":1,"handleTime":1,"id":221,"userAccount":"syl001",
+     * "userId":313}]
      * webAppPath : /jydp
      */
 

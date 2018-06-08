@@ -19,8 +19,6 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 
-import static android.text.InputType.TYPE_TEXT_VARIATION_NORMAL;
-
 
 /**
  * @author neo.duan

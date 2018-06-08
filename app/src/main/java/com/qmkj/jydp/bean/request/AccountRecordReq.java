@@ -2,12 +2,13 @@ package com.qmkj.jydp.bean.request;
 
 /**
  * 创建日期：2018/5/21
+ *
  * @author Yi Shan Xiang
- * 文件名称： PageNumberReq
- * email: 380948730@qq.com
+ *         文件名称： PageNumberReq
+ *         email: 380948730@qq.com
  */
 
-public class AccountRecordReq extends BaseReq{
+public class AccountRecordReq extends BaseReq {
     private int pageNumber;
     private String pendingOrderNo;
 

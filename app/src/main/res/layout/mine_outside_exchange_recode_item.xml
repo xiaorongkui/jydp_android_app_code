@@ -227,10 +227,11 @@
                 android:layout_marginBottom="@dimen/y10"
                 android:layout_marginEnd="@dimen/x10"
                 android:layout_marginTop="@dimen/y10">
+
                 <View
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="@dimen/y24"></View>
+                    android:layout_height="@dimen/y24"/>
 
                 <TextView
                     android:id="@+id/outside_exchange_recode_see_detail_tv"

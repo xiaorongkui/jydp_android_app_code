@@ -2,7 +2,6 @@ package com.qmkj.jydp.module.home.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,11 @@ import android.widget.TextView;
 
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseActivity;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
 import com.qmkj.jydp.ui.widget.CustomWebView;
 import com.qmkj.jydp.util.LogUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
@@ -88,7 +86,7 @@ public class WebActivity extends BaseActivity {
                 if (mWebView.canGoBack()) {
                     mWebView.goBack();
                 } else {
-                    AppManager.getInstance().removeCurrent();
+                    ActivityManager.getInstance().removeCurrent();
                 }
             });
         }

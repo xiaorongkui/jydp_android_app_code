@@ -360,6 +360,7 @@
                                 android:textColor="@color/color_black_7"
                                 android:textSize="@dimen/text_size_12"/>
                         </LinearLayout>
+
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/exchange_price_recycle_buy"
                             android:layout_width="match_parent"

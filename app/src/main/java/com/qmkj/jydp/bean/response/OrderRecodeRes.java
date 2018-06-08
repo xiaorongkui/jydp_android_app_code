@@ -6,17 +6,21 @@ import java.util.List;
 
 /**
  * 创建日期：2018/5/18
+ *
  * @author Yi Shan Xiang
- * 文件名称： 挂单委托记录
- * email: 380948730@qq.com
+ *         文件名称： 挂单委托记录
+ *         email: 380948730@qq.com
  */
 
-public class OrderRecodeRes extends BaseRes implements Serializable{
+public class OrderRecodeRes extends BaseRes implements Serializable {
 
 
     /**
      * totalPageNumber : 2
-     * transactionPendOrderRecordList : [{"addTime":1525336486000,"buyFee":0,"currencyId":202,"currencyName":"量子链","dealNumber":2038,"endTime":1525396002000,"feeRemark":1,"paymentType":1,"pendingNumber":2038,"pendingOrderNo":"301805039939696925","pendingPrice":5,"pendingStatus":3,"remainNum":0,"remark":"","restBalanceLock":"0","totalPrice":"10190","userAccount":"syl002","userId":314}]
+     * transactionPendOrderRecordList : [{"addTime":1525336486000,"buyFee":0,"currencyId":202,"currencyName":"量子链",
+     * "dealNumber":2038,"endTime":1525396002000,"feeRemark":1,"paymentType":1,"pendingNumber":2038,
+     * "pendingOrderNo":"301805039939696925","pendingPrice":5,"pendingStatus":3,"remainNum":0,"remark":"",
+     * "restBalanceLock":"0","totalPrice":"10190","userAccount":"syl002","userId":314}]
      */
 
     private int totalPageNumber; //总页数
@@ -34,7 +38,8 @@ public class OrderRecodeRes extends BaseRes implements Serializable{
         return transactionPendOrderRecordList;
     }
 
-    public void setTransactionPendOrderRecordList(List<TransactionPendOrderRecordListBean> transactionPendOrderRecordList) {
+    public void setTransactionPendOrderRecordList(List<TransactionPendOrderRecordListBean>
+                                                          transactionPendOrderRecordList) {
         this.transactionPendOrderRecordList = transactionPendOrderRecordList;
     }
 

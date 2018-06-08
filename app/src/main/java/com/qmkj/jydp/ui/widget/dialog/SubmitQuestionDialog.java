@@ -10,9 +10,10 @@ import com.qmkj.jydp.ui.widget.dialog.base.BaseDialog;
 
 /**
  * 创建日期：2018/6/6
+ *
  * @author Yi Shan Xiang
- * 文件名称： 联系客服弹出框
- * email: 380948730@qq.com
+ *         文件名称： 联系客服弹出框
+ *         email: 380948730@qq.com
  */
 public class SubmitQuestionDialog extends BaseDialog {
     private EditText questionTitleEdt;
@@ -44,7 +45,8 @@ public class SubmitQuestionDialog extends BaseDialog {
         questionContentEdt = contentView.findViewById(R.id.question_content_edt);//内容
         setOnPositiveButtonClickListener((dialog, view) -> {
             if (onSubmitQuestionListener != null) {
-                onSubmitQuestionListener.onSubmitQuestion(questionTitleEdt.getText().toString(), questionContentEdt.getText().toString());
+                onSubmitQuestionListener.onSubmitQuestion(questionTitleEdt.getText().toString(), questionContentEdt
+                        .getText().toString());
             }
         });
     }

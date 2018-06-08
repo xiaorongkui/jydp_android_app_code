@@ -7,7 +7,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.NumberUtil;
 
 import java.util.List;
@@ -43,13 +43,13 @@ public class EntrustRecodeRecAdapter extends BaseRecycleAdapter<ExchangeCenterRe
         int paymentType = item.getPaymentType();
         switch (paymentType) {
             case 1://买入
-                entrustStatusTv.setText(CommonUtil.getString(R.string.buy_input));
-                entrustStatusTv.setTextColor(CommonUtil.getColor(R.color.color_red_3));
+                entrustStatusTv.setText(ResourcesManager.getString(R.string.buy_input));
+                entrustStatusTv.setTextColor(ResourcesManager.getColor(R.color.color_red_3));
 
                 break;
             case 2://卖出
-                entrustStatusTv.setText(CommonUtil.getString(R.string.sold_out));
-                entrustStatusTv.setTextColor(CommonUtil.getColor(R.color.colorGreen_6));
+                entrustStatusTv.setText(ResourcesManager.getString(R.string.sold_out));
+                entrustStatusTv.setTextColor(ResourcesManager.getColor(R.color.colorGreen_6));
                 break;
         }
         entrustPriceTv.setText(NumberUtil.format2Point(item.getPendingPrice()));

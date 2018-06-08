@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/certify_type_dialog_ll"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_certify_type_select_dialog"
-    android:orientation="vertical">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/certify_type_dialog_ll"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/shape_certify_type_select_dialog"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:text="@string/select_certify_type"
             android:textColor="@color/color_black_2"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_18"/>
 
         <ImageView
             android:id="@+id/dialog_close_iv"
@@ -27,12 +27,12 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/x16"
-            android:src="@mipmap/cancel" />
+            android:src="@mipmap/cancel"/>
     </RelativeLayout>
 
     <View
         style="@style/line1"
-        android:layout_marginTop="@dimen/y15" />
+        android:layout_marginTop="@dimen/y15"/>
 
     <FrameLayout
         android:id="@+id/fl_content"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textBlack"
             android:textSize="16sp"
-            tools:text="content_content_content_content_content_content_content_content_content_content_content" />
+            tools:text="content_content_content_content_content_content_content_content_content_content_content"/>
 
     </FrameLayout>
 

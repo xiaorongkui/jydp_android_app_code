@@ -10,18 +10,19 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.PresentRechargeRes;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.CurrencyWithDrawRechargeRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
 
 /**
  * 创建日期：2018/5/30
+ *
  * @author Yi Shan Xiang
- * 文件名称： 充币记录
- * email: 380948730@qq.com
+ *         文件名称： 充币记录
+ *         email: 380948730@qq.com
  */
 
 public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresenter> {
@@ -47,7 +48,7 @@ public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresen
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.currency_recharge));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.currency_recharge));
     }
 
     @Override
@@ -83,7 +84,8 @@ public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresen
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -117,9 +119,9 @@ public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresen
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case REQUEST_GET_DATA:
-                PresentRechargeRes recordRes = (PresentRechargeRes)response;
+                PresentRechargeRes recordRes = (PresentRechargeRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();
                 }
@@ -146,7 +148,6 @@ public class CurrencyWithDrawRechargeActivity extends BaseMvpActivity<MinePresen
             refreshLayout.refreshComplete();
         }
     }
-
 
 
 }

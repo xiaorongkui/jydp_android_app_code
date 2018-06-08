@@ -5,16 +5,18 @@ import java.util.List;
 
 /**
  * 创建日期：2018/6/4
+ *
  * @author Yi Shan Xiang
- * 文件名称： OtcCoinConfigR
- * email: 380948730@qq.com
+ *         文件名称： OtcCoinConfigR
+ *         email: 380948730@qq.com
  */
 
-public class OtcCoinConfigRes extends BaseRes implements Serializable{
+public class OtcCoinConfigRes extends BaseRes implements Serializable {
 
     /**
      * dealerCode : 1
-     * userOtcCoinConfigList : [{"currencyId":"1","currencyName":"1","currencyNumber":"1","freeCurrencyNumber":"1","minCurrencyNumber":"1","userId":"1"}]
+     * userOtcCoinConfigList : [{"currencyId":"1","currencyName":"1","currencyNumber":"1","freeCurrencyNumber":"1",
+     * "minCurrencyNumber":"1","userId":"1"}]
      */
 
     private int dealerCode;

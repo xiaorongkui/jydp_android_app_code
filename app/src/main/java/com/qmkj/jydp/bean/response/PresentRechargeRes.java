@@ -4,17 +4,19 @@ import java.util.List;
 
 /**
  * 创建日期：2018/5/30
+ *
  * @author Yi Shan Xiang
- * 文件名称： 充币记录
- * email: 380948730@qq.com
+ *         文件名称： 充币记录
+ *         email: 380948730@qq.com
  */
-public class PresentRechargeRes extends BaseRes{
+public class PresentRechargeRes extends BaseRes {
 
 
     /**
      * pageNumber : 0
      * totalPageNumber : 6
-     * userRechargeCoinRecordList : [{"currencyName":"盛源链","currencyNumber":"1000","orderTime":1524748991000,"remark":"盛源链app充值","walletOrderNo":"10152474899108043408"}]
+     * userRechargeCoinRecordList : [{"currencyName":"盛源链","currencyNumber":"1000","orderTime":1524748991000,
+     * "remark":"盛源链app充值","walletOrderNo":"10152474899108043408"}]
      * webAppPath : /jydp
      */
 

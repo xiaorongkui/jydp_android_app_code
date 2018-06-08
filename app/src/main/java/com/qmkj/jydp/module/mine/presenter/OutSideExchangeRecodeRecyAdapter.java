@@ -8,8 +8,8 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.view.MineRecodeActivity;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -23,12 +23,12 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
     private final Context mContext;
     private final int type_outside;
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-            .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x12))
-            .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
-            .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
-            .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+            .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x12))
+            .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_black_1))
+            .setStrokeWidth((int) ResourcesManager.getDimen(R.dimen.x1))
+            .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
 
-    public OutSideExchangeRecodeRecyAdapter(Context context,int type) {
+    public OutSideExchangeRecodeRecyAdapter(Context context, int type) {
 
         super(context);
         this.mContext = context;
@@ -51,12 +51,12 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         TextView outside_exchange_recode_comfirm_receivables_tv = helper.getView(R.id
                 .outside_exchange_recode_comfirm_receivables_tv);
 
-        shapeSelector.setDefaultStrokeColor(CommonUtil.getColor(R.color.color_black_1))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+        shapeSelector.setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_black_1))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
         outside_exchange_recode_see_detail_tv.setBackground(shapeSelector.create());
 
-        shapeSelector.setDefaultStrokeColor(CommonUtil.getColor(R.color.color_bule_3))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+        shapeSelector.setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_bule_3))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
         outside_exchange_recode_comfirm_receivables_tv.setBackground(shapeSelector.create());
 
 
@@ -73,51 +73,51 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         TextView see_detail = helper.getView(R.id.outside_exchange_recode_see_detail_tv);//查看详情
         TextView comfirm_receivables = helper.getView(R.id.outside_exchange_recode_comfirm_receivables_tv);//确认收款
 
-        order_num.setText(item.getOtcOrderNo()+"");
+        order_num.setText(item.getOtcOrderNo() + "");
         name.setText(item.getCurrencyName());
         String text = null;
-        if(item.getDealStatus()==4){
+        if (item.getDealStatus() == 4) {
             text = "已完成";
             recode_status.setBackgroundResource(R.drawable.shape_shell_bg);
             recode_status.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
-        }else if(item.getDealStatus()==5){
+        } else if (item.getDealStatus() == 5) {
             text = "已撤销";
             recode_status.setBackgroundResource(R.drawable.shape_cancel_bg);
             recode_status.setTextColor(mContext.getResources().getColor(R.color.color_gray_2));
-        }else {
+        } else {
             text = "待完成";
             recode_status.setBackgroundResource(R.drawable.shape_wite_bg);
             recode_status.setTextColor(mContext.getResources().getColor(R.color.color_blue_7));
         }
         recode_status.setText(text);
-        amount.setText(item.getCurrencyNumber()+"");
+        amount.setText(item.getCurrencyNumber() + "");
         money.setText("$" + item.getCurrencyTotalPrice());
         String text_type = null;
         //交易状态：1.买入 2.卖出 3.撤销  (普通用户)
         comfirm_receivables.setVisibility(View.GONE);
-        switch (item.getDealType()){
+        switch (item.getDealType()) {
             case 1:
-                if(type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
+                if (type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL) { //普通用户
                     text_type = "购买";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
-                }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
+                } else if (type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY) { //经销商
                     text_type = "出售";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
 
-                    if(item.getDealStatus() != 4&&item.getDealStatus() != 5){//待确认收货
+                    if (item.getDealStatus() != 4 && item.getDealStatus() != 5) {//待确认收货
                         comfirm_receivables.setVisibility(View.VISIBLE);
                     }
 
                 }
                 break;
             case 2:
-                if(type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL){ //普通用户
+                if (type_outside == MineRecodeActivity.RECODE_TYPE_NORMAL) { //普通用户
                     text_type = "出售";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_red_3));
-                    if(item.getDealStatus() != 4&&item.getDealStatus() != 5){
+                    if (item.getDealStatus() != 4 && item.getDealStatus() != 5) {
                         comfirm_receivables.setVisibility(View.VISIBLE);
                     }
-                }else if(type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY){ //经销商
+                } else if (type_outside == MineRecodeActivity.RECODE_TYPE_AGENCY) { //经销商
                     text_type = "回购";
                     type.setTextColor(mContext.getResources().getColor(R.color.color_green_3));
                 }
@@ -129,7 +129,7 @@ public class OutSideExchangeRecodeRecyAdapter extends XBaseAdapter<OtcDealRecord
         }
         type.setText(text_type);
         area.setText(item.getArea());
-        apply_time.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
-        finish_time.setText(DateUtil.longToTimeStr(item.getUpdateTime(),DateUtil.dateFormat2));
+        apply_time.setText(DateUtil.longToTimeStr(item.getAddTime(), DateUtil.dateFormat2));
+        finish_time.setText(DateUtil.longToTimeStr(item.getUpdateTime(), DateUtil.dateFormat2));
     }
 }

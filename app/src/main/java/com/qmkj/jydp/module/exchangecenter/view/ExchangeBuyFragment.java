@@ -23,10 +23,12 @@ import com.qmkj.jydp.bean.request.ExchangePwdReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.NetResponseCode;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.ui.widget.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.RxBus;
@@ -34,7 +36,6 @@ import com.qmkj.jydp.util.RxBus;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
@@ -187,11 +188,11 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.exchange_passowrd_iv:
-                if (TextUtils.isEmpty(CommonUtil.getToken())) {
+                if (TextUtils.isEmpty(DataManager.getToken())) {
                     loginCommonDialog_1 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
                     loginCommonDialog_1.setContentText("请先登录");
                     loginCommonDialog_1.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
-                        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                        ActivityManager.gotoActivity(mContext, LoginActivity.class);
                         loginCommonDialog_1.dismiss();
                     });
                     loginCommonDialog_1.show();
@@ -203,11 +204,11 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
     }
 
     private void buyStart() {
-        if (TextUtils.isEmpty(CommonUtil.getToken())) {
+        if (TextUtils.isEmpty(DataManager.getToken())) {
             loginCommonDialog_2 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
             loginCommonDialog_2.setContentText("请先登录");
             loginCommonDialog_2.setOnPositiveButtonClickListener((Dialog dialog, View view) -> {
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                ActivityManager.gotoActivity(mContext, LoginActivity.class);
                 loginCommonDialog_2.dismiss();
             });
             loginCommonDialog_2.show();
@@ -305,7 +306,7 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
             loginCommonDialog_3 = new com.qmkj.jydp.ui.widget.dialog.CommonDialog(mContext);
             loginCommonDialog_3.setContentText("请先登录");
             loginCommonDialog_3.setOnPositiveButtonClickListener((Dialog dialog, View v) -> {
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                ActivityManager.gotoActivity(mContext, LoginActivity.class);
                 loginCommonDialog_3.dismiss();
             });
             loginCommonDialog_3.show();
@@ -338,9 +339,9 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
                 exchange_setting_pwd_exchange_iv.setImageResource(R.mipmap.bt_selected);
             }
         });
-        pwdDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        pwdDialogUtils.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         pwdDialogUtils.setOneOrTwoBtn(false);
-        pwdDialogUtils.setTitle(CommonUtil.getString(R.string.remember_pwd_notice));
+        pwdDialogUtils.setTitle(ResourcesManager.getString(R.string.remember_pwd_notice));
         pwdDialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
             pwdDialogUtils.dismiss();
@@ -404,9 +405,9 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         exchange_buy_total_tv.setText(String.format("%s XT", NumberUtil.format4Point(money)));
         exchange_buy_fee_tv.setText(String.format("%s%%", parseDoubleBuyFee));
 
-        buyDialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        buyDialogUtils.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         buyDialogUtils.setOneOrTwoBtn(false);
-        buyDialogUtils.setTitle(CommonUtil.getString(R.string.buy_notice));
+        buyDialogUtils.setTitle(ResourcesManager.getString(R.string.buy_notice));
         buyDialogUtils.setTwoCancelBtn("取消", v -> buyDialogUtils.dismiss());
         RxView.clicks(buyDialogUtils.getView(R.id.yes, Button.class)).throttleFirst(2, TimeUnit.SECONDS)
                 .compose(bindToLifecycle())
@@ -438,12 +439,13 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
         }
         switch (payPasswordStatus) {
             case "1"://1：每笔交易都输入交易密码
-                exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_exchange_notice));
+                exchange_buy_pwd_notice_tv.setText(ResourcesManager.getString(R.string
+                        .exchange_password_exchange_notice));
                 exchangePassowrdEt.setText("");
                 break;
             case "2"://2：每次登录只输入一次交易密码
-                exchange_buy_pwd_notice_tv.setText(CommonUtil.getString(R.string.exchange_password_login_notice));
-                exchangePassowrdEt.setText(CommonUtil.getExchangePwd());
+                exchange_buy_pwd_notice_tv.setText(ResourcesManager.getString(R.string.exchange_password_login_notice));
+                exchangePassowrdEt.setText(DataManager.getExchangePwd());
                 break;
         }
         isRefreshPwd = false;
@@ -461,13 +463,13 @@ public class ExchangeBuyFragment extends BaseMvpFragment<ExchangeCenterPresenter
 
                 String exchanegPwd = exchangePassowrdEt.getText().toString().trim();
                 if (!TextUtils.isEmpty(exchanegPwd)) {
-                    CommonUtil.saveExchangePwd(exchanegPwd);
+                    DataManager.saveExchangePwd(exchanegPwd);
                 }
                 clearBuyInput();
                 break;
             case EXCHANGE_PWD_TAG:
                 toast("记住密码设置成功");
-                CommonUtil.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
+                DataManager.saveExchangePwd(exchange_passowrd_et.getText().toString().trim());
                 if (pwdDialogUtils != null && pwdDialogUtils.isShowing()) pwdDialogUtils.dismiss();
                 RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                 break;

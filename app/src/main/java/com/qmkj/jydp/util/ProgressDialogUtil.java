@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.qmkj.jydp.R;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.ui.widget.LoadingDialog;
 
 import java.lang.ref.WeakReference;
@@ -30,7 +31,7 @@ public class ProgressDialogUtil {
         contextWeakReference = new WeakReference<>(mContext);
 
         LoadingDialog loadingDialog = new LoadingDialog(contextWeakReference.get(), R.style.loading_dialog);
-        loadingDialog.setAlertDialogSize((int) CommonUtil.getDimen(R.dimen.x100), (int) CommonUtil
+        loadingDialog.setAlertDialogSize((int) ResourcesManager.getDimen(R.dimen.x100), (int) ResourcesManager
                 .getDimen(R.dimen.y100));
         loadingDialog.setMessage(mContext.getString(R.string.loading));
         waitDialog = new WeakReference<>(loadingDialog);

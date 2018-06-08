@@ -14,7 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 
 
 /**
@@ -42,7 +42,7 @@ public class CustomWebView extends WebView {
 
     private void init(Context context) {
         progressbar = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
-        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, CommonUtil.dp2px(2), 0, 0));
+        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, ResourcesManager.dp2px(2), 0, 0));
         progressbar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
         addView(progressbar);
         setVerticalScrollBarEnabled(false);

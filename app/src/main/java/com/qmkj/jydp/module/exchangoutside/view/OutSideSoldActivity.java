@@ -28,13 +28,14 @@ import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.OutSideSellDetailReq;
 import com.qmkj.jydp.bean.response.OutSideSellDetailRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.ui.widget.NoPaddingTextView;
 import com.qmkj.jydp.util.BitmapCompressTask;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
@@ -111,21 +112,21 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
         String dealerName = getIntent().getStringExtra(Constants.INTENT_PARAMETER_3);
         minAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_4);
         maxAccount = getIntent().getStringExtra(Constants.INTENT_PARAMETER_5);
-        outsideExchangeSoldRatioTv.setText(CommonUtil.getString(R.string.proportion) + ":  1:" + pendingRatio);
+        outsideExchangeSoldRatioTv.setText(ResourcesManager.getString(R.string.proportion) + ":  1:" + pendingRatio);
         soldDistributorCiv.setRightText(dealerName);
 
 
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.bank_card_transfer), R
+        certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.bank_card_transfer), R
                 .mipmap.bank_card, true));
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.alipay_transfer), R
+        certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.alipay_transfer), R
                 .mipmap.alipay, false));
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.wechat_transfer), R
+        certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.wechat_transfer), R
                 .mipmap.wechat_pay, false));
     }
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.sell));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.sell));
     }
 
     @Override
@@ -237,7 +238,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
         commonDialog.setAlertDialogHight(0);
         commonDialog.setAlertDialogGravity(Gravity.BOTTOM);
         TextView list_item_title_tv = commonDialog.getView(R.id.list_item_title_tv, TextView.class);
-        list_item_title_tv.setText(CommonUtil.getString(R.string.select_pay_type));
+        list_item_title_tv.setText(ResourcesManager.getString(R.string.select_pay_type));
 
         RecyclerView recyclerView = commonDialog.getView(R.id.certify_type_select_rv, RecyclerView.class);
         ImageView dialog_right_iv = commonDialog.getView(R.id.dialog_right_iv, ImageView.class);
@@ -407,7 +408,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
                 LogUtil.i("卖出数据==" + outSideSellDetailRes.toString());
                 Intent intent = new Intent(mContext, OutSideSoldDetailActivity.class);
                 intent.putExtra(Constants.INTENT_PARAMETER_1, outSideSellDetailRes);
-                CommonUtil.gotoActivity(mContext, intent);
+                ActivityManager.gotoActivity(mContext, intent);
                 break;
         }
     }

@@ -11,10 +11,13 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.ChangePassWordReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CheckTextUtil;
-import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,15 +46,15 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.user_phone_num_tv)
     TextView userPhoneNumTv;
     @BindView(R.id.modify_old_login_pwd_eiv) //原密码
-    EditVItemView modify_old_login_pwd_eiv;
+            EditVItemView modify_old_login_pwd_eiv;
     @BindView(R.id.modify_new_login_pwd_eiv) //新密码
-    EditVItemView modify_new_login_pwd_eiv;
+            EditVItemView modify_new_login_pwd_eiv;
     @BindView(R.id.modify_new_login_pwd_again_eiv) //重复密码
-    EditVItemView modify_new_login_pwd_again_eiv;
+            EditVItemView modify_new_login_pwd_again_eiv;
     @BindView(R.id.modify_login_pwd_verification_code_civ) //获取验证码
-    EditVItemView modify_login_pwd_verification_code_civ;
+            EditVItemView modify_login_pwd_verification_code_civ;
     @BindView(R.id.modify_login_pwd_submit_bt)  //提 交
-    Button modify_login_pwd_submit_bt;
+            Button modify_login_pwd_submit_bt;
 
     private TextView codeTimeDownTv;
     private Disposable disposable;
@@ -70,14 +73,15 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
-            userPhoneNumTv.setText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode() + " " + CommonUtil.getLoginInfo().getUser().getUserPhone());
+        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null) {
+            userPhoneNumTv.setText(String.format("%s %s", DataManager.getLoginInfo().getUser().getPhoneAreaCode(),
+                    DataManager.getLoginInfo().getUser().getUserPhone()));
         }
     }
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.modify_password));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.modify_password));
     }
 
     @Override
@@ -90,9 +94,9 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
         modify_login_pwd_verification_code_civ.setEditTextInputType(InputType.TYPE_CLASS_NUMBER);
         modify_login_pwd_verification_code_civ.setEditTextMaxLength(6);
         codeTimeDownTv = modify_login_pwd_verification_code_civ.getView(R.id.edit_right_tv);
-        codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+        codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv.setOnClickListener(v -> {
-            CommonUtil.hideInputWindow(mContext);
+            SystemManager.hideInputWindow(mContext);
             getVerificationCode();
         });
     }
@@ -101,8 +105,8 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
      * 发送获取验证码请求
      */
     private void getVerificationCode() {
-        String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
-        String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
+        String phone = DataManager.getLoginInfo().getUser().getUserPhone();
+        String phoneAreaCode = DataManager.getLoginInfo().getUser().getPhoneAreaCode();
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
         phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG);
@@ -152,8 +156,8 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
             return;
         }
 
-        String codeText = CommonUtil.checkCode(code);
-        if(codeText!=null){
+        String codeText = CheckTextUtil.checkCode(code);
+        if (codeText != null) {
             toast(codeText);
             return;
         }
@@ -175,7 +179,7 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case SEND_REQUEST_TAG:
                 toast("修改成功");
-                CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
+                ActivityManager.gotoActivity(mContext, PersonInfoActivity.class);
                 break;
         }
     }
@@ -188,11 +192,11 @@ public class ModifyLoginPwdActivity extends BaseMvpActivity<LoginPresenter> {
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
                 (splashTotalCountdownTime + 1).subscribe(integer -> {
             if (integer == 0) {
-                codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
                 codeTimeDownTv.setEnabled(true);
                 codeTimeDownTv.setAlpha(1);
             } else {
-                codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                codeTimeDownTv.setText(String.format(ResourcesManager.getString(R.string.get_rigister_getvertify_code),
                         integer));
                 codeTimeDownTv.setEnabled(false);
                 codeTimeDownTv.setAlpha(0.5f);

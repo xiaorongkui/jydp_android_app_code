@@ -137,7 +137,7 @@ public class DateUtil {
     public static String longToTimeStr(long timeLong, String dateFormat) {
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
         String timeStr = "";
-        if(timeLong>0){
+        if (timeLong > 0) {
             Date date = new Date(timeLong);
             timeStr = formatter.format(date);
         }

@@ -2,6 +2,9 @@ package com.qmkj.jydp.util;
 
 import android.text.TextUtils;
 
+import com.qmkj.jydp.R;
+import com.qmkj.jydp.manager.ResourcesManager;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -134,4 +137,22 @@ public class CheckTextUtil {
         }
     }
 
+    /**
+     * 判断验证码格式
+     *
+     * @param code
+     * @return
+     */
+    public static String checkCode(String code) {
+        String msg = null;
+        if (TextUtils.isEmpty(code)) {
+            msg = ResourcesManager.getString(R.string.verification_code_null);
+            return msg;
+        }
+        if (code.length() != 6) {
+            msg = ResourcesManager.getString(R.string.verification_code_six_number);
+            return msg;
+        }
+        return msg;
+    }
 }

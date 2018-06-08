@@ -4,20 +4,21 @@ import java.io.Serializable;
 
 /**
  * 创建日期：2018/5/23
+ *
  * @author Yi Shan Xiang
- * 文件名称： SendAdsReq
- * email: 380948730@qq.com
+ *         文件名称： SendAdsReq
+ *         email: 380948730@qq.com
  */
 
-public class SendAdsReq extends BaseReq implements Serializable{
+public class SendAdsReq extends BaseReq implements Serializable {
 
-    private String ara;	//地区	string
-    private String currencyId;	//	货币id	string
-    private String maxNumber;	//	最大金额	string
+    private String ara;    //地区	string
+    private String currencyId;    //	货币id	string
+    private String maxNumber;    //	最大金额	string
     private String minNumber;    // 	最小金额	string
-    private String orderType;	//	挂单类型 1：出售，2：回购	string
-    private String pendingRatio;	//	挂单比例	string
-    private String  selectList;	//收款方式（多个逗号分隔）
+    private String orderType;    //	挂单类型 1：出售，2：回购	string
+    private String pendingRatio;    //	挂单比例	string
+    private String selectList;    //收款方式（多个逗号分隔）
 
     public String getAra() {
         return ara;

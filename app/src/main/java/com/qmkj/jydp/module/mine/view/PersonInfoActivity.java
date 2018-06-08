@@ -6,12 +6,13 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.event.ExchangePwdEvent;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.login.view.LoginActivity;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.RxBus;
 
 import butterknife.BindView;
@@ -28,11 +29,11 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.person_info_login_out_bt)
     TextView personInfoLoginOutBt;
     @BindView(R.id.person_info_modify_payment_password_civ) //修改支付密码
-    ClickItemView personInfoModifyPaymentPasswordCiv;
+            ClickItemView personInfoModifyPaymentPasswordCiv;
     @BindView(R.id.person_info_modify_password_civ) //修改密码
-    ClickItemView personInfoModifyPasswordCiv;
+            ClickItemView personInfoModifyPasswordCiv;
     @BindView(R.id.person_info_modify_phone_num_civ) //修改手机号
-    ClickItemView personInfoModifyPhoneNumCiv;
+            ClickItemView personInfoModifyPhoneNumCiv;
 
     @Override
     protected void injectPresenter() {
@@ -45,7 +46,7 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.person_info));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.person_info));
     }
 
     @Override
@@ -74,13 +75,13 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
                 commonDialog.show();
                 break;
             case R.id.person_info_modify_payment_password_civ://修改支付密码
-                CommonUtil.gotoActivity(mContext, ModifyPaymentActivity.class);
+                ActivityManager.gotoActivity(mContext, ModifyPaymentActivity.class);
                 break;
             case R.id.person_info_modify_password_civ://修改登录密码
-                CommonUtil.gotoActivity(mContext, ModifyLoginPwdActivity.class);
+                ActivityManager.gotoActivity(mContext, ModifyLoginPwdActivity.class);
                 break;
             case R.id.person_info_modify_phone_num_civ://修改手机号
-                CommonUtil.gotoActivity(mContext, ModifyPhoneActivity.class);
+                ActivityManager.gotoActivity(mContext, ModifyPhoneActivity.class);
                 break;
         }
     }
@@ -89,19 +90,19 @@ public class PersonInfoActivity extends BaseMvpActivity<MinePresenter> {
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         //退出登陆 清空token
-        CommonUtil.clearLoginData();
-        AppManager.getInstance().clear();
+        DataManager.clearLoginData();
+        ActivityManager.getInstance().clear();
         RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
-        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+        ActivityManager.gotoActivity(mContext, LoginActivity.class);
     }
 
     @Override
     public void onError(String errorMsg, String code, int tag, Object response) {
         super.onError(errorMsg, code, tag, response);
         //退出登陆 清空token
-        CommonUtil.setToken("");
-        CommonUtil.clearLoginInfo();
-        AppManager.getInstance().clear();
-        CommonUtil.gotoActivity(mContext, LoginActivity.class);
+        DataManager.setToken("");
+        DataManager.clearLoginInfo();
+        ActivityManager.getInstance().clear();
+        ActivityManager.gotoActivity(mContext, LoginActivity.class);
     }
 }

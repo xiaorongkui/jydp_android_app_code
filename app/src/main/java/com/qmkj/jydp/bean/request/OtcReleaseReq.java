@@ -2,11 +2,12 @@ package com.qmkj.jydp.bean.request;
 
 /**
  * 创建日期：2018/5/23
+ *
  * @author Yi Shan Xiang
- * 文件名称： OtcReleaseReq
- * email: 380948730@qq.com
+ *         文件名称： OtcReleaseReq
+ *         email: 380948730@qq.com
  */
-public class OtcReleaseReq extends BaseReq{
+public class OtcReleaseReq extends BaseReq {
     private String alipayAccount;//	支付宝账号
     private String bankAccount;//	收款账号
     private String bankBranch;//	收款支行

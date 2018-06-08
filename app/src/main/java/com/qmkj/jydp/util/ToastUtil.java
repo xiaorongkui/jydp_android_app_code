@@ -76,7 +76,7 @@ public class ToastUtil {
      */
     public static void showDefinedToast(Context context, CharSequence s) {
         View view = View.inflate(context, R.layout.toast_define, null);
-        TextView text = (TextView) view.findViewById(R.id.toast_tv);
+        TextView text = view.findViewById(R.id.toast_tv);
         text.setText(s);
         Toast mToast = new Toast(context);
         mToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);

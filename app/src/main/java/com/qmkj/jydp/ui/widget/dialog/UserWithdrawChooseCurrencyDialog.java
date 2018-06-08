@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
@@ -36,16 +35,18 @@ public class UserWithdrawChooseCurrencyDialog extends BaseBottomDialog {
         void onChooseCurrency(UserCoinWithdrawInfo.CoinWithdrawInfo bean);
     }
 
-    public UserWithdrawChooseCurrencyDialog(@NonNull Context context, List<UserCoinWithdrawInfo.CoinWithdrawInfo> itemBeanList) {
+    public UserWithdrawChooseCurrencyDialog(@NonNull Context context, List<UserCoinWithdrawInfo.CoinWithdrawInfo>
+            itemBeanList) {
         super(context);
-        if(itemBeanList!=null){
+        if (itemBeanList != null) {
             this.itemBeanList.addAll(itemBeanList);
         }
     }
 
     @Override
     protected View setContentView() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_below_user_withdraw_choose_currency_content, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout
+                .dialog_below_user_withdraw_choose_currency_content, null);
         return view;
     }
 
@@ -117,7 +118,8 @@ public class UserWithdrawChooseCurrencyDialog extends BaseBottomDialog {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_choose_currency_dialog_lv, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_choose_currency_dialog_lv,
+                        parent, false);
                 viewHolder = new ViewHolder();
                 viewHolder.tv = convertView.findViewById(R.id.item_choose_currency_tv);
 //                viewHolder.rb = convertView.findViewById(R.id.item_choose_currency_rb);

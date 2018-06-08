@@ -67,6 +67,10 @@ public abstract class BaseBottomDialog extends Dialog {
     @Override
     public void show() {
         Window window = getWindow();
+        if (window == null) {
+            super.show();
+            return;
+        }
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;

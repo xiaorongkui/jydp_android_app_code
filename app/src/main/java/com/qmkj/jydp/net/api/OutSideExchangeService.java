@@ -26,46 +26,41 @@ import retrofit2.http.Part;
 public interface OutSideExchangeService {
     /**
      * 场外交易列表接口
-     *
      */
     @POST("wap/otcTradeCenter/showMore")
     Observable<BaseRes<OutSideExchangeRes>> getOutsideExchangeData(@Body OutSideExchangeReq req);
 
     /**
      * 场外交易购买接口
-     *
      */
     @POST("wap/otcTradeCenter/buy")
     Observable<BaseRes<Object>> payOutsideExchange(@Body OutSideBuyPayReq req);
 
     /**
      * 场外交易购买详情确认接口
-     *
      */
     @POST("wap/otcTradeCenter/userBuyDetail")
     Observable<BaseRes<OutSideBuyPayDetailRes>> payOutsideDetailConfirm(@Body OutSideBuyPayDetailReq req);
 
     /**
      * 场外交易获取经销商的付款方式
-     *
      */
     @POST("wap/otcTradeCenter/getPayType")
     Observable<BaseRes<DistributorPayMethodRes>> getDistributorPayMethod(@Body DistributorPayMethodReq req);
 
     /**
      * 场外交易出售详情接口
-     *
      */
     @Multipart
     @POST("wap/otcTradeCenter/userSellDetail")
     Observable<BaseRes<OutSideSellDetailRes>> sellOutsideDetailConfirm(@Part("data") RequestBody req, @Part
             ("alipayPaymentImage\"; " +
-            "filename = " + "\"alipayPaymentImage.jpg") RequestBody alipayImage, @Part("wechatPaymentImage\"; " +
+                    "filename = " + "\"alipayPaymentImage.jpg") RequestBody alipayImage, @Part("wechatPaymentImage\";" +
+            " " +
             "filename = " + "\"wechatPaymentImage.jpg") RequestBody weichatImage);
 
     /**
      * 场外交易出售
-     *
      */
     @POST("wap/otcTradeCenter/sell")
     Observable<BaseRes<Object>> sellOutsideExchange(@Body OutSideSellReq req);

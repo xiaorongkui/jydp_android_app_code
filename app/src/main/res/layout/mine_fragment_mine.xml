@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mine_ll"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_gray_12"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/mine_ll"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_gray_12"
+              android:orientation="vertical">
 
     <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
         android:id="@+id/mine_info_rl"
@@ -47,14 +47,14 @@
                                 android:layout_width="@dimen/x40"
                                 android:layout_height="@dimen/x40"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/mine_person_icon_bg" />
+                                android:background="@drawable/mine_person_icon_bg"/>
 
                             <ImageView
                                 android:id="@+id/mine_person_iv"
                                 android:layout_width="@dimen/x24"
                                 android:layout_height="@dimen/y24"
                                 android:layout_gravity="center"
-                                android:src="@mipmap/mine_select" />
+                                android:src="@mipmap/mine_select"/>
 
                         </FrameLayout>
 
@@ -67,7 +67,7 @@
                             android:layout_marginStart="@dimen/x9"
                             android:text=""
                             android:textColor="@color/color_white_1"
-                            android:textSize="@dimen/text_size_16" />
+                            android:textSize="@dimen/text_size_16"/>
 
                         <TextView
                             android:id="@+id/mine_distributor_tv"
@@ -79,7 +79,7 @@
                             android:visibility="gone"
                             android:text="@string/distributor"
                             android:textColor="@color/color_bule_1"
-                            android:textSize="@dimen/text_size_12" />
+                            android:textSize="@dimen/text_size_12"/>
                     </LinearLayout>
 
                     <com.qmkj.jydp.ui.widget.NoPaddingTextView
@@ -90,7 +90,7 @@
                         android:layout_marginTop="@dimen/y19"
                         android:text="@string/amount_total_money_xt"
                         android:textColor="@color/color_bule_4"
-                        android:textSize="@dimen/text_size_12" />
+                        android:textSize="@dimen/text_size_12"/>
 
                     <com.qmkj.jydp.ui.widget.NoPaddingTextView
                         android:id="@+id/mine_totalUserBalance_tv"
@@ -101,7 +101,7 @@
                         android:text="0.00"
                         android:textColor="@color/color_white_2"
                         android:textSize="@dimen/text_size_24"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                 </LinearLayout>
 
@@ -139,7 +139,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/amount_available_money_xt"
                                 android:textColor="@color/color_gray_2"
-                                android:textSize="@dimen/text_size_13" />
+                                android:textSize="@dimen/text_size_13"/>
 
                             <com.qmkj.jydp.ui.widget.NoPaddingTextView
                                 android:id="@+id/mine_userBalance_tv"
@@ -149,7 +149,7 @@
                                 android:text="0.00"
                                 android:textColor="@color/color_black_2"
                                 android:textSize="@dimen/text_size_18"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                         </LinearLayout>
 
@@ -167,7 +167,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/amount_frozen_money_xt"
                                 android:textColor="@color/color_gray_2"
-                                android:textSize="@dimen/text_size_13" />
+                                android:textSize="@dimen/text_size_13"/>
 
 
                             <com.qmkj.jydp.ui.widget.NoPaddingTextView
@@ -178,7 +178,7 @@
                                 android:text="0.00"
                                 android:textColor="@color/color_black_2"
                                 android:textSize="@dimen/text_size_18"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -200,7 +200,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_view_shadow_bg"
-                        android:overScrollMode="never" />
+                        android:overScrollMode="never"/>
 
 
                 </com.dd.ShadowLayout>

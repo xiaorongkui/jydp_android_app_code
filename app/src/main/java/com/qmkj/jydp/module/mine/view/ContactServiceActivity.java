@@ -12,11 +12,11 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.request.SendContactServiceReq;
 import com.qmkj.jydp.bean.response.CustomerServiceRes;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.ContactServiceRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.dialog.SubmitQuestionDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.StringUtil;
 
 import butterknife.BindView;
@@ -37,7 +37,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.submit_question_btn) //提交问题
-    Button submitQuestionBtn;
+            Button submitQuestionBtn;
 
     private ContactServiceRecyAdapter adapter;
     boolean mIsCanRefresh = true;
@@ -48,7 +48,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.connect_service));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.connect_service));
     }
 
     @Override
@@ -84,7 +84,8 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -168,7 +169,7 @@ public class ContactServiceActivity extends BaseMvpActivity<MinePresenter> {
                 toast("标题不能为空");
                 return;
             }
-            if(questionTitle.length()<2){
+            if (questionTitle.length() < 2) {
                 toast("标题为2-16个字符");
                 return;
             }

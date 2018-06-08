@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".module.mine.view.OutSideExchangeOrderDetailForUserActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".module.mine.view.OutSideExchangeOrderDetailForUserActivity">
 
-    <include layout="@layout/common_header" />
+    <include layout="@layout/common_header"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                     android:layout_height="@dimen/y25"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/x15"
-                    android:src="@mipmap/to_finish" />
+                    android:src="@mipmap/to_finish"/>
 
                 <TextView
                     android:id="@+id/order_detail_status_tv"
@@ -43,7 +43,7 @@
                     android:layout_marginStart="@dimen/x10"
                     android:layout_toEndOf="@id/order_detail_status_iv"
                     android:textColor="@color/color_white_3"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </RelativeLayout>
 
             <!--交易流水号、币信息等-->
@@ -77,7 +77,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/order_num_1"
                             android:textColor="@color/color_black_10"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textSize="@dimen/text_size_14"/>
 
                         <TextView
                             android:id="@+id/order_detail_order_num_tv"
@@ -85,12 +85,12 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textColor="@color/color_black_10"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textSize="@dimen/text_size_14"/>
                     </LinearLayout>
 
                     <View
                         style="@style/line1"
-                        android:layout_marginTop="@dimen/y10" />
+                        android:layout_marginTop="@dimen/y10"/>
 
                     <TextView
                         android:id="@+id/order_detail_currency_name_tv"
@@ -101,7 +101,7 @@
                         android:layout_marginTop="@dimen/y10"
                         android:text="@string/syl"
                         android:textColor="@color/color_black_7"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"/>
 
                     <com.qmkj.jydp.ui.widget.ClickItemView
                         android:id="@+id/order_detail_currency_num_cv"
@@ -115,7 +115,7 @@
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
                         app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15" />
+                        app:rightTextSize="@dimen/text_size_15"/>
 
                     <com.qmkj.jydp.ui.widget.ClickItemView
                         android:id="@+id/order_detail_currency_total_price_cv"
@@ -129,7 +129,7 @@
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
                         app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15" />
+                        app:rightTextSize="@dimen/text_size_15"/>
 
                     <com.qmkj.jydp.ui.widget.ClickItemView
                         android:id="@+id/order_detail_deal_type_cv"
@@ -143,7 +143,7 @@
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
                         app:rightTextColor="@color/color_green_4"
-                        app:rightTextSize="@dimen/text_size_15" />
+                        app:rightTextSize="@dimen/text_size_15"/>
 
                     <com.qmkj.jydp.ui.widget.ClickItemView
                         android:id="@+id/order_detail_area_cv"
@@ -157,7 +157,7 @@
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
                         app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15" />
+                        app:rightTextSize="@dimen/text_size_15"/>
 
                 </LinearLayout>
             </com.dd.ShadowLayout>
@@ -188,7 +188,7 @@
                         android:layout_marginTop="@dimen/y15"
                         android:text="@string/dealer_information"
                         android:textColor="@color/color_black_7"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"/>
 
                     <com.qmkj.jydp.ui.widget.ClickItemView
                         android:id="@+id/order_detail_dealer_name_cv"
@@ -202,7 +202,7 @@
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
                         app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_14" />
+                        app:rightTextSize="@dimen/text_size_14"/>
 
                     <com.qmkj.jydp.ui.widget.ClickItemView
                         android:id="@+id/order_detail_dealer_phone_num_cv"
@@ -216,12 +216,12 @@
                         app:leftTextSize="@dimen/text_size_13"
                         app:rightIconVisible="false"
                         app:rightTextColor="@color/color_black_7"
-                        app:rightTextSize="@dimen/text_size_15" />
+                        app:rightTextSize="@dimen/text_size_15"/>
 
                     <FrameLayout
                         android:id="@+id/order_detail_dealer_info_content_fl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
             </com.dd.ShadowLayout>
@@ -253,12 +253,12 @@
                         android:layout_marginTop="@dimen/y15"
                         android:text="@string/mine_info_my"
                         android:textColor="@color/color_black_7"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"/>
 
                     <FrameLayout
                         android:id="@+id/order_detail_my_info_content_fl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </com.dd.ShadowLayout>
 
@@ -293,7 +293,7 @@
                         app:rightIconVisible="false"
                         app:rightText="2016-06-06 13:13:13"
                         app:rightTextColor="@color/color_black_1"
-                        app:rightTextSize="@dimen/text_size_14" />
+                        app:rightTextSize="@dimen/text_size_14"/>
 
                     <com.qmkj.jydp.ui.widget.ClickItemView
                         android:id="@+id/order_detail_update_time_cv"
@@ -308,7 +308,7 @@
                         app:rightIconVisible="false"
                         app:rightText="2016-06-06 13:13:13"
                         app:rightTextColor="@color/color_black_1"
-                        app:rightTextSize="@dimen/text_size_14" />
+                        app:rightTextSize="@dimen/text_size_14"/>
                 </LinearLayout>
             </com.dd.ShadowLayout>
         </LinearLayout>
@@ -321,6 +321,6 @@
         android:layout_marginLeft="@dimen/x15"
         android:layout_marginRight="@dimen/x15"
         android:text="@string/comfirm_receivables"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </LinearLayout>

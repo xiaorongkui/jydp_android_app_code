@@ -27,12 +27,12 @@ import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.DialogItemBean;
 import com.qmkj.jydp.bean.request.CertifyNameReq;
 import com.qmkj.jydp.common.NetResponseCode;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.BitmapCompressTask;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
 
@@ -197,9 +197,9 @@ public class CertifyNameFragment extends BaseMvpFragment<LoginPresenter> impleme
      */
     private void showCertifyTypeSelectDialog() {
         List<DialogItemBean> certifyTypeData = new ArrayList<>();
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.certificate_identification), R
+        certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.certificate_identification), R
                 .mipmap.certificate_identification, true));
-        certifyTypeData.add(new DialogItemBean(CommonUtil.getString(R.string.passport), R
+        certifyTypeData.add(new DialogItemBean(ResourcesManager.getString(R.string.passport), R
                 .mipmap.passport, false));
 
         commonDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout

@@ -11,21 +11,17 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpFragment;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author
@@ -61,9 +57,9 @@ public class ExchangeCurrencySelectFrament extends BaseMvpFragment<ExchangeCente
     private void initStatusBar() {
         if (Build.VERSION.SDK_INT >= 21) {
             View statusView = new View(getActivity());
-            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
+            statusView.setBackgroundColor(ResourcesManager.getColor(R.color.status_bar_color));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup
-                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
+                    .LayoutParams.MATCH_PARENT, SystemManager.getStatusBarHeight());
             title_ll.addView(statusView, 0, lp);
         }
     }

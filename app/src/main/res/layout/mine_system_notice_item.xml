@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/x10"
-    android:layout_marginRight="@dimen/x10"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/x10"
+              android:layout_marginRight="@dimen/x10"
+              android:gravity="center_vertical"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:gravity="center"
             android:text="2018-03-03 13:13:13"
             android:textColor="@color/color_white_1"
-            android:textSize="@dimen/text_size_12" />
+            android:textSize="@dimen/text_size_12"/>
     </RelativeLayout>
 
     <com.dd.ShadowLayout
@@ -49,7 +49,7 @@
                 android:maxLines="1"
                 android:text="【公告】公告标题公告标题公告标题公告标题"
                 android:textColor="@color/color_black_2"
-                android:textSize="@dimen/text_size_15" />
+                android:textSize="@dimen/text_size_15"/>
 
             <TextView
                 android:id="@+id/notice_content_item_tv"
@@ -63,11 +63,11 @@
                 android:maxLines="2"
                 android:text="[公告] 公告标题结后公告标题结后公告标题结后公告标题结后公告标题结后"
                 android:textColor="@color/color_black_1"
-                android:textSize="@dimen/text_size_13" />
+                android:textSize="@dimen/text_size_13"/>
 
             <View
                 style="@style/line1"
-                android:layout_marginTop="@dimen/y10" />
+                android:layout_marginTop="@dimen/y10"/>
 
             <RelativeLayout
                 android:id="@+id/system_notice_item_detail_civ"
@@ -83,7 +83,7 @@
                     android:layout_marginStart="@dimen/x11"
                     android:text="@string/look_details"
                     android:textColor="@color/color_black_1"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_12"/>
 
                 <ImageView
                     android:layout_centerVertical="true"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="@dimen/x11"
-                    android:src="@mipmap/ic_common_arrow" />
+                    android:src="@mipmap/ic_common_arrow"/>
 
             </RelativeLayout>
         </LinearLayout>

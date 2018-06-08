@@ -11,10 +11,11 @@ import android.widget.TextView;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.AppUpdateRes;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.login.modle.LoginContract;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
 import com.qmkj.jydp.util.SelectorFactory;
@@ -76,7 +77,7 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.software_info));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.software_info));
     }
 
     @Override
@@ -87,21 +88,18 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
     @Override
     protected void initView() {
         final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x11))
-                .setDefaultStrokeColor(CommonUtil.getColor(R.color.color_gray_2))
-                .setStrokeWidth((int) CommonUtil.getDimen(R.dimen.x1))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_white_1));
+                .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x11))
+                .setDefaultStrokeColor(ResourcesManager.getColor(R.color.color_gray_2))
+                .setStrokeWidth((int) ResourcesManager.getDimen(R.dimen.x1))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_white_1));
 
         softwareInfoVersionNumTv.setBackground(shapeSelector.create());
-        softwareInfoVersionNumTv.setText(CommonUtil.getAppVersionName(mContext));
+        softwareInfoVersionNumTv.setText(SystemManager.getAppVersionName(mContext));
 
 
-        software_info_check_update_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPermission();
-                presenter.checkAppUpdate(CHECK_APP_TAG, false);
-            }
+        software_info_check_update_tv.setOnClickListener(view -> {
+            checkPermission();
+            presenter.checkAppUpdate(CHECK_APP_TAG, false);
         });
     }
 
@@ -132,7 +130,7 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
     private void calculateUpdate(AppUpdateRes appUpdateRes) throws Exception {
         String forceStatus = appUpdateRes.getForceStatus();//1强制升级，2，普通升级
         String newestVersion = appUpdateRes.getNewestVersion();//新版本
-        String oldVersion = CommonUtil.getAppVersionName(mContext);
+        String oldVersion = SystemManager.getAppVersionName(mContext);
         LogUtil.i("newVersion=" + newestVersion + ";oldVersion=" + oldVersion);
         if (compareVersion(newestVersion, oldVersion)) {//需要升级
             switch (forceStatus) {
@@ -206,10 +204,11 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
      */
     private void normalUpdate(AppUpdateRes appUpdateRes) {
         alterNormalDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
-        alterNormalDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        alterNormalDialog.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         alterNormalDialog.setCanceledOnTouchOutside(false);
         alterNormalDialog.setCancelable(false);
-        alterNormalDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion());
+        alterNormalDialog.setTitle(ResourcesManager.getString(R.string.upgrade_notice) + appUpdateRes
+                .getNewestVersion());
         alterNormalDialog.setMessage(appUpdateRes.getUpdateExplain());
         Button update_immediately_bt = alterNormalDialog.getView(R.id.update_immediately_bt, Button.class);
         Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);
@@ -233,10 +232,11 @@ public class SoftwareInfoActivity extends BaseMvpActivity<LoginPresenter> implem
 
     private void focuseUpdate(AppUpdateRes appUpdateRes) {
         alterFocusDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
-        alterFocusDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        alterFocusDialog.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         alterFocusDialog.setCanceledOnTouchOutside(false);
         alterFocusDialog.setCancelable(false);
-        alterFocusDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion());
+        alterFocusDialog.setTitle(ResourcesManager.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion
+                ());
         alterFocusDialog.setMessage(appUpdateRes.getUpdateExplain());
         Button update_immediately_bt = alterNormalDialog.getView(R.id.update_immediately_bt, Button.class);
         Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);

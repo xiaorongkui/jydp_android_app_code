@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="@dimen/y5">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="@dimen/y5">
 
     <ImageView
         android:id="@+id/gride_image"
         android:layout_width="@dimen/x44"
         android:layout_height="@dimen/y44"
         android:scaleType="centerCrop"
-        android:src="@mipmap/logo" />
+        android:src="@mipmap/logo"/>
 
     <TextView
         android:id="@+id/gride_text"
@@ -21,6 +21,6 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/color_black_6"
-        android:textSize="@dimen/text_size_13" />
+        android:textSize="@dimen/text_size_13"/>
 
 </LinearLayout>

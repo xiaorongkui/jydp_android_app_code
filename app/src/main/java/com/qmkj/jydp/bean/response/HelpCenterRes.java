@@ -4,16 +4,18 @@ import java.io.Serializable;
 
 /**
  * 创建日期：2018/5/23
+ *
  * @author Yi Shan Xiang
- * 文件名称： HelpCenterRes
- * email: 380948730@qq.com
+ *         文件名称： HelpCenterRes
+ *         email: 380948730@qq.com
  */
 
-public class HelpCenterRes extends BaseRes implements Serializable{
+public class HelpCenterRes extends BaseRes implements Serializable {
     /**
      * helpId : 101014
      * helpTitle : 公司简介
-     * systemHelpDO : {"addTime":1523607467000,"content":"<p>公司简介<\/p>","helpTitle":"公司简介","helpType":"用户帮助","id":101014}
+     * systemHelpDO : {"addTime":1523607467000,"content":"<p>公司简介<\/p>","helpTitle":"公司简介","helpType":"用户帮助",
+     * "id":101014}
      */
 
     private int helpId;

@@ -7,7 +7,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.SystemHotRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -19,8 +19,8 @@ import com.qmkj.jydp.util.SelectorFactory;
 
 public class SystemHotRecyAdapter extends XBaseAdapter<SystemHotRes.SystemHotListBean> {
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-            .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
-            .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_8));
+            .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x10))
+            .setDefaultBgColor(ResourcesManager.getColor(R.color.color_gray_8));
 
     public SystemHotRecyAdapter(Context context) {
         super(context);
@@ -39,7 +39,7 @@ public class SystemHotRecyAdapter extends XBaseAdapter<SystemHotRes.SystemHotLis
         TextView notice_content_item_tv = helper.getView(R.id.notice_content_item_tv);//内容
 
         helper.addOnClickListener(R.id.system_notice_item_detail_civ);
-        system_notice_item_time_tv.setText(DateUtil.longToTimeStr(item.getAddTime(),DateUtil.dateFormat2));
+        system_notice_item_time_tv.setText(DateUtil.longToTimeStr(item.getAddTime(), DateUtil.dateFormat2));
         notice_title_item_tv.setText("[话题] " + item.getNoticeType());
         notice_content_item_tv.setText(item.getNoticeTitle());
 

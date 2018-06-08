@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.LogUtil;
 
 public class JYDPSwipeRefreshLayout extends SuperSwipeRefreshLayout {
@@ -43,18 +43,18 @@ public class JYDPSwipeRefreshLayout extends SuperSwipeRefreshLayout {
 
     public void setFooterView() {
         viewRoot = LayoutInflater.from(context).inflate(R.layout.swipe_refresh_layout_footer, null);
-        swipe_refresh_footer_tv = (TextView) viewRoot.findViewById(R.id.swipe_refresh_footer_tv);
+        swipe_refresh_footer_tv = viewRoot.findViewById(R.id.swipe_refresh_footer_tv);
         super.setFooterView(viewRoot);
-        setFooterViewBackgroundColor(CommonUtil.getColor(R.color.item_line));
+        setFooterViewBackgroundColor(ResourcesManager.getColor(R.color.item_line));
     }
 
     public void setHeaderView() {
         viewRoot = LayoutInflater.from(context).inflate(R.layout.swipe_refresh_layout_header, null);
-        iv_pull_refresh_in = (ImageView) viewRoot.findViewById(R.id.iv_pull_refresh_in);
-        iv_pull_refresh_out = (ImageView) viewRoot.findViewById(R.id.iv_pull_refresh_out);
-        swipe_refresh_header_tv = (TextView) viewRoot.findViewById(R.id.swipe_refresh_header_tv);
+        iv_pull_refresh_in = viewRoot.findViewById(R.id.iv_pull_refresh_in);
+        iv_pull_refresh_out = viewRoot.findViewById(R.id.iv_pull_refresh_out);
+        swipe_refresh_header_tv = viewRoot.findViewById(R.id.swipe_refresh_header_tv);
         super.setHeaderView(viewRoot);
-        setHeaderViewBackgroundColor(CommonUtil.getColor(R.color.item_line));
+        setHeaderViewBackgroundColor(ResourcesManager.getColor(R.color.item_line));
     }
 
 
@@ -66,7 +66,7 @@ public class JYDPSwipeRefreshLayout extends SuperSwipeRefreshLayout {
             @Override
             public void onRefresh() {
                 setEnabled(false);
-                swipe_refresh_header_tv.setText(CommonUtil.getString(R.string.pull_to_refresh_1));
+                swipe_refresh_header_tv.setText(ResourcesManager.getString(R.string.pull_to_refresh_1));
                 listener.onRefresh();
                 LogUtil.i("onRefresh=======>");
             }
@@ -81,7 +81,7 @@ public class JYDPSwipeRefreshLayout extends SuperSwipeRefreshLayout {
             public void onPullEnable(boolean enable) {
                 hcenable = enable;
                 LogUtil.i("enable========" + enable);
-                swipe_refresh_header_tv.setText(CommonUtil.getString(enable ? R.string
+                swipe_refresh_header_tv.setText(ResourcesManager.getString(enable ? R.string
                         .pull_to_refresh_2 : R.string.pull_to_refresh_3));
                 listener.onPullEnable(enable);
             }
@@ -94,7 +94,7 @@ public class JYDPSwipeRefreshLayout extends SuperSwipeRefreshLayout {
             public void onLoadMore() {
                 setEnabled(false);
                 listener.onLoadMore();
-                swipe_refresh_footer_tv.setText(CommonUtil.getString(R.string.pull_to_refresh_1));
+                swipe_refresh_footer_tv.setText(ResourcesManager.getString(R.string.pull_to_refresh_1));
             }
 
             @Override
@@ -106,7 +106,7 @@ public class JYDPSwipeRefreshLayout extends SuperSwipeRefreshLayout {
             public void onPushEnable(boolean enable) {
                 hcenable = enable;
                 listener.onPushEnable(enable);
-                swipe_refresh_footer_tv.setText(CommonUtil.getString(enable ? R.string
+                swipe_refresh_footer_tv.setText(ResourcesManager.getString(enable ? R.string
                         .push_to_refresh_2 : R.string.push_to_refresh_3));
             }
         });

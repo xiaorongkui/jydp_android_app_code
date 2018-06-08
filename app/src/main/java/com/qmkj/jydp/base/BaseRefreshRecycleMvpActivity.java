@@ -15,13 +15,14 @@ import butterknife.BindView;
 
 /**
  * 创建日期：2018/5/22
+ *
  * @author Yi Shan Xiang
- * 文件名称： BaseRefreshRecycleMvpActivity
- * email: 380948730@qq.com
+ *         文件名称： BaseRefreshRecycleMvpActivity
+ *         email: 380948730@qq.com
  */
 
 public abstract class BaseRefreshRecycleMvpActivity<T extends BasePresenter> extends BaseMvpActivity<T>
-        implements XRefreshLayout.OnRefreshListener{
+        implements XRefreshLayout.OnRefreshListener {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.system_hot_rv)
@@ -44,7 +45,7 @@ public abstract class BaseRefreshRecycleMvpActivity<T extends BasePresenter> ext
 
     @Override
     protected void initTitle() {
-        if(getTittle()!=null){
+        if (getTittle() != null) {
             titleHeaderTv.setText(getTittle());
         }
     }
@@ -52,7 +53,7 @@ public abstract class BaseRefreshRecycleMvpActivity<T extends BasePresenter> ext
     @Override
     protected void initView() {
         dealer_management_refresh.setOnRefreshListener(this);
-        BaseRecycleAdapter adapter= getRecycleAdapter();
+        BaseRecycleAdapter adapter = getRecycleAdapter();
         View mEmptyView = View.inflate(mContext, R.layout.empty, null);
         adapter.setEmptyView(mEmptyView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -70,7 +71,7 @@ public abstract class BaseRefreshRecycleMvpActivity<T extends BasePresenter> ext
     }
 
 
-    public Button getBottomButton(){
+    public Button getBottomButton() {
         return dealerPublishAdvertiseBt;
     }
 
@@ -84,8 +85,8 @@ public abstract class BaseRefreshRecycleMvpActivity<T extends BasePresenter> ext
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        if(dealer_management_refresh.isRefreshing()){
-            if(getData()!=null){
+        if (dealer_management_refresh.isRefreshing()) {
+            if (getData() != null) {
                 getData().clear();
             }
             dealer_management_refresh.refreshComplete();
@@ -95,11 +96,12 @@ public abstract class BaseRefreshRecycleMvpActivity<T extends BasePresenter> ext
     @Override
     public void onError(String errorMsg, String code, int tag, Object response) {
         super.onError(errorMsg, code, tag, response);
-        if(dealer_management_refresh.isRefreshing()){
+        if (dealer_management_refresh.isRefreshing()) {
             dealer_management_refresh.refreshComplete();
         }
     }
 
     public abstract List getData();
+
     public abstract String getTittle();
 }

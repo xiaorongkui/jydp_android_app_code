@@ -22,11 +22,11 @@ import com.qmkj.jydp.bean.event.OutSideExchangeEvent;
 import com.qmkj.jydp.bean.request.OutSideBuyPayReq;
 import com.qmkj.jydp.bean.response.OutSideBuyPayDetailRes;
 import com.qmkj.jydp.common.Constants;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.exchangoutside.presenter.OutsideExchangePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxBus;
 
@@ -153,21 +153,21 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
                 if (resource != null) {
                     qr_code_iv.setImageBitmap(resource);
                     ViewGroup.LayoutParams layoutParams = qr_code_iv.getLayoutParams();
-                    layoutParams.width = (int) CommonUtil.getDimen(R.dimen.x200);
-                    layoutParams.height = (int) CommonUtil.getDimen(R.dimen.x400);
+                    layoutParams.width = (int) ResourcesManager.getDimen(R.dimen.x200);
+                    layoutParams.height = (int) ResourcesManager.getDimen(R.dimen.x400);
                     qr_code_iv.setLayoutParams(layoutParams);
                 }
             }
         });
 
         qrCodeDialog.setCanceledOnTouchOutside(true);
-        qrCodeDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x250));
+        qrCodeDialog.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x250));
         qrCodeDialog.show();
     }
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.confirm_buy));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.confirm_buy));
     }
 
     @Override
@@ -201,9 +201,9 @@ public class OutSideBuyDetailActivity extends BaseMvpActivity<OutsideExchangePre
                 RxBus.getDefault().post(new OutSideExchangeEvent());
                 Intent intent = new Intent(mContext, MainActivity.class);
                 intent.putExtra(Constants.INTENT_PARAMETER_1, 2);//去场外交易页面
-                CommonUtil.gotoActivity(mContext, intent);
-                AppManager.getInstance().removeCurrent();
-                AppManager.getInstance().removeActivity(OutSideBuyActivity.class);
+                ActivityManager.gotoActivity(mContext, intent);
+                ActivityManager.getInstance().removeCurrent();
+                ActivityManager.getInstance().removeActivity(OutSideBuyActivity.class);
                 break;
         }
     }

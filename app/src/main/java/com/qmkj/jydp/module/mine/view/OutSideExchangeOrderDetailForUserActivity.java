@@ -20,10 +20,10 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.base.GlideApp;
 import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordDetailsRes;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.ClickItemView;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
@@ -101,7 +101,7 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.order_detail));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.order_detail));
     }
 
     @Override
@@ -116,15 +116,17 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
         }
         if (orderDetailInfo.getDealStatus() == 4) {
             orderDetailStatusTv.setText("已完成");
-        } else if(orderDetailInfo.getDealStatus() == 5){
+        } else if (orderDetailInfo.getDealStatus() == 5) {
             orderDetailStatusTv.setText("已撤销");
-        }else {
+        } else {
             orderDetailStatusTv.setText("待完成");
         }
         orderDetailOrderNoTv.setText(orderDetailInfo.getOtcOrderNo());
         orderDetailCurrencyNameTv.setText(orderDetailInfo.getCurrencyName());
-        orderDetailCurrencyNumCv.setRightText(NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo.getCurrencyNumber() + ""), 4));
-        orderDetailCurrencyTotalPriceCv.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo.getCurrencyTotalPrice() + ""), 2));
+        orderDetailCurrencyNumCv.setRightText(NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo
+                .getCurrencyNumber() + ""), 4));
+        orderDetailCurrencyTotalPriceCv.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo
+                .getCurrencyTotalPrice() + ""), 2));
         //1：买入，2：卖出，3：撤销
         switch (orderDetailInfo.getDealType()) {
             case 1:
@@ -145,9 +147,11 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
         orderDetailDealerNameCv.setRightText(orderDetailInfo.getDealerName());
         orderDetailDealerPhoneNumCv.setRightText(orderDetailInfo.getPhoneNumber());
         orderDetailAddTimeCv.setRightText(DateUtil.longToTimeStr(orderDetailInfo.getAddTime(), DateUtil.dateFormat2));
-        orderDetailUpdateTimeCv.setRightText(DateUtil.longToTimeStr(orderDetailInfo.getUpdateTime(), DateUtil.dateFormat2));
+        orderDetailUpdateTimeCv.setRightText(DateUtil.longToTimeStr(orderDetailInfo.getUpdateTime(), DateUtil
+                .dateFormat2));
         //只有当交易状态为未确认且交易类型为出售时 才显示确认收款按钮
-        if (orderDetailInfo.getDealStatus() != 4 &&orderDetailInfo.getDealStatus() != 5&& orderDetailInfo.getDealType() == 2) {
+        if (orderDetailInfo.getDealStatus() != 4 && orderDetailInfo.getDealStatus() != 5 && orderDetailInfo
+                .getDealType() == 2) {
             confirmReceiptBtn.setVisibility(View.VISIBLE);
         } else {
             confirmReceiptBtn.setVisibility(View.GONE);
@@ -161,7 +165,8 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
      */
     private void initDealerAndMyPayInfoLayout() {
         //经销商支付信息布局/我的支付信息布局 两个布局相同此处复用同一个
-        View dealerPayLayout = LayoutInflater.from(mContext).inflate(R.layout.layout_out_side_exchange_order_detail_for_user_dealer_info, null);
+        View dealerPayLayout = LayoutInflater.from(mContext).inflate(R.layout
+                .layout_out_side_exchange_order_detail_for_user_dealer_info, null);
         //银行卡信息布局
         View bankPayInfoLayout = dealerPayLayout.findViewById(R.id.my_bank_pay_info_ll);
         //微信支付宝信息布局
@@ -196,7 +201,8 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
             aliWeiXinPayInfoLayout.setVisibility(View.VISIBLE);
             aliWeiXinPayAccountCv.setLeftText(orderDetailInfo.getPaymentType() == 2 ? "支付宝账号" : "微信账号");
             aliWeiXinPayAccountCv.setRightText(orderDetailInfo.getPaymentAccount());
-            GlideApp.with(mContext).load(orderDetailInfo.getPaymentImage()).placeholder(R.mipmap.ic_launcher).into(aliWeiXinPayQrcodeImg);
+            GlideApp.with(mContext).load(orderDetailInfo.getPaymentImage()).placeholder(R.mipmap.ic_launcher).into
+                    (aliWeiXinPayQrcodeImg);
         }
         //1：购买，2：出售，3：撤销
         switch (orderDetailInfo.getDealType()) {
@@ -260,7 +266,8 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
         if (qrCodeDialog != null && qrCodeDialog.isShowing()) {
             return;
         }
-        qrCodeDialog = new com.qmkj.jydp.ui.widget.CommonDialog(mContext, R.style.common_dialog, R.layout.dialog_qr_code);
+        qrCodeDialog = new com.qmkj.jydp.ui.widget.CommonDialog(mContext, R.style.common_dialog, R.layout
+                .dialog_qr_code);
         ImageView qr_code_iv = qrCodeDialog.getView(R.id.qr_code_iv, ImageView.class);
         if (orderDetailInfo == null || TextUtils.isEmpty(orderDetailInfo.getPaymentImage())) return;
         GlideApp.with(mContext).asBitmap().signature(new MediaStoreSignature("image/jpeg", System.currentTimeMillis()
@@ -270,15 +277,15 @@ public class OutSideExchangeOrderDetailForUserActivity extends BaseMvpActivity<M
                 if (resource != null) {
                     qr_code_iv.setImageBitmap(resource);
                     ViewGroup.LayoutParams layoutParams = qr_code_iv.getLayoutParams();
-                    layoutParams.width = (int) CommonUtil.getDimen(R.dimen.x200);
-                    layoutParams.height = (int) CommonUtil.getDimen(R.dimen.x400);
+                    layoutParams.width = (int) ResourcesManager.getDimen(R.dimen.x200);
+                    layoutParams.height = (int) ResourcesManager.getDimen(R.dimen.x400);
                     qr_code_iv.setLayoutParams(layoutParams);
                 }
             }
         });
 
         qrCodeDialog.setCanceledOnTouchOutside(true);
-        qrCodeDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x250));
+        qrCodeDialog.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x250));
         qrCodeDialog.show();
     }
 

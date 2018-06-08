@@ -11,8 +11,9 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.CertificetionInfoReq;
 import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
-import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
 
@@ -64,7 +65,7 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.getvertify_name));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.getvertify_name));
     }
 
     @Override
@@ -173,6 +174,6 @@ public class CertificationActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     protected void onStop() {
         super.onStop();
-        CommonUtil.clearLoginData();
+        DataManager.clearLoginData();
     }
 }

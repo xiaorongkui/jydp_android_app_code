@@ -16,10 +16,13 @@ import com.qmkj.jydp.MainActivity;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.response.AppUpdateRes;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.login.modle.LoginContract;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxPermissionUtils;
 import com.qmkj.jydp.util.StringUtil;
@@ -138,7 +141,7 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
     private void calculateUpdate(AppUpdateRes appUpdateRes) throws Exception {
         String forceStatus = appUpdateRes.getForceStatus();//1强制升级，2，普通升级
         String newestVersion = appUpdateRes.getNewestVersion();//新版本
-        String oldVersion = CommonUtil.getAppVersionName(mContext);
+        String oldVersion = SystemManager.getAppVersionName(mContext);
         LogUtil.i("newVersion=" + newestVersion + ";oldVersion=" + oldVersion);
         if (compareVersion(newestVersion, oldVersion)) {//需要升级
             switch (forceStatus) {
@@ -210,10 +213,11 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
     private void normalUpdate(AppUpdateRes appUpdateRes) {
         isUpdate = true;
         alterNormalDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
-        alterNormalDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        alterNormalDialog.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         alterNormalDialog.setCanceledOnTouchOutside(false);
         alterNormalDialog.setCancelable(false);
-        alterNormalDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion());
+        alterNormalDialog.setTitle(ResourcesManager.getString(R.string.upgrade_notice) + appUpdateRes
+                .getNewestVersion());
         alterNormalDialog.setMessage(appUpdateRes.getUpdateExplain());
         Button update_immediately_bt = alterNormalDialog.getView(R.id.update_immediately_bt, Button.class);
         Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);
@@ -244,10 +248,11 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
     private void focuseUpdate(AppUpdateRes appUpdateRes) {
         isUpdate = true;
         alterFocusDialog = new CommonDialog(mContext, R.style.common_dialog, R.layout.common_dialog_update_app);
-        alterFocusDialog.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        alterFocusDialog.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         alterFocusDialog.setCanceledOnTouchOutside(false);
         alterFocusDialog.setCancelable(false);
-        alterFocusDialog.setTitle(CommonUtil.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion());
+        alterFocusDialog.setTitle(ResourcesManager.getString(R.string.upgrade_notice) + appUpdateRes.getNewestVersion
+                ());
         alterFocusDialog.setMessage(appUpdateRes.getUpdateExplain());
         Button update_immediately_bt = alterNormalDialog.getView(R.id.update_immediately_bt, Button.class);
         Button update_later_bt = alterNormalDialog.getView(R.id.update_later_bt, Button.class);
@@ -295,11 +300,11 @@ public class SplashActivity extends BaseMvpActivity<LoginPresenter> implements L
      */
     private void goMianActivity() {
         if (timeFinish && permissionFinish && !isUpdate) {
-            String token = CommonUtil.getToken();
+            String token = DataManager.getToken();
             if (StringUtil.isNull(token)) {
-                CommonUtil.gotoActivity(mContext, LoginActivity.class);
+                ActivityManager.gotoActivity(mContext, LoginActivity.class);
             } else {
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
+                ActivityManager.gotoActivity(mContext, MainActivity.class);
             }
         }
     }

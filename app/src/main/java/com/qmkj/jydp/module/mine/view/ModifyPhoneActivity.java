@@ -16,12 +16,14 @@ import com.qmkj.jydp.bean.request.ChangePhoneReq;
 import com.qmkj.jydp.bean.request.PhoneCodeReq;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.Constants;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.module.login.view.AreaCodeSecActivity;
 import com.qmkj.jydp.ui.widget.EditVItemView;
 import com.qmkj.jydp.util.CheckTextUtil;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -45,21 +47,21 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
     @BindView(R.id.title_header_tv)
     TextView titleHeaderTv;
     @BindView(R.id.modify_phone_erea_tv) //区号
-    TextView modify_phone_erea_tv;
+            TextView modify_phone_erea_tv;
     @BindView(R.id.modify_phone_erea_et)  //新的手机号码
-    EditText modify_phone_erea_et;
+            EditText modify_phone_erea_et;
     @BindView(R.id.user_phone_num_tv)
     TextView userPhoneNumTv;
     @BindView(R.id.modify_phone_submit_bt) //提交
-    Button modify_phone_submit_bt;
+            Button modify_phone_submit_bt;
     @BindView(R.id.modify_phone_verification_code_civ) //获取验证码（旧的）
-    EditVItemView modify_phone_verification_code_civ;
+            EditVItemView modify_phone_verification_code_civ;
     private TextView codeTimeDownTv;
     private TextView codeTimeDownTv_new;
     @BindView(R.id.modify_phone_verification_code_eiv)//获取验证码（新的）
-    EditVItemView modify_phone_verification_code_eiv;
+            EditVItemView modify_phone_verification_code_eiv;
     @BindView(R.id.modify_phone_password_one_eiv) //登录密码
-    EditVItemView modify_phone_password_one_eiv;
+            EditVItemView modify_phone_password_one_eiv;
     private int splashTotalCountdownTime = 60; //旧的手机验证码倒计时
     private int splashTotalCountdownTime_new = 60;//新的手机验证码倒计时
     private Disposable disposable;
@@ -73,14 +75,15 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
 
     @Override
     protected void initData() {
-        if (CommonUtil.getLoginInfo() != null && CommonUtil.getLoginInfo().getUser() != null) {
-            userPhoneNumTv.setText(CommonUtil.getLoginInfo().getUser().getPhoneAreaCode() + " " + CommonUtil.getLoginInfo().getUser().getUserPhone());
+        if (DataManager.getLoginInfo() != null && DataManager.getLoginInfo().getUser() != null) {
+            userPhoneNumTv.setText(String.format("%s %s", DataManager.getLoginInfo().getUser().getPhoneAreaCode(),
+                    DataManager.getLoginInfo().getUser().getUserPhone()));
         }
     }
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.modify_phone_num));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.modify_phone_num));
     }
 
     @Override
@@ -98,16 +101,16 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         modify_phone_verification_code_eiv.setEditTextMaxLength(6);
 
         codeTimeDownTv = modify_phone_verification_code_civ.getView(R.id.edit_right_tv);
-        codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+        codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv.setOnClickListener(v -> {
-            CommonUtil.hideInputWindow(mContext);
+            SystemManager.hideInputWindow(mContext);
             getVerificationCode();
         });
 
         codeTimeDownTv_new = modify_phone_verification_code_eiv.getView(R.id.edit_right_tv);
-        codeTimeDownTv_new.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+        codeTimeDownTv_new.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv_new.setOnClickListener(v -> {
-            CommonUtil.hideInputWindow(mContext);
+            SystemManager.hideInputWindow(mContext);
             getVerificationCode2();
         });
 
@@ -122,11 +125,11 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
                 (splashTotalCountdownTime + 1).subscribe(integer -> {
             if (integer == 0) {
-                codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
                 codeTimeDownTv.setEnabled(true);
                 codeTimeDownTv.setAlpha(1);
             } else {
-                codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                codeTimeDownTv.setText(String.format(ResourcesManager.getString(R.string.get_rigister_getvertify_code),
                         integer));
                 codeTimeDownTv.setEnabled(false);
                 codeTimeDownTv.setAlpha(0.5f);
@@ -143,11 +146,12 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 (splashTotalCountdownTime_new + 1).subscribe(integer -> {
 
             if (integer == 0) {
-                codeTimeDownTv_new.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv_new.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
                 codeTimeDownTv_new.setEnabled(true);
                 codeTimeDownTv_new.setAlpha(1);
             } else {
-                codeTimeDownTv_new.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                codeTimeDownTv_new.setText(String.format(ResourcesManager.getString(R.string
+                                .get_rigister_getvertify_code),
                         integer));
                 codeTimeDownTv_new.setEnabled(false);
                 codeTimeDownTv_new.setAlpha(0.5f);
@@ -163,7 +167,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
                 changePhone();
                 break;
             case R.id.choose_phone_area:
-                CommonUtil.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
+                ActivityManager.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
                 break;
         }
     }
@@ -177,35 +181,35 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         String phone = modify_phone_erea_et.getText().toString();
         String phoneAreaCode = modify_phone_erea_tv.getText().toString();
         String passWord = modify_phone_password_one_eiv.getEditTextString();
-        String codeText = CommonUtil.checkCode(code_old);
-        if(codeText!=null){
-            toast("旧手机"+codeText);
+        String codeText = CheckTextUtil.checkCode(code_old);
+        if (codeText != null) {
+            toast("旧手机" + codeText);
             return;
         }
         if (TextUtils.isEmpty(phone)) {
             toast("新的手机号码不能为空");
             return;
         }
-        if(phoneAreaCode.equals("+86")){
-            if(phone.length()!=11){
+        if (phoneAreaCode.equals("+86")) {
+            if (phone.length() != 11) {
                 toast("请输入正确的手机号");
             }
-        }else {
-            if(phone.length()!=6){
+        } else {
+            if (phone.length() != 6) {
                 toast("请输入正确的手机号");
             }
         }
 
-        String codeNewText = CommonUtil.checkCode(code_new);
-        if(codeNewText!=null){
-            toast("新手机"+codeNewText);
+        String codeNewText = CheckTextUtil.checkCode(code_new);
+        if (codeNewText != null) {
+            toast("新手机" + codeNewText);
             return;
         }
         if (TextUtils.isEmpty(passWord)) {
             toast("登录密码不能为空");
             return;
         }
-        if (!CheckTextUtil.checkPassword(passWord) ) {
+        if (!CheckTextUtil.checkPassword(passWord)) {
             toast("登录密码必须是字母、数字，6～16个字符");
             return;
         }
@@ -226,8 +230,8 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
      * 获取验证码
      */
     private void getVerificationCode() {
-        String phone = CommonUtil.getLoginInfo().getUser().getUserPhone();
-        String phoneAreaCode = CommonUtil.getLoginInfo().getUser().getPhoneAreaCode();
+        String phone = DataManager.getLoginInfo().getUser().getUserPhone();
+        String phoneAreaCode = DataManager.getLoginInfo().getUser().getPhoneAreaCode();
         PhoneCodeReq phoneCodeReq = new PhoneCodeReq();
         phoneCodeReq.setPhoneNumber(phoneAreaCode + phone);
         presenter.getRegisterCode(phoneCodeReq, GET_CODE_TAG_1);
@@ -263,12 +267,12 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
             case SEND_REQUEST:
                 toast("修改成功");
                 //密码修改成功 更新用户信息
-                LoginRes loginInfo = CommonUtil.getLoginInfo();
+                LoginRes loginInfo = DataManager.getLoginInfo();
                 loginInfo.getUser().setUserPhone(modify_phone_erea_et.getText().toString());
                 loginInfo.getUser().setPhoneAreaCode(modify_phone_erea_tv.getText().toString());
-                CommonUtil.setLoginInfo(loginInfo);
-                CommonUtil.gotoActivity(mContext, PersonInfoActivity.class);
-                AppManager.getInstance().removeCurrent();
+                DataManager.setLoginInfo(loginInfo);
+                ActivityManager.gotoActivity(mContext, PersonInfoActivity.class);
+                ActivityManager.getInstance().removeCurrent();
                 break;
         }
     }
@@ -278,7 +282,7 @@ public class ModifyPhoneActivity extends BaseMvpActivity<LoginPresenter> {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             try {
-                DoubleString parcelableExtra = (DoubleString) data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
+                DoubleString parcelableExtra = data.getParcelableExtra(Constants.INTENT_PARAMETER_1);
                 modify_phone_erea_tv.setText(parcelableExtra.str1);
             } catch (Exception e) {
                 e.printStackTrace();

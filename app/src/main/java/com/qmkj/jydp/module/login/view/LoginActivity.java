@@ -25,11 +25,13 @@ import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.SystemMessageConfig;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.home.view.WebActivity;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.ui.widget.EditHItemView;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.RxBus;
 
@@ -136,9 +138,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
 
         setShowStatusView(0);
         codeTimeDownTv = registerVerificationCodeEiv.getView(R.id.edit_right_tv);
-        codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+        codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
         codeTimeDownTv.setOnClickListener(v -> {
-            CommonUtil.hideInputWindow(mContext);
+            SystemManager.hideInputWindow(mContext);
             getVerificationCode();
         });
 
@@ -152,20 +154,20 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     }
 
     private void setShowStatusView(int index) {
-        CommonUtil.hideInputWindow(mContext);
+        SystemManager.hideInputWindow(mContext);
         switch (index) {
             case 0:
-                loginAccountEiv.getEditTextView().setText(CommonUtil.getUserAccount());
-                loginLoginTitleTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
-                loginRegisterTitleTv.setTextColor(CommonUtil.getColor(R.color.color_gray_2));
+                loginAccountEiv.getEditTextView().setText(DataManager.getUserAccount());
+                loginLoginTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
+                loginRegisterTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_gray_2));
                 loginLoginTitleLine.setVisibility(View.VISIBLE);
                 loginRegisterTitleLine.setVisibility(View.INVISIBLE);
                 loginLl.setVisibility(View.VISIBLE);
                 registerLl.setVisibility(View.GONE);
                 break;
             case 1:
-                loginLoginTitleTv.setTextColor(CommonUtil.getColor(R.color.color_gray_2));
-                loginRegisterTitleTv.setTextColor(CommonUtil.getColor(R.color.color_bule_1));
+                loginLoginTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_gray_2));
+                loginRegisterTitleTv.setTextColor(ResourcesManager.getColor(R.color.color_bule_1));
                 loginLoginTitleLine.setVisibility(View.INVISIBLE);
                 loginRegisterTitleLine.setVisibility(View.VISIBLE);
                 loginLl.setVisibility(View.GONE);
@@ -180,8 +182,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_logo_view:
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
-                AppManager.getInstance().removeCurrent();
+                ActivityManager.gotoActivity(mContext, MainActivity.class);
+                ActivityManager.getInstance().removeCurrent();
                 break;
             case R.id.login_title_ll:
                 setShowStatusView(0);
@@ -197,15 +199,15 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 break;
             case R.id.register_phone_erea_tv://选择区号
             case R.id.register_phone_erea_iv://选择区号
-                CommonUtil.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
+                ActivityManager.startActivityForResult(mContext, AreaCodeSecActivity.class, 1);
                 break;
             case R.id.login_forget_pwd_tv://选择区号
-                CommonUtil.gotoActivity(mContext, ForgetLoginPwdActivity.class);
+                ActivityManager.gotoActivity(mContext, ForgetLoginPwdActivity.class);
                 break;
             case R.id.register_agreement_name_tv://注册协议
                 Intent intent = WebActivity.getActivityIntent(mContext, "注册协议", AppNetConfig.HELP_CENTER_URL +
                         "101010");
-                CommonUtil.gotoActivity(mContext, intent);
+                ActivityManager.gotoActivity(mContext, intent);
                 break;
         }
     }
@@ -391,11 +393,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 (AndroidSchedulers.mainThread()).map(aLong -> splashTotalCountdownTime - aLong.intValue()).take
                 (splashTotalCountdownTime + 1).subscribe(integer -> {
             if (integer == 0) {
-                codeTimeDownTv.setText(CommonUtil.getString(R.string.get_rigister_getvertify_code_1));
+                codeTimeDownTv.setText(ResourcesManager.getString(R.string.get_rigister_getvertify_code_1));
                 codeTimeDownTv.setEnabled(true);
                 codeTimeDownTv.setAlpha(1);
             } else {
-                codeTimeDownTv.setText(String.format(CommonUtil.getString(R.string.get_rigister_getvertify_code),
+                codeTimeDownTv.setText(String.format(ResourcesManager.getString(R.string.get_rigister_getvertify_code),
                         integer));
                 codeTimeDownTv.setEnabled(false);
                 codeTimeDownTv.setAlpha(0.5f);
@@ -430,7 +432,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= 21) {
             setTheme(R.style.mainActivityTheme);
-            CommonUtil.setStatusBarInvisible(this, false);
+            SystemManager.setStatusBarInvisible(this, false);
         } else {
             setTheme(R.style.BaseAppTheme);
         }
@@ -447,11 +449,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
                 RxBus.getDefault().post(new ExchangePwdEvent());//去更新密码状态
                 LoginRes loginBean = (LoginRes) response;
                 LoginRes.UserBean user = loginBean.getUser();
-                CommonUtil.setLoginInfo(loginBean);
-                if (user != null) CommonUtil.setUserAccount(loginAccountEiv.getEditTextString());
-                AppManager.getInstance().removeActivity(MainActivity.class);
-                CommonUtil.gotoActivity(mContext, MainActivity.class);
-                AppManager.getInstance().removeCurrent();
+                DataManager.setLoginInfo(loginBean);
+                if (user != null) DataManager.setUserAccount(loginAccountEiv.getEditTextString());
+                ActivityManager.getInstance().removeActivity(MainActivity.class);
+                ActivityManager.gotoActivity(mContext, MainActivity.class);
+                ActivityManager.getInstance().removeCurrent();
                 break;
             case REGISTER_CODE_TAG:
                 toast("验证码获取成功");
@@ -461,12 +463,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             case REGISTER_TAG:
                 toast("注册成功");
                 setShowStatusView(0);
-                CommonUtil.setUserAccount(registerAccountEiv.getEditTextString());
+                DataManager.setUserAccount(registerAccountEiv.getEditTextString());
                 Intent intent1 = new Intent(mContext, CertificationActivity.class);
                 intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
                 intent1.putExtra(Constants.INTENT_PARAMETER_2, registerAccountEiv.getEditTextString());
-                CommonUtil.setUserAccount(account);
-                CommonUtil.gotoActivity(mContext, intent1);
+                DataManager.setUserAccount(account);
+                ActivityManager.gotoActivity(mContext, intent1);
                 clearRegisterData();
                 break;
         }
@@ -490,34 +492,34 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> {
             case LOGIN_SATRT_TAG:
                 try {
                     LoginRes loginBean = (LoginRes) response;
-                    if (loginBean != null) CommonUtil.setLoginInfo(loginBean);
+                    if (loginBean != null) DataManager.setLoginInfo(loginBean);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 switch (code) {
                     case SystemMessageConfig.NOIDENTIFICATION_CODE + ""://未审核
 
-                        CommonUtil.setUserAccount(account);
+                        DataManager.setUserAccount(account);
                         Intent intent1 = new Intent(mContext, CertificationActivity.class);
                         intent1.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_SUBMIT);
                         intent1.putExtra(Constants.INTENT_PARAMETER_2, account);
-                        CommonUtil.gotoActivity(mContext, intent1);
+                        ActivityManager.gotoActivity(mContext, intent1);
                         break;
                     case SystemMessageConfig.NOADOPT_CODE + ""://审核中
 
-                        CommonUtil.setUserAccount(account);
+                        DataManager.setUserAccount(account);
                         Intent intent2 = new Intent(mContext, CertificationActivity.class);
                         intent2.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_CHECK);
                         intent2.putExtra(Constants.INTENT_PARAMETER_2, account);
-                        CommonUtil.gotoActivity(mContext, intent2);
+                        ActivityManager.gotoActivity(mContext, intent2);
                         break;
                     case SystemMessageConfig.REFUE_CODE + ""://拒绝
 
-                        CommonUtil.setUserAccount(account);
+                        DataManager.setUserAccount(account);
                         Intent intent3 = new Intent(mContext, CertificationActivity.class);
                         intent3.putExtra(Constants.INTENT_PARAMETER_1, CertificationActivity.CERTIFY_STATUS_NO_PASS);
                         intent3.putExtra(Constants.INTENT_PARAMETER_2, account);
-                        CommonUtil.gotoActivity(mContext, intent3);
+                        ActivityManager.gotoActivity(mContext, intent3);
                         break;
                 }
 

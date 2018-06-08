@@ -208,7 +208,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="@dimen/y24"></View>
+                    android:layout_height="@dimen/y24"/>
 
                 <TextView
                     android:id="@+id/order_see_detail_tv"
@@ -218,6 +218,7 @@
                     android:text="@string/see_detail"
                     android:textColor="@color/color_black_6"
                     android:textSize="@dimen/text_size_13"/>
+
                 <TextView
                     android:id="@+id/order_revocation_entrustment_tv"
                     android:layout_width="@dimen/x75"

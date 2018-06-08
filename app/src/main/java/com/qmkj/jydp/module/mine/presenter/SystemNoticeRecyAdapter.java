@@ -7,7 +7,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.XBaseAdapter;
 import com.qmkj.jydp.base.XBaseViewHolder;
 import com.qmkj.jydp.bean.response.SystemNoticeRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.DateUtil;
 import com.qmkj.jydp.util.SelectorFactory;
 
@@ -19,8 +19,8 @@ import com.qmkj.jydp.util.SelectorFactory;
 
 public class SystemNoticeRecyAdapter extends XBaseAdapter<SystemNoticeRes.SystemNoticeListBean> {
     private final SelectorFactory.ShapeSelector shapeSelector = SelectorFactory.newShapeSelector()
-            .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x10))
-            .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_8));
+            .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x10))
+            .setDefaultBgColor(ResourcesManager.getColor(R.color.color_gray_8));
 
     public SystemNoticeRecyAdapter(Context context) {
         super(context);

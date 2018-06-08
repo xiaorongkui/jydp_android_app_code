@@ -7,12 +7,13 @@ import java.util.List;
 
 /**
  * 创建日期：2018/5/17
+ *
  * @author Yi Shan Xiang
- * 文件名称： 链资产(用户币种信息)
- * email: 380948730@qq.com
+ *         文件名称： 链资产(用户币种信息)
+ *         email: 380948730@qq.com
  */
 
-public class CurrencyAssetsRes extends BaseRes implements Serializable{
+public class CurrencyAssetsRes extends BaseRes implements Serializable {
 
     private List<UserCurrencyAssetsBean> userCurrencyAssets;
 

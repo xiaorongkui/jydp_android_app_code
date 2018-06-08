@@ -3,13 +3,14 @@ package com.qmkj.jydp.di.module;
 
 import com.qmkj.jydp.BuildConfig;
 import com.qmkj.jydp.common.AppNetConfig;
+import com.qmkj.jydp.common.Constants;
+import com.qmkj.jydp.manager.DataManager;
 import com.qmkj.jydp.net.api.BaseNetFunction;
 import com.qmkj.jydp.net.api.ExchangeService;
 import com.qmkj.jydp.net.api.HomeService;
 import com.qmkj.jydp.net.api.LoginService;
 import com.qmkj.jydp.net.api.MineService;
 import com.qmkj.jydp.net.api.OutSideExchangeService;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.StringUtil;
 
@@ -123,14 +124,14 @@ public class HttpModule {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request oldRequest = chain.request();
-            String token = CommonUtil.getToken();
+            String token = DataManager.getToken();
             Request.Builder builder = oldRequest.newBuilder()
                     .addHeader("JYDP_PUBLIC_KEY", AppNetConfig.JYDP_PUBLIC_KEY)
-                    .addHeader("JYDP_SIGN", CommonUtil.getJYDPSecretKey());
+                    .addHeader("JYDP_SIGN", DataManager.getJYDPSecretKey());
             if (StringUtil.isNull(token)) {
                 return chain.proceed(builder.build());
             }
-            builder.addHeader("X-Access-Auth-Token", token).build();
+            builder.addHeader("X-Access-Auth-Token", token);
             return chain.proceed(builder.build());
         }
     }

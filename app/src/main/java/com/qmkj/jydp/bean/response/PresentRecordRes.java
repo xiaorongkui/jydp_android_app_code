@@ -5,15 +5,22 @@ import java.util.List;
 
 /**
  * 创建日期：2018/6/6
+ *
  * @author Yi Shan Xiang
- * 文件名称： 币种提现记录
- * email: 380948730@qq.com
+ *         文件名称： 币种提现记录
+ *         email: 380948730@qq.com
  */
 
-public class PresentRecordRes extends BaseRes implements Serializable{
+public class PresentRecordRes extends BaseRes implements Serializable {
 
     /**
-     * coinOutRecordList : [{"coinRecordNo":"401804262994216","sylRecordNo":"1","currencyId":217,"userId":317,"userAccount":"syl005","walletAccount":"aaaaa","currencyName":"TTT","currencyNumber":"3.99","handleStatus":2,"handleTime":1524721496000,"outStatus":2,"sendStatus":4,"finishTime":"1","remark":"TTT: 币种提现","addTime":1524721496000},{"coinRecordNo":"401804267276550","sylRecordNo":"1","currencyId":217,"userId":317,"userAccount":"syl005","walletAccount":"aaaaa","currencyName":"TTT","currencyNumber":"1.01","handleStatus":2,"handleTime":1524721405000,"outStatus":2,"sendStatus":4,"finishTime":"11","remark":"TTT: 币种提现","addTime":1524721405000}]
+     * coinOutRecordList : [{"coinRecordNo":"401804262994216","sylRecordNo":"1","currencyId":217,"userId":317,
+     * "userAccount":"syl005","walletAccount":"aaaaa","currencyName":"TTT","currencyNumber":"3.99","handleStatus":2,
+     * "handleTime":1524721496000,"outStatus":2,"sendStatus":4,"finishTime":"1","remark":"TTT: 币种提现",
+     * "addTime":1524721496000},{"coinRecordNo":"401804267276550","sylRecordNo":"1","currencyId":217,"userId":317,
+     * "userAccount":"syl005","walletAccount":"aaaaa","currencyName":"TTT","currencyNumber":"1.01","handleStatus":2,
+     * "handleTime":1524721405000,"outStatus":2,"sendStatus":4,"finishTime":"11","remark":"TTT: 币种提现",
+     * "addTime":1524721405000}]
      * pageNumber : 0
      * totalNumber : 2
      * totalPageNumber : 1

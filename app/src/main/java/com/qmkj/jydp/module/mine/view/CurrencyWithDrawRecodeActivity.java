@@ -13,11 +13,11 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.CoinRecordCancelReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.PresentRecordRes;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.CurrencyWithDrawRecodeRecyAdapter;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.ui.widget.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import butterknife.BindView;
@@ -51,7 +51,7 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.currency_recode));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.currency_recharge));
     }
 
     @Override
@@ -87,7 +87,8 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -100,7 +101,7 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter2, View view, int position) {
-                if(view.getId()==R.id.currency_withdraw_retract_tv){
+                if (view.getId() == R.id.currency_withdraw_retract_tv) {
 
                     showCancelDialog(position);
                 }
@@ -119,19 +120,20 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
     private void showCancelDialog(final int position) {
         dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .common_dialog_1);
-        dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));
+        dialogUtils.setAlertDialogWidth((int) ResourcesManager.getDimen(R.dimen.x330));
         dialogUtils.setOneOrTwoBtn(false);
-        dialogUtils.setTitle(CommonUtil.getString(R.string.retract));
+        dialogUtils.setTitle(ResourcesManager.getString(R.string.retract));
         dialogUtils.setMessage(getString(R.string.retract_question));
         dialogUtils.setTwoCancelBtn("取消", v -> {
             LogUtil.i("取消");
             dialogUtils.dismiss();
             //todo
         });
-        dialogUtils.setTwoConfirmBtn("确认",v -> {
+        dialogUtils.setTwoConfirmBtn("确认", v -> {
             CoinRecordCancelReq req = new CoinRecordCancelReq();
-            req.setCoinRecordNo(adapter.getItem(position).getCoinRecordNo());
-            presenter.cancelPresentRecord(req, REQUEST_CANCEL,true);
+            PresentRecordRes.CoinOutRecordListBean item = adapter.getItem(position);
+            if (item != null) req.setCoinRecordNo(item.getCoinRecordNo());
+            presenter.cancelPresentRecord(req, REQUEST_CANCEL, true);
                 }
         );
         dialogUtils.show();
@@ -154,9 +156,9 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case REQUEST_GET_DATA:
-                PresentRecordRes recordRes = (PresentRecordRes)response;
+                PresentRecordRes recordRes = (PresentRecordRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();
                 }

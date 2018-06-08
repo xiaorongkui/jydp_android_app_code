@@ -1,9 +1,7 @@
 package com.qmkj.jydp.di.module;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-
 
 import com.qmkj.jydp.di.scope.FragmentScope;
 

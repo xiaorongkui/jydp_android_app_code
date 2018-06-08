@@ -1,10 +1,5 @@
 package com.qmkj.jydp.net.observer;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
 /**

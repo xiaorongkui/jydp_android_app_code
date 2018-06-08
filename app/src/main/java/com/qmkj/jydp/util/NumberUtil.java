@@ -22,9 +22,9 @@ public class NumberUtil {
         BigDecimal resultValue = bigDecimal.setScale(accuracy, BigDecimal.ROUND_DOWN);
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setGroupingUsed(false); //false则不使用分组方式显示数据。
-        numberFormat.setMinimumFractionDigits( 1 );//设置数值的小数部分允许的最小位数。
+        numberFormat.setMinimumFractionDigits(1);//设置数值的小数部分允许的最小位数。
         numberFormat.setMaximumFractionDigits(accuracy); // 设置数值的小数部分允许的最大位数。
-        numberFormat.setMaximumIntegerDigits( 10 ); //设置数值的整数部分允许的最大位数。
+        numberFormat.setMaximumIntegerDigits(10); //设置数值的整数部分允许的最大位数。
         numberFormat.setMinimumIntegerDigits(1); //设置数值的整数部分允许的最小位数.
         return numberFormat.format(Double.valueOf(resultValue.toString()));
     }

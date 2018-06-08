@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qmkj.jydp.R;
-import com.qmkj.jydp.manager.AppManager;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -32,7 +33,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         setContentView(getLayoutId());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         if (isImmersiveStatusBar())
-            CommonUtil.setStatusBar(this, CommonUtil.getColor(immersiveStatusBarColor()));
+            SystemManager.setStatusBar(this, ResourcesManager.getColor(immersiveStatusBarColor()));
         unbinder = ButterKnife.bind(this);
         if (savedInstanceState != null) {
             initSavedInstanceState(savedInstanceState);
@@ -49,7 +50,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     protected void onTitleBackPress() {
         View backView = findViewById(R.id.title_left_back);
         if (backView != null) {
-            backView.setOnClickListener(v -> AppManager.getInstance().removeCurrent());
+            backView.setOnClickListener(v -> ActivityManager.getInstance().removeCurrent());
         }
     }
 

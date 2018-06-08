@@ -6,7 +6,7 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseRecycleAdapter;
 import com.qmkj.jydp.base.BaseRecyclerViewHolder;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
-import com.qmkj.jydp.util.CommonUtil;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 
@@ -35,7 +35,7 @@ public class ExchangeSoldPriceRecAdapter extends BaseRecycleAdapter<ExchangeCent
         TextView priceStatusTv = helper.getView(R.id.price_status_tv);
         TextView priceAmountTv = helper.getView(R.id.price_amount_tv);
         TextView priceTotalMoneyTv = helper.getView(R.id.price_total_money_tv);
-        priceStatusTv.setText(CommonUtil.getString(R.string.sold) + (datas.size() - position));
+        priceStatusTv.setText(ResourcesManager.getString(R.string.sold) + (datas.size() - position));
         if (item == null) return;
         LogUtil.i("卖item=" + item.toString());
         priceTotalMoneyTv.setText(NumberUtil.format2Point(item.getPendingPrice()));

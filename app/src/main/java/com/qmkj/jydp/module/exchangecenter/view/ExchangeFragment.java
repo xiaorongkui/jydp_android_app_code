@@ -30,13 +30,16 @@ import com.qmkj.jydp.bean.response.CancleOrderReq;
 import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.NetResponseCode;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.DataManager;
+import com.qmkj.jydp.manager.ResourcesManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.exchangecenter.presenter.EntrustRecodeRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeCenterPresenter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangeSoldPriceRecAdapter;
 import com.qmkj.jydp.module.exchangecenter.presenter.ExchangebuyPriceRecAdapter;
 import com.qmkj.jydp.ui.widget.MyViewPager;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.NumberUtil;
 import com.qmkj.jydp.util.RxBus;
@@ -145,8 +148,8 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         setViewpagerIndicotr(0);
 
         StateListDrawable stateListDrawable = SelectorFactory.newShapeSelector()
-                .setCornerRadius((int) CommonUtil.getDimen(R.dimen.x2))
-                .setDefaultBgColor(CommonUtil.getColor(R.color.color_gray_1))
+                .setCornerRadius((int) ResourcesManager.getDimen(R.dimen.x2))
+                .setDefaultBgColor(ResourcesManager.getColor(R.color.color_gray_1))
                 .create();
         buy0rSellHeaderLl.setBackground(stateListDrawable);
         exchangeRecodeHeaderLl.setBackground(stateListDrawable);
@@ -165,12 +168,11 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         subscribe_3 = RxBus.getDefault().toObservable(ExchangePwdEvent.class).subscribe(exchangeEvent ->
                 getExchangeCenterData(true));
         exchangeTitleTv.setText(currencyName);
-        isLogin = !TextUtils.isEmpty(CommonUtil.getToken());
+        isLogin = !TextUtils.isEmpty(DataManager.getToken());
     }
 
     private void initViewPager() {
         exchangeContinerVp.setOffscreenPageLimit(1);
-        CommonUtil.setScrollerTime(mContext, 0, exchangeContinerVp);
         pagerAdapter = new MyPagerAdapter(getChildFragmentManager());
         pagerAdapter.addFragment(ExchangeBuyFragment.newInstance(EXCHANGE_TYPE_BUY));
         pagerAdapter.addFragment(ExchangeSoldFragment.newInstance(EXCHANGE_TYPE_SOLD));
@@ -189,6 +191,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         soldLl.setOnClickListener(this);
         exchange_center_kline_iv.setOnClickListener(this);
     }
+
     List<ExchangeCenterRes.TransactionPendOrderBuyListBean> dataBuys = new ArrayList<>();
     List<ExchangeCenterRes.TransactionPendOrderSellListBean> dataSolds = new ArrayList<>();
     //委托记录
@@ -248,9 +251,9 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
         //状态栏占用的兼容性
         if (Build.VERSION.SDK_INT >= 21) {
             View statusView = new View(getActivity());
-            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
+            statusView.setBackgroundColor(ResourcesManager.getColor(R.color.status_bar_color));
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup
-                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
+                    .LayoutParams.MATCH_PARENT, SystemManager.getStatusBarHeight());
             exchangeLl.addView(statusView, 0, lp);
         }
     }
@@ -497,7 +500,7 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
                 intent.putExtra(Constants.INTENT_PARAMETER_1, currencyId);
                 intent.putExtra(Constants.INTENT_PARAMETER_2, currencyName);
                 intent.putExtra(Constants.INTENT_PARAMETER_3, standardParameter);
-                CommonUtil.gotoActivity(mContext, intent);
+                ActivityManager.gotoActivity(mContext, intent);
                 break;
         }
     }
@@ -543,19 +546,19 @@ public class ExchangeFragment extends BaseMvpFragment<ExchangeCenterPresenter> i
     }
 
     private void setViewpagerIndicotr(int index) {
-        buyTitle.setTextColor(CommonUtil.getColor(R.color.color_red_5));
-        soldTitle.setTextColor(CommonUtil.getColor(R.color.color_green_4));
+        buyTitle.setTextColor(ResourcesManager.getColor(R.color.color_red_5));
+        soldTitle.setTextColor(ResourcesManager.getColor(R.color.color_green_4));
         buyBottomLine.setVisibility(View.INVISIBLE);
         soldBottomLine.setVisibility(View.INVISIBLE);
-        CommonUtil.hideKeyBoard(mContext);
+        SystemManager.hideKeyBoard(mContext);
         switch (index) {
             case 0:
-                buyTitle.setTextColor(CommonUtil.getColor(R.color.color_red_5));
+                buyTitle.setTextColor(ResourcesManager.getColor(R.color.color_red_5));
                 buyBottomLine.setVisibility(View.VISIBLE);
                 exchangeContinerVp.setCurrentItem(0);
                 break;
             case 1:
-                soldTitle.setTextColor(CommonUtil.getColor(R.color.color_green_4));
+                soldTitle.setTextColor(ResourcesManager.getColor(R.color.color_green_4));
                 soldBottomLine.setVisibility(View.VISIBLE);
                 exchangeContinerVp.setCurrentItem(1);
                 break;

@@ -1,8 +1,5 @@
 package com.qmkj.jydp.bean.response;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 /**

@@ -10,7 +10,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
 
 import java.lang.reflect.Field;
 
@@ -31,19 +31,15 @@ public class DensityHelper {
      * @see #activate()
      */
     public static void resetDensity(Context context, float designWidth) {
-        if (context == null)
-            return;
-
+        if (context == null) return;
         Point size = new Point();
-        ((WindowManager) context.getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getSize(size);
+        WindowManager systemService = (WindowManager) context.getSystemService(WINDOW_SERVICE);
+        if (systemService != null) systemService.getDefaultDisplay().getSize(size);
 
         Resources resources = context.getResources();
-
         resources.getDisplayMetrics().xdpi = size.x / designWidth * 72f;
-
         DisplayMetrics metrics = getMetricsOnMiui(context.getResources());
-        if (metrics != null)
-            metrics.xdpi = size.x / designWidth * 72f;
+        if (metrics != null) metrics.xdpi = size.x / designWidth * 72f;
     }
 
     /**
@@ -118,7 +114,7 @@ public class DensityHelper {
                 //为了面对一些不可预计的情况以及向上兼容，分别调用一次较为保险
                 resetDensity(mApplication, designWidth);
                 resetDensity(activity, designWidth);
-                AppManager.getInstance().addActivity(activity);
+                ActivityManager.getInstance().addActivity(activity);
             }
 
             @Override
@@ -150,7 +146,7 @@ public class DensityHelper {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                AppManager.getInstance().removeActivity(activity);
+                ActivityManager.getInstance().removeActivity(activity);
             }
         };
     }

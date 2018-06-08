@@ -1,7 +1,5 @@
 package com.qmkj.jydp.bean.response;
 
-import com.qmkj.jydp.bean.request.BaseReq;
-
 /**
  * author：rongkui.xiao --2018/5/8
  * email：dovexiaoen@163.com

@@ -2,16 +2,17 @@ package com.qmkj.jydp.bean.request;
 
 /**
  * 创建日期：2018/5/21
+ *
  * @author Yi Shan Xiang
- * 文件名称： ChangePhoneReq
- * email: 380948730@qq.com
+ *         文件名称： ChangePhoneReq
+ *         email: 380948730@qq.com
  */
-public class ChangePhoneReq extends BaseReq{
-    private String areaCode;	//	区号	string	@mock=+86
-    private String newValidCode;	//	新的手机的验证码	string	@mock=123456
-    private String oldValidCode;	//	原先手机的验证码	string	@mock=123456
-    private String password;	//	登录密码	string	@mock=123123
-    private String phone;	//	新电话号码
+public class ChangePhoneReq extends BaseReq {
+    private String areaCode;    //	区号	string	@mock=+86
+    private String newValidCode;    //	新的手机的验证码	string	@mock=123456
+    private String oldValidCode;    //	原先手机的验证码	string	@mock=123456
+    private String password;    //	登录密码	string	@mock=123123
+    private String phone;    //	新电话号码
 
     public String getAreaCode() {
         return areaCode;

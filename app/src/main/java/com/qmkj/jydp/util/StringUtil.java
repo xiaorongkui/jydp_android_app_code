@@ -71,7 +71,8 @@ public class StringUtil {
      * 链地址，链地址中间4位星号替换
      */
     public static String formatChainAddress(String chainAddress) {
-        return chainAddress.substring(0, 6) + "****" + chainAddress.substring(chainAddress.length() - 4, chainAddress.length());
+        return chainAddress.substring(0, 6) + "****" + chainAddress.substring(chainAddress.length() - 4, chainAddress
+                .length());
 //        return chainAddress.replaceAll("(\\d{6})(\\d{4})", "$1****$2");
     }
 
@@ -85,17 +86,18 @@ public class StringUtil {
 
     /**
      * 禁止EditText输入特殊字符
+     *
      * @param editText
      */
-    public static void setEditTextInhibitInputSpeChat(EditText editText){
+    public static void setEditTextInhibitInputSpeChat(EditText editText) {
 
-        InputFilter filter=new InputFilter() {
+        InputFilter filter = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                String speChat="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+                String speChat = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
                 Pattern pattern = Pattern.compile(speChat);
                 Matcher matcher = pattern.matcher(source.toString());
-                if(matcher.find())return "";
+                if (matcher.find()) return "";
                 else return null;
             }
         };

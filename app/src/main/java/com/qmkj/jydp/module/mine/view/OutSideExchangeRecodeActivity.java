@@ -16,11 +16,12 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.OutSideDetailReq;
 import com.qmkj.jydp.bean.request.PageNumberReq;
 import com.qmkj.jydp.bean.response.OtcDealRecordRes;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.OutSideExchangeRecodeRecyAdapter;
 import com.qmkj.jydp.ui.widget.dialog.CommonDialog;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ import butterknife.BindView;
  */
 
 public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter> {
-    protected static final String OtcOrderNo_KEY= "NUMBER";
+    protected static final String OtcOrderNo_KEY = "NUMBER";
     private static final int SEND_REQUEST = 2;
     private static final int GET_DATA = 1;
     private static final int NEXT_ACTIVITY_CODE = 100;
@@ -48,7 +49,7 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
     boolean mIsLoadMore;
     int mPage;
 
-    private ArrayList<OtcDealRecordRes.OtcTransactionUserDealListBean> mData;
+    private ArrayList<OtcDealRecordRes.OtcTransactionUserDealListBean> mData = new ArrayList<>();
     private OutSideExchangeRecodeRecyAdapter outSideExchangeRecodeRecyAdapter;
     private int type;
     private CommonDialog commonDialog;
@@ -64,10 +65,10 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
     protected void initTitle() {
         switch (type) {
             case MineRecodeActivity.RECODE_TYPE_NORMAL:
-                titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode));
+                titleHeaderTv.setText(ResourcesManager.getString(R.string.outside_exchange_recode));
                 break;
             case MineRecodeActivity.RECODE_TYPE_AGENCY:
-                titleHeaderTv.setText(CommonUtil.getString(R.string.outside_exchange_recode_agcy));
+                titleHeaderTv.setText(ResourcesManager.getString(R.string.outside_exchange_recode_agcy));
                 break;
         }
 
@@ -115,9 +116,8 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
 
 
     private void initRecycleView() {
-        mData = new ArrayList<>();
-        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext, type);
 
+        outSideExchangeRecodeRecyAdapter = new OutSideExchangeRecodeRecyAdapter(mContext, type);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -138,11 +138,13 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
                         //经销商
                         intent = new Intent(mContext, OutSideExchangeOrderDetailForDealerActivity.class);
                     }
-                    intent.putExtra(OtcOrderNo_KEY, outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
-                    CommonUtil.startActivityForResult(mContext, intent, NEXT_ACTIVITY_CODE);
+                    OtcDealRecordRes.OtcTransactionUserDealListBean item = outSideExchangeRecodeRecyAdapter.getItem
+                            (position);
+                    if (item != null) intent.putExtra(OtcOrderNo_KEY, item.getOtcOrderNo());
+                    ActivityManager.startActivityForResult(mContext, intent, NEXT_ACTIVITY_CODE);
                     break;
                 case R.id.outside_exchange_recode_comfirm_receivables_tv: //确认收款
-                    if(commonDialog!=null&&commonDialog.isShowing()){
+                    if (commonDialog != null && commonDialog.isShowing()) {
                         return;
                     }
                     commonDialog = new CommonDialog(this);
@@ -150,7 +152,9 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
                     commonDialog.setContentText("确认已收到货款？");
                     commonDialog.setOnPositiveButtonClickListener((dialog, view1) -> {
                         OutSideDetailReq req = new OutSideDetailReq();
-                        req.setOtcOrderNo(outSideExchangeRecodeRecyAdapter.getItem(position).getOtcOrderNo());
+                        OtcDealRecordRes.OtcTransactionUserDealListBean item1 = outSideExchangeRecodeRecyAdapter
+                                .getItem(position);
+                        if (item1 != null) req.setOtcOrderNo(item1.getOtcOrderNo());
                         if (type == MineRecodeActivity.RECODE_TYPE_NORMAL) {
                             //普通用户
                             presenter.getOutSideOrderTakeUser(req, SEND_REQUEST, true);
@@ -183,7 +187,8 @@ public class OutSideExchangeRecodeActivity extends BaseMvpActivity<MinePresenter
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 

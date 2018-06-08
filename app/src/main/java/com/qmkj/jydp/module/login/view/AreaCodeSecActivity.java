@@ -14,11 +14,11 @@ import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.DoubleString;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.common.PhoneAreaConfig;
-import com.qmkj.jydp.manager.AppManager;
+import com.qmkj.jydp.manager.ActivityManager;
+import com.qmkj.jydp.manager.SystemManager;
 import com.qmkj.jydp.module.login.presenter.LoginPresenter;
 import com.qmkj.jydp.module.login.presenter.SearchAreaRecyAdapter;
 import com.qmkj.jydp.ui.widget.KeyboardChangeListener;
-import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class AreaCodeSecActivity extends BaseMvpActivity<LoginPresenter> {
     @Override
     protected void initView() {
         initRecycleView();
-        CommonUtil.hideInputWindow(mContext);
+        SystemManager.hideInputWindow(mContext);
         areaCodeSearchLl.setFocusable(true);
         areaCodeSearchLl.setFocusableInTouchMode(true);
         areaCodeSearchLl.requestFocus();
@@ -72,7 +72,7 @@ public class AreaCodeSecActivity extends BaseMvpActivity<LoginPresenter> {
             areaCodeSearchLl.setFocusable(true);
             areaCodeSearchLl.setFocusableInTouchMode(true);
             areaCodeSearchLl.requestFocus();
-            CommonUtil.hideInputWindow(mContext);
+            SystemManager.hideInputWindow(mContext);
             return false;
         });
         areaCodeSearchEt.setOnTouchListener((v, event) -> {
@@ -125,9 +125,9 @@ public class AreaCodeSecActivity extends BaseMvpActivity<LoginPresenter> {
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 intent.putExtra(Constants.INTENT_PARAMETER_1, datas.get(position));
                 setResult(RESULT_OK, intent);
-                AppManager.getInstance().removeCurrent();
+                ActivityManager.getInstance().removeCurrent();
             } else {//隐藏键盘
-                CommonUtil.hideInputWindow(mContext);
+                SystemManager.hideInputWindow(mContext);
             }
         });
     }

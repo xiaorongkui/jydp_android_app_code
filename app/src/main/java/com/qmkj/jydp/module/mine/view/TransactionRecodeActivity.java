@@ -10,10 +10,10 @@ import com.qmkj.jydp.R;
 import com.qmkj.jydp.base.BaseMvpActivity;
 import com.qmkj.jydp.bean.request.AccountRecordReq;
 import com.qmkj.jydp.bean.response.AccountRecordRes;
+import com.qmkj.jydp.manager.ResourcesManager;
 import com.qmkj.jydp.module.mine.presenter.MinePresenter;
 import com.qmkj.jydp.module.mine.presenter.TransactionRecodeRecyAdapter;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
-import com.qmkj.jydp.util.CommonUtil;
 
 import butterknife.BindView;
 
@@ -44,7 +44,7 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.transaction_recode));
+        titleHeaderTv.setText(ResourcesManager.getString(R.string.transaction_recode));
     }
 
     @Override
@@ -80,7 +80,8 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0)
+                                .getTop();
                 mIsCanRefresh = topRowVerticalPosition >= 0;
             }
 
@@ -106,7 +107,7 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
     private void getDataFromNet() {
         AccountRecordReq req = new AccountRecordReq();
         req.setPageNumber(mPage);
-        if(getIntent().getStringExtra("number")!=null){
+        if (getIntent().getStringExtra("number") != null) {
             req.setPendingOrderNo(getIntent().getStringExtra("number"));
         }
         presenter.getAccountRecordInfo(req, REQUEST_GET_DATA, false);
@@ -115,9 +116,9 @@ public class TransactionRecodeActivity extends BaseMvpActivity<MinePresenter> {
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
-        switch (tag){
+        switch (tag) {
             case REQUEST_GET_DATA:
-                AccountRecordRes recordRes = (AccountRecordRes)response;
+                AccountRecordRes recordRes = (AccountRecordRes) response;
                 if (refreshLayout != null && refreshLayout.isRefreshing()) {
                     refreshLayout.refreshComplete();
                 }

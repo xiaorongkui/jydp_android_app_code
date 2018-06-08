@@ -21,9 +21,9 @@
         tools:text="身份证"/>
 
     <!--<ImageView-->
-        <!--android:id="@+id/certify_type_right_iv"-->
-        <!--android:layout_width="@dimen/x15"-->
-        <!--android:layout_height="@dimen/x15"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:src="@mipmap/login_logo"/>-->
+    <!--android:id="@+id/certify_type_right_iv"-->
+    <!--android:layout_width="@dimen/x15"-->
+    <!--android:layout_height="@dimen/x15"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:src="@mipmap/login_logo"/>-->
 </LinearLayout>
