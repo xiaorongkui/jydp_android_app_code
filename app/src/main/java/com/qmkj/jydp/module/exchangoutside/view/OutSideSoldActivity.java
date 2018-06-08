@@ -194,7 +194,7 @@ public class OutSideSoldActivity extends BaseMvpActivity<OutsideExchangePresente
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            totalPriceTv.setText(NumberUtil.format5Point(NumberUtil.mul(buAmount, ratio)));
+            totalPriceTv.setText(NumberUtil.format6Point(NumberUtil.mul(buAmount, ratio)));
         });
 
     }

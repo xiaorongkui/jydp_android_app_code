@@ -2,13 +2,10 @@ package com.qmkj.jydp.module.mine.view;
 
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dd.ShadowLayout;
@@ -37,9 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import io.reactivex.disposables.Disposable;
 
 /**
  * author：rongkui.xiao --2018/3/16
@@ -95,8 +89,8 @@ public class MineFragment extends BaseMvpFragment<MinePresenter> {
             mine_totalUserBalance_tv.setVisibility(View.GONE);
             mine_available_money_sl.setVisibility(View.GONE);
             mine_userAccount_tv.setText("还未登录，请先登录");
-            mine_assets_ll.setLayoutParams(new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+            mine_assets_ll.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     (int) (DensityHelper.pt2px(mContext, 134))));
         }
 

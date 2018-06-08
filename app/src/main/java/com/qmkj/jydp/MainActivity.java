@@ -15,9 +15,9 @@ import com.qmkj.jydp.base.BaseActivity;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeCurrencySelectFrament;
 import com.qmkj.jydp.module.exchangecenter.view.ExchangeFragment;
+import com.qmkj.jydp.module.exchangoutside.view.OutsideExchangeFragment;
 import com.qmkj.jydp.module.home.view.HomeFragment;
 import com.qmkj.jydp.module.mine.view.MineFragment;
-import com.qmkj.jydp.module.exchangoutside.view.OutsideExchangeFragment;
 import com.qmkj.jydp.util.CommonUtil;
 import com.qmkj.jydp.util.LogUtil;
 import com.qmkj.jydp.util.ToastUtil;
@@ -121,7 +121,6 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
@@ -202,7 +201,6 @@ public class MainActivity extends BaseActivity {
         ft.commit();
     }
 
-
     private void hideFragments() {
         if (homeFragment != null) {
             ft.hide(homeFragment);
@@ -261,64 +259,5 @@ public class MainActivity extends BaseActivity {
     public boolean isImmersiveStatusBar() {
         return Build.VERSION.SDK_INT < 21;
     }
-
-//    private void initDrawerLayout() {
-//        drawerDl.setScrimColor(CommonUtil.getColor(R.color.colorBlack_3));
-//        drawerDl.addDrawerListener(new DrawerLayout.DrawerListener() {
-//            @Override
-//            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-//
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(@NonNull View drawerView) {
-//
-//            }
-//
-//            @Override
-//            public void onDrawerClosed(@NonNull View drawerView) {
-//
-//            }
-//
-//            @Override
-//            public void onDrawerStateChanged(int newState) {
-//
-//            }
-//        });
-//
-//        //状态栏占用的兼容性
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            View statusView = new View(mContext);
-//            statusView.setBackgroundColor(CommonUtil.getColor(R.color.colorBlack_3));
-//            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup
-//                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
-//            drawer_view.addView(statusView, 0, lp);
-//        }
-//        List mdatas = new ArrayList();
-//        for (int i = 0; i < 6; i++) {
-//            mdatas.add("");
-//        }
-//        CurrencyRecyAdapter recyAdapter = new CurrencyRecyAdapter(mContext, mdatas, R.layout
-//                .exchange_currency_icon_item);
-//        exchangeDrawRv.setLayoutManager(new LinearLayoutManager(mContext));
-//        exchangeDrawRv.setAdapter(recyAdapter);
-//        recyAdapter.setOnItemClickListener((adapter, view, position) -> {
-////            if (exchangeFragment != null) {
-////                exchangeFragment.updateCurrencySelect(position);
-////            }
-//        });
-//        currencySelectCloseIv.setOnClickListener(v -> {
-//            showDrawerLayout(false);
-//        });
-//    }
-
-//    public void showDrawerLayout(boolean b) {
-//        if (b) {
-//            drawerDl.openDrawer(drawer_view);
-//        } else {
-//            drawerDl.closeDrawer(drawer_view);
-//        }
-//    }
-
 
 }

@@ -10,7 +10,7 @@ import com.qmkj.jydp.BuildConfig;
 public class LogUtil {
     private static final boolean show = BuildConfig.LOG_DEBUG;
 
-    private static final String TAG = "xiao";
+    private static final String TAG = "JYDP";
 
     public static void v(String tag, String msg) {
         if (show) Logger.v(tag + ": %s", msg);
@@ -31,6 +31,7 @@ public class LogUtil {
     public static void e(String tag, String msg) {
         if (show) Logger.e(tag + ": %s", msg);
     }
+
     public static void e(String msg) {
         if (show) Logger.e(TAG + ": %s", msg);
     }

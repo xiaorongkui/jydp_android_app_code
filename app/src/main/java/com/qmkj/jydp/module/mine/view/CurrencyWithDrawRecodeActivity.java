@@ -51,7 +51,7 @@ public class CurrencyWithDrawRecodeActivity extends BaseMvpActivity<MinePresente
 
     @Override
     protected void initTitle() {
-        titleHeaderTv.setText(CommonUtil.getString(R.string.currency_withdraw_recode));
+        titleHeaderTv.setText(CommonUtil.getString(R.string.currency_recharge));
     }
 
     @Override

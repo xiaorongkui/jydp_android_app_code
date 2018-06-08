@@ -211,9 +211,9 @@ public class OutsideExchangeFragment extends BaseMvpFragment<OutsideExchangePres
                 if (refresh.isRefreshing()) refresh.refreshComplete();
                 showSuccessView(recyclerView, true);
                 OutSideExchangeRes outSideExchangeRes = (OutSideExchangeRes) response;
-                if (outSideExchangeRes == null || outSideExchangeRes.getOtcTransactionPendOrderList() == null ||
-                        outSideExchangeRes.getOtcTransactionPendOrderList().size() == 0) return;
-
+                if (outSideExchangeRes == null || outSideExchangeRes.getOtcTransactionPendOrderList() == null) {
+                    return;
+                }
                 List<OutSideExchangeRes.OtcTransactionPendOrderListBean> otcTransactionPendOrderList =
                         outSideExchangeRes.getOtcTransactionPendOrderList();
                 if (isRefresh) {

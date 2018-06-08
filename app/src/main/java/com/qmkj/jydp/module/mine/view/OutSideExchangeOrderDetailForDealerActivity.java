@@ -128,7 +128,7 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         orderDetailOrderNoTv.setText(orderDetailInfo.getOtcOrderNo());
         orderDetailCurrencyNameTv.setText(orderDetailInfo.getCurrencyName());
         orderDetailCurrencyNumCv.setRightText(NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo.getCurrencyNumber()+""),4));
-        orderDetailCurrencyTotalPriceCv.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo.getCurrencyTotalPrice()+""),2));
+        orderDetailCurrencyTotalPriceCv.setRightText("$" + NumberUtil.doubleFormat(Double.parseDouble(orderDetailInfo.getCurrencyTotalPrice() + ""), 2));
         //1：出售 2：购买 3：撤销
         switch (orderDetailInfo.getDealType()) {
             case 1:
@@ -249,7 +249,13 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         presenter.getOutSideOrderDetaid(req, REQUEST_TAG_GET_ORDER_DETAIL, true);
     }
 
+    /**
+     * 显示二维码Dialog
+     */
     private void showQRCodeDialog() {
+        if (qrCodeDialog != null && qrCodeDialog.isShowing()) {
+            return;
+        }
         qrCodeDialog = new com.qmkj.jydp.ui.widget.CommonDialog(mContext, R.style.common_dialog, R.layout.dialog_qr_code);
         ImageView qr_code_iv = qrCodeDialog.getView(R.id.qr_code_iv, ImageView.class);
         if (orderDetailInfo == null || TextUtils.isEmpty(orderDetailInfo.getPaymentImage())) return;
@@ -272,15 +278,12 @@ public class OutSideExchangeOrderDetailForDealerActivity extends BaseMvpActivity
         qrCodeDialog.show();
     }
 
-
-
-
     /**
      * 确认收款
      */
     @OnClick(R.id.confirm_receipt_btn)
     public void onViewClicked() {
-        if(commonDialog!=null&&commonDialog.isShowing()){
+        if (commonDialog != null && commonDialog.isShowing()) {
             return;
         }
         commonDialog = new CommonDialog(this);

@@ -51,7 +51,7 @@
     <string name="amount_available_money_xt">可用资产(XT)</string>
     <string name="amount_frozen_money_xt">冻结资产(XT)</string>
     <string name="recharge">充值</string>
-    <string name="trading_market">交易大盘</string>
+    <string name="trading_market">EXT</string>
     <string name="login_hint_notice">您的登录账号</string>
     <string name="login_hint_password">您的登录密码</string>
     <string name="forget_password">忘记密码</string>
@@ -129,7 +129,6 @@
     <string name="select_certify_type">选择证件类型</string>
     <string name="passport">护照</string>
     <string name="re_certification">重新认证</string>
-    <string name="sy_exchange">盛源交易所</string>
 
     <string name="dealer_name">经销商名称</string>
     <string name="user_account">用户账号</string>

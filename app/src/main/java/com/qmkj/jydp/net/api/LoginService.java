@@ -15,7 +15,6 @@ import com.qmkj.jydp.bean.response.CertificetionInfoRes;
 import com.qmkj.jydp.bean.response.LoginRes;
 import com.qmkj.jydp.bean.response.ReCertificetionRes;
 import com.qmkj.jydp.bean.response.RegisterRes;
-import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -35,69 +34,69 @@ public interface LoginService {
      * @param req the maps
      * @return the home auto roll product
      */
-    @POST(AppNetConfig.urlPath + "wap/userLogin/login")
+    @POST("wap/userLogin/login")
     Observable<BaseRes<LoginRes>> startLogin(@Body LoginReq req);
 
     /**
      * 注册获取验证码
      */
-    @POST(AppNetConfig.urlPath + "wap/sendCode/sendPhoneCode")
+    @POST("wap/sendCode/sendPhoneCode")
     Observable<BaseRes<Object>> getRegisterCode(@Body PhoneCodeReq req);
 
     /**
      * 注册
      */
-    @POST(AppNetConfig.urlPath + "wap/userRegister/register")
+    @POST("wap/userRegister/register")
     Observable<BaseRes<RegisterRes>> startRegister(@Body RegisterReq req);
 
     /**
      * 实名认证
      */
     @Multipart
-    @POST(AppNetConfig.urlPath + "wap/identificationController/add")
+    @POST("wap/identificationController/add")
     Observable<BaseRes<Object>> submitCertify(@Part("data") RequestBody req, @Part("frontImg\"; filename = " +
             "\"frontImg.jpg") RequestBody frontFile, @Part("backImg\"; filename = \"backImg.jpg") RequestBody backFile);
 
     /**
      * 忘记密码
      */
-    @POST(AppNetConfig.urlPath + "wap/forgetPassword/forgetPassword")
+    @POST("wap/forgetPassword/forgetPassword")
     Observable<BaseRes<Object>> submitForgetPwd(@Body ForgetPwdReq req);
 
     /**
      * 重新认证
      */
-    @POST(AppNetConfig.urlPath + "wap/identificationController/showAdd")
+    @POST("wap/identificationController/showAdd")
     Observable<BaseRes<ReCertificetionRes>> getReCertificationStaus(@Body ReCertificetionReq req);
 
     /**
      * 认证信息
      */
-    @POST(AppNetConfig.urlPath + "wap/identificationController/show")
+    @POST("wap/identificationController/show")
     Observable<BaseRes<CertificetionInfoRes>> getCertifyStatus(@Body CertificetionInfoReq req);
 
     /**
      * 修改密码
      */
-    @POST(AppNetConfig.urlPath + "wap/userInfo/password/modify")
+    @POST("wap/userInfo/password/modify")
     Observable<BaseRes<Object>> changePassWord(@Body ChangePassWordReq req);
 
     /**
      * 通过支付密码修改支付密码
      */
-    @POST(AppNetConfig.urlPath + "wap/userInfo/payPassword/modifyByPwd")
+    @POST("wap/userInfo/payPassword/modifyByPwd")
     Observable<BaseRes<Object>> changePassWordByPwd(@Body ChangePassWordReq req);
 
     /**
      * 通过验证码修改支付密码
      */
-    @POST(AppNetConfig.urlPath + "wap/userInfo/payPassword/modifyByPhone")
+    @POST("wap/userInfo/payPassword/modifyByPhone")
     Observable<BaseRes<Object>> changePassWordByPhone(@Body ChangePassWordReq req);
 
     /**
      * 通过验证码修改支付密码
      */
-    @POST(AppNetConfig.urlPath + "wap/userInfo/phone/modify")
+    @POST("wap/userInfo/phone/modify")
     Observable<BaseRes<Object>> changePhone(@Body ChangePhoneReq req);
 
     /**
@@ -105,7 +104,7 @@ public interface LoginService {
      *
      * @return the home auto roll product
      */
-    @GET(AppNetConfig.urlPath + "app/version/updateVersion")
+    @GET("app/version/updateVersion")
     Observable<BaseRes<AppUpdateRes>> checkAppUpdate();
 
 }

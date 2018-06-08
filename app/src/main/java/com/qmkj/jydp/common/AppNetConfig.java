@@ -1,18 +1,26 @@
 package com.qmkj.jydp.common;
 
+import com.qmkj.jydp.util.MD5Util;
+
+/**
+ * APP参数配置
+ */
 public final class AppNetConfig {
-    public static final String urlPath = "jydp/";//测试环境
-
-    //        public static final String BASE_URL = "http://test.oksheng.com.cn/";//测试环境
-    public static final String BASE_URL = "http:/192.168.4.212:8080";
-//    public static final String BASE_URL = "http:/192.168.12.222:8080";
-//    public static final String BASE_URL = "http://rap.aiksheng.com/";//mock
-
+    //正式服地址 http://www.extez.com/
+    //测试服地址 http://192.168.4.212:8080/jydp/
+    public static final String BASE_URL = "http://192.168.4.212:8080/jydp/";
+    //请求公钥
+    public static final String JYDP_PUBLIC_KEY = "524bee776fe6267bbcf3b3d3ac2ecbf8";
+    //请求私钥 测试服:2c4e87caae0de93675387f3fcea369f8
+    public static final String JYDP_SECRET_KEY = "2c4e87caae0de93675387f3fcea369f8";
+    //请求签名
+    public static final String JYDP_SECRET_SIGN = MD5Util.toMd5(JYDP_PUBLIC_KEY + JYDP_SECRET_KEY);
     //kline里的H5页面
-    public static final String kline_url = BASE_URL + "/jydp/userWap/wapDealRecord/toChartPage/";
-
-    public static final String SYSTEM_NOTICE_URL = BASE_URL + "/jydp/userWap/wapSystemNotice/showNoticeDetailApp/";
-    public static final String HOT_TOPIC_URL = BASE_URL + "/jydp/userWap/wapSystemHot/showHotDetailApp/";
-    public static final String HELP_CENTER_URL = BASE_URL + "/jydp/userWap/wapHelpCenter/showApp/";
-    //.....所有的项目当中接口的请求url全部配置在这里.....//
+    public static final String kline_url = BASE_URL + "/userWap/wapDealRecord/toChartPage/";
+    //系统公告URL
+    public static final String SYSTEM_NOTICE_URL = BASE_URL + "/userWap/wapSystemNotice/showNoticeDetailApp/";
+    //热门话题URL
+    public static final String HOT_TOPIC_URL = BASE_URL + "/userWap/wapSystemHot/showHotDetailApp/";
+    //帮助中心URL
+    public static final String HELP_CENTER_URL = BASE_URL + "/userWap/wapHelpCenter/showApp/";
 }

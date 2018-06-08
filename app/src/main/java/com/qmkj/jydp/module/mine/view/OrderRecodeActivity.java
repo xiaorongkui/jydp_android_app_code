@@ -130,6 +130,9 @@ public class OrderRecodeActivity extends BaseMvpActivity<MinePresenter> {
      * 显示删除dialog
      */
     private void showCancelDialog(final int position) {
+        if (dialogUtils != null && dialogUtils.isShowing()) {
+            return;
+        }
         dialogUtils = new CommonDialog(mContext, R.style.common_dialog, R.layout
                 .common_dialog_1);
         dialogUtils.setAlertDialogWidth((int) CommonUtil.getDimen(R.dimen.x330));

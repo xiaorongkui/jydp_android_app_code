@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qmkj.jydp.MainActivity;
@@ -20,7 +20,6 @@ import com.qmkj.jydp.module.mine.view.SystemNoticeActivity;
 import com.qmkj.jydp.module.mine.view.SystemNoticeDetailsActivity;
 import com.qmkj.jydp.ui.widget.AutoHeighBanner;
 import com.qmkj.jydp.ui.widget.FullGridView;
-import com.qmkj.jydp.ui.widget.SmoothScrollView;
 import com.qmkj.jydp.ui.widget.UPMarqueeView;
 import com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout;
 import com.qmkj.jydp.util.CommonUtil;
@@ -38,92 +37,53 @@ import butterknife.BindView;
  * email：dovexiaoen@163.com
  * description:首页展示
  */
-
 public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     private static final int HOME_DATA_REQUEST_TAG = 1;
-    @BindView(R.id.home_fragment_ll)
-    LinearLayout homeFragmentLl;
-    @BindView(R.id.home_auto_ll)
-    AutoHeighBanner homeAutoLl;
-    @BindView(R.id.marquee_home_header_notice)
-    UPMarqueeView marqueeHomeHeaderNotice;
+
     @BindView(R.id.home_list_rv)
     RecyclerView homeListRv;
-    @BindView(R.id.home_introduce_gv)
-    FullGridView homeIntroduceGv;
-    @BindView(R.id.home_scroll_view)
-    SmoothScrollView homeScrollView;
     @BindView(R.id.home_fragment_hcswipe_refresh)
     XRefreshLayout homeFragmentRefresh;
-    @BindView(R.id.home_ll)
-    LinearLayout homeLl;
+    private AutoHeighBanner autoHeighBanner;
+    private UPMarqueeView upMarqueeView;
+    private View businessPartnerLl;
+    private FullGridView fullGridView;
+
     boolean isCanRefresh = true;
     private HomeRecyAdapter homeRecyAdapter;
-
+    private List<HomeDataRes.SystemAdsHomepagesListBean> systemAdsHomepagesList = new ArrayList<>();  //首页轮播图
+    private List<HomeDataRes.SystemBusinessesPartnerListBean> systemBusinessesPartnerList = new ArrayList<>();  //合作商家信息
+    private List<HomeDataRes.SystemNoticeListBean> systemNoticeList = new ArrayList<>();  //系统公告
+    private List<HomeDataRes.TransactionUserDealListBean> transactionUserDealList = new ArrayList<>();  //币种行情列表
+    private List<View> noticeViews = new ArrayList<>();
 
     @Override
     protected void initView() {
-        initStatus();
-        initMarquee(null);
-        initAuto(null);
-        initRecycleView();
-        initGrideView(null);
-        initRefreshView();
-    }
-
-    private void initRefreshView() {
         homeFragmentRefresh.setOnRefreshListener(new XRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getHomeData(false);
+                getHomeData();
             }
 
             @Override
             public boolean checkCanDoRefresh(View content, View header) {
-                return isCanRefresh && homeScrollView.isTop();
+                return isCanRefresh;
             }
         });
-    }
-
-    private void getHomeData(boolean isShowProgress) {
-        presenter.getCurrentPrice(HOME_DATA_REQUEST_TAG, isShowProgress);
-    }
-
-    private void initGrideView(List<HomeDataRes.SystemBusinessesPartnerListBean> data) {
-        if (data == null) {
-            return;
-        }
-        HomeGrideAdapter homeGrideAdapter = new HomeGrideAdapter(mContext, R.layout.home_item_grideview, data);
-        homeIntroduceGv.setAdapter(homeGrideAdapter);
-        homeIntroduceGv.setOnItemClickListener((parent, view, position, id) -> {
-            HomeDataRes.SystemBusinessesPartnerListBean listBean = data.get(position);
-            if (listBean == null) return;
-            if (!TextUtils.isEmpty(listBean.getWebLinkUrl()) && listBean.getWebLinkUrl().startsWith("http")) {
-                Intent intent = WebActivity.getActivityIntent(mContext, listBean.getBusinessesName(), listBean
-                        .getWebLinkUrl());
-                CommonUtil.gotoActivity(mContext, intent);
+        homeListRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                isCanRefresh = topRowVerticalPosition >= 0;
             }
 
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
         });
-    }
-
-    @Override
-    protected void onViewResume() {
-        super.onViewResume();
-        getHomeData(false);//当首页可见时刷新数据
-        marqueeHomeHeaderNotice.startFlipping();//解决重影问题
-    }
-
-    @Override
-    protected void onViewPause() {
-        super.onViewPause();
-        marqueeHomeHeaderNotice.stopFlipping();
-    }
-
-    ArrayList<HomeDataRes.TransactionUserDealListBean> exchangeList = new ArrayList<>();
-
-    private void initRecycleView() {
-        homeRecyAdapter = new HomeRecyAdapter(mContext, exchangeList, R.layout.home_exchange_price_item);
+        homeRecyAdapter = new HomeRecyAdapter(mContext, transactionUserDealList, R.layout.home_exchange_price_item);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         homeListRv.setLayoutManager(mLayoutManager);
@@ -132,7 +92,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         homeListRv.setAdapter(homeRecyAdapter);
         homeRecyAdapter.setOnItemClickListener((adapter, view, position) -> {
             try {
-                HomeDataRes.TransactionUserDealListBean userDealListBean = exchangeList.get(position);
+                HomeDataRes.TransactionUserDealListBean userDealListBean = transactionUserDealList.get(position);
                 if (getActivity() != null) {
                     ((MainActivity) getActivity()).showExchangeFrament(userDealListBean.getCurrencyName(),
                             userDealListBean.getCurrencyId() + "");//去交易中心核心页面
@@ -142,27 +102,107 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
                 toast(getString(R.string.cerrecy_select_failed));
             }
         });
+        //初始化头部布局
+        View headerView = initHeaderView();
+        //初始化底部布局
+        View footerView = initFooterView();
+        homeRecyAdapter.addHeaderView(headerView);
+        homeRecyAdapter.addFooterView(footerView);
     }
 
-    //初始化首页自动轮播图
-    private void initAuto(List<HomeDataRes.SystemAdsHomepagesListBean> bannerList) {
-        if (bannerList == null) {
-            return;
+    /**
+     * 初始化头部View
+     *
+     * @return headerView
+     */
+    private View initHeaderView() {
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.header_home_fragment_rv, null);
+        autoHeighBanner = headerView.findViewById(R.id.home_auto_ll);
+        upMarqueeView = headerView.findViewById(R.id.marquee_home_header_notice);
+        //初始化Banner
+        initBanner();
+        //初始化Marquee
+        initMarquee();
+        return headerView;
+    }
+
+    /**
+     * 初始化底部View
+     *
+     * @return footerView
+     */
+    private View initFooterView() {
+        View footerView = LayoutInflater.from(mContext).inflate(R.layout.footer_home_fragment_rv, null);
+        businessPartnerLl = footerView.findViewById(R.id.business_partner_ll);
+        fullGridView = footerView.findViewById(R.id.home_introduce_gv);
+        //初始化GridView
+        initGridView();
+        return footerView;
+    }
+
+    /**
+     * 获取数据
+     */
+    private void getHomeData() {
+        presenter.getCurrentPrice(HOME_DATA_REQUEST_TAG, false);
+    }
+
+    /**
+     * 初始化合作商家
+     */
+    private void initGridView() {
+        HomeGrideAdapter homeGrideAdapter = new HomeGrideAdapter(mContext, R.layout.home_item_grideview, systemBusinessesPartnerList);
+        fullGridView.setAdapter(homeGrideAdapter);
+        fullGridView.setOnItemClickListener((parent, view, position, id) -> {
+            HomeDataRes.SystemBusinessesPartnerListBean listBean = systemBusinessesPartnerList.get(position);
+            if (listBean == null) {
+                return;
+            }
+            if (!TextUtils.isEmpty(listBean.getWebLinkUrl()) && listBean.getWebLinkUrl().startsWith("http")) {
+                Intent intent = WebActivity.getActivityIntent(mContext, listBean.getBusinessesName(), listBean
+                        .getWebLinkUrl());
+                CommonUtil.gotoActivity(mContext, intent);
+            }
+        });
+        if (systemBusinessesPartnerList.size() == 0) {
+            businessPartnerLl.setVisibility(View.GONE);
+        } else {
+            businessPartnerLl.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onViewResume() {
+        super.onViewResume();
+        if (upMarqueeView != null) {
+            upMarqueeView.startFlipping();//解决重影问题
+        }
+    }
+
+    @Override
+    protected void onViewPause() {
+        super.onViewPause();
+        if (upMarqueeView != null) {
+            upMarqueeView.stopFlipping();
+        }
+    }
+
+    /**
+     * 初始化Banner
+     */
+    private void initBanner() {
         //设置banner样式
-        homeAutoLl.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        autoHeighBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
-        homeAutoLl.setImageLoader(new BannerImageLoader());
+        autoHeighBanner.setImageLoader(new BannerImageLoader());
         //设置图片集合
-        homeAutoLl.setImages(bannerList);
+        autoHeighBanner.setImages(systemAdsHomepagesList);
         //设置banner动画效果
-        homeAutoLl.setBannerAnimation(Transformer.Default);
-        //设置标题集合（当banner样式有显示title时）
-        //banner.setBannerTitles(titles);
+        autoHeighBanner.setBannerAnimation(Transformer.Default);
         //设置自动轮播，默认为true
-        homeAutoLl.isAutoPlay(true);
-        homeAutoLl.setOnBannerListener(position -> {
-            HomeDataRes.SystemAdsHomepagesListBean model = bannerList.get(position);
+        autoHeighBanner.isAutoPlay(true);
+        autoHeighBanner.setOnBannerListener(position -> {
+            HomeDataRes.SystemAdsHomepagesListBean model = systemAdsHomepagesList.get(position);
             if (model == null) return;
             if (!TextUtils.isEmpty(model.getWebLinkUrl())) {
                 Intent intent = WebActivity.getActivityIntent(mContext, model.getAdsTitle(), model.getWebLinkUrl());
@@ -170,41 +210,48 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
             }
         });
         //设置轮播时间
-        homeAutoLl.setDelayTime(4000);
+        autoHeighBanner.setDelayTime(4000);
         //设置指示器位置（当banner模式中有指示器时）
-        homeAutoLl.setIndicatorGravity(BannerConfig.CENTER);
+        autoHeighBanner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
-        homeAutoLl.start();
+        autoHeighBanner.start();
+        if (systemAdsHomepagesList.size() == 0) {
+            autoHeighBanner.setVisibility(View.GONE);
+        } else {
+            autoHeighBanner.setVisibility(View.VISIBLE);
+        }
     }
 
-    //公告Views
-    List<View> noticeViews = new ArrayList<>();
-
-    /*系统公告的跑马灯*/
-    private void initMarquee(List<HomeDataRes.SystemNoticeListBean> homeNoticeInfos) {
-        if (homeNoticeInfos == null) return;
+    /**
+     * 初始化系统公告的跑马灯
+     */
+    private void initMarquee() {
         noticeViews.clear();
-
-        for (HomeDataRes.SystemNoticeListBean homeNoticeInfo : homeNoticeInfos) {
+        for (HomeDataRes.SystemNoticeListBean homeNoticeInfo : systemNoticeList) {
             noticeViews.add(createNoticeView(homeNoticeInfo));
         }
-        marqueeHomeHeaderNotice.setViews(noticeViews);
+        upMarqueeView.setViews(noticeViews);
         if (noticeViews.size() <= 1) {
-            marqueeHomeHeaderNotice.stopFlipping();
+            upMarqueeView.stopFlipping();
         }
-        marqueeHomeHeaderNotice.setOnItemClickListener((position, view) -> {
+        upMarqueeView.setOnItemClickListener((position, view) -> {
             Intent intent = new Intent(mContext, SystemNoticeDetailsActivity.class);
             intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TITTLE,
-                    homeNoticeInfos.get(position).getNoticeTitle());
+                    systemNoticeList.get(position).getNoticeTitle());
             intent.putExtra(SystemNoticeDetailsActivity.NOTICE_TIMES,
-                    DateUtil.longToTimeStr(homeNoticeInfos.get(position).getAddTime(),
+                    DateUtil.longToTimeStr(systemNoticeList.get(position).getAddTime(),
                             DateUtil.dateFormat2));
             intent.putExtra(SystemNoticeDetailsActivity.NOTICE_DETAILS,
-                    homeNoticeInfos.get(position).getContent());
+                    systemNoticeList.get(position).getContent());
             intent.putExtra(SystemNoticeDetailsActivity.ACTIVITY_TITLE_KEY, "公告详情");
             CommonUtil.gotoActivity(mContext, intent);
         });
-        marqueeHomeHeaderNotice.startFlipping();
+        upMarqueeView.startFlipping();
+        if (systemNoticeList.size() == 0) {
+            upMarqueeView.setVisibility(View.GONE);
+        } else {
+            upMarqueeView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -246,51 +293,30 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         getFragmentComponent().inject(this);
     }
 
-    private void initStatus() {
-        //状态栏占用的兼容性
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            View statusView = new View(getActivity());
-//            statusView.setBackgroundColor(CommonUtil.getColor(R.color.status_bar_color));
-//            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup
-//                    .LayoutParams.MATCH_PARENT, CommonUtil.getStatusBarHeight());
-//            homeLl.addView(statusView, 0, lp);
-//        }
-
-//        int height = (int) (CommonUtil.getScreenWidth(mContext) * (169 / (float) 375));
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
-//        homeAutoLl.setLayoutParams(params);
-    }
-
     @Override
     public void onSuccess(Object response, int tag) {
         super.onSuccess(response, tag);
         switch (tag) {
-            case HOME_DATA_REQUEST_TAG://广告首页的数据返回
+            //广告首页的数据返回
+            case HOME_DATA_REQUEST_TAG:
                 homeFragmentRefresh.refreshComplete();
                 HomeDataRes homeDataRes = (HomeDataRes) response;
-                if (homeDataRes == null) return;
-                List<HomeDataRes.SystemAdsHomepagesListBean> systemAdsHomepagesList = homeDataRes
-                        .getSystemAdsHomepagesList();//首页广告
-                List<HomeDataRes.SystemBusinessesPartnerListBean> systemBusinessesPartnerList = homeDataRes
-                        .getSystemBusinessesPartnerList();//商家
-                List<HomeDataRes.SystemNoticeListBean> systemNoticeList = homeDataRes.getSystemNoticeList();//系统公告
-                List<HomeDataRes.TransactionUserDealListBean> transactionUserDealList = homeDataRes
-                        .getTransactionUserDealList();//币行情信息
-                if (systemAdsHomepagesList != null && systemAdsHomepagesList.size() > 0) {
-                    initAuto(systemAdsHomepagesList);
+                if (homeDataRes == null) {
+                    return;
                 }
-                if (systemNoticeList != null && systemNoticeList.size() > 0) {
-                    initMarquee(systemNoticeList);
+                if (homeDataRes.getTransactionUserDealList() != null) {
+                    transactionUserDealList = homeDataRes.getTransactionUserDealList();
                 }
-                if (transactionUserDealList != null && transactionUserDealList.size() > 0) {
-                    exchangeList.clear();
-                    exchangeList.addAll(transactionUserDealList);
-                    homeRecyAdapter.notifyDataSetChanged();
+                if (homeDataRes.getSystemAdsHomepagesList() != null) {
+                    systemAdsHomepagesList = homeDataRes.getSystemAdsHomepagesList();
                 }
-                if (systemBusinessesPartnerList != null && systemBusinessesPartnerList.size() > 0) {
-                    initGrideView(systemBusinessesPartnerList);
+                if (homeDataRes.getSystemNoticeList() != null) {
+                    systemNoticeList = homeDataRes.getSystemNoticeList();
                 }
-
+                if (homeDataRes.getSystemBusinessesPartnerList() != null) {
+                    systemBusinessesPartnerList = homeDataRes.getSystemBusinessesPartnerList();
+                }
+                initView();
                 break;
         }
     }
@@ -299,6 +325,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     public void onError(String errorMsg, String code, int tag, Object o) {
         super.onError(errorMsg, code, tag, o);
         switch (tag) {
+            //广告首页的数据返回
             case HOME_DATA_REQUEST_TAG:
                 homeFragmentRefresh.refreshComplete();
                 break;
