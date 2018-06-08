@@ -35,6 +35,7 @@ import android.webkit.CookieSyncManager;
 import com.qmkj.jydp.JYDPExchangeApp;
 import com.qmkj.jydp.R;
 import com.qmkj.jydp.bean.response.LoginRes;
+import com.qmkj.jydp.common.AppNetConfig;
 import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.ui.widget.FixedSpeedScroller;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -50,7 +51,6 @@ import java.text.DecimalFormat;
  */
 public class CommonUtil {
 
-    private static String JYDPSecretKey; //公钥+私钥加密
 
     /**
      * 跳转activity
@@ -825,6 +825,6 @@ public class CommonUtil {
      * 获取公私钥加密
      */
     public static String getJYDPSecretKey() {
-        return Constants.JYDP_SECRET_SIGN;
+        return AppNetConfig.JYDP_SECRET_SIGN;
     }
 }

@@ -11,7 +11,6 @@ import com.qmkj.jydp.bean.response.DistributorPayMethodRes;
 import com.qmkj.jydp.bean.response.OutSideBuyPayDetailRes;
 import com.qmkj.jydp.bean.response.OutSideExchangeRes;
 import com.qmkj.jydp.bean.response.OutSideSellDetailRes;
-import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -29,28 +28,28 @@ public interface OutSideExchangeService {
      * 场外交易列表接口
      *
      */
-    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/showMore")
+    @POST("wap/otcTradeCenter/showMore")
     Observable<BaseRes<OutSideExchangeRes>> getOutsideExchangeData(@Body OutSideExchangeReq req);
 
     /**
      * 场外交易购买接口
      *
      */
-    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/buy")
+    @POST("wap/otcTradeCenter/buy")
     Observable<BaseRes<Object>> payOutsideExchange(@Body OutSideBuyPayReq req);
 
     /**
      * 场外交易购买详情确认接口
      *
      */
-    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/userBuyDetail")
+    @POST("wap/otcTradeCenter/userBuyDetail")
     Observable<BaseRes<OutSideBuyPayDetailRes>> payOutsideDetailConfirm(@Body OutSideBuyPayDetailReq req);
 
     /**
      * 场外交易获取经销商的付款方式
      *
      */
-    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/getPayType")
+    @POST("wap/otcTradeCenter/getPayType")
     Observable<BaseRes<DistributorPayMethodRes>> getDistributorPayMethod(@Body DistributorPayMethodReq req);
 
     /**
@@ -58,7 +57,7 @@ public interface OutSideExchangeService {
      *
      */
     @Multipart
-    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/userSellDetail")
+    @POST("wap/otcTradeCenter/userSellDetail")
     Observable<BaseRes<OutSideSellDetailRes>> sellOutsideDetailConfirm(@Part("data") RequestBody req, @Part
             ("alipayPaymentImage\"; " +
             "filename = " + "\"alipayPaymentImage.jpg") RequestBody alipayImage, @Part("wechatPaymentImage\"; " +
@@ -68,6 +67,6 @@ public interface OutSideExchangeService {
      * 场外交易出售
      *
      */
-    @POST(AppNetConfig.urlPath + "wap/otcTradeCenter/sell")
+    @POST("wap/otcTradeCenter/sell")
     Observable<BaseRes<Object>> sellOutsideExchange(@Body OutSideSellReq req);
 }

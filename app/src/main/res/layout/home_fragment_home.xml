@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/home_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
     android:orientation="vertical">
 
     <com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout
@@ -13,94 +11,11 @@
         android:layout_height="match_parent"
         android:focusable="true">
 
-        <com.qmkj.jydp.ui.widget.SmoothScrollView
-            android:id="@+id/home_scroll_view"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/home_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fadingEdge="none"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/home_fragment_ll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:descendantFocusability="blocksDescendants"
-                android:orientation="vertical">
-
-                <com.qmkj.jydp.ui.widget.AutoHeighBanner
-                    android:id="@+id/home_auto_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y169"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y28"
-                    android:layout_marginLeft="@dimen/x15"
-                    android:layout_marginRight="@dimen/x15"
-                    android:layout_marginTop="@dimen/y10">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_home_marquee_bg"/>
-
-                    <com.qmkj.jydp.ui.widget.UPMarqueeView
-                        android:id="@+id/marquee_home_header_notice"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </FrameLayout>
-
-
-                <include
-                    layout="@layout/home_rv_item_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y28"
-                    android:layout_marginTop="@dimen/y10"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/home_list_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y218"
-                    android:layout_marginTop="@dimen/y2"
-                    android:scrollbars="none"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/y25"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="@dimen/x3"
-                        android:layout_height="@dimen/y13"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/x15"
-                        android:background="@color/color_bule_1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/x7"
-                        android:text="@string/cooperative_business"
-                        android:textColor="@color/color_black_7"
-                        android:textSize="@dimen/text_size_15"/>
-                </LinearLayout>
-
-                <com.qmkj.jydp.ui.widget.FullGridView
-                    android:id="@+id/home_introduce_gv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/y40"
-                    android:layout_marginLeft="@dimen/x15"
-                    android:layout_marginRight="@dimen/x15"
-                    android:layout_marginTop="@dimen/y15"
-                    android:background="@color/colorWhite"
-                    android:clickable="false"
-                    android:listSelector="@android:color/transparent"
-                    android:numColumns="4"
-                    android:scrollbars="horizontal"/>
-            </LinearLayout>
-        </com.qmkj.jydp.ui.widget.SmoothScrollView>
+            android:scrollbars="none" />
 
     </com.qmkj.jydp.ui.widget.utrlrefresh.XRefreshLayout>
 </LinearLayout>

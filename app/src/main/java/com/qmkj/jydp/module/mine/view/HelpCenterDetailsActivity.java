@@ -2,7 +2,6 @@ package com.qmkj.jydp.module.mine.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebView;
@@ -97,7 +96,7 @@ public class HelpCenterDetailsActivity extends BaseMvpActivity<MinePresenter> {
                     centerRes.getSystemHelpDO().getAddTime(),
                     DateUtil.dateFormat2));
 //            help_details_meg_tv.setText(Html.fromHtml(centerRes.getSystemHelpDO().getContent()));
-            webview.loadDataWithBaseURL(AppNetConfig.BASE_URL + AppNetConfig.urlPath, centerRes.getSystemHelpDO()
+            webview.loadDataWithBaseURL(AppNetConfig.BASE_URL, centerRes.getSystemHelpDO()
                             .getContent(),
                     "text/html", "utf-8", null);
         }

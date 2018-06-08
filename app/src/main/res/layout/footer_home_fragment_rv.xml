@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/business_partner_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/x3"
+            android:layout_height="@dimen/y13"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/x15"
+            android:background="@color/color_bule_1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x7"
+            android:text="@string/cooperative_business"
+            android:textColor="@color/color_black_7"
+            android:textSize="@dimen/text_size_15" />
+    </LinearLayout>
+
+    <com.qmkj.jydp.ui.widget.FullGridView
+        android:id="@+id/home_introduce_gv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:background="@color/color_white_1"
+        android:clickable="false"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="4"
+        android:scrollbars="horizontal" />
+
+</LinearLayout>

@@ -23,13 +23,5 @@
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/launch_logo"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y17"
-            android:text="@string/sy_exchange"
-            android:textColor="@color/color_white_1"
-            android:textSize="@dimen/text_size_22"/>
     </LinearLayout>
 </FrameLayout>

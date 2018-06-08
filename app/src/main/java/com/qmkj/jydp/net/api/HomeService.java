@@ -3,7 +3,6 @@ package com.qmkj.jydp.net.api;
 
 import com.qmkj.jydp.bean.response.BaseRes;
 import com.qmkj.jydp.bean.response.HomeDataRes;
-import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -18,6 +17,6 @@ public interface HomeService {
      *
      * @return the home auto roll product
      */
-    @GET(AppNetConfig.urlPath + "wap/homePage/show")
+    @GET("wap/homePage/show")
     Observable<BaseRes<HomeDataRes>> getCurrentPrice();
 }

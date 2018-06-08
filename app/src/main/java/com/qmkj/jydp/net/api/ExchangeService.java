@@ -15,7 +15,6 @@ import com.qmkj.jydp.bean.response.ExchangeCenterRes;
 import com.qmkj.jydp.bean.response.ExchangeCurrencyRes;
 import com.qmkj.jydp.bean.response.KlineRes;
 import com.qmkj.jydp.bean.response.SellExchangeRes;
-import com.qmkj.jydp.common.AppNetConfig;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -32,7 +31,7 @@ public interface ExchangeService {
      *
      * @return ExchangeCurrencyRes exchange currency
      */
-    @GET(AppNetConfig.urlPath + "wap/tradeCenter/currencyInfo")
+    @GET("wap/tradeCenter/currencyInfo")
     Observable<BaseRes<ExchangeCurrencyRes>> getExchangeCurrency();
 
     /**
@@ -41,7 +40,7 @@ public interface ExchangeService {
      * @param req the req
      * @return ExchangeCenterRes exchange center data
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/getWapTradeCenterInfo")
+    @POST("wap/tradeCenter/getWapTradeCenterInfo")
     Observable<BaseRes<ExchangeCenterRes>> getExchangeCenterData(@Body ExchangeCenterReq req);
 
     /**
@@ -50,7 +49,7 @@ public interface ExchangeService {
      * @param req the req
      * @return ExchangeCenterRes exchange pend order
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/pend")
+    @POST("wap/tradeCenter/pend")
     Observable<BaseRes<ExchangeCenterRes>> getExchangePendOrder(@Body ExchangeCenterReq req);
 
     /**
@@ -59,7 +58,7 @@ public interface ExchangeService {
      * @param req the req
      * @return the entrust recode data
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/entrust")
+    @POST("wap/tradeCenter/entrust")
     Observable<BaseRes<ExchangeCenterRes>> getEntrustRecodeData(@Body ExchangeCenterReq req);
 
     /**
@@ -68,7 +67,7 @@ public interface ExchangeService {
      * @param req the req
      * @return the exchange deal price
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainDealPrice")
+    @POST("wap/tradeCenter/gainDealPrice")
     Observable<BaseRes<ExchangeCenterRes>> getExchangeDealPrice(@Body ExchangeCenterReq req);
 
     /**
@@ -77,7 +76,7 @@ public interface ExchangeService {
      * @param req the req
      * @return the observable
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/buy")
+    @POST("wap/tradeCenter/buy")
     Observable<BaseRes<BuyExchangeRes>> buyXtExchange(@Body BuyExchangeReq req);
 
     /**
@@ -86,7 +85,7 @@ public interface ExchangeService {
      * @param req the req
      * @return the observable
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/sell")
+    @POST("wap/tradeCenter/sell")
     Observable<BaseRes<SellExchangeRes>> sellXtExchange(@Body SellExchangeReq req);
 
     /**
@@ -95,7 +94,7 @@ public interface ExchangeService {
      * @param req the req
      * @return the observable
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/rememberPwd")
+    @POST("wap/tradeCenter/rememberPwd")
     Observable<BaseRes<Object>> rememberExchangePwd(@Body ExchangePwdReq req);
 
     /**
@@ -104,7 +103,7 @@ public interface ExchangeService {
      * @param req the req
      * @return the kline data
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/gainGraphData")
+    @POST("wap/tradeCenter/gainGraphData")
     Observable<BaseRes<KlineRes>> getKlineData(@Body KlineReq req);
 
     /**
@@ -113,7 +112,7 @@ public interface ExchangeService {
      * @param req the req
      * @return the observable
      */
-    @POST(AppNetConfig.urlPath + "wap/wapTransactionPendOrderController/revoke")
+    @POST("wap/wapTransactionPendOrderController/revoke")
     Observable<BaseRes<Object>> cancleOrder(@Body CancleOrderReq req);
 
     /**
@@ -122,6 +121,6 @@ public interface ExchangeService {
      * @param req the req
      * @return the exchange deal recode
      */
-    @POST(AppNetConfig.urlPath + "wap/tradeCenter/deal")
+    @POST("wap/tradeCenter/deal")
     Observable<BaseRes<DealRecodeRes>> getExchangeDealRecode(@Body ExchangeDealRecodeReq req);
 }
