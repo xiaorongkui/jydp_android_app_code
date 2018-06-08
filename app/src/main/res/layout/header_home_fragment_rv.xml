@@ -10,6 +10,7 @@
         android:layout_height="@dimen/y169" />
 
     <FrameLayout
+        android:id="@+id/upMarqueeView_fl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y28"
         android:layout_marginLeft="@dimen/x15"

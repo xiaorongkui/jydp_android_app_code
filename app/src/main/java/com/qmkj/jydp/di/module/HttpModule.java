@@ -3,7 +3,6 @@ package com.qmkj.jydp.di.module;
 
 import com.qmkj.jydp.BuildConfig;
 import com.qmkj.jydp.common.AppNetConfig;
-import com.qmkj.jydp.common.Constants;
 import com.qmkj.jydp.net.api.BaseNetFunction;
 import com.qmkj.jydp.net.api.ExchangeService;
 import com.qmkj.jydp.net.api.HomeService;
@@ -67,9 +66,9 @@ public class HttpModule {
         return builder.addInterceptor(new TokenInterceptor())
                 .addNetworkInterceptor(new SleepInterceptor())
                 //.cache(cache)
-                .connectTimeout(Constants.connectionTime, TimeUnit.SECONDS)
-                .readTimeout(Constants.connectionTime, TimeUnit.SECONDS)
-                .writeTimeout(Constants.connectionTime, TimeUnit.SECONDS)
+                .connectTimeout(AppNetConfig.connectionTime, TimeUnit.SECONDS)
+                .readTimeout(AppNetConfig.connectionTime, TimeUnit.SECONDS)
+                .writeTimeout(AppNetConfig.connectionTime, TimeUnit.SECONDS)
                 .build();
     }
 

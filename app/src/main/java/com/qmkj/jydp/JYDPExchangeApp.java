@@ -1,11 +1,9 @@
 package com.qmkj.jydp;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -39,59 +37,12 @@ public class JYDPExchangeApp extends Application {
         context = this;
         initBugly();
         initLog();
-//        registerActivityLifecycle();
         initScreenAdapter();
-        initLeaky();
-    }
-
-    private void initLeaky() {
-//        if (BuildConfig.LOG_DEBUG) {
-//            LeakCanary.install(this);
-//        }
     }
 
     //用于做屏幕适配
     private void initScreenAdapter() {
         new DensityHelper(this, BuildConfig.DESIGN_WIDTH).activate();
-    }
-
-    private void registerActivityLifecycle() {
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                AppManager.getInstance().addActivity(activity);
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityResumed(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-                AppManager.getInstance().removeActivity(activity);
-            }
-        });
     }
 
     /**
