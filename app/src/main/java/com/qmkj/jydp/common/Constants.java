@@ -5,8 +5,6 @@ package com.qmkj.jydp.common;
  * 项目参数配置
  */
 public class Constants {
-    //连接超时时间
-    public static final int connectionTime = 20;//连接时间
     //项目名称
     public static final String PROJECT = "jydp";
     //BUGLY APP ID

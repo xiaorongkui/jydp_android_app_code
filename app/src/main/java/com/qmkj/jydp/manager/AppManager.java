@@ -37,7 +37,6 @@ public class AppManager {
 
     }
 
-
     /**
      * 删除指定activity
      *
@@ -64,8 +63,9 @@ public class AppManager {
                     break;
                 }
             }
-        if (act != null)
+        if (act != null) {
             act = null;
+        }
     }
 
     /**
@@ -97,7 +97,6 @@ public class AppManager {
         }
         activityStack.clear();
     }
-
 
     /**
      * 求栈大小

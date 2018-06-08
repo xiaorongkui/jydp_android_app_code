@@ -45,6 +45,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     @BindView(R.id.home_fragment_hcswipe_refresh)
     XRefreshLayout homeFragmentRefresh;
     private AutoHeighBanner autoHeighBanner;
+    private View upMarqueeViewFl;
     private UPMarqueeView upMarqueeView;
     private View businessPartnerLl;
     private FullGridView fullGridView;
@@ -73,9 +74,9 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         homeListRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int topRowVerticalPosition =
-                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
-                isCanRefresh = topRowVerticalPosition >= 0;
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int firstCompletelyVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition();
+                isCanRefresh = firstCompletelyVisibleItemPosition <= 0;
             }
 
             @Override
@@ -118,6 +119,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
     private View initHeaderView() {
         View headerView = LayoutInflater.from(mContext).inflate(R.layout.header_home_fragment_rv, null);
         autoHeighBanner = headerView.findViewById(R.id.home_auto_ll);
+        upMarqueeViewFl = headerView.findViewById(R.id.upMarqueeView_fl);
         upMarqueeView = headerView.findViewById(R.id.marquee_home_header_notice);
         //初始化Banner
         initBanner();
@@ -248,9 +250,9 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> {
         });
         upMarqueeView.startFlipping();
         if (systemNoticeList.size() == 0) {
-            upMarqueeView.setVisibility(View.GONE);
+            upMarqueeViewFl.setVisibility(View.GONE);
         } else {
-            upMarqueeView.setVisibility(View.VISIBLE);
+            upMarqueeViewFl.setVisibility(View.VISIBLE);
         }
     }
 
